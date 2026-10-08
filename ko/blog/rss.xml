@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Maeumjigi Dev Blog Blog</title>
+        <link>https://jbjihwan.github.io/global_blog/ko/blog</link>
+        <description>Maeumjigi Dev Blog Blog</description>
+        <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>ko</language>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #23] Safety Wrapper 도입과 1학기 최종 발표]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-06-18-maeumjigi-23</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-06-18-maeumjigi-23</guid>
+            <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-536caabc2f4da9a705deca5f970588a6.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>6월에 접어들며 마음지기 팀은 1학기 캡스톤 디자인의 굵직한 개발을 모두 마치고, 릴리즈를 위한 <strong>안전망 구축</strong>과 <strong>최종 발표</strong> 준비에 총력을 기울였습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="21-비율의-승리와-safety-wrapper의-도입">2:1 비율의 승리와 Safety Wrapper의 도입<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-06-18-maeumjigi-23#21-%EB%B9%84%EC%9C%A8%EC%9D%98-%EC%8A%B9%EB%A6%AC%EC%99%80-safety-wrapper%EC%9D%98-%EB%8F%84%EC%9E%85" class="hash-link" aria-label="2:1 비율의 승리와 Safety Wrapper의 도입에 대한 직접 링크" title="2:1 비율의 승리와 Safety Wrapper의 도입에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"모델 선택의 기준과 우리가 선택한 모델이 무엇이었지?"
+"2:1 로 결정되었어. safety_wrapper를 적용하여 Main LLM(2:1)의 안전고리로 작동시키는 방법을 기획해 줘."</p>
+</blockquote>
+<p>4차 파인튜닝의 결과, 우리는 '감성 대화'와 '일상 대화'를 2:1 비율로 섞은 모델을 최종 LLM으로 낙점했습니다. 하지만 자살 예방 챗봇이라는 특성상 단 한 번의 환각(Hallucination)이나 치명적인 오답도 허용할 수 없었습니다.</p>
+<p>이를 방지하기 위해 저희는 LLM의 입출력을 감시하는 **Safety Wrapper(안전 필터 모듈)**를 도입했습니다. 사용자의 입력과 챗봇의 출력을 한 번 더 검증하여, 고위험 상황(Active Suicidality)이 감지되면 즉각적으로 정해진 위기 대응 프로토콜(Resource Inquiry Cues)로 전환되도록 아키텍처를 견고하게 만들었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="클라우드-서버ec2-예산-기획과-최종-발표">클라우드 서버(EC2) 예산 기획과 최종 발표<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-06-18-maeumjigi-23#%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%84%9C%EB%B2%84ec2-%EC%98%88%EC%82%B0-%EA%B8%B0%ED%9A%8D%EA%B3%BC-%EC%B5%9C%EC%A2%85-%EB%B0%9C%ED%91%9C" class="hash-link" aria-label="클라우드 서버(EC2) 예산 기획과 최종 발표에 대한 직접 링크" title="클라우드 서버(EC2) 예산 기획과 최종 발표에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"우리가 요구하는 스펙에 맞는 AWS EC2 견적서가 필요해. g5.2xlarge 5개월 사용 예산이 어떻게 될까?"
+"지금까지의 진행 상황을 바탕으로 1학기_최종발표_마음지기.pptx 를 작성해 줘!"</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_presentation-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>성능 검증이 끝난 챗봇을 여름 방학 동안 실제 서비스(프론트엔드/백엔드)와 연동하여 5개월간 구동하기 위해 Amazon EC2 GPU 서버 예산을 산출했습니다.</p>
+<p>그리고 6월 18일, 그동안 개발한 백엔드(DB, 페이지네이션), 프론트엔드(감정일기, 커뮤니티), 그리고 AI(4차 파인튜닝 및 Safety Wrapper)의 모든 성과를 한데 모아 **1학기 최종 발표 자료(PPTX)**를 완성했습니다!</p>
+<p>길고 길었던 1학기 마음지기 캡스톤 개발이 성공적으로 막을 내렸습니다. 방학 동안 서버에 시스템을 안착시키고, 2학기에는 더 고도화된 서비스로 찾아오겠습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>Safety Wrapper</category>
+            <category>클라우드</category>
+            <category>최종발표</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #22] 4차 파인튜닝의 완성! 챗봇 아키텍처 설계와 최종 보고서]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-30-maeumjigi-22</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-30-maeumjigi-22</guid>
+            <pubDate>Sat, 30 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월의 마지막 주(27일~30일), 저희는 대망의 <strong>4차 파인튜닝(fine_tuning_4)</strong> 결과를 갈무리하고 시스템의 뼈대를 굳히는 작업에 매진했습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="최종-체크포인트-4400과-그래프-분석">최종 체크포인트 4400과 그래프 분석<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-30-maeumjigi-22#%EC%B5%9C%EC%A2%85-%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-4400%EA%B3%BC-%EA%B7%B8%EB%9E%98%ED%94%84-%EB%B6%84%EC%84%9D" class="hash-link" aria-label="최종 체크포인트 4400과 그래프 분석에 대한 직접 링크" title="최종 체크포인트 4400과 그래프 분석에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"Qwen35-9B_mixed_7_3/checkpoints/checkpoint-4400/adapter_config.json"
+"fine_tuning_4/results/figures/eval/06_common_vs_daily.png"</p>
+</blockquote>
+<p>일상 대화와 감성 대화를 혼합하여 학습시킨 4차 파인튜닝 모델이 드디어 학습을 마치고 최적의 가중치인 <code>checkpoint-4400</code>을 뱉어냈습니다.</p>
+<p>이전 파인튜닝에서는 일상적인 대화(Common)를 건넸을 때도 모델이 과도하게 심각한 감성 상담(Daily) 모드로 대답하는 오버피팅 문제가 있었죠. 이를 해결하기 위해 데이터 혼합 비율을 실험한 결과, 마침내 모델이 일상적인 대화와 진지한 위기 상담을 완벽하게 구분해서 대응하는 '눈치 있는' 챗봇으로 거듭났습니다!</p>
+<p>모든 평가 지표를 <code>matplotlib</code> 그래프(<code>01_loss_curves.png</code>, <code>04_pareto_efficiency.png</code> 등)로 시각화하여 모델 간 성능 차이를 한눈에 증명해 냈습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="챗봇-시스템-아키텍처-설계와-최종-보고서">챗봇 시스템 아키텍처 설계와 최종 보고서<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-30-maeumjigi-22#%EC%B1%97%EB%B4%87-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%84%A4%EA%B3%84%EC%99%80-%EC%B5%9C%EC%A2%85-%EB%B3%B4%EA%B3%A0%EC%84%9C" class="hash-link" aria-label="챗봇 시스템 아키텍처 설계와 최종 보고서에 대한 직접 링크" title="챗봇 시스템 아키텍처 설계와 최종 보고서에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"chatbot_architecture.html 생성 완료"
+"fine_tuning_4의 수행 결과를 보고서(.docx)로 작성해 주세요. Base vs Fine-tuned 비교 시 예시가 따로 작성되게 해 주세요."</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_architecture-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>성능 검증이 끝난 모델을 실제 앱으로 서비스하기 위해 <code>chatbot_architecture.html</code>이라는 이름으로 전체 시스템 아키텍처와 지식그래프(Knowledge Graph) 통합 방안을 설계했습니다.</p>
+<p>그리고 5월 30일, 대망의 파인튜닝 프로젝트 1단계를 성공적으로 마무리하는 <code>fine_tuning_4_보고서.docx</code>를 AI의 도움을 받아 자동으로 생성했습니다. 보고서에는 오리지널 베이스 모델과 우리가 파인튜닝한 모델의 실제 응답 텍스트 비교가 적나라하게 담겨 있어, 그동안의 고생이 헛되지 않았음을 증명해 주었습니다.</p>
+<p>이로써 마음지기 프로젝트의 숨 가빴던 5월 개발 일지가 모두 마무리되었습니다. 6월에는 또 어떤 새로운 챌린지가 기다리고 있을까요?</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>아키텍처</category>
+            <category>캡스톤디자인</category>
+            <category>최종보고서</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #21] 데이터 혼합 비율 최적화와 4차 파인튜닝 돌입]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-22-maeumjigi-21</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-22-maeumjigi-21</guid>
+            <pubDate>Fri, 22 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-40343a2fa676ad2311d82059ca3617cc.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 21일과 22일, 마음지기 캡스톤 팀은 대규모 데이터 생성과 <strong>4차 파인튜닝(fine_tuning_4)</strong> 준비에 돌입했습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="감성-대화와-일상-대화의-줄다리기">감성 대화와 일상 대화의 줄다리기<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-22-maeumjigi-21#%EA%B0%90%EC%84%B1-%EB%8C%80%ED%99%94%EC%99%80-%EC%9D%BC%EC%83%81-%EB%8C%80%ED%99%94%EC%9D%98-%EC%A4%84%EB%8B%A4%EB%A6%AC%EA%B8%B0" class="hash-link" aria-label="감성 대화와 일상 대화의 줄다리기에 대한 직접 링크" title="감성 대화와 일상 대화의 줄다리기에 대한 직접 링크" translate="no">​</a></h3>
+<p>3차 파인튜닝 모델을 테스트하던 중 치명적인 문제점을 발견했습니다.</p>
+<blockquote>
+<p>"haiku_pred 데이터셋으로 파인튜닝을 하면 대답이 감성 상담에 너무 치중되는 것 같습니다. 본래 모델의 일상 대화 능력을 유지하기 위해서는 어떻게 파인튜닝하는 게 좋을까요?"</p>
+</blockquote>
+<p>우리가 목표로 하는 것은 '따뜻한 공감을 전하는 자살 예방 상담사'이지만, 사용자가 일상적인 질문("오늘 날씨 어때?", "밥 뭐 먹을까?")을 던졌을 때도 지나치게 심각하고 감성적으로 대답하는 <strong>오버피팅(Overfitting)</strong> 징후가 보였습니다.</p>
+<p>이를 해결하기 위해 감성 데이터와 일상 데이터를 적절한 비율로 섞어 학습시키는 실험을 기획했습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="10000건의-v6-감성-데이터셋-api-자동-생성">10,000건의 v6 감성 데이터셋 API 자동 생성<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-22-maeumjigi-21#10000%EA%B1%B4%EC%9D%98-v6-%EA%B0%90%EC%84%B1-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-api-%EC%9E%90%EB%8F%99-%EC%83%9D%EC%84%B1" class="hash-link" aria-label="10,000건의 v6 감성 데이터셋 API 자동 생성에 대한 직접 링크" title="10,000건의 v6 감성 데이터셋 API 자동 생성에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"1. 512 토큰 통일 / 건당 평균 토큰: 500토큰 / 페르소나 종수: 20종 / 저장 파일명: v6.jsonl"
+"내 10달러가 사용되었는데 어디에 어떻게 쓰였고 결과가 무엇인지 확인도 못해!"</p>
+</blockquote>
+<p>최고의 데이터셋을 만들기 위해 Anthropic API (Haiku) Batch 모드를 사용해 무려 10,000건에 달하는 감성 대화 데이터셋(<code>Emotion_train_dataset_v6.jsonl</code>)을 생성했습니다. 중간에 API 배치가 백그라운드에서 돌아가며 진행 상황을 알 수 없어 답답해하는 해프닝도 있었지만, 부족한 건수를 추가 스크립트(<code>fill_v6.py</code>)로 꽉꽉 채워 10,000건을 완성했습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="감성-vs-일상-황금비율-찾기-fine_tuning_4">감성 vs 일상 황금비율 찾기 (fine_tuning_4)<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-22-maeumjigi-21#%EA%B0%90%EC%84%B1-vs-%EC%9D%BC%EC%83%81-%ED%99%A9%EA%B8%88%EB%B9%84%EC%9C%A8-%EC%B0%BE%EA%B8%B0-fine_tuning_4" class="hash-link" aria-label="감성 vs 일상 황금비율 찾기 (fine_tuning_4)에 대한 직접 링크" title="감성 vs 일상 황금비율 찾기 (fine_tuning_4)에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"Emotion_train_dataset_v6.jsonl 1만 줄이 완성되었습니다. 그럼 7:3 비율의 훈련 데이터셋 하나와 2:1 비율 하나, 마지막으로 5:5 비율 데이터셋 하나 만들어주세요."
+"이번 파인튜닝(fine_tuning_4)은 alpha 값이 아닌 훈련 데이터셋 혼합 비율(mixed_2_1, mixed_5_5, mixed_7_3) 기준으로 훈련을 진행합니다."</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>이제 4차 파인튜닝은 어떤 데이터 비율이 AI의 '일상성'과 '전문성(상담)'을 가장 완벽하게 조화시킬 수 있는지 검증하는 무대가 되었습니다. <code>mixed_7_3</code>, <code>mixed_5_5</code>, <code>mixed_2_1</code> 세 가지 버전의 데이터셋을 생성하고 Qwen3.5-9B 모델에 주입하기 시작했습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>데이터셋</category>
+            <category>프롬프트</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #20] 3차 파인튜닝 완료 및 백엔드 기능(DB, 게시판) 고도화]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 19일과 20일 이틀 동안은 3차 파인튜닝(<code>fine_tuning_3</code>)의 평가 자동화와 더불어, 실제 앱(App) 서비스 구축을 위한 백엔드/프론트엔드 기능 고도화 작업이 병렬로 진행되었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3차-파인튜닝-fine_tuning_3-마무리와-자동화-스크립트">3차 파인튜닝 (fine_tuning_3) 마무리와 자동화 스크립트<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-20-maeumjigi-20#3%EC%B0%A8-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-fine_tuning_3-%EB%A7%88%EB%AC%B4%EB%A6%AC%EC%99%80-%EC%9E%90%EB%8F%99%ED%99%94-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8" class="hash-link" aria-label="3차 파인튜닝 (fine_tuning_3) 마무리와 자동화 스크립트에 대한 직접 링크" title="3차 파인튜닝 (fine_tuning_3) 마무리와 자동화 스크립트에 대한 직접 링크" translate="no">​</a></h3>
+<p>이전 파인튜닝에서 얻은 인사이트를 바탕으로, 지식그래프와 온톨로지 개념을 의식하며 세팅했던 3차 파인튜닝의 학습이 완료되었습니다.</p>
+<blockquote>
+<p>"fine_tuning_3 폴더의 실험 모델들 중 Best Eval을 가진 체크포인트를 선별하여 adapter 폴더 내 파일을 교체하고 결과를 보고해 줘."
+"fine_tuning_3에서도 추론과 평가를 병렬로 진행하는 run_test_20_30.sh 파일을 작성해 주세요."</p>
+</blockquote>
+<p>이전처럼 사람이 일일이 폴더를 뒤지며 체크포인트를 복사하는 대신, AI에게 스크립트를 짜도록 지시하여 가장 성능이 좋은 모델 가중치(Best Checkpoint)를 자동으로 추출해 <code>adapter</code> 폴더에 세팅했습니다. 그리고 병렬 추론 스크립트인 <code>run_test_20_30.sh</code>를 실행하여 4개의 Alias 모델에 대한 평가를 백그라운드 서버에 던져두었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="백엔드프론트엔드-챗봇-db-저장과-게시판-기능-완성">백엔드/프론트엔드: 챗봇 DB 저장과 게시판 기능 완성<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-20-maeumjigi-20#%EB%B0%B1%EC%97%94%EB%93%9C%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%B1%97%EB%B4%87-db-%EC%A0%80%EC%9E%A5%EA%B3%BC-%EA%B2%8C%EC%8B%9C%ED%8C%90-%EA%B8%B0%EB%8A%A5-%EC%99%84%EC%84%B1" class="hash-link" aria-label="백엔드/프론트엔드: 챗봇 DB 저장과 게시판 기능 완성에 대한 직접 링크" title="백엔드/프론트엔드: 챗봇 DB 저장과 게시판 기능 완성에 대한 직접 링크" translate="no">​</a></h3>
+<p>모델이 서버에서 열심히 추론을 돌리는 동안, 로컬 환경에서는 <code>mental-health</code> DB와 앱 연동 작업에 박차를 가했습니다.</p>
+<blockquote>
+<p>"seed_data.sql 정보 요약. users의 pw가 무엇이지? Test1234! 인가? 현재 내가 이 sql을 적용하려던 db가 뭐였지?"</p>
+</blockquote>
+<p>지난번 <code>401 Unauthorized</code> 에러로 골치를 썩였던 로그인 문제를 뚫어내기 위해 <code>seed_data.sql</code>을 뜯어보며 비밀번호 해싱과 유저 데이터를 철저히 검증했습니다.</p>
+<p>그 결과, 5월 20일 오후 뜻깊은 Git 커밋(Commit) 하나를 남길 수 있었습니다.
+<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가</code></p>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>드디어 저희가 파인튜닝한 LLM 챗봇의 대화 기록이 DB에 정식으로 저장되기 시작했습니다! 더불어 사용자들끼리 소통할 수 있는 커뮤니티 게시판의 페이지네이션(Pagination) 기능과, 매일매일의 기분을 기록하는 감정일기 필터 기능까지 성공적으로 프론트엔드에 얹혔습니다.</p>
+<p>눈에 보이지 않던 거대한 파인튜닝 모델이 비로소 모바일 앱이라는 예쁜 그릇에 담기기 시작한 감격스러운 순간이었습니다.</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>백엔드</category>
+            <category>프론트엔드</category>
+            <category>데이터베이스</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #19] 파인튜닝 보고서 자동화와 백엔드 DB 연동 트러블슈팅]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-17-maeumjigi-19</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-17-maeumjigi-19</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-260098b6e0b52d30855fb06a6d1116ea.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>제가 이전에 "5월 13일이 마음지기 5월 개발의 마지막일 것"이라고 착각했던 것을 정정합니다! 5월 17일, 어마어마한 양의 백엔드 연동 테스트와 보고서 작업이 몰아쳤습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai를-활용한-파인튜닝-결과-보고서-자동화">AI를 활용한 파인튜닝 결과 보고서 자동화<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-17-maeumjigi-19#ai%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-%EA%B2%B0%EA%B3%BC-%EB%B3%B4%EA%B3%A0%EC%84%9C-%EC%9E%90%EB%8F%99%ED%99%94" class="hash-link" aria-label="AI를 활용한 파인튜닝 결과 보고서 자동화에 대한 직접 링크" title="AI를 활용한 파인튜닝 결과 보고서 자동화에 대한 직접 링크" translate="no">​</a></h3>
+<p>2차 파인튜닝(<code>fine_tuning_2</code>)의 방대한 결과 그래프(<code>common</code>, <code>daily</code> 데이터셋 비교 등)를 하나씩 사람이 분석해서 쓰기에는 시간이 너무 부족했습니다.</p>
+<blockquote>
+<p>"모델들의 추론 결과를 비교하는 보고서를 작성하기 위한 프롬프트를 만들어주세요. 프롬프트 자체를 report_prompt.md로 저장하고, 이에 따라 보고서 작성을 수행해 줘."
+"내가 바란 보고서는 .md 형식이 아닌 .docx 형식을 희망했습니다."</p>
+</blockquote>
+<p>AI에게 결과 지표를 해석하게 하고, 보고서 초안을 자동으로 작성하는 프롬프트 엔지니어링을 시도했습니다. 결과적으로 AI가 각 모델의 장단점과 Alpha 값에 따른 차이를 분석해 훌륭한 워드(.docx) 보고서 초안을 뽑아주었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="백엔드-db-연동과-401-unauthorized의-늪">백엔드 DB 연동과 401 Unauthorized의 늪<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-17-maeumjigi-19#%EB%B0%B1%EC%97%94%EB%93%9C-db-%EC%97%B0%EB%8F%99%EA%B3%BC-401-unauthorized%EC%9D%98-%EB%8A%AA" class="hash-link" aria-label="백엔드 DB 연동과 401 Unauthorized의 늪에 대한 직접 링크" title="백엔드 DB 연동과 401 Unauthorized의 늪에 대한 직접 링크" translate="no">​</a></h3>
+<p>보고서가 마무리되자마자 프론트엔드와 백엔드의 시스템 안정성을 테스트하기 위해 <code>backup.sql</code> 데이터를 로컬 PostgreSQL DB에 밀어 넣는 작업을 시작했습니다.</p>
+<blockquote>
+<p>"backup.sql에 데이터를 넣고 싶습니다. 목적: Frontend, Backend 작동 및 시스템 안정성 테스트."
+"backend, frontend 구동 후 접속 성공했으나 메뉴들을 선택해도 반응이 없음"
+"이메일 또는 비밀번호가 틀렸어요... INFO: 127.0.0.1:54446 - POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>DB 덤프를 성공적으로 밀어 넣고 웹에 접속까지는 성공했지만, 로그인이 되지 않는 <code>401 Unauthorized</code> 에러 지옥에 빠졌습니다. <code>debug_login.py</code>를 만들고 uvicorn 서버를 껐다 켜며 수십 번의 트러블슈팅을 진행했습니다. 비밀번호 해싱 방식이 달랐던 건지, DB 마이그레이션이 꼬인 건지 로그를 뒤지며 밤을 새우다시피 했습니다.</p>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="지식그래프knowledge-graph의-도입-고민">지식그래프(Knowledge Graph)의 도입 고민<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-17-maeumjigi-19#%EC%A7%80%EC%8B%9D%EA%B7%B8%EB%9E%98%ED%94%84knowledge-graph%EC%9D%98-%EB%8F%84%EC%9E%85-%EA%B3%A0%EB%AF%BC" class="hash-link" aria-label="지식그래프(Knowledge Graph)의 도입 고민에 대한 직접 링크" title="지식그래프(Knowledge Graph)의 도입 고민에 대한 직접 링크" translate="no">​</a></h3>
+<blockquote>
+<p>"우리 프로젝트의 목적은 효율적으로 자살예방 챗봇을 만드는 것입니다. 요즘 하네스, 온톨로지, 지식그래프 등을 사용하는 기법이 떠오르는데, LLM 하나만 집중하는 것보다 더 나은 안정성을 가진 챗봇을 만들 수 있을 것 같습니다."</p>
+</blockquote>
+<p>밤늦은 시간, 단순 LLM 파인튜닝의 한계를 극복하기 위해 온톨로지와 지식그래프(Knowledge Graph)를 융합하는 방안을 새롭게 고민하며 <code>chatbot_design_prompt.md</code>를 설계하기 시작했습니다. 5월 중순을 넘어가며 프로젝트의 스케일이 점점 더 거대해지고 있습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>보고서</category>
+            <category>백엔드</category>
+            <category>DB</category>
+            <category>트러블슈팅</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #18] 추론 토큰(Token) 확장과 2차 파인튜닝 결과 비교]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-13-maeumjigi-18</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-13-maeumjigi-18</guid>
+            <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-536caabc2f4da9a705deca5f970588a6.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>어제 발견했던 하드코딩 버그를 모두 고치고, 드디어 제대로 된 2차 파인튜닝 모델들의 추론(Inference) 테스트를 재개한 5월 13일입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="짧은-답변의-원인-토큰-길이를-늘려라">짧은 답변의 원인, 토큰 길이를 늘려라!<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-13-maeumjigi-18#%EC%A7%A7%EC%9D%80-%EB%8B%B5%EB%B3%80%EC%9D%98-%EC%9B%90%EC%9D%B8-%ED%86%A0%ED%81%B0-%EA%B8%B8%EC%9D%B4%EB%A5%BC-%EB%8A%98%EB%A0%A4%EB%9D%BC" class="hash-link" aria-label="짧은 답변의 원인, 토큰 길이를 늘려라!에 대한 직접 링크" title="짧은 답변의 원인, 토큰 길이를 늘려라!에 대한 직접 링크" translate="no">​</a></h3>
+<p>추론 결과를 하나씩 뜯어보던 중, <code>Llama33-70B_a8</code> 모델이 내놓은 답변이 여전히 묘하게 짧고 딱딱하다는 것을 느꼈습니다.</p>
+<blockquote>
+<p>"이것은 Llama33-70B_a8의 답변 중 하나입니다. max_seq_length와 max_new_tokens이 너무 적다고 느껴집니다. 늘리고 싶네요. VRAM 현황을 보면 얼마나 늘릴 수 있나요?"</p>
+</blockquote>
+<p>AI와 VRAM 여유 공간(당시 39.8GB)을 계산한 끝에, 생성할 수 있는 최대 단어 수인 <code>max_new_tokens</code>를 384로 과감하게 상향 조정했습니다. 결과는 대성공이었습니다!</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">[변경 전] "그런 생각이 드신다니 정말 힘드시겠어요. 전문가와 이야기 나누는 것이 중요합니다."</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">[변경 후] "그런 생각이 드신다니 정말 힘드시겠어요. 하지만 그런 생각이 드는 것은 당신이 약해서가 아니라 지금 너무 많은 부담을 지고 계신다는 신호입니다. 전문가와 함께 이런 감정들을 천천히 풀어보시는 것을 권해드립니다."</span><br></div></code></pre></div></div>
+<p>단지 토큰 허용치만 늘려주었을 뿐인데, 모델이 문맥을 끝까지 유지하며 훨씬 더 깊이 있고 따뜻한 공감의 문장들을 쏟아내기 시작했습니다. 제한된 토큰 수에 갇혀 모델이 스스로 말을 아끼고 있었던 셈입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alpha-값-비교-분석-a8-vs-a16">Alpha 값 비교 분석 (a=8 vs a=16)<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-13-maeumjigi-18#alpha-%EA%B0%92-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D-a8-vs-a16" class="hash-link" aria-label="Alpha 값 비교 분석 (a=8 vs a=16)에 대한 직접 링크" title="Alpha 값 비교 분석 (a=8 vs a=16)에 대한 직접 링크" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_graph-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>2차 파인튜닝의 가장 큰 목적이었던 LoRA 하이퍼파라미터 <code>alpha</code> 값에 따른 성능 차이도 결과가 나왔습니다. <code>fine_tuning_2</code> 폴더에 쌓인 로그를 분석하여 <code>05_alpha_comparison_daily.png</code> 등의 그래프를 생성해 냈습니다. <code>rank=16</code>으로 고정된 상태에서 <code>alpha=8</code>을 주었을 때와 <code>alpha=16</code>을 주었을 때, 모델의 과적합(Overfitting) 양상과 최종 답변 퀄리티가 어떻게 달라지는지 명확하게 시각화할 수 있었습니다.</p>
+<p>결과적으로 올바른 하이퍼파라미터와 넉넉한 토큰 길이를 부여받은 모델들은 드디어 저희가 애초에 기획했던 '진정한 마음지기'의 모습에 가까워지고 있었습니다. 중간발표 준비가 아주 순조롭게 마무리될 것 같습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>추론</category>
+            <category>max_new_tokens</category>
+            <category>공감능력</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #17] 2차 파인튜닝 완료 및 평가 자동화 파이프라인의 함정]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-12-maeumjigi-17</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-12-maeumjigi-17</guid>
+            <pubDate>Tue, 12 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-5a344447bf91f1b999b3492f70db1a3f.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>LoRA 하이퍼파라미터 실수(alpha/rank 설정 오류)를 바로잡기 위해 야심 차게 시작했던 2차 파인튜닝(<code>fine_tuning_2</code>) 병렬 학습이 5월 12일 마침내 끝이 났습니다!</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="best-checkpoint-추출과-추론-파이프라인-구축">Best Checkpoint 추출과 추론 파이프라인 구축<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-12-maeumjigi-17#best-checkpoint-%EC%B6%94%EC%B6%9C%EA%B3%BC-%EC%B6%94%EB%A1%A0-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8-%EA%B5%AC%EC%B6%95" class="hash-link" aria-label="Best Checkpoint 추출과 추론 파이프라인 구축에 대한 직접 링크" title="Best Checkpoint 추출과 추론 파이프라인 구축에 대한 직접 링크" translate="no">​</a></h3>
+<p>3개 모델에 대해 6가지 하이퍼파라미터 조합으로 돌렸던 파인튜닝이 모두 완료되었습니다. 곧바로 <code>eval_loss</code>를 비교하여 가장 성능이 좋은 최고(Best)의 체크포인트를 뽑아내 모델별 <code>adapter</code> 폴더로 옮기는 작업을 진행했습니다.</p>
+<p>또한, 서버에서 백그라운드로 추론(Eval)과 결과 비교(Comparison)를 한 번에 끝낼 수 있도록 <code>run_test_20_30.sh</code> 스크립트를 새롭게 구성했습니다.</p>
+<blockquote>
+<p>"현재 HCX-Text-1p5B 모델들이 15분 동안 12개 생성했습니다. GPU Util은 각 그래픽 카드 당 1.6GB..."</p>
+</blockquote>
+<p>그러나 추론 속도는 여전히 절망적이었습니다. 가장 가벼운 1.5B 모델조차 1분에 채 1개의 답변도 만들어내지 못하고 있었습니다. VRAM 사용량은 1.6GB밖에 안 되는데, Batch Size가 1로 잡혀 있어 병목 현상이 발생한 것입니다. 여기에 서버 용량 부족 문제까지 겹치면서, 프로젝트 기본 경로를 <code>~/home/</code>에서 <code>~/home/data/temporary/</code>로 급하게 이전하느라 모든 스크립트 경로를 수정하는 소동도 있었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="하드코딩의-함정에-빠지다">하드코딩의 함정에 빠지다<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-12-maeumjigi-17#%ED%95%98%EB%93%9C%EC%BD%94%EB%94%A9%EC%9D%98-%ED%95%A8%EC%A0%95%EC%97%90-%EB%B9%A0%EC%A7%80%EB%8B%A4" class="hash-link" aria-label="하드코딩의 함정에 빠지다에 대한 직접 링크" title="하드코딩의 함정에 빠지다에 대한 직접 링크" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_bug-8ed4eed988eb17ec15dbe0d41b33198e.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>그렇게 힘들게 평가 코드를 다 돌리고 난 후, 소름 돋는 사실을 발견했습니다.</p>
+<blockquote>
+<p>"왜 20_eval_ft_models.ipynb의 MODEL_ALIAS = 'Qwen35-9B_a16' 이렇게 하나의 모델로 하드코딩 되어 있나?"
+"그럼 서버에서 logs/.../20_eval_HCX-Text-1p5B_a8.ipynb에서도 MODEL_ALIAS = 'Qwen35-9B_a16'가 정의되어 있었는데, 파일명과 모델명이 다른 게 정상이라는 거지?"</p>
+</blockquote>
+<p>그렇습니다. 평가 자동화 스크립트를 짜면서 실수로 <code>MODEL_ALIAS</code>를 하드코딩해버린 것입니다. HCX 모델을 테스트한다고 파일은 열심히 복사해서 돌렸지만, 정작 코드 내에서는 계속 <code>Qwen35-9B_a16</code> 모델만 주구장창 불러와서 똑같은 추론을 반복하고 있었던 셈입니다!</p>
+<p>파인튜닝은 과학이 아니라 꼼꼼함의 싸움이라는 것을 또 한 번 뼈저리게 느낀 하루였습니다. 하드코딩된 버그를 고치고 내일 다시 추론을 돌려야 할 것 같습니다.</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>최고성능</category>
+            <category>체크포인트</category>
+            <category>하드코딩</category>
+            <category>캡스톤디자인</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #16] 치명적 실수와 2차 파인튜닝, 그리고 React Native 앱 첫 구동]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-08-maeumjigi-16</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-08-maeumjigi-16</guid>
+            <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-79002920441d182c9a671b53f630a946.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 8일은 그동안 뽑아낸 파인튜닝 결과들을 바탕으로 캡스톤디자인 중간 발표 자료(PPT)를 만들던 날이었습니다. 하지만 기분 좋게 슬라이드를 채워나가던 중, 등골이 서늘해지는 엄청난 실수를 발견하고 말았습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lora-하이퍼파라미터의-치명적-실수-발견">LoRA 하이퍼파라미터의 치명적 실수 발견<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-08-maeumjigi-16#lora-%ED%95%98%EC%9D%B4%ED%8D%BC%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%EC%9D%98-%EC%B9%98%EB%AA%85%EC%A0%81-%EC%8B%A4%EC%88%98-%EB%B0%9C%EA%B2%AC" class="hash-link" aria-label="LoRA 하이퍼파라미터의 치명적 실수 발견에 대한 직접 링크" title="LoRA 하이퍼파라미터의 치명적 실수 발견에 대한 직접 링크" translate="no">​</a></h3>
+<p>PPT에 들어갈 모델 구조도와 하이퍼파라미터 정보를 AI와 함께 다듬고 있었습니다.</p>
+<blockquote>
+<p>"파인튜닝 결과 예시를 보면 base model보다 답변이 짧아졌습니다. 이는 LoRA의 r을 8로 하고 alpha를 16으로 해서 중간 feature를 너무 줄이다 보니 답변이 짧아졌다고 생각이 드는데..."
+"아니 a/r 이었어? 나는 r/a라고 알고 있었는데...??? 나는 정말 LoRA를 욕심쟁이로 반영한 거구나..."</p>
+</blockquote>
+<p>LoRA 파인튜닝 시 <code>alpha</code> 값은 보통 <code>rank</code> 값과 동일하거나 2배로 주는 것이 정석입니다. 그런데 계산식 적용 비율을 완전히 반대로 착각하여, 가중치 업데이트가 극단적으로 억눌리거나 과하게 튕겨버리게 세팅해 버린 것입니다. 어쩐지 파인튜닝된 모델의 답변 길이가 뚝뚝 끊기고 짧아지더라니, 원인은 바로 제 손끝에 있었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2차-파인튜닝-fine_tuning_2-결단">2차 파인튜닝 (fine_tuning_2) 결단<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-08-maeumjigi-16#2%EC%B0%A8-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-fine_tuning_2-%EA%B2%B0%EB%8B%A8" class="hash-link" aria-label="2차 파인튜닝 (fine_tuning_2) 결단에 대한 직접 링크" title="2차 파인튜닝 (fine_tuning_2) 결단에 대한 직접 링크" translate="no">​</a></h3>
+<p>이미 1차 결과가 나왔지만, 완벽한 '마음지기'를 위해 이대로 넘어갈 순 없었습니다. 즉시 <code>fine_tuning_2</code> 폴더를 파고 2차 파인튜닝을 결단했습니다.</p>
+<blockquote>
+<p>"이번에 사용할 모델은 HCX-Text-1p5B, Llama33-70B, Qwen35-9B 입니다. MIG-0에서는 rank는 16, alpha는 16으로, MIG-1에서는 rank=16, a=8로 설정하여 학습 진행해 줘."
+"Daily_train_dataset.jsonl에서 가장 긴 데이터 상위 2000개를 뽑아서 Daily_train_dataset_long.jsonl이란 제목의 파일로 생성해 주세요."</p>
+</blockquote>
+<p>답변이 짧아지는 현상을 방지하기 위해 가장 텍스트 길이가 긴 상위 2000개의 데이터셋만을 따로 추출하고, MIG(Multi-Instance GPU) 자원을 나누어 rank와 alpha 비율에 따른 성능 차이를 직접 비교하는 병렬 학습을 새롭게 돌리기 시작했습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="백엔드-모델이-도는-동안-프론트엔드앱-개발-착수">백엔드 모델이 도는 동안, 프론트엔드(앱) 개발 착수<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-08-maeumjigi-16#%EB%B0%B1%EC%97%94%EB%93%9C-%EB%AA%A8%EB%8D%B8%EC%9D%B4-%EB%8F%84%EB%8A%94-%EB%8F%99%EC%95%88-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EC%95%B1-%EA%B0%9C%EB%B0%9C-%EC%B0%A9%EC%88%98" class="hash-link" aria-label="백엔드 모델이 도는 동안, 프론트엔드(앱) 개발 착수에 대한 직접 링크" title="백엔드 모델이 도는 동안, 프론트엔드(앱) 개발 착수에 대한 직접 링크" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_app-c484481dee0859dc42bb5a417f50fe42.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>모델이 다시 학습의 굴레에 빠진 동안, 저는 손을 놓고 있지 않았습니다. 드디어 실제 사용자들이 '마음지기'를 만나게 될 프론트엔드 앱 개발에 착수했습니다!</p>
+<blockquote>
+<p>"maeum-app을 구동하기 위해 QR코드를 시현해야 하는데... npx go start를 입력해도 에러 메시지만 시현돼. 어떻게 그리고 어디에 QR코드가 시현될 수 있을까?"</p>
+</blockquote>
+<p>React Native(Expo)를 이용해 <code>maeum-app</code> 프로젝트를 생성하고 로컬 서버를 띄워 스마트폰과 연결하려 고군분투했습니다. 엉뚱하게 <code>npx go start</code>를 치며 헤매기도 했지만, 마침내 Expo QR 코드를 띄우고 앱 아이콘(<code>assets/logo.png</code>)을 세팅하는 데 성공했습니다. 백엔드의 두뇌(AI)와 프론트엔드의 얼굴(App)이 동시에 만들어지고 있는 가슴 벅찬 하루였습니다.</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>LoRA</category>
+            <category>하이퍼파라미터</category>
+            <category>ReactNative</category>
+            <category>앱개발</category>
+            <category>프론트엔드</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #15] 5개 모델 파인튜닝 결과 시각화 및 로컬 환경 세팅]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-07-maeumjigi-15</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-07-maeumjigi-15</guid>
+            <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-ec880a463f9fc318c3c090c677d10c5b.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 7일은 그동안 피땀 흘려 파인튜닝한 총 5개의 모델(Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B)의 결과를 집대성하고, 본격적인 시각화와 로컬 환경 구성을 진행한 날입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="모델-비교를-위한-시각화와-로컬-환경-세팅">모델 비교를 위한 시각화와 로컬 환경 세팅<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-07-maeumjigi-15#%EB%AA%A8%EB%8D%B8-%EB%B9%84%EA%B5%90%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%8B%9C%EA%B0%81%ED%99%94%EC%99%80-%EB%A1%9C%EC%BB%AC-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85" class="hash-link" aria-label="모델 비교를 위한 시각화와 로컬 환경 세팅에 대한 직접 링크" title="모델 비교를 위한 시각화와 로컬 환경 세팅에 대한 직접 링크" translate="no">​</a></h3>
+<p>그동안 무거운 서버에서 돌리던 결과 비교 코드를 이제 제 개인 노트북에서도 편하게 확인하기 위해 <code>31_comparison_local.ipynb</code> 노트북을 새롭게 작성했습니다.</p>
+<blockquote>
+<p>"30_comparison.ipynb은 내 노트북에서도 작동할 수 있지 않나?"
+"현재 선택된 kernel에 pandas, matplotlib, seaborn, bert_score를 설치하는 방법을 알려주세요."</p>
+</blockquote>
+<p>VSCode에서 로컬 Jupyter 커널을 잡고 필요한 라이브러리들을 설치하는 과정에서 잦은 커널 충돌(Kernel Crashed)과 <code>ModuleNotFoundError: No module named 'ft_utils'</code> 같은 짜증 나는 에러들을 마주했지만, 차근차근 폴더 경로를 맞추며 해결해 나갔습니다. 일부 모델(DSR1-70B 등)에서 누락되었던 <code>ft_metrics.json</code> 파일도 스크립트를 통해 성공적으로 복구해 냈습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5개-모델-종합-리포트-및-그래프-시각화">5개 모델 종합 리포트 및 그래프 시각화<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-07-maeumjigi-15#5%EA%B0%9C-%EB%AA%A8%EB%8D%B8-%EC%A2%85%ED%95%A9-%EB%A6%AC%ED%8F%AC%ED%8A%B8-%EB%B0%8F-%EA%B7%B8%EB%9E%98%ED%94%84-%EC%8B%9C%EA%B0%81%ED%99%94" class="hash-link" aria-label="5개 모델 종합 리포트 및 그래프 시각화에 대한 직접 링크" title="5개 모델 종합 리포트 및 그래프 시각화에 대한 직접 링크" translate="no">​</a></h3>
+<p>가장 중요한 작업은 이 5개 모델의 성능을 한눈에 비교할 수 있는 시각화였습니다. AI와 함께 <code>5MODELS_ORGANIZATION_PLAN_present.md</code>라는 계획서를 세우고 체계적으로 데이터 정리를 시작했습니다.</p>
+<blockquote>
+<p>"희미한 선과 굵은 선의 차이가 무엇인가? 각 모델별 training loss와 eval loss를 가져와서 전체 모델의 loss를 각각 그래프로 시각화하시오."
+"굵은 선은 없애고 희미한 선을 선명하게 변경하여 저장해 줘."</p>
+</blockquote>
+<p>AI가 그려준 matplotlib 그래프에서 불필요한 추세선(굵은 선)을 제거하고, 모델별 Training Loss와 Eval Loss 곡선을 깔끔하게 한곳에 모은 <code>03_training_loss_all.png</code>와 <code>04_eval_loss_all.png</code>를 최종적으로 뽑아냈습니다. 또한 각 모델의 LoRA Rank 붕괴 현상(Rank Decomposition)을 분석한 그래프와 GPU 메모리 점유율 차트(<code>02_gpu_memory.png</code>)까지 완벽하게 문서화했습니다.</p>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_graph-62d515d1a9340f8f0b7ab00b1ddbe175.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>이제 이 그래프들을 바탕으로 다음 주 캡스톤디자인 중간발표 자료를 멋지게 꾸밀 수 있게 되었습니다. 과연 이 5개의 모델 중 어떤 모델이 가장 뛰어난 퀄리티의 '마음지기' 챗봇으로 최종 선정될까요?</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>결과분석</category>
+            <category>시각화</category>
+            <category>Jupyter</category>
+            <category>캡스톤디자인</category>
+            <category>AI</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #14] 모든 파인튜닝 완료 및 병렬 추론(Eval) 환경 구축]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-06-maeumjigi-14</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-06-maeumjigi-14</guid>
+            <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 6일, 드디어 길고 길었던 파인튜닝의 늪에서 빠져나왔습니다! 며칠간의 밤샘 작업과 하이퍼파라미터 조율 끝에 <strong>HCX-Omni-8B</strong>와 <strong>Qwen35-9B</strong> 등 중소형 모델들의 학습이 성공적으로 마무리되었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="드디어-완료된-파인튜닝-그리고-로그-분석">드디어 완료된 파인튜닝, 그리고 로그 분석<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-06-maeumjigi-14#%EB%93%9C%EB%94%94%EC%96%B4-%EC%99%84%EB%A3%8C%EB%90%9C-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%A1%9C%EA%B7%B8-%EB%B6%84%EC%84%9D" class="hash-link" aria-label="드디어 완료된 파인튜닝, 그리고 로그 분석에 대한 직접 링크" title="드디어 완료된 파인튜닝, 그리고 로그 분석에 대한 직접 링크" translate="no">​</a></h3>
+<p>학습이 진행됨에 따라 손실(loss) 값이 안정적으로 감소하는 것을 확인할 수 있었습니다.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">step= 1200  loss=0.9698  lr=1.88e-04  gpu=7.7GB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">step= 1250  loss=0.8523  lr=1.86e-04  gpu=7.7GB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">...</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">step= 1650  loss=0.8783  lr=1.73e-04  gpu=7.7GB</span><br></div></code></pre></div></div>
+<p>다만, 이 값이 <code>train loss</code>인지 <code>validation loss</code>인지 헷갈려 AI에게 물어보기도 하고, "우리 코드에서 eval loss도 기록하지 않나요?"라며 뒤늦게 평가 손실 기록이 누락되었는지 점검하는 해프닝도 있었습니다. 하지만 이미 학습이 모두 끝난 상태라(<code>현재 파인튜닝까지 모두 완료하였으므로 지금까지 결과 평가 진행</code>), 일단 생성된 최신 체크포인트 모델들을 바탕으로 바로 추론 및 평가(Eval) 단계로 넘어갔습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="병렬-추론parallel-inference-환경-구축">병렬 추론(Parallel Inference) 환경 구축<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-06-maeumjigi-14#%EB%B3%91%EB%A0%AC-%EC%B6%94%EB%A1%A0parallel-inference-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95" class="hash-link" aria-label="병렬 추론(Parallel Inference) 환경 구축에 대한 직접 링크" title="병렬 추론(Parallel Inference) 환경 구축에 대한 직접 링크" translate="no">​</a></h3>
+<p><code>20_eval_ft_models.ipynb</code> 노트북을 이용해 각 모델이 사용자 대화에 어떻게 답변하는지 생성(Generation) 테스트를 시작했습니다. 추론 시 생성할 최대 토큰 수(<code>max_new_tokens</code>)를 1024로 넉넉하게 통일하면서, 혹시나 또 OOM이 터지지 않을까 노심초사했습니다.</p>
+<p>그런데 추론 속도가 생각보다 너무 느렸습니다.</p>
+<blockquote>
+<p>"학습은 두 그래픽카드로 했는데 왜 추론은 하나의 그래픽 카드만 사용하나?"</p>
+</blockquote>
+<p>서버에 탑재된 GPU 자원을 100% 활용하기 위해, AI의 도움을 받아 추론 역시 병렬로 처리할 수 있는 <code>run_eval_parallel.sh</code> 스크립트를 새롭게 작성했습니다. 이를 통해 모델 추론 시간을 비약적으로 단축할 수 있었고, 모델별 추론 결과와 퍼플렉서티(Perplexity)를 엑셀 파일로 자동 집계하는 파이프라인까지 훌륭하게 구축해 냈습니다.</p>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>DSR1-70B 모델 추론 후 다음 모델로 넘어갈 때 VRAM이 제대로 반환되지 않아 에러가 발생하기도 했지만, 이 역시 병렬 스크립트로 환경을 격리하며 해결했습니다. 이제 진짜로 각 모델들의 답변 퀄리티를 비교해 볼 시간입니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>HCX-Omni-8B</category>
+            <category>Qwen35-9B</category>
+            <category>모델평가</category>
+            <category>추론</category>
+            <category>병렬처리</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #13] 70B 학습의 한계와 중소형 모델(HCX, Qwen) 우회 전략]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-04-maeumjigi-13</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-04-maeumjigi-13</guid>
+            <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-91577488baa055d0bba33a3615cc36b8.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>70B라는 거대한 모델의 파인튜닝 과정에서 발생한 OOM(메모리 부족) 지옥을 경험한 5월 4일, 저희는 과감한 전략 변경을 시도했습니다. 70B 모델(Llama3.3, DeepSeek-R1)은 배치 사이즈를 극단적으로 줄여 겨우 <code>checkpoint-1200</code>, <code>1300</code>까지 진행시켰지만, 학습 시간이 너무 오래 걸려 효율이 극악이었습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="중소형-모델15b--9b로-눈을-돌리다">중소형 모델(1.5B ~ 9B)로 눈을 돌리다<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-04-maeumjigi-13#%EC%A4%91%EC%86%8C%ED%98%95-%EB%AA%A8%EB%8D%B815b--9b%EB%A1%9C-%EB%88%88%EC%9D%84-%EB%8F%8C%EB%A6%AC%EB%8B%A4" class="hash-link" aria-label="중소형 모델(1.5B ~ 9B)로 눈을 돌리다에 대한 직접 링크" title="중소형 모델(1.5B ~ 9B)로 눈을 돌리다에 대한 직접 링크" translate="no">​</a></h3>
+<p>물리적인 서버 자원과 캡스톤 프로젝트의 마감 기한을 고려했을 때, 70B에만 매달리는 것은 위험하다고 판단했습니다. 그래서 <strong>HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B</strong> 와 같은 상대적으로 가벼운 중소형 모델들로 파인튜닝 대상을 선회하여 실험을 시작했습니다.</p>
+<blockquote>
+<p>"현재 지정한 하이퍼파라미터로 HCX-Omni-8B, Qwen35-9B, HCX-Text-1p5B를 학습시키는데 시간이 오래 걸리는데, 보편적으로 모델별로 이러한 파라미터가 사용되는가?"
+"이 batch size 상향이 학습에 어떠한 영향을 미치나요?"</p>
+</blockquote>
+<p>작은 모델이라고 해서 모든 것이 순조로운 것은 아니었습니다. 빠른 학습을 위해 배치 사이즈(Batch Size)를 상향 조정해 보고, 모델 크기에 맞는 하이퍼파라미터 최적화 값을 찾아 AI와 끝없는 토론을 이어갔습니다. 가장 작은 모델인 HCX-Text-1.5B의 학습 결과를 먼저 뽑아내어 성능 평가를 진행하며 튜닝의 방향성을 잡아나갔습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="체크포인트-저장-오류와-커널-버전-문제">체크포인트 저장 오류와 커널 버전 문제<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-04-maeumjigi-13#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%A0%80%EC%9E%A5-%EC%98%A4%EB%A5%98%EC%99%80-%EC%BB%A4%EB%84%90-%EB%B2%84%EC%A0%84-%EB%AC%B8%EC%A0%9C" class="hash-link" aria-label="체크포인트 저장 오류와 커널 버전 문제에 대한 직접 링크" title="체크포인트 저장 오류와 커널 버전 문제에 대한 직접 링크" translate="no">​</a></h3>
+<p>HCX-Omni-8B 학습을 순조롭게 진행하던 중, 50 스텝에서 체크포인트를 저장하려다 또 다른 암초를 만났습니다.</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">RANK </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> Detected kernel version </span><span class="token number" style="color:#36acaa">5.4</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> which </span><span class="token keyword" style="color:#00009f">is</span><span class="token plain"> below the recommended minimum of </span><span class="token number" style="color:#36acaa">5.5</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"> this can cause the process to hang</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">!</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">사진 </span><span class="token number" style="color:#36acaa">02</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">images</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">02_error</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">png</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">JSONDecodeError Traceback </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">most recent call last</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">60</span><span class="token plain"> trainer</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">train</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resume_from_checkpoint</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
+<p>운영체제의 커널 버전이 낮아 프로세스가 멈출 수 있다는 경고와 함께, 저장된 체크포인트의 JSON 파일이 깨져서(<code>JSONDecodeError</code>) 학습을 재개하지 못하는 끔찍한 에러였습니다.</p>
+<blockquote>
+<p>"현재 모델들이 학습 중 중단되면 중단된 부분에서 다시 학습을 시작하나요?"</p>
+</blockquote>
+<p>다행히 허깅페이스 <code>Trainer</code>는 체크포인트부터 이어서 학습(<code>resume_from_checkpoint</code>)하는 기능을 제공하지만, 그 체크포인트 파일 자체가 손상되면 말짱 도루묵이 됩니다. 모델 크기를 줄였음에도 여전히 프레임워크와 인프라 단에서 발생하는 수많은 에러들과 씨름하며 하루를 꼬박 보냈습니다. 과연 안정적인 학습 궤도에 오를 수 있을까요?</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>HCX-Omni-8B</category>
+            <category>Qwen35-9B</category>
+            <category>체크포인트</category>
+            <category>하이퍼파라미터</category>
+            <category>AI</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #12] 70B 초대형 모델 파인튜닝과 GPU 메모리(OOM) 사투]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-03-maeumjigi-12</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-05-03-maeumjigi-12</guid>
+            <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-cc8c2e3bfbfcf913bceab5f8066d9564.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5월 3일, 그동안 8B 모델로 충분히 감을 잡은 저희 팀은 드디어 진정한 성능의 끝판왕, <strong>70B(700억 개 매개변수)</strong> 초대형 모델의 파인튜닝에 도전했습니다. Llama 3.3 70B와 DeepSeek-R1 70B 두 가지 모델을 대상으로 학습을 시도했는데, 예상대로 엄청난 하드웨어 자원의 장벽에 부딪히고 말았습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="70b-모델-그리고-oomout-of-memory의-공포">70B 모델, 그리고 OOM(Out of Memory)의 공포<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-03-maeumjigi-12#70b-%EB%AA%A8%EB%8D%B8-%EA%B7%B8%EB%A6%AC%EA%B3%A0-oomout-of-memory%EC%9D%98-%EA%B3%B5%ED%8F%AC" class="hash-link" aria-label="70B 모델, 그리고 OOM(Out of Memory)의 공포에 대한 직접 링크" title="70B 모델, 그리고 OOM(Out of Memory)의 공포에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 호기롭게 서버에 70B 파인튜닝 코드를 올리고 실행하자마자 오류가 터져 나오기 시작했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"서버의 fine_tuning 폴더와 하위 파일을 복사했습니다. 복사한 파일 확인 후 오류 원인을 파악해 줘."
+"DeepSeek의 70B 모델은 수정하지 않아도 되나? 오류 가능성 확인 바람."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: <code>train_log.jsonl</code>을 분석하며 남은 예상 소요 시간을 묻는 여유도 잠시, 70B 모델이 GPU 메모리를 순식간에 집어삼켜버렸습니다. (OOM 에러 발생!)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gpu-메모리-다이어트-작전">GPU 메모리 다이어트 작전<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-05-03-maeumjigi-12#gpu-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8-%EC%9E%91%EC%A0%84" class="hash-link" aria-label="GPU 메모리 다이어트 작전에 대한 직접 링크" title="GPU 메모리 다이어트 작전에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: "이미 GPU memory의 사용량은 MAX이다." 어떻게든 메모리 사용량을 줄여야 학습이 멈추지 않고 돌아갈 수 있었습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"save_steps = 50, save_total_limit = 10, eval_steps = 50, patience = 10 으로 수정."
+"설정한 early stopping 조건에 대해 평가 바람."
+"ft_configs.yaml에서 70B 두 모델의 max_seq_length를 512로 설정했으나 서버 nvitop에서는 여전히 memory가 max로 사용됩니다. 왜 그런가?"</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 한 번에 처리하는 문맥의 길이(<code>max_seq_length</code>)를 512로 과감하게 줄이고, 불필요한 저장을 줄이기 위해 하이퍼파라미터를 대폭 수정했습니다. 하지만 <code>nvitop</code>으로 모니터링해보니 여전히 VRAM은 한계치에 달해 헐떡이고 있었습니다. 급기야 스텝 100, 150 부근에서 계속 멈춰버리는 끔찍한 현상이 반복되었습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>70B라는 거대한 짐승을 길들이는 것은 정말 쉽지 않습니다. AI에게 끝없이 에러 로그를 던져주며 해결책을 찾고 있지만, 물리적인 VRAM 한계를 소프트웨어 최적화 기법(LoRA, 퀀타이제이션 등)으로 극복할 수 있을지 끝없는 테스트가 필요해 보입니다. 과연 우리는 70B 모델 파인튜닝에 성공할 수 있을까요? 다음 일지에서 계속됩니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>파인튜닝</category>
+            <category>Llama3.3-70B</category>
+            <category>DeepSeek-R1-70B</category>
+            <category>OOM</category>
+            <category>트러블슈팅</category>
+            <category>GPU</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #11] 합성 데이터(v5) 훈련 결과 M6 모델 평가]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-19-maeumjigi-11</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-19-maeumjigi-11</guid>
+            <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-8664d3f7a5b0dba9eeb091d8bc5d865a.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 19일, 피땀 흘려 만들어낸 가상의 합성 데이터셋(v5)으로 훈련시킨 모델(M6)의 성능을 평가하고, 이를 바탕으로 7주 차 주간 보고서를 작성한 날입니다. 과연 10달러의 과금 폭탄을 견뎌내며 만들어낸 데이터는 그만한 가치가 있었을까요?</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="모델-성능-진검승부-m0-vs-m5-vs-m6">모델 성능 진검승부: M0 vs M5 vs M6<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-19-maeumjigi-11#%EB%AA%A8%EB%8D%B8-%EC%84%B1%EB%8A%A5-%EC%A7%84%EA%B2%80%EC%8A%B9%EB%B6%80-m0-vs-m5-vs-m6" class="hash-link" aria-label="모델 성능 진검승부: M0 vs M5 vs M6에 대한 직접 링크" title="모델 성능 진검승부: M0 vs M5 vs M6에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 지도교수님과 팀원들을 설득하기 위해, 단순히 "좋아졌다"가 아니라 정량적인 테스트 결과와 직관적인 비교 예시가 포함된 주간 보고서가 필요했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"보고서 재작성 바람. 주요 포인트는 v4를 기반으로 한 M5와 v5를 기반으로 한 M6의 비교이다... 각 데이터셋의 예시를 포함하여 작성 바람."
+"테스트 결과에 대해 서술할 때 튜닝 전 기본 모델(M0)과 M6의 차이도 예시를 든 설명을 포함해 줘."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: AI가 M0, M5, M6 모델이 생성한 텍스트 결과를 분석하여 비교 파일을 추출(<code>m0_m6_compare.json</code>)했습니다. 그 결과, 기본 Llama 3.1 모델(M0)은 한국어 상담에 다소 어색한 모습을 보였고, 정제 데이터(v4)로 학습한 M5는 나아졌지만 깊이가 부족했던 반면, 고품질 합성 데이터(v5)로 학습한 M6 모델은 사용자의 감정에 깊이 공감하는 심리상담사 특유의 따뜻하고 전문적인 어투를 완벽하게 구사해 냈습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai가-대신-써주는-7주-차-주간-보고서-docx">AI가 대신 써주는 7주 차 주간 보고서 (DOCX)<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-19-maeumjigi-11#ai%EA%B0%80-%EB%8C%80%EC%8B%A0-%EC%8D%A8%EC%A3%BC%EB%8A%94-7%EC%A3%BC-%EC%B0%A8-%EC%A3%BC%EA%B0%84-%EB%B3%B4%EA%B3%A0%EC%84%9C-docx" class="hash-link" aria-label="AI가 대신 써주는 7주 차 주간 보고서 (DOCX)에 대한 직접 링크" title="AI가 대신 써주는 7주 차 주간 보고서 (DOCX)에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"결과와 의의를 중점으로 7주 차 보고서를 두 버전(5장 이내 간결 버전, 상세 버전)으로 작성해 주세요. 그리고 두 md를 기반으로 각각 docx 파일을 생성해 줘."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 지시 한 번에 <code>7주차_보고서_v1_간결.md</code>, <code>7주차_보고서_v2_상세.md</code> 두 가지 버전이 뚝딱 완성되었고, 깔끔하게 워드 파일로 변환까지 완료되었습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rag-아키텍처-도입-faiss-db-구축-평가">RAG 아키텍처 도입: FAISS DB 구축 평가<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-19-maeumjigi-11#rag-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%8F%84%EC%9E%85-faiss-db-%EA%B5%AC%EC%B6%95-%ED%8F%89%EA%B0%80" class="hash-link" aria-label="RAG 아키텍처 도입: FAISS DB 구축 평가에 대한 직접 링크" title="RAG 아키텍처 도입: FAISS DB 구축 평가에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"FAISS_DB_구축을 수행하고 FAISS_DB_구축_보고서.docx를 작성했습니다. 우리의 계획과 해당 보고서 결과에 대해 평가해 주세요."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 단순히 모델의 가중치를 깎는 파인튜닝뿐만 아니라, 외부 지식을 참조하여 할루시네이션(환각)을 줄이는 RAG(검색 증강 생성) 기법을 위해 FAISS 벡터 데이터베이스를 도입했습니다. AI에게 제가 구축한 구조를 평가해 달라고 요청했고, 긍정적인 피드백(<code>FAISS_DB_구축_평가.md</code>)을 받았습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-26255edc4f96968423c96b01166df05d.png" width="1902" height="184" class="img_ev3q"></p>
+<p>오늘은 그동안의 고생이 빛을 발한 날이었습니다. 훈련시킨 AI 모델이 정말로 눈에 띄게 똑똑해진 것을 확인했을 때의 그 짜릿함이란! 모델 성능도 입증했고, FAISS DB까지 성공적으로 연동되었으니 마음지기 챗봇이 완성에 한 걸음 더 가까워졌습니다.</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>합성데이터</category>
+            <category>모델평가</category>
+            <category>M6</category>
+            <category>FAISS</category>
+            <category>주간보고서</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #10] API 제한 해제와 데이터 합성의 재개]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-14-maeumjigi-10</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-14-maeumjigi-10</guid>
+            <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-543dd8454f9dffb553747d3b4acb067f.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 14일, 요금 폭탄 사태 이후 잠시 중단되었던 합성 데이터(v5) 생성 작업을 다시 재개한 날입니다. API 요금 한도를 상향(제한 해제)하고 시스템을 돌렸지만, 이번에도 역시 순탄하게 넘어가진 않았습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="api-제한-해제-완료-이어서-작동-바람">"API 제한 해제 완료, 이어서 작동 바람!"<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-14-maeumjigi-10#api-%EC%A0%9C%ED%95%9C-%ED%95%B4%EC%A0%9C-%EC%99%84%EB%A3%8C-%EC%9D%B4%EC%96%B4%EC%84%9C-%EC%9E%91%EB%8F%99-%EB%B0%94%EB%9E%8C" class="hash-link" aria-label="&quot;API 제한 해제 완료, 이어서 작동 바람!&quot;에 대한 직접 링크" title="&quot;API 제한 해제 완료, 이어서 작동 바람!&quot;에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 지난번 대규모 데이터 생성 시도 때 월별 API 한도를 초과하여 스크립트가 강제 중단되었던 상태였습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"v5_emotion_data_generation_commands.md에 따라 작업 진행"
+"API 제한 해제 완료, 이어서 작동 바람" (23시 32분)
+"API 제한 해제 완료, 이어서 작동 바람" (00시 11분)</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: Claude API 콘솔에 접속하여 결제 한도를 과감하게 늘리고 제한을 풀었습니다. AI에게 중단되었던 지점부터 이어서 데이터를 생성하라고 거듭 지시하며 파이프라인을 재가동했습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="고장-난-파이프라인-수리와-무인-자동화">고장 난 파이프라인 수리와 무인 자동화<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-14-maeumjigi-10#%EA%B3%A0%EC%9E%A5-%EB%82%9C-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%88%98%EB%A6%AC%EC%99%80-%EB%AC%B4%EC%9D%B8-%EC%9E%90%EB%8F%99%ED%99%94" class="hash-link" aria-label="고장 난 파이프라인 수리와 무인 자동화에 대한 직접 링크" title="고장 난 파이프라인 수리와 무인 자동화에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: API 제한은 풀렸지만 어찌 된 일인지 새로운 데이터가 정상적으로 만들어지지 않고 있었습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"아무것도 생성되지 않습니다. 확인 바람"
+"작업이 완료되면 결과물 확인 후 자동으로 API 연결 해제 (관련 권한 모두 허락하므로 권한 허락받을 필요 없음)"</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 생성 로직 중간에 발생한 꼬임을 AI가 스스로 확인하고 수정(<code>v5_sync_progress.json</code> 추적)하도록 조치했습니다. 매번 옆에서 에러를 고치며 지켜볼 수 없었기에, 아예 "모든 권한을 줄 테니 작업이 끝나면 알아서 API 연결을 끊고 안전하게 종료하라"는 무인 자동화 지시를 내렸습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-0d09e9af54e4b838ccf7743ffe7c9334.png" width="1800" height="184" class="img_ev3q"></p>
+<p>오늘은 데이터 전처리를 위해 돈(API 요금)과 시간, 그리고 자동화 스크립트라는 삼박자를 맞춰가는 험난한 여정이었습니다. 무사히 데이터 생성이 완료되면 드디어 다음 단계로 나아갈 수 있겠죠?
+다음 개발일지에서 뵙겠습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>API제한</category>
+            <category>합성데이터</category>
+            <category>데이터생성</category>
+            <category>트러블슈팅</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #9] Llama 3.1 파인튜닝 에러 사투와 6주차 중간발표]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-09-maeumjigi-9</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-09-maeumjigi-9</guid>
+            <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-888e5f86b5a011e14eb58b51f93ba3ca.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 9일, 어제 야심 차게 완성한 Colab 노트북을 이용해 드디어 인공지능 모델(Llama 3.1)의 첫 학습(파인튜닝)을 시도했습니다. 하지만 현실은 역시 호락호락하지 않았고 수많은 에러와 마주해야 했습니다. 동시에 캡스톤 디자인 6주차 중간발표 자료까지 만들어야 했던 험난한 하루였습니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="colab-파인튜닝-에러와의-끝없는-사투">Colab 파인튜닝 에러와의 끝없는 사투<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-09-maeumjigi-9#colab-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-%EC%97%90%EB%9F%AC%EC%99%80%EC%9D%98-%EB%81%9D%EC%97%86%EB%8A%94-%EC%82%AC%ED%88%AC" class="hash-link" aria-label="Colab 파인튜닝 에러와의 끝없는 사투에 대한 직접 링크" title="Colab 파인튜닝 에러와의 끝없는 사투에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 어제 만든 <code>llama31_finetuning_colab.ipynb</code>를 실행하자마자 각종 에러가 쏟아졌습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"llama31_finetuning_colab (3).ipynb에서 M1 파인튜닝 진행 중 오류가 발생한 이유가 무엇일까요?"
+"실행한 결과에 eos_token이 포함되어 있습니다. 왜 이런 문제가 발생할까요?"</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: AI 모델이 학습 데이터를 토해내는 과정에서 특수 토큰(<code>eos_token</code>) 처리가 제대로 되지 않는 문제, 메모리 오버플로우 문제 등이 연달아 발생했습니다. 발생한 에러 로그 전체를 Claude에게 복사해서 던져주고(Pasted text) 해결책을 받아 코드를 수정하는 과정을 수차례 반복했습니다. 결국 우여곡절 끝에 학습이 완료되었고, <code>학습데이터별학습결과.png</code>라는 의미 있는 결과 그래프를 뽑아낼 수 있었습니다!</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-비서의-발표-자료ppt-만들기">AI 비서의 발표 자료(PPT) 만들기<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-09-maeumjigi-9#ai-%EB%B9%84%EC%84%9C%EC%9D%98-%EB%B0%9C%ED%91%9C-%EC%9E%90%EB%A3%8Cppt-%EB%A7%8C%EB%93%A4%EA%B8%B0" class="hash-link" aria-label="AI 비서의 발표 자료(PPT) 만들기에 대한 직접 링크" title="AI 비서의 발표 자료(PPT) 만들기에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 모델 훈련으로 밤을 새우고 있는데 당장 다음 주 발표를 위한 6주차 프론트엔드 및 데이터베이스 진행 상황 PPT를 만들어야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"캡디_6주차_Frontend.pptx는 지금까지 진행한 개요를 소개하는 이미지 모음입니다. 이를 활용하여 이번 주 진행 상황 발표 자료를 만들어주세요."
+"데이터베이스 설계의 Table들이 backend에 구현된 테이블의 관계를 참고하여 관계가 보이도록 표현해 줘... 표가 너무 크고 중구난방입니다. User 테이블을 중심에 배치해 주세요."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 놀랍게도 AI는 프론트엔드 이미지 스크린샷들을 엮어 발표 스크립트와 슬라이드 뼈대를 만들어 주었습니다. 심지어 제가 백엔드 코드를 기반으로 복잡한 데이터베이스 ERD(Entity Relationship Diagram)를 그려달라고 집요하게 피드백(User 중심 배치)을 주자, 완벽하게 데이터베이스 관계도까지 정리해서 설명해 주었습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
+<p>오늘은 Llama 3.1이라는 최신 언어 모델을 직접 내 손(과 AI의 머리)으로 튜닝해 보는 쾌감을 느낀 날입니다. 동시에 코딩뿐만 아니라 발표 자료 제작, DB 아키텍처 다이어그램 설계까지 AI를 100% 활용하는 방법을 터득해 가고 있습니다. 과연 우리 마음지기 AI는 얼마나 똑똑해졌을까요? 다음 시간에 그 테스트 결과를 공개합니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>Llama3.1</category>
+            <category>파인튜닝</category>
+            <category>트러블슈팅</category>
+            <category>PPT생성</category>
+            <category>ERD</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #8] API 요금 폭탄 사태와 Colab 파인튜닝 준비]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-08-maeumjigi-8</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-08-maeumjigi-8</guid>
+            <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-f7c92824c3649488552585cfabf025b7.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 8일은 마음지기 프로젝트를 진행하면서 가장 큰 위기이자 '웃픈' 해프닝이 발생한 날입니다. 바로 <strong>Claude API 월별 한도 초과 및 요금 폭탄 사태</strong>입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="백그라운드의-배신-10건-생성에-1달러라니">백그라운드의 배신: "10건 생성에 1달러라니?"<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-08-maeumjigi-8#%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C%EC%9D%98-%EB%B0%B0%EC%8B%A0-10%EA%B1%B4-%EC%83%9D%EC%84%B1%EC%97%90-1%EB%8B%AC%EB%9F%AC%EB%9D%BC%EB%8B%88" class="hash-link" aria-label="백그라운드의 배신: &quot;10건 생성에 1달러라니?&quot;에 대한 직접 링크" title="백그라운드의 배신: &quot;10건 생성에 1달러라니?&quot;에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 어제 최적화를 마쳤다고 안심하고 대규모 테스트 데이터셋 생성 스크립트를 백그라운드에 켜둔 채 방치했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"문제: 월별 한도를 초과하여 비용이 청구되고 있음. 백그라운드로 API가 작동하는 줄 알고 냅뒀는데 이런 일이 벌어졌음."
+"아니 10건 생성하는데 1달러가 소비되는 게 말이 되나?"</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: LLM으로 고품질 상담 데이터를 합성(Synthesis)하는 과정에서 프롬프트의 컨텍스트(입력 토큰)가 누적되면서 비용이 기하급수적으로 늘어난 것입니다. 월별 결제 한도가 초과되어 스크립트가 멈추는 사태가 벌어졌고, 결국 AI에게 "실시간으로 예상 소비량과 비용, 진행 상황을 콘솔에 찍어주고, 한도 초과를 방지하는 기능을 당장 추가하라"라고 긴급 지시를 내렸습니다. 클라우드나 API를 사용할 때 요금 모니터링이 얼마나 중요한지 뼈저리게 느꼈습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="llama-31-훈련을-위한-colab-노트북-작성">Llama 3.1 훈련을 위한 Colab 노트북 작성<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-08-maeumjigi-8#llama-31-%ED%9B%88%EB%A0%A8%EC%9D%84-%EC%9C%84%ED%95%9C-colab-%EB%85%B8%ED%8A%B8%EB%B6%81-%EC%9E%91%EC%84%B1" class="hash-link" aria-label="Llama 3.1 훈련을 위한 Colab 노트북 작성에 대한 직접 링크" title="Llama 3.1 훈련을 위한 Colab 노트북 작성에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 데이터가 준비되어 가고 있으니, 이제 실제로 Llama 3.1 모델을 파인튜닝(Fine-Tuning)할 코드가 필요했습니다. 로컬 PC의 GPU로는 어림도 없기 때문에 Google Colab 환경을 사용해야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"llama31_finetuning_experiment_plan_revised.md을 Colab에서 진행하기 위한 python notebook을 작성해 주세요."
+"훈련 data를 train/val/test가 아닌 train/val로만 분할하고 9:1 비율로 나눈다."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: AI가 스스로 훈련 계획서를 읽고 <code>llama31_finetuning_colab.ipynb</code>라는 완벽한 주피터 노트북 코드를 짜주었습니다. Unsloth 등 최신 경량화 라이브러리를 세팅하고, 데이터셋을 9:1 비율로 쪼개어 학습과 검증에 사용하는 로직까지 완벽하게 구현했습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-86bdd9a3e631fcd2af568d255082a2b1.png" width="1800" height="184" class="img_ev3q"></p>
+<p>오늘은 API 요금 폭탄이라는 무시무시한 신고식을 치르며 프로젝트의 현실적인 장벽을 극복해 낸 하루였습니다. 하지만 그 대가로 훌륭한 데이터셋과 파인튜닝용 Colab 노트북까지 완성되었습니다. 드디어 다음 단계는 진짜 인공지능 모델을 훈련(Training)시키는 것입니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>API과금</category>
+            <category>Llama3.1</category>
+            <category>파인튜닝</category>
+            <category>GoogleColab</category>
+            <category>데이터전처리</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #7] 합성 데이터(v5) 생성 최적화와 프론트엔드 연동]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-07-maeumjigi-7</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-07-maeumjigi-7</guid>
+            <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-5b12d029e4a9577b621aed190261075b.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 7일은 팀원이 구축한 프론트엔드(mental-health) 코드를 로컬 환경에서 실행해 보며 통합을 시도한 날이자,
+AI를 활용해 부족한 상담 데이터를 6만 건이나 새롭게 '합성(Synthesis)'해내는 거대한 스크립트를 가동한 날입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="부족한-데이터를-채워라-ai-합성-데이터v5-생성">부족한 데이터를 채워라: AI 합성 데이터(v5) 생성<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-07-maeumjigi-7#%EB%B6%80%EC%A1%B1%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%B1%84%EC%9B%8C%EB%9D%BC-ai-%ED%95%A9%EC%84%B1-%EB%8D%B0%EC%9D%B4%ED%84%B0v5-%EC%83%9D%EC%84%B1" class="hash-link" aria-label="부족한 데이터를 채워라: AI 합성 데이터(v5) 생성에 대한 직접 링크" title="부족한 데이터를 채워라: AI 합성 데이터(v5) 생성에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 기존에 정제한 데이터(v4)만으로는 특정 감정이나 세밀한 상담 시나리오가 부족했습니다. 이를 해결하기 위해 Claude API를 사용하여 Llama 3.1 훈련 포맷(System, User, Assistant)에 맞는 가상의 고품질 상담 대화를 6만 건 생성하고자 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"Claude가 자체적으로 만든 v5의 데이터셋을 만들고자 합니다. 계획을 세워주세요."
+"저는 jsonl 포맷(system, user, assistant)에 맞게 Claude가 생성해 주는 6만 건의 데이터셋을 구하고 싶습니다."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: <code>v5_plan.md</code>를 세우고 데이터를 생성하기 시작했습니다. 하지만 이내 API 호출 비용이 또다시 발목을 잡았습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="끝나지-않는-비용과의-전쟁-프롬프트-최적화">끝나지 않는 비용과의 전쟁: 프롬프트 최적화<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-07-maeumjigi-7#%EB%81%9D%EB%82%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%B9%84%EC%9A%A9%EA%B3%BC%EC%9D%98-%EC%A0%84%EC%9F%81-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%B5%9C%EC%A0%81%ED%99%94" class="hash-link" aria-label="끝나지 않는 비용과의 전쟁: 프롬프트 최적화에 대한 직접 링크" title="끝나지 않는 비용과의 전쟁: 프롬프트 최적화에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 데이터 6만 건을 AI에게 창작시키려다 보니 며칠 전 겪었던 비용 문제가 재현되었습니다. 스크립트 실행 도중 크레딧 10달러가 순식간에 증발했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"step8_generate_v5_optimized.py 이대로 진행하면 토큰 사용량이 줄어드나요?"
+"현재 크레딧의 $10를 소비했는데 저 정도 progress 진행 중입니다."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: AI에게 비용을 절감할 수 있는 프롬프트 엔지니어링과 코드 최적화(<code>step8_generate_v5_optimized.py</code>)를 지시하여 출력 토큰의 낭비를 막고, 생성 진행률을 안전하게 저장하는 로직을 추가했습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="팀원의-프론트엔드-코드-인수인계-및-실행">팀원의 프론트엔드 코드 인수인계 및 실행<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-07-maeumjigi-7#%ED%8C%80%EC%9B%90%EC%9D%98-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%BD%94%EB%93%9C-%EC%9D%B8%EC%88%98%EC%9D%B8%EA%B3%84-%EB%B0%8F-%EC%8B%A4%ED%96%89" class="hash-link" aria-label="팀원의 프론트엔드 코드 인수인계 및 실행에 대한 직접 링크" title="팀원의 프론트엔드 코드 인수인계 및 실행에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"이 프로젝트는 팀 동료가 만든 프로젝트로 제가 실행하려면 어떻게 해야 하나요?"
+"4번 DB 마이그레이션 중 오류 발생..."
+"6단계 frontend까지 실행 완료. 종료 방법과 다시 실행 시 간단한 절차를 알려주세요."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 팀원이 작성해 둔 <code>mental-health</code> 리포지토리를 넘겨받아 로컬에서 실행하고 DB 마이그레이션 오류를 해결했습니다. 이제 백엔드 AI 모델과 프론트엔드가 만날 준비가 되었습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-7f7d40aebd3c5f9549f1909aa3461fcf.png" width="2154" height="184" class="img_ev3q"></p>
+<p>오늘은 데이터 전처리를 넘어, <strong>AI가 AI를 학습시킬 교과서(데이터)를 직접 집필하게 만드는(Synthetic Data Generation)</strong> 최신 딥러닝 트렌드를 직접 구현해 본 뜻깊은 날이었습니다.
+쏟아지는 과금의 공포 속에서 최적화를 이뤄내고, 프론트엔드 서버까지 무사히 띄워낸 하루였습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>합성데이터</category>
+            <category>ClaudeAPI</category>
+            <category>데이터생성</category>
+            <category>프론트엔드</category>
+            <category>비용최적화</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #6] 전처리 최종 보고서 자동화와 프론트엔드 킥오프]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-05-maeumjigi-6</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-05-maeumjigi-6</guid>
+            <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-ab2d0c8c5701daf6d741d80e55c7b9e0.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 5일은 그동안 진행해 온 고된 데이터 전처리 과정(v1~v4)을 갈무리하는 최종 보고서를 작성하고,
+동시에 본격적으로 마음지기 웹 서비스의 얼굴이 될 프론트엔드 프로젝트를 킥오프한 날입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="마크다운부터-docx-그래프-생성까지-완벽한-문서화">마크다운부터 DOCX, 그래프 생성까지 완벽한 문서화<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-05-maeumjigi-6#%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4%EB%B6%80%ED%84%B0-docx-%EA%B7%B8%EB%9E%98%ED%94%84-%EC%83%9D%EC%84%B1%EA%B9%8C%EC%A7%80-%EC%99%84%EB%B2%BD%ED%95%9C-%EB%AC%B8%EC%84%9C%ED%99%94" class="hash-link" aria-label="마크다운부터 DOCX, 그래프 생성까지 완벽한 문서화에 대한 직접 링크" title="마크다운부터 DOCX, 그래프 생성까지 완벽한 문서화에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 지도교수님과 팀원들에게 그동안의 방대한 전처리 과정을 시각적으로 이해하기 쉽게 공유해야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>Claude Code에게: "데이터 전처리 과정(v1, v2, v3, v4)을 요약하여 최종보고서를 작성해주세요... 각 v별 대표 예시 추가해 줘."
+"이 md파일을 docx 파일로 변경해주세요... 그래프로 표현 가능한 것들은 그래프로 추가해서 만들어줘."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 놀랍게도 AI는 그동안 작업했던 파이썬 코드와 JSON 데이터를 분석하여 핵심 요약 보고서를 마크다운으로 뚝딱 써냈습니다. 여기에 그치지 않고, 파이썬 라이브러리(<code>python-docx</code>, <code>matplotlib</code>)를 스스로 설치하고 스크립트를 짜더니 마크다운을 깔끔한 워드(DOCX) 파일로 변환하고 감정 분포 그래프까지 그려서 삽입해 주었습니다! 문서 작업에 허비되는 시간을 획기적으로 줄인 순간이었습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nextjs-기반-프론트엔드-프로젝트-킥오프">Next.js 기반 프론트엔드 프로젝트 킥오프<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-05-maeumjigi-6#nextjs-%EA%B8%B0%EB%B0%98-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%82%A5%EC%98%A4%ED%94%84" class="hash-link" aria-label="Next.js 기반 프론트엔드 프로젝트 킥오프에 대한 직접 링크" title="Next.js 기반 프론트엔드 프로젝트 킥오프에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 인공지능 모델 훈련과 별개로, 사용자들이 실제로 챗봇과 대화할 수 있는 웹 인터페이스가 필요했습니다.</li>
+<li class=""><strong>과정</strong>: (백그라운드 작업) 사용자(장병)에게 친숙하고 빠른 UI를 제공하기 위해 Next.js 기반의 프론트엔드 프로젝트 세팅을 지시했습니다.</li>
+<li class=""><strong>결과</strong>: <code>maeumjigi/frontend/</code> 경로에 <code>package.json</code>, <code>tsconfig.json</code> 등이 생성되며 최신 트렌드인 Next.js 기반의 프론트엔드 환경이 성공적으로 세팅되었습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-06bbe4ff4a07d082cb89e2c7482e0833.png" width="2168" height="184" class="img_ev3q"></p>
+<p>오늘은 AI의 능력이 단순히 코딩을 넘어 '문서 요약, 그래프 시각화, DOCX 파일 생성'이라는 훌륭한 사무보조 역할까지 완벽하게 수행할 수 있음을 증명한 날이었습니다.
+데이터 전처리라는 큰 산을 하나 넘고, 이제 본격적으로 사용자와 만날 프론트엔드 개발의 닻을 올렸습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>최종보고서</category>
+            <category>자동화</category>
+            <category>Next.js</category>
+            <category>캡스톤디자인</category>
+            <category>데이터전처리</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #5] 10만 건의 감정 데이터 정제와 API 비용의 압박]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-03-maeumjigi-5</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-03-maeumjigi-5</guid>
+            <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-b11e4aba2cdefc2e20eacfa1224643d7.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>4월 3일, 본격적으로 딥러닝 모델(Llama 3.1)에 먹일 훈련용 대화 데이터를 정제하는 작업에 착수한 날의 기록입니다.
+단순히 데이터를 합치는 것을 넘어, AI가 텍스트를 보고 스스로 감정을 판별하게 만드는 거대한 파이프라인을 돌려본 날이기도 합니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="데이터-감정-재분류-v3---v4">데이터 감정 재분류 (v3 -&gt; v4)<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-03-maeumjigi-5#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%90%EC%A0%95-%EC%9E%AC%EB%B6%84%EB%A5%98-v3---v4" class="hash-link" aria-label="데이터 감정 재분류 (v3 -> v4)에 대한 직접 링크" title="데이터 감정 재분류 (v3 -> v4)에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 기존 데이터셋(<code>Emotion_train_dataset_v3</code>)의 감정 라벨링이 우리가 원하는 세밀한 심리상담 목적에 정확히 부합하지 않았습니다. 총 100만 건의 데이터 중 의미 있는 데이터만 필터링하고 정확한 감정을 매핑해야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"범위는 전체 100만 건입니다... Claude가 심리상담 전문가로서 대화를 읽고 직접 감정을 매핑할 것이기 때문입니다. 감정 분류 내 포함되지 않는 것은 제외하고 포함되는 것만 필터링하는 것입니다."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: <code>v4_plan.md</code>를 세우고 작업을 시작했습니다. 1차적으로 10만 줄의 데이터를 대상으로 Claude API를 연동하여 대화 맥락을 파악하고 감정을 재분류하는 스크립트를 작성하여 가동했습니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="llm-api-과금의-공포">LLM API 과금의 공포<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-03-maeumjigi-5#llm-api-%EA%B3%BC%EA%B8%88%EC%9D%98-%EA%B3%B5%ED%8F%AC" class="hash-link" aria-label="LLM API 과금의 공포에 대한 직접 링크" title="LLM API 과금의 공포에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 방대한 텍스트 데이터를 LLM(Claude)에게 던져주고 판별하게 만들다 보니, API 사용량(토큰 수)이 기하급수적으로 늘어나는 문제가 발생했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>"이미 Pro 구독으로 Claude를 사용 중인데 API가 별도로 필요하나요?"
+"Anthropic API가 아닌 Claude Code를 사용하는 방법은 없나요? 과금이 부담스럽습니다."
+"실제 비용은 10.27 달러가 나왔습니다."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: Claude Pro 구독(월 20달러)과는 별개로, 파이썬 스크립트에서 자동화로 대량의 데이터를 처리하기 위해 호출하는 Anthropic API는 사용량만큼 종량제로 과금된다는 뼈아픈 사실을 체감했습니다. 단 10만 줄을 테스트로 처리하는 데에만 순식간에 약 14,000원($10.27)이 과금되었습니다. 100만 건을 모두 처리하려면 엄청난 비용이 든다는 것을 깨닫고, 모델 최적화와 데이터 샘플링의 중요성을 몸소 배운 하루였습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-b68f79333fd35ca82a9c594510f851d0.png" width="1800" height="184" class="img_ev3q"></p>
+<p>오늘은 딥러닝 데이터 전처리 과정에서 필연적으로 마주하게 되는 '컴퓨팅 비용'이라는 현실적인 장벽에 부딪힌 날이었습니다.
+결과적으로 정제된 양질의 데이터(<code>v4_report.md</code>)를 얻어내는 데는 성공했지만, 앞으로 어떻게 이 비용과 효율성의 균형을 맞추며 파인튜닝을 진행할지 깊은 고민을 안겨준 소중한 경험이었습니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>데이터정제</category>
+            <category>ClaudeAPI</category>
+            <category>감정분류</category>
+            <category>Llama3.1</category>
+            <category>비용문제</category>
+        </item>
+        <item>
+            <title><![CDATA[[마음지기 캡스톤 개발일지 #4] 파인튜닝 데이터 전처리 본격 가동]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-01-maeumjigi-4</link>
+            <guid>https://jbjihwan.github.io/global_blog/ko/blog/2026-04-01-maeumjigi-4</guid>
+            <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[사진 01]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="사진 01" src="https://jbjihwan.github.io/global_blog/ko/assets/images/01_cover-44a3eced3cf87439c891484fc396c5e8.png" width="1080" height="1080" class="img_ev3q"></p>
+<p>마음지기 프로젝트의 핵심 엔진이 될 Llama 3.1 모델을 훈련시키기 위해, 방대한 양의 대화 데이터를 모델이 학습할 수 있는 형식으로 가공하기 시작한 4월 1일의 기록입니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="데이터-전처리-계획에-따른-자동화-실행">데이터 전처리 계획에 따른 자동화 실행<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-01-maeumjigi-4#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC-%EA%B3%84%ED%9A%8D%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%9E%90%EB%8F%99%ED%99%94-%EC%8B%A4%ED%96%89" class="hash-link" aria-label="데이터 전처리 계획에 따른 자동화 실행에 대한 직접 링크" title="데이터 전처리 계획에 따른 자동화 실행에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 모델을 파인튜닝하기 위해서는 사용자의 발화와 챗봇의 응답이 담긴 원시 데이터를 Llama 3.1이 이해할 수 있는 특수한 JSONL 형식으로 완벽하게 변환해야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>Claude Code에게: "llama31_finetuning_data_preprocessing_plan_short.md에 따라서 작업 진행"</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: 어제 작성한 전처리 계획서(<code>llama31_finetuning_data_preprocessing_plan_short.md</code>)를 바탕으로 AI 에이전트가 데이터 정제 및 가공 파이프라인을 스스로 구축하고 실행하기 시작했습니다. 사람이 직접 수만 건의 데이터를 일일이 변환하는 대신, 규칙이 적힌 마크다운 문서 하나를 던져주며 "이대로 처리해"라고 지시하는 방식입니다.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="카테고리-데이터-통합-및-jsonl-변환">카테고리 데이터 통합 및 JSONL 변환<a href="https://jbjihwan.github.io/global_blog/ko/blog/2026-04-01-maeumjigi-4#%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%86%B5%ED%95%A9-%EB%B0%8F-jsonl-%EB%B3%80%ED%99%98" class="hash-link" aria-label="카테고리 데이터 통합 및 JSONL 변환에 대한 직접 링크" title="카테고리 데이터 통합 및 JSONL 변환에 대한 직접 링크" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>문제</strong>: 전처리 과정은 여러 단계(Step)로 쪼개져 있었고, 최종적으로 모든 데이터를 하나로 합쳐서 훈련용 데이터셋을 완성해야 했습니다.</li>
+<li class=""><strong>과정</strong>:<!-- -->
+<blockquote>
+<p>Claude Code에게: "Step 4를 실행해. 두 카테고리 데이터를 통합해서 Llama 3.1 JSONL 형식으로 변환해."</p>
+</blockquote>
+</li>
+<li class=""><strong>결과</strong>: AI가 즉각적으로 Step 4를 수행하여 흩어져 있던 각 카테고리의 대화 데이터를 하나로 병합했습니다. 그리고 Llama 3.1이 요구하는 정확한 프롬프트 템플릿(System, User, Assistant 역할 구분)에 맞추어 JSONL 파일로 변환하는 스크립트를 작성하고 실행했습니다.</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="사진 02" src="https://jbjihwan.github.io/global_blog/ko/assets/images/02_term-43546fe9bb3572c9502869f943f1ee31.png" width="2200" height="232" class="img_ev3q"></p>
+<p>오늘은 파인튜닝의 꽃이라고 할 수 있는 '데이터 전처리' 과정이 AI를 통해 완전 자동화로 돌아가기 시작한 날입니다. "문서에 적힌 대로 알아서 해"라는 말 한마디로 수많은 데이터가 훈련 가능한 상태로 탈바꿈하는 마법 같은 경험이었습니다.
+다음 연재에서는 이 전처리된 데이터들을 활용해 실제로 모델을 어떻게 훈련시키고 검증하는지, 흥미진진한 개발일지가 이어집니다!</p>]]></content:encoded>
+            <category>개발일지</category>
+            <category>AI코딩</category>
+            <category>ClaudeCode</category>
+            <category>캡스톤디자인</category>
+            <category>파인튜닝</category>
+            <category>데이터전처리</category>
+            <category>Llama3.1</category>
+        </item>
+    </channel>
+</rss>

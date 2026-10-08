@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkglobal_blog=self.webpackChunkglobal_blog||[]).push([["2291"],{2327(e){e.exports=JSON.parse('{"authors":[{"name":"jbgih","title":"Antigravity Developer","url":"https://github.com/jbgih","imageURL":"https://github.com/jbgih.png","key":"jbgih","page":null,"count":23}]}')}}]);
