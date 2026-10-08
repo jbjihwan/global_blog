@@ -32,8 +32,8 @@
 そして6月18日、これまで開発したバックエンド、フロントエンド、人工知能(AI)のすべての成果を一堂に集め、<strong>1学期最終発表資料</strong>を完成させました！</p>
 <p>これで長く険しかった1学期の開発が成功裏に幕を下ろしました。2学期にはさらに高度化されたサービスで戻ってきます！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -62,8 +62,8 @@
 <p>そして5月30日、人工知能(AI)の助けを借りて最終レポートを自動生成しました。レポートには、オリジナルモデルと私たちがファインチューニングしたモデルの実際の回答比較が赤裸々に盛り込まれており、これまでの苦労が無駄ではなかったことを証明してくれました。</p>
 <p>これでマウムジギプロジェクトの息苦しかった5月開発日誌がすべて終わりました。6月にはどんな新しい挑戦が待っているのでしょうか？</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -95,8 +95,8 @@
 <p><img decoding="async" loading="lazy" alt="比率実験" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -125,8 +125,8 @@
 <p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -160,8 +160,8 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
 <p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -191,8 +191,8 @@
 <p>2次ファインチューニングの最大の目的であったLoRAハイパーパラメータ<code>alpha</code>値による性能差の結果も出ました。ログを分析して<code>05_alpha_comparison_daily.png</code>などのグラフを生成しました。<code>rank=16</code>に固定された状態で<code>alpha=8</code>を与えた時と<code>alpha=16</code>を与えた時で、モデルの過学習（Overfitting）の様相と最終回答の質がどう変わるのかを明確に視覚化することができました。</p>
 <p>結果として、正しいハイパーパラメータと十分なトークンの長さを与えられたモデルたちは、ついに私たちが当初企画していた「真のマウムジギ」の姿に近づいていました。中間発表の準備がとても順調に終わりそうです！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -224,8 +224,8 @@
 </blockquote>
 <p>そうです。評価自動化スクリプトを作成する際に、誤って<code>MODEL_ALIAS</code>をハードコーディングしてしまったのです。HCXモデルをテストすると言ってファイルを一生懸命コピーして回していましたが、実際のコード内ではずっと<code>Qwen35-9B_a16</code>モデルばかりを呼び出して、同じ推論を繰り返していたのです！明日このバグを修正して推論をやり直さなければなりません。</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -264,8 +264,8 @@
 </blockquote>
 <p>React Native（Expo）を使って<code>maeum-app</code>プロジェクトを作成し、ローカルサーバーを立ち上げてスマートフォンと接続しようと奮闘しました。見当違いに<code>npx go start</code>と打ち込んで迷ったりもしましたが、ついにExpoのQRコードを表示し、アプリアイコン（<code>assets/logo.png</code>）を設定することに成功しました。バックエンドの頭脳（AI）とフロントエンドの顔（App）が同時に作られていく、胸が熱くなる一日でした。</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -299,8 +299,8 @@
 <p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-62d515d1a9340f8f0b7ab00b1ddbe175.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>これらのグラフを基に、来週のキャップストーンデザインの中間発表資料を立派に飾ることができるようになりました。果たして、この5つのモデルのうちどれが最も優れた「マウムジギ」チャットボットとして最終選定されるのでしょうか？</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -330,8 +330,8 @@
 <p><img decoding="async" loading="lazy" alt="評価パイプライン" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>DSR1-70Bモデルの推論後、次のモデルに移行する際にVRAMが正常に解放されずにエラーが発生することもありましたが、これも並列スクリプトで環境を隔離することで解決しました。さあ、いよいよ各モデルの回答の質を比較する時間です！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -361,8 +361,8 @@
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">RANK </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> Detected kernel version </span><span class="token number" style="color:#36acaa">5.4</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> which </span><span class="token keyword" style="color:#00009f">is</span><span class="token plain"> below the recommended minimum of </span><span class="token number" style="color:#36acaa">5.5</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">!</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">사진 </span><span class="token number" style="color:#36acaa">02</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">images</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">02_error</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">png</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">JSONDecodeError Traceback </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">most recent call last</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">60</span><span class="token plain"> trainer</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">train</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resume_from_checkpoint</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
 <p>OSのカーネルバージョンが低いためプロセスが停止する可能性があるという警告とともに、保存されたチェックポイントのJSONファイルが破損して（<code>JSONDecodeError</code>）学習を再開できないという恐ろしいエラーでした。モデルサイズを小さくしたにもかかわらず、依然としてインフラストラクチャレベルで発生する数多くのエラーと格闘しながら一日を過ごしました。果たして安定した学習軌道に乗ることができるのでしょうか？</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -406,8 +406,8 @@
 <p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>70Bという巨大な獣を飼いならすのは本当に簡単ではありません。人工知能(AI)にひたすらエラーログを投げながら解決策を探していますが、物理的なVRAMの限界をソフトウェアの最適化手法（LoRA、量子化など）で克服できるのか、終わりのないテストが必要そうです。果たして私たちは70Bモデルのファインチューニングに成功できるのでしょうか？次の日誌に続きます！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="ファインチューニング" term="ファインチューニング"/>
@@ -457,8 +457,8 @@
 <p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-26255edc4f96968423c96b01166df05d.png" width="1902" height="184" class="img_ev3q"></p>
 <p>今日はこれまでの苦労が報われた日でした。訓練させたAIモデルが本当に目に見えて賢くなったのを確認した時のそのスリルとは！モデル性能も証明し、FAISS DBまで正常に連動されたので、マウムジギチャットボットの完成にまた一歩近づきました。</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="合成データ" term="合成データ"/>
@@ -502,8 +502,8 @@
 <p>今日はデータ前処理のために、お金（API料金）と時間、そして自動化スクリプトという三拍子を合わせていく険しい道のりでした。無事にデータ生成が完了すれば、いよいよ次の段階へ進むことができるでしょう！
 次の開発日誌でお会いしましょう！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="API制限" term="API制限"/>
@@ -544,8 +544,8 @@
 <p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
 <p>今日はLlama 3.1という最新の言語モデルを直接自分の手（とAIの頭）でチューニングしてみる快感を感じた日です。同時に、コーディングだけでなく発表資料の作成、データベース(DB)アーキテクチャ図の設計まで、AIを100％活用する方法を身につけています。果たして私たちのマウムジギAIはどれくらい賢くなったのでしょうか？次回、そのテスト結果を公開します！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="Llama3.1" term="Llama3.1"/>
@@ -587,8 +587,8 @@
 <p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-86bdd9a3e631fcd2af568d255082a2b1.png" width="1800" height="184" class="img_ev3q"></p>
 <p>今日はAPI料金爆弾という恐ろしい通過儀礼を経て、プロジェクトの現実的な壁を乗り越えた一日でした。しかし、その代償として素晴らしいデータセットとファインチューニング用のColabノートブックが完成しました。ついに次の段階は、本物の人工知能モデルを訓練（Training）することです！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="API課金" term="API課金"/>
@@ -643,8 +643,8 @@
 <p>今日はデータ前処理を超えて、**「AIがAIを学習させるための教科書（データ）を直接執筆する（Synthetic Data Generation）」**という最新のディープラーニングトレンドを直接実装してみた意義深い日でした。
 降り注ぐ課金の恐怖の中で最適化を成し遂げ、フロントエンドサーバーまで無事に立ち上げた一日でした！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="合成データ" term="合成データ"/>
@@ -683,8 +683,8 @@
 <p>今日は、AIの能力が単なるコーディングを超えて「文書要約、グラフ視覚化、DOCXファイル生成」という優れた事務アシスタントの役割まで完璧に遂行できることを証明した日でした。
 データ前処理という大きな山を一つ越え、いよいよ本格的にユーザーと出会うフロントエンド開発の錨を下ろしました！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="最終報告書" term="最終報告書"/>
@@ -728,8 +728,8 @@
 <p>今日は、ディープラーニングのデータ前処理過程で必然的に直面する「コンピューティングコスト」という現実的な壁にぶつかった日でした。
 結果的に精製された良質なデータを得ることには成功しましたが、今後どのようにこのコストと効率性のバランスを取りながらファインチューニングを進めていくか、深い悩みを抱かせる貴重な経験となりました！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="データ精製" term="データ精製"/>
@@ -770,8 +770,8 @@
 <p>今日はファインチューニングの華とも言える「データ前処理」の過程が、AIを通じて完全自動化で回り始めた日です。「文書に書いてある通りにやって」という一言で、無数のデータが訓練可能な状態へと変貌する魔法のような体験でした。
 次回の連載では、この前処理されたデータを活用して、実際にモデルをどのように訓練し検証するのか、エキサイティングな開発日誌が続きます！</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
         <category label="人工知能(AI)コーディング" term="人工知能(AI)コーディング"/>

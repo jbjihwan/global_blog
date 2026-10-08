@@ -28,8 +28,8 @@
 <p>Calculamos el presupuesto del servidor AWS EC2 para ejecutar el chatbot. El 18 de junio, reunimos todos los logros del backend, frontend e IA para completar la <strong>Presentación Final del 1er Semestre (PPTX)</strong>.</p>
 <p>¡El primer semestre ha concluido con éxito! Regresaremos con un servicio más avanzado en el segundo semestre.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -60,8 +60,8 @@
 <p>Y el 30 de mayo generamos automáticamente el <code>informe_fine_tuning_4.docx</code>. El informe contiene comparaciones de respuestas reales entre el modelo original y el nuestro, ¡demostrando que nuestro arduo trabajo no fue en vano!</p>
 <p>Con esto concluyen los registros de desarrollo de mayo.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -93,8 +93,8 @@
 <p><img decoding="async" loading="lazy" alt="Experimento de Proporción" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>El 4to fine-tuning ahora verifica qué proporción armoniza la 'casualidad diaria' con la 'consejería profesional'. ¡Comenzamos a inyectar estos 3 datasets en el modelo Qwen3.5-9B!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -124,8 +124,8 @@
 <p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
 <p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -158,8 +158,8 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gráficos-de-conocimiento-knowledge-graphs">Gráficos de Conocimiento (Knowledge Graphs)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19#gr%C3%A1ficos-de-conocimiento-knowledge-graphs" class="hash-link" aria-label="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" title="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" translate="no">​</a></h3>
 <p>A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -189,8 +189,8 @@
 <p>También se obtuvieron los resultados de la diferencia de rendimiento según el hiperparámetro de LoRA <code>alpha</code>. Generamos gráficos como <code>05_alpha_comparison_daily.png</code>. Con <code>rank=16</code> fijo, visualizamos claramente cómo diferían los patrones y la calidad final al dar <code>alpha=8</code> frente a <code>alpha=16</code>.</p>
 <p>Los modelos con los parámetros correctos y suficiente longitud de token se estaban acercando al verdadero 'Maeumjigi' que planeamos.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -221,8 +221,8 @@
 </blockquote>
 <p>Accidentalmente codifiqué de forma rígida <code>MODEL_ALIAS</code>. El script copiaba archivos diligentemente para probar el modelo HCX, pero dentro del código, ¡seguía cargando solo el modelo <code>Qwen35-9B</code> y repitiendo la misma inferencia una y otra vez! Mañana tendré que arreglar este error y volver a ejecutar las inferencias.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -260,8 +260,8 @@
 </blockquote>
 <p>Creé el proyecto usando React Native (Expo) y, después de algunos errores tipográficos, logré mostrar el código QR de Expo. Fue un día emocionante construyendo tanto el cerebro (IA) como la cara de la aplicación.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -294,8 +294,8 @@
 <p><img decoding="async" loading="lazy" alt="Visualización de Gráficos" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_graph-62d515d1a9340f8f0b7ab00b1ddbe175.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Ahora, basándonos en estos gráficos, podemos decorar maravillosamente nuestros materiales de presentación de la próxima semana.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -324,8 +324,8 @@
 <p><img decoding="async" loading="lazy" alt="Pipeline de Evaluación" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Aunque ocurrió un error porque la VRAM no se liberó correctamente al pasar del DSR1-70B al siguiente modelo, lo resolvimos aislando los entornos con el script paralelo. ¡Ahora es el momento de comparar la calidad de las respuestas!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -354,8 +354,8 @@
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">RANK </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> Detected kernel version </span><span class="token number" style="color:#36acaa">5.4</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> which </span><span class="token keyword" style="color:#00009f">is</span><span class="token plain"> below the recommended minimum of </span><span class="token number" style="color:#36acaa">5.5</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">!</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">사진 </span><span class="token number" style="color:#36acaa">02</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">images</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">02_error</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">png</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">JSONDecodeError Traceback </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">most recent call last</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">60</span><span class="token plain"> trainer</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">train</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resume_from_checkpoint</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
 <p>Junto con una advertencia del kernel del sistema operativo, enfrentamos un horrible <code>JSONDecodeError</code> porque el archivo del checkpoint guardado estaba corrupto, impidiéndonos reanudar el entrenamiento. A pesar de reducir el tamaño del modelo, pasamos el día luchando con errores de infraestructura.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -398,8 +398,8 @@
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Domesticar una bestia masiva como 70B no es fácil. ¿Lograremos hacer fine-tuning a los modelos de 70B? ¡Continuará!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -449,8 +449,8 @@
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-26255edc4f96968423c96b01166df05d.png" width="1902" height="184" class="img_ev3q"></p>
 <p>Hoy fue un día en el que todo el trabajo duro dio sus frutos. ¡La emoción de confirmar que el modelo de IA entrenado se volvió notablemente más inteligente es increíble! Con el rendimiento del modelo probado y FAISS DB integrado, el chatbot Maeumjigi está un paso más cerca.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="datos-sintéticos" term="datos-sintéticos"/>
@@ -493,8 +493,8 @@
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-0d09e9af54e4b838ccf7743ffe7c9334.png" width="1800" height="184" class="img_ev3q"></p>
 <p>Hoy fue un duro viaje de equilibrar dinero, tiempo y automatización para el preprocesamiento de datos. ¡Nos vemos en el próximo registro de desarrollo!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="API-limits" term="API-limits"/>
@@ -535,8 +535,8 @@
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
 <p>Hoy fue un día para sentir la emoción de ajustar directamente el último modelo de lenguaje Llama 3.1 con mis propias manos (y el cerebro de la IA). ¡Revelaremos los resultados de las pruebas la próxima vez!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="Llama3.1" term="Llama3.1"/>
@@ -578,8 +578,8 @@
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-86bdd9a3e631fcd2af568d255082a2b1.png" width="1800" height="184" class="img_ev3q"></p>
 <p>Hoy superamos una barrera realista del proyecto, pagando una tarifa de iniciación aterradora llamada bomba de facturas de API. Sin embargo, a cambio, completamos un excelente conjunto de datos y un cuaderno de Colab para el fine-tuning. ¡Finalmente, el siguiente paso es entrenar el modelo de IA real!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="API-billing" term="API-billing"/>
@@ -633,8 +633,8 @@ y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-7f7d40aebd3c5f9549f1909aa3461fcf.png" width="2154" height="184" class="img_ev3q"></p>
 <p>Hoy fue un día significativo donde implementamos la última tendencia de <strong>Generación de Datos Sintéticos</strong>, haciendo que una IA escriba los libros de texto (datos) para enseñar a otra IA.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="datos-sintéticos" term="datos-sintéticos"/>
@@ -672,8 +672,8 @@ al tiempo que iniciamos (kickoff) el proyecto de frontend que se convertirá en 
 <p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-06bbe4ff4a07d082cb89e2c7482e0833.png" width="2168" height="184" class="img_ev3q"></p>
 <p>Hoy probamos que las capacidades de la IA van mucho más allá de la simple programación, desempeñando a la perfección el papel de un excelente asistente de oficina mediante el 'resumen de documentos, la visualización de gráficos y la generación de DOCX'.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="informe-final" term="informe-final"/>
@@ -717,8 +717,8 @@ También fue el día en que ejecutamos una canalización masiva que hace que la 
 <p>Hoy fue el día en que nos golpeamos contra el muro realista de los 'costos computacionales'.
 Aunque logramos obtener datos refinados de alta calidad, fue una experiencia valiosa que nos dejó contemplando cómo equilibrar el costo y la eficiencia a medida que avanzamos con el fine-tuning.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="data-cleaning" term="data-cleaning"/>
@@ -759,8 +759,8 @@ Aunque logramos obtener datos refinados de alta calidad, fue una experiencia val
 <p>Hoy es el día en que el 'preprocesamiento de datos', el núcleo del fine-tuning, comenzó a ejecutarse de forma totalmente automática a través de la IA. Fue una experiencia mágica ver innumerables puntos de datos transformados en un estado entrenable con una sola instrucción: "Hazlo exactamente como está escrito en el documento".
 En la próxima publicación, continuaremos con emocionantes registros de desarrollo sobre cómo entrenamos y validamos realmente el modelo utilizando estos datos preprocesados.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="IA-coding" term="IA-coding"/>

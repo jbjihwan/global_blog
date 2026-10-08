@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkglobal_blog=self.webpackChunkglobal_blog||[]).push([["4416"],{5608(e){e.exports=JSON.parse('{"authors":[{"name":"jaybee","title":"Maeumjigi Developer","url":"https://github.com/jbjihwan","imageURL":"https://github.com/jbjihwan.png","key":"jbgih","page":null,"count":23}]}')}}]);

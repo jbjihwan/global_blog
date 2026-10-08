@@ -32,8 +32,8 @@
 <p>And on June 18th, we gathered all the achievements of our backend, frontend, and Artificial Intelligence (AI) to complete the <strong>1st Semester Final Presentation (PPTX)</strong>!</p>
 <p>The long and arduous 1st semester of the Maeumjigi Capstone development has successfully concluded. We will deploy the system to the server over the summer and return with a more advanced service in the 2nd semester!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -66,8 +66,8 @@
 <p>And on May 30th, with the Artificial Intelligence (AI)'s help, we automatically generated the <code>fine_tuning_4_report.docx</code>, successfully concluding Phase 1 of our fine-tuning project. The report bluntly contains the actual response text comparisons between the original base model and our fine-tuned model, proving that all our hard work was not in vain!</p>
 <p>With this, the breathless May dev logs of the Maeumjigi project are all wrapped up. What new challenges await in June?</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -103,8 +103,8 @@
 <p><img decoding="async" loading="lazy" alt="Ratio Experiment" src="https://jbjihwan.github.io/global_blog/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the Artificial Intelligence (AI)'s 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -139,8 +139,8 @@
 <p>Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
 <p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -177,8 +177,8 @@
 </blockquote>
 <p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -209,8 +209,8 @@
 <p>The results for the biggest objective of the 2nd fine-tuning—the performance difference based on the LoRA hyperparameter <code>alpha</code>—were also out. By analyzing the logs piled up in the <code>fine_tuning_2</code> folder, we generated graphs like <code>05_alpha_comparison_daily.png</code>. With <code>rank=16</code> fixed, we clearly visualized how the model's overfitting patterns and final answer quality differed when given <code>alpha=8</code> versus <code>alpha=16</code>.</p>
 <p>Ultimately, models granted the correct hyperparameters and ample token length were finally getting closer to the true 'Maeumjigi' (Heart-keeper) we had originally planned. It seems our mid-term presentation preparations will wrap up very smoothly!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -244,8 +244,8 @@
 <p>Yes. While writing the evaluation automation script, I accidentally hardcoded <code>MODEL_ALIAS</code>. The script diligently copied files to test the HCX model, but inside the code, it kept repeatedly loading only the <code>Qwen35-9B_a16</code> model and doing the same inference over and over!</p>
 <p>It was a day that made me realize once again that fine-tuning is not a science, but a battle of meticulousness. I'll have to fix this hardcoded bug and run the inferences again tomorrow.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -284,8 +284,8 @@
 </blockquote>
 <p>I created the <code>maeum-app</code> project using React Native (Expo) and struggled to launch the local server and connect it to my smartphone. I even mistakenly typed <code>npx go start</code> instead of <code>expo</code>, but I finally succeeded in pulling up the Expo QR code and setting up the app icons (<code>assets/logo.png</code>). It was a thrilling day where the brain of the backend (AI) and the face of the frontend (App) were being built simultaneously.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -320,8 +320,8 @@
 <p><img decoding="async" loading="lazy" alt="Graph Visualization" src="https://jbjihwan.github.io/global_blog/assets/images/02_graph-62d515d1a9340f8f0b7ab00b1ddbe175.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Now, based on these graphs, we can beautifully decorate our capstone design mid-term presentation materials for next week. Which of these 5 models will ultimately be selected as the best quality 'Maeumjigi' chatbot?</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -353,8 +353,8 @@
 <p><img decoding="async" loading="lazy" alt="Evaluation Pipeline" src="https://jbjihwan.github.io/global_blog/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Although an error occurred because VRAM was not properly released when transitioning from DSR1-70B inference to the next model, we resolved it by isolating the environments with the parallel script. Now, it's finally time to compare the actual answer quality of each model!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -388,8 +388,8 @@
 </blockquote>
 <p>Fortunately, the Hugging Face <code>Trainer</code> provides a feature to resume training from checkpoints (<code>resume_from_checkpoint</code>), but it's useless if the checkpoint file itself is corrupted. Despite reducing the model size, we spent the entire day wrestling with numerous framework and infrastructure errors. Will we ever reach a stable training orbit?</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -433,8 +433,8 @@
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>Taming a massive beast like 70B is truly not easy. We are constantly throwing error logs at the Artificial Intelligence (AI) to find solutions, but it seems we need endless testing to see if we can overcome the physical VRAM limits with software optimization techniques (LoRA, Quantization, etc.). Will we succeed in fine-tuning the 70B models? To be continued in the next log!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="fine-tuning" term="fine-tuning"/>
@@ -484,8 +484,8 @@
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-26255edc4f96968423c96b01166df05d.png" width="1902" height="184" class="img_ev3q"></p>
 <p>Today was a day when all the hard work paid off. The thrill of confirming that the trained AI model actually became noticeably smarter is incredible! With model performance proven and the FAISS DB successfully integrated, the Maeumjigi chatbot is one step closer to completion.</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="synthetic-data" term="synthetic-data"/>
@@ -529,8 +529,8 @@
 <p>Today was a tough journey of balancing money (API fees), time, and automation scripts for data preprocessing. If the data generation is completed safely, we can finally move on to the next step, right?
 See you in the next dev log!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="API-limits" term="API-limits"/>
@@ -571,8 +571,8 @@ See you in the next dev log!</p>]]></content>
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
 <p>Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing Database (DB) architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="Llama3.1" term="Llama3.1"/>
@@ -614,8 +614,8 @@ See you in the next dev log!</p>]]></content>
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-86bdd9a3e631fcd2af568d255082a2b1.png" width="1800" height="184" class="img_ev3q"></p>
 <p>Today was a day of overcoming a realistic barrier of the project, paying a terrifying initiation fee called the API bill bomb. However, in return, we completed an excellent dataset and a Colab notebook for fine-tuning. Finally, the next step is to train the real artificial intelligence model!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="API-billing" term="API-billing"/>
@@ -670,8 +670,8 @@ and also the day we launched a massive script using Artificial Intelligence (AI)
 <p>Today was a meaningful day where, moving beyond simple data preprocessing, we directly implemented the latest deep learning trend of <strong>Synthetic Data Generation</strong>, making an AI write the textbooks (data) to teach another AI.
 It was a day of achieving optimization amidst the horror of pouring bills and safely launching the frontend server!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="synthetic-data" term="synthetic-data"/>
@@ -710,8 +710,8 @@ while simultaneously kicking off the frontend project that will become the face 
 <p>Today was the day we proved that AI's capabilities go far beyond simple coding, perfectly performing the role of an excellent office assistant through 'document summarization, graph visualization, and DOCX generation'.
 Having climbed the huge mountain of data preprocessing, we have now officially raised the anchor for the frontend development that will meet the users!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="final-report" term="final-report"/>
@@ -755,8 +755,8 @@ It was also the day we ran a massive pipeline that makes the Artificial Intellig
 <p>Today was the day we hit the realistic wall of 'computing costs' inevitably encountered during deep learning data preprocessing.
 Although we successfully obtained high-quality, refined data (<code>v4_report.md</code>), it was a valuable experience that left us deeply contemplating how to balance cost and efficiency as we proceed with fine-tuning!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="data-cleaning" term="data-cleaning"/>
@@ -797,8 +797,8 @@ Although we successfully obtained high-quality, refined data (<code>v4_report.md
 <p>Today is the day when 'data preprocessing', the core of fine-tuning, began to run fully automatically via AI. It was a magical experience to see countless data points transformed into a trainable state with a single instruction: "Do it exactly as written in the document."
 In the next post, we will continue with exciting dev logs on how we actually train and validate the model using this preprocessed data!</p>]]></content>
         <author>
-            <name>jbgih</name>
-            <uri>https://github.com/jbgih</uri>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
         <category label="Artificial Intelligence (AI)-coding" term="Artificial Intelligence (AI)-coding"/>
