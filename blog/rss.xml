@@ -19,7 +19,7 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-victory-of-the-21-ratio-and-the-safety-wrapper">The Victory of the 2:1 Ratio and the Safety Wrapper<a href="https://jbjihwan.github.io/global_blog/blog/2026-06-18-maeumjigi-23#the-victory-of-the-21-ratio-and-the-safety-wrapper" class="hash-link" aria-label="Direct link to The Victory of the 2:1 Ratio and the Safety Wrapper" title="Direct link to The Victory of the 2:1 Ratio and the Safety Wrapper" translate="no">​</a></h3>
 <blockquote>
 <p>"What was our chosen model?"
-"We decided on 2:1. Now design a method to use a safety_wrapper as a safety lock for our Main LLM (2:1)."</p>
+"We decided on 2:1. Now design a method to use a safety_wrapper as a safety lock for our Main Large Language Model (LLM) (2:1)."</p>
 </blockquote>
 <p>As a result of the 4th fine-tuning, we selected the model mixed with a 2:1 ratio of 'emotional' to 'daily' chat as our final LLM. However, given the nature of a suicide prevention chatbot, we could not allow even a single hallucination or fatal wrong answer.</p>
 <p>To prevent this, we introduced a <strong>Safety Wrapper</strong>. It verifies the input and output of the LLM, and if a high-risk situation (Active Suicidality) is detected, the architecture instantly switches to a pre-defined crisis response protocol.</p>
@@ -30,7 +30,7 @@
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="Final Presentation" src="https://jbjihwan.github.io/global_blog/assets/images/02_presentation-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>We calculated the Amazon EC2 GPU server budget to run the verified chatbot for 5 months during the summer vacation.</p>
-<p>And on June 18th, we gathered all the achievements of our backend, frontend, and AI to complete the <strong>1st Semester Final Presentation (PPTX)</strong>!</p>
+<p>And on June 18th, we gathered all the achievements of our backend, frontend, and Artificial Intelligence (AI) to complete the <strong>1st Semester Final Presentation (PPTX)</strong>!</p>
 <p>The long and arduous 1st semester of the Maeumjigi Capstone development has successfully concluded. We will deploy the system to the server over the summer and return with a more advanced service in the 2nd semester!</p>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
@@ -44,7 +44,7 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-30-maeumjigi-22</guid>
             <pubDate>Sat, 30 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>In the final week of May (27th-30th), we dedicated our efforts to wrapping up the results of the highly anticipated <strong>4th Fine-Tuning (fine_tuning_4)</strong> and solidifying the system's framework.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-checkpoint-4400-and-graph-analysis">Final Checkpoint 4400 and Graph Analysis<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-30-maeumjigi-22#final-checkpoint-4400-and-graph-analysis" class="hash-link" aria-label="Direct link to Final Checkpoint 4400 and Graph Analysis" title="Direct link to Final Checkpoint 4400 and Graph Analysis" translate="no">​</a></h3>
 <blockquote>
@@ -60,7 +60,7 @@
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="System Architecture" src="https://jbjihwan.github.io/global_blog/assets/images/02_architecture-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>To serve the verified model as a real app, we designed the entire system architecture and Knowledge Graph integration plan under the name <code>chatbot_architecture.html</code>.</p>
-<p>And on May 30th, with the AI's help, we automatically generated the <code>fine_tuning_4_report.docx</code>, successfully concluding Phase 1 of our fine-tuning project. The report bluntly contains the actual response text comparisons between the original base model and our fine-tuned model, proving that all our hard work was not in vain!</p>
+<p>And on May 30th, with the Artificial Intelligence (AI)'s help, we automatically generated the <code>fine_tuning_4_report.docx</code>, successfully concluding Phase 1 of our fine-tuning project. The report bluntly contains the actual response text comparisons between the original base model and our fine-tuned model, proving that all our hard work was not in vain!</p>
 <p>With this, the breathless May dev logs of the Maeumjigi project are all wrapped up. What new challenges await in June?</p>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
@@ -83,7 +83,7 @@
 </blockquote>
 <p>Our goal is a 'suicide prevention counselor conveying warm empathy', but the model was showing signs of <strong>overfitting</strong>, giving overly serious and emotional responses even to mundane questions like "How's the weather?" or "What should I eat?".</p>
 <p>To solve this, we planned an experiment to train the model by mixing emotional data and daily chat data at appropriate ratios.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="generating-10000-v6-emotion-dataset-entries-via-api">Generating 10,000 v6 Emotion Dataset Entries via API<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-22-maeumjigi-21#generating-10000-v6-emotion-dataset-entries-via-api" class="hash-link" aria-label="Direct link to Generating 10,000 v6 Emotion Dataset Entries via API" title="Direct link to Generating 10,000 v6 Emotion Dataset Entries via API" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="generating-10000-v6-emotion-dataset-entries-via-application-programming-interface-api">Generating 10,000 v6 Emotion Dataset Entries via Application Programming Interface (API)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-22-maeumjigi-21#generating-10000-v6-emotion-dataset-entries-via-application-programming-interface-api" class="hash-link" aria-label="Direct link to Generating 10,000 v6 Emotion Dataset Entries via Application Programming Interface (API)" title="Direct link to Generating 10,000 v6 Emotion Dataset Entries via Application Programming Interface (API)" translate="no">​</a></h3>
 <blockquote>
 <p>"Unify to 512 tokens / Average 500 tokens per entry / 20 Personas / File: v6.jsonl"</p>
 </blockquote>
@@ -94,7 +94,7 @@
 "This 4th fine-tuning will be based on the training dataset mix ratio (mixed_2_1, mixed_5_5, mixed_7_3) instead of alpha values."</p>
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="Ratio Experiment" src="https://jbjihwan.github.io/global_blog/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the AI's 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!</p>]]></content:encoded>
+<p>The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the Artificial Intelligence (AI)'s 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!</p>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
             <category>dataset</category>
@@ -115,8 +115,8 @@
 <p>"Select the checkpoint with the Best Eval from the experimental models in the fine_tuning_3 folder, replace the files in the adapter folder, and report the results."
 "Write a run_test_20_30.sh file that runs inference and evaluation in parallel for fine_tuning_3 as well."</p>
 </blockquote>
-<p>Instead of manually digging through folders to copy checkpoints like before, I instructed the AI to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the <code>adapter</code> folder. Then, I executed the parallel inference script, <code>run_test_20_30.sh</code>, throwing the evaluation for the 4 Alias models to the background server.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backendfrontend-chatbot-db-saving-and-community-board-features">Backend/Frontend: Chatbot DB Saving and Community Board Features<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#backendfrontend-chatbot-db-saving-and-community-board-features" class="hash-link" aria-label="Direct link to Backend/Frontend: Chatbot DB Saving and Community Board Features" title="Direct link to Backend/Frontend: Chatbot DB Saving and Community Board Features" translate="no">​</a></h3>
+<p>Instead of manually digging through folders to copy checkpoints like before, I instructed the Artificial Intelligence (AI) to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the <code>adapter</code> folder. Then, I executed the parallel inference script, <code>run_test_20_30.sh</code>, throwing the evaluation for the 4 Alias models to the background server.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backendfrontend-chatbot-database-db-saving-and-community-board-features">Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#backendfrontend-chatbot-database-db-saving-and-community-board-features" class="hash-link" aria-label="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" title="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" translate="no">​</a></h3>
 <p>While the models were hard at work running inferences on the server, I accelerated the <code>mental-health</code> DB and app integration work in my local environment.</p>
 <blockquote>
 <p>"Summarize seed_data.sql. What is the pw for users? Is it Test1234!? What was the db I was trying to apply this sql to?"</p>
@@ -125,7 +125,7 @@
 <p>As a result, I was able to leave a meaningful Git commit on the afternoon of May 20th:
 <code>feat: Added chatbot DB save, board pagination, and emotion diary filter</code></p>
 <p><img decoding="async" loading="lazy" alt="App Features" src="https://jbjihwan.github.io/global_blog/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Finally, the conversation logs of our fine-tuned LLM chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
+<p>Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
 <p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
@@ -135,14 +135,14 @@
             <category>capstone</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend DB Troubleshooting]]></title>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</guid>
             <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-260098b6e0b52d30855fb06a6d1116ea.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-ai">Automating the Fine-Tuning Report using AI<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using AI" title="Direct link to Automating the Fine-Tuning Report using AI" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
 <p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
 <blockquote>
 <p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
@@ -158,7 +158,7 @@
 <p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://jbjihwan.github.io/global_blog/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
 <blockquote>
-<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single LLM."</p>
+<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
 </blockquote>
 <p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content:encoded>
             <category>devlog</category>
@@ -175,14 +175,14 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-13-maeumjigi-18</guid>
             <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-536caabc2f4da9a705deca5f970588a6.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>On May 13th, after fixing the hardcoding bugs discovered yesterday, we finally resumed proper inference testing for the 2nd round fine-tuned models.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-cause-of-short-answers-increase-the-token-length">The Cause of Short Answers: Increase the Token Length!<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-13-maeumjigi-18#the-cause-of-short-answers-increase-the-token-length" class="hash-link" aria-label="Direct link to The Cause of Short Answers: Increase the Token Length!" title="Direct link to The Cause of Short Answers: Increase the Token Length!" translate="no">​</a></h3>
 <p>While meticulously reviewing the inference results, I felt that the answers from the <code>Llama33-70B_a8</code> model were still strangely short and rigid.</p>
 <blockquote>
 <p>"This is one of Llama33-70B_a8's answers. I feel that max_seq_length and max_new_tokens are too small. I want to increase them. Looking at the VRAM status, how much can I increase them?"</p>
 </blockquote>
-<p>After calculating the available VRAM space (39.8GB at the time) with the AI, we boldly increased <code>max_new_tokens</code> (the maximum number of words generated) to 384. The result was a massive success!</p>
+<p>After calculating the available VRAM space (39.8GB at the time) with the Artificial Intelligence (AI), we boldly increased <code>max_new_tokens</code> (the maximum number of words generated) to 384. The result was a massive success!</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">[Before] "It must be really hard to feel that way. It is important to talk to a professional."</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">[After] "It must be really hard to feel that way. However, having these thoughts is not a sign that you are weak, but a signal that you are carrying too much burden right now. I highly recommend slowly unraveling these emotions with a professional."</span><br></div></code></pre></div></div>
 <p>By simply increasing the token allowance, the model maintained its context to the end and began pouring out much deeper and warmer sentences of empathy. The model had been holding its tongue because it was trapped in a limited token count.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alpha-value-comparison-analysis-a8-vs-a16">Alpha Value Comparison Analysis (a=8 vs a=16)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-13-maeumjigi-18#alpha-value-comparison-analysis-a8-vs-a16" class="hash-link" aria-label="Direct link to Alpha Value Comparison Analysis (a=8 vs a=16)" title="Direct link to Alpha Value Comparison Analysis (a=8 vs a=16)" translate="no">​</a></h3>
@@ -202,7 +202,7 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-12-maeumjigi-17</guid>
             <pubDate>Tue, 12 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-5a344447bf91f1b999b3492f70db1a3f.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>The 2nd round of fine-tuning (<code>fine_tuning_2</code>) parallel training, which was ambitiously started to correct the LoRA hyperparameter mistake (alpha/rank setup error), finally ended on May 12th!</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="extracting-the-best-checkpoint-and-building-the-inference-pipeline">Extracting the Best Checkpoint and Building the Inference Pipeline<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-12-maeumjigi-17#extracting-the-best-checkpoint-and-building-the-inference-pipeline" class="hash-link" aria-label="Direct link to Extracting the Best Checkpoint and Building the Inference Pipeline" title="Direct link to Extracting the Best Checkpoint and Building the Inference Pipeline" translate="no">​</a></h3>
 <p>The fine-tuning for 3 models with 6 hyperparameter combinations was all completed. I immediately compared the <code>eval_loss</code> to extract the best performing checkpoints and moved them to the <code>adapter</code> folders for each model.</p>
@@ -233,10 +233,10 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-08-maeumjigi-16</guid>
             <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-79002920441d182c9a671b53f630a946.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>May 8th was the day we were building our capstone design mid-term presentation (PPT) based on the fine-tuning results. However, while happily filling in the slides, I discovered a massive, chilling mistake.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="discovering-the-fatal-lora-hyperparameter-mistake">Discovering the Fatal LoRA Hyperparameter Mistake<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-08-maeumjigi-16#discovering-the-fatal-lora-hyperparameter-mistake" class="hash-link" aria-label="Direct link to Discovering the Fatal LoRA Hyperparameter Mistake" title="Direct link to Discovering the Fatal LoRA Hyperparameter Mistake" translate="no">​</a></h3>
-<p>I was refining the model structure diagrams and hyperparameter info with the AI for the PPT.</p>
+<p>I was refining the model structure diagrams and hyperparameter info with the Artificial Intelligence (AI) for the PPT.</p>
 <blockquote>
 <p>"Looking at the fine-tuning examples, the answers are shorter than the base model. I think this is because setting LoRA's r to 8 and alpha to 16 reduced the intermediate features too much..."
 "Wait, it was a/r? I thought it was r/a...??? I really applied LoRA greedily..."</p>
@@ -270,7 +270,7 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-07-maeumjigi-15</guid>
             <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-ec880a463f9fc318c3c090c677d10c5b.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>May 7th was the day we synthesized the fine-tuning results of our 5 models (Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B) and proceeded with full-scale visualization and local environment setup.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="visualization-and-local-setup-for-model-comparison">Visualization and Local Setup for Model Comparison<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-07-maeumjigi-15#visualization-and-local-setup-for-model-comparison" class="hash-link" aria-label="Direct link to Visualization and Local Setup for Model Comparison" title="Direct link to Visualization and Local Setup for Model Comparison" translate="no">​</a></h3>
 <p>To comfortably review the result comparison code (which was previously running on the heavy server) on my personal laptop, I created a new notebook, <code>31_comparison_local.ipynb</code>.</p>
@@ -294,7 +294,7 @@
             <category>visualization</category>
             <category>Jupyter</category>
             <category>capstone</category>
-            <category>AI</category>
+            <category>Artificial Intelligence (AI)</category>
         </item>
         <item>
             <title><![CDATA[[Maeumjigi Capstone Dev Log #14] All Fine-Tuning Completed and Parallel Inference (Eval) Pipeline Built]]></title>
@@ -302,12 +302,12 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-06-maeumjigi-14</guid>
             <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>On May 6th, we finally escaped the long swamp of fine-tuning! After several nights of work and hyperparameter tuning, the training for mid-size models like <strong>HCX-Omni-8B</strong> and <strong>Qwen35-9B</strong> was successfully completed.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fine-tuning-complete-analyzing-the-logs">Fine-Tuning Complete, Analyzing the Logs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-06-maeumjigi-14#fine-tuning-complete-analyzing-the-logs" class="hash-link" aria-label="Direct link to Fine-Tuning Complete, Analyzing the Logs" title="Direct link to Fine-Tuning Complete, Analyzing the Logs" translate="no">​</a></h3>
 <p>As the training progressed, we could see the loss values decreasing stably.</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">step= 1200  loss=0.9698  lr=1.88e-04  gpu=7.7GB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">step= 1250  loss=0.8523  lr=1.86e-04  gpu=7.7GB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">...</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">step= 1650  loss=0.8783  lr=1.73e-04  gpu=7.7GB</span><br></div></code></pre></div></div>
-<p>However, we had a brief moment of confusion trying to figure out if this was <code>train loss</code> or <code>validation loss</code>, asking the AI, "Does our code not record eval loss?" We realized the evaluation loss logging might have been missed, but since the training was already fully complete ("All fine-tuning is complete, proceeding with evaluation"), we immediately moved on to the inference and evaluation (Eval) phase using the latest generated checkpoint models.</p>
+<p>However, we had a brief moment of confusion trying to figure out if this was <code>train loss</code> or <code>validation loss</code>, asking the Artificial Intelligence (AI), "Does our code not record eval loss?" We realized the evaluation loss logging might have been missed, but since the training was already fully complete ("All fine-tuning is complete, proceeding with evaluation"), we immediately moved on to the inference and evaluation (Eval) phase using the latest generated checkpoint models.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="building-a-parallel-inference-environment">Building a Parallel Inference Environment<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-06-maeumjigi-14#building-a-parallel-inference-environment" class="hash-link" aria-label="Direct link to Building a Parallel Inference Environment" title="Direct link to Building a Parallel Inference Environment" translate="no">​</a></h3>
 <p>We started generation testing using the <code>20_eval_ft_models.ipynb</code> notebook to see how each model responded to user dialogues. We unified the <code>max_new_tokens</code> for inference to a generous 1024, constantly worrying if another OOM would occur.</p>
 <p>But the inference speed was much slower than expected.</p>
@@ -354,7 +354,7 @@
             <category>Qwen35-9B</category>
             <category>checkpoints</category>
             <category>hyperparameters</category>
-            <category>AI</category>
+            <category>Artificial Intelligence (AI)</category>
         </item>
         <item>
             <title><![CDATA[[Maeumjigi Capstone Dev Log #12] 70B Massive Model Fine-Tuning and GPU Memory (OOM) Struggle]]></title>
@@ -388,7 +388,7 @@
 <li class=""><strong>Result</strong>: We drastically reduced the context length processed at once (<code>max_seq_length</code>) to 512 and heavily modified hyperparameters to reduce unnecessary saving. However, monitoring with <code>nvitop</code> showed that VRAM was still gasping at its absolute limit. Eventually, the horrific phenomenon of the training freezing around steps 100 and 150 repeated itself.</li>
 </ul>
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Taming a massive beast like 70B is truly not easy. We are constantly throwing error logs at the AI to find solutions, but it seems we need endless testing to see if we can overcome the physical VRAM limits with software optimization techniques (LoRA, Quantization, etc.). Will we succeed in fine-tuning the 70B models? To be continued in the next log!</p>]]></content:encoded>
+<p>Taming a massive beast like 70B is truly not easy. We are constantly throwing error logs at the Artificial Intelligence (AI) to find solutions, but it seems we need endless testing to see if we can overcome the physical VRAM limits with software optimization techniques (LoRA, Quantization, etc.). Will we succeed in fine-tuning the 70B models? To be continued in the next log!</p>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
             <category>Llama3.3-70B</category>
@@ -403,7 +403,7 @@
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-04-19-maeumjigi-11</guid>
             <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-8664d3f7a5b0dba9eeb091d8bc5d865a.png" width="1080" height="1080" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>April 19 is the day we evaluated the performance of the model (M6) trained on the virtual synthetic dataset (v5) we painstakingly created, and wrote the 7th-week weekly report based on it. Was the data we generated while enduring a $10 bill bomb worth it?</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-real-showdown-of-model-performance-m0-vs-m5-vs-m6">A Real Showdown of Model Performance: M0 vs M5 vs M6<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-19-maeumjigi-11#a-real-showdown-of-model-performance-m0-vs-m5-vs-m6" class="hash-link" aria-label="Direct link to A Real Showdown of Model Performance: M0 vs M5 vs M6" title="Direct link to A Real Showdown of Model Performance: M0 vs M5 vs M6" translate="no">​</a></h3>
 <ul>
@@ -414,7 +414,7 @@
 "When describing the test results, include explanations with examples of the differences between the un-tuned base model (M0) and M6."</p>
 </blockquote>
 </li>
-<li class=""><strong>Result</strong>: The AI analyzed the text results generated by the M0, M5, and M6 models and extracted a comparison file (<code>m0_m6_compare.json</code>). The results showed that the base Llama 3.1 model (M0) was somewhat awkward in Korean counseling, and while M5 (trained on refined data v4) improved, it lacked depth. In contrast, the M6 model trained on high-quality synthetic data (v5) perfectly commanded the warm and professional tone typical of a psychological counselor, deeply empathizing with the user's emotions.</li>
+<li class=""><strong>Result</strong>: The Artificial Intelligence (AI) analyzed the text results generated by the M0, M5, and M6 models and extracted a comparison file (<code>m0_m6_compare.json</code>). The results showed that the base Llama 3.1 model (M0) was somewhat awkward in Korean counseling, and while M5 (trained on refined data v4) improved, it lacked depth. In contrast, the M6 model trained on high-quality synthetic data (v5) perfectly commanded the warm and professional tone typical of a psychological counselor, deeply empathizing with the user's emotions.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-7th-week-weekly-report-written-by-ai-docx">The 7th-Week Weekly Report Written by AI (DOCX)<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-19-maeumjigi-11#the-7th-week-weekly-report-written-by-ai-docx" class="hash-link" aria-label="Direct link to The 7th-Week Weekly Report Written by AI (DOCX)" title="Direct link to The 7th-Week Weekly Report Written by AI (DOCX)" translate="no">​</a></h3>
 <ul>
@@ -425,7 +425,7 @@
 </li>
 <li class=""><strong>Result</strong>: With a single instruction, two versions (<code>7th-week_report_v1_concise.md</code>, <code>7th-week_report_v2_detailed.md</code>) were completed in a flash, and even neatly converted into Word files.</li>
 </ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducing-rag-architecture-faiss-db-construction-evaluation">Introducing RAG Architecture: FAISS DB Construction Evaluation<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-19-maeumjigi-11#introducing-rag-architecture-faiss-db-construction-evaluation" class="hash-link" aria-label="Direct link to Introducing RAG Architecture: FAISS DB Construction Evaluation" title="Direct link to Introducing RAG Architecture: FAISS DB Construction Evaluation" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducing-rag-architecture-faiss-database-db-construction-evaluation">Introducing RAG Architecture: FAISS Database (DB) Construction Evaluation<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-19-maeumjigi-11#introducing-rag-architecture-faiss-database-db-construction-evaluation" class="hash-link" aria-label="Direct link to Introducing RAG Architecture: FAISS Database (DB) Construction Evaluation" title="Direct link to Introducing RAG Architecture: FAISS Database (DB) Construction Evaluation" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Process</strong>:<!-- -->
 <blockquote>
@@ -444,7 +444,7 @@
             <category>weekly-report</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #10] Lifting API Limits and Resuming Data Synthesis]]></title>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #10] Lifting Application Programming Interface (API) Limits and Resuming Data Synthesis]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-04-14-maeumjigi-10</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-04-14-maeumjigi-10</guid>
             <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
@@ -461,7 +461,7 @@
 "API limit lifted, please resume operation" (00:11)</p>
 </blockquote>
 </li>
-<li class=""><strong>Result</strong>: We logged into the Claude API console, boldly increased the billing limit, and lifted the restriction. We repeatedly instructed the AI to resume generating data from where it stopped and restarted the pipeline.</li>
+<li class=""><strong>Result</strong>: We logged into the Claude API console, boldly increased the billing limit, and lifted the restriction. We repeatedly instructed the Artificial Intelligence (AI) to resume generating data from where it stopped and restarted the pipeline.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="repairing-the-broken-pipeline-and-unmanned-automation">Repairing the Broken Pipeline and Unmanned Automation<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-14-maeumjigi-10#repairing-the-broken-pipeline-and-unmanned-automation" class="hash-link" aria-label="Direct link to Repairing the Broken Pipeline and Unmanned Automation" title="Direct link to Repairing the Broken Pipeline and Unmanned Automation" translate="no">​</a></h3>
 <ul>
@@ -500,7 +500,7 @@ See you in the next dev log!</p>]]></content:encoded>
 "The executed result contains the eos_token. Why is this problem occurring?"</p>
 </blockquote>
 </li>
-<li class=""><strong>Result</strong>: A series of problems occurred, such as the special token (<code>eos_token</code>) not being processed correctly when the AI model spit out the training data, and memory overflow issues. We repeated the process of copying and pasting the entire error log to Claude to get solutions and modifying the code multiple times. Finally, after many twists and turns, the training was completed, and we were able to extract a meaningful result graph called <code>학습데이터별학습결과.png</code>!</li>
+<li class=""><strong>Result</strong>: A series of problems occurred, such as the special token (<code>eos_token</code>) not being processed correctly when the Artificial Intelligence (AI) model spit out the training data, and memory overflow issues. We repeated the process of copying and pasting the entire error log to Claude to get solutions and modifying the code multiple times. Finally, after many twists and turns, the training was completed, and we were able to extract a meaningful result graph called <code>학습데이터별학습결과.png</code>!</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-ai-assistants-presentation-ppt-creation">The AI Assistant's Presentation (PPT) Creation<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-09-maeumjigi-9#the-ai-assistants-presentation-ppt-creation" class="hash-link" aria-label="Direct link to The AI Assistant's Presentation (PPT) Creation" title="Direct link to The AI Assistant's Presentation (PPT) Creation" translate="no">​</a></h3>
 <ul>
@@ -514,7 +514,7 @@ See you in the next dev log!</p>]]></content:encoded>
 <li class=""><strong>Result</strong>: Surprisingly, the AI wove the frontend image screenshots together to create a presentation script and slide skeleton. Even when I persistently gave feedback (centering the User table) asking it to draw a complex database ERD (Entity Relationship Diagram) based on the backend code, it perfectly organized and explained the database relationship diagram.</li>
 </ul>
 <p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
-<p>Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing DB architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!</p>]]></content:encoded>
+<p>Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing Database (DB) architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!</p>]]></content:encoded>
             <category>devlog</category>
             <category>Llama3.1</category>
             <category>fine-tuning</category>
@@ -523,7 +523,7 @@ See you in the next dev log!</p>]]></content:encoded>
             <category>ERD</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #8] API Bill Bomb Incident and Preparing Colab Fine-Tuning]]></title>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #8] Application Programming Interface (API) Bill Bomb Incident and Preparing Colab Fine-Tuning]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-04-08-maeumjigi-8</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-04-08-maeumjigi-8</guid>
             <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
@@ -539,7 +539,7 @@ See you in the next dev log!</p>]]></content:encoded>
 "No way, it costs $1 to generate 10 records? Does that make sense?"</p>
 </blockquote>
 </li>
-<li class=""><strong>Result</strong>: During the process of synthesizing high-quality counseling data using an LLM, the prompt's context (input tokens) accumulated, causing the cost to increase exponentially. The script halted because the monthly billing limit was exceeded. We urgently instructed the AI, "Immediately add a feature to print the estimated consumption, cost, and progress in real-time to the console, and prevent limit exceedance." We learned the hard way how crucial billing monitoring is when using clouds or APIs.</li>
+<li class=""><strong>Result</strong>: During the process of synthesizing high-quality counseling data using an Large Language Model (LLM), the prompt's context (input tokens) accumulated, causing the cost to increase exponentially. The script halted because the monthly billing limit was exceeded. We urgently instructed the Artificial Intelligence (AI), "Immediately add a feature to print the estimated consumption, cost, and progress in real-time to the console, and prevent limit exceedance." We learned the hard way how crucial billing monitoring is when using clouds or APIs.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="writing-a-colab-notebook-for-llama-31-training">Writing a Colab Notebook for Llama 3.1 Training<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-08-maeumjigi-8#writing-a-colab-notebook-for-llama-31-training" class="hash-link" aria-label="Direct link to Writing a Colab Notebook for Llama 3.1 Training" title="Direct link to Writing a Colab Notebook for Llama 3.1 Training" translate="no">​</a></h3>
 <ul>
@@ -569,10 +569,10 @@ See you in the next dev log!</p>]]></content:encoded>
             <description><![CDATA[Cover Image]]></description>
             <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-5b12d029e4a9577b621aed190261075b.png" width="1080" height="1080" class="img_ev3q"></p>
 <p>April 7 was the day we attempted integration by running the frontend code built by a teammate in a local environment,
-and also the day we launched a massive script using AI to 'synthesize' 60,000 new counseling data points to fill our dataset gaps.</p>
+and also the day we launched a massive script using Artificial Intelligence (AI) to 'synthesize' 60,000 new counseling data points to fill our dataset gaps.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="filling-in-the-blanks-generating-ai-synthetic-data-v5">Filling in the Blanks: Generating AI Synthetic Data (v5)<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-07-maeumjigi-7#filling-in-the-blanks-generating-ai-synthetic-data-v5" class="hash-link" aria-label="Direct link to Filling in the Blanks: Generating AI Synthetic Data (v5)" title="Direct link to Filling in the Blanks: Generating AI Synthetic Data (v5)" translate="no">​</a></h3>
 <ul>
-<li class=""><strong>Problem</strong>: The previously refined data (v4) alone lacked specific emotions or detailed counseling scenarios. To solve this, we wanted to use the Claude API to generate 60,000 virtual, high-quality counseling conversations that fit the Llama 3.1 training format (System, User, Assistant).</li>
+<li class=""><strong>Problem</strong>: The previously refined data (v4) alone lacked specific emotions or detailed counseling scenarios. To solve this, we wanted to use the Claude Application Programming Interface (API) to generate 60,000 virtual, high-quality counseling conversations that fit the Llama 3.1 training format (System, User, Assistant).</li>
 <li class=""><strong>Process</strong>:<!-- -->
 <blockquote>
 <p>"We want to create a v5 dataset entirely generated by Claude. Please make a plan."
@@ -597,7 +597,7 @@ and also the day we launched a massive script using AI to 'synthesize' 60,000 ne
 <li class=""><strong>Process</strong>:<!-- -->
 <blockquote>
 <p>"This project was created by a teammate; what should I do to run it?"
-"Error occurred during DB migration..."
+"Error occurred during Database (DB) migration..."
 "Execution up to frontend step 6 complete. Please tell me how to shut it down and the simple procedure to run it again."</p>
 </blockquote>
 </li>
@@ -631,7 +631,7 @@ while simultaneously kicking off the frontend project that will become the face 
 "Please convert this md file to a docx file... Express things that can be graphed as graphs and add them."</p>
 </blockquote>
 </li>
-<li class=""><strong>Result</strong>: Surprisingly, the AI analyzed the Python scripts and JSON data we had worked on and effortlessly wrote a core summary report in Markdown. Going even further, it independently installed Python libraries (<code>python-docx</code>, <code>matplotlib</code>), wrote a script, converted the Markdown into a neat Word (DOCX) file, and even drew and inserted emotion distribution graphs! It was a moment that drastically reduced the time wasted on documentation.</li>
+<li class=""><strong>Result</strong>: Surprisingly, the Artificial Intelligence (AI) analyzed the Python scripts and JSON data we had worked on and effortlessly wrote a core summary report in Markdown. Going even further, it independently installed Python libraries (<code>python-docx</code>, <code>matplotlib</code>), wrote a script, converted the Markdown into a neat Word (DOCX) file, and even drew and inserted emotion distribution graphs! It was a moment that drastically reduced the time wasted on documentation.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nextjs-based-frontend-project-kickoff">Next.js Based Frontend Project Kickoff<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-05-maeumjigi-6#nextjs-based-frontend-project-kickoff" class="hash-link" aria-label="Direct link to Next.js Based Frontend Project Kickoff" title="Direct link to Next.js Based Frontend Project Kickoff" translate="no">​</a></h3>
 <ul>
@@ -650,14 +650,14 @@ Having climbed the huge mountain of data preprocessing, we have now officially r
             <category>data-preprocessing</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #5] Purifying 100,000 Emotion Data Points and the Pressure of API Costs]]></title>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #5] Purifying 100,000 Emotion Data Points and the Pressure of Application Programming Interface (API) Costs]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-04-03-maeumjigi-5</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-04-03-maeumjigi-5</guid>
             <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Cover Image]]></description>
             <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-b11e4aba2cdefc2e20eacfa1224643d7.png" width="1080" height="1080" class="img_ev3q"></p>
 <p>This is the record of April 3, the day we began in earnest the task of refining the training conversation data to feed into the deep learning model (Llama 3.1).
-It was also the day we ran a massive pipeline that makes the AI read the text and judge the emotion on its own, going beyond simple data merging.</p>
+It was also the day we ran a massive pipeline that makes the Artificial Intelligence (AI) read the text and judge the emotion on its own, going beyond simple data merging.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reclassifying-data-emotions-v3---v4">Reclassifying Data Emotions (v3 -&gt; v4)<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-03-maeumjigi-5#reclassifying-data-emotions-v3---v4" class="hash-link" aria-label="Direct link to Reclassifying Data Emotions (v3 -> v4)" title="Direct link to Reclassifying Data Emotions (v3 -> v4)" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Problem</strong>: The emotion labeling of the existing dataset (<code>Emotion_train_dataset_v3</code>) did not perfectly align with our specific psychological counseling goals. Out of a total of 1 million data points, we needed to filter only the meaningful ones and accurately map their emotions.</li>
@@ -668,7 +668,7 @@ It was also the day we ran a massive pipeline that makes the AI read the text an
 </li>
 <li class=""><strong>Result</strong>: We established <code>v4_plan.md</code> and started the work. Initially targeting 100,000 lines of data, we wrote and ran a script that integrates the Claude API to grasp the conversational context and reclassify emotions.</li>
 </ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-horror-of-llm-api-billing">The Horror of LLM API Billing<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-03-maeumjigi-5#the-horror-of-llm-api-billing" class="hash-link" aria-label="Direct link to The Horror of LLM API Billing" title="Direct link to The Horror of LLM API Billing" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-horror-of-large-language-model-llm-api-billing">The Horror of Large Language Model (LLM) API Billing<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-03-maeumjigi-5#the-horror-of-large-language-model-llm-api-billing" class="hash-link" aria-label="Direct link to The Horror of Large Language Model (LLM) API Billing" title="Direct link to The Horror of Large Language Model (LLM) API Billing" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Problem</strong>: As we threw massive amounts of text data at an LLM (Claude) for evaluation, the API usage (token count) increased exponentially.</li>
 <li class=""><strong>Process</strong>:<!-- -->
@@ -722,7 +722,7 @@ Although we successfully obtained high-quality, refined data (<code>v4_report.md
 <p>Today is the day when 'data preprocessing', the core of fine-tuning, began to run fully automatically via AI. It was a magical experience to see countless data points transformed into a trainable state with a single instruction: "Do it exactly as written in the document."
 In the next post, we will continue with exciting dev logs on how we actually train and validate the model using this preprocessed data!</p>]]></content:encoded>
             <category>devlog</category>
-            <category>AI-coding</category>
+            <category>Artificial Intelligence (AI)-coding</category>
             <category>ClaudeCode</category>
             <category>capstone</category>
             <category>fine-tuning</category>

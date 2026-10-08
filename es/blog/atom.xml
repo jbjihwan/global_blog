@@ -43,7 +43,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-30-maeumjigi-22"/>
         <updated>2026-05-30T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>En la última semana de mayo, nos dedicamos a concluir los resultados del tan esperado <strong>4to Fine-Tuning (fine_tuning_4)</strong> y solidificar la estructura del sistema.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="checkpoint-final-4400-y-análisis">Checkpoint Final 4400 y Análisis<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-30-maeumjigi-22#checkpoint-final-4400-y-an%C3%A1lisis" class="hash-link" aria-label="Enlace directo al Checkpoint Final 4400 y Análisis" title="Enlace directo al Checkpoint Final 4400 y Análisis" translate="no">​</a></h3>
 <blockquote>
@@ -84,7 +84,7 @@
 </blockquote>
 <p>Nuestro modelo mostraba signos de sobreajuste, dando respuestas excesivamente serias a preguntas mundanas. Para resolver esto, planeamos mezclar datos emocionales y cotidianos.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="generando-10000-datos-emocionales-v6">Generando 10,000 Datos Emocionales (v6)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-22-maeumjigi-21#generando-10000-datos-emocionales-v6" class="hash-link" aria-label="Enlace directo al Generando 10,000 Datos Emocionales (v6)" title="Enlace directo al Generando 10,000 Datos Emocionales (v6)" translate="no">​</a></h3>
-<p>Utilicé el modo Batch de la API de Anthropic (Haiku) para generar 10,000 entradas de datos de conversaciones emocionales. Completé las entradas faltantes con un script adicional para asegurar la calidad.</p>
+<p>Utilicé el modo Batch de la Interfaz de Programación de Aplicaciones (API) de Anthropic (Haiku) para generar 10,000 entradas de datos de conversaciones emocionales. Completé las entradas faltantes con un script adicional para asegurar la calidad.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="buscando-la-proporción-dorada">Buscando la Proporción Dorada<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-22-maeumjigi-21#buscando-la-proporci%C3%B3n-dorada" class="hash-link" aria-label="Enlace directo al Buscando la Proporción Dorada" title="Enlace directo al Buscando la Proporción Dorada" translate="no">​</a></h3>
 <blockquote>
 <p>"Genera un dataset de 7:3, otro de 2:1 y otro de 5:5."
@@ -140,7 +140,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19"/>
         <updated>2026-05-17T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-260098b6e0b52d30855fb06a6d1116ea.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>¡Debo corregir mi suposición de que el 13 de mayo fue el último día! El 17 de mayo hubo una ola masiva de pruebas de backend y redacción de informes.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automatizando-el-informe-con-ia">Automatizando el Informe con IA<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19#automatizando-el-informe-con-ia" class="hash-link" aria-label="Enlace directo al Automatizando el Informe con IA" title="Enlace directo al Automatizando el Informe con IA" translate="no">​</a></h3>
 <p>No había tiempo suficiente para analizar manualmente los gráficos masivos del segundo fine-tuning.</p>
@@ -156,7 +156,7 @@
 <p>Caí en un infierno de errores de inicio de sesión. Creé scripts de depuración y reinicié el servidor uvicorn sin fin.</p>
 <p><img decoding="async" loading="lazy" alt="Problemas de BD" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gráficos-de-conocimiento-knowledge-graphs">Gráficos de Conocimiento (Knowledge Graphs)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19#gr%C3%A1ficos-de-conocimiento-knowledge-graphs" class="hash-link" aria-label="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" title="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" translate="no">​</a></h3>
-<p>A altas horas de la noche, para superar las limitaciones del simple LLM, comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
+<p>A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
         <author>
             <name>jbgih</name>
             <uri>https://github.com/jbgih</uri>
@@ -165,7 +165,7 @@
         <category label="fine-tuning" term="fine-tuning"/>
         <category label="report" term="report"/>
         <category label="backend" term="backend"/>
-        <category label="DB" term="DB"/>
+        <category label="Base de Datos (DB)" term="Base de Datos (DB)"/>
         <category label="troubleshooting" term="troubleshooting"/>
         <category label="capstone" term="capstone"/>
     </entry>
@@ -175,7 +175,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-13-maeumjigi-18"/>
         <updated>2026-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-536caabc2f4da9a705deca5f970588a6.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>El 13 de mayo, después de corregir los errores, reanudamos las pruebas de inferencia para los modelos del 2do fine-tuning.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aumentar-la-longitud-del-token">Aumentar la Longitud del Token<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-13-maeumjigi-18#aumentar-la-longitud-del-token" class="hash-link" aria-label="Enlace directo al Aumentar la Longitud del Token" title="Enlace directo al Aumentar la Longitud del Token" translate="no">​</a></h3>
 <p>Revisando los resultados de inferencia, sentí que las respuestas de <code>Llama33-70B_a8</code> seguían siendo extrañamente cortas.</p>
@@ -205,7 +205,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-12-maeumjigi-17"/>
         <updated>2026-05-12T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-5a344447bf91f1b999b3492f70db1a3f.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>¡El entrenamiento paralelo del 2do fine-tuning (<code>fine_tuning_2</code>), que comenzó para corregir el error de los hiperparámetros, finalmente terminó el 12 de mayo!</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-mejor-checkpoint-y-el-pipeline-de-inferencia">El Mejor Checkpoint y el Pipeline de Inferencia<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-12-maeumjigi-17#el-mejor-checkpoint-y-el-pipeline-de-inferencia" class="hash-link" aria-label="Enlace directo al El Mejor Checkpoint y el Pipeline de Inferencia" title="Enlace directo al El Mejor Checkpoint y el Pipeline de Inferencia" translate="no">​</a></h3>
 <p>El fine-tuning de 3 modelos con 6 combinaciones de hiperparámetros se completó. Comparé el <code>eval_loss</code> para extraer los mejores checkpoints y los moví a las carpetas <code>adapter</code>.</p>
@@ -277,7 +277,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-07-maeumjigi-15"/>
         <updated>2026-05-07T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-ec880a463f9fc318c3c090c677d10c5b.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>El 7 de mayo sintetizamos los resultados de los 5 modelos que habíamos entrenado (Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B) y procedimos con la visualización a gran escala.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuración-local-para-la-comparación-de-modelos">Configuración Local para la Comparación de Modelos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-07-maeumjigi-15#configuraci%C3%B3n-local-para-la-comparaci%C3%B3n-de-modelos" class="hash-link" aria-label="Enlace directo al Configuración Local para la Comparación de Modelos" title="Enlace directo al Configuración Local para la Comparación de Modelos" translate="no">​</a></h3>
 <p>Para revisar cómodamente los resultados en mi computadora portátil, creé un nuevo cuaderno: <code>31_comparison_local.ipynb</code>.</p>
@@ -303,7 +303,7 @@
         <category label="visualization" term="visualization"/>
         <category label="Jupyter" term="Jupyter"/>
         <category label="capstone" term="capstone"/>
-        <category label="AI" term="AI"/>
+        <category label="Inteligencia Artificial (AI)" term="Inteligencia Artificial (AI)"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #14] Fine-Tuning Completado y Pipeline de Inferencia Paralela]]></title>
@@ -311,7 +311,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14"/>
         <updated>2026-05-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-8be7f64df26dd411ab78418e8590f2be.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>¡El 6 de mayo, finalmente escapamos del largo pantano del fine-tuning! Después de varias noches de trabajo, el entrenamiento de los modelos como <strong>HCX-Omni-8B</strong> y <strong>Qwen35-9B</strong> se completó con éxito.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fine-tuning-completo-y-análisis-de-registros">Fine-Tuning Completo y Análisis de Registros<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14#fine-tuning-completo-y-an%C3%A1lisis-de-registros" class="hash-link" aria-label="Enlace directo al Fine-Tuning Completo y Análisis de Registros" title="Enlace directo al Fine-Tuning Completo y Análisis de Registros" translate="no">​</a></h3>
 <p>A medida que avanzaba el entrenamiento, pudimos ver cómo los valores de pérdida disminuían de manera estable. Tuvimos un momento de confusión tratando de averiguar si esto era <code>train loss</code> o <code>validation loss</code>, pero como el entrenamiento ya estaba completo, pasamos inmediatamente a la fase de inferencia y evaluación (Eval) utilizando los últimos checkpoints.</p>
@@ -363,7 +363,7 @@
         <category label="Qwen35-9B" term="Qwen35-9B"/>
         <category label="checkpoints" term="checkpoints"/>
         <category label="hyperparameters" term="hyperparameters"/>
-        <category label="AI" term="AI"/>
+        <category label="Inteligencia Artificial (AI)" term="Inteligencia Artificial (AI)"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #12] Fine-Tuning de Modelos Masivos de 70B y Lucha con la Memoria GPU (OOM)]]></title>
@@ -415,7 +415,7 @@
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-19-maeumjigi-11"/>
         <updated>2026-04-19T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-8664d3f7a5b0dba9eeb091d8bc5d865a.png" width="1080" height="1080" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>El 19 de abril es el día en que evaluamos el rendimiento del modelo (M6) entrenado en el conjunto de datos sintéticos (v5) que creamos con tanto esfuerzo. ¿Valieron la pena los datos que generamos mientras soportábamos una bomba de facturación de $10?</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="un-enfrentamiento-real-del-rendimiento-del-modelo-m0-vs-m5-vs-m6">Un Enfrentamiento Real del Rendimiento del Modelo: M0 vs M5 vs M6<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-19-maeumjigi-11#un-enfrentamiento-real-del-rendimiento-del-modelo-m0-vs-m5-vs-m6" class="hash-link" aria-label="Enlace directo al Un Enfrentamiento Real del Rendimiento del Modelo: M0 vs M5 vs M6" title="Enlace directo al Un Enfrentamiento Real del Rendimiento del Modelo: M0 vs M5 vs M6" translate="no">​</a></h3>
 <ul>
@@ -437,7 +437,7 @@
 </li>
 <li class=""><strong>Resultado</strong>: Con una sola instrucción, se completaron dos versiones (concisa y detallada) en un instante y se convirtieron ordenadamente en archivos de Word.</li>
 </ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducción-a-la-arquitectura-rag-evaluación-de-faiss-db">Introducción a la Arquitectura RAG: Evaluación de FAISS DB<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-19-maeumjigi-11#introducci%C3%B3n-a-la-arquitectura-rag-evaluaci%C3%B3n-de-faiss-db" class="hash-link" aria-label="Enlace directo al Introducción a la Arquitectura RAG: Evaluación de FAISS DB" title="Enlace directo al Introducción a la Arquitectura RAG: Evaluación de FAISS DB" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducción-a-la-arquitectura-rag-evaluación-de-faiss-base-de-datos-db">Introducción a la Arquitectura RAG: Evaluación de FAISS Base de Datos (DB)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-19-maeumjigi-11#introducci%C3%B3n-a-la-arquitectura-rag-evaluaci%C3%B3n-de-faiss-base-de-datos-db" class="hash-link" aria-label="Enlace directo al Introducción a la Arquitectura RAG: Evaluación de FAISS Base de Datos (DB)" title="Enlace directo al Introducción a la Arquitectura RAG: Evaluación de FAISS Base de Datos (DB)" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Proceso</strong>:<!-- -->
 <blockquote>
@@ -460,7 +460,7 @@
         <category label="reporte-semanal" term="reporte-semanal"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #10] Levantamiento de Límites de API y Reanudación de la Síntesis de Datos]]></title>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #10] Levantamiento de Límites de Interfaz de Programación de Aplicaciones (API) y Reanudación de la Síntesis de Datos]]></title>
         <id>https://jbjihwan.github.io/global_blog/es/blog/2026-04-14-maeumjigi-10</id>
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-14-maeumjigi-10"/>
         <updated>2026-04-14T00:00:00.000Z</updated>
@@ -546,7 +546,7 @@
         <category label="ERD" term="ERD"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #8] Incidente de la Factura de API y Preparación del Fine-Tuning en Colab]]></title>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #8] Incidente de la Factura de Interfaz de Programación de Aplicaciones (API) y Preparación del Fine-Tuning en Colab]]></title>
         <id>https://jbjihwan.github.io/global_blog/es/blog/2026-04-08-maeumjigi-8</id>
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-08-maeumjigi-8"/>
         <updated>2026-04-08T00:00:00.000Z</updated>
@@ -599,7 +599,7 @@
 y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 60,000 nuevos datos de asesoramiento.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="llenando-los-espacios-en-blanco-generando-datos-sintéticos-de-ia-v5">Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7#llenando-los-espacios-en-blanco-generando-datos-sint%C3%A9ticos-de-ia-v5" class="hash-link" aria-label="Enlace directo al Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)" title="Enlace directo al Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)" translate="no">​</a></h3>
 <ul>
-<li class=""><strong>Problema</strong>: Los datos previamente refinados (v4) por sí solos carecían de emociones específicas o escenarios detallados. Para resolver esto, queríamos usar la API de Claude para generar 60,000 conversaciones virtuales de alta calidad que se ajustaran al formato de entrenamiento Llama 3.1.</li>
+<li class=""><strong>Problema</strong>: Los datos previamente refinados (v4) por sí solos carecían de emociones específicas o escenarios detallados. Para resolver esto, queríamos usar la Interfaz de Programación de Aplicaciones (API) de Claude para generar 60,000 conversaciones virtuales de alta calidad que se ajustaran al formato de entrenamiento Llama 3.1.</li>
 <li class=""><strong>Proceso</strong>:<!-- -->
 <blockquote>
 <p>"Queremos crear un conjunto de datos v5 generado íntegramente por Claude. Por favor, haz un plan."
@@ -649,7 +649,7 @@ y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6"/>
         <updated>2026-04-05T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-ab2d0c8c5701daf6d741d80e55c7b9e0.png" width="1080" height="1080" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1080" height="1080" class="img_ev3q"></p>
 <p>El 5 de abril marca el día en que concluimos el arduo viaje de preprocesamiento de datos (v1~v4) generando un informe final,
 al tiempo que iniciamos (kickoff) el proyecto de frontend que se convertirá en el rostro del servicio web Maeumjigi.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="documentación-perfecta-de-markdown-a-docx-y-gráficos">Documentación Perfecta: De Markdown a DOCX y Gráficos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6#documentaci%C3%B3n-perfecta-de-markdown-a-docx-y-gr%C3%A1ficos" class="hash-link" aria-label="Enlace directo al Documentación Perfecta: De Markdown a DOCX y Gráficos" title="Enlace directo al Documentación Perfecta: De Markdown a DOCX y Gráficos" translate="no">​</a></h3>
@@ -683,7 +683,7 @@ al tiempo que iniciamos (kickoff) el proyecto de frontend que se convertirá en 
         <category label="preprocesamiento" term="preprocesamiento"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #5] Purificando 100,000 Datos de Emociones y la Presión de los Costos de API]]></title>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #5] Purificando 100,000 Datos de Emociones y la Presión de los Costos de Interfaz de Programación de Aplicaciones (API)]]></title>
         <id>https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5</id>
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5"/>
         <updated>2026-04-03T00:00:00.000Z</updated>
@@ -701,7 +701,7 @@ También fue el día en que ejecutamos una canalización masiva que hace que la 
 </li>
 <li class=""><strong>Resultado</strong>: Establecimos <code>v4_plan.md</code> y comenzamos el trabajo. Apuntando inicialmente a 100,000 líneas de datos, escribimos y ejecutamos un script que integra la API de Claude para comprender el contexto de la conversación y reclasificar las emociones.</li>
 </ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-horror-de-la-facturación-de-la-api-llm">El Horror de la Facturación de la API LLM<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5#el-horror-de-la-facturaci%C3%B3n-de-la-api-llm" class="hash-link" aria-label="Enlace directo al El Horror de la Facturación de la API LLM" title="Enlace directo al El Horror de la Facturación de la API LLM" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-horror-de-la-facturación-de-la-api-modelo-de-lenguaje-grande-llm">El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5#el-horror-de-la-facturaci%C3%B3n-de-la-api-modelo-de-lenguaje-grande-llm" class="hash-link" aria-label="Enlace directo al El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)" title="Enlace directo al El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Problema</strong>: Al lanzar cantidades masivas de datos de texto a un LLM (Claude) para su evaluación, el uso de la API (recuento de tokens) aumentó exponencialmente.</li>
 <li class=""><strong>Proceso</strong>:<!-- -->
