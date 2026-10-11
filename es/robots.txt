@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jbjihwan.github.io/global_blog/sitemap.xml
