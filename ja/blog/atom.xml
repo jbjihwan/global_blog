@@ -136,6 +136,66 @@
         <category label="キャップストーン" term="キャップストーン"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Webots ロボティクス] 表形式Q-Learningの実装と報酬関数(Reward Shaping)の最適化 (#2)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2"/>
+        <updated>2026-05-18T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[WebotsモバイルロボットのTabular Q-Learning TD(0)更新数式、ε-Greedy探索減衰戦略、スパース報酬を克服する多目的報酬シェイピング(Dense Reward Shaping)のチューニングプロセスを詳しく解説します。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="学習報酬曲線" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_reward_curve-dafe6b9a6b58ab351aa0d2717b504f0a.png" width="800" height="400" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>キーポイント (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>課題(Problem)</strong>: 目標到達(+1.0)と壁衝突(-1.0)のみが与えられるスパース報酬（Sparse Reward）環境では、エージェントが偶然目標に遭遇するまで数千エピソードにわたり彷徨や空転を繰り返す。</li>
+<li class=""><strong>解決策(Solution)</strong>: 目標とのユークリッド距離の変化量に比例するポテンシャル報酬(+0.1 × Δdist)と、ステップ(-0.01)、旋回(-0.01)、後退(-0.05)ペナルティを組み合わせた**多次元報酬シェイピング（Reward Shaping）**を設計。指数減衰ε-Greedy（1.0 → 0.05）戦略を適用。</li>
+<li class=""><strong>成果(Result)</strong>: 障害物のない環境（<code>no_obstacle</code>）において500エピソード以内に移動平均報酬が正の値（0.7+）へ到達し、最終的な目標到達成功率98%以上を達成。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-表形式q-learning更新数式とエージェント設計">1. 表形式Q-Learning更新数式とエージェント設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#1-%E8%A1%A8%E5%BD%A2%E5%BC%8Fq-learning%E6%9B%B4%E6%96%B0%E6%95%B0%E5%BC%8F%E3%81%A8%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="1. 表形式Q-Learning更新数式とエージェント設計 への直接リンク" title="1. 表形式Q-Learning更新数式とエージェント設計 への直接リンク" translate="no">​</a></h2>
+<p>表形式Q-Learning（Tabular Q-Learning）は、ベルマン最適方程式に基づく**オフポリシー（Off-policy）時間差学習（TD(0)）**アルゴリズムです。</p>
+<p>エージェントは行動価値関数 $Q(s, a)$ を表す $648 \times 4$ のNumPy配列を保持し、環境からの遷移タプル $(s, a, r, s', done)$ を受け取って以下の数式でQ値を更新します。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-q-learning-td0-更新式">📐 Q-Learning TD(0) 更新式<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#-q-learning-td0-%E6%9B%B4%E6%96%B0%E5%BC%8F" class="hash-link" aria-label="📐 Q-Learning TD(0) 更新式 への直接リンク" title="📐 Q-Learning TD(0) 更新式 への直接リンク" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Target = r + γ * max_a' Q(s', a') * (1 - done)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">TD Error = Target - Q(s, a)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">Q(s, a) &lt;- Q(s, a) + α * TD Error</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>学習率 ($\alpha = 0.1$)</strong>: 新しい経験が既存のQ値に反映される速度を調整。</li>
+<li class=""><strong>割引率 ($\gamma = 0.99$)</strong>: 将来得られる報酬の現在価値を評価。</li>
+<li class=""><strong>終端状態処理 (<code>1 - done</code>)</strong>: 目標到達や衝突時に将来価値をゼロにマスキング。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-指数減衰ε-greedy戦略">2. 指数減衰ε-Greedy戦略<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#2-%E6%8C%87%E6%95%B0%E6%B8%9B%E8%A1%B0%CE%B5-greedy%E6%88%A6%E7%95%A5" class="hash-link" aria-label="2. 指数減衰ε-Greedy戦略 への直接リンク" title="2. 指数減衰ε-Greedy戦略 への直接リンク" translate="no">​</a></h2>
+<p>初期学習時は環境の構造を広く知る必要があるため、**$\epsilon = 1.0$ (100%ランダム探索)**から開始します。</p>
+<p>探索率が高すぎると最適な経路を学習しても壁に衝突し続けるため、各エピソード終了時に以下の指数減衰を適用します:</p>
+<p><strong>ε_(ep+1) = max(ε_min, ε_ep × 0.995)</strong></p>
+<ul>
+<li class=""><strong>1エピソード</strong>: $\epsilon = 1.0$</li>
+<li class=""><strong>300エピソード</strong>: $\epsilon \approx 0.22$</li>
+<li class=""><strong>600エピソード</strong>: $\epsilon = 0.05$ (下限到達、95%確率でGreedy行動を実行)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-スパース報酬を克服する報酬関数の設計">3. スパース報酬を克服する報酬関数の設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#3-%E3%82%B9%E3%83%91%E3%83%BC%E3%82%B9%E5%A0%B1%E9%85%AC%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E5%A0%B1%E9%85%AC%E9%96%A2%E6%95%B0%E3%81%AE%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="3. スパース報酬を克服する報酬関数の設計 への直接リンク" title="3. スパース報酬を克服する報酬関数の設計 への直接リンク" translate="no">​</a></h2>
+<table><thead><tr><th style="text-align:left">報酬項目</th><th style="text-align:center">設定値</th><th style="text-align:left">設計意図と物理的効果</th></tr></thead><tbody><tr><td style="text-align:left"><strong>目標到達 (<code>REWARD_GOAL</code>)</strong></td><td style="text-align:center"><strong>+1.0</strong></td><td style="text-align:left">目標到達成功時の正の終端報酬</td></tr><tr><td style="text-align:left"><strong>壁・障害物衝突 (<code>REWARD_COLLISION</code>)</strong></td><td style="text-align:center"><strong>-1.0</strong></td><td style="text-align:left">衝突失敗時の厳格なペナルティ</td></tr><tr><td style="text-align:left"><strong>距離差分報酬 (<code>REWARD_DELTA_SCALE</code>)</strong></td><td style="text-align:center"><strong>+0.1 × Δdist</strong></td><td style="text-align:left">目標へ近づいた距離に応じた即時報酬</td></tr><tr><td style="text-align:left"><strong>ステップ時間ペナルティ (<code>REWARD_STEP</code>)</strong></td><td style="text-align:center"><strong>-0.01</strong></td><td style="text-align:left">その場停止を防ぎ最短時間走行を誘導</td></tr><tr><td style="text-align:left"><strong>旋回ペナルティ (<code>REWARD_TURN</code>)</strong></td><td style="text-align:center"><strong>-0.01</strong></td><td style="text-align:left">不要なコマ回し回転行動を抑制</td></tr><tr><td style="text-align:left"><strong>後退ペナルティ (<code>REWARD_BACKWARD</code>)</strong></td><td style="text-align:center"><strong>-0.05</strong></td><td style="text-align:left">非効率な後退を抑え前進走行を推奨</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-学習曲線と成功率の検証">4. 学習曲線と成功率の検証<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#4-%E5%AD%A6%E7%BF%92%E6%9B%B2%E7%B7%9A%E3%81%A8%E6%88%90%E5%8A%9F%E7%8E%87%E3%81%AE%E6%A4%9C%E8%A8%BC" class="hash-link" aria-label="4. 学習曲線と成功率の検証 への直接リンク" title="4. 学習曲線と成功率の検証 への直接リンク" translate="no">​</a></h2>
+<p>1,500エピソードの学習を実施した結果、理論通りの収束を確認しました。</p>
+<p><img decoding="async" loading="lazy" alt="成功率曲線" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_success_curve-a47390e774a7a40ace8869f29884f2bd.png" width="800" height="400" class="img_ev3q"></p>
+<p>100回移動平均成功率は <strong>98.5%</strong> を超え、エピソードあたりの平均ステップ数は150（タイムアウト）から <strong>15〜22ステップ</strong> まで大幅に短縮されました。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>次回第3回では、12個の壁が配置された <strong><code>obstacle12</code> および高難易度 <code>obstacle_hard</code> 環境における局所的最適解（Local Minima）の罠と、複数シード並列学習</strong>について解説します！</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="強化学習" term="強化学習"/>
+        <category label="Q-learning" term="Q-learning"/>
+        <category label="報酬関数" term="報酬関数"/>
+        <category label="Webots" term="Webots"/>
+        <category label="ロボティクス" term="ロボティクス"/>
+        <category label="機械学習" term="機械学習"/>
+        <category label="Python" term="Python"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19"/>
@@ -761,50 +821,5 @@
         <category label="Next.js" term="Next.js"/>
         <category label="卒業研究" term="卒業研究"/>
         <category label="データ前処理" term="データ前処理"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #5] 10万件の感情データ精製とアプリケーションプログラミングインターフェース(API)コストの重圧]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-03-maeumjigi-5</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-03-maeumjigi-5"/>
-        <updated>2026-04-03T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-b11e4aba2cdefc2e20eacfa1224643d7.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月3日、ディープラーニングモデル（Llama 3.1）に学習させるための対話データを精製する作業に本格的に着手した日の記録です。
-単にデータを統合するだけでなく、人工知能(AI)にテキストを読ませて自ら感情を判別させる巨大なパイプラインを稼働させた日でもあります。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="データ感情の再分類-v3---v4">データ感情の再分類 (v3 -&gt; v4)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-03-maeumjigi-5#%E3%83%87%E3%83%BC%E3%82%BF%E6%84%9F%E6%83%85%E3%81%AE%E5%86%8D%E5%88%86%E9%A1%9E-v3---v4" class="hash-link" aria-label="データ感情の再分類 (v3 -> v4) への直接リンク" title="データ感情の再分類 (v3 -> v4) への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 既存のデータセットの感情ラベリングが、私たちの目指すきめ細かい心理カウンセリングの目的に正確に合致していませんでした。合計100万件のデータの中から意味のあるデータのみをフィルタリングし、正確な感情をマッピングする必要がありました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「範囲は全体の100万件です... Claudeが心理カウンセリングの専門家として会話を読み、直接感情をマッピングするためです。感情分類に含まれないものは除外し、含まれるものだけをフィルタリングします。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: <code>v4_plan.md</code>を作成し、作業を開始しました。一次的に10万行のデータを対象にClaude APIを連動させ、対話の文脈を把握し感情を再分類するスクリプトを作成・稼働させました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="大規模言語モデルllm-api課金の恐怖">大規模言語モデル(LLM) API課金の恐怖<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-03-maeumjigi-5#%E5%A4%A7%E8%A6%8F%E6%A8%A1%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%ABllm-api%E8%AA%B2%E9%87%91%E3%81%AE%E6%81%90%E6%80%96" class="hash-link" aria-label="大規模言語モデル(LLM) API課金の恐怖 への直接リンク" title="大規模言語モデル(LLM) API課金の恐怖 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 膨大なテキストデータをLLM（Claude）に投げて判別させるため、API使用量（トークン数）が幾何級数的に増加する問題が発生しました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「すでにPro購読でClaudeを使用中ですが、APIが別途必要ですか？」
-「Anthropic APIではなくClaude Codeを使用する方法はありませんか？ 課金が負担です。」
-「実際の費用は10.27ドルでした。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: Claude Pro購読（月額20ドル）とは別に、Pythonスクリプトで自動化して大量のデータを処理するために呼び出すAnthropic APIは、使用量に応じた従量課金制であるという痛烈な事実を体感しました。わずか10万行をテスト処理するだけで、瞬く間に約10.27ドルが課金されました。100万件すべてを処理するには莫大な費用がかかることを悟り、モデルの最適化とデータサンプリングの重要性を肌で学んだ一日でした。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-b68f79333fd35ca82a9c594510f851d0.png" width="1800" height="184" class="img_ev3q"></p>
-<p>今日は、ディープラーニングのデータ前処理過程で必然的に直面する「コンピューティングコスト」という現実的な壁にぶつかった日でした。
-結果的に精製された良質なデータを得ることには成功しましたが、今後どのようにこのコストと効率性のバランスを取りながらファインチューニングを進めていくか、深い悩みを抱かせる貴重な経験となりました！</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="データ精製" term="データ精製"/>
-        <category label="ClaudeAPI" term="ClaudeAPI"/>
-        <category label="感情分類" term="感情分類"/>
-        <category label="Llama3.1" term="Llama3.1"/>
-        <category label="コスト問題" term="コスト問題"/>
     </entry>
 </feed>

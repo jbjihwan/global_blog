@@ -120,6 +120,60 @@
             <category>capstone</category>
         </item>
         <item>
+            <title><![CDATA[[Robótica Webots] Implementación de Q-Learning Tabular y Ajuste de la Función de Recompensa (#2)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2</link>
+            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2</guid>
+            <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Análisis en profundidad de las fórmulas de actualización TD(0) de Q-Learning tabular, la estrategia de exploración con decaimiento de epsilon y el modelado de recompensas densas para navegación robótica.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Curva de Recompensa" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_reward_curve-dafe6b9a6b58ab351aa0d2717b504f0a.png" width="800" height="400" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Problema</strong>: Las recompensas dispersas (+1.0 en la meta, -1.0 en colisión) generan grandes retrasos de exploración, provocando que el robot deambule durante miles de episodios antes de encontrar el objetivo.</li>
+<li class=""><strong>Solución</strong>: Diseño de un esquema de <strong>Recompensas Densas (Reward Shaping)</strong> que combina recompensas proporcionales a la reducción de distancia euclidiana (+0.1 × Δdist) con penalizaciones por paso (-0.01), giro (-0.01) y retroceso (-0.05), junto con decaimiento exponencial de epsilon (1.0 → 0.05).</li>
+<li class=""><strong>Resultado</strong>: La recompensa promedio móvil alcanzó valores positivos estables (0.7+) antes de los 500 episodios en el escenario <code>no_obstacle</code>, superando el 98% de tasa de éxito.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-fórmula-de-actualización-de-q-learning-tabular">1. Fórmula de Actualización de Q-Learning Tabular<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#1-f%C3%B3rmula-de-actualizaci%C3%B3n-de-q-learning-tabular" class="hash-link" aria-label="Enlace directo al 1. Fórmula de Actualización de Q-Learning Tabular" title="Enlace directo al 1. Fórmula de Actualización de Q-Learning Tabular" translate="no">​</a></h2>
+<p>Q-Learning tabular es un algoritmo <strong>fuera de política (Off-policy) de Diferencia Temporal (TD(0))</strong> basado en la ecuación de optimalidad de Bellman.</p>
+<p>El agente mantiene una tabla $Q(s, a)$ de dimensiones $648 \times 4$, actualizando los valores $Q$ en tiempo real:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-regla-de-actualización-td0">📐 Regla de Actualización TD(0)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#-regla-de-actualizaci%C3%B3n-td0" class="hash-link" aria-label="Enlace directo al 📐 Regla de Actualización TD(0)" title="Enlace directo al 📐 Regla de Actualización TD(0)" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Target = r + γ * max_a' Q(s', a') * (1 - done)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">TD Error = Target - Q(s, a)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">Q(s, a) &lt;- Q(s, a) + α * TD Error</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>Tasa de aprendizaje ($\alpha = 0.1$)</strong>: Regula la incorporación de nueva experiencia.</li>
+<li class=""><strong>Factor de descuento ($\gamma = 0.99$)</strong>: Pondera el valor de las recompensas futuras a largo plazo.</li>
+<li class=""><strong>Máscara de estado terminal (<code>1 - done</code>)</strong>: Anula el valor futuro al alcanzar el objetivo o colisionar.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-estrategia-de-decaimiento-de-epsilon-greedy">2. Estrategia de Decaimiento de Epsilon-Greedy<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#2-estrategia-de-decaimiento-de-epsilon-greedy" class="hash-link" aria-label="Enlace directo al 2. Estrategia de Decaimiento de Epsilon-Greedy" title="Enlace directo al 2. Estrategia de Decaimiento de Epsilon-Greedy" translate="no">​</a></h2>
+<p>Iniciamos con <strong>$\epsilon = 1.0$ (100% exploración aleatoria)</strong> y aplicamos decaimiento exponencial al final de cada episodio:</p>
+<p><strong>ε_(ep+1) = max(ε_min, ε_ep × 0.995)</strong></p>
+<ul>
+<li class=""><strong>Episodio 1</strong>: $\epsilon = 1.0$ (Exploración completa)</li>
+<li class=""><strong>Episodio 300</strong>: $\epsilon \approx 0.22$ (Transición a explotación de valores Q)</li>
+<li class=""><strong>Episodio 600</strong>: $\epsilon = 0.05$ (Tasa mínima $\epsilon__min$, 95% de acciones voraces/greedy)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-ajuste-de-recompensas-densas">3. Ajuste de Recompensas Densas<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#3-ajuste-de-recompensas-densas" class="hash-link" aria-label="Enlace directo al 3. Ajuste de Recompensas Densas" title="Enlace directo al 3. Ajuste de Recompensas Densas" translate="no">​</a></h2>
+<table><thead><tr><th style="text-align:left">Componente</th><th style="text-align:center">Valor</th><th style="text-align:left">Propósito y Efecto Físico</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Meta alcanzada (<code>REWARD_GOAL</code>)</strong></td><td style="text-align:center"><strong>+1.0</strong></td><td style="text-align:left">Recompensa terminal al llegar con éxito</td></tr><tr><td style="text-align:left"><strong>Colisión (<code>REWARD_COLLISION</code>)</strong></td><td style="text-align:center"><strong>-1.0</strong></td><td style="text-align:left">Penalización estricta por impacto contra la pared</td></tr><tr><td style="text-align:left"><strong>Delta de distancia (<code>REWARD_DELTA_SCALE</code>)</strong></td><td style="text-align:center"><strong>+0.1 × Δdist</strong></td><td style="text-align:left">Recompensa inmediata por reducir la distancia al objetivo</td></tr><tr><td style="text-align:left"><strong>Paso de tiempo (<code>REWARD_STEP</code>)</strong></td><td style="text-align:center"><strong>-0.01</strong></td><td style="text-align:left">Penaliza la inactividad y promueve la ruta más corta</td></tr><tr><td style="text-align:left"><strong>Giro (<code>REWARD_TURN</code>)</strong></td><td style="text-align:center"><strong>-0.01</strong></td><td style="text-align:left">Evita rotaciones innecesarias sobre el propio eje</td></tr><tr><td style="text-align:left"><strong>Retroceso (<code>REWARD_BACKWARD</code>)</strong></td><td style="text-align:center"><strong>-0.05</strong></td><td style="text-align:left">Desalienta la marcha atrás ineficiente</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-evaluación-de-curvas-de-aprendizaje">4. Evaluación de Curvas de Aprendizaje<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#4-evaluaci%C3%B3n-de-curvas-de-aprendizaje" class="hash-link" aria-label="Enlace directo al 4. Evaluación de Curvas de Aprendizaje" title="Enlace directo al 4. Evaluación de Curvas de Aprendizaje" translate="no">​</a></h2>
+<p>Tras 1,500 episodios de entrenamiento en el entorno <code>no_obstacle</code>:</p>
+<p><img decoding="async" loading="lazy" alt="Curva de Éxito" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_success_curve-a47390e774a7a40ace8869f29884f2bd.png" width="800" height="400" class="img_ev3q"></p>
+<p>La tasa de éxito promedio móvil a 100 episodios superó el <strong>98.5%</strong>, y los pasos promedio por episodio se redujeron de 150 (tiempo límite) a solo <strong>15 ~ 22 pasos</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-próximos-pasos">5. Próximos Pasos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2#5-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 5. Próximos Pasos" title="Enlace directo al 5. Próximos Pasos" translate="no">​</a></h2>
+<p>En el episodio #3, abordaremos los escenarios con 12 obstáculos de pared (<strong><code>obstacle12</code> y <code>obstacle_hard</code></strong>), analizando cómo el agente supera los mínimos locales mediante simulaciones paralelas con múltiples semillas.</p>]]></content:encoded>
+            <category>aprendizaje-por-refuerzo</category>
+            <category>q-learning</category>
+            <category>funcion-de-recompensa</category>
+            <category>webots</category>
+            <category>robotica</category>
+            <category>python</category>
+        </item>
+        <item>
             <title><![CDATA[[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD]]></title>
             <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19</link>
             <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-maeumjigi-19</guid>
@@ -670,47 +724,6 @@ al tiempo que iniciamos (kickoff) el proyecto de frontend que se convertirá en 
             <category>Next.js</category>
             <category>capstone</category>
             <category>preprocesamiento</category>
-        </item>
-        <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #5] Purificando 100,000 Datos de Emociones y la Presión de los Costos de Interfaz de Programación de Aplicaciones (API)]]></title>
-            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5</link>
-            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5</guid>
-            <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Imagen de Portada]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-b11e4aba2cdefc2e20eacfa1224643d7.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>Este es el registro del 3 de abril, el día en que comenzamos en serio la tarea de refinar los datos de conversación de entrenamiento para introducirlos en el modelo de aprendizaje profundo (Llama 3.1).
-También fue el día en que ejecutamos una canalización masiva que hace que la IA lea el texto y juzgue la emoción por su cuenta.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reclasificación-de-emociones-de-datos-v3---v4">Reclasificación de Emociones de Datos (v3 -&gt; v4)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5#reclasificaci%C3%B3n-de-emociones-de-datos-v3---v4" class="hash-link" aria-label="Enlace directo al Reclasificación de Emociones de Datos (v3 -> v4)" title="Enlace directo al Reclasificación de Emociones de Datos (v3 -> v4)" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: El etiquetado de emociones del conjunto de datos existente no se alineaba perfectamente con nuestros objetivos de asesoramiento psicológico. De un total de 1 millón de datos, necesitábamos filtrar solo los significativos y mapear con precisión sus emociones.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>"El alcance es el millón entero... Porque Claude leerá la conversación y mapeará directamente la emoción. Estamos filtrando solo lo que cae bajo nuestra clasificación de emociones y excluyendo el resto."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Establecimos <code>v4_plan.md</code> y comenzamos el trabajo. Apuntando inicialmente a 100,000 líneas de datos, escribimos y ejecutamos un script que integra la API de Claude para comprender el contexto de la conversación y reclasificar las emociones.</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-horror-de-la-facturación-de-la-api-modelo-de-lenguaje-grande-llm">El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-03-maeumjigi-5#el-horror-de-la-facturaci%C3%B3n-de-la-api-modelo-de-lenguaje-grande-llm" class="hash-link" aria-label="Enlace directo al El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)" title="Enlace directo al El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Al lanzar cantidades masivas de datos de texto a un LLM (Claude) para su evaluación, el uso de la API (recuento de tokens) aumentó exponencialmente.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>"Ya estoy usando Claude con una suscripción Pro, ¿necesito una API separada?"
-"¿Hay alguna manera de usar Claude Code en lugar de la API de Anthropic? La facturación es pesada."
-"El costo real fue de $10.27."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Nos dimos cuenta dolorosamente de que la API de Anthropic, llamada por el script de Python para el procesamiento por lotes automatizado, se factura según el uso, separado de la suscripción Pro. Procesar 100,000 líneas de prueba nos costó instantáneamente unos $10.27. Al darnos cuenta de que procesar el millón de registros costaría una fortuna, fue un día en el que aprendimos de primera mano la importancia de la optimización del modelo y el muestreo de datos.</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-b68f79333fd35ca82a9c594510f851d0.png" width="1800" height="184" class="img_ev3q"></p>
-<p>Hoy fue el día en que nos golpeamos contra el muro realista de los 'costos computacionales'.
-Aunque logramos obtener datos refinados de alta calidad, fue una experiencia valiosa que nos dejó contemplando cómo equilibrar el costo y la eficiencia a medida que avanzamos con el fine-tuning.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>data-cleaning</category>
-            <category>ClaudeAPI</category>
-            <category>clasificación-emociones</category>
-            <category>Llama3.1</category>
-            <category>api-cost</category>
         </item>
     </channel>
 </rss>
