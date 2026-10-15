@@ -94,6 +94,105 @@
             <category>キャップストーン</category>
         </item>
         <item>
+            <title><![CDATA[[Webotsロボティクス] Sim-to-Real: Arduino Uno、HC-06 Bluetooth、ArUcoマーカー視覚追跡による実世界転移 (#5)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5</guid>
+            <pubDate>Thu, 21 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Webotsシミュレータで検証されたQ-Learning方策を実機2輪Arduino Unoロボットに移植し、天井Webカメラのホモグラフィ補正とArUcoマーカー視覚追跡により実環境自律走行を実現したSim-to-Real完結編。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="ArUcoマーカー視覚追跡画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_aruco_vision-b5bd404f0b35979c465be925a4fac943.png" width="1280" height="720" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>要約 (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>課題(Problem)</strong>: マイコン（Arduino Uno ATmega328P）の2KB SRAMによる計算制約、ホイールスリップやセンサノイズ、シミュレータ物理と実機ハードウェア間の<strong>Sim-to-Realギャップ（Reality Gap）</strong>。</li>
+<li class=""><strong>解決(Solution)</strong>: PCが高レベルな画像処理とQ-Table推論を担当し、ArduinoはモータPWM駆動のみを担う**分散I/Oアーキテクチャ（HC-06 Bluetooth、115,200 baud）<strong>を構築。天井Webカメラの歪み補正と</strong>ArUcoマーカーホモグラフィ（<code>vision.py</code>）**によるリアルタイム(x, y, θ)位置追跡システムを実装。</li>
+<li class=""><strong>結果(Result)</strong>: 仮想環境で学習済みの648-bin Q-Table重みのみを用いて、実機の1.2m × 1.2mアリーナで目標到達成功率86.7%を達成し、ハードウェア展開を完遂。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-sim-to-realの挑戦シミュレーションと現実の乖離">1. Sim-to-Realの挑戦：シミュレーションと現実の乖離<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#1-sim-to-real%E3%81%AE%E6%8C%91%E6%88%A6%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%A8%E7%8F%BE%E5%AE%9F%E3%81%AE%E4%B9%96%E9%9B%A2" class="hash-link" aria-label="1. Sim-to-Realの挑戦：シミュレーションと現実の乖離 への直接リンク" title="1. Sim-to-Realの挑戦：シミュレーションと現実の乖離 への直接リンク" translate="no">​</a></h2>
+<p>仮想環境（Webots）では摩擦係数が均一で、モータは指令通り正確に回転し、距離センサ値に反射ノイズはありません。しかし、現実のハードウェア環境は過酷です：</p>
+<ol>
+<li class=""><strong>計算資源の絶対的制約</strong>: ロボット本体の**Arduino Uno (ATmega328P)**はフラッシュメモリ32KB、SRAMがわずか2KBであり、ニューラルネットワークはおろか複雑な行列演算すら不可能です。</li>
+<li class=""><strong>センサノイズと死角</strong>: 安価な超音波センサはアクリル壁面への入射角によって音波が反射し、距離を0と誤認するか最大値に跳ねる異常値が頻発します。</li>
+<li class=""><strong>ホイールスリップと累積誤差（オドメトリドリフト）</strong>: 床面の微細な凹凸やバッテリ電圧降下により左右モータの回転数に差が生じ、直進指令でも車体が曲がる物理的誤差が発生します。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-分散制御アーキテクチャpc頭脳--arduino筋肉">2. 分散制御アーキテクチャ：PC（頭脳） ↔ Arduino（筋肉）<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#2-%E5%88%86%E6%95%A3%E5%88%B6%E5%BE%A1%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3pc%E9%A0%AD%E8%84%B3--arduino%E7%AD%8B%E8%82%89" class="hash-link" aria-label="2. 分散制御アーキテクチャ：PC（頭脳） ↔ Arduino（筋肉） への直接リンク" title="2. 分散制御アーキテクチャ：PC（頭脳） ↔ Arduino（筋肉） への直接リンク" translate="no">​</a></h2>
+<p>この制約を克服するため、**「頭脳はPC、筋肉はArduino」**という分散制御戦略を採用しました。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph CeilingCam["天井カメラシステム (Ceiling Camera)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Cam["FHD Webカメラ (30 FPS)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Aruco["ArUcoマーカー検出 (DICT_4X4_50)&lt;br&gt;ホモグラフィ平面化 (homography.npy)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Cam --&gt; Aruco</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph PC["ホストPC (Python Engine)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Pose["ロボット位置・姿勢推定 (x, y, θ)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Disc["648-bin Discretizer"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        QL["Trained Q-Table (ε=0)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        BT_Host["HC-06 Bluetooth SPP (115200 baud)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Aruco --&gt; Pose --&gt; Disc --&gt; QL --&gt; BT_Host</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Robot["実機モバイルロボット (Real Robot)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        BT_Slave["HC-06 Bluetooth受信"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCU["Arduino Uno (Firmware)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Motors["L298Nモータドライバ + DCギアモータ"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        BT_Host &lt;--&gt;|"Action Byte [0..3]&lt;br&gt;Ack/Status"| BT_Slave --&gt; MCU --&gt; Motors</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>ホストPCパイプライン</strong>: 天井Webカメラでアリーナ全体を俯瞰し、ロボット上部のArUcoマーカーを30fpsで追跡。平面座標<code>(x, y, θ)</code>を計算して648の離散状態にマッピングし、Q-Tableから最適な貪欲行動を抽出。</li>
+<li class=""><strong>HC-06通信最適化</strong>: Bluetoothシリアルポートプロファイル（SPP）の往復遅延時間（RTT）を最小化するため、通信ボーレートを標準の9,600から<strong>115,200 bps</strong>に引き上げ、30〜50Hzのリアルタイム制御周期を実現。</li>
+<li class=""><strong>Arduinoファームウェア (<code>arduino_firmware.ino</code>)</strong>: PCから行動バイト（0: 直進, 1: 後退, 2: 左旋回, 3: 右旋回）を受信すると、L298NモータドライバにPWM信号を出力して精密なパルス駆動を実行。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-天井webカメラのホモグラフィとarucoマーカー視覚追跡">3. 天井WebカメラのホモグラフィとArUcoマーカー視覚追跡<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#3-%E5%A4%A9%E4%BA%95web%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%AE%E3%83%9B%E3%83%A2%E3%82%B0%E3%83%A9%E3%83%95%E3%82%A3%E3%81%A8aruco%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E8%A6%96%E8%A6%9A%E8%BF%BD%E8%B7%A1" class="hash-link" aria-label="3. 天井WebカメラのホモグラフィとArUcoマーカー視覚追跡 への直接リンク" title="3. 天井WebカメラのホモグラフィとArUcoマーカー視覚追跡 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="ハードウェアセットアップとアリーナ較正" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_hardware_setup-fddea6cef90bd71036b2aff5eef38f33.png" width="1707" height="1067" class="img_ev3q"></p>
+<p>実アリーナ上でロボットの位置と障害物距離を正確に計測するため、<strong>OpenCVベースのコンピュータビジョンパイプライン</strong>を構築しました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-透視歪み補正とホモグラフィ変換-calib_autopy">📐 透視歪み補正とホモグラフィ変換 (<code>calib_auto.py</code>)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#-%E9%80%8F%E8%A6%96%E6%AD%AA%E3%81%BF%E8%A3%9C%E6%AD%A3%E3%81%A8%E3%83%9B%E3%83%A2%E3%82%B0%E3%83%A9%E3%83%95%E3%82%A3%E5%A4%89%E6%8F%9B-calib_autopy" class="hash-link" aria-label="-透視歪み補正とホモグラフィ変換-calib_autopy への直接リンク" title="-透視歪み補正とホモグラフィ変換-calib_autopy への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>チェッカーボード歪み較正</strong>: 広角Webカメラレンズの樽型歪み（Barrel Distortion）を除去するため、チェッカーボードパターンを用いてカメラ内部パラメータ行列(K)と歪み係数(D)を事前算出。</li>
+<li class=""><strong>ホモグラフィ変換 (Perspective Transform)</strong>: 傾斜したカメラ画角を1.2m × 1.2mの正方形トップダウンビューに射影するため、アリーナ四隅の座標からホモグラフィ変換行列（<code>homography.npy</code>）を生成。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-arucoマーカー追跡実装-visionpy">💻 ArUcoマーカー追跡実装 (<code>vision.py</code>)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#-aruco%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E8%BF%BD%E8%B7%A1%E5%AE%9F%E8%A3%85-visionpy" class="hash-link" aria-label="-arucoマーカー追跡実装-visionpy への直接リンク" title="-arucoマーカー追跡実装-visionpy への直接リンク" translate="no">​</a></h3>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> cv2</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> numpy </span><span class="token keyword" style="color:#00009f">as</span><span class="token plain"> np</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic"># ArUco辞書および検出パラメータの初期化</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">aruco_dict </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">aruco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">getPredefinedDictionary</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">aruco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">DICT_4X4_50</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">parameters </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">aruco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">DetectorParameters</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">detector </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">aruco</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">ArucoDetector</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">aruco_dict</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> parameters</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">get_robot_pose</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">frame</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> homography_matrix</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token triple-quoted-string string" style="color:#e3116c">"""歪み補正画像からロボットの平面座標(x, y)と方位角(theta)を算出"""</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    warped </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">warpPerspective</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">frame</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> homography_matrix</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">600</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">600</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    corners</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> ids</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> _ </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> detector</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">detectMarkers</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">warped</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> ids </span><span class="token keyword" style="color:#00009f">is</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">not</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">None</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">and</span><span class="token plain"> </span><span class="token builtin">len</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ids</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        c </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> corners</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        center_x </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token builtin">float</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">mean</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">:</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        center_y </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token builtin">float</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">mean</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">:</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token comment" style="color:#999988;font-style:italic"># マーカーの前方エッジベクトルからロボットの向き(theta)を計算</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        front_x </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2.0</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        front_y </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> c</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2.0</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        theta </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">arctan2</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">front_y </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> center_y</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> front_x </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> center_x</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> center_x</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> center_y</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> theta</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">None</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-トラブルシューティングと実機評価結果">4. トラブルシューティングと実機評価結果<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#4-%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E5%AE%9F%E6%A9%9F%E8%A9%95%E4%BE%A1%E7%B5%90%E6%9E%9C" class="hash-link" aria-label="4. トラブルシューティングと実機評価結果 への直接リンク" title="4. トラブルシューティングと実機評価結果 への直接リンク" translate="no">​</a></h2>
+<p>シミュレーションから実機への移行時に発生した課題と、そのエンジニアリング的解決策は以下の通りです：</p>
+<table><thead><tr><th style="text-align:left">課題 (Troubleshooting)</th><th style="text-align:left">原因分析</th><th style="text-align:left">解決策 (Solution)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>直進指令時に左右どちらかへ偏行</strong></td><td style="text-align:left">左右DCモータのギア比および摩擦の個体差</td><td style="text-align:left">キャリブレーションスクリプト（<code>ble_vision_turn_calib.py</code>）により左右PWMオフセットを動的補正</td></tr><tr><td style="text-align:left"><strong>Bluetooth通信途絶時の暴走</strong></td><td style="text-align:left">電波干渉によるパケット欠損時に直前指令を維持</td><td style="text-align:left">200ms以上パケット途絶で即時モータを停止するウォッチドッグ（Watchdog）をファームウェアに実装</td></tr><tr><td style="text-align:left"><strong>蛍光灯の反射によるマーカー見失い</strong></td><td style="text-align:left">天井照明がマーカーのアクリル表面で乱反射</td><td style="text-align:left">適応的二値化（Adaptive Threshold）の調整と前時刻カルマンフィルタ（Kalman Filter）による補間</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-最終実機走行結果">🏆 最終実機走行結果<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#-%E6%9C%80%E7%B5%82%E5%AE%9F%E6%A9%9F%E8%B5%B0%E8%A1%8C%E7%B5%90%E6%9E%9C" class="hash-link" aria-label="🏆 最終実機走行結果 への直接リンク" title="🏆 最終実機走行結果 への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>障害物回避・ゴール到達成功率</strong>: 実際の1.2m × 1.2mアリーナで30回の走行テストを実施した結果、**86.7%（26/30回成功）**の高い到達率を記録。</li>
+<li class="">シミュレーションで学習した<strong>2,592個の純粋なQ-Tableパラメータのみ</strong>で、実世界の物理ノイズを克服して自律走行を達成しました。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-rl-q-learning-連載シリーズの完結にあたって">5. RL Q-Learning 連載シリーズの完結にあたって<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-21-rl-qlearning-5#5-rl-q-learning-%E9%80%A3%E8%BC%89%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%AE%E5%AE%8C%E7%B5%90%E3%81%AB%E3%81%82%E3%81%9F%E3%81%A3%E3%81%A6" class="hash-link" aria-label="5. RL Q-Learning 連載シリーズの完結にあたって への直接リンク" title="5. RL Q-Learning 連載シリーズの完結にあたって への直接リンク" translate="no">​</a></h2>
+<p>全5回にわたる<strong>RL Q-Learningプロジェクト</strong>開発日誌の連載が完結しました：</p>
+<ol>
+<li class=""><strong>#1</strong>: 648状態空間の離散化モデリングとTCPソケットIPC通信設計</li>
+<li class=""><strong>#2</strong>: Tabular Q-Learning $\epsilon$-減衰探索と多目的報酬シェイピング</li>
+<li class=""><strong>#3</strong>: 12壁障害物アリーナでの局所解脱出とHeadless高速化自動実行</li>
+<li class=""><strong>#4</strong>: <code>evaluate_qlearning</code> による決定論的定量評価とDQN・SARSAとの性能比較</li>
+<li class=""><strong>#5</strong>: Arduino Uno、Bluetooth通信、ArUco視覚追跡によるSim-to-Real実機展開</li>
+</ol>
+<p>仮想シミュレータの構築から始まり、アルゴリズムの理論検証、大規模ヘッドレス自動化、そして実機組み込みハードウェアへの移植に至る強化学習ロボティクスの全工程を記録することができました。今後の新たなプロジェクト連載にもぜひご期待ください！</p>]]></content:encoded>
+            <category>強化学習</category>
+            <category>Sim-to-Real</category>
+            <category>Arduino</category>
+            <category>ロボティクス</category>
+            <category>コンピュータビジョン</category>
+            <category>ArUco</category>
+            <category>Python</category>
+        </item>
+        <item>
+            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[カバー画像]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
+<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
+<blockquote>
+<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
+</blockquote>
+<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
+<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
+<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
+<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
+<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
+            <category>開発日誌</category>
+            <category>ファインチューニング</category>
+            <category>バックエンド</category>
+            <category>フロントエンド</category>
+            <category>データベース</category>
+            <category>キャップストーン</category>
+        </item>
+        <item>
             <title><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4</link>
             <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4</guid>
@@ -129,33 +228,6 @@
             <category>SARSA</category>
             <category>ロボティクス</category>
             <category>Python</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
-<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
-<blockquote>
-<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
-</blockquote>
-<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
-<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
-<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
-<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>バックエンド</category>
-            <category>フロントエンド</category>
-            <category>データベース</category>
-            <category>キャップストーン</category>
         </item>
         <item>
             <title><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
@@ -267,6 +339,38 @@
             <category>Python</category>
         </item>
         <item>
+            <title><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[カバー画像]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
+<p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
+<blockquote>
+<p>「モデルの推論結果を比較するレポートを作成するためのプロンプトを作って。それに従ってレポートを作成して。」</p>
+</blockquote>
+<p>AIに結果指標を解釈させ、レポートの草案を自動で作成させるプロンプトエンジニアリングを試みました。結果として、AIが各モデルの長所と短所を分析し、立派なWord（.docx）レポートの草案を出力してくれました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドdb連携と401-unauthorizedの沼">バックエンドDB連携と401 Unauthorizedの沼<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89db%E9%80%A3%E6%90%BA%E3%81%A8401-unauthorized%E3%81%AE%E6%B2%BC" class="hash-link" aria-label="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" title="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" translate="no">​</a></h3>
+<p>レポートが終わるやいなや、システム安定性をテストするために<code>backup.sql</code>データをローカルのPostgreSQL DBに流し込む作業を始めました。</p>
+<blockquote>
+<p>「ログイン成功したのにメニューを押しても反応がない」
+「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
+</blockquote>
+<p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
+<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
+<p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content:encoded>
+            <category>開発日誌</category>
+            <category>ファインチューニング</category>
+            <category>レポート</category>
+            <category>バックエンド</category>
+            <category>DB</category>
+            <category>トラブルシューティング</category>
+            <category>キャップストーン</category>
+        </item>
+        <item>
             <title><![CDATA[[Webots ロボティクス] Q-Learning 自律走行: 648状態空間の離散化とソケット通信アーキテクチャ (#1)]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</link>
             <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</guid>
@@ -330,38 +434,6 @@
             <category>ロボティクス</category>
             <category>状態空間離散化</category>
             <category>Python</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</guid>
-            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
-<p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
-<blockquote>
-<p>「モデルの推論結果を比較するレポートを作成するためのプロンプトを作って。それに従ってレポートを作成して。」</p>
-</blockquote>
-<p>AIに結果指標を解釈させ、レポートの草案を自動で作成させるプロンプトエンジニアリングを試みました。結果として、AIが各モデルの長所と短所を分析し、立派なWord（.docx）レポートの草案を出力してくれました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドdb連携と401-unauthorizedの沼">バックエンドDB連携と401 Unauthorizedの沼<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89db%E9%80%A3%E6%90%BA%E3%81%A8401-unauthorized%E3%81%AE%E6%B2%BC" class="hash-link" aria-label="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" title="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" translate="no">​</a></h3>
-<p>レポートが終わるやいなや、システム安定性をテストするために<code>backup.sql</code>データをローカルのPostgreSQL DBに流し込む作業を始めました。</p>
-<blockquote>
-<p>「ログイン成功したのにメニューを押しても反応がない」
-「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
-</blockquote>
-<p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
-<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
-<p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>レポート</category>
-            <category>バックエンド</category>
-            <category>DB</category>
-            <category>トラブルシューティング</category>
-            <category>キャップストーン</category>
         </item>
         <item>
             <title><![CDATA[[マウムジギ 開発日誌 #18] 推論トークン拡張と2次ファインチューニング結果比較]]></title>
@@ -705,45 +777,6 @@
             <category>トラブルシューティング</category>
             <category>PPT生成</category>
             <category>ERD</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #8] アプリケーションプログラミングインターフェース(API)料金爆弾事件とColabファインチューニング準備]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-08-maeumjigi-8</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-08-maeumjigi-8</guid>
-            <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f7c92824c3649488552585cfabf025b7.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月8日は、マウムジギプロジェクトを進める中で最大の危機であり、「笑えない」ハプニングが発生した日です。それはまさに<strong>Claude API月間限度額超過および料金爆弾事件</strong>です。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックグラウンドの裏切り10件生成に1ドルだと">バックグラウンドの裏切り：「10件生成に1ドルだと？」<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-08-maeumjigi-8#%E3%83%90%E3%83%83%E3%82%AF%E3%82%B0%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%89%E3%81%AE%E8%A3%8F%E5%88%87%E3%82%8A10%E4%BB%B6%E7%94%9F%E6%88%90%E3%81%AB1%E3%83%89%E3%83%AB%E3%81%A0%E3%81%A8" class="hash-link" aria-label="バックグラウンドの裏切り：「10件生成に1ドルだと？」 への直接リンク" title="バックグラウンドの裏切り：「10件生成に1ドルだと？」 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 昨日最適化を終えたと安心し、大規模なテストデータセット生成スクリプトをバックグラウンドでオンにしたまま放置しました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「問題：月間限度額を超過して費用が請求されている。バックグラウンドでAPIが動いていると思って放っておいたらこんなことになった。」
-「いや、10件生成するのに1ドル消費されるなんてあり得るか？」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 大規模言語モデル(LLM)を使って高品質のカウンセリングデータを合成（Synthesis）する過程で、プロンプトのコンテキスト（入力トークン）が蓄積され、コストが幾何級数的に増加したのです。月間決済限度額を超過してスクリプトが停止する事態が発生し、結局人工知能(AI)に「リアルタイムで予想消費量と費用、進行状況をコンソールに出力し、限度額超過を防止する機能を今すぐ追加しろ」と緊急指示を下しました。クラウドやAPIを使用する際、料金モニタリングがどれほど重要か骨身に染みて感じました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="llama-31訓練のためのcolabノートブック作成">Llama 3.1訓練のためのColabノートブック作成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-08-maeumjigi-8#llama-31%E8%A8%93%E7%B7%B4%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AEcolab%E3%83%8E%E3%83%BC%E3%83%88%E3%83%96%E3%83%83%E3%82%AF%E4%BD%9C%E6%88%90" class="hash-link" aria-label="Llama 3.1訓練のためのColabノートブック作成 への直接リンク" title="Llama 3.1訓練のためのColabノートブック作成 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: データが準備されつつあるので、今度は実際にLlama 3.1モデルをファインチューニング（Fine-Tuning）するコードが必要でした。ローカルPCのGPUでは到底足りないため、Google Colab環境を使用しなければなりませんでした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「llama31_finetuning_experiment_plan_revised.mdをColabで進行するためのpython notebookを作成してください。」
-「訓練dataをtrain/val/testではなくtrain/valにのみ分割し、9:1の比率で分ける。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: AIが自ら訓練計画書を読み、<code>llama31_finetuning_colab.ipynb</code>という完璧なJupyter Notebookコードを書いてくれました。Unslothなどの最新軽量化ライブラリをセットアップし、データセットを9:1の比率で分割して学習と検証に使用するロジックまで完璧に実装しました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-86bdd9a3e631fcd2af568d255082a2b1.png" width="1800" height="184" class="img_ev3q"></p>
-<p>今日はAPI料金爆弾という恐ろしい通過儀礼を経て、プロジェクトの現実的な壁を乗り越えた一日でした。しかし、その代償として素晴らしいデータセットとファインチューニング用のColabノートブックが完成しました。ついに次の段階は、本物の人工知能モデルを訓練（Training）することです！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>API課金</category>
-            <category>Llama3.1</category>
-            <category>ファインチューニング</category>
-            <category>GoogleColab</category>
-            <category>データ前処理</category>
         </item>
     </channel>
 </rss>
