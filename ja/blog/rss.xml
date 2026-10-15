@@ -121,6 +121,59 @@
             <category>キャップストーン</category>
         </item>
         <item>
+            <title><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3</guid>
+            <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[12個の壁障害物環境(obstacle12)と高難易度マップ(obstacle_hard)において直面した局所的最適解（Local Minima）の克服と、Webots Headless高速化による3シード並列実験の分析。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="obstacle12 シミュレーション環境" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_obstacle12_arena-bc2bc496b7ff2cdfe32dd9630f39bd68.png" width="1438" height="966" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>キーポイント (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>課題(Problem)</strong>: 壁の背後に目標がある場合、距離差分報酬(+0.1 × Δdist)の貪欲な性質により壁を迂回できず正面衝突を繰り返し閉じ込められる**局所解（Local Minima）**が発生。</li>
+<li class=""><strong>解決策(Solution)</strong>: 3方向超音波ヘッドスキャン（前方・左・右）状態情報と長期的割引率（γ=0.99）の結合 ＋ PowerShellによる**Webots Headless無人高速パイプライン（<code>headless_run.ps1</code>）**を構築し、3シード（Seed 0, 1, 2）の並列反復学習を実施。</li>
+<li class=""><strong>成果(Result)</strong>: 12壁障害物環境においても平均600エピソード以降に90%以上の安定した到達成功率を達成し、確実な迂回ポリシー（Detour Policy）の獲得を実証。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-障害物環境における課題-local-minimaの罠">1. 障害物環境における課題: Local Minimaの罠<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#1-%E9%9A%9C%E5%AE%B3%E7%89%A9%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E8%AA%B2%E9%A1%8C-local-minima%E3%81%AE%E7%BD%A0" class="hash-link" aria-label="1. 障害物環境における課題: Local Minimaの罠 への直接リンク" title="1. 障害物環境における課題: Local Minimaの罠 への直接リンク" translate="no">​</a></h2>
+<p>障害物のない環境（<code>no_obstacle</code>）とは異なり、アリーナ内に**12個の壁障害物（<code>obstacle12</code>）**を配置すると深刻な走行ボトルネックが発生しました。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start["出発点 (Robot)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall["壁障害物 (Wall)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Goal["目標地点 (Goal)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start --&gt;|"直進（距離短縮を優先）"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall -.-&gt;|"衝突＆スタック（局所解）"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start ==&gt;|"迂回ポリシー（Detour）&lt;br&gt;一時的な距離後退を許容"| Goal</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>ジレンマ</strong>: 目標が壁の向こう側にある場合、目標へ直進しようとすると必ず壁に衝突します。</li>
+<li class=""><strong>報酬の逆効果</strong>: 迂回するためには一時的に目標から離れる（負の距離報酬）必要がありますが、近視眼的な行動はこれを避けるため、壁の前で空転するかタイムアウトするデッドロックに陥ります。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-解決戦略-ヘッドスキャン状態と価値の逆伝播">2. 解決戦略: ヘッドスキャン状態と価値の逆伝播<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#2-%E8%A7%A3%E6%B1%BA%E6%88%A6%E7%95%A5-%E3%83%98%E3%83%83%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E7%8A%B6%E6%85%8B%E3%81%A8%E4%BE%A1%E5%80%A4%E3%81%AE%E9%80%86%E4%BC%9D%E6%92%AD" class="hash-link" aria-label="2. 解決戦略: ヘッドスキャン状態と価値の逆伝播 への直接リンク" title="2. 解決戦略: ヘッドスキャン状態と価値の逆伝播 への直接リンク" translate="no">​</a></h2>
+<p>この局所解を克服できた要因は、**3方向障害物センサ（前方・左・右）<strong>と</strong>高い割引率（$\gamma = 0.99$）**の組み合わせです。</p>
+<ol>
+<li class=""><strong>知覚状態の拡張</strong>: 前方危険時に左右のヘッドスキャンで安全な方向を発見し、横方向への旋回を誘導。</li>
+<li class=""><strong>長期的価値の伝播</strong>: 一時的な距離の後退があっても、壁を回って目標へ到達すれば大きな終端報酬（+1.0）が得られます。割引率 $\gamma = 0.99$ により、迂回行動の価値が逆順にQテーブルへ反映され、エージェントは迂回ポリシーを獲得します。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-webots-headless-自動化パイプライン">3. Webots Headless 自動化パイプライン<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#3-webots-headless-%E8%87%AA%E5%8B%95%E5%8C%96%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3" class="hash-link" aria-label="3. Webots Headless 自動化パイプライン への直接リンク" title="3. Webots Headless 自動化パイプライン への直接リンク" translate="no">​</a></h2>
+<p>複数シード（Seed 0, 1, 2）による実験を効率化するため、GUIレンダリングを無効化した超高速モード（<code>--mode=fast --no-rendering</code>）を実行する <strong><code>headless_run.ps1</code></strong> を構築しました。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-学習曲線の比較分析">4. 学習曲線の比較分析<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#4-%E5%AD%A6%E7%BF%92%E6%9B%B2%E7%B7%9A%E3%81%AE%E6%AF%94%E8%BC%83%E5%88%86%E6%9E%90" class="hash-link" aria-label="4. 学習曲線の比較分析 への直接リンク" title="4. 学習曲線の比較分析 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="学習曲線の比較" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_comparison_curves-0d241e07d5b445acc1866d00247179b7.png" width="1625" height="585" class="img_ev3q"></p>
+<p>障害物なし環境と12壁障害物環境の比較結果:</p>
+<ul>
+<li class=""><strong>最終到達成功率</strong>: <code>no_obstacle</code> の98.5%に対し、<code>obstacle12</code> では <strong>91.4%〜94.8%</strong> を達成。</li>
+<li class=""><strong>平均ステップ数</strong>: 直進主体の15〜22ステップから、迂回を含む <strong>38〜52ステップ</strong> へと適応。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>次回第4回では、保存されたモデル（<code>models/*.npy</code>）を読み込み、純粋な決定論的走行の定量的評価を行う <strong><code>evaluate_qlearning.py</code> ベンチマークおよびDQN/SARSAとの性能比較</strong>をお届けします！</p>]]></content:encoded>
+            <category>強化学習</category>
+            <category>Q-learning</category>
+            <category>Webots</category>
+            <category>障害物回避</category>
+            <category>局所解</category>
+            <category>Headless</category>
+            <category>Python</category>
+        </item>
+        <item>
             <title><![CDATA[[Webots ロボティクス] 表形式Q-Learningの実装と報酬関数(Reward Shaping)の最適化 (#2)]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2</link>
             <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2</guid>
@@ -706,42 +759,6 @@
             <category>データ生成</category>
             <category>フロントエンド</category>
             <category>コスト最適化</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #6] 前処理最終報告書の自動化とフロントエンドのキックオフ]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-05-maeumjigi-6</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-05-maeumjigi-6</guid>
-            <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-ab2d0c8c5701daf6d741d80e55c7b9e0.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月5日は、これまで進めてきた過酷なデータ前処理プロセス（v1〜v4）をまとめる最終報告書を作成し、
-同時にマウムジギウェブサービスの顔となるフロントエンドプロジェクトを本格的にキックオフした日です。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="markdownからdocxグラフ生成まで完璧な文書化">MarkdownからDOCX、グラフ生成まで完璧な文書化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-05-maeumjigi-6#markdown%E3%81%8B%E3%82%89docx%E3%82%B0%E3%83%A9%E3%83%95%E7%94%9F%E6%88%90%E3%81%BE%E3%81%A7%E5%AE%8C%E7%92%A7%E3%81%AA%E6%96%87%E6%9B%B8%E5%8C%96" class="hash-link" aria-label="MarkdownからDOCX、グラフ生成まで完璧な文書化 への直接リンク" title="MarkdownからDOCX、グラフ生成まで完璧な文書化 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 指導教授やチームメンバーに、これまでの膨大な前処理プロセスを視覚的にわかりやすく共有する必要がありました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>Claude Codeへ: 「データ前処理プロセス（v1, v2, v3, v4）を要約して最終報告書を作成してください... 各バージョン別の代表的な例を追加して。」
-「このmdファイルをdocxファイルに変更してください... グラフで表現可能なものはグラフを追加して作って。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 驚くべきことに、人工知能(AI)はこれまで作業したPythonコードとJSONデータを分析し、コアとなる要約報告書をMarkdownであっという間に書き上げました。それにとどまらず、自らPythonライブラリ（<code>python-docx</code>, <code>matplotlib</code>）をインストールしてスクリプトを書き、Markdownを綺麗なWord（DOCX）ファイルに変換し、感情分布グラフまで描画して挿入してくれました！文書作成に費やされる時間を画期的に短縮した瞬間でした。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nextjsベースのフロントエンドプロジェクトキックオフ">Next.jsベースのフロントエンドプロジェクトキックオフ<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-05-maeumjigi-6#nextjs%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%AD%E3%83%83%E3%82%AF%E3%82%AA%E3%83%95" class="hash-link" aria-label="Next.jsベースのフロントエンドプロジェクトキックオフ への直接リンク" title="Next.jsベースのフロントエンドプロジェクトキックオフ への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: AIモデルの訓練とは別に、ユーザーが実際にチャットボットと対話できるウェブインターフェースが必要でした。</li>
-<li class=""><strong>過程</strong>: （バックグラウンドタスク）ユーザー（将兵）に馴染みのある高速なUIを提供するため、Next.jsベースのフロントエンドプロジェクトのセットアップを指示しました。</li>
-<li class=""><strong>結果</strong>: <code>maeumjigi/frontend/</code>パスに<code>package.json</code>、<code>tsconfig.json</code>などが生成され、最新トレンドであるNext.jsベースのフロントエンド環境が正常にセットアップされました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-06bbe4ff4a07d082cb89e2c7482e0833.png" width="2168" height="184" class="img_ev3q"></p>
-<p>今日は、AIの能力が単なるコーディングを超えて「文書要約、グラフ視覚化、DOCXファイル生成」という優れた事務アシスタントの役割まで完璧に遂行できることを証明した日でした。
-データ前処理という大きな山を一つ越え、いよいよ本格的にユーザーと出会うフロントエンド開発の錨を下ろしました！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>最終報告書</category>
-            <category>自動化</category>
-            <category>Next.js</category>
-            <category>卒業研究</category>
-            <category>データ前処理</category>
         </item>
     </channel>
 </rss>

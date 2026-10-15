@@ -135,6 +135,75 @@
             <category>capstone</category>
         </item>
         <item>
+            <title><![CDATA[[Webots Robotics] Conquering Local Minima in 12-Wall Obstacles: Multi-Seed Headless Simulation (#3)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3</link>
+            <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3</guid>
+            <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Overcoming the Local Minima dilemma in complex 12-wall obstacle environments (obstacle12) and orchestrating high-speed automated multi-seed Webots simulations.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="obstacle12 Simulation Arena" src="https://jbjihwan.github.io/global_blog/assets/images/01_obstacle12_arena-bc2bc496b7ff2cdfe32dd9630f39bd68.png" width="1438" height="966" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Problem</strong>: When a goal lies directly behind an obstacle, the myopic nature of distance-delta rewards (+0.1 × Δdist) pulls the robot into head-on collisions, trapping it in severe <strong>Local Minima</strong>.</li>
+<li class=""><strong>Solution</strong>: Integrated 3-way head-scan obstacle perception (front/left/right) with long-horizon Bellman value propagation (γ=0.99), alongside an automated PowerShell <strong>Webots Headless pipeline (<code>headless_run.ps1</code>)</strong> executing multi-seed training across seeds 0, 1, and 2.</li>
+<li class=""><strong>Result</strong>: The agent successfully learned robust detour policies in the 12-wall arena, achieving a 90%+ goal success rate after 600 episodes.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-the-obstacle-challenge-the-local-minima-trap">1. The Obstacle Challenge: The Local Minima Trap<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#1-the-obstacle-challenge-the-local-minima-trap" class="hash-link" aria-label="Direct link to 1. The Obstacle Challenge: The Local Minima Trap" title="Direct link to 1. The Obstacle Challenge: The Local Minima Trap" translate="no">​</a></h2>
+<p>In an empty arena (<code>no_obstacle</code>), navigating is simply a matter of steering toward the target heading. However, introducing <strong>12 interior walls (<code>obstacle12</code>)</strong> unveiled a critical bottleneck in reward design:</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start["Start (Robot)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall["Obstacle Wall"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Goal["Target Goal"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start --&gt;|"Direct drive (greedy distance reward)"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall -.-&gt;|"Collision &amp; deadlocked (Local Minima)"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start ==&gt;|"Detour Policy&lt;br&gt;Accepts temporary distance penalty"| Goal</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>The Dilemma</strong>: When the target is directly on the other side of an interior wall, driving straight ahead leads directly to collision.</li>
+<li class=""><strong>Reward Conflict</strong>: Circumnavigating the wall requires moving temporarily away from the goal (negative distance delta). Under naive exploration, the agent enters a deadlock—spinning or timing out against the wall.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-solution-strategy-head-scan-perception--value-backpropagation">2. Solution Strategy: Head-Scan Perception &amp; Value Backpropagation<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#2-solution-strategy-head-scan-perception--value-backpropagation" class="hash-link" aria-label="Direct link to 2. Solution Strategy: Head-Scan Perception &amp; Value Backpropagation" title="Direct link to 2. Solution Strategy: Head-Scan Perception &amp; Value Backpropagation" translate="no">​</a></h2>
+<p>Overcoming this trap relies on coupling <strong>3-directional head-scan perception</strong> with a <strong>high discount factor ($\gamma = 0.99$)</strong>:</p>
+<ol>
+<li class=""><strong>Perceptual State Discretization</strong>:<!-- -->
+<ul>
+<li class="">Attempting to advance while <code>front_distance = Danger</code> yields a heavy collision penalty (-1.0).</li>
+<li class="">Sweeping the sensor head left and right reveals free avenues (<code>left_distance = Safe</code> or <code>right_distance = Safe</code>), encouraging lateral turns.</li>
+</ul>
+</li>
+<li class=""><strong>Long-Term Temporal Difference Credit Assignment</strong>:<!-- -->
+<ul>
+<li class="">Although turning away temporarily depresses the step reward, successfully rounding the wall and reaching the target yields the substantial terminal reward (+1.0).</li>
+<li class="">Backpropagated through $Q(s, a)$ with $\gamma = 0.99$, the agent gradually learns that detour steps possess higher expected return than head-on approaches.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-webots-headless-automation-pipeline">3. Webots Headless Automation Pipeline<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#3-webots-headless-automation-pipeline" class="hash-link" aria-label="Direct link to 3. Webots Headless Automation Pipeline" title="Direct link to 3. Webots Headless Automation Pipeline" translate="no">​</a></h2>
+<p>Rigorous reinforcement learning requires <strong>multi-seed validation (Seeds 0, 1, 2)</strong>. Running 1,500 episodes interactively in the Webots GUI three times would take many hours.</p>
+<p>We automated this with a <strong><code>headless_run.ps1</code> PowerShell script</strong>, launching Webots in high-speed, no-render mode (<code>--mode=fast --no-rendering</code>):</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-automated-pipeline-headless_runps1">💻 Automated Pipeline (<code>headless_run.ps1</code>)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#-automated-pipeline-headless_runps1" class="hash-link" aria-label="Direct link to -automated-pipeline-headless_runps1" title="Direct link to -automated-pipeline-headless_runps1" translate="no">​</a></h3>
+<div class="language-powershell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-powershell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain"># Launch Webots in background headless fast mode</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">$webotsProc = Start-Process -FilePath $WebotsExe `</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    -ArgumentList @("--mode=fast", "--no-rendering", "--stdout", "--stderr", $WorldFile) `</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    -PassThru</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># Train agent over socket IPC</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">python train_qlearning.py --scenario obstacle12 --seed 0 --episodes 1500</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># Cleanup process and generate performance plots</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">Stop-Process -Id $webotsProc.Id -Force</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">python -m qlearning.plot_curves --log-dir logs/obstacle12/seed_0</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-empirical-evaluation-cross-environment-learning-curves">4. Empirical Evaluation: Cross-Environment Learning Curves<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#4-empirical-evaluation-cross-environment-learning-curves" class="hash-link" aria-label="Direct link to 4. Empirical Evaluation: Cross-Environment Learning Curves" title="Direct link to 4. Empirical Evaluation: Cross-Environment Learning Curves" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Cross-Environment Learning Curves" src="https://jbjihwan.github.io/global_blog/assets/images/02_comparison_curves-0d241e07d5b445acc1866d00247179b7.png" width="1625" height="585" class="img_ev3q"></p>
+<p>The graph above contrasts convergence across 3 random seeds between the unobstructed world (<code>no_obstacle</code>) and the 12-wall obstacle world (<code>obstacle12</code>).</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-benchmark-metrics">📊 Benchmark Metrics<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#-benchmark-metrics" class="hash-link" aria-label="Direct link to 📊 Benchmark Metrics" title="Direct link to 📊 Benchmark Metrics" translate="no">​</a></h3>
+<table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:center">Empty Arena (<code>no_obstacle</code>)</th><th style="text-align:center">12-Wall Arena (<code>obstacle12</code>)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Initial Convergence</strong></td><td style="text-align:center">~300 - 400 episodes</td><td style="text-align:center">~600 - 800 episodes</td></tr><tr><td style="text-align:left"><strong>Final Success Rate (100-ep MA)</strong></td><td style="text-align:center"><strong>98.5% - 99.2%</strong></td><td style="text-align:center"><strong>91.4% - 94.8%</strong></td></tr><tr><td style="text-align:left"><strong>Mean Steps per Episode</strong></td><td style="text-align:center">15 - 22 steps</td><td style="text-align:center">38 - 52 steps (detour path)</td></tr><tr><td style="text-align:left"><strong>Cross-Seed Variance</strong></td><td style="text-align:center">Negligible (highly stable)</td><td style="text-align:center">Moderate (exploration path dependency)</td></tr></tbody></table>
+<ul>
+<li class=""><strong>Extended Exploration</strong>: In <code>obstacle12</code>, discovering viable detour corridors requires approximately 200 additional episodes of random trials, keeping the average reward depressed until episode 400.</li>
+<li class=""><strong>Detour Mastery</strong>: Beyond episode 800, all seeds stabilize above 90% success, confirming that the agent reliably maneuvers through tight gaps without collisions.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-whats-next">5. What's Next?<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-19-rl-qlearning-3#5-whats-next" class="hash-link" aria-label="Direct link to 5. What's Next?" title="Direct link to 5. What's Next?" translate="no">​</a></h2>
+<p>Our 648-bin Tabular Q-Learning model successfully navigates maze-like obstacle configurations.</p>
+<p>In Episode #4, we will load the saved model checkpoints (<code>models/*.npy</code>) to benchmark greedy, deterministic performance using <strong><code>evaluate_qlearning.py</code> and analyze comparative metrics against DQN and SARSA</strong>!</p>]]></content:encoded>
+            <category>reinforcement-learning</category>
+            <category>q-learning</category>
+            <category>webots</category>
+            <category>obstacle-avoidance</category>
+            <category>local-minima</category>
+            <category>headless</category>
+            <category>python</category>
+        </item>
+        <item>
             <title><![CDATA[[Webots Robotics] Tabular Q-Learning Implementation & Reward Shaping Tuning (#2)]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-05-18-rl-qlearning-2</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-18-rl-qlearning-2</guid>
@@ -766,42 +835,6 @@ It was a day of achieving optimization amidst the horror of pouring bills and sa
             <category>data-generation</category>
             <category>frontend</category>
             <category>cost-optimization</category>
-        </item>
-        <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #6] Preprocessing Final Report Automation and Frontend Kickoff]]></title>
-            <link>https://jbjihwan.github.io/global_blog/blog/2026-04-05-maeumjigi-6</link>
-            <guid>https://jbjihwan.github.io/global_blog/blog/2026-04-05-maeumjigi-6</guid>
-            <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-ab2d0c8c5701daf6d741d80e55c7b9e0.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>April 5th marks the day we wrapped up the arduous data preprocessing journey (v1~v4) by generating a final report,
-while simultaneously kicking off the frontend project that will become the face of the Maeumjigi web service.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="perfect-documentation-from-markdown-to-docx-and-graphs">Perfect Documentation: From Markdown to DOCX and Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-05-maeumjigi-6#perfect-documentation-from-markdown-to-docx-and-graphs" class="hash-link" aria-label="Direct link to Perfect Documentation: From Markdown to DOCX and Graphs" title="Direct link to Perfect Documentation: From Markdown to DOCX and Graphs" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problem</strong>: We needed to share the massive preprocessing journey with our advising professor and team members in a visually understandable way.</li>
-<li class=""><strong>Process</strong>:<!-- -->
-<blockquote>
-<p>To Claude Code: "Please write a final report summarizing the data preprocessing process (v1, v2, v3, v4)... Add representative examples for each version."
-"Please convert this md file to a docx file... Express things that can be graphed as graphs and add them."</p>
-</blockquote>
-</li>
-<li class=""><strong>Result</strong>: Surprisingly, the Artificial Intelligence (AI) analyzed the Python scripts and JSON data we had worked on and effortlessly wrote a core summary report in Markdown. Going even further, it independently installed Python libraries (<code>python-docx</code>, <code>matplotlib</code>), wrote a script, converted the Markdown into a neat Word (DOCX) file, and even drew and inserted emotion distribution graphs! It was a moment that drastically reduced the time wasted on documentation.</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nextjs-based-frontend-project-kickoff">Next.js Based Frontend Project Kickoff<a href="https://jbjihwan.github.io/global_blog/blog/2026-04-05-maeumjigi-6#nextjs-based-frontend-project-kickoff" class="hash-link" aria-label="Direct link to Next.js Based Frontend Project Kickoff" title="Direct link to Next.js Based Frontend Project Kickoff" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problem</strong>: Separate from training the AI model, we needed a web interface where users could actually chat with the bot.</li>
-<li class=""><strong>Process</strong>: (Background Task) We instructed the setup of a Next.js-based frontend project to provide a fast and familiar UI for users (soldiers).</li>
-<li class=""><strong>Result</strong>: <code>package.json</code>, <code>tsconfig.json</code>, etc., were generated in the <code>maeumjigi/frontend/</code> path, successfully setting up the latest trending Next.js-based frontend environment.</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="Terminal Screenshot" src="https://jbjihwan.github.io/global_blog/assets/images/02_term-06bbe4ff4a07d082cb89e2c7482e0833.png" width="2168" height="184" class="img_ev3q"></p>
-<p>Today was the day we proved that AI's capabilities go far beyond simple coding, perfectly performing the role of an excellent office assistant through 'document summarization, graph visualization, and DOCX generation'.
-Having climbed the huge mountain of data preprocessing, we have now officially raised the anchor for the frontend development that will meet the users!</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>final-report</category>
-            <category>automation</category>
-            <category>Next.js</category>
-            <category>capstone</category>
-            <category>data-preprocessing</category>
         </item>
     </channel>
 </rss>

@@ -120,6 +120,58 @@
             <category>capstone</category>
         </item>
         <item>
+            <title><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3</link>
+            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3</guid>
+            <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Resolviendo el dilema de los mínimos locales en entornos complejos de 12 paredes (obstacle12) y automatizando simulaciones de alta velocidad en modo Headless con múltiples semillas.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Entorno de Simulación obstacle12" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_obstacle12_arena-bc2bc496b7ff2cdfe32dd9630f39bd68.png" width="1438" height="966" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Problema</strong>: Cuando el objetivo está detrás de un obstáculo, la búsqueda codiciosa de recompensas por delta de distancia (+0.1 × Δdist) empuja al robot a colisionar frontalmente, atrapándolo en un <strong>mínimo local (Local Minima)</strong>.</li>
+<li class=""><strong>Solución</strong>: Integración de percepción ultrasónica en 3 direcciones con barrido (frontal/izq/der) y propagación de valor a largo plazo (γ=0.99), junto con una canalización automatizada en PowerShell (<strong><code>headless_run.ps1</code></strong>) para entrenar en modo Headless con 3 semillas (0, 1, 2).</li>
+<li class=""><strong>Resultado</strong>: El robot aprendió políticas de desvío efectivas en el cuadrilátero con 12 paredes, superando el 90% de tasa de éxito tras 600 episodios.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-el-desafío-de-los-obstáculos-la-trampa-de-los-mínimos-locales">1. El Desafío de los Obstáculos: La Trampa de los Mínimos Locales<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3#1-el-desaf%C3%ADo-de-los-obst%C3%A1culos-la-trampa-de-los-m%C3%ADnimos-locales" class="hash-link" aria-label="Enlace directo al 1. El Desafío de los Obstáculos: La Trampa de los Mínimos Locales" title="Enlace directo al 1. El Desafío de los Obstáculos: La Trampa de los Mínimos Locales" translate="no">​</a></h2>
+<p>En un cuadrilátero despejado (<code>no_obstacle</code>), navegar consiste simplemente en alinearse hacia el objetivo. Sin embargo, al incorporar <strong>12 paredes interiores (<code>obstacle12</code>)</strong>, surgió un cuello de botella crítico:</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start["Inicio (Robot)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall["Pared Obstáculo"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Goal["Objetivo"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start --&gt;|"Avance directo (recompensa voraz)"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Wall -.-&gt;|"Colisión y bloqueo (Mínimo Local)"| Wall</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Start ==&gt;|"Política de desvío (Detour)&lt;br&gt;Acepta alejarse temporalmente"| Goal</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>Dilema</strong>: Si la meta está al otro lado de una pared, avanzar en línea recta resulta en colisión inevitable.</li>
+<li class=""><strong>Conflicto de recompensas</strong>: Rodear la pared requiere alejarse momentáneamente del objetivo (delta de distancia negativo), provocando que un agente ingenuo quede atrapado rotando sin fin ante el obstáculo.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-estrategia-de-solución-percepción-head-scan-y-retropropagación-de-valor">2. Estrategia de Solución: Percepción Head-Scan y Retropropagación de Valor<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3#2-estrategia-de-soluci%C3%B3n-percepci%C3%B3n-head-scan-y-retropropagaci%C3%B3n-de-valor" class="hash-link" aria-label="Enlace directo al 2. Estrategia de Solución: Percepción Head-Scan y Retropropagación de Valor" title="Enlace directo al 2. Estrategia de Solución: Percepción Head-Scan y Retropropagación de Valor" translate="no">​</a></h2>
+<p>Superar esta trampa requirió combinar la <strong>percepción ultrasónica tridireccional</strong> con un <strong>alto factor de descuento ($\gamma = 0.99$)</strong>:</p>
+<ol>
+<li class=""><strong>Ampliación de estados</strong>: Ante un obstáculo frontal (<code>front_distance = Danger</code>), el barrido del sensor revela corredores libres (<code>left_distance = Safe</code> o <code>right_distance = Safe</code>), induciendo giros laterales.</li>
+<li class=""><strong>Asignación temporal de crédito</strong>: Aunque alejarse reduce la recompensa inmediata, bordear el obstáculo y llegar a la meta otorga la recompensa terminal (+1.0). El factor $\gamma=0.99$ propaga este retorno hacia atrás, consolidando la política de desvío.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-automatización-headless-en-webots">3. Automatización Headless en Webots<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3#3-automatizaci%C3%B3n-headless-en-webots" class="hash-link" aria-label="Enlace directo al 3. Automatización Headless en Webots" title="Enlace directo al 3. Automatización Headless en Webots" translate="no">​</a></h2>
+<p>Para agilizar el entrenamiento repetido con múltiples semillas (Seeds 0, 1, 2), implementamos <strong><code>headless_run.ps1</code></strong>, ejecutando Webots sin renderizado visual a máxima velocidad (<code>--mode=fast --no-rendering</code>).</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-análisis-comparativo-de-curvas-de-aprendizaje">4. Análisis Comparativo de Curvas de Aprendizaje<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3#4-an%C3%A1lisis-comparativo-de-curvas-de-aprendizaje" class="hash-link" aria-label="Enlace directo al 4. Análisis Comparativo de Curvas de Aprendizaje" title="Enlace directo al 4. Análisis Comparativo de Curvas de Aprendizaje" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Comparación de Curvas" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_comparison_curves-0d241e07d5b445acc1866d00247179b7.png" width="1625" height="585" class="img_ev3q"></p>
+<ul>
+<li class=""><strong>Tasa de éxito final</strong>: Del 98.5% en <code>no_obstacle</code> a un sólido <strong>91.4% ~ 94.8%</strong> en <code>obstacle12</code>.</li>
+<li class=""><strong>Pasos promedio</strong>: Adaptación de trayectorias directas (15<del>22 pasos) a rutas de desvío (38</del>52 pasos).</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-próximos-pasos">5. Próximos Pasos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3#5-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 5. Próximos Pasos" title="Enlace directo al 5. Próximos Pasos" translate="no">​</a></h2>
+<p>En el episodio #4, evaluaremos los modelos guardados (<code>models/*.npy</code>) mediante <strong><code>evaluate_qlearning.py</code> para medir el rendimiento determinista y comparar métricas frente a DQN y SARSA</strong>.</p>]]></content:encoded>
+            <category>aprendizaje-por-refuerzo</category>
+            <category>q-learning</category>
+            <category>webots</category>
+            <category>evasion-de-obstaculos</category>
+            <category>minimos-locales</category>
+            <category>headless</category>
+            <category>python</category>
+        </item>
+        <item>
             <title><![CDATA[[Robótica Webots] Implementación de Q-Learning Tabular y Ajuste de la Función de Recompensa (#2)]]></title>
             <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2</link>
             <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-18-rl-qlearning-2</guid>
@@ -689,41 +741,6 @@ y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 
             <category>generación-datos</category>
             <category>frontend</category>
             <category>optimización-costos</category>
-        </item>
-        <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #6] Automatización del Informe Final de Preprocesamiento y Kickoff del Frontend]]></title>
-            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6</link>
-            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6</guid>
-            <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Imagen de Portada]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>El 5 de abril marca el día en que concluimos el arduo viaje de preprocesamiento de datos (v1~v4) generando un informe final,
-al tiempo que iniciamos (kickoff) el proyecto de frontend que se convertirá en el rostro del servicio web Maeumjigi.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="documentación-perfecta-de-markdown-a-docx-y-gráficos">Documentación Perfecta: De Markdown a DOCX y Gráficos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6#documentaci%C3%B3n-perfecta-de-markdown-a-docx-y-gr%C3%A1ficos" class="hash-link" aria-label="Enlace directo al Documentación Perfecta: De Markdown a DOCX y Gráficos" title="Enlace directo al Documentación Perfecta: De Markdown a DOCX y Gráficos" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Necesitábamos compartir el masivo proceso de preprocesamiento con nuestro profesor asesor y los miembros del equipo de una manera visualmente comprensible.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>A Claude Code: "Por favor, escriba un informe final que resuma el proceso de preprocesamiento de datos... Añada ejemplos representativos para cada versión."
-"Convierta este archivo md en un archivo docx... Exprese las cosas que se pueden graficar como gráficos y añádalos."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Sorprendentemente, la IA analizó los scripts de Python y los datos JSON en los que habíamos trabajado y redactó un informe resumido en Markdown sin esfuerzo. Yendo aún más lejos, instaló de forma independiente bibliotecas de Python (<code>python-docx</code>, <code>matplotlib</code>), escribió un script, convirtió el Markdown en un archivo Word (DOCX) ordenado, ¡e incluso dibujó e insertó gráficos de distribución de emociones! Fue un momento que redujo drásticamente el tiempo perdido en documentación.</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kickoff-del-proyecto-frontend-basado-en-nextjs">Kickoff del Proyecto Frontend Basado en Next.js<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-05-maeumjigi-6#kickoff-del-proyecto-frontend-basado-en-nextjs" class="hash-link" aria-label="Enlace directo al Kickoff del Proyecto Frontend Basado en Next.js" title="Enlace directo al Kickoff del Proyecto Frontend Basado en Next.js" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Aparte de entrenar el modelo de IA, necesitábamos una interfaz web donde los usuarios pudieran chatear realmente con el bot.</li>
-<li class=""><strong>Proceso</strong>: (Tarea en segundo plano) Instruimos la configuración de un proyecto frontend basado en Next.js para proporcionar una interfaz de usuario rápida y familiar para los usuarios.</li>
-<li class=""><strong>Resultado</strong>: Se generaron <code>package.json</code>, <code>tsconfig.json</code>, etc., en la ruta <code>maeumjigi/frontend/</code>, configurando con éxito el entorno frontend más moderno basado en Next.js.</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-06bbe4ff4a07d082cb89e2c7482e0833.png" width="2168" height="184" class="img_ev3q"></p>
-<p>Hoy probamos que las capacidades de la IA van mucho más allá de la simple programación, desempeñando a la perfección el papel de un excelente asistente de oficina mediante el 'resumen de documentos, la visualización de gráficos y la generación de DOCX'.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>informe-final</category>
-            <category>automatización</category>
-            <category>Next.js</category>
-            <category>capstone</category>
-            <category>preprocesamiento</category>
         </item>
     </channel>
 </rss>
