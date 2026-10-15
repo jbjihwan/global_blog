@@ -170,6 +170,70 @@
         <category label="capstone" term="capstone"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Robótica Webots] Navegación Autónoma con Q-Learning: Discretización de 648 Estados y Arquitectura de Sockets (#1)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1</id>
+        <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Diseño de un discretizador de espacio de estados de 648 bins y una arquitectura IPC por sockets TCP para la navegación autónoma de robots móviles con Q-Learning tabular en Webots.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Entorno de Simulación Webots" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_webots_arena-b49bd821fb90ed1d7e619add024bb5e7.png" width="1721" height="1033" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Problema</strong>: Las lecturas continuas de sensores (distancia y orientación) provocan una explosión del espacio de estados para el Q-Learning tabular, y la sincronización con el simulador Webots requiere una comunicación de baja latencia.</li>
+<li class=""><strong>Solución</strong>: Diseño de un mapeador de sensores continuos en 5 dimensiones que produce 3 × 8 × 3 × 3 × 3 = 648 estados discretos (<code>discretizer.py</code>) y una canalización IPC mediante sockets TCP (puerto 5000, JSON delimitado por líneas).</li>
+<li class=""><strong>Resultado</strong>: Indexación ultrarrápida de la tabla Q en tiempo $O(1)$ y sincronización física estable en pasos de 32 ms entre el simulador y el agente Python.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-contexto-del-proyecto-por-qué-webots-y-q-learning">1. Contexto del Proyecto: ¿Por qué Webots y Q-Learning?<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1#1-contexto-del-proyecto-por-qu%C3%A9-webots-y-q-learning" class="hash-link" aria-label="Enlace directo al 1. Contexto del Proyecto: ¿Por qué Webots y Q-Learning?" title="Enlace directo al 1. Contexto del Proyecto: ¿Por qué Webots y Q-Learning?" translate="no">​</a></h2>
+<p>Permitir que un robot móvil con tracción diferencial navegue en un entorno interior desconocido y alcance un objetivo evitando obstáculos es un desafío clásico de la robótica. Aunque el aprendizaje por refuerzo profundo (DQN, PPO) maneja entradas complejas, demanda grandes recursos de cómputo y carece de interpretabilidad directa.</p>
+<p>En este proyecto, aplicamos <strong>Q-Learning Tabular clásico (Off-policy TD(0))</strong> a un robot móvil en el motor de física 3D Webots, con el objetivo de obtener una política de navegación y evasión de obstáculos verificable matemáticamente en un cuadrilátero interior de 1.2m × 1.2m.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-arquitectura-del-sistema-webots--python-ipc">2. Arquitectura del Sistema (Webots ↔ Python IPC)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1#2-arquitectura-del-sistema-webots--python-ipc" class="hash-link" aria-label="Enlace directo al 2. Arquitectura del Sistema (Webots ↔ Python IPC)" title="Enlace directo al 2. Arquitectura del Sistema (Webots ↔ Python IPC)" translate="no">​</a></h2>
+<p>El sistema está dividido en dos niveles: el <strong>servidor de simulación Webots</strong> y el <strong>cliente de aprendizaje por refuerzo en Python</strong>.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Webots["Simulador 3D Webots (localhost:5000)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot["Robot Supervisor&lt;br&gt;(Sensor ultrasónico + ruedas)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        HeadScan["Mecanismo Head-Scan&lt;br&gt;(Servo rotación izq/der 1.1 rad)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Server["Servidor Socket TCP&lt;br&gt;(JSON delimitado por líneas)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot -→ HeadScan -→ Server</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Python["Motor RL en Python (Cliente)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env["WebotsEnv (estilo gym)&lt;br&gt;reset() / step()"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Disc["Discretizador&lt;br&gt;(Valores continuos → Bins 0~647)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Agent["QLearningAgent&lt;br&gt;(Tabla Q 648x4)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env -→ Disc -→ Agent</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Server &lt;-→|"petición: {type: step, action: 0..3}&lt;br&gt;respuesta: {state: [...], reward, done}"| Env</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>Controlador Webots (<code>RL_controller.py</code>)</strong>: Ejecuta acciones durante 480 ms (15 pasos de simulación $×$ 32 ms) y gira el sensor ultrasónico montado en la cabeza hacia la izquierda y la derecha en 1.1 rad ($\approx 63°$) para eliminar puntos ciegos.</li>
+<li class=""><strong>Protocolo de Sockets</strong>: JSON delimitado por líneas sobre TCP localhost:5000 para minimizar la sobrecarga.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-discretización-de-sensores-continuos-en-648-estados">3. Discretización de Sensores Continuos en 648 Estados<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1#3-discretizaci%C3%B3n-de-sensores-continuos-en-648-estados" class="hash-link" aria-label="Enlace directo al 3. Discretización de Sensores Continuos en 648 Estados" title="Enlace directo al 3. Discretización de Sensores Continuos en 648 Estados" translate="no">​</a></h2>
+<p>Para aplicar Q-Learning tabular, las variables continuas se asignan a 5 factores clave:</p>
+<table><thead><tr><th style="text-align:left">Variable de Observación</th><th style="text-align:center">Bins</th><th style="text-align:left">Umbrales (Thresholds)</th><th style="text-align:left">Significado Físico</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Distancia al objetivo (<code>goal_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.6m, 1.2m]</code></td><td style="text-align:left">Cerca (Near), Medio (Mid), Lejos (Far)</td></tr><tr><td style="text-align:left"><strong>Orientación relativa (<code>goal_heading</code>)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:left">$[-π, π]$ (8 sectores de $45°$)</td><td style="text-align:left">Frente, Frente-Der, Der, Atrás-Der, Atrás, Atrás-Izq, Izq, Frente-Izq</td></tr><tr><td style="text-align:left"><strong>Obstáculo frontal (<code>front_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">Peligro/Inminente, Precaución, Seguro</td></tr><tr><td style="text-align:left"><strong>Obstáculo izquierdo (<code>left_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">Peligro, Precaución, Seguro</td></tr><tr><td style="text-align:left"><strong>Obstáculo derecho (<code>right_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">Peligro, Precaución, Seguro</td></tr></tbody></table>
+<p>Número total de estados:
+<strong>N_estados = 3 × 8 × 3 × 3 × 3 = 648</strong></p>
+<p>La tabla Q resultante contiene solo <strong>$648 × 4 = 2,592$ parámetros</strong>, permitiendo actualizaciones en submilisegundos en memoria sin requerir GPU.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-mecanismo-head-scan-y-criterios-de-finalización">4. Mecanismo Head-Scan y Criterios de Finalización<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1#4-mecanismo-head-scan-y-criterios-de-finalizaci%C3%B3n" class="hash-link" aria-label="Enlace directo al 4. Mecanismo Head-Scan y Criterios de Finalización" title="Enlace directo al 4. Mecanismo Head-Scan y Criterios de Finalización" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Arquitectura del Sistema" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_architecture-982e498b1254ea899f8b98b5c457e0a5.png" width="1080" height="1080" class="img_ev3q"></p>
+<ol>
+<li class=""><strong>Ejecución del paso</strong>: Motores a 3.0 rad/s durante 480 ms.</li>
+<li class=""><strong>Rotación de la cabeza</strong>: Barrido a +1.1 rad para medir distancia izquierda, luego -1.1 rad para distancia derecha.</li>
+<li class=""><strong>Centrado</strong>: Regreso a 0 rad para refrescar distancia frontal.</li>
+<li class=""><strong>Condiciones de fin de episodio</strong>:<!-- -->
+<ul>
+<li class=""><strong>Objetivo alcanzado</strong>: Distancia euclidiana $<code>&lt;= 0.10m</code> \rightarrow$ Éxito (<code>done = True</code>, recompensa $+1.0$).</li>
+<li class=""><strong>Colisión con pared</strong>: Cualquier distancia $<code>&lt;= 0.08m</code> \rightarrow$ Fallo (<code>done = True</code>, recompensa $-1.0$).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-próximos-pasos">5. Próximos Pasos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-17-rl-qlearning-1#5-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 5. Próximos Pasos" title="Enlace directo al 5. Próximos Pasos" translate="no">​</a></h2>
+<p>Con el entorno de Webots, la interfaz IPC por sockets TCP y la discretización en 648 estados listos, el robot puede comenzar su aprendizaje.</p>
+<p>En el episodio #2, abordaremos la <strong>implementación matemática de Tabular Q-Learning, la política de exploración $\epsilon$-greedy con decaimiento y el ajuste de la función de recompensa</strong>!</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="aprendizaje-por-refuerzo" term="aprendizaje-por-refuerzo"/>
+        <category label="q-learning" term="q-learning"/>
+        <category label="webots" term="webots"/>
+        <category label="robotica" term="robotica"/>
+        <category label="discretizacion" term="discretizacion"/>
+        <category label="python" term="python"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #18] Expandiendo Tokens de Inferencia y Comparando Resultados]]></title>
         <id>https://jbjihwan.github.io/global_blog/es/blog/2026-05-13-maeumjigi-18</id>
         <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-13-maeumjigi-18"/>
@@ -726,48 +790,5 @@ Aunque logramos obtener datos refinados de alta calidad, fue una experiencia val
         <category label="clasificación-emociones" term="clasificación-emociones"/>
         <category label="Llama3.1" term="Llama3.1"/>
         <category label="api-cost" term="api-cost"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #4] Preprocesamiento de Datos de Fine-Tuning a Gran Escala]]></title>
-        <id>https://jbjihwan.github.io/global_blog/es/blog/2026-04-01-maeumjigi-4</id>
-        <link href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-01-maeumjigi-4"/>
-        <updated>2026-04-01T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Imagen de Portada]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-44a3eced3cf87439c891484fc396c5e8.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>Este es el registro del 1 de abril, cuando comenzamos a procesar una enorme cantidad de datos de conversación en un formato adecuado para entrenar el modelo Llama 3.1, que se convertirá en el motor central del proyecto Maeumjigi.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ejecución-automatizada-según-el-plan-de-preprocesamiento">Ejecución Automatizada Según el Plan de Preprocesamiento<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-01-maeumjigi-4#ejecuci%C3%B3n-automatizada-seg%C3%BAn-el-plan-de-preprocesamiento" class="hash-link" aria-label="Enlace directo al Ejecución Automatizada Según el Plan de Preprocesamiento" title="Enlace directo al Ejecución Automatizada Según el Plan de Preprocesamiento" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Para realizar el ajuste fino (fine-tuning) del modelo, los datos en bruto que contenían las expresiones del usuario y las respuestas del chatbot debían convertirse perfectamente en un formato JSONL especial que Llama 3.1 pueda entender.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>A Claude Code: "Proceda con el trabajo de acuerdo con llama31_finetuning_data_preprocessing_plan_short.md"</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Basándose en el documento del plan de preprocesamiento escrito ayer, el agente de IA construyó y ejecutó de forma independiente la canalización de limpieza y procesamiento de datos. En lugar de que un humano convirtiera manualmente decenas de miles de puntos de datos uno por uno, simplemente entregamos un solo documento Markdown con las reglas y le indicamos: "Procésalo exactamente así".</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integración-de-datos-de-categoría-y-conversión-jsonl">Integración de Datos de Categoría y Conversión JSONL<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-01-maeumjigi-4#integraci%C3%B3n-de-datos-de-categor%C3%ADa-y-conversi%C3%B3n-jsonl" class="hash-link" aria-label="Enlace directo al Integración de Datos de Categoría y Conversión JSONL" title="Enlace directo al Integración de Datos de Categoría y Conversión JSONL" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: El proceso de preprocesamiento se dividió en varios pasos y, finalmente, todos los datos debían combinarse en uno para completar el conjunto de datos de entrenamiento.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>A Claude Code: "Ejecute el Paso 4. Integre los datos de las dos categorías y conviértalo al formato Llama 3.1 JSONL."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: La IA ejecutó inmediatamente el Paso 4 y fusionó los datos de conversación dispersos de cada categoría en uno solo. Luego escribió y ejecutó un script para convertirlo en un archivo JSONL, adhiriéndose estrictamente a la plantilla de comandos (prompt) precisa requerida por Llama 3.1 (diferenciando los roles de Sistema, Usuario y Asistente).</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-43546fe9bb3572c9502869f943f1ee31.png" width="2200" height="232" class="img_ev3q"></p>
-<p>Hoy es el día en que el 'preprocesamiento de datos', el núcleo del fine-tuning, comenzó a ejecutarse de forma totalmente automática a través de la IA. Fue una experiencia mágica ver innumerables puntos de datos transformados en un estado entrenable con una sola instrucción: "Hazlo exactamente como está escrito en el documento".
-En la próxima publicación, continuaremos con emocionantes registros de desarrollo sobre cómo entrenamos y validamos realmente el modelo utilizando estos datos preprocesados.</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="IA-coding" term="IA-coding"/>
-        <category label="ClaudeCode" term="ClaudeCode"/>
-        <category label="capstone" term="capstone"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="data-preprocessing" term="data-preprocessing"/>
-        <category label="Llama3.1" term="Llama3.1"/>
     </entry>
 </feed>
