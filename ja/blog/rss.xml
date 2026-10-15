@@ -94,6 +94,43 @@
             <category>キャップストーン</category>
         </item>
         <item>
+            <title><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[学習済みQ-Tableを用いた探索率ゼロ(ε=0)の決定論的評価パイプライン(evaluate_qlearning.py)、経路効率、近接衝突(Near-miss)、およびDQN・SARSAモデルとの総合ベンチマーク。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="成功率およびステップ数ベンチマーク" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_eval_success_steps-1434c5fba2793b6877d335bf289ef59b.png" width="1170" height="650" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>キーポイント (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>目的(Objective)</strong>: 学習中の探索ノイズを排除した状態（ε=0）において、実機投入可能な決定論的ポリシー（Greedy Policy）の走行信頼性と経路品質を定量評価。</li>
+<li class=""><strong>評価方法(Methodology)</strong>: <code>evaluate_qlearning.py</code> を用いて5つの評価シードで合計30回の独立テストを実施。成功率、理論最短経路に対する走行効率、壁近接（Near-miss）頻度を精密測定。</li>
+<li class=""><strong>成果(Result)</strong>: 12壁障害物アリーナにおいて93.3%の決定論的成功率と0.02msの超低遅延を達成し、ニューラルネットワークベースのDQNやSARSAを凌駕する実用性を実証。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-定量的評価パイプライン設計-evaluate_qlearningpy">1. 定量的評価パイプライン設計 (<code>evaluate_qlearning.py</code>)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4#1-%E5%AE%9A%E9%87%8F%E7%9A%84%E8%A9%95%E4%BE%A1%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E8%A8%AD%E8%A8%88-evaluate_qlearningpy" class="hash-link" aria-label="1-定量的評価パイプライン設計-evaluate_qlearningpy への直接リンク" title="1-定量的評価パイプライン設計-evaluate_qlearningpy への直接リンク" translate="no">​</a></h2>
+<p>学習中の報酬曲線には探索ノイズが含まれるため、実機に搭載する**決定論的ポリシー（$\epsilon = 0$）**の真の実力を測る専用の評価エンジンを構築しました。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Model["学習済みQテーブル&lt;br&gt;(qlearning_qtable.npy)"] --&gt; Agent["Greedy Agent&lt;br&gt;(ε = 0 固定)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    EvalSeeds["5つの評価シード&lt;br&gt;(EVAL_SEEDS 0..4)"] --&gt; Webots["Webotsシミュレータ&lt;br&gt;(30回反復テスト)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Agent &lt;--&gt; Webots</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Webots --&gt; CSV["ログ出力&lt;br&gt;(eval_log.csv / traces)"]</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-アルゴリズム比較-q-learning-vs-sarsa-vs-dqn">2. アルゴリズム比較: Q-Learning vs SARSA vs DQN<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4#2-%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E6%AF%94%E8%BC%83-q-learning-vs-sarsa-vs-dqn" class="hash-link" aria-label="2. アルゴリズム比較: Q-Learning vs SARSA vs DQN への直接リンク" title="2. アルゴリズム比較: Q-Learning vs SARSA vs DQN への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="走行品質と各種指標" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_eval_quality-42dd1fc5e31c5e63d48c26ece24e8936.png" width="1625" height="585" class="img_ev3q"></p>
+<p>同一のWebots障害物環境において、3種類の強化学習アルゴリズムをベンチマーク比較しました:</p>
+<table><thead><tr><th style="text-align:left">評価指標</th><th style="text-align:center">表形式Q-Learning（本手法）</th><th style="text-align:center">SARSA（オンポリシー）</th><th style="text-align:center">DQN（深層強化学習）</th></tr></thead><tbody><tr><td style="text-align:left"><strong>学習方式</strong></td><td style="text-align:center">オフポリシー TD(0)</td><td style="text-align:center">オンポリシー TD(0)</td><td style="text-align:center">ニューラルネットワーク</td></tr><tr><td style="text-align:left"><strong>モデルサイズ</strong></td><td style="text-align:center"><strong>約2.5 KB (2,592要素)</strong></td><td style="text-align:center">約2.5 KB</td><td style="text-align:center">約600 KB (~15万重み)</td></tr><tr><td style="text-align:left"><strong>決定論的成功率 (<code>obstacle12</code>)</strong></td><td style="text-align:center"><strong>93.3%</strong></td><td style="text-align:center">86.7%</td><td style="text-align:center">90.0%</td></tr><tr><td style="text-align:left"><strong>平均走行ステップ数</strong></td><td style="text-align:center"><strong>41.2 ステップ</strong></td><td style="text-align:center">48.5 ステップ</td><td style="text-align:center">44.7 ステップ</td></tr><tr><td style="text-align:left"><strong>ステップあたり推論遅延</strong></td><td style="text-align:center"><strong>0.02 ms</strong> (配列参照)</td><td style="text-align:center">0.02 ms</td><td style="text-align:center">2.15 ms (PyTorch推論)</td></tr><tr><td style="text-align:left"><strong>壁接近リスク</strong></td><td style="text-align:center">低い（適切な迂回）</td><td style="text-align:center">極小（過度な安全重視）</td><td style="text-align:center">中程度</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-rl-qlearning-4#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>次回最終第5回では、シミュレーションモデルを実際の <strong>Arduino Uno 2輪ロボットへ移植し、HC-06 Bluetooth通信、チェッカーボード歪み補正、ArUcoマーカービジョン追跡</strong>を組み合わせた Sim-to-Real の全容を公開します！</p>]]></content:encoded>
+            <category>強化学習</category>
+            <category>Q-learning</category>
+            <category>性能評価</category>
+            <category>ベンチマーク</category>
+            <category>DQN</category>
+            <category>SARSA</category>
+            <category>ロボティクス</category>
+            <category>Python</category>
+        </item>
+        <item>
             <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</link>
             <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</guid>
@@ -230,38 +267,6 @@
             <category>Python</category>
         </item>
         <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</guid>
-            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
-<p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
-<blockquote>
-<p>「モデルの推論結果を比較するレポートを作成するためのプロンプトを作って。それに従ってレポートを作成して。」</p>
-</blockquote>
-<p>AIに結果指標を解釈させ、レポートの草案を自動で作成させるプロンプトエンジニアリングを試みました。結果として、AIが各モデルの長所と短所を分析し、立派なWord（.docx）レポートの草案を出力してくれました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドdb連携と401-unauthorizedの沼">バックエンドDB連携と401 Unauthorizedの沼<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89db%E9%80%A3%E6%90%BA%E3%81%A8401-unauthorized%E3%81%AE%E6%B2%BC" class="hash-link" aria-label="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" title="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" translate="no">​</a></h3>
-<p>レポートが終わるやいなや、システム安定性をテストするために<code>backup.sql</code>データをローカルのPostgreSQL DBに流し込む作業を始めました。</p>
-<blockquote>
-<p>「ログイン成功したのにメニューを押しても反応がない」
-「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
-</blockquote>
-<p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
-<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
-<p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>レポート</category>
-            <category>バックエンド</category>
-            <category>DB</category>
-            <category>トラブルシューティング</category>
-            <category>キャップストーン</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots ロボティクス] Q-Learning 自律走行: 648状態空間の離散化とソケット通信アーキテクチャ (#1)]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</link>
             <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</guid>
@@ -325,6 +330,38 @@
             <category>ロボティクス</category>
             <category>状態空間離散化</category>
             <category>Python</category>
+        </item>
+        <item>
+            <title><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[カバー画像]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
+<p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
+<blockquote>
+<p>「モデルの推論結果を比較するレポートを作成するためのプロンプトを作って。それに従ってレポートを作成して。」</p>
+</blockquote>
+<p>AIに結果指標を解釈させ、レポートの草案を自動で作成させるプロンプトエンジニアリングを試みました。結果として、AIが各モデルの長所と短所を分析し、立派なWord（.docx）レポートの草案を出力してくれました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドdb連携と401-unauthorizedの沼">バックエンドDB連携と401 Unauthorizedの沼<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89db%E9%80%A3%E6%90%BA%E3%81%A8401-unauthorized%E3%81%AE%E6%B2%BC" class="hash-link" aria-label="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" title="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" translate="no">​</a></h3>
+<p>レポートが終わるやいなや、システム安定性をテストするために<code>backup.sql</code>データをローカルのPostgreSQL DBに流し込む作業を始めました。</p>
+<blockquote>
+<p>「ログイン成功したのにメニューを押しても反応がない」
+「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
+</blockquote>
+<p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
+<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
+<p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content:encoded>
+            <category>開発日誌</category>
+            <category>ファインチューニング</category>
+            <category>レポート</category>
+            <category>バックエンド</category>
+            <category>DB</category>
+            <category>トラブルシューティング</category>
+            <category>キャップストーン</category>
         </item>
         <item>
             <title><![CDATA[[マウムジギ 開発日誌 #18] 推論トークン拡張と2次ファインチューニング結果比較]]></title>
@@ -707,58 +744,6 @@
             <category>ファインチューニング</category>
             <category>GoogleColab</category>
             <category>データ前処理</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #7] 合成データ(v5)生成の最適化とフロントエンド連携]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-07-maeumjigi-7</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-07-maeumjigi-7</guid>
-            <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-5b12d029e4a9577b621aed190261075b.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月7日は、チームメンバーが構築したフロントエンドのコードをローカル環境で実行して統合を試みた日であり、
-人工知能(AI)を活用して不足しているカウンセリングデータを新たに6万件も「合成（Synthesis）」するという巨大なスクリプトを稼働させた日です。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="不足したデータを埋めろai合成データv5生成">不足したデータを埋めろ：AI合成データ(v5)生成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-07-maeumjigi-7#%E4%B8%8D%E8%B6%B3%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E5%9F%8B%E3%82%81%E3%82%8Dai%E5%90%88%E6%88%90%E3%83%87%E3%83%BC%E3%82%BFv5%E7%94%9F%E6%88%90" class="hash-link" aria-label="不足したデータを埋めろ：AI合成データ(v5)生成 への直接リンク" title="不足したデータを埋めろ：AI合成データ(v5)生成 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 既存の精製データ（v4）だけでは、特定の感情や細かなカウンセリングシナリオが不足していました。これを解決するため、Claude アプリケーションプログラミングインターフェース(API)を使用してLlama 3.1の訓練フォーマットに合わせた仮想の高品質カウンセリング対話を6万件生成しようとしました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「Claudeが独自に作ったv5のデータセットを作りたいです。計画を立ててください。」
-「jsonlフォーマットに合わせてClaudeが生成してくれる6万件のデータセットが欲しいです。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: <code>v5_plan.md</code>を作成し、データの生成を開始しました。しかし、すぐにAPI呼び出しコストが再び足かせとなりました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="終わらないコストとの戦いプロンプト最適化">終わらないコストとの戦い：プロンプト最適化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-07-maeumjigi-7#%E7%B5%82%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84%E3%82%B3%E3%82%B9%E3%83%88%E3%81%A8%E3%81%AE%E6%88%A6%E3%81%84%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E6%9C%80%E9%81%A9%E5%8C%96" class="hash-link" aria-label="終わらないコストとの戦い：プロンプト最適化 への直接リンク" title="終わらないコストとの戦い：プロンプト最適化 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 6万件のデータをAIに創作させようとしたところ、数日前に経験したコスト問題が再発しました。スクリプト実行中に10ドルのクレジットがあっという間に蒸発しました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「step8_generate_v5_optimized.py このまま進めればトークン使用量は減りますか？」
-「現在クレジットの$10を消費しましたが、まだこの程度の進行状況です。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: AIにコストを削減できるプロンプトエンジニアリングとコード最適化を指示し、出力トークンの浪費を防ぎ、生成の進行状況を安全に保存するロジックを追加しました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="チームメンバーのフロントエンドコードの引き継ぎと実行">チームメンバーのフロントエンドコードの引き継ぎと実行<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-07-maeumjigi-7#%E3%83%81%E3%83%BC%E3%83%A0%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E3%81%AE%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E3%81%A8%E5%AE%9F%E8%A1%8C" class="hash-link" aria-label="チームメンバーのフロントエンドコードの引き継ぎと実行 への直接リンク" title="チームメンバーのフロントエンドコードの引き継ぎと実行 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「このプロジェクトはチームメイトが作ったプロジェクトですが、私が実行するにはどうすればいいですか？」
-「データベース(DB)マイグレーション中にエラー発生...」
-「6段階目のfrontendまで実行完了。終了方法と再実行時の簡単な手順を教えてください。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: チームメンバーが作成しておいたリポジトリを引き継ぎ、ローカルで実行してDBマイグレーションエラーを解決しました。これで、バックエンドのAIモデルとフロントエンドが出会う準備が整いました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-7f7d40aebd3c5f9549f1909aa3461fcf.png" width="2154" height="184" class="img_ev3q"></p>
-<p>今日はデータ前処理を超えて、**「AIがAIを学習させるための教科書（データ）を直接執筆する（Synthetic Data Generation）」**という最新のディープラーニングトレンドを直接実装してみた意義深い日でした。
-降り注ぐ課金の恐怖の中で最適化を成し遂げ、フロントエンドサーバーまで無事に立ち上げた一日でした！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>合成データ</category>
-            <category>ClaudeAPI</category>
-            <category>データ生成</category>
-            <category>フロントエンド</category>
-            <category>コスト最適化</category>
         </item>
     </channel>
 </rss>

@@ -120,6 +120,43 @@
             <category>capstone</category>
         </item>
         <item>
+            <title><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
+            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4</link>
+            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Canalización de evaluación determinista sin exploración (ε=0) con evaluate_qlearning.py, analizando eficiencia de ruta, situaciones de riesgo (near-miss) y comparativas frente a DQN y SARSA.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Comparativa de Éxito y Pasos" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_eval_success_steps-1434c5fba2793b6877d335bf289ef59b.png" width="1170" height="650" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Objetivo</strong>: Medir el desempeño puro y determinista de la política voraz aprendida (ε=0) sin ruido exploratorio, validando su viabilidad de despliegue.</li>
+<li class=""><strong>Metodología</strong>: Implementación de <code>evaluate_qlearning.py</code> con 30 pruebas independientes distribuidas en 5 semillas de evaluación, monitoreando tasa de éxito, eficiencia de ruta frente a la distancia mínima teórica y conteo de aproximaciones críticas (near-miss).</li>
+<li class=""><strong>Resultado</strong>: Q-Learning tabular alcanzó un 93.3% de éxito determinista en el cuadrilátero con 12 paredes con una latencia de inferencia ultrabaja de 0.02 ms, superando a modelos más pesados como DQN y SARSA.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy">1. Canalización de Evaluación Cuantitativa (<code>evaluate_qlearning.py</code>)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4#1-canalizaci%C3%B3n-de-evaluaci%C3%B3n-cuantitativa-evaluate_qlearningpy" class="hash-link" aria-label="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" title="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" translate="no">​</a></h2>
+<p>Para medir la capacidad real de navegación del robot cargamos la tabla Q entrenada (<code>qlearning_qtable.npy</code>) y evaluamos con $\epsilon = 0$ a través de 5 semillas de prueba.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Model["Tabla Q Entrenada&lt;br&gt;(qlearning_qtable.npy)"] --&gt; Agent["Agente Voraz&lt;br&gt;(ε = 0 Fijo)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    EvalSeeds["5 Semillas de Prueba&lt;br&gt;(EVAL_SEEDS 0..4)"] --&gt; Webots["Simulador Webots&lt;br&gt;(30 Pruebas)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Agent &lt;--&gt; Webots</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Webots --&gt; CSV["Registro de Datos&lt;br&gt;(eval_log.csv / traces)"]</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn">2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4#2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn" class="hash-link" aria-label="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" title="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Calidad de Trayectoria" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_eval_quality-42dd1fc5e31c5e63d48c26ece24e8936.png" width="1625" height="585" class="img_ev3q"></p>
+<p>Evaluación en el mismo escenario de 12 paredes en Webots:</p>
+<table><thead><tr><th style="text-align:left">Métrica</th><th style="text-align:center">Q-Learning Tabular (Propuesto)</th><th style="text-align:center">SARSA (On-policy)</th><th style="text-align:center">Deep Q-Network (DQN)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Paradigma</strong></td><td style="text-align:center">Off-policy TD(0)</td><td style="text-align:center">On-policy TD(0)</td><td style="text-align:center">Red Neuronal Profunda</td></tr><tr><td style="text-align:left"><strong>Tamaño de Modelo</strong></td><td style="text-align:center"><strong>~2.5 KB (2,592 valores)</strong></td><td style="text-align:center">~2.5 KB</td><td style="text-align:center">~600 KB (~150k pesos)</td></tr><tr><td style="text-align:left"><strong>Tasa de Éxito (<code>obstacle12</code>)</strong></td><td style="text-align:center"><strong>93.3%</strong></td><td style="text-align:center">86.7%</td><td style="text-align:center">90.0%</td></tr><tr><td style="text-align:left"><strong>Pasos Promedio por Episodio</strong></td><td style="text-align:center"><strong>41.2 pasos</strong></td><td style="text-align:center">48.5 pasos</td><td style="text-align:center">44.7 pasos</td></tr><tr><td style="text-align:left"><strong>Latencia por Inferencia</strong></td><td style="text-align:center"><strong>0.02 ms</strong> (consulta en array)</td><td style="text-align:center">0.02 ms</td><td style="text-align:center">2.15 ms (PyTorch)</td></tr><tr><td style="text-align:left"><strong>Aproximación Crítica a Paredes</strong></td><td style="text-align:center">Moderada (desvío balanceado)</td><td style="text-align:center">Mínima (excesivamente conservador)</td><td style="text-align:center">Media</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-próximos-pasos">3. Próximos Pasos<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4#3-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 3. Próximos Pasos" title="Enlace directo al 3. Próximos Pasos" translate="no">​</a></h2>
+<p>En el episodio final #5, presentaremos la transferencia a hardware real (<strong>Sim-to-Real</strong>): <strong>integración en un robot Arduino Uno de 2 ruedas, comunicación Bluetooth HC-06, calibración de distorsión con tablero de ajedrez y seguimiento visual con marcadores ArUco</strong>.</p>]]></content:encoded>
+            <category>aprendizaje-por-refuerzo</category>
+            <category>q-learning</category>
+            <category>evaluacion</category>
+            <category>benchmark</category>
+            <category>dqn</category>
+            <category>sarsa</category>
+            <category>robotica</category>
+            <category>python</category>
+        </item>
+        <item>
             <title><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>
             <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3</link>
             <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-19-rl-qlearning-3</guid>
@@ -690,57 +727,6 @@
             <category>fine-tuning</category>
             <category>GoogleColab</category>
             <category>preprocesamiento</category>
-        </item>
-        <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #7] Optimización de Generación de Datos Sintéticos (v5) e Integración del Frontend]]></title>
-            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7</link>
-            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7</guid>
-            <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Imagen de Portada]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-5b12d029e4a9577b621aed190261075b.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>El 7 de abril fue el día en que intentamos la integración ejecutando el código frontend construido por un compañero de equipo en un entorno local,
-y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 60,000 nuevos datos de asesoramiento.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="llenando-los-espacios-en-blanco-generando-datos-sintéticos-de-ia-v5">Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7#llenando-los-espacios-en-blanco-generando-datos-sint%C3%A9ticos-de-ia-v5" class="hash-link" aria-label="Enlace directo al Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)" title="Enlace directo al Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Los datos previamente refinados (v4) por sí solos carecían de emociones específicas o escenarios detallados. Para resolver esto, queríamos usar la Interfaz de Programación de Aplicaciones (API) de Claude para generar 60,000 conversaciones virtuales de alta calidad que se ajustaran al formato de entrenamiento Llama 3.1.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>"Queremos crear un conjunto de datos v5 generado íntegramente por Claude. Por favor, haz un plan."
-"Quiero obtener 60,000 registros de conjuntos de datos generados por Claude en formato jsonl."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Establecimos <code>v5_plan.md</code> y comenzamos a generar datos. Sin embargo, el costo de las llamadas a la API se convirtió rápidamente en un obstáculo.</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="la-guerra-interminable-con-los-costos-optimización-de-prompts">La Guerra Interminable con los Costos: Optimización de Prompts<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7#la-guerra-interminable-con-los-costos-optimizaci%C3%B3n-de-prompts" class="hash-link" aria-label="Enlace directo al La Guerra Interminable con los Costos: Optimización de Prompts" title="Enlace directo al La Guerra Interminable con los Costos: Optimización de Prompts" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Problema</strong>: Al tratar de hacer que la IA creara 60,000 puntos de datos, resurgió el problema de costos que experimentamos hace unos días. Durante la ejecución del script, $10 en créditos se evaporaron en un instante.</li>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>"¿Disminuirá el uso de tokens si procedemos exactamente como step8_generate_v5_optimized.py?"
-"Ya hemos consumido $10 de nuestro crédito y solo estamos en este nivel de progreso."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Instruimos a la IA para realizar ingeniería de prompts y optimización de código para reducir costos, evitando el desperdicio de tokens de salida y agregando lógica para guardar el progreso de manera segura.</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="traspaso-y-ejecución-del-código-frontend-del-compañero">Traspaso y Ejecución del Código Frontend del Compañero<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-04-07-maeumjigi-7#traspaso-y-ejecuci%C3%B3n-del-c%C3%B3digo-frontend-del-compa%C3%B1ero" class="hash-link" aria-label="Enlace directo al Traspaso y Ejecución del Código Frontend del Compañero" title="Enlace directo al Traspaso y Ejecución del Código Frontend del Compañero" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Proceso</strong>:<!-- -->
-<blockquote>
-<p>"Este proyecto fue creado por un compañero de equipo; ¿qué debo hacer para ejecutarlo?"
-"Error durante la migración de la base de datos..."
-"Ejecución hasta el paso 6 del frontend completada. Dime cómo apagarlo y el procedimiento para ejecutarlo de nuevo."</p>
-</blockquote>
-</li>
-<li class=""><strong>Resultado</strong>: Tomamos el repositorio creado por un compañero de equipo, lo ejecutamos localmente y resolvimos errores de migración de BD. Ahora, el modelo de IA y el frontend están listos para integrarse.</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="Captura de Terminal" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_term-7f7d40aebd3c5f9549f1909aa3461fcf.png" width="2154" height="184" class="img_ev3q"></p>
-<p>Hoy fue un día significativo donde implementamos la última tendencia de <strong>Generación de Datos Sintéticos</strong>, haciendo que una IA escriba los libros de texto (datos) para enseñar a otra IA.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>datos-sintéticos</category>
-            <category>ClaudeAPI</category>
-            <category>generación-datos</category>
-            <category>frontend</category>
-            <category>optimización-costos</category>
         </item>
     </channel>
 </rss>
