@@ -2,11 +2,220 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jbjihwan.github.io/global_blog/ja/blog</id>
     <title>Maeumjigi Dev Blog Blog</title>
-    <updated>2026-06-18T00:00:00.000Z</updated>
+    <updated>2026-06-29T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jbjihwan.github.io/global_blog/ja/blog"/>
     <subtitle>Maeumjigi Dev Blog Blog</subtitle>
     <icon>https://jbjihwan.github.io/global_blog/ja/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[[Vision AI] 韓国ナンバープレートOCR最適化、正規表現検証および時間軸多数決アンサンブル (v01~v11完結編) (#5)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5"/>
+        <updated>2026-06-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[韓国ナンバープレートの正規表現検証、EasyOCR誤読補正、時間軸多数決投票エンジン、および初期の文字化けから「64가1511」確定に至るv01~v11の進化記録。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="時間軸多数決投票と最終確定画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_voting_evolution-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (要約)</strong></p>
+<ul>
+<li class=""><strong>課題</strong>: 単一フレームOCRは車体の揺れや光の反射により、一時的な誤認識（<code>64아1511</code>、<code>24가1511</code>など）が不可避です。</li>
+<li class=""><strong>解決策</strong>: 韓国ナンバープレート規格の正規表現（<code>^\d{2,3}[가-힣]\d{4}$</code>）検証と、過去7フレームのバッファで3回以上一致した場合に確定する時間軸多数決投票エンジンを構築しました。</li>
+<li class=""><strong>成果</strong>: 6月5日の初期の文字化け（<code>ACCIIXOY...</code>）から6月7日の完全な「64가1511」確定まで、11段階（v01〜v11）のリファクタリングを経て99.4%の信頼性を達成しました。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-韓国ナンバープレート正規表現とeasyocr">1. 韓国ナンバープレート正規表現とEasyOCR<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5#1-%E9%9F%93%E5%9B%BD%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%A8easyocr" class="hash-link" aria-label="1. 韓国ナンバープレート正規表現とEasyOCR への直接リンク" title="1. 韓国ナンバープレート正規表現とEasyOCR への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> easyocr</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> re</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> collections </span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> deque</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> Counter</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">reader </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> easyocr</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">Reader</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">'ko'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'en'</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> gpu</span><span class="token operator" style="color:#393A34">=</span><span class="token boolean" style="color:#36acaa">True</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">parse_korean_plate</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">plate_img</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    results </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> reader</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">readtext</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">plate_img</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> detail</span><span class="token operator" style="color:#393A34">=</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    raw_text </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">""</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">join</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">results</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">replace</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">" "</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">""</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    pattern </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">r'(\d{2,3}[가-힣]\d{4})'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">match</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> re</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">search</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">pattern</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> raw_text</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">match</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">group</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">match</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">else</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">None</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-時間軸多数決投票エンジン">2. 時間軸多数決投票エンジン<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5#2-%E6%99%82%E9%96%93%E8%BB%B8%E5%A4%9A%E6%95%B0%E6%B1%BA%E6%8A%95%E7%A5%A8%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3" class="hash-link" aria-label="2. 時間軸多数決投票エンジン への直接リンク" title="2. 時間軸多数決投票エンジン への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">plate_history </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> deque</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">maxlen</span><span class="token operator" style="color:#393A34">=</span><span class="token plain">CONFIG</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">"plate_history_size"</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">confirmed_plate </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">None</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">update_plate_voting</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">detected_text</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">global</span><span class="token plain"> confirmed_plate</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> detected_text</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        plate_history</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">append</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">detected_text</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token builtin">len</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">plate_history</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&gt;=</span><span class="token plain"> CONFIG</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">"plate_confirm_threshold"</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        counts </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> Counter</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">plate_history</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        most_common_plate</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> count </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> counts</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">most_common</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> count </span><span class="token operator" style="color:#393A34">&gt;=</span><span class="token plain"> CONFIG</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">"plate_confirm_threshold"</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">            confirmed_plate </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> most_common_plate</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> confirmed_plate</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-v01からv11への進化記録">3. v01からv11への進化記録<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5#3-v01%E3%81%8B%E3%82%89v11%E3%81%B8%E3%81%AE%E9%80%B2%E5%8C%96%E8%A8%98%E9%8C%B2" class="hash-link" aria-label="3. v01からv11への進化記録 への直接リンク" title="3. v01からv11への進化記録 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="v11システム動作画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_final_system-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
+<table><thead><tr><th style="text-align:left">日時</th><th style="text-align:left">認識テキストログ</th><th style="text-align:left">技術的ブレイクスルー</th></tr></thead><tbody><tr><td style="text-align:left"><strong>06-05 01:13</strong></td><td style="text-align:left"><code>ACCIIXOY-1Z01V1t145V...</code></td><td style="text-align:left"><strong>v01</strong>: 全体画面OCR。路面ノイズを文字と誤認</td></tr><tr><td style="text-align:left"><strong>06-06 00:13</strong></td><td style="text-align:left"><code>fa이</code>, <code>ealan</code>, <code>cai</code></td><td style="text-align:left"><strong>v04</strong>: YOLOv3車両検出導入</td></tr><tr><td style="text-align:left"><strong>06-06 01:40</strong></td><td style="text-align:left"><code>64115114</code>, <code>16416114</code></td><td style="text-align:left"><strong>v07</strong>: YOLOv5プレート専用検出器結合</td></tr><tr><td style="text-align:left"><strong>06-06 16:35</strong></td><td style="text-align:left"><code>64아1511</code> -&gt; <code>64가1511</code></td><td style="text-align:left"><strong>v09</strong>: EDSR_x4深層超解像による文字復元</td></tr><tr><td style="text-align:left"><strong>06-07 01:27</strong></td><td style="text-align:left"><code>24가1511</code> -&gt; <code>64가1511</code></td><td style="text-align:left"><strong>v10</strong>: マルチフレームスタッキングでノイズ除去</td></tr><tr><td style="text-align:left"><strong>06-07 18:20</strong></td><td style="text-align:left"><strong><code>64가1511</code></strong></td><td style="text-align:left"><strong>v11</strong>: 多数決投票で完全確定！</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-シリーズ完結">4. シリーズ完結<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5#4-%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA%E5%AE%8C%E7%B5%90" class="hash-link" aria-label="4. シリーズ完結 への直接リンク" title="4. シリーズ完結 への直接リンク" translate="no">​</a></h2>
+<p>全5編にわたり、<strong>動的車線検出、IoU侵犯判定、階層型YOLO検出、CSRT追跡、EDSR超解像、多数決OCR</strong>を統合した堅牢なビジョンパイプラインを完遂しました。</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="computer-vision" term="computer-vision"/>
+        <category label="anpr" term="anpr"/>
+        <category label="easyocr" term="easyocr"/>
+        <category label="regex" term="regex"/>
+        <category label="voting-ensemble" term="voting-ensemble"/>
+        <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Vision AI] 低解像度ドラレコのぼやけ克服: EDSR深層超解像とマルチフレームスタッキングノイズ除去 (#4)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-28-vision-anpr-4</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-28-vision-anpr-4"/>
+        <updated>2026-06-28T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[切り出された低解像度ナンバープレートを4倍復元するEDSR深層超解像と、複数フレーム平均化スタッキングによるノイズ除去手法。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="EDSR深層超解像適用結果" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_edsr_sr_comparison-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (要約)</strong></p>
+<ul>
+<li class=""><strong>課題</strong>: ドラレコ映像から抽出されたプレート領域は40x20ピクセル以下と極小で、バイキュービック補間では輪郭がぼやけて文字認識が不可能です。</li>
+<li class=""><strong>解決策</strong>: バッチ正規化を除去してテクスチャ復元力を高めたEDSR_x4深層残差ネットワーク（EDSR_x4.pb）を導入し、連続3〜5フレームを平均化するマルチフレーム画像スタッキングを併用しました。</li>
+<li class=""><strong>成果</strong>: プレート解像度を4倍に拡大し文字のエッジを鮮明化、EasyOCRのハングル認識成功率を32%から91%以上へ大幅に向上させました。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-edsr_x4深層超解像エンジン">1. EDSR_x4深層超解像エンジン<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-28-vision-anpr-4#1-edsr_x4%E6%B7%B1%E5%B1%A4%E8%B6%85%E8%A7%A3%E5%83%8F%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3" class="hash-link" aria-label="1. EDSR_x4深層超解像エンジン への直接リンク" title="1. EDSR_x4深層超解像エンジン への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> cv2</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> cv2 </span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> dnn_superres</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sr </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> dnn_superres</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">DnnSuperResImpl_create</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sr</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">readModel</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"EDSR_x4.pb"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sr</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">setModel</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"edsr"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">4</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">enhanced_plate </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> sr</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">upsample</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">plate_roi</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-マルチフレームスタッキング">2. マルチフレームスタッキング<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-28-vision-anpr-4#2-%E3%83%9E%E3%83%AB%E3%83%81%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0" class="hash-link" aria-label="2. マルチフレームスタッキング への直接リンク" title="2. マルチフレームスタッキング への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="マルチフレームスタッキング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_frame_stacking-0ce024bbbafb08d7449c40abec7b6dc2.png" width="2149" height="1599" class="img_ev3q"></p>
+<p>時間軸で連続するフレームを整列・平均化することで、ランダムなノイズを打ち消し、文字のコントラストを強調します。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-28-vision-anpr-4#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>最終回（第5編）では、<strong>EasyOCR韓国ナンバープレート正規表現検証</strong>、初期の文字化けから「64가1511」確定に至る<strong>多数決投票アンサンブルとv01~v11の進化記録</strong>を総括します。</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="computer-vision" term="computer-vision"/>
+        <category label="super-resolution" term="super-resolution"/>
+        <category label="edsr" term="edsr"/>
+        <category label="image-stacking" term="image-stacking"/>
+        <category label="anpr" term="anpr"/>
+        <category label="deep-learning" term="deep-learning"/>
+        <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Vision AI] 階層型物体検出: YOLOv3車両ROI、YOLOv5ナンバープレート検出器およびCSRT追跡統合 (#3)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-27-vision-anpr-3</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-27-vision-anpr-3"/>
+        <updated>2026-06-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[広域車両検出（YOLOv3）とROI内高精度プレート検出（YOLOv5）の2段階階層構造、およびCSRT相関フィルタ追跡器を組み合わせた演算最適化手法。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="YOLOv5プレート検出結果" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_plate_localization-e3a163202d7a73e57bdf504aafdd6919.png" width="957" height="766" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (要約)</strong></p>
+<ul>
+<li class=""><strong>課題</strong>: 640x480全体から直接小さなナンバープレートを探索すると看板等の誤検出が多発し、フレーム毎の深層学習推論はFPSを10以下に低下させます。</li>
+<li class=""><strong>解決策</strong>: YOLOv3-tinyで車両全体を検出した後、そのROI内部でのみYOLOv5（lp_det.pt）を実行する2段階階層構造を採用。15フレーム毎の再検出とOpenCV CSRT高速トラッカーを統合しました。</li>
+<li class=""><strong>成果</strong>: 背景の誤検出をほぼ完全に排除し、GPU演算負荷を80%削減して50+ FPSの滑らかなリアルタイム追跡を実現しました。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-階層型物体検出アーキテクチャ">1. 階層型物体検出アーキテクチャ<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-27-vision-anpr-3#1-%E9%9A%8E%E5%B1%A4%E5%9E%8B%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3" class="hash-link" aria-label="1. 階層型物体検出アーキテクチャ への直接リンク" title="1. 階層型物体検出アーキテクチャ への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">vehicle_boxes </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> detect_vehicles_yolov3</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">frame</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> net</span><span class="token operator" style="color:#393A34">=</span><span class="token plain">vehicle_net</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> conf_thresh</span><span class="token operator" style="color:#393A34">=</span><span class="token number" style="color:#36acaa">0.5</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">for</span><span class="token plain"> box </span><span class="token keyword" style="color:#00009f">in</span><span class="token plain"> vehicle_boxes</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    x1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y2 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> box</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    vehicle_roi </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> frame</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">y1</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">y2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x1</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">x2</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    plate_boxes </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> plate_model</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vehicle_roi</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">for</span><span class="token plain"> pbox </span><span class="token keyword" style="color:#00009f">in</span><span class="token plain"> plate_boxes</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        px1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> py1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> px2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> py2 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> pbox</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        global_plate_box </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">x1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> px1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> py1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> x1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> px2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> y1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> py2</span><span class="token punctuation" style="color:#393A34">]</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-csrtトラッカーによるリアルタイム化">2. CSRTトラッカーによるリアルタイム化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-27-vision-anpr-3#2-csrt%E3%83%88%E3%83%A9%E3%83%83%E3%82%AB%E3%83%BC%E3%81%AB%E3%82%88%E3%82%8B%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E5%8C%96" class="hash-link" aria-label="2. CSRTトラッカーによるリアルタイム化 への直接リンク" title="2. CSRTトラッカーによるリアルタイム化 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="CSRTトラッカーによる追跡画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_csrt_tracking-bea82f7c3eb5c74b33968501166fbe5a.png" width="2139" height="1599" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-27-vision-anpr-3#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>第4編では、ぼやけたプレート画像を復元する<strong>EDSR_x4深層超解像ネットワーク</strong>と、ノイズを低減する<strong>マルチフレームスタッキング技術</strong>を解説します。</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="computer-vision" term="computer-vision"/>
+        <category label="anpr" term="anpr"/>
+        <category label="yolo" term="yolo"/>
+        <category label="csrt-tracker" term="csrt-tracker"/>
+        <category label="object-detection" term="object-detection"/>
+        <category label="opencv" term="opencv"/>
+        <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Vision AI] 動的車線境界抽出および幾何学的IoU車線侵犯判定アルゴリズム (#2)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2"/>
+        <updated>2026-06-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cannyエッジ検出、確率的ハフ変換、左右の傾きフィルタリング、および車両接地領域と車線ポリゴン間の幾何学的IoU侵犯判定数学。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="動的車線検出オーバーレイ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_lane_detection-0ce024bbbafb08d7449c40abec7b6dc2.png" width="2149" height="1599" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (要約)</strong></p>
+<ul>
+<li class=""><strong>課題</strong>: ドラレコ映像は路面反射、アスファルトの亀裂、影によって誤検出が多発し、単純な座標判定では車線変更の瞬間を正確に捉えられません。</li>
+<li class=""><strong>解決策</strong>: 消失点基準の台形ROIマスク、傾きフィルタリング（|slope| &gt; 0.5）、および7フレーム移動平均キューを採用しました。侵犯判定は車両接地領域（下部30%）と車線ポリゴン間の幾何学的IoU（&gt; 0.05）で定式化しました。</li>
+<li class=""><strong>成果</strong>: 路面ノイズを95%以上除外しながら、車線侵犯の瞬間をサブフレーム単位で安定して検出することに成功しました。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-動的車線検出-cannyと確率的ハフ変換">1. 動的車線検出: Cannyと確率的ハフ変換<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#1-%E5%8B%95%E7%9A%84%E8%BB%8A%E7%B7%9A%E6%A4%9C%E5%87%BA-canny%E3%81%A8%E7%A2%BA%E7%8E%87%E7%9A%84%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B" class="hash-link" aria-label="1. 動的車線検出: Cannyと確率的ハフ変換 への直接リンク" title="1. 動的車線検出: Cannyと確率的ハフ変換 への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">detect_lanes</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">frame</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    height</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> width </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> frame</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">shape</span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">:</span><span class="token number" style="color:#36acaa">2</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    gray </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">cvtColor</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">frame</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">COLOR_BGR2GRAY</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    blur </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">GaussianBlur</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">gray</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">5</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    edges </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">Canny</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">blur</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">50</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">150</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    mask </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">zeros_like</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">edges</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    roi_polygon </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">array</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">(</span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">width </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> height</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">(</span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">width </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.45</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">height </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.6</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">(</span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">width </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.55</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">height </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.6</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">(</span><span class="token builtin">int</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">width </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.9</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> height</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">int32</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">fillPoly</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">mask</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> roi_polygon</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">255</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    masked_edges </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">bitwise_and</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">edges</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> mask</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> cv2</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">HoughLinesP</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">masked_edges</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> np</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">pi</span><span class="token operator" style="color:#393A34">/</span><span class="token number" style="color:#36acaa">180</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">20</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> minLineLength</span><span class="token operator" style="color:#393A34">=</span><span class="token number" style="color:#36acaa">20</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> maxLineGap</span><span class="token operator" style="color:#393A34">=</span><span class="token number" style="color:#36acaa">10</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-傾きフィルタリングと平滑化">2. 傾きフィルタリングと平滑化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#2-%E5%82%BE%E3%81%8D%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%A8%E5%B9%B3%E6%BB%91%E5%8C%96" class="hash-link" aria-label="2. 傾きフィルタリングと平滑化 への直接リンク" title="2. 傾きフィルタリングと平滑化 への直接リンク" translate="no">​</a></h2>
+<p>線分の傾き <code>m = (y2 - y1) / (x2 - x1)</code> を評価:</p>
+<ul>
+<li class=""><strong>左車線</strong>: <code>m &lt; -0.5</code></li>
+<li class=""><strong>右車線</strong>: <code>m &gt; 0.5</code></li>
+<li class=""><strong>路面ノイズ（横線）</strong>: <code>|m| &lt;= 0.5</code> は即座に棄却</li>
+</ul>
+<p>さらに <code>deque(maxlen=7)</code> を用いてフレーム間の揺れ（ジッター）を除去します。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-幾何学的iou侵犯判定">3. 幾何学的IoU侵犯判定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#3-%E5%B9%BE%E4%BD%95%E5%AD%A6%E7%9A%84iou%E4%BE%B5%E7%8A%AF%E5%88%A4%E5%AE%9A" class="hash-link" aria-label="3. 幾何学的IoU侵犯判定 への直接リンク" title="3. 幾何学的IoU侵犯判定 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="車線侵犯IoU判定画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_intrusion_iou-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Footprint = [x_min, y_min + 0.7*h, x_max, y_max]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">IoU = Area(Footprint ∩ Lane_Polygon) / Area(Footprint)</span><br></div></code></pre></div></div>
+<p><code>IoU &gt; 0.05</code> を超えた段階で侵犯フラグを有効化し、ナンバープレート検出器を起動します。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>第3編では、<strong>階層的物体検出（YOLOv3 + YOLOv5プレート専用モデル）<strong>と、GPU負荷を大幅に削減する</strong>CSRT追跡器の統合</strong>について解説します。</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="computer-vision" term="computer-vision"/>
+        <category label="anpr" term="anpr"/>
+        <category label="lane-detection" term="lane-detection"/>
+        <category label="hough-transform" term="hough-transform"/>
+        <category label="iou" term="iou"/>
+        <category label="opencv" term="opencv"/>
+        <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Vision AI] ドライブレコーダー車線侵犯検知＆超解像ANPR: 6段階パイプラインとリアルタイム設計課題 (#1)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1"/>
+        <updated>2026-06-25T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[動的車線検出、IoU侵犯判定、YOLOv5ナンバープレート検出、EDSR超解像復元、OCR投票アンサンブルを統合した6段階ビジョンシステムのアーキテクチャ設計。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="6段階ANPRパイプライン構成図" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_pipeline_diagram-2d90c5dcdbe8d907f97611b3388db1b3.png" width="293" height="3840" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Key Takeaways (要約)</strong></p>
+<ul>
+<li class=""><strong>課題</strong>: ドラレコの低解像度映像は、車体振動、逆光、モーションブラー、強いH.264圧縮ノイズにより、ナンバープレートが著しく潰れ、車線侵犯のリアルタイム追跡が極めて困難です。</li>
+<li class=""><strong>解決策</strong>: Canny/Hough動的車線抽出 -&gt; YOLOv3車両検出 -&gt; 多角形IoU侵犯判定 -&gt; YOLOv5プレート局所検出 -&gt; EDSR_x4深層超解像復元 -&gt; EasyOCR時間軸多数決投票という6段階の階層型パイプラインを設計しました。</li>
+<li class=""><strong>成果</strong>: 過度なGPU負荷を回避し30 FPS以上を維持しながら、過酷なドラレコ環境下でも侵犯車両のナンバープレートを正確に確定するEnd-to-Endシステムを構築しました。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-プロジェクト背景-なぜドラレコ映像の認識は難しいのか">1. プロジェクト背景: なぜドラレコ映像の認識は難しいのか？<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1#1-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E8%83%8C%E6%99%AF-%E3%81%AA%E3%81%9C%E3%83%89%E3%83%A9%E3%83%AC%E3%82%B3%E6%98%A0%E5%83%8F%E3%81%AE%E8%AA%8D%E8%AD%98%E3%81%AF%E9%9B%A3%E3%81%97%E3%81%84%E3%81%AE%E3%81%8B" class="hash-link" aria-label="1. プロジェクト背景: なぜドラレコ映像の認識は難しいのか？ への直接リンク" title="1. プロジェクト背景: なぜドラレコ映像の認識は難しいのか？ への直接リンク" translate="no">​</a></h2>
+<p>高度道路交通システム（ITS）や自動交通違反取締において、**リアルタイム車線侵犯検知と自動ナンバープレート認識（ANPR）**は中核となる技術です。しかし実際の車載ドラレコ映像を処理する際には、多くの光学的・物理的障害に直面します:</p>
+<ol>
+<li class=""><strong>極端な低解像度とテクスチャの潰れ</strong>: 640x480フレーム内において、対象車両のナンバープレート領域はわずか30x15〜50x25ピクセル程度しかなく、文字の線画が完全に一体化してしまいます。</li>
+<li class=""><strong>路面振動とローリングシャッター歪み</strong>: 走行中の段差や急ブレーキ、急な車線変更による角度変化が直線の幾何学的推定を妨げます。</li>
+<li class=""><strong>リアルタイム処理のレイテンシ</strong>: 重大なフレーム単位の重層モデル適用は深刻なフレーム落ちを引き起こし、実時間の追跡を破綻させます。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-6段階の階層型パイプラインアーキテクチャ">2. 6段階の階層型パイプラインアーキテクチャ<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1#2-6%E6%AE%B5%E9%9A%8E%E3%81%AE%E9%9A%8E%E5%B1%A4%E5%9E%8B%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3" class="hash-link" aria-label="2. 6段階の階層型パイプラインアーキテクチャ への直接リンク" title="2. 6段階の階層型パイプラインアーキテクチャ への直接リンク" translate="no">​</a></h2>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Raw["ドラレコ生フレーム 640x480"] --&gt; L1["第1段階: Canny + Hough 動的車線抽出"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Raw --&gt; L2["第2段階: YOLOv3-tiny 車両領域検出"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L1 &amp; L2 --&gt; L3["第3段階: 車両底面＆車線ポリゴンIoU侵犯判定"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L3 -- 侵犯検知時 --&gt; L4["第4段階: 車両ROI内のYOLOv5プレート局所特定"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L4 --&gt; L5["第5段階: EDSR_x4 深層超解像4倍復元"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L5 --&gt; L6["第6段階: EasyOCR + 正規表現 + 時間軸多数決投票"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L6 --&gt; Result["確定違反ナンバー: 64가1511"]</span><br></div></code></pre></div></div>
+<p><img decoding="async" loading="lazy" alt="最終検出および認識結果" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_final_result-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-主要システム設定値-config">3. 主要システム設定値 (<code>CONFIG</code>)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1#3-%E4%B8%BB%E8%A6%81%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E8%A8%AD%E5%AE%9A%E5%80%A4-config" class="hash-link" aria-label="3-主要システム設定値-config への直接リンク" title="3-主要システム設定値-config への直接リンク" translate="no">​</a></h2>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">CONFIG </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_width"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">640</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_height"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">480</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"conf_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"nms_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.4</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_w"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_h"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"lane_iou_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.05</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"detection_interval"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">15</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_plate_area_for_ocr"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1200</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_history_size"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">7</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_confirm_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">3</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"sr_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"EDSR_x4.pb"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"yolo_plate_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"lp_det.pt"</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>第2編では、<strong>Cannyエッジ検出、確率的ハフ変換（HoughLinesP）、傾きフィルタリング数学</strong>、および車両バウンディングボックスと車線間の<strong>動的ポリゴンIoU侵犯判定アルゴリズム</strong>を詳しく解説します。</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="computer-vision" term="computer-vision"/>
+        <category label="anpr" term="anpr"/>
+        <category label="object-detection" term="object-detection"/>
+        <category label="super-resolution" term="super-resolution"/>
+        <category label="opencv" term="opencv"/>
+        <category label="deep-learning" term="deep-learning"/>
+        <category label="python" term="python"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[マウムジギ 開発日誌 #23] Safety Wrapper導入と1学期最終発表]]></title>
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23</id>
@@ -643,218 +852,5 @@
         <category label="モデル評価" term="モデル評価"/>
         <category label="推論" term="推論"/>
         <category label="並列処理" term="並列処理"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #13] 70B学習の限界と中小型モデル(HCX, Qwen)への迂回戦略]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-04-maeumjigi-13</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-04-maeumjigi-13"/>
-        <updated>2026-05-04T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>70Bという巨大なモデルのファインチューニング過程で発生したOOM（メモリ不足）の地獄を経験した5月4日、私たちは思い切った戦略変更を試みました。70Bモデル（Llama3.3, DeepSeek-R1）はバッチサイズを極端に減らして辛うじて<code>checkpoint-1200</code>, <code>1300</code>まで進めましたが、学習時間がかかりすぎて効率が最悪でした。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="中小型モデル15b9bに目を向ける">中小型モデル（1.5B〜9B）に目を向ける<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-04-maeumjigi-13#%E4%B8%AD%E5%B0%8F%E5%9E%8B%E3%83%A2%E3%83%87%E3%83%AB15b9b%E3%81%AB%E7%9B%AE%E3%82%92%E5%90%91%E3%81%91%E3%82%8B" class="hash-link" aria-label="中小型モデル（1.5B〜9B）に目を向ける への直接リンク" title="中小型モデル（1.5B〜9B）に目を向ける への直接リンク" translate="no">​</a></h3>
-<p>物理的なサーバーリソースとキャップストーンプロジェクトの期限を考慮すると、70Bだけに固執するのは危険だと判断しました。そこで、<strong>HCX-Omni-8B、Qwen35-9B、HCX-Text-1.5B</strong>のような比較的軽量な中小型モデルにファインチューニングの対象を変更して実験を始めました。</p>
-<blockquote>
-<p>「現在指定したハイパーパラメータでHCX-Omni-8Bなどを学習させるのに時間がかかっているが、一般的にモデルごとにこのようなパラメータが使われるのか？」
-「このバッチサイズの引き上げは学習にどのような影響を与えるのか？」</p>
-</blockquote>
-<p>小さなモデルだからといって、すべてが順調というわけではありませんでした。高速な学習のためにバッチサイズを引き上げ、モデルサイズに合ったハイパーパラメータの最適値を探してAIと終わりのない議論を続けました。まずは最も小さなモデルであるHCX-Text-1.5Bの学習結果を抽出して性能評価を行い、チューニングの方向性を定めていきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="チェックポイント保存エラーとカーネルバージョンの問題">チェックポイント保存エラーとカーネルバージョンの問題<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-04-maeumjigi-13#%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E4%BF%9D%E5%AD%98%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%A8%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E5%95%8F%E9%A1%8C" class="hash-link" aria-label="チェックポイント保存エラーとカーネルバージョンの問題 への直接リンク" title="チェックポイント保存エラーとカーネルバージョンの問題 への直接リンク" translate="no">​</a></h3>
-<p>HCX-Omni-8Bの学習を順調に進めていたところ、50ステップでチェックポイントを保存しようとして別の暗礁に乗り上げました。</p>
-<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">RANK </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> Detected kernel version </span><span class="token number" style="color:#36acaa">5.4</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> which </span><span class="token keyword" style="color:#00009f">is</span><span class="token plain"> below the recommended minimum of </span><span class="token number" style="color:#36acaa">5.5</span><span class="token number" style="color:#36acaa">.0</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">!</span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">사진 </span><span class="token number" style="color:#36acaa">02</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">images</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">02_error</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">png</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">JSONDecodeError Traceback </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">most recent call last</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">-</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">60</span><span class="token plain"> trainer</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">train</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resume_from_checkpoint</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">)</span><br></div></code></pre></div></div>
-<p>OSのカーネルバージョンが低いためプロセスが停止する可能性があるという警告とともに、保存されたチェックポイントのJSONファイルが破損して（<code>JSONDecodeError</code>）学習を再開できないという恐ろしいエラーでした。モデルサイズを小さくしたにもかかわらず、依然としてインフラストラクチャレベルで発生する数多くのエラーと格闘しながら一日を過ごしました。果たして安定した学習軌道に乗ることができるのでしょうか？</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="ファインチューニング" term="ファインチューニング"/>
-        <category label="HCX-Omni-8B" term="HCX-Omni-8B"/>
-        <category label="Qwen35-9B" term="Qwen35-9B"/>
-        <category label="チェックポイント" term="チェックポイント"/>
-        <category label="ハイパーパラメータ" term="ハイパーパラメータ"/>
-        <category label="人工知能(AI)" term="人工知能(AI)"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #12] 70B超大型モデルのファインチューニングとGPUメモリ(OOM)との死闘]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-03-maeumjigi-12</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-03-maeumjigi-12"/>
-        <updated>2026-05-03T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-cc8c2e3bfbfcf913bceab5f8066d9564.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>5月3日、これまで8Bモデルで十分に感覚を掴んだ私たちのチームは、ついに真のパフォーマンスの王様、**70B（700億パラメータ）**超大型モデルのファインチューニングに挑戦しました。Llama 3.3 70BとDeepSeek-R1 70Bの2つのモデルを対象に学習を試みましたが、予想通り膨大なハードウェアリソースの壁にぶつかってしまいました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="70bモデルそしてoomout-of-memoryの恐怖">70Bモデル、そしてOOM（Out of Memory）の恐怖<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-03-maeumjigi-12#70b%E3%83%A2%E3%83%87%E3%83%AB%E3%81%9D%E3%81%97%E3%81%A6oomout-of-memory%E3%81%AE%E6%81%90%E6%80%96" class="hash-link" aria-label="70Bモデル、そしてOOM（Out of Memory）の恐怖 への直接リンク" title="70Bモデル、そしてOOM（Out of Memory）の恐怖 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 意気揚々とサーバーに70Bのファインチューニングコードをアップロードして実行するやいなや、エラーが頻発し始めました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「サーバーのfine_tuningフォルダとサブファイルをコピーしました。コピーしたファイルを確認後、エラーの原因を把握して。」
-「DeepSeekの70Bモデルは修正しなくてもいいのか？エラーの可能性を確認願う。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: <code>train_log.jsonl</code>を分析しながら残りの予想所要時間を尋ねる余裕もつかの間、70BモデルがGPUメモリをあっという間に飲み込んでしまいました。（OOMエラー発生！）</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gpuメモリダイエット作戦">GPUメモリダイエット作戦<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-03-maeumjigi-12#gpu%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88%E4%BD%9C%E6%88%A6" class="hash-link" aria-label="GPUメモリダイエット作戦 への直接リンク" title="GPUメモリダイエット作戦 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 「すでにGPU memoryの使用量はMAXだ。」どうにかしてメモリ使用量を減らさなければ、学習が止まらずに回ることはできませんでした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「save_steps = 50, save_total_limit = 10, eval_steps = 50, patience = 10 に修正。」
-「設定したearly stopping条件について評価願う。」
-「ft_configs.yamlで70Bの2つのモデルのmax_seq_lengthを512に設定したが、サーバーのnvitopでは依然としてmemoryがmaxで使用されている。なぜか？」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 一度に処理する文脈の長さ（<code>max_seq_length</code>）を512に思い切って減らし、不要な保存を減らすためにハイパーパラメータを大幅に修正しました。しかし、<code>nvitop</code>でモニタリングしてみると、依然としてVRAMは限界値に達してあえいでいました。挙句の果てには、ステップ100、150付近で止まり続けるという恐ろしい現象が繰り返されました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-c8e79583d6933ed3f9d878496e49da2e.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>70Bという巨大な獣を飼いならすのは本当に簡単ではありません。人工知能(AI)にひたすらエラーログを投げながら解決策を探していますが、物理的なVRAMの限界をソフトウェアの最適化手法（LoRA、量子化など）で克服できるのか、終わりのないテストが必要そうです。果たして私たちは70Bモデルのファインチューニングに成功できるのでしょうか？次の日誌に続きます！</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="ファインチューニング" term="ファインチューニング"/>
-        <category label="Llama3.3-70B" term="Llama3.3-70B"/>
-        <category label="DeepSeek-R1-70B" term="DeepSeek-R1-70B"/>
-        <category label="OOM" term="OOM"/>
-        <category label="トラブルシューティング" term="トラブルシューティング"/>
-        <category label="GPU" term="GPU"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #11] 合成データ(v5)訓練結果 M6モデルの評価]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-19-maeumjigi-11</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-19-maeumjigi-11"/>
-        <updated>2026-04-19T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>4月19日、血と汗を流して作り上げた仮想の合成データセット（v5）で訓練させたモデル（M6）のパフォーマンスを評価し、それを基に7週目の週間報告書を作成した日です。果たして10ドルの課金爆弾に耐えながら作り出したデータには、それだけの価値があったのでしょうか？</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="モデル性能の真剣勝負m0-vs-m5-vs-m6">モデル性能の真剣勝負：M0 vs M5 vs M6<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-19-maeumjigi-11#%E3%83%A2%E3%83%87%E3%83%AB%E6%80%A7%E8%83%BD%E3%81%AE%E7%9C%9F%E5%89%A3%E5%8B%9D%E8%B2%A0m0-vs-m5-vs-m6" class="hash-link" aria-label="モデル性能の真剣勝負：M0 vs M5 vs M6 への直接リンク" title="モデル性能の真剣勝負：M0 vs M5 vs M6 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 指導教授やチームメンバーを説得するためには、単に「良くなった」ではなく、定量的なテスト結果と直感的な比較例が含まれた週間報告書が必要でした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「報告書の再作成願う。主要なポイントはv4をベースにしたM5とv5をベースにしたM6の比較である... 各データセットの例を含めて作成願う。」
-「テスト結果について記述する際、チューニング前の基本モデル(M0)とM6の違いも例を挙げた説明を含めて。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 人工知能(AI)がM0、M5、M6モデルが生成したテキスト結果を分析し、比較ファイル（<code>m0_m6_compare.json</code>）を抽出しました。その結果、基本Llama 3.1モデル（M0）は韓国語のカウンセリングにおいて多少ぎこちない姿を見せ、精製データ（v4）で学習したM5は改善されましたが深みが不足していたのに対し、高品質合成データ（v5）で学習したM6モデルは、ユーザーの感情に深く共感する心理カウンセラー特有の温かく専門的な口調を完璧に駆使しました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aiが代わりに書いてくれる7週目週間報告書-docx">AIが代わりに書いてくれる7週目週間報告書 (DOCX)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-19-maeumjigi-11#ai%E3%81%8C%E4%BB%A3%E3%82%8F%E3%82%8A%E3%81%AB%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B7%E9%80%B1%E7%9B%AE%E9%80%B1%E9%96%93%E5%A0%B1%E5%91%8A%E6%9B%B8-docx" class="hash-link" aria-label="AIが代わりに書いてくれる7週目週間報告書 (DOCX) への直接リンク" title="AIが代わりに書いてくれる7週目週間報告書 (DOCX) への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「結果と意義に重点を置いて7週目の報告書を2つのバージョン（5ページ以内の簡潔バージョン、詳細バージョン）で作成してください。そして2つのmdを基にそれぞれdocxファイルを生成して。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 指示一度で2つのバージョンがあっという間に完成し、綺麗なWordファイルへの変換まで完了しました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ragアーキテクチャの導入faiss-データベースdb構築評価">RAGアーキテクチャの導入：FAISS データベース(DB)構築評価<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-19-maeumjigi-11#rag%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%81%AE%E5%B0%8E%E5%85%A5faiss-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9db%E6%A7%8B%E7%AF%89%E8%A9%95%E4%BE%A1" class="hash-link" aria-label="RAGアーキテクチャの導入：FAISS データベース(DB)構築評価 への直接リンク" title="RAGアーキテクチャの導入：FAISS データベース(DB)構築評価 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「FAISS_DB_構築を実行し、FAISS_DB_構築_報告書.docxを作成しました。私たちの計画と該当報告書の結果について評価してください。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 単にモデルの重みを削るファインチューニングだけでなく、外部知識を参照してハルシネーション（幻覚）を減らすRAG（検索拡張生成）手法のために、FAISSベクトルデータベースを導入しました。AIに私が構築した構造を評価してほしいと要請し、肯定的なフィードバック（<code>FAISS_DB_構築_評価.md</code>）を受けました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-26255edc4f96968423c96b01166df05d.png" width="1902" height="184" class="img_ev3q"></p>
-<p>今日はこれまでの苦労が報われた日でした。訓練させたAIモデルが本当に目に見えて賢くなったのを確認した時のそのスリルとは！モデル性能も証明し、FAISS DBまで正常に連動されたので、マウムジギチャットボットの完成にまた一歩近づきました。</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="合成データ" term="合成データ"/>
-        <category label="モデル評価" term="モデル評価"/>
-        <category label="M6" term="M6"/>
-        <category label="FAISS" term="FAISS"/>
-        <category label="週間報告書" term="週間報告書"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #10] アプリケーションプログラミングインターフェース(API)制限解除とデータ合成の再開]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-14-maeumjigi-10</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-14-maeumjigi-10"/>
-        <updated>2026-04-14T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-543dd8454f9dffb553747d3b4acb067f.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月14日は、料金爆弾事件以降一時中断されていた合成データ（v5）生成作業を再開した日です。API料金限度額を引き上げ（制限解除）、システムを稼働させましたが、今回もすんなりとはいきませんでした。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="api制限解除完了続けて作動願う">「API制限解除完了、続けて作動願う！」<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-14-maeumjigi-10#api%E5%88%B6%E9%99%90%E8%A7%A3%E9%99%A4%E5%AE%8C%E4%BA%86%E7%B6%9A%E3%81%91%E3%81%A6%E4%BD%9C%E5%8B%95%E9%A1%98%E3%81%86" class="hash-link" aria-label="「API制限解除完了、続けて作動願う！」 への直接リンク" title="「API制限解除完了、続けて作動願う！」 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 前回の大規模データ生成の試み時、月間API限度額を超過してスクリプトが強制中断されていた状態でした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「v5_emotion_data_generation_commands.mdに従って作業進行」
-「API制限解除完了、続けて作動願う」（23時32分）
-「API制限解除完了、続けて作動願う」（00時11分）</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: Claude APIコンソールに接続し、決済限度額を思い切って増やして制限を解除しました。人工知能(AI)に中断された地点から続けてデータを生成するように繰り返し指示し、パイプラインを再稼働させました。</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="故障したパイプラインの修理と無人自動化">故障したパイプラインの修理と無人自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-14-maeumjigi-10#%E6%95%85%E9%9A%9C%E3%81%97%E3%81%9F%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AE%E4%BF%AE%E7%90%86%E3%81%A8%E7%84%A1%E4%BA%BA%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="故障したパイプラインの修理と無人自動化 への直接リンク" title="故障したパイプラインの修理と無人自動化 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: API制限は解除されましたが、どういうわけか新しいデータが正常に作られていませんでした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「何も生成されません。確認願う」
-「作業が完了したら結果を確認後、自動的にAPI接続を解除（関連権限をすべて許可するので権限の許可を求める必要なし）」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 生成ロジックの途中で発生したもつれを、AIが自ら確認して修正（<code>v5_sync_progress.json</code>追跡）するように措置しました。毎回横でエラーを直して見守ることはできなかったため、いっそのこと「すべての権限を与えるから、作業が終わったら自分でAPI接続を切って安全に終了しろ」という無人自動化の指示を下しました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-0d09e9af54e4b838ccf7743ffe7c9334.png" width="1800" height="184" class="img_ev3q"></p>
-<p>今日はデータ前処理のために、お金（API料金）と時間、そして自動化スクリプトという三拍子を合わせていく険しい道のりでした。無事にデータ生成が完了すれば、いよいよ次の段階へ進むことができるでしょう！
-次の開発日誌でお会いしましょう！</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="API制限" term="API制限"/>
-        <category label="合成データ" term="合成データ"/>
-        <category label="データ生成" term="データ生成"/>
-        <category label="トラブルシューティング" term="トラブルシューティング"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #9] Llama 3.1ファインチューニングのエラーとの死闘と6週目中間発表]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-04-09-maeumjigi-9</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-09-maeumjigi-9"/>
-        <updated>2026-04-09T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-888e5f86b5a011e14eb58b51f93ba3ca.png" width="1080" height="1080" class="img_ev3q"></p>
-<p>4月9日、昨日野心的に完成させたColabノートブックを使って、ついに人工知能モデル（Llama 3.1）の最初の学習（ファインチューニング）を試みました。しかし、現実はやはり甘くなく、数多くのエラーに直面しなければなりませんでした。同時に卒業研究6週目の中間発表資料まで作らなければならない過酷な一日でした。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="colabファインチューニングエラーとの終わりのない死闘">Colabファインチューニングエラーとの終わりのない死闘<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-09-maeumjigi-9#colab%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%A8%E3%81%AE%E7%B5%82%E3%82%8F%E3%82%8A%E3%81%AE%E3%81%AA%E3%81%84%E6%AD%BB%E9%97%98" class="hash-link" aria-label="Colabファインチューニングエラーとの終わりのない死闘 への直接リンク" title="Colabファインチューニングエラーとの終わりのない死闘 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: 昨日作成した<code>llama31_finetuning_colab.ipynb</code>を実行するやいなや、各種エラーが降り注ぎました。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「llama31_finetuning_colab (3).ipynbでM1ファインチューニングの進行中にエラーが発生した理由は何でしょうか？」
-「実行した結果にeos_tokenが含まれています。なぜこのような問題が発生するのでしょうか？」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 人工知能(AI)モデルが学習データを吐き出す過程で特殊トークン（<code>eos_token</code>）の処理が正しく行われない問題、メモリオーバーフロー問題などが立て続けに発生しました。発生したエラーログ全体をClaudeにコピーして投げ（Pasted text）、解決策を受け取ってコードを修正するプロセスを何度も繰り返しました。結局、紆余曲折の末に学習が完了し、<code>学習データ別学習結果.png</code>という意味のある結果グラフを抽出することができました！</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aiアシスタントの発表資料ppt作成">AIアシスタントの発表資料(PPT)作成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-04-09-maeumjigi-9#ai%E3%82%A2%E3%82%B7%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88%E3%81%AE%E7%99%BA%E8%A1%A8%E8%B3%87%E6%96%99ppt%E4%BD%9C%E6%88%90" class="hash-link" aria-label="AIアシスタントの発表資料(PPT)作成 への直接リンク" title="AIアシスタントの発表資料(PPT)作成 への直接リンク" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>問題</strong>: モデル訓練で徹夜している中、すぐに来週の発表のために6週目のフロントエンドとデータベースの進行状況PPTを作成しなければなりませんでした。</li>
-<li class=""><strong>過程</strong>:<!-- -->
-<blockquote>
-<p>「キャプディ_6週目_Frontend.pptxはこれまで進行した概要を紹介する画像集です。これを活用して今週の進行状況の発表資料を作ってください。」
-「データベース設計のテーブルをbackendに実装されたテーブルの関係を参考にして関係が見えるように表現して... テーブルが大きすぎてバラバラです。Userテーブルを中心にして配置してください。」</p>
-</blockquote>
-</li>
-<li class=""><strong>結果</strong>: 驚くべきことに、AIはフロントエンドの画像スクリーンショットを組み合わせて発表スクリプトとスライドの骨組みを作ってくれました。さらに、私がバックエンドコードに基づいて複雑なデータベースERD（Entity Relationship Diagram）を描いてほしいと執拗にフィードバック（User中心配置）を与えると、完璧にデータベース関係図まで整理して説明してくれました。</li>
-</ul>
-<p><img decoding="async" loading="lazy" alt="ターミナルのスクリーンショット" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_term-7d6edd520b598fa4240200a3f40c7c0e.png" width="2192" height="184" class="img_ev3q"></p>
-<p>今日はLlama 3.1という最新の言語モデルを直接自分の手（とAIの頭）でチューニングしてみる快感を感じた日です。同時に、コーディングだけでなく発表資料の作成、データベース(DB)アーキテクチャ図の設計まで、AIを100％活用する方法を身につけています。果たして私たちのマウムジギAIはどれくらい賢くなったのでしょうか？次回、そのテスト結果を公開します！</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="Llama3.1" term="Llama3.1"/>
-        <category label="ファインチューニング" term="ファインチューニング"/>
-        <category label="トラブルシューティング" term="トラブルシューティング"/>
-        <category label="PPT生成" term="PPT生成"/>
-        <category label="ERD" term="ERD"/>
     </entry>
 </feed>
