@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #6] Preprocessing Final Report Automation an
 authors: [jbgih]
 tags: [devlog, final-report, automation, Next.js, capstone, data-preprocessing]
 date: 2026-04-05
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -17,7 +18,7 @@ while simultaneously kicking off the frontend project that will become the face 
 - **Process**: 
   > To Claude Code: "Please write a final report summarizing the data preprocessing process (v1, v2, v3, v4)... Add representative examples for each version."
   > "Please convert this md file to a docx file... Express things that can be graphed as graphs and add them."
-- **Result**: Surprisingly, the AI analyzed the Python scripts and JSON data we had worked on and effortlessly wrote a core summary report in Markdown. Going even further, it independently installed Python libraries (`python-docx`, `matplotlib`), wrote a script, converted the Markdown into a neat Word (DOCX) file, and even drew and inserted emotion distribution graphs! It was a moment that drastically reduced the time wasted on documentation.
+- **Result**: Surprisingly, the Artificial Intelligence (AI) analyzed the Python scripts and JSON data we had worked on and effortlessly wrote a core summary report in Markdown. Going even further, it independently installed Python libraries (`python-docx`, `matplotlib`), wrote a script, converted the Markdown into a neat Word (DOCX) file, and even drew and inserted emotion distribution graphs! It was a moment that drastically reduced the time wasted on documentation.
 
 ### Next.js Based Frontend Project Kickoff
 

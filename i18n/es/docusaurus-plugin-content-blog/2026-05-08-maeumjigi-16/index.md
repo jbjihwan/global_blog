@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #16] Error Fatal, 2do Fine-Tuning y Ap
 authors: [jbgih]
 tags: [devlog, fine-tuning, LoRA, hyperparameters, ReactNative, app-development, frontend]
 date: 2026-05-08
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

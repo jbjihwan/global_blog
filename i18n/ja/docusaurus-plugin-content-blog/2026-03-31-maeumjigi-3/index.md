@@ -2,8 +2,9 @@
 slug: maeumjigi-3
 title: "[マウムジギ 開発日誌 #3] アラームアプリのビルドテストとファインチューニング前処理の開始"
 authors: [jbgih]
-tags: [開発日誌, AIコーディング, ClaudeCode, 卒業研究, Android, ビルドテスト, Llama3.1]
+tags: [開発日誌, 人工知能(AI)コーディング, ClaudeCode, 卒業研究, Android, ビルドテスト, Llama3.1]
 date: 2026-03-31
+keywords: [AIメンタルケア, 大規模言語モデル実装, LLMファインチューニング, AIチャットボット開発, プロンプトエンジニアリング]
 ---
 
 ![カバー画像](./images/01_cover.png)

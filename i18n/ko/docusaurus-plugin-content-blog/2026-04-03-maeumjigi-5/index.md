@@ -1,33 +1,41 @@
+```markdown
 ---
 slug: 2026-04-03-maeumjigi-5
-title: "[마음지기 캡스톤 개발일지 #5] 10만 건의 감정 데이터 정제와 API 비용의 압박"
+title: "[Diario de Desarrollo Capstone Maeumjigi #5] Refinamiento de 100 mil datos de emociones y la presión de los costos de la Interfaz de Programación de Aplicaciones (API)"
 authors: [jbgih]
 tags: [개발일지, 데이터정제, ClaudeAPI, 감정분류, Llama3.1, 비용문제]
 date: 2026-04-03
 ---
 
-![사진 01](./images/01_cover.png)
+El 3 de abril, llevamos a cabo la construcción de un flujo (pipeline) de preprocesamiento y refinamiento del conjunto de datos de entrenamiento para el fine-tuning (ajuste fino) del modelo de Aprendizaje Profundo (Deep Learning) (Llama 3.1), el cual será el motor central del proyecto Maeumjigi. En esta publicación, abordamos el proceso de automatización del etiquetado de emociones de un conjunto de datos de conversaciones a gran escala, así como el problema de los costos de las llamadas a la Interfaz de Programación de Aplicaciones (API) de grandes modelos de lenguaje (LLM) que surgió durante este proceso, y sus soluciones.
 
-4월 3일, 본격적으로 딥러닝 모델(Llama 3.1)에 먹일 훈련용 대화 데이터를 정제하는 작업에 착수한 날의 기록입니다. 
-단순히 데이터를 합치는 것을 넘어, AI가 텍스트를 보고 스스로 감정을 판별하게 만드는 거대한 파이프라인을 돌려본 날이기도 합니다.
+## 🛠 Tech Stack
+- **Model**: Llama 3.1 (Fine-tuning Target)
+- **Data Pipeline**: Python, Pandas
+- **AI/LLM**: Anthropic Claude API (Data Annotation)
 
-### 데이터 감정 재분류 (v3 -> v4)
+## 🚀 Features: Flujo de reclasificación de emociones de datos (v3 -> v4)
 
-- **문제**: 기존 데이터셋(`Emotion_train_dataset_v3`)의 감정 라벨링이 우리가 원하는 세밀한 심리상담 목적에 정확히 부합하지 않았습니다. 총 100만 건의 데이터 중 의미 있는 데이터만 필터링하고 정확한 감정을 매핑해야 했습니다.
-- **과정**: 
-  > "범위는 전체 100만 건입니다... Claude가 심리상담 전문가로서 대화를 읽고 직접 감정을 매핑할 것이기 때문입니다. 감정 분류 내 포함되지 않는 것은 제외하고 포함되는 것만 필터링하는 것입니다."
-- **결과**: `v4_plan.md`를 세우고 작업을 시작했습니다. 1차적으로 10만 줄의 데이터를 대상으로 Claude API를 연동하여 대화 맥락을 파악하고 감정을 재분류하는 스크립트를 작성하여 가동했습니다.
+El conjunto de datos existente `Emotion_train_dataset_v3`, compuesto por 1 millón de registros, estaba etiquetado con clasificaciones emocionales generales, por lo que su nivel de detalle era insuficiente para ser utilizado tal cual con el propósito específico del dominio de 'consejería psicológica'. Por lo tanto, el objetivo fue redefinir las categorías emocionales adecuadas para un chatbot de consejería y, basándonos en esto, construir un **conjunto de datos v4** filtrando y remapeando únicamente los datos significativos.
 
-### LLM API 과금의 공포
+Para ello, en lugar de usar un simple emparejamiento de palabras clave, diseñamos un flujo de trabajo automatizado (`v4_plan.md`) utilizando la API de Claude para permitir que la Inteligencia Artificial (IA) comprendiera el contexto del texto y pudiera juzgar las emociones por sí misma.
 
-- **문제**: 방대한 텍스트 데이터를 LLM(Claude)에게 던져주고 판별하게 만들다 보니, API 사용량(토큰 수)이 기하급수적으로 늘어나는 문제가 발생했습니다.
-- **과정**:
-  > "이미 Pro 구독으로 Claude를 사용 중인데 API가 별도로 필요하나요?"
-  > "Anthropic API가 아닌 Claude Code를 사용하는 방법은 없나요? 과금이 부담스럽습니다."
-  > "실제 비용은 10.27 달러가 나왔습니다."
-- **결과**: Claude Pro 구독(월 20달러)과는 별개로, 파이썬 스크립트에서 자동화로 대량의 데이터를 처리하기 위해 호출하는 Anthropic API는 사용량만큼 종량제로 과금된다는 뼈아픈 사실을 체감했습니다. 단 10만 줄을 테스트로 처리하는 데에만 순식간에 약 14,000원($10.27)이 과금되었습니다. 100만 건을 모두 처리하려면 엄청난 비용이 든다는 것을 깨닫고, 모델 최적화와 데이터 샘플링의 중요성을 몸소 배운 하루였습니다.
+- **Ingeniería de Prompts (Prompt Engineering)**: Asignamos la persona (rol) de 'experto en consejería psicológica' al modelo Claude, instruyéndole analizar el contexto (Context) de toda la conversación y extraer únicamente los datos que pertenecieran a una tabla de clasificación de emociones previamente definida.
+- **Procesamiento por Lotes (Batch Processing)**: Antes de procesar todos los datos, en una primera etapa implementamos y ejecutamos un script que tomó una muestra de 100,000 datos para verificar la precisión y el rendimiento del flujo de trabajo.
 
-![사진 02](./images/02_term.png)
+## 🔧 Troubleshooting
 
-오늘은 딥러닝 데이터 전처리 과정에서 필연적으로 마주하게 되는 '컴퓨팅 비용'이라는 현실적인 장벽에 부딪힌 날이었습니다. 
-결과적으로 정제된 양질의 데이터(`v4_report.md`)를 얻어내는 데는 성공했지만, 앞으로 어떻게 이 비용과 효율성의 균형을 맞추며 파인튜닝을 진행할지 깊은 고민을 안겨준 소중한 경험이었습니다!
+### 1. Problema de precisión del etiquetado de emociones específico del dominio
+- **Problem**: Los datos existentes estaban clasificados solo con emociones unidimensionales, lo que limitaba la capacidad de reflejar el estado psicológico complejo del cliente. El enfoque anterior basado en reglas (Rule-based) o los métodos simples de filtrado de palabras no podían captar las emociones ocultas en el contexto.
+- **Solution**: Adoptamos un enfoque utilizando el LLM como Data Annotator. En lugar de expresiones regulares, pasamos el script de conversación completo como un prompt a través de la API de Claude para que realizara una inferencia basada en el contexto, aumentando drásticamente la calidad del etiquetado. Filtramos solo los datos claros y excluimos los datos ambiguos que no entraban en la clasificación de emociones para eliminar el ruido.
+
+### 2. Problema de facturación por uso de la API del LLM y explosión de Tokens (Token)
+- **Problem**: En el proceso de enviar 100,000 datos de conversación a la API, el uso de Tokens aumentó exponencialmente. Originalmente, esperábamos que el uso de la API estuviera cubierto por la suscripción Claude Pro ($20 al mes) o que podríamos evitar el cargo utilizando Claude Code en lugar de la API de Anthropic. Sin embargo, la API de Anthropic llamada desde el script de automatización de Python facturó de forma completamente independiente como pago por uso (pay-as-you-go) basado en tokens. Como resultado, ocurrió el problema de que solo la ejecución de la lógica de prueba para 100,000 casos facturó rápidamente $10.27 (aproximadamente 14,000 KRW).
+- **Solution**:
+  1. En lugar de investigar exhaustivamente los 1 millón de casos, cambiamos la estructura del flujo de trabajo para seleccionar y procesar solo los datos mínimos válidos esenciales para el fine-tuning (ajuste fino) mediante el muestreo de datos.
+  2. Establecimos una estrategia para minimizar la longitud del Token de entrada (Input Token) optimizando la estructura del prompt, reduciendo así los costos de llamadas a la API de los datos a procesar en el futuro junto con la optimización del modelo.
+
+## 📝 Conclusión
+
+A través del trabajo de hoy, logramos asegurar un conjunto de datos refinado de alta calidad (`v4_report.md`), pero sentimos profundamente la barrera realista de 'recursos informáticos y costos de la API' que es inevitable en el proceso de preprocesamiento de datos de Aprendizaje Profundo. Planeamos continuar mejorando el fine-tuning (ajuste fino) de Llama 3.1 manteniendo un equilibrio eficiente entre la calidad del modelo y el costo de procesamiento de datos.
+```

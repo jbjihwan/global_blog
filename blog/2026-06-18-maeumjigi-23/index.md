@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #23] Safety Wrapper & 1st Semester Final Pre
 authors: [jbgih]
 tags: [devlog, fine-tuning, safety wrapper, cloud, capstone]
 date: 2026-06-18
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -13,7 +14,7 @@ As we entered June, the Maeumjigi team completed the major developments of the 1
 ### The Victory of the 2:1 Ratio and the Safety Wrapper
 
 > "What was our chosen model?"
-> "We decided on 2:1. Now design a method to use a safety_wrapper as a safety lock for our Main LLM (2:1)."
+> "We decided on 2:1. Now design a method to use a safety_wrapper as a safety lock for our Main Large Language Model (LLM) (2:1)."
 
 As a result of the 4th fine-tuning, we selected the model mixed with a 2:1 ratio of 'emotional' to 'daily' chat as our final LLM. However, given the nature of a suicide prevention chatbot, we could not allow even a single hallucination or fatal wrong answer.
 
@@ -28,6 +29,6 @@ To prevent this, we introduced a **Safety Wrapper**. It verifies the input and o
 
 We calculated the Amazon EC2 GPU server budget to run the verified chatbot for 5 months during the summer vacation.
 
-And on June 18th, we gathered all the achievements of our backend, frontend, and AI to complete the **1st Semester Final Presentation (PPTX)**!
+And on June 18th, we gathered all the achievements of our backend, frontend, and Artificial Intelligence (AI) to complete the **1st Semester Final Presentation (PPTX)**!
 
 The long and arduous 1st semester of the Maeumjigi Capstone development has successfully concluded. We will deploy the system to the server over the summer and return with a more advanced service in the 2nd semester!

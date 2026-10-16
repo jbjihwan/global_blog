@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #4] Preprocesamiento de Datos de Fine-
 authors: [jbgih]
 tags: [devlog, IA-coding, ClaudeCode, capstone, fine-tuning, data-preprocessing, Llama3.1]
 date: 2026-04-01
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

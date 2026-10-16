@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Bac
 authors: [jbgih]
 tags: [devlog, fine-tuning, backend, frontend, database, capstone]
 date: 2026-05-20
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

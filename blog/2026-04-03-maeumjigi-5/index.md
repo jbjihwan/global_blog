@@ -1,15 +1,16 @@
 ---
 slug: 2026-04-03-maeumjigi-5
-title: "[Maeumjigi Capstone Dev Log #5] Purifying 100,000 Emotion Data Points and the Pressure of API Costs"
+title: "[Maeumjigi Capstone Dev Log #5] Purifying 100,000 Emotion Data Points and the Pressure of Application Programming Interface (API) Costs"
 authors: [jbgih]
 tags: [devlog, data-cleaning, ClaudeAPI, emotion-classification, Llama3.1, api-cost]
 date: 2026-04-03
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
 
 This is the record of April 3, the day we began in earnest the task of refining the training conversation data to feed into the deep learning model (Llama 3.1).
-It was also the day we ran a massive pipeline that makes the AI read the text and judge the emotion on its own, going beyond simple data merging.
+It was also the day we ran a massive pipeline that makes the Artificial Intelligence (AI) read the text and judge the emotion on its own, going beyond simple data merging.
 
 ### Reclassifying Data Emotions (v3 -> v4)
 
@@ -18,7 +19,7 @@ It was also the day we ran a massive pipeline that makes the AI read the text an
   > "The scope is the entire 1 million... Because Claude, as a psychological counseling expert, will read the conversation and directly map the emotion. We are filtering only what falls under our emotion classification and excluding the rest."
 - **Result**: We established `v4_plan.md` and started the work. Initially targeting 100,000 lines of data, we wrote and ran a script that integrates the Claude API to grasp the conversational context and reclassify emotions.
 
-### The Horror of LLM API Billing
+### The Horror of Large Language Model (LLM) API Billing
 
 - **Problem**: As we threw massive amounts of text data at an LLM (Claude) for evaluation, the API usage (token count) increased exponentially.
 - **Process**:

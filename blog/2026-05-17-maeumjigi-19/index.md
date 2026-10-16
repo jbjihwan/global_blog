@@ -1,16 +1,17 @@
 ---
 slug: 2026-05-17-maeumjigi-19
-title: "[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend DB Troubleshooting"
+title: "[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting"
 authors: [jbgih]
 tags: [devlog, fine-tuning, report, backend, DB, troubleshooting, capstone]
 date: 2026-05-17
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
 
 I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.
 
-### Automating the Fine-Tuning Report using AI
+### Automating the Fine-Tuning Report using Artificial Intelligence (AI)
 
 There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (`fine_tuning_2`).
 
@@ -31,6 +32,6 @@ I successfully pushed the DB dump and accessed the web, but fell into a hell of 
 
 ### Contemplating Knowledge Graphs
 
-> "Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single LLM."
+> "Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."
 
 Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing `chatbot_design_prompt.md` to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!

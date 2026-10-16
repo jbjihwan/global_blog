@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #16] Fatal Mistake, 2nd Fine-Tuning, and Rea
 authors: [jbgih]
 tags: [devlog, fine-tuning, LoRA, hyperparameters, ReactNative, app-development, frontend]
 date: 2026-05-08
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -12,7 +13,7 @@ May 8th was the day we were building our capstone design mid-term presentation (
 
 ### Discovering the Fatal LoRA Hyperparameter Mistake
 
-I was refining the model structure diagrams and hyperparameter info with the AI for the PPT.
+I was refining the model structure diagrams and hyperparameter info with the Artificial Intelligence (AI) for the PPT.
 
 > "Looking at the fine-tuning examples, the answers are shorter than the base model. I think this is because setting LoRA's r to 8 and alpha to 16 reduced the intermediate features too much..."
 > "Wait, it was a/r? I thought it was r/a...??? I really applied LoRA greedily..."

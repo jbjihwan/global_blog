@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #17] 2do Fine-Tuning y la Trampa de la
 authors: [jbgih]
 tags: [devlog, fine-tuning, best-performance, checkpoint, hardcoding, capstone]
 date: 2026-05-12
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

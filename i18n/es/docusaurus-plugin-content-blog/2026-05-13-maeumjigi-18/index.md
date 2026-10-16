@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #18] Expandiendo Tokens de Inferencia 
 authors: [jbgih]
 tags: [devlog, fine-tuning, inference, max_new_tokens, empathy, capstone]
 date: 2026-05-13
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

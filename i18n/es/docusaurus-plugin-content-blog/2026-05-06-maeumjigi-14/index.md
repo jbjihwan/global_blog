@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #14] Fine-Tuning Completado y Pipeline
 authors: [jbgih]
 tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, model-evaluation, inference, parallel-processing]
 date: 2026-05-06
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

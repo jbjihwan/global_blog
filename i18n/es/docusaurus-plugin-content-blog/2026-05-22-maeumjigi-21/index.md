@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #21] Optimizando Proporciones de Datos
 authors: [jbgih]
 tags: [devlog, fine-tuning, dataset, prompt, capstone]
 date: 2026-05-22
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -20,7 +21,7 @@ Nuestro modelo mostraba signos de sobreajuste, dando respuestas excesivamente se
 
 ### Generando 10,000 Datos Emocionales (v6)
 
-Utilicé el modo Batch de la API de Anthropic (Haiku) para generar 10,000 entradas de datos de conversaciones emocionales. Completé las entradas faltantes con un script adicional para asegurar la calidad.
+Utilicé el modo Batch de la Interfaz de Programación de Aplicaciones (API) de Anthropic (Haiku) para generar 10,000 entradas de datos de conversaciones emocionales. Completé las entradas faltantes con un script adicional para asegurar la calidad.
 
 ### Buscando la Proporción Dorada
 

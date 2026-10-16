@@ -1,38 +1,63 @@
+```markdown
 ---
 slug: 2026-05-17-maeumjigi-19
-title: "[마음지기 캡스톤 개발일지 #19] 파인튜닝 보고서 자동화와 백엔드 DB 연동 트러블슈팅"
+title: "[Diario de desarrollo Capstone de Maeumjigi #19] Automatización del informe de fine-tuning y troubleshooting de la integración de la base de datos (DB) del backend"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 보고서, 백엔드, DB, 트러블슈팅, 캡스톤디자인]
+tags: [diario de desarrollo, fine-tuning, informe, backend, DB, troubleshooting, diseño capstone]
 date: 2026-05-17
 ---
 
-![사진 01](./images/01_cover.png)
+## 1. Construcción del pipeline de automatización para el análisis de resultados del segundo fine-tuning y generación de informes
 
-제가 이전에 "5월 13일이 마음지기 5월 개발의 마지막일 것"이라고 착각했던 것을 정정합니다! 5월 17일, 어마어마한 양의 백엔드 연동 테스트와 보고서 작업이 몰아쳤습니다. 
+### 1.1. Antecedentes de la introducción de la automatización
+Durante el segundo fine-tuning (`fine_tuning_2`), se generaron los resultados de inferencia para los conjuntos de datos `common` y `daily`, junto con una gran cantidad de métricas de evaluación. Dado que consideramos ineficiente que una persona analizara y comparara manualmente las métricas de rendimiento entre múltiples modelos, las variaciones según el valor Alpha y las características de cada conjunto de datos, construimos un pipeline automatizado para la interpretación de datos y la redacción de informes utilizando inteligencia artificial (IA).
 
-### AI를 활용한 파인튜닝 결과 보고서 자동화
+### 1.2. Informe de métricas de rendimiento del modelo y visualización (Features)
+Analizamos cuantitativamente el rendimiento de cada modelo y derivamos las siguientes métricas visualizadas.
 
-2차 파인튜닝(`fine_tuning_2`)의 방대한 결과 그래프(`common`, `daily` 데이터셋 비교 등)를 하나씩 사람이 분석해서 쓰기에는 시간이 너무 부족했습니다.
+**[Métricas de evaluación del conjunto de datos Common]**
+![Metric Comparison (Common)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/common/01_metric_comparison.png)
+![Improvement Pct (Common)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/common/02_improvement_pct.png)
+![Radar per Model (Common)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/common/03_radar_per_model.png)
+![Pareto Efficiency (Common)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/common/04_pareto_efficiency.png)
 
-> "모델들의 추론 결과를 비교하는 보고서를 작성하기 위한 프롬프트를 만들어주세요. 프롬프트 자체를 report_prompt.md로 저장하고, 이에 따라 보고서 작성을 수행해 줘."
-> "내가 바란 보고서는 .md 형식이 아닌 .docx 형식을 희망했습니다."
+**[Métricas de evaluación del conjunto de datos Daily]**
+![Metric Comparison (Daily)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/daily/01_metric_comparison.png)
+![Radar per Model (Daily)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/daily/03_radar_per_model.png)
+![Pareto Efficiency (Daily)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/daily/04_pareto_efficiency.png)
 
-AI에게 결과 지표를 해석하게 하고, 보고서 초안을 자동으로 작성하는 프롬프트 엔지니어링을 시도했습니다. 결과적으로 AI가 각 모델의 장단점과 Alpha 값에 따른 차이를 분석해 훌륭한 워드(.docx) 보고서 초안을 뽑아주었습니다. 
+**[Análisis comparativo del valor Alpha y conjuntos de datos (Common vs Daily)]**
+![Alpha Comparison (Common)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/05_alpha_comparison_common.png)
+![Alpha Comparison (Daily)](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/05_alpha_comparison_daily.png)
+![Common vs Daily](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/06_common_vs_daily.png)
 
-### 백엔드 DB 연동과 401 Unauthorized의 늪
+### 1.3. Ingeniería de prompts y salida en formato Word (.docx)
+- **Automatización del análisis**: Diseñamos el prompt `report_prompt.md` para inyectar los datos de las métricas de resultados anteriores y deducir automáticamente los insights basados en las ventajas y desventajas de cada modelo y los cambios en el valor Alpha.
+- **Optimización del formato**: En lugar de simplemente generar texto en Markdown, modificamos las especificaciones de salida del pipeline para que el borrador final del informe se genere en formato `.docx`, cumpliendo con los requisitos de los entregables prácticos.
 
-보고서가 마무리되자마자 프론트엔드와 백엔드의 시스템 안정성을 테스트하기 위해 `backup.sql` 데이터를 로컬 PostgreSQL DB에 밀어 넣는 작업을 시작했습니다.
+---
 
-> "backup.sql에 데이터를 넣고 싶습니다. 목적: Frontend, Backend 작동 및 시스템 안정성 테스트."
-> "backend, frontend 구동 후 접속 성공했으나 메뉴들을 선택해도 반응이 없음"
-> "이메일 또는 비밀번호가 틀렸어요... INFO: 127.0.0.1:54446 - POST /auth/login 401 Unauthorized"
+## 2. Troubleshooting de la migración de la base de datos del backend en PostgreSQL
 
-DB 덤프를 성공적으로 밀어 넣고 웹에 접속까지는 성공했지만, 로그인이 되지 않는 `401 Unauthorized` 에러 지옥에 빠졌습니다. `debug_login.py`를 만들고 uvicorn 서버를 껐다 켜며 수십 번의 트러블슈팅을 진행했습니다. 비밀번호 해싱 방식이 달랐던 건지, DB 마이그레이션이 꼬인 건지 로그를 뒤지며 밤을 새우다시피 했습니다.
+### 2.1. Situación del problema (Troubleshooting)
+Para verificar la estabilidad del sistema integrado entre los componentes del frontend y backend, restauramos el archivo de volcado `backup.sql` que contenía datos de prueba en la base de datos PostgreSQL local. Aunque el servidor se inició y la conexión de red se estableció normalmente, experimentamos un problema en el que se producía un error de acceso denegado continuamente al solicitar el inicio de sesión.
+- **Error Log**: `INFO: 127.0.0.1:54446 - POST /auth/login 401 Unauthorized`
 
-![사진 02](./images/02_db.png)
+### 2.2. Análisis de causas y solución (Solution)
+- **Construcción de un entorno de depuración independiente**: Para probar de forma aislada el módulo de autenticación sin pasar por todo el stack del backend (Uvicorn/FastAPI), escribimos el script `debug_login.py` para aislar el problema.
+- **Verificación del algoritmo de cifrado de contraseñas**: Investigamos si había discrepancias entre los valores hash de los datos de las cuentas existentes volcadas y la configuración del algoritmo de cifrado (por ejemplo, Bcrypt) utilizado actualmente en el servidor backend local.
+- **Aplicación de la solución**: Reiniciamos el servidor Uvicorn y depuramos el historial de conflictos de migración entre el middleware de autenticación y el esquema de la base de datos comparándolos y corrigiéndolos decenas de veces a través de los registros de depuración, logrando finalmente resolver el problema de autenticación `401 Unauthorized` y confirmando la emisión exitosa de la sesión.
 
-### 지식그래프(Knowledge Graph)의 도입 고민
+---
 
-> "우리 프로젝트의 목적은 효율적으로 자살예방 챗봇을 만드는 것입니다. 요즘 하네스, 온톨로지, 지식그래프 등을 사용하는 기법이 떠오르는데, LLM 하나만 집중하는 것보다 더 나은 안정성을 가진 챗봇을 만들 수 있을 것 같습니다."
+## 3. Diseño de la integración del Grafo de Conocimiento (Knowledge Graph) para fortalecer la estabilidad y la fiabilidad
 
-밤늦은 시간, 단순 LLM 파인튜닝의 한계를 극복하기 위해 온톨로지와 지식그래프(Knowledge Graph)를 융합하는 방안을 새롭게 고민하며 `chatbot_design_prompt.md`를 설계하기 시작했습니다. 5월 중순을 넘어가며 프로젝트의 스케일이 점점 더 거대해지고 있습니다!
+### 3.1. Antecedentes de la introducción (Reflexión sobre Tech Stack)
+El núcleo del chatbot de prevención del suicidio es proporcionar respuestas fiables sin información inexacta ni alucinaciones (Hallucination) durante las situaciones de crisis de los usuarios. Determinamos que depender únicamente del fine-tuning de un solo modelo de lenguaje grande (LLM) dificultaba garantizar plenamente la estabilidad de la respuesta en situaciones que requieren experiencia médica y psicológica.
+
+### 3.2. Dirección del perfeccionamiento de la arquitectura del sistema (Features)
+- **Construcción de Ontología (Ontology) y Grafo de Conocimiento**: Introdujimos un diseño que estructura los manuales de asesoramiento psicológico y los protocolos de prevención del suicidio en forma de un Grafo de Conocimiento (Knowledge Graph).
+- **Harness y fusión de modelos complejos**: Actualizamos el diseño del prompt `chatbot_design_prompt.md` en la dirección de controlar la precisión de las respuestas combinando los resultados de búsqueda basados en el grafo de conocimiento con los resultados generados por el modelo.
+
+Más allá de la simple etapa de ajuste de un solo modelo, la escala del proyecto se está expandiendo con éxito a un sistema avanzado combinado con la última arquitectura RAG (Retrieval-Augmented Generation).
+```

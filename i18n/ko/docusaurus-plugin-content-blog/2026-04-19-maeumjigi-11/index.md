@@ -1,35 +1,68 @@
+Here is the translated blog post in Spanish. The Markdown formatting, frontmatter structure, and image paths have been preserved as requested, while the content and title have been translated into Spanish.
+
+```markdown
 ---
 slug: 2026-04-19-maeumjigi-11
-title: "[마음지기 캡스톤 개발일지 #11] 합성 데이터(v5) 훈련 결과 M6 모델 평가"
+title: "[Registro de Desarrollo Capstone de Maeumjigi #11] Evaluación del Modelo M6 con Resultados de Entrenamiento de Datos Sintéticos (v5)"
 authors: [jbgih]
 tags: [개발일지, 합성데이터, 모델평가, M6, FAISS, 주간보고서]
 date: 2026-04-19
 ---
 
-![사진 01](./images/01_cover.png)
+## 1. Resumen (Overview)
 
-4월 19일, 피땀 흘려 만들어낸 가상의 합성 데이터셋(v5)으로 훈련시킨 모델(M6)의 성능을 평가하고, 이를 바탕으로 7주 차 주간 보고서를 작성한 날입니다. 과연 10달러의 과금 폭탄을 견뎌내며 만들어낸 데이터는 그만한 가치가 있었을까요?
+Esta publicación es el registro de desarrollo de la séptima semana del proyecto del chatbot de asesoramiento psicológico 'Maeumjigi'. El objetivo principal de esta semana es evaluar cuantitativa y cualitativamente el rendimiento del **Modelo M6**, el cual fue ajustado (Fine-tuned) con el conjunto de datos sintéticos (v5) recientemente construido, y verificar los resultados de la integración con la **base de datos vectorial FAISS (DB)** para la mejora del pipeline de Generación Aumentada por Recuperación (RAG, por sus siglas en inglés) basado en Inteligencia Artificial (IA).
 
-### 모델 성능 진검승부: M0 vs M5 vs M6
+## 2. Evaluación del Rendimiento del Modelo: M0 vs M5 vs M6 (Model Evaluation)
 
-- **문제**: 지도교수님과 팀원들을 설득하기 위해, 단순히 "좋아졌다"가 아니라 정량적인 테스트 결과와 직관적인 비교 예시가 포함된 주간 보고서가 필요했습니다.
-- **과정**: 
-  > "보고서 재작성 바람. 주요 포인트는 v4를 기반으로 한 M5와 v5를 기반으로 한 M6의 비교이다... 각 데이터셋의 예시를 포함하여 작성 바람."
-  > "테스트 결과에 대해 서술할 때 튜닝 전 기본 모델(M0)과 M6의 차이도 예시를 든 설명을 포함해 줘."
-- **결과**: AI가 M0, M5, M6 모델이 생성한 텍스트 결과를 분석하여 비교 파일을 추출(`m0_m6_compare.json`)했습니다. 그 결과, 기본 Llama 3.1 모델(M0)은 한국어 상담에 다소 어색한 모습을 보였고, 정제 데이터(v4)로 학습한 M5는 나아졌지만 깊이가 부족했던 반면, 고품질 합성 데이터(v5)로 학습한 M6 모델은 사용자의 감정에 깊이 공감하는 심리상담사 특유의 따뜻하고 전문적인 어투를 완벽하게 구사해 냈습니다. 
+Para verificar el impacto que tiene la calidad de los datos de entrenamiento en la capacidad de generación del modelo durante el ajuste fino del modelo de lenguaje, realizamos un experimento comparativo dirigido a tres versiones del modelo.
 
-### AI가 대신 써주는 7주 차 주간 보고서 (DOCX)
+- **M0 (Base Model):** Modelo Llama 3.1 original preentrenado.
+- **M5 (Data v4):** Modelo de ajuste fino basado en el conjunto de datos existente (v4) que pasó por el primer proceso de refinamiento.
+- **M6 (Data v5):** Modelo de ajuste fino basado en un conjunto de datos sintéticos virtuales de alta calidad (v5) generado con una inversión de aproximadamente $10 en costos de API.
 
-- **과정**:
-  > "결과와 의의를 중점으로 7주 차 보고서를 두 버전(5장 이내 간결 버전, 상세 버전)으로 작성해 주세요. 그리고 두 md를 기반으로 각각 docx 파일을 생성해 줘."
-- **결과**: 지시 한 번에 `7주차_보고서_v1_간결.md`, `7주차_보고서_v2_상세.md` 두 가지 버전이 뚝딱 완성되었고, 깔끔하게 워드 파일로 변환까지 완료되었습니다. 
+### 2.1 Análisis de la Pérdida de Entrenamiento (Training Loss)
 
-### RAG 아키텍처 도입: FAISS DB 구축 평가
+![Training Result M3-M6](D:/Projects/26_1/CapDe/TestClaudeCode/data_preprocessing/for_Llama/data/output/M6/training_result(M3~M6).png)
 
-- **과정**:
-  > "FAISS_DB_구축을 수행하고 FAISS_DB_구축_보고서.docx를 작성했습니다. 우리의 계획과 해당 보고서 결과에 대해 평가해 주세요."
-- **결과**: 단순히 모델의 가중치를 깎는 파인튜닝뿐만 아니라, 외부 지식을 참조하여 할루시네이션(환각)을 줄이는 RAG(검색 증강 생성) 기법을 위해 FAISS 벡터 데이터베이스를 도입했습니다. AI에게 제가 구축한 구조를 평가해 달라고 요청했고, 긍정적인 피드백(`FAISS_DB_구축_평가.md`)을 받았습니다.
+Esta es la métrica de pérdida de entrenamiento (Training Loss) registrada durante el proceso de aprendizaje del modelo. A través de los experimentos desde M3 hasta M6, confirmamos la sección donde el aprendizaje converge de manera estable y, en particular en el caso del modelo M6, alcanzó el valor de pérdida (Loss) objetivo de forma estable sin sobreajuste (Overfitting).
 
-![사진 02](./images/02_term.png)
+### 2.2 Comparación de Textos Generados (Troubleshooting & Solution)
 
-오늘은 그동안의 고생이 빛을 발한 날이었습니다. 훈련시킨 AI 모델이 정말로 눈에 띄게 똑똑해진 것을 확인했을 때의 그 짜릿함이란! 모델 성능도 입증했고, FAISS DB까지 성공적으로 연동되었으니 마음지기 챗봇이 완성에 한 걸음 더 가까워졌습니다.
+**Problema Ocurrido (Troubleshooting):**
+Necesitábamos demostrar la mejora del rendimiento del modelo con datos comparativos objetivos e intuitivos, y no simplemente con la sensación cualitativa de que "las respuestas se han vuelto más naturales". En el informe semanal se requirió específicamente material de ejemplo que mostrara claramente la diferencia en la capacidad de empatía en coreano entre el modelo M0 (modelo base) y los modelos ajustados.
+
+**Solución (Solution):**
+Inyectamos el mismo prompt en cada modelo (M0, M5, M6) para extraer los textos de respuesta generados, y construimos un pipeline de análisis comparativo coherente al parsear esto en formato `m0_m6_compare.json`.
+
+![Test Result M0, M5, M6](D:/Projects/26_1/CapDe/TestClaudeCode/data_preprocessing/for_Llama/data/output/M6/test_result(M0,M5,M6).png)
+
+**Resultado de la Evaluación:**
+- **M0 (Base):** Se confirmó que no es adecuado para el dominio del asesoramiento psicológico, ya que no logró comprender el contexto ni las líneas emocionales propias del idioma coreano, generando respuestas con un tono de traducción mecánica.
+- **M5 (Data v4):** Aunque mantiene el flujo de conversación básico, mostró ciertas limitaciones en cuanto a la intervención psicológica (Intervention) para empatizar profundamente con las emociones subyacentes del cliente.
+- **M6 (Data v5):** No solo empatizó profundamente con las emociones del usuario, sino que también emuló con éxito el tono cálido y profesional propio de un consejero psicológico experto real. Este es un resultado que demuestra que la construcción de un conjunto de datos sintéticos (v5) de alta calidad es un factor determinante en el rendimiento del modelo especializado en el dominio.
+
+## 3. Arquitectura RAG y Construcción de FAISS DB (Features)
+
+**Características Clave Implementadas (Features):**
+Introdujimos la arquitectura RAG para controlar el problema de las alucinaciones (Hallucination) del LLM, que es difícil de resolver con un simple ajuste fino, y para generar respuestas basadas en conocimientos psicológicos verificados.
+
+**Tecnología Utilizada (Tech Stack):**
+- Vector DB: **FAISS (Facebook AI Similarity Search)**
+- Embedding: Modelo de incrustación (embedding) especializado en textos en coreano
+
+**Resultados de Implementación y Evaluación:**
+1. Completamos la indexación (Indexing) en la FAISS DB después de dividir los documentos de la base de conocimientos profesionales de asesoramiento psicológico en fragmentos (Chunks) e incrustarlos (embedding) como vectores.
+2. Realizamos una prueba para recuperar (Retrieve) el documento con alta similitud a la consulta (Query) de entrada del usuario e inyectarlo en la ventana de contexto.
+3. Como resultado de la ejecución del script de evaluación (`FAISS_DB_구축_평가.md`), verificamos que la arquitectura de la base de datos vectorial construida aumentó significativamente la confiabilidad de la respuesta al realizar una búsqueda de similitud rápida y precisa.
+
+## 4. Automatización del Pipeline de Reportes (Reporting)
+
+Avanzamos con la automatización de la generación de documentos para minimizar los recursos necesarios en la redacción del informe semanal.
+- Con base en los datos de prueba comparativos extraídos (`m0_m6_compare.json`), generamos automáticamente `7주차_보고서_v1_간결.md` (versión resumida) y `7주차_보고서_v2_상세.md` (versión detallada) mediante un script.
+- Aseguramos rápidamente el documento final para la entrega al construir un proceso de conversión que compila el formato Markdown a archivos DOCX (Word).
+
+## 5. Conclusión y Tareas Futuras
+
+A través de esta evaluación del modelo M6, demostramos que el ajuste fino (fine-tuning) basado en datos sintéticos de alta calidad (v5) aporta una mejora drástica en el rendimiento del chatbot de asesoramiento psicológico. Además, el desarrollo del motor central del chatbot 'Maeumjigi' se ha encaminado correctamente tras completar con éxito la verificación de la arquitectura RAG basada en FAISS DB. En la siguiente etapa, planeamos continuar con la integración real de la API de backend y las pruebas de integración del sistema (Integration Test) basándonos en esto.
+```

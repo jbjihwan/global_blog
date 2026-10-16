@@ -2,8 +2,9 @@
 slug: maeumjigi-2
 title: "[Maeumjigi Capstone Dev Log #2] Initial Alarm App Planning and Testing"
 authors: [jbgih]
-tags: [devlog, AI-coding, ClaudeCode, capstone, testing]
+tags: [devlog, Artificial Intelligence (AI)-coding, ClaudeCode, capstone, testing]
 date: 2026-03-30
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -28,4 +29,4 @@ Based on the coding rules we set last time, we established a detailed project pl
 ![Terminal Screenshot](./images/02_term.png)
 
 Today was a day to truly glimpse the beauty of 'AI-driven automated development', where instead of human step-by-step instructions, we simply told the AI to "proceed according to plan," and it independently broke down the milestones and created the necessary test data and documentation.
-Please continue to watch our rough (?) journey to see how this simple alarm app project transforms into a massive Deep Learning and LLM-based capstone project!
+Please continue to watch our rough (?) journey to see how this simple alarm app project transforms into a massive Deep Learning and Large Language Model (LLM)-based capstone project!

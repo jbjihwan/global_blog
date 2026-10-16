@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #12] Fine-Tuning de Modelos Masivos de
 authors: [jbgih]
 tags: [devlog, fine-tuning, Llama3.3-70B, DeepSeek-R1-70B, OOM, troubleshooting, GPU]
 date: 2026-05-03
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

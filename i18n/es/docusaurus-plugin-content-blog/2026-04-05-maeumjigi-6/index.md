@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #6] Automatización del Informe Final 
 authors: [jbgih]
 tags: [devlog, informe-final, automatización, Next.js, capstone, preprocesamiento]
 date: 2026-04-05
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

@@ -2,8 +2,9 @@
 slug: 2026-05-17-maeumjigi-19
 title: "[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD"
 authors: [jbgih]
-tags: [devlog, fine-tuning, report, backend, DB, troubleshooting, capstone]
+tags: [devlog, fine-tuning, report, backend, Base de Datos (DB), troubleshooting, capstone]
 date: 2026-05-17
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -30,4 +31,4 @@ Caí en un infierno de errores de inicio de sesión. Creé scripts de depuració
 
 ### Gráficos de Conocimiento (Knowledge Graphs)
 
-A altas horas de la noche, para superar las limitaciones del simple LLM, comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!
+A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!

@@ -1,9 +1,10 @@
 ---
 slug: 2026-04-08-maeumjigi-8
-title: "[Maeumjigi Capstone Dev Log #8] API Bill Bomb Incident and Preparing Colab Fine-Tuning"
+title: "[Maeumjigi Capstone Dev Log #8] Application Programming Interface (API) Bill Bomb Incident and Preparing Colab Fine-Tuning"
 authors: [jbgih]
 tags: [devlog, API-billing, Llama3.1, fine-tuning, GoogleColab, data-preprocessing]
 date: 2026-04-08
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -16,7 +17,7 @@ April 8th was the day we experienced the biggest crisis and a 'laugh-and-cry' ha
 - **Process**: 
   > "Problem: Billed exceeding the monthly limit. I left it running thinking it was just working in the background, and this happened."
   > "No way, it costs $1 to generate 10 records? Does that make sense?"
-- **Result**: During the process of synthesizing high-quality counseling data using an LLM, the prompt's context (input tokens) accumulated, causing the cost to increase exponentially. The script halted because the monthly billing limit was exceeded. We urgently instructed the AI, "Immediately add a feature to print the estimated consumption, cost, and progress in real-time to the console, and prevent limit exceedance." We learned the hard way how crucial billing monitoring is when using clouds or APIs.
+- **Result**: During the process of synthesizing high-quality counseling data using an Large Language Model (LLM), the prompt's context (input tokens) accumulated, causing the cost to increase exponentially. The script halted because the monthly billing limit was exceeded. We urgently instructed the Artificial Intelligence (AI), "Immediately add a feature to print the estimated consumption, cost, and progress in real-time to the console, and prevent limit exceedance." We learned the hard way how crucial billing monitoring is when using clouds or APIs.
 
 ### Writing a Colab Notebook for Llama 3.1 Training
 

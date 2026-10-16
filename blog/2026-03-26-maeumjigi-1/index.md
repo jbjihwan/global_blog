@@ -2,8 +2,9 @@
 slug: maeumjigi-1
 title: "[Maeumjigi Capstone Dev Log #1] The First Steps and Planning"
 authors: [jbgih]
-tags: [devlog, AI-coding, ClaudeCode, capstone, project-planning]
+tags: [devlog, Artificial Intelligence (AI)-coding, ClaudeCode, capstone, project-planning]
 date: 2026-03-26
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)

@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #11] Evaluación del Modelo M6 Entrena
 authors: [jbgih]
 tags: [devlog, datos-sintéticos, evaluación-modelo, M6, FAISS, reporte-semanal]
 date: 2026-04-19
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -24,7 +25,7 @@ El 19 de abril es el día en que evaluamos el rendimiento del modelo (M6) entren
   > "Por favor, escriba el informe de la séptima semana... Luego genere archivos docx para cada uno basados en los archivos md."
 - **Resultado**: Con una sola instrucción, se completaron dos versiones (concisa y detallada) en un instante y se convirtieron ordenadamente en archivos de Word.
 
-### Introducción a la Arquitectura RAG: Evaluación de FAISS DB
+### Introducción a la Arquitectura RAG: Evaluación de FAISS Base de Datos (DB)
 
 - **Proceso**:
   > "Realicé la construcción de FAISS_DB... Por favor evalúe nuestro plan y los resultados."

@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparin
 authors: [jbgih]
 tags: [devlog, fine-tuning, inference, max_new_tokens, empathy, capstone]
 date: 2026-05-13
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -16,7 +17,7 @@ While meticulously reviewing the inference results, I felt that the answers from
 
 > "This is one of Llama33-70B_a8's answers. I feel that max_seq_length and max_new_tokens are too small. I want to increase them. Looking at the VRAM status, how much can I increase them?"
 
-After calculating the available VRAM space (39.8GB at the time) with the AI, we boldly increased `max_new_tokens` (the maximum number of words generated) to 384. The result was a massive success!
+After calculating the available VRAM space (39.8GB at the time) with the Artificial Intelligence (AI), we boldly increased `max_new_tokens` (the maximum number of words generated) to 384. The result was a massive success!
 
 ```text
 [Before] "It must be really hard to feel that way. It is important to talk to a professional."

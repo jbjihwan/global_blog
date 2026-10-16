@@ -1,0 +1,274 @@
+.projectHubContainer {
+  margin-bottom: 2.5rem;
+  padding: 1rem 0;
+}
+
+.hubHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1rem;
+  background: var(--ifm-card-background-color);
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.hubTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-darker) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hubSubtitle {
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1.2rem;
+}
+
+.tabBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.tabButton {
+  padding: 0.5rem 1.1rem;
+  border-radius: 20px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tabButton:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+.tabButtonActive {
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 2px 8px rgba(46, 133, 85, 0.3);
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.projectCard {
+  background: var(--ifm-card-background-color);
+  border-radius: 14px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.cardTop {
+  margin-bottom: 1rem;
+}
+
+.badgeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.badgeStatus {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeActive {
+  background-color: rgba(46, 133, 85, 0.15);
+  color: #2e8555;
+  border: 1px solid rgba(46, 133, 85, 0.3);
+}
+
+[data-theme='dark'] .badgeActive {
+  background-color: rgba(37, 194, 160, 0.2);
+  color: #25c2a0;
+  border-color: rgba(37, 194, 160, 0.4);
+}
+
+.badgeUpcoming {
+  background-color: rgba(100, 116, 139, 0.15);
+  color: var(--ifm-color-emphasis-700);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.categoryLabel {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+  font-weight: 600;
+}
+
+.projectIconTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.projectIcon {
+  font-size: 1.8rem;
+}
+
+.projectTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.projectSubtitle {
+  font-size: 0.95rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.projectDescription {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+}
+
+.techTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.techTag {
+  font-size: 0.75rem;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-800);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.cardAction {
+  margin-top: auto;
+}
+
+.btnPrimary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btnPrimary:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+}
+
+.btnDisabled {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-600) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: not-allowed;
+  text-decoration: none !important;
+}
+
+.activeProjectBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.bannerTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-900);
+  margin: 0;
+}
+
+.bannerDesc {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  margin: 0.2rem 0 0 0;
+}
+
+.backButton {
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.backButton:hover {
+  background: var(--ifm-color-emphasis-300);
+}
+
+.emptyNotice {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--ifm-card-background-color);
+  border-radius: 12px;
+  border: 1px dashed var(--ifm-color-emphasis-300);
+  margin-bottom: 2rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}

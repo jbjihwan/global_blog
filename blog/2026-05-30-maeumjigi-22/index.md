@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #22] 4th Fine-Tuning Complete! Architecture 
 authors: [jbgih]
 tags: [devlog, fine-tuning, architecture, capstone, final report]
 date: 2026-05-30
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -29,6 +30,6 @@ We visualized all evaluation metrics with `matplotlib` graphs to prove the perfo
 
 To serve the verified model as a real app, we designed the entire system architecture and Knowledge Graph integration plan under the name `chatbot_architecture.html`.
 
-And on May 30th, with the AI's help, we automatically generated the `fine_tuning_4_report.docx`, successfully concluding Phase 1 of our fine-tuning project. The report bluntly contains the actual response text comparisons between the original base model and our fine-tuned model, proving that all our hard work was not in vain!
+And on May 30th, with the Artificial Intelligence (AI)'s help, we automatically generated the `fine_tuning_4_report.docx`, successfully concluding Phase 1 of our fine-tuning project. The report bluntly contains the actual response text comparisons between the original base model and our fine-tuned model, proving that all our hard work was not in vain!
 
 With this, the breathless May dev logs of the Maeumjigi project are all wrapped up. What new challenges await in June?

@@ -2,8 +2,9 @@
 slug: 2026-05-07-maeumjigi-15
 title: "[Maeumjigi Capstone Dev Log #15] Visualizing Fine-Tuning Results of 5 Models & Local Environment Setup"
 authors: [jbgih]
-tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, AI]
+tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, Artificial Intelligence (AI)]
 date: 2026-05-07
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)

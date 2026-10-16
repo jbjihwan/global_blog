@@ -2,8 +2,9 @@
 slug: maeumjigi-1
 title: "[マウムジギ 開発日誌 #1] プロジェクトの始まりと企画"
 authors: [jbgih]
-tags: [開発日誌, AIコーディング, ClaudeCode, 卒業研究, プロジェクト企画]
+tags: [開発日誌, 人工知能(AI)コーディング, ClaudeCode, 卒業研究, プロジェクト企画]
 date: 2026-03-26
+keywords: [AIメンタルケア, 大規模言語モデル実装, LLMファインチューニング, AIチャットボット開発, プロンプトエンジニアリング]
 ---
 
 ![カバー画像](./images/01_cover.png)

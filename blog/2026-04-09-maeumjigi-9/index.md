@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #9] Llama 3.1 Fine-Tuning Error Struggle and
 authors: [jbgih]
 tags: [devlog, Llama3.1, fine-tuning, troubleshooting, PPT-generation, ERD]
 date: 2026-04-09
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -16,7 +17,7 @@ On April 9, using the Colab notebook we ambitiously completed yesterday, we fina
 - **Process**: 
   > "Why is an error occurring during M1 fine-tuning in llama31_finetuning_colab (3).ipynb?"
   > "The executed result contains the eos_token. Why is this problem occurring?"
-- **Result**: A series of problems occurred, such as the special token (`eos_token`) not being processed correctly when the AI model spit out the training data, and memory overflow issues. We repeated the process of copying and pasting the entire error log to Claude to get solutions and modifying the code multiple times. Finally, after many twists and turns, the training was completed, and we were able to extract a meaningful result graph called `학습데이터별학습결과.png`!
+- **Result**: A series of problems occurred, such as the special token (`eos_token`) not being processed correctly when the Artificial Intelligence (AI) model spit out the training data, and memory overflow issues. We repeated the process of copying and pasting the entire error log to Claude to get solutions and modifying the code multiple times. Finally, after many twists and turns, the training was completed, and we were able to extract a meaningful result graph called `학습데이터별학습결과.png`!
 
 ### The AI Assistant's Presentation (PPT) Creation
 
@@ -28,4 +29,4 @@ On April 9, using the Colab notebook we ambitiously completed yesterday, we fina
 
 ![Terminal Screenshot](./images/02_term.png)
 
-Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing DB architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!
+Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing Database (DB) architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!

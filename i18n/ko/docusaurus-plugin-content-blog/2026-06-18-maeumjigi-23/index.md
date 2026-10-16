@@ -1,33 +1,44 @@
+```markdown
 ---
 slug: 2026-06-18-maeumjigi-23
-title: "[마음지기 캡스톤 개발일지 #23] Safety Wrapper 도입과 1학기 최종 발표"
+title: "[Diario de desarrollo Capstone Maeumjigi #23] Introducción de Safety Wrapper y presentación final del primer semestre"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, Safety Wrapper, 클라우드, 최종발표, 캡스톤디자인]
+tags: [Diario de desarrollo, Fine-Tuning, Safety Wrapper, Nube, Presentación final, Diseño Capstone]
 date: 2026-06-18
 ---
 
-![사진 01](./images/01_cover.png)
+## 1. Selección del 4º modelo de fine-tuning e introducción de la arquitectura Safety Wrapper
 
-6월에 접어들며 마음지기 팀은 1학기 캡스톤 디자인의 굵직한 개발을 모두 마치고, 릴리즈를 위한 **안전망 구축**과 **최종 발표** 준비에 총력을 기울였습니다.
+### 1.1. Derivación de la proporción de datos óptima: Adopción del modelo mixto 2:1
+Como resultado del 4º experimento de Fine-Tuning, un modelo de lenguaje grande (LLM) configurado con una proporción de 2:1 de conjuntos de datos de 'diálogo emocional' y 'diálogo cotidiano' registró los índices de rendimiento más altos en términos de comprensión de la intención del enunciado del usuario y capacidad de empatía. En consecuencia, este modelo fue adoptado finalmente como el modelo de inferencia principal para el servicio Maeumjigi.
 
-### 2:1 비율의 승리와 Safety Wrapper의 도입
+### 1.2. Solución de problemas (Troubleshooting): Alucinación (Hallucination) y límites en la respuesta a enunciados de alto riesgo
+Debido a la naturaleza del dominio del chatbot de prevención del suicidio y asesoramiento psicológico, las alucinaciones o las respuestas inapropiadas del modelo de inteligencia artificial (IA) pueden llevar a resultados fatales. Con la estructura exclusiva del LLM principal, era difícil garantizar siempre una respuesta segura y estandarizada a los enunciados que contenían intenciones suicidas (Active Suicidality) de usuarios en grupos de alto riesgo de depresión.
 
-> "모델 선택의 기준과 우리가 선택한 모델이 무엇이었지?"
-> "2:1 로 결정되었어. safety_wrapper를 적용하여 Main LLM(2:1)의 안전고리로 작동시키는 방법을 기획해 줘."
+### 1.3. Solución (Solution): Construcción de la canalización Safety Wrapper
+Para bloquear fundamentalmente estos riesgos, diseñamos y aplicamos una capa **Safety Wrapper (módulo de filtro de seguridad)** que envuelve las etapas de entrada/salida (I/O) del modelo principal.
 
-4차 파인튜닝의 결과, 우리는 '감성 대화'와 '일상 대화'를 2:1 비율로 섞은 모델을 최종 LLM으로 낙점했습니다. 하지만 자살 예방 챗봇이라는 특성상 단 한 번의 환각(Hallucination)이나 치명적인 오답도 허용할 수 없었습니다. 
+- **Verificación de Input:** Analiza el texto de entrada del usuario para evaluar si se detectan palabras clave relacionadas con la autolesión o síntomas graves de depresión.
+- **Control de Output y cambio de protocolo:** Si se determina que es una situación de alto riesgo, se omite (Bypass) el proceso normal de generación de texto del LLM, y la canalización se reconfigura para devolver inmediatamente una respuesta de seguridad codificada y orientación vinculada a expertos, basadas en el **protocolo de respuesta a crisis (Resource Inquiry Cues)** predefinido en el sistema.
 
-이를 방지하기 위해 저희는 LLM의 입출력을 감시하는 **Safety Wrapper(안전 필터 모듈)**를 도입했습니다. 사용자의 입력과 챗봇의 출력을 한 번 더 검증하여, 고위험 상황(Active Suicidality)이 감지되면 즉각적으로 정해진 위기 대응 프로토콜(Resource Inquiry Cues)로 전환되도록 아키텍처를 견고하게 만들었습니다.
+## 2. Construcción de la infraestructura y revisión del rendimiento final del primer semestre
 
-### 클라우드 서버(EC2) 예산 기획과 최종 발표
+![최종 발표 슬라이드 1](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week12/_preview_slide3.png)
 
-> "우리가 요구하는 스펙에 맞는 AWS EC2 견적서가 필요해. g5.2xlarge 5개월 사용 예산이 어떻게 될까?"
-> "지금까지의 진행 상황을 바탕으로 1학기_최종발표_마음지기.pptx 를 작성해 줘!"
+### 2.1. Pila tecnológica (Tech Stack): Configuración del entorno de instancia de GPU AWS EC2
+Durante las vacaciones de verano, procedimos con el diseño de la infraestructura en la nube para vincular los servicios frontend/backend con el modelo y realizar pruebas de demostración.
+- **Especificaciones de la instancia objetivo:** Para el servicio fluido y la aceleración del modelo, seleccionamos la instancia `g5.2xlarge` (equipada con NVIDIA A10G GPU).
+- **Cálculo de costos:** Con el objetivo de un funcionamiento estable del servidor durante los próximos 5 meses, calculamos y planificamos el presupuesto de mantenimiento en la nube de AWS.
 
-![사진 02](./images/02_presentation.png)
+### 2.2. Integración de funciones clave de implementación (Features) y presentación final del primer semestre
 
-성능 검증이 끝난 챗봇을 여름 방학 동안 실제 서비스(프론트엔드/백엔드)와 연동하여 5개월간 구동하기 위해 Amazon EC2 GPU 서버 예산을 산출했습니다. 
+![최종 발표 슬라이드 2](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week12/_preview_slide3.png)
 
-그리고 6월 18일, 그동안 개발한 백엔드(DB, 페이지네이션), 프론트엔드(감정일기, 커뮤니티), 그리고 AI(4차 파인튜닝 및 Safety Wrapper)의 모든 성과를 한데 모아 **1학기 최종 발표 자료(PPTX)**를 완성했습니다! 
+En la presentación final del primer semestre, celebrada el 18 de junio, compartimos los resultados de las pruebas de integración de los módulos desarrollados por cada parte hasta el momento.
 
-길고 길었던 1학기 마음지기 캡스톤 개발이 성공적으로 막을 내렸습니다. 방학 동안 서버에 시스템을 안착시키고, 2학기에는 더 고도화된 서비스로 찾아오겠습니다!
+- **Backend:** Finalización del diseño del esquema de la base de datos (DB) basada en RDBMS e implementación de la API de paginación (Pagination) para el procesamiento de datos a gran escala.
+- **Frontend:** Vista de redacción del diario emocional y optimización de la renderización del componente de la comunidad para la comunicación entre usuarios.
+- **AI Model:** Aplicación del 4º modelo de fine-tuning y construcción de un sistema de diálogo seguro ininterrumpido a través de Safety Wrapper.
+
+El diseño de la arquitectura y la validación del modelo durante el primer semestre concluyeron con éxito. Completaremos la implementación (Deployment) y vinculación del servidor en la nube durante las vacaciones, y en el segundo semestre, mejoraremos la estabilidad del sistema para iniciar la demostración del servicio a gran escala.
+```

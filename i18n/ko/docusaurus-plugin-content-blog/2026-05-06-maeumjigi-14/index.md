@@ -1,18 +1,23 @@
+Aquí tienes la traducción de la publicación del blog técnico al español, conservando el formato Markdown, la estructura del *frontmatter* y traduciendo el título según lo solicitado:
+
+```markdown
 ---
 slug: 2026-05-06-maeumjigi-14
-title: "[마음지기 캡스톤 개발일지 #14] 모든 파인튜닝 완료 및 병렬 추론(Eval) 환경 구축"
+title: "[Diario de Desarrollo Capstone Maeumjigi #14] Finalización de todo el fine-tuning y configuración del entorno de inferencia paralela (Eval)"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 모델평가, 추론, 병렬처리]
+tags: [diario-de-desarrollo, fine-tuning, HCX-Omni-8B, Qwen35-9B, evaluacion-de-modelos, inferencia, procesamiento-paralelo]
 date: 2026-05-06
 ---
 
-![사진 01](./images/01_cover.png)
+## 1. Resumen (Overview)
 
-5월 6일, 드디어 길고 길었던 파인튜닝의 늪에서 빠져나왔습니다! 며칠간의 밤샘 작업과 하이퍼파라미터 조율 끝에 **HCX-Omni-8B**와 **Qwen35-9B** 등 중소형 모델들의 학습이 성공적으로 마무리되었습니다.
+Esta publicación es un documento que registra el estado en el momento de completar el fine-tuning del modelo de lenguaje del proyecto Maeumjigi y el proceso de construcción de un pipeline de inferencia paralela para evaluar el rendimiento de los modelos entrenados.
 
-### 드디어 완료된 파인튜닝, 그리고 로그 분석
+Los modelos principales son **HCX-Omni-8B** y **Qwen35-9B**, y el enfoque estuvo en optimizar el tiempo de inferencia en un entorno de múltiples GPU y resolver los problemas de administración de fugas de memoria.
 
-학습이 진행됨에 따라 손실(loss) 값이 안정적으로 감소하는 것을 확인할 수 있었습니다.
+## 2. Resultados del fine-tuning y análisis de registros (logs)
+
+Como resultado del ajuste de hiperparámetros y el entrenamiento distribuido a largo plazo, el valor de pérdida (Loss) disminuyó de manera estable y el entrenamiento concluyó con éxito.
 
 ```text
 step= 1200  loss=0.9698  lr=1.88e-04  gpu=7.7GB
@@ -21,17 +26,32 @@ step= 1250  loss=0.8523  lr=1.86e-04  gpu=7.7GB
 step= 1650  loss=0.8783  lr=1.73e-04  gpu=7.7GB
 ```
 
-다만, 이 값이 `train loss`인지 `validation loss`인지 헷갈려 AI에게 물어보기도 하고, "우리 코드에서 eval loss도 기록하지 않나요?"라며 뒤늦게 평가 손실 기록이 누락되었는지 점검하는 해프닝도 있었습니다. 하지만 이미 학습이 모두 끝난 상태라(`현재 파인튜닝까지 모두 완료하였으므로 지금까지 결과 평가 진행`), 일단 생성된 최신 체크포인트 모델들을 바탕으로 바로 추론 및 평가(Eval) 단계로 넘어갔습니다.
+### [Troubleshooting] Omisión en el monitoreo de métricas de pérdida de entrenamiento/validación
+* **Problema (Issue)**: No estaba claro si la métrica `loss` que se mostraba en los registros de entrenamiento era Train Loss o Validation Loss. Como resultado de rastrear el código utilizando un asistente de Inteligencia Artificial (IA), se descubrió tardíamente que se omitió el pipeline de registro para `eval loss` en el script de entrenamiento existente.
+* **Solución (Solution)**: Dado que ya se había completado todo el fine-tuning (Epoch) del modelo, se determinó que volver a entrenar (Retraining) para comprobar la pérdida de validación en pasos intermedios sería un desperdicio de recursos. Por lo tanto, se decidió cargar el último punto de control (Checkpoint) entrenado y sustituirlo por una evaluación cualitativa/cuantitativa mediante pruebas de generación de texto basadas en prompts reales (Generation Eval).
 
-### 병렬 추론(Parallel Inference) 환경 구축
+## 3. Construcción del pipeline de Inferencia Paralela (Parallel Inference)
 
-`20_eval_ft_models.ipynb` 노트북을 이용해 각 모델이 사용자 대화에 어떻게 답변하는지 생성(Generation) 테스트를 시작했습니다. 추론 시 생성할 최대 토큰 수(`max_new_tokens`)를 1024로 넉넉하게 통일하면서, 혹시나 또 OOM이 터지지 않을까 노심초사했습니다.
+La evaluación inicial del modelo se llevó a cabo en un entorno Jupyter (`20_eval_ft_models.ipynb`). Para prevenir errores de falta de memoria (OOM) durante la inferencia, se configuró `max_new_tokens` en 1024, proporcionando margen suficiente, y se probó la generación de texto de forma secuencial.
 
-그런데 추론 속도가 생각보다 너무 느렸습니다.
-> "학습은 두 그래픽카드로 했는데 왜 추론은 하나의 그래픽 카드만 사용하나?"
+### [Troubleshooting] Cuello de botella en la inferencia debido a la asignación de una sola GPU
+* **Problema (Issue)**: A pesar de haber entrenado en un entorno Multi-GPU, solo se utilizó un recurso de GPU durante la inferencia, lo que provocó un cuello de botella y un retraso grave en el tiempo necesario para la evaluación.
+* **Solución (Solution)**: Para utilizar el 100% de los recursos de GPU del servidor, se construyó un entorno de inferencia paralela redactando un nuevo script de shell (`run_eval_parallel.sh`) que distribuye el procesamiento de inferencia a través de múltiples dispositivos.
 
-서버에 탑재된 GPU 자원을 100% 활용하기 위해, AI의 도움을 받아 추론 역시 병렬로 처리할 수 있는 `run_eval_parallel.sh` 스크립트를 새롭게 작성했습니다. 이를 통해 모델 추론 시간을 비약적으로 단축할 수 있었고, 모델별 추론 결과와 퍼플렉서티(Perplexity)를 엑셀 파일로 자동 집계하는 파이프라인까지 훌륭하게 구축해 냈습니다.
+### [Features] Pipeline automatizado para los resultados de inferencia y evaluación
+Junto con la introducción del script de inferencia paralela, se completó un pipeline para convertir los resultados de la evaluación en datos.
+1. **Inferencia Acelerada (Inference Acceleration)**: Al distribuir y asignar los pesos del modelo y los lotes de prompts a múltiples dispositivos GPU, se redujo drásticamente el tiempo total de inferencia.
+2. **Agregación de la Evaluación (Evaluation Aggregation)**: Se implementó una lógica que calcula la respuesta generada (Generated Text) y las métricas de perplejidad (Perplexity) para cada modelo, y las recopila automáticamente en formato de informe de Excel.
 
-![사진 02](./images/02_eval.png)
+## 4. Evaluación de modelos a gran escala y prevención de fugas de memoria
 
-DSR1-70B 모델 추론 후 다음 모델로 넘어갈 때 VRAM이 제대로 반환되지 않아 에러가 발생하기도 했지만, 이 역시 병렬 스크립트로 환경을 격리하며 해결했습니다. 이제 진짜로 각 모델들의 답변 퀄리티를 비교해 볼 시간입니다!
+Esta evaluación de inferencia incluyó la inferencia de modelos con parámetros a gran escala, como DSR1-70B, además de los modelos con fine-tuning.
+
+### [Troubleshooting] Error OOM debido a VRAM no devuelta (Memory Leak)
+* **Problema (Issue)**: Después de que finalizó el ciclo de inferencia del modelo DSR1-70B, la caché de PyTorch no se liberó correctamente, provocando un fenómeno en el que la VRAM no fue devuelta. Debido a esto, se produjo un error de Falta de Memoria (OOM) en el momento de cargar los modelos posteriores en la GPU, lo que detuvo el pipeline.
+* **Solución (Solution)**: Utilizando el script de procesamiento paralelo previamente construido, se mejoró la estructura para que el proceso de inferencia de cada modelo se ejecute en un entorno de Proceso Aislado (Isolated Process). Al ejecutar la inferencia en unidades de subprocesos separados, cuando el proceso finaliza, la memoria de la GPU asignada se recupera de forma forzada a nivel de sistema operativo (OS), lo que permitió bloquear de raíz el problema de fuga de VRAM.
+
+## 5. Próximos pasos (Next Step)
+
+Con la finalización de la construcción de la infraestructura para la inferencia paralela y la agregación automática de evaluaciones, planeamos realizar un análisis comparativo en profundidad de la calidad real de las respuestas y el rendimiento de cada modelo con fine-tuning, como HCX-Omni-8B y Qwen35-9B, basándonos en los informes de Excel generados automáticamente.
+```

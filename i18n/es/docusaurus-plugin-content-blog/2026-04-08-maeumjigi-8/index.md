@@ -1,9 +1,10 @@
 ---
 slug: 2026-04-08-maeumjigi-8
-title: "[Registro de Desarrollo Maeumjigi #8] Incidente de la Factura de API y Preparación del Fine-Tuning en Colab"
+title: "[Registro de Desarrollo Maeumjigi #8] Incidente de la Factura de Interfaz de Programación de Aplicaciones (API) y Preparación del Fine-Tuning en Colab"
 authors: [jbgih]
 tags: [devlog, API-billing, Llama3.1, fine-tuning, GoogleColab, preprocesamiento]
 date: 2026-04-08
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

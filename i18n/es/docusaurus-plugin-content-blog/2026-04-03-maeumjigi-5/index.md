@@ -1,9 +1,10 @@
 ---
 slug: 2026-04-03-maeumjigi-5
-title: "[Registro de Desarrollo Maeumjigi #5] Purificando 100,000 Datos de Emociones y la Presión de los Costos de API"
+title: "[Registro de Desarrollo Maeumjigi #5] Purificando 100,000 Datos de Emociones y la Presión de los Costos de Interfaz de Programación de Aplicaciones (API)"
 authors: [jbgih]
 tags: [devlog, data-cleaning, ClaudeAPI, clasificación-emociones, Llama3.1, api-cost]
 date: 2026-04-03
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -18,7 +19,7 @@ También fue el día en que ejecutamos una canalización masiva que hace que la 
   > "El alcance es el millón entero... Porque Claude leerá la conversación y mapeará directamente la emoción. Estamos filtrando solo lo que cae bajo nuestra clasificación de emociones y excluyendo el resto."
 - **Resultado**: Establecimos `v4_plan.md` y comenzamos el trabajo. Apuntando inicialmente a 100,000 líneas de datos, escribimos y ejecutamos un script que integra la API de Claude para comprender el contexto de la conversación y reclasificar las emociones.
 
-### El Horror de la Facturación de la API LLM
+### El Horror de la Facturación de la API Modelo de Lenguaje Grande (LLM)
 
 - **Problema**: Al lanzar cantidades masivas de datos de texto a un LLM (Claude) para su evaluación, el uso de la API (recuento de tokens) aumentó exponencialmente.
 - **Proceso**:

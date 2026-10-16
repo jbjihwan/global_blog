@@ -2,8 +2,9 @@
 slug: maeumjigi-2
 title: "[マウムジギ 開発日誌 #2] 初期アラームアプリの企画具体化とテスト"
 authors: [jbgih]
-tags: [開発日誌, AIコーディング, ClaudeCode, 卒業研究, テスト駆動開発]
+tags: [開発日誌, 人工知能(AI)コーディング, ClaudeCode, 卒業研究, テスト駆動開発]
 date: 2026-03-30
+keywords: [AIメンタルケア, 大規模言語モデル実装, LLMファインチューニング, AIチャットボット開発, プロンプトエンジニアリング]
 ---
 
 ![カバー画像](./images/01_cover.png)

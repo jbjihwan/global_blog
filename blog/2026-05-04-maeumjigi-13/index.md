@@ -2,8 +2,9 @@
 slug: 2026-05-04-maeumjigi-13
 title: "[Maeumjigi Capstone Dev Log #13] Limits of 70B Training and the Pivot to Mid-Size Models (HCX, Qwen)"
 authors: [jbgih]
-tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, checkpoints, hyperparameters, AI]
+tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, checkpoints, hyperparameters, Artificial Intelligence (AI)]
 date: 2026-05-04
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)

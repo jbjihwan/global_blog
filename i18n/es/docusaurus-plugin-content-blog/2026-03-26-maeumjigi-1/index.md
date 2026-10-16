@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #1] Primeros Pasos y Planificación"
 authors: [jbgih]
 tags: [devlog, IA-coding, ClaudeCode, capstone, planificación]
 date: 2026-03-26
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

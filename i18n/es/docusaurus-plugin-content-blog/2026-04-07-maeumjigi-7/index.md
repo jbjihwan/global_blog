@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #7] Optimización de Generación de Da
 authors: [jbgih]
 tags: [devlog, datos-sintéticos, ClaudeAPI, generación-datos, frontend, optimización-costos]
 date: 2026-04-07
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -13,7 +14,7 @@ y también el día en que lanzamos un script masivo usando IA para 'sintetizar' 
 
 ### Llenando los Espacios en Blanco: Generando Datos Sintéticos de IA (v5)
 
-- **Problema**: Los datos previamente refinados (v4) por sí solos carecían de emociones específicas o escenarios detallados. Para resolver esto, queríamos usar la API de Claude para generar 60,000 conversaciones virtuales de alta calidad que se ajustaran al formato de entrenamiento Llama 3.1.
+- **Problema**: Los datos previamente refinados (v4) por sí solos carecían de emociones específicas o escenarios detallados. Para resolver esto, queríamos usar la Interfaz de Programación de Aplicaciones (API) de Claude para generar 60,000 conversaciones virtuales de alta calidad que se ajustaran al formato de entrenamiento Llama 3.1.
 - **Proceso**: 
   > "Queremos crear un conjunto de datos v5 generado íntegramente por Claude. Por favor, haz un plan."
   > "Quiero obtener 60,000 registros de conjuntos de datos generados por Claude en formato jsonl."

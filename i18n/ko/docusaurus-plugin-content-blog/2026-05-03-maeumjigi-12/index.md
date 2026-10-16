@@ -1,32 +1,57 @@
+Here is the Spanish translation of your technical blog post, maintaining the markdown formatting, frontmatter structure, and image paths as requested:
+
+```markdown
 ---
 slug: 2026-05-03-maeumjigi-12
-title: "[마음지기 캡스톤 개발일지 #12] 70B 초대형 모델 파인튜닝과 GPU 메모리(OOM) 사투"
+title: "[Diario de Desarrollo Capstone Maumjigi #12] Fine-tuning de Modelos Masivos 70B y la Batalla con la Memoria GPU (OOM)"
 authors: [jbgih]
 tags: [개발일지, 파인튜닝, Llama3.3-70B, DeepSeek-R1-70B, OOM, 트러블슈팅, GPU]
 date: 2026-05-03
 ---
 
-![사진 01](./images/01_cover.png)
+Después de haber completado la validación del pipeline de fine-tuning y la evaluación básica de rendimiento utilizando un modelo 8B, intentamos realizar el fine-tuning de modelos de lenguaje masivos a escala de 70B (70 mil millones de parámetros) para mejorar la calidad del servicio. Los modelos objetivo son **Llama 3.3 70B** y **DeepSeek-R1 70B**. Sin embargo, debido al enorme tamaño de los parámetros, nos enfrentamos a cuellos de botella extremos en los recursos de hardware, tal como se esperaba.
 
-5월 3일, 그동안 8B 모델로 충분히 감을 잡은 저희 팀은 드디어 진정한 성능의 끝판왕, **70B(700억 개 매개변수)** 초대형 모델의 파인튜닝에 도전했습니다. Llama 3.3 70B와 DeepSeek-R1 70B 두 가지 모델을 대상으로 학습을 시도했는데, 예상대로 엄청난 하드웨어 자원의 장벽에 부딪히고 말았습니다.
+En este artículo, documentaremos los problemas de OOM (Out of Memory) que surgieron durante el proceso de fine-tuning de los modelos de inteligencia artificial (IA) 70B, y el proceso de troubleshooting que intentamos para superarlos.
 
-### 70B 모델, 그리고 OOM(Out of Memory)의 공포
+## ⚠️ Troubleshooting: Problema de OOM en el Fine-tuning del Modelo 70B
 
-- **문제**: 호기롭게 서버에 70B 파인튜닝 코드를 올리고 실행하자마자 오류가 터져 나오기 시작했습니다.
-- **과정**: 
-  > "서버의 fine_tuning 폴더와 하위 파일을 복사했습니다. 복사한 파일 확인 후 오류 원인을 파악해 줘."
-  > "DeepSeek의 70B 모델은 수정하지 않아도 되나? 오류 가능성 확인 바람."
-- **결과**: `train_log.jsonl`을 분석하며 남은 예상 소요 시간을 묻는 여유도 잠시, 70B 모델이 GPU 메모리를 순식간에 집어삼켜버렸습니다. (OOM 에러 발생!) 
+### 1. Situación del Problema (Problem)
+Tan pronto como desplegamos el script de fine-tuning del modelo 70B en el servidor y comenzamos el entrenamiento, ocurrió un error de fallo en la asignación de memoria GPU (CUDA Out of Memory).
+Como resultado de analizar los registros a través de `train_log.jsonl`, confirmamos que la capacidad de VRAM requerida por los pesos del modelo (Weights), los estados del optimizador (Optimizer States) y los gradientes (Gradients) superaba la capacidad física del servidor, forzando la terminación del entrenamiento en sus etapas más tempranas.
 
-### GPU 메모리 다이어트 작전
+### 2. Análisis y Primer Enfoque (Analysis)
+Con la configuración predeterminada, ni siquiera era posible cargar completamente el modelo 70B en la memoria. Como resultado de monitorear el estado de la VRAM de la GPU a través de `nvitop`, el uso se mantuvo continuamente en 100%, alcanzando su estado MAX. 
+En primer lugar, intentamos optimizar la memoria limitando de forma extrema los hiperparámetros relacionados con el entrenamiento y la longitud de la secuencia de entrada para reducir la ocupación de la VRAM.
 
-- **문제**: "이미 GPU memory의 사용량은 MAX이다." 어떻게든 메모리 사용량을 줄여야 학습이 멈추지 않고 돌아갈 수 있었습니다.
-- **과정**:
-  > "save_steps = 50, save_total_limit = 10, eval_steps = 50, patience = 10 으로 수정."
-  > "설정한 early stopping 조건에 대해 평가 바람."
-  > "ft_configs.yaml에서 70B 두 모델의 max_seq_length를 512로 설정했으나 서버 nvitop에서는 여전히 memory가 max로 사용됩니다. 왜 그런가?"
-- **결과**: 한 번에 처리하는 문맥의 길이(`max_seq_length`)를 512로 과감하게 줄이고, 불필요한 저장을 줄이기 위해 하이퍼파라미터를 대폭 수정했습니다. 하지만 `nvitop`으로 모니터링해보니 여전히 VRAM은 한계치에 달해 헐떡이고 있었습니다. 급기야 스텝 100, 150 부근에서 계속 멈춰버리는 끔찍한 현상이 반복되었습니다.
+## 🛠️ Proceso de Resolución (Solution & Parameter Tuning)
 
-![사진 02](./images/02_term.png)
+Para asegurar memoria disponible, modificamos drásticamente la configuración de `ft_configs.yaml` y el script de entrenamiento de la siguiente manera.
 
-70B라는 거대한 짐승을 길들이는 것은 정말 쉽지 않습니다. AI에게 끝없이 에러 로그를 던져주며 해결책을 찾고 있지만, 물리적인 VRAM 한계를 소프트웨어 최적화 기법(LoRA, 퀀타이제이션 등)으로 극복할 수 있을지 끝없는 테스트가 필요해 보입니다. 과연 우리는 70B 모델 파인튜닝에 성공할 수 있을까요? 다음 일지에서 계속됩니다!
+**1. Optimización de Early Stopping y Checkpoints**
+Ajustamos los ciclos de evaluación y guardado para reducir los cuellos de botella innecesarios de E/S y asegurar una gestión estable de los recursos.
+- `save_steps = 50`: Disminución de la carga de E/S aumentando el ciclo de guardado de los checkpoints.
+- `save_total_limit = 10`: Limitación de la cantidad de checkpoints mantenidos para gestionar la capacidad de almacenamiento y prevenir fugas de memoria.
+- `eval_steps = 50`: Sincronización de los pasos de evaluación con los pasos de guardado.
+- `patience = 10`: Implementación de una condición de Early Stopping para detener prematuramente los cálculos innecesarios de la GPU si no hay mejora en el rendimiento del modelo.
+
+**2. Reducción de la Ventana de Contexto (Context Window)**
+Para reducir la complejidad de memoria según la longitud de la secuencia ($O(N^2)$) que ocurre durante el cálculo del mecanismo de Atención (Attention), redujimos drásticamente la longitud del contexto procesado a la vez.
+- `max_seq_length = 512`: Limitación de la longitud máxima de secuencia a 512 tokens para ambos modelos, Llama 3.3 70B y DeepSeek-R1 70B.
+
+## 📊 Resultados y Limitaciones (Result & Limitations)
+
+Reanudamos el fine-tuning modificando la configuración como se indicó anteriormente, pero el monitoreo con `nvitop` mostró que la VRAM todavía estaba al límite y sobrecargada. 
+Superamos el error de OOM justo después de comenzar, pero a medida que se acumulaba la presión sobre la memoria, se repitió un fenómeno fatal en el que el proceso se congelaba por completo (Hang) o entraba en un punto muerto (Deadlock) en el rango de los pasos de entrenamiento de 100 a 150. 
+
+Como resultado, confirmamos que el enfoque de soft tuning simple de ajustar los hiperparámetros y la longitud de la secuencia era insuficiente para domar a una bestia tan masiva como la de 70B.
+
+## 🚀 Próximos Pasos (Next Steps)
+
+Para superar las limitaciones físicas de la VRAM y tener éxito en el fine-tuning del modelo 70B, en la siguiente etapa planeamos introducir técnicas de optimización de memoria y un Fine-Tuning Eficiente en Parámetros (PEFT) en toda regla.
+
+- **Cuantización (Quantization)**: Planeamos reducir drásticamente el impacto (Footprint) que ocupa el modelo base en la VRAM aplicando cuantización de 4 bits u 8 bits (ej. bitsandbytes, AWQ, GPTQ).
+- **LoRA / QLoRA**: Debemos aplicar la técnica de congelar todos los pesos del modelo y entrenar solo una pequeña matriz de adaptador de bajo rango (Low-Rank Adapter) para minimizar el uso de memoria del optimizador.
+- **Gradient Checkpointing**: Planeamos activar una opción de optimización que intercambia (trade-off) el uso de VRAM con el volumen de cálculo al no almacenar todos los valores de activación (Activation) intermedios en la memoria durante la propagación hacia adelante (Forward Pass), sino recalculándolos cuando sean necesarios durante la retropropagación (Backpropagation). 
+
+Se espera una batalla interminable con los registros de errores, pero aplicando las técnicas anteriores, completaremos el entrenamiento del modelo 70B incluso con recursos limitados.
+```

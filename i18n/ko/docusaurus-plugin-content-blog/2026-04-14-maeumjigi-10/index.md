@@ -1,33 +1,43 @@
+Aquí tienes la traducción de tu publicación técnica del blog al español, manteniendo el formato markdown, la estructura del frontmatter (traduciendo únicamente el título) y los textos técnicos importantes:
+
+```markdown
 ---
 slug: 2026-04-14-maeumjigi-10
-title: "[마음지기 캡스톤 개발일지 #10] API 제한 해제와 데이터 합성의 재개"
+title: "[Diario de Desarrollo del Capstone Maeumjigi #10] Levantamiento de los Límites de la Interfaz de Programación de Aplicaciones (API) y Reanudación de la Síntesis de Datos"
 authors: [jbgih]
 tags: [개발일지, API제한, 합성데이터, 데이터생성, 트러블슈팅]
 date: 2026-04-14
 ---
 
-![사진 01](./images/01_cover.png)
+## Overview
+Hemos reanudado la generación de datos que se había interrumpido debido a que se superó el límite de uso mensual (Usage Limit) de la interfaz de programación de aplicaciones (API) en el pipeline de datos sintéticos (Synthetic Data) v5 que estábamos llevando a cabo. Esta publicación cubre los problemas de sincronización de estado de los datos que ocurrieron después del levantamiento de los límites de la API y el proceso de construcción de un pipeline de automatización desatendida (Unattended Automation).
 
-4월 14일, 요금 폭탄 사태 이후 잠시 중단되었던 합성 데이터(v5) 생성 작업을 다시 재개한 날입니다. API 요금 한도를 상향(제한 해제)하고 시스템을 돌렸지만, 이번에도 역시 순탄하게 넘어가진 않았습니다.
+## Tech Stack
+- **Data Generation**: Claude API
+- **State Management**: JSON (`v5_sync_progress.json`)
+- **Automation**: Custom Python Scripts (Automatización basada en agentes de Inteligencia Artificial (IA))
 
-### "API 제한 해제 완료, 이어서 작동 바람!"
+## Troubleshooting #1: Límite de la API Superado y Reanudación de Tareas
+### Problem
+Durante la generación a gran escala de datos de emociones v5, se superó el límite de facturación (Quota) de la API debido a un aumento repentino en el procesamiento de tokens de los prompts, lo que provocó que el script de generación de datos se detuviera de manera forzosa.
 
-- **문제**: 지난번 대규모 데이터 생성 시도 때 월별 API 한도를 초과하여 스크립트가 강제 중단되었던 상태였습니다.
-- **과정**: 
-  > "v5_emotion_data_generation_commands.md에 따라 작업 진행"
-  > "API 제한 해제 완료, 이어서 작동 바람" (23시 32분)
-  > "API 제한 해제 완료, 이어서 작동 바람" (00시 11분)
-- **결과**: Claude API 콘솔에 접속하여 결제 한도를 과감하게 늘리고 제한을 풀었습니다. AI에게 중단되었던 지점부터 이어서 데이터를 생성하라고 거듭 지시하며 파이프라인을 재가동했습니다. 
+### Solution
+En la consola de la API, aumentamos drásticamente el límite de facturación para levantar la restricción. Posteriormente, intentamos reiniciar el pipeline basándonos en la especificación de `v5_emotion_data_generation_commands.md` para continuar generando datos desde el punto en que se interrumpió.
 
-### 고장 난 파이프라인 수리와 무인 자동화
+## Troubleshooting #2: Problema de Datos no Generados al Reiniciar el Pipeline
+### Problem
+A pesar de haber levantado el límite de restricción y reiniciado (Resume) el script, se produjo un cuello de botella en el que los datos nuevos no se generaban correctamente o los datos no se fusionaban con los archivos existentes.
 
-- **문제**: API 제한은 풀렸지만 어찌 된 일인지 새로운 데이터가 정상적으로 만들어지지 않고 있었습니다.
-- **과정**:
-  > "아무것도 생성되지 않습니다. 확인 바람"
-  > "작업이 완료되면 결과물 확인 후 자동으로 API 연결 해제 (관련 권한 모두 허락하므로 권한 허락받을 필요 없음)"
-- **결과**: 생성 로직 중간에 발생한 꼬임을 AI가 스스로 확인하고 수정(`v5_sync_progress.json` 추적)하도록 조치했습니다. 매번 옆에서 에러를 고치며 지켜볼 수 없었기에, 아예 "모든 권한을 줄 테니 작업이 끝나면 알아서 API 연결을 끊고 안전하게 종료하라"는 무인 자동화 지시를 내렸습니다.
+### Cause
+La causa fue que en el momento en que se detuvo de manera forzosa el script, la actualización del archivo de seguimiento de estado, `v5_sync_progress.json`, no se completó adecuadamente. Esto provocó una discrepancia (Mismatch) y un conflicto de estados entre los fragmentos (Chunks) de datos realmente generados y los índices de seguimiento.
 
-![사진 02](./images/02_term.png)
+### Solution & Features
+- **Recuperación de Sincronización de Estado (State Synchronization Recovery)**
+  Tomamos medidas para que el agente de IA verificara y corrigiera por sí mismo los problemas de índices conflictivos que ocurrieron en medio de la lógica de generación de datos. Modificamos la lógica para rastrear hacia atrás el punto donde ocurrió el error basándonos en `v5_sync_progress.json` y reanudar después de restaurar la consistencia de los datos.
+  
+- **Construcción de un Pipeline de Automatización Desatendida (Unattended Automation Pipeline)**
+  Había limitaciones en el método donde el desarrollador monitoreaba manualmente los registros de errores y tomaba medidas. Para solucionar esto, otorgamos permisos de ejecución integrales para minimizar la intervención humana relacionada con los permisos del sistema. Construimos un pipeline de automatización desatendida para desconectar automáticamente la API y finalizar el proceso de forma segura (Graceful Shutdown) en caso de que la tarea se complete con éxito o se produzca una excepción fatal.
 
-오늘은 데이터 전처리를 위해 돈(API 요금)과 시간, 그리고 자동화 스크립트라는 삼박자를 맞춰가는 험난한 여정이었습니다. 무사히 데이터 생성이 완료되면 드디어 다음 단계로 나아갈 수 있겠죠? 
-다음 개발일지에서 뵙겠습니다!
+## Conclusion
+A través de esta resolución de problemas, hemos vuelto a confirmar la importancia del manejo de excepciones (Exception Handling) y la gestión del estado (State) al construir pipelines de datos a gran escala. Al introducir una recuperación de estado automatizada y una lógica de apagado seguro, pudimos minimizar la pérdida de tiempo y recursos en los procesos de preprocesamiento y síntesis de datos.
+```

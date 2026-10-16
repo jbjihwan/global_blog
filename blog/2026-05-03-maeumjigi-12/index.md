@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #12] 70B Massive Model Fine-Tuning and GPU M
 authors: [jbgih]
 tags: [devlog, fine-tuning, Llama3.3-70B, DeepSeek-R1-70B, OOM, troubleshooting, GPU]
 date: 2026-05-03
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -29,4 +30,4 @@ On May 3, having gained enough experience with the 8B models, our team finally c
 
 ![Terminal Screenshot](./images/02_term.png)
 
-Taming a massive beast like 70B is truly not easy. We are constantly throwing error logs at the AI to find solutions, but it seems we need endless testing to see if we can overcome the physical VRAM limits with software optimization techniques (LoRA, Quantization, etc.). Will we succeed in fine-tuning the 70B models? To be continued in the next log!
+Taming a massive beast like 70B is truly not easy. We are constantly throwing error logs at the Artificial Intelligence (AI) to find solutions, but it seems we need endless testing to see if we can overcome the physical VRAM limits with software optimization techniques (LoRA, Quantization, etc.). Will we succeed in fine-tuning the 70B models? To be continued in the next log!

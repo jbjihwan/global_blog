@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #23] Safety Wrapper y Presentación Fi
 authors: [jbgih]
 tags: [devlog, fine-tuning, safety wrapper, cloud, capstone]
 date: 2026-06-18
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

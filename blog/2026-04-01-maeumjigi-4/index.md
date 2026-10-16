@@ -2,8 +2,9 @@
 slug: 2026-04-01-maeumjigi-4
 title: "[Maeumjigi Capstone Dev Log #4] Full-Scale Fine-Tuning Data Preprocessing"
 authors: [jbgih]
-tags: [devlog, AI-coding, ClaudeCode, capstone, fine-tuning, data-preprocessing, Llama3.1]
+tags: [devlog, Artificial Intelligence (AI)-coding, ClaudeCode, capstone, fine-tuning, data-preprocessing, Llama3.1]
 date: 2026-04-01
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)

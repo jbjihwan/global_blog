@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #2] Planificación Inicial de la App y
 authors: [jbgih]
 tags: [devlog, IA-coding, ClaudeCode, capstone, testing]
 date: 2026-03-30
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)
@@ -28,4 +29,4 @@ Basándonos en las reglas de codificación que establecimos la última vez, elab
 ![Captura de Terminal](./images/02_term.png)
 
 Hoy fue un día para vislumbrar verdaderamente la belleza del 'desarrollo automatizado impulsado por IA', donde en lugar de instrucciones paso a paso humanas, simplemente le dijimos a la IA que "procediera de acuerdo con el plan", y ella desglosó los hitos de forma independiente y creó los datos de prueba y la documentación necesarios.
-¡Por favor, sigue observando nuestro duro (?) viaje para ver cómo este sencillo proyecto de app de alarma se transforma en un enorme proyecto final basado en Aprendizaje Profundo y Modelos de Lenguaje Grandes (LLM)!
+¡Por favor, sigue observando nuestro duro (?) viaje para ver cómo este sencillo proyecto de app de alarma se transforma en un enorme proyecto final basado en Aprendizaje Profundo y Modelos de Lenguaje Grandes (Modelo de Lenguaje Grande (LLM))!

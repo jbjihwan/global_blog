@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #9] Lucha contra Errores en el Fine-Tu
 authors: [jbgih]
 tags: [devlog, Llama3.1, fine-tuning, troubleshooting, PPT-generation, ERD]
 date: 2026-04-09
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

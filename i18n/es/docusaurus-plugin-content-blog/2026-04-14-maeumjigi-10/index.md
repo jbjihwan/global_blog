@@ -1,9 +1,10 @@
 ---
 slug: 2026-04-14-maeumjigi-10
-title: "[Registro de Desarrollo Maeumjigi #10] Levantamiento de Límites de API y Reanudación de la Síntesis de Datos"
+title: "[Registro de Desarrollo Maeumjigi #10] Levantamiento de Límites de Interfaz de Programación de Aplicaciones (API) y Reanudación de la Síntesis de Datos"
 authors: [jbgih]
 tags: [devlog, API-limits, datos-sintéticos, generación-datos, troubleshooting]
 date: 2026-04-14
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

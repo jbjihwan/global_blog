@@ -1,9 +1,10 @@
 ---
 slug: 2026-04-14-maeumjigi-10
-title: "[Maeumjigi Capstone Dev Log #10] Lifting API Limits and Resuming Data Synthesis"
+title: "[Maeumjigi Capstone Dev Log #10] Lifting Application Programming Interface (API) Limits and Resuming Data Synthesis"
 authors: [jbgih]
 tags: [devlog, API-limits, synthetic-data, data-generation, troubleshooting]
 date: 2026-04-14
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -17,7 +18,7 @@ April 14 is the day we resumed the synthetic data (v5) generation work, which ha
   > "Proceed with work according to v5_emotion_data_generation_commands.md"
   > "API limit lifted, please resume operation" (23:32)
   > "API limit lifted, please resume operation" (00:11)
-- **Result**: We logged into the Claude API console, boldly increased the billing limit, and lifted the restriction. We repeatedly instructed the AI to resume generating data from where it stopped and restarted the pipeline.
+- **Result**: We logged into the Claude API console, boldly increased the billing limit, and lifted the restriction. We repeatedly instructed the Artificial Intelligence (AI) to resume generating data from where it stopped and restarted the pipeline.
 
 ### Repairing the Broken Pipeline and Unmanned Automation
 

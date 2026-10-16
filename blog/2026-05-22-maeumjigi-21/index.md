@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #21] Optimizing Data Mix Ratios and Starting
 authors: [jbgih]
 tags: [devlog, fine-tuning, dataset, prompt, capstone]
 date: 2026-05-22
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -20,7 +21,7 @@ Our goal is a 'suicide prevention counselor conveying warm empathy', but the mod
 
 To solve this, we planned an experiment to train the model by mixing emotional data and daily chat data at appropriate ratios.
 
-### Generating 10,000 v6 Emotion Dataset Entries via API
+### Generating 10,000 v6 Emotion Dataset Entries via Application Programming Interface (API)
 
 > "Unify to 512 tokens / Average 500 tokens per entry / 20 Personas / File: v6.jsonl"
 
@@ -33,4 +34,4 @@ To create the best dataset, I used the Anthropic API (Haiku) Batch mode to gener
 
 ![Ratio Experiment](./images/02_ratio.png)
 
-The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the AI's 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!
+The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the Artificial Intelligence (AI)'s 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!

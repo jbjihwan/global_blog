@@ -4,6 +4,7 @@ title: "[Registro de Desarrollo Maeumjigi #3] Prueba de Compilación de la App y
 authors: [jbgih]
 tags: [devlog, IA-coding, ClaudeCode, capstone, Android, build-test, Llama3.1]
 date: 2026-03-31
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

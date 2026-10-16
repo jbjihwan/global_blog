@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #17] 2nd Fine-Tuning Complete & The Trap of 
 authors: [jbgih]
 tags: [devlog, fine-tuning, best-performance, checkpoint, hardcoding, capstone]
 date: 2026-05-12
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)

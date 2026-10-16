@@ -2,8 +2,9 @@
 slug: 2026-05-04-maeumjigi-13
 title: "[Registro de Desarrollo Maeumjigi #13] Límites de Entrenamiento de 70B y el Giro a Modelos Medianos (HCX, Qwen)"
 authors: [jbgih]
-tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, checkpoints, hyperparameters, AI]
+tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, checkpoints, hyperparameters, Inteligencia Artificial (AI)]
 date: 2026-05-04
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

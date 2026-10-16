@@ -2,8 +2,9 @@
 slug: 2026-05-07-maeumjigi-15
 title: "[Registro de Desarrollo Maeumjigi #15] Visualización de Resultados de 5 Modelos y Configuración Local"
 authors: [jbgih]
-tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, AI]
+tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, Inteligencia Artificial (AI)]
 date: 2026-05-07
+keywords: [Chatbot de IA para salud mental, Fine-tuning de LLM, Proyecto Capstone, Seguridad de IA, Ingeniería de Prompts]
 ---
 
 ![Imagen de Portada](./images/01_cover.png)

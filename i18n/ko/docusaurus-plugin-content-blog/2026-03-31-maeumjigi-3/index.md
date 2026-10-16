@@ -1,32 +1,47 @@
+Here is the Spanish translation of the technical blog post with the markdown formatting and frontmatter structure preserved:
+
+```markdown
 ---
 slug: maeumjigi-3
-title: "[마음지기 캡스톤 개발일지 #3] 알람 앱 빌드 테스트와 파인튜닝 전처리 돌입"
+title: "[Registro de Desarrollo Capstone Maeumjigi #3] Pruebas de compilación de la aplicación de alarma e inicio del preprocesamiento para fine-tuning"
 authors: [jbgih]
-tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 안드로이드, 빌드테스트, Llama3.1]
+tags: [diario de desarrollo, codificación con IA, ClaudeCode, proyecto capstone, Android, prueba de compilación, Llama3.1]
 date: 2026-03-31
 ---
 
-![사진 01](./images/01_cover.png)
+El 31 de marzo, procedimos con la compilación y las pruebas unitarias del cliente Android de la "Aplicación de alarma de reservas de la Convención de Defensa", que era el objetivo inicial del proyecto Maeumjigi. Al mismo tiempo, iniciamos a gran escala el funcionamiento del pipeline de preprocesamiento de datos para el fine-tuning (ajuste fino) del modelo de inteligencia artificial (IA) Llama 3.1, que será el núcleo del proyecto. En esta publicación, resumimos el proceso de automatización del preprocesamiento de datos para el ajuste del modelo de lenguaje grande (LLM) y la verificación del entorno de compilación de la aplicación Android.
 
-마음지기 프로젝트의 초기 방향이었던 국방컨벤션 예약 알람 앱의 안드로이드 빌드 테스트를 진행하는 동시에, 
-본격적으로 인공지능 기반 프로젝트로의 전환을 암시하는 **Llama 3.1 파인튜닝 데이터 전처리**를 처음 시작한 3월 31일의 기록입니다.
+## 1. Verificación de la compilación y pruebas unitarias del cliente Android
 
-### 안드로이드 앱 빌드 및 유닛 테스트
+Verificamos si el código del servidor y del cliente Android, creados mediante generación de código, pasan el pipeline de compilación en un entorno real de Android Studio y si la lógica del dominio funciona correctamente.
 
-- **문제**: 어제 기획하고 생성했던 서버와 안드로이드 클라이언트 코드가 실제로 안드로이드 스튜디오 환경에서 정상적으로 빌드되고 테스트를 통과하는지 확인해야 했습니다.
-- **과정**: 
-  > Claude Code에게: "현재 진행 상황 ... 모든작업중단 ... 무슨 작업을 하고 있었는가?"
-- **결과**: `mnd-reservation-alarm/android/app/build/...` 경로에 수많은 빌드 산출물과 메타데이터가 생성되었습니다. `NotificationBuilderTest` 등의 유닛 테스트를 실행하고, 디버그 리소스 병합, 매니페스트 처리 등 안드로이드 고유의 빌드 파이프라인을 점검했습니다. 앱 백그라운드에서 예약 변화를 감지해 알림을 띄우는 핵심 로직들이 테스트되었습니다.
+### Tech Stack
+- Android SDK, Gradle, JUnit
 
-### 거대한 전환점: Llama 3.1 파인튜닝 전처리 시작
+### Features
+- Detección de cambios en el estado de reserva basado en servicios en segundo plano.
+- Activador de notificaciones push utilizando la API de notificaciones de Android.
 
-- **문제**: 단순한 알람 앱을 넘어, 사용자(장병)의 예약 맥락과 감정 상태를 이해하는 고도화된 AI를 접목하기 위한 준비가 필요했습니다. 
-- **과정**:
-  > Claude Code에게: "llama31_finetuning_data_preprocessing_plan_short.md에 따라 작업 진행 바람"
-  > "이번 작업에 관하여 모든 선택에 대하여 추가 허가 필요 없음."
-- **결과**: 프로젝트의 성격을 완전히 뒤바꿀 중요한 첫걸음을 내디뎠습니다. Llama 3.1 모델을 파인튜닝하기 위한 데이터 전처리 계획서에 따라 작업을 지시했습니다. 특히 작업 속도를 높이기 위해 AI에게 "모든 선택에 대해 추가 허가를 묻지 말고 즉시 실행하라"는 강력한 권한을 부여하며 방대한 데이터 처리 파이프라인 가동을 시작했습니다. 
+### Troubleshooting & Solution
+- **Issue**: Era necesario comprobar si el código del cliente Android y la lógica de alarma en segundo plano, diseñados y generados en la etapa anterior, se compilaban satisfaciendo el árbol de dependencias real de Android, y si la fusión del manifiesto (Manifest Merger) específica de Android y el procesamiento de recursos se ejecutaban correctamente.
+- **Solution**: 
+  Para verificar la compilación, ejecutamos el proceso de compilación de Gradle apuntando a la ruta `mnd-reservation-alarm/android/app/build/`. Durante este proceso, revisamos la fusión de recursos de depuración generados y los resultados del procesamiento del manifiesto. Además, ejecutamos pruebas unitarias, incluyendo `NotificationBuilderTest` para la lógica principal de notificaciones push, garantizando la estabilidad del ciclo de vida central que detecta cambios en las reservas en segundo plano y genera alertas.
 
-![사진 02](./images/02_term.png)
+## 2. Construcción del pipeline de preprocesamiento de datos para el fine-tuning de Llama 3.1
 
-이날은 알람 앱의 완성도를 높이는 안드로이드 빌드 작업과 동시에, 미래의 핵심 기능이 될 AI 파인튜닝 데이터 전처리가 병렬로 시작된 뜻깊은 날이었습니다. 
-다음부터는 수만 건의 대화 데이터를 Llama 3.1에 맞게 가공하는 험난한 전처리 과정이 본격적으로 펼쳐집니다!
+Para ir más allá de una simple aplicación de notificaciones, comenzamos los preparativos para el fine-tuning de Llama 3.1 con el fin de integrar un modelo avanzado capaz de comprender y reaccionar de manera integral al contexto de la reserva y al estado emocional del usuario (soldado).
+
+### Tech Stack
+- Llama 3.1, Claude Code
+
+### Features
+- Automatización del funcionamiento del pipeline para limpiar conjuntos de datos de conversación a gran escala y convertirlos al formato de entrenamiento de Llama 3.1 (Instruction).
+
+### Troubleshooting & Solution
+- **Issue**: Tuvimos que limpiar decenas de miles de datos de conversación que se utilizarían para el fine-tuning, convirtiéndolos en un formato que el modelo pudiera aprender. Este proceso incluía pasos complejos como limpieza de datos, eliminación de ruido y mapeo de plantillas. Existía la preocupación de que se produjeran graves cuellos de botella en el trabajo si intervenía el control manual o la aprobación de prompts paso a paso.
+- **Solution**:
+  Dimos instrucciones para el trabajo basándonos en un documento de especificaciones de preprocesamiento diseñado previamente (`llama31_finetuning_data_preprocessing_plan_short.md`). En particular, para maximizar la velocidad y la tasa de automatización del pipeline de procesamiento de datos, otorgamos al agente autoridad de ejecución total: **"No se requieren permisos adicionales para ninguna elección relacionada con este trabajo"**. A través de esto, eliminamos los retrasos causados por la intervención del usuario y logramos establecer con éxito el funcionamiento del pipeline de datos, realizando el preprocesamiento de conjuntos de datos masivos sin interrupciones.
+
+## Next Step
+Dado que hemos confirmado la estructura básica de la aplicación Android y la estabilidad del pipeline de compilación, en el próximo paso verificaremos formalmente los resultados del preprocesamiento de los datos masivos de conversación que se inyectarán en el modelo Llama 3.1, e ingresaremos a la fase de entrenamiento (Training) del modelo en toda regla.
+```

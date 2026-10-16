@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #20] 3rd Fine-Tuning Complete & Backend Feat
 authors: [jbgih]
 tags: [devlog, fine-tuning, backend, frontend, database, capstone]
 date: 2026-05-20
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -17,9 +18,9 @@ Based on the insights gained from the previous fine-tuning, the training for the
 > "Select the checkpoint with the Best Eval from the experimental models in the fine_tuning_3 folder, replace the files in the adapter folder, and report the results."
 > "Write a run_test_20_30.sh file that runs inference and evaluation in parallel for fine_tuning_3 as well."
 
-Instead of manually digging through folders to copy checkpoints like before, I instructed the AI to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the `adapter` folder. Then, I executed the parallel inference script, `run_test_20_30.sh`, throwing the evaluation for the 4 Alias models to the background server.
+Instead of manually digging through folders to copy checkpoints like before, I instructed the Artificial Intelligence (AI) to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the `adapter` folder. Then, I executed the parallel inference script, `run_test_20_30.sh`, throwing the evaluation for the 4 Alias models to the background server.
 
-### Backend/Frontend: Chatbot DB Saving and Community Board Features
+### Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features
 
 While the models were hard at work running inferences on the server, I accelerated the `mental-health` DB and app integration work in my local environment.
 
@@ -32,6 +33,6 @@ As a result, I was able to leave a meaningful Git commit on the afternoon of May
 
 ![App Features](./images/02_app_feature.png)
 
-Finally, the conversation logs of our fine-tuned LLM chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.
+Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.
 
 It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.

@@ -4,6 +4,7 @@ title: "[Maeumjigi Capstone Dev Log #14] All Fine-Tuning Completed and Parallel 
 authors: [jbgih]
 tags: [devlog, fine-tuning, HCX-Omni-8B, Qwen35-9B, model-evaluation, inference, parallel-processing]
 date: 2026-05-06
+keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -21,7 +22,7 @@ step= 1250  loss=0.8523  lr=1.86e-04  gpu=7.7GB
 step= 1650  loss=0.8783  lr=1.73e-04  gpu=7.7GB
 ```
 
-However, we had a brief moment of confusion trying to figure out if this was `train loss` or `validation loss`, asking the AI, "Does our code not record eval loss?" We realized the evaluation loss logging might have been missed, but since the training was already fully complete ("All fine-tuning is complete, proceeding with evaluation"), we immediately moved on to the inference and evaluation (Eval) phase using the latest generated checkpoint models.
+However, we had a brief moment of confusion trying to figure out if this was `train loss` or `validation loss`, asking the Artificial Intelligence (AI), "Does our code not record eval loss?" We realized the evaluation loss logging might have been missed, but since the training was already fully complete ("All fine-tuning is complete, proceeding with evaluation"), we immediately moved on to the inference and evaluation (Eval) phase using the latest generated checkpoint models.
 
 ### Building a Parallel Inference Environment
 

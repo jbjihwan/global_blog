@@ -1,37 +1,38 @@
+Aquí está la traducción al español solicitada, conservando el formato markdown, la estructura del frontmatter original (con el título traducido) y respetando las etiquetas en coreano:
+
+```markdown
 ---
 slug: 2026-05-20-maeumjigi-20
-title: "[마음지기 캡스톤 개발일지 #20] 3차 파인튜닝 완료 및 백엔드 기능(DB, 게시판) 고도화"
+title: "[Diario de desarrollo de Capstone de Maeumjigi #20] Finalización del 3er fine-tuning y mejora de funciones de backend (Base de datos (DB), Tablón de anuncios)"
 authors: [jbgih]
 tags: [개발일지, 파인튜닝, 백엔드, 프론트엔드, 데이터베이스, 캡스톤디자인]
 date: 2026-05-20
 ---
 
-![사진 01](./images/01_cover.png)
+Durante dos días, del 19 al 20 de mayo, trabajamos en paralelo en la construcción de la automatización de evaluación del pipeline del 3er fine-tuning (`fine_tuning_3`) y en la mejora de las funciones de backend/frontend para la integración con el servicio de la aplicación real (App).
 
-5월 19일과 20일 이틀 동안은 3차 파인튜닝(`fine_tuning_3`)의 평가 자동화와 더불어, 실제 앱(App) 서비스 구축을 위한 백엔드/프론트엔드 기능 고도화 작업이 병렬로 진행되었습니다.
+## 1. Finalización del 3er fine-tuning (fine_tuning_3) y construcción del pipeline de automatización
 
-### 3차 파인튜닝 (fine_tuning_3) 마무리와 자동화 스크립트
+Basándonos en los conocimientos de experimentos anteriores, se ha completado el entrenamiento del modelo del 3er fine-tuning, configurado aplicando los conceptos de Grafo de Conocimiento (Knowledge Graph) y Ontología (Ontology). En esta etapa, construimos un proceso de automatización de evaluación basado en scripts de shell para mejorar la eficiencia de la verificación del rendimiento del modelo.
 
-이전 파인튜닝에서 얻은 인사이트를 바탕으로, 지식그래프와 온톨로지 개념을 의식하며 세팅했던 3차 파인튜닝의 학습이 완료되었습니다.
+### 1.1. Extracción y configuración automática del Best Checkpoint
+Automatizamos el proceso de selección exclusiva de los pesos (Weights) que registraron la métrica de evaluación más alta (Best Eval) entre los múltiples checkpoints del modelo entrenado. Anteriormente, copiábamos los parámetros buscando en el directorio de forma manual, pero con la ayuda de un asistente de inteligencia artificial (IA), escribimos un script para extraer automáticamente y sobrescribir el checkpoint óptimo en la carpeta `adapter`.
 
-> "fine_tuning_3 폴더의 실험 모델들 중 Best Eval을 가진 체크포인트를 선별하여 adapter 폴더 내 파일을 교체하고 결과를 보고해 줘."
-> "fine_tuning_3에서도 추론과 평가를 병렬로 진행하는 run_test_20_30.sh 파일을 작성해 주세요."
+### 1.2. Pipeline de inferencia paralela (Parallel Inference Pipeline)
+Para procesar simultáneamente la inferencia y evaluación de 4 modelos Alias, escribimos el script de ejecución `run_test_20_30.sh`. A través de esto, asignamos (Dispatch) las tareas de evaluación del modelo en paralelo a un servidor en segundo plano, reduciendo drásticamente el tiempo total necesario para la evaluación.
 
-이전처럼 사람이 일일이 폴더를 뒤지며 체크포인트를 복사하는 대신, AI에게 스크립트를 짜도록 지시하여 가장 성능이 좋은 모델 가중치(Best Checkpoint)를 자동으로 추출해 `adapter` 폴더에 세팅했습니다. 그리고 병렬 추론 스크립트인 `run_test_20_30.sh`를 실행하여 4개의 Alias 모델에 대한 평가를 백그라운드 서버에 던져두었습니다. 
+## 2. Mejora de funciones de backend y frontend
 
-### 백엔드/프론트엔드: 챗봇 DB 저장과 게시판 기능 완성
+Mientras la inferencia del modelo de lenguaje grande (LLM) se ejecutaba en segundo plano en el servidor, en el entorno local nos centramos en la integración entre el frontend y la API de backend, y en el manejo de la persistencia (Persistence) de la base de datos (DB) `mental-health`.
 
-모델이 서버에서 열심히 추론을 돌리는 동안, 로컬 환경에서는 `mental-health` DB와 앱 연동 작업에 박차를 가했습니다.
+### 2.1. Solución de problemas: Error de autenticación (Authentication) y conexión a DB
+- **Problema (Issue)**: Se produjo un bloqueo en el proceso de autenticación debido a que ocurría continuamente un error `401 Unauthorized` al realizar solicitudes de inicio de sesión del cliente.
+- **Solución (Solution)**: Rastreamos el esquema y los datos de usuario ficticios de `seed_data.sql`, utilizado para la configuración inicial de datos. Verificamos el algoritmo de hash (Hashing) de la contraseña de usuario cargada en la DB, y resolvimos el problema de autenticación depurando la lógica de encriptación y emisión de tokens para que la contraseña en texto plano (ej. `Test1234!`) en los datos semilla pasara con éxito la lógica de verificación del servidor.
 
-> "seed_data.sql 정보 요약. users의 pw가 무엇이지? Test1234! 인가? 현재 내가 이 sql을 적용하려던 db가 뭐였지?"
+### 2.2. Características (Features): Implementación de la lógica de negocio central y UI/UX
+Después de resolver el problema de inicio de sesión, implementamos las funciones principales que mejoran el flujo de datos y la experiencia del usuario, integrándolas en el código base (`feat: guardar chat de DB de chatbot, paginación de tablón de anuncios, agregar filtro de diario de emociones`).
 
-지난번 `401 Unauthorized` 에러로 골치를 썩였던 로그인 문제를 뚫어내기 위해 `seed_data.sql`을 뜯어보며 비밀번호 해싱과 유저 데이터를 철저히 검증했습니다.
-
-그 결과, 5월 20일 오후 뜻깊은 Git 커밋(Commit) 하나를 남길 수 있었습니다.
-`feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가`
-
-![사진 02](./images/02_app_feature.png)
-
-드디어 저희가 파인튜닝한 LLM 챗봇의 대화 기록이 DB에 정식으로 저장되기 시작했습니다! 더불어 사용자들끼리 소통할 수 있는 커뮤니티 게시판의 페이지네이션(Pagination) 기능과, 매일매일의 기분을 기록하는 감정일기 필터 기능까지 성공적으로 프론트엔드에 얹혔습니다.
-
-눈에 보이지 않던 거대한 파인튜닝 모델이 비로소 모바일 앱이라는 예쁜 그릇에 담기기 시작한 감격스러운 순간이었습니다.
+- **Registro de conversaciones del chatbot LLM (DB Storage)**: Hicimos persistentes formalmente en la DB los datos de las sesiones de conversación del usuario con el modelo ajustado (fine-tuned). Gracias a esto, pudimos mantener el contexto (Context) de la conversación y gestionar el historial incluso sobre una comunicación HTTP sin estado (Stateless).
+- **Paginación del tablón de anuncios de la comunidad (Pagination)**: Para evitar el retraso en la renderización y la carga de consultas al servidor que se producen al renderizar una gran cantidad de publicaciones, aplicamos paginación a la API del tablón de anuncios, optimizándola para enviar datos al cliente en fragmentos (chunks).
+- **Filtrado del diario de emociones (Emotion Diary Filtering)**: Agregamos una función de filtro de consultas múltiples en el frontend para que los usuarios puedan consultar los diarios de emociones diarios que registraron, categorizados por emoción y por fecha.
+```

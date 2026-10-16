@@ -1,41 +1,47 @@
+```markdown
 ---
 slug: 2026-04-07-maeumjigi-7
-title: "[마음지기 캡스톤 개발일지 #7] 합성 데이터(v5) 생성 최적화와 프론트엔드 연동"
+title: "[Registro de Desarrollo de Capstone Maeumjigi #7] Optimización de Generación de Datos Sintéticos (v5) e Integración Frontend"
 authors: [jbgih]
-tags: [개발일지, 합성데이터, ClaudeAPI, 데이터생성, 프론트엔드, 비용최적화]
+tags: [registro-de-desarrollo, datos-sintéticos, ClaudeAPI, generación-de-datos, frontend, optimización-de-costos]
 date: 2026-04-07
 ---
 
-![사진 01](./images/01_cover.png)
+## 1. Resumen (Overview)
 
-4월 7일은 팀원이 구축한 프론트엔드(mental-health) 코드를 로컬 환경에서 실행해 보며 통합을 시도한 날이자, 
-AI를 활용해 부족한 상담 데이터를 6만 건이나 새롭게 '합성(Synthesis)'해내는 거대한 스크립트를 가동한 날입니다.
+En esta publicación, cubrimos el proceso de ejecutar el servidor frontend (`mental-health`) del proyecto capstone Maeumjigi en un entorno local para prepararse para la integración con el backend, y la construcción de un canal (pipeline) para generar a gran escala datos de entrenamiento faltantes utilizando inteligencia artificial (IA). Hemos resumido el proceso de generación de 60.000 datos sintéticos (Synthetic Data) para el ajuste fino (fine-tuning) de Llama 3.1, la optimización de los costos de API resultantes (Optimization) y los problemas resueltos (troubleshooting) durante la integración del frontend.
 
-### 부족한 데이터를 채워라: AI 합성 데이터(v5) 생성
+## 2. Generación de Datos Sintéticos (v5) y Optimización de Costos
 
-- **문제**: 기존에 정제한 데이터(v4)만으로는 특정 감정이나 세밀한 상담 시나리오가 부족했습니다. 이를 해결하기 위해 Claude API를 사용하여 Llama 3.1 훈련 포맷(System, User, Assistant)에 맞는 가상의 고품질 상담 대화를 6만 건 생성하고자 했습니다.
-- **과정**: 
-  > "Claude가 자체적으로 만든 v5의 데이터셋을 만들고자 합니다. 계획을 세워주세요."
-  > "저는 jsonl 포맷(system, user, assistant)에 맞게 Claude가 생성해 주는 6만 건의 데이터셋을 구하고 싶습니다."
-- **결과**: `v5_plan.md`를 세우고 데이터를 생성하기 시작했습니다. 하지만 이내 API 호출 비용이 또다시 발목을 잡았습니다.
+### 2.1 Feature: Construcción de un Canal de Datos Sintéticos a Gran Escala
+Los datos refinados (v4) a través del canal existente carecían de diversidad para cubrir líneas emocionales específicas o escenarios de asesoramiento psicológico detallados. Para resolver esto, planificamos la generación del conjunto de datos v5, que contiene 60.000 conversaciones virtuales de asesoramiento de alta calidad adaptadas al formato de entrenamiento de Llama 3.1 (`System`, `User`, `Assistant`), utilizando la API de Claude. Establecimos el plan `v5_plan.md` para generar datos estructurados en formato `jsonl` y comenzamos la ejecución del script a gran escala.
 
-### 끝나지 않는 비용과의 전쟁: 프롬프트 최적화
+### 2.2 Troubleshooting: Problema de Aumento en los Costos de Llamadas a la API
+Tan pronto como se ejecutó el script, surgió un problema en el que el costo de las llamadas a la API superó significativamente las estimaciones. Durante el proceso de generación de 60.000 datos, a pesar de estar en la etapa de progreso inicial (Progress), nos enfrentamos a una rápida reducción de 10 dólares en créditos y al riesgo de facturas masivas debido al desperdicio de tokens de salida causado por respuestas detalladas (Verbose) del modelo.
 
-- **문제**: 데이터 6만 건을 AI에게 창작시키려다 보니 며칠 전 겪었던 비용 문제가 재현되었습니다. 스크립트 실행 도중 크레딧 10달러가 순식간에 증발했습니다.
-- **과정**:
-  > "step8_generate_v5_optimized.py 이대로 진행하면 토큰 사용량이 줄어드나요?"
-  > "현재 크레딧의 $10를 소비했는데 저 정도 progress 진행 중입니다."
-- **결과**: AI에게 비용을 절감할 수 있는 프롬프트 엔지니어링과 코드 최적화(`step8_generate_v5_optimized.py`)를 지시하여 출력 토큰의 낭비를 막고, 생성 진행률을 안전하게 저장하는 로직을 추가했습니다. 
+![데이터 생성 파이프라인 비용 및 아키텍처](D:/서울과기대 컴퓨터공학과/26-1/TNS/조별발표/PPT 이미지/3장.png)
 
-### 팀원의 프론트엔드 코드 인수인계 및 실행
+### 2.3 Solution: Ingeniería de Prompts y Optimización de Código
+Para reducir costos y asegurar la recopilación estable de datos, escribimos el script `step8_generate_v5_optimized.py` y procedimos con la optimización del canal.
 
-- **과정**: 
-  > "이 프로젝트는 팀 동료가 만든 프로젝트로 제가 실행하려면 어떻게 해야 하나요?"
-  > "4번 DB 마이그레이션 중 오류 발생..."
-  > "6단계 frontend까지 실행 완료. 종료 방법과 다시 실행 시 간단한 절차를 알려주세요."
-- **결과**: 팀원이 작성해 둔 `mental-health` 리포지토리를 넘겨받아 로컬에서 실행하고 DB 마이그레이션 오류를 해결했습니다. 이제 백엔드 AI 모델과 프론트엔드가 만날 준비가 되었습니다.
+- **Ajuste de Prompts (Prompt Engineering)**: Rediseñamos el System Prompt para que Claude excluya introducciones innecesarias o formato markdown, y devuelva estrictamente datos de conversación en formato JSONL, reduciendo drásticamente el uso de Output Tokens.
+- **Gestión y Recuperación de Estado (State Management)**: Agregamos una lógica de puntos de control (checkpoint) para que, incluso si el script se detiene debido a errores de red o por exceder el límite de facturación durante solicitudes de API a gran escala, el progreso de generación anterior (Progress) y los datos se puedan guardar de forma segura localmente y reanudar (Resume).
 
-![사진 02](./images/02_term.png)
+## 3. Traspaso de Frontend e Integración en Entorno Local
 
-오늘은 데이터 전처리를 넘어, **AI가 AI를 학습시킬 교과서(데이터)를 직접 집필하게 만드는(Synthetic Data Generation)** 최신 딥러닝 트렌드를 직접 구현해 본 뜻깊은 날이었습니다. 
-쏟아지는 과금의 공포 속에서 최적화를 이뤄내고, 프론트엔드 서버까지 무사히 띄워낸 하루였습니다!
+### 3.1 Feature: Preparación para la Integración Frontend
+Tomamos el relevo del repositorio `mental-health` desarrollado por un compañero de equipo, lo ejecutamos en el entorno local y procedimos con la configuración del entorno de ejecución del cliente para la futura integración con la API del modelo backend.
+
+### 3.2 Troubleshooting: Error de Migración de Base de Datos
+Durante la fase de configuración inicial para levantar el servidor frontend, mientras se ejecutaba el script de migración de base de datos (DB) número 4, ocurrió un error en la DB debido a un conflicto de esquemas (Schema), lo que impidió que el servidor arrancara normalmente.
+
+![프론트엔드 DB 마이그레이션 오류 트러블슈팅](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week6/프론트엔드버그.png)
+
+### 3.3 Solution: Resolución de Errores de Migración y Estandarización de Ejecución
+- Analizamos los registros de errores de migración de la DB para restablecer el historial de migraciones en conflicto y sincronizamos correctamente el esquema con el comando adecuado.
+- Ejecutamos con éxito el servidor frontend en el entorno local y, para evitar cuellos de botella en el mismo proceso durante la colaboración futura, documentamos el método de apagado del servidor (Graceful Shutdown) y un procedimiento simple para el reinicio (Start-up Sequence), finalizando así el proceso de traspaso.
+
+## 4. Retrospectiva (Wrap-up)
+
+Hoy fue un día significativo en el que fuimos más allá del simple preprocesamiento de datos y construimos un canal de **Generación de Datos Sintéticos (Synthetic Data Generation)**, haciendo que un modelo generativo cree directamente los libros de texto (Data) para ajustar (fine-tune) a otro modelo. Incluso ante la crisis de cargos excesivos de la API, resolvimos el problema a través de la ingeniería de prompts y la optimización a nivel de código, y logramos levantar con éxito el cliente frontend, completando así una etapa de preparación de la infraestructura para el desarrollo full-stack y el servicio de modelos.
+```
