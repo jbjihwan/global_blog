@@ -6,6 +6,7 @@ tags: [aprendizaje-por-refuerzo, q-learning, funcion-de-recompensa, webots, robo
 date: 2026-05-18
 project: rl_q_learning
 description: "Análisis en profundidad de las fórmulas de actualización TD(0) de Q-Learning tabular, la estrategia de exploración con decaimiento de epsilon y el modelado de recompensas densas para navegación robótica."
+keywords: ["Configuración de Recompensas Q-Learning", "Exploración Epsilon-Greedy", "Aprendizaje por Refuerzo Recompensa Escasa", "Ecuación de Bellman TD", "Evasión de Obstáculos Robot"]
 ---
 
 ![Curva de Recompensa](./images/01_reward_curve.png)

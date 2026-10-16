@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
 date: 2026-06-29
 project: anpr_vision
 description: "韓国ナンバープレートの正規表現検証、EasyOCR誤読補正、時間軸多数決投票エンジン、および初期の文字化けから「64가1511」確定に至るv01~v11の進化記録。"
+keywords: ["EasyOCR 韓国ナンバープレート", "時間軸多数決アンサンブル", "韓国ナンバー正規表現", "ナンバー認識精度 99%", "ITS交通違反監視ビジョン"]
 ---
 
 ![時間軸多数決投票と最終確定画面](./images/01_voting_evolution.png)

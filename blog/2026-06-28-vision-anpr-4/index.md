@@ -6,6 +6,7 @@ tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learn
 date: 2026-06-28
 project: anpr_vision
 description: "Reconstructing cropped low-resolution license plate patches via EDSR 4x deep super-resolution and temporal multi-frame image stacking."
+keywords: ["EDSR Super Resolution", "License Plate Image Deblurring", "OpenCV dnn_superres", "Multi-Frame Image Stacking", "Deep Residual Upscaling"]
 ---
 
 ![EDSR Deep Super-Resolution Results](./images/01_edsr_sr_comparison.png)

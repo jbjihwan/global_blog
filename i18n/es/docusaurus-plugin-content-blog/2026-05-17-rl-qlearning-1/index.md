@@ -6,6 +6,7 @@ tags: [aprendizaje-por-refuerzo, q-learning, webots, robotica, discretizacion, p
 date: 2026-05-17
 project: rl_q_learning
 description: "Diseño de un discretizador de espacio de estados de 648 bins y una arquitectura IPC por sockets TCP para la navegación autónoma de robots móviles con Q-Learning tabular en Webots."
+keywords: ["Robot Autónomo Webots", "Q-Learning Tabular Robótica", "Discretización de 648 Estados", "Comunicación Socket TCP IPC", "Navegación Tracción Diferencial"]
 ---
 
 ![Entorno de Simulación Webots](./images/01_webots_arena.png)

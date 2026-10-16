@@ -6,6 +6,7 @@ tags: [reinforcement-learning, q-learning, reward-shaping, webots, robotics, mac
 date: 2026-05-18
 project: rl_q_learning
 description: "In-depth breakdown of Tabular Q-Learning TD(0) update formulas, exponential epsilon-decay exploration, and dense reward shaping to overcome sparse rewards in mobile robot navigation."
+keywords: ["Q-Learning Reward Shaping", "Epsilon Greedy Exploration", "Sparse Reward Reinforcement Learning", "Bellman Optimality TD", "Robot Obstacle Avoidance"]
 ---
 
 ![Training Reward Curve](./images/01_reward_curve.png)

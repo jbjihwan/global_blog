@@ -6,6 +6,7 @@ tags: [強化学習, Q-learning, 報酬関数, Webots, ロボティクス, 機�
 date: 2026-05-18
 project: rl_q_learning
 description: "WebotsモバイルロボットのTabular Q-Learning TD(0)更新数式、ε-Greedy探索減衰戦略、スパース報酬を克服する多目的報酬シェイピング(Dense Reward Shaping)のチューニングプロセスを詳しく解説します。"
+keywords: ["Q学習 報酬シェイピング", "イプシロングリーディ探索", "スパース報酬強化学習", "ベルマン最適性TD", "ロボット障害物回避"]
 ---
 
 ![学習報酬曲線](./images/01_reward_curve.png)

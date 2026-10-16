@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, pyth
 date: 2026-06-26
 project: anpr_vision
 description: "Canny 에지 검출, 확률적 허프 변환(HoughLinesP), 좌우 기울기 필터링 및 차량 바운딩 박스와 차선 다각형 간의 기하학적 IoU 침범 판정 수학."
+keywords: ["OpenCV 차선 검출", "허프 변환 차선 추적", "차선 침범 알고리즘", "다각형 IoU 계산", "Canny 에지 필터링"]
 ---
 
 ![동적 차선 검출 및 오버레이](./images/01_lane_detection.png)

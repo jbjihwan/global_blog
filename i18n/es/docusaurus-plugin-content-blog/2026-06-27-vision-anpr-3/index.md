@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, pyth
 date: 2026-06-27
 project: anpr_vision
 description: "Estrategia jerárquica en dos etapas: detección general de vehículos con YOLOv3, localización precisa con YOLOv5 y seguimiento por filtro de correlación CSRT."
+keywords: ["Detección de Matrículas YOLOv5", "Rastreador CSRT OpenCV", "Detección Jerárquica de Objetos", "Seguimiento Tiempo Real 50FPS", "Localización ROI Vehículo"]
 ---
 
 ![Localización de Matrícula con YOLOv5](./images/01_plate_localization.png)

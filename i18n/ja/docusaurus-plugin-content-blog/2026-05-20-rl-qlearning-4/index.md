@@ -6,6 +6,7 @@ tags: [強化学習, Q-learning, 性能評価, ベンチマーク, DQN, SARSA, �
 date: 2026-05-20
 project: rl_q_learning
 description: "学習済みQ-Tableを用いた探索率ゼロ(ε=0)の決定論的評価パイプライン(evaluate_qlearning.py)、経路効率、近接衝突(Near-miss)、およびDQN・SARSAモデルとの総合ベンチマーク。"
+keywords: ["決定論的ポリシー評価", "障害物ニアミス指標", "Q学習 DQN SARSA比較", "自律走行ベンチマーク", "探索ゼロ推論パイプライン"]
 ---
 
 ![成功率およびステップ数ベンチマーク](./images/01_eval_success_steps.png)

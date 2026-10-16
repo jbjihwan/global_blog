@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-l
 date: 2026-06-25
 project: anpr_vision
 description: "동적 차선 검출, IoU 침범 판정, YOLOv5 번호판 탐지, EDSR 딥러닝 초해상화, OCR 투표 앙상블을 결합한 6단계 실시간 비전 시스템 아키텍처 설계."
+keywords: ["블랙박스 번호판 인식", "차선 침범 감지", "컴퓨터 비전 파이프라인", "실시간 차량 추적", "YOLO 초해상화"]
 ---
 
 ![6단계 ANPR 파이프라인 구조도](./images/01_pipeline_diagram.png)

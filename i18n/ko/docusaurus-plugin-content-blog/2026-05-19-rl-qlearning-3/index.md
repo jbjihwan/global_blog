@@ -6,6 +6,7 @@ tags: [강화학습, Q-learning, Webots, 장애물회피, 로컬미니마, Headl
 date: 2026-05-19
 project: rl_q_learning
 description: "12개 벽 장애물 환경(obstacle12)과 고난도 맵(obstacle_hard)에서 로봇이 마주한 지역 최적해(Local Minima) 병목 현상과, Webots Headless 가속 파이프라인을 통한 3개 시드 병렬 학습 분석."
+keywords: ["강화학습 로컬 미니마", "Webots 헤드리스 시뮬레이션", "장애물 회피 멀티 시드", "심층 강화학습 vs 테이블 Q", "파워쉘 자동화 학습"]
 ---
 
 ![obstacle12 시뮬레이션 환경](./images/01_obstacle12_arena.png)

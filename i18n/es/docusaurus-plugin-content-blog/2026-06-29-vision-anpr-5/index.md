@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
 date: 2026-06-29
 project: anpr_vision
 description: "Validación de sintaxis para matrículas coreanas, EasyOCR, motor de votación por mayoría temporal y la evolución en 11 iteraciones de v01 a v11."
+keywords: ["EasyOCR Matrículas Coreanas", "Ensamble Votación por Mayoría", "Normalización Regex Matrículas", "Precisión Reconocimiento 99%", "Monitoreo Vial Inteligente"]
 ---
 
 ![Votación Mayoritaria Temporal y Confirmación Definitiva](./images/01_voting_evolution.png)

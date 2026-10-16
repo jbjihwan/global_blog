@@ -6,6 +6,7 @@ tags: [강화학습, Q-learning, 보상함수, Webots, 로보틱스, 머신러�
 date: 2026-05-18
 project: rl_q_learning
 description: "Webots 모바일 로봇의 Tabular Q-Learning 업데이트 수식 구현, 엡실론 감쇠(Epsilon Decay) 탐색 전략, 그리고 희소 보상(Sparse Reward)을 극복하는 보상 셰이핑(Reward Shaping) 튜닝 과정을 심층 분석합니다."
+keywords: ["Q-러닝 보상 형성", "엡실론 그리디 탐색", "희소 보상 강화학습", "벨만 최적 방정식 TD", "로봇 장애물 회피"]
 ---
 
 ![학습 보상 곡선](./images/01_reward_curve.png)

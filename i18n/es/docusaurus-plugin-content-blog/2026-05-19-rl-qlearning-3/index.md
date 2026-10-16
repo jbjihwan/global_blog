@@ -6,6 +6,7 @@ tags: [aprendizaje-por-refuerzo, q-learning, webots, evasion-de-obstaculos, mini
 date: 2026-05-19
 project: rl_q_learning
 description: "Resolviendo el dilema de los mínimos locales en entornos complejos de 12 paredes (obstacle12) y automatizando simulaciones de alta velocidad en modo Headless con múltiples semillas."
+keywords: ["Mínimos Locales Aprendizaje Refuerzo", "Simulación Webots Sin Interfaz", "Evasión Obstáculos Multi-Semilla", "RL Profundo vs Q Tabular", "Entrenamiento Automatizado PowerShell"]
 ---
 
 ![Entorno de Simulación obstacle12](./images/01_obstacle12_arena.png)

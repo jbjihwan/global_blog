@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-l
 date: 2026-06-25
 project: anpr_vision
 description: "Architecting a 6-stage computer vision pipeline combining dynamic lane detection, IoU intrusion metrics, YOLOv5 license plate detection, EDSR super-resolution, and OCR voting."
+keywords: ["ANPR Pipeline", "Dashcam Video Analytics", "Computer Vision Pipeline", "Real-Time Vehicle Tracking", "YOLO Super Resolution"]
 ---
 
 ![6-Stage ANPR Pipeline Diagram](./images/01_pipeline_diagram.png)

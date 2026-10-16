@@ -6,6 +6,7 @@ tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learn
 date: 2026-06-28
 project: anpr_vision
 description: "切り出された低解像度ナンバープレートを4倍復元するEDSR深層超解像と、複数フレーム平均化スタッキングによるノイズ除去手法。"
+keywords: ["EDSR 超解像", "低解像度ナンバープレート復元", "OpenCV dnn_superres", "マルチフレームスタッキング", "深層残差4倍拡大"]
 ---
 
 ![EDSR深層超解像適用結果](./images/01_edsr_sr_comparison.png)

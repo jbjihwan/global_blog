@@ -6,6 +6,7 @@ tags: [reinforcement-learning, q-learning, webots, robotics, discretization, pyt
 date: 2026-05-17
 project: rl_q_learning
 description: "Designing a 648-bin state space discretizer and a TCP socket IPC architecture for Webots mobile robot autonomous navigation with tabular Q-Learning."
+keywords: ["Webots Autonomous Robot", "Tabular Q-Learning Robotics", "State Discretization 648 Bins", "TCP Socket IPC Python", "Differential Drive Navigation"]
 ---
 
 ![Webots Simulation Environment](./images/01_webots_arena.png)

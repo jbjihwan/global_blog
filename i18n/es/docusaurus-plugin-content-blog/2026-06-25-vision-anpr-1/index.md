@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-l
 date: 2026-06-25
 project: anpr_vision
 description: "Diseño de un pipeline de visión de 6 etapas que combina detección dinámica de carril, métricas de invasión IoU, detección de matrículas YOLOv5, superresolución EDSR y votación OCR."
+keywords: ["Reconocimiento de Matrículas ANPR", "Detección Invasión de Carril", "Pipeline Visión por Computadora", "Seguimiento Vehicular Tiempo Real", "Superresolución YOLO"]
 ---
 
 ![Diagrama del Pipeline ANPR de 6 Etapas](./images/01_pipeline_diagram.png)

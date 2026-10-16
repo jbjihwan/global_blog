@@ -6,6 +6,7 @@ tags: [強化学習, Q-learning, Webots, 障害物回避, 局所解, Headless, P
 date: 2026-05-19
 project: rl_q_learning
 description: "12個の壁障害物環境(obstacle12)と高難易度マップ(obstacle_hard)において直面した局所的最適解（Local Minima）の克服と、Webots Headless高速化による3シード並列実験の分析。"
+keywords: ["強化学習 局所解回避", "Webots ヘッドレスシミュレーション", "マルチシード障害物回避", "深層強化学習 vs テーブルQ", "PowerShell自動化学習"]
 ---
 
 ![obstacle12 シミュレーション環境](./images/01_obstacle12_arena.png)

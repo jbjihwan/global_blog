@@ -6,6 +6,7 @@ tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learn
 date: 2026-06-28
 project: anpr_vision
 description: "Reconstrucción de parches de matrículas de baja resolución mediante superresolución 4x con EDSR y apilamiento multifotograma."
+keywords: ["Superresolución EDSR", "Restauración de Matrículas Borrosas", "OpenCV dnn_superres", "Apilamiento Multifotograma", "Escalado Profundo 4x"]
 ---
 
 ![Resultados de Superresolución EDSR](./images/01_edsr_sr_comparison.png)

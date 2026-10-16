@@ -6,6 +6,7 @@ tags: [강화학습, Q-learning, Webots, 로보틱스, 상태공간이산화, Py
 date: 2026-05-17
 project: rl_q_learning
 description: "Webots 로봇 시뮬레이션 환경에서 연속 센서 데이터를 648개 이산 상태 공간으로 압축하는 Discretizer 설계와 TCP 소켓 통신 기반 강화학습(RL) 아키텍처를 상세히 소개합니다."
+keywords: ["Webots 자율주행 로봇", "테이블 Q-러닝 로보틱스", "648개 상태 공간 이산화", "TCP 소켓 IPC 통신", "차동 구동 로봇 주행"]
 ---
 
 ![Webots 시뮬레이션 환경](./images/01_webots_arena.png)

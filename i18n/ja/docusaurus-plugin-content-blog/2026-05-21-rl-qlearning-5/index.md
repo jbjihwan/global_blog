@@ -6,6 +6,7 @@ tags: [強化学習, Sim-to-Real, Arduino, ロボティクス, コンピュー�
 date: 2026-05-21
 project: rl_q_learning
 description: "Webotsシミュレータで検証されたQ-Learning方策を実機2輪Arduino Unoロボットに移植し、天井Webカメラのホモグラフィ補正とArUcoマーカー視覚追跡により実環境自律走行を実現したSim-to-Real完結編。"
+keywords: ["Sim-to-Real ハードウェア転移", "ArUcoマーカー ポーズ追跡", "Arduino Uno ロボットナビゲーション", "HC-06 Bluetooth通信", "ウェブカメラ ホモグラフィ"]
 ---
 
 ![ArUcoマーカー視覚追跡画面](./images/01_aruco_vision.png)

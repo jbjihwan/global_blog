@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, pyth
 date: 2026-06-26
 project: anpr_vision
 description: "Canny edge filtering, probabilistic Hough transform (HoughLinesP), slope thresholding, and geometric polygon IoU intrusion calculation."
+keywords: ["OpenCV Lane Detection", "HoughLinesP Lane Tracking", "Lane Intrusion Detection", "Polygon IoU Calculation", "Canny Edge Boundary"]
 ---
 
 ![Dynamic Lane Detection Overlay](./images/01_lane_detection.png)

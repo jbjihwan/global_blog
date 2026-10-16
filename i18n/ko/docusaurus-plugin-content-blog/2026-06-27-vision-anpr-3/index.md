@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, pyth
 date: 2026-06-27
 project: anpr_vision
 description: "광역 차량 검출(YOLOv3)과 ROI 내부 고정밀 번호판 탐지(YOLOv5)의 2단계 계층적 구조 및 CSRT 상관 필터 추적기를 결합한 연산 최적화 기법."
+keywords: ["YOLOv5 번호판 검출", "CSRT 추적기 OpenCV", "계층적 객체 탐지", "실시간 50FPS 추적", "차량 ROI 국소 탐색"]
 ---
 
 ![YOLOv5 번호판 영역 탐지 결과](./images/01_plate_localization.png)

@@ -6,6 +6,7 @@ tags: [aprendizaje-por-refuerzo, sim-to-real, arduino, robotica, vision-por-comp
 date: 2026-05-21
 project: rl_q_learning
 description: "Despliegue de la política Q-Learning de 648 estados discretos en un robot físico de 2 ruedas con Arduino Uno, calibración por homografía de cámara cenital y rastreo de marcadores ArUco."
+keywords: ["Transferencia Sim-to-Real Hardware", "Seguimiento de Pose con Marcadores ArUco", "Navegación Robot Arduino Uno", "Comunicación Bluetooth HC-06", "Homografía con Cámara Web"]
 ---
 
 ![Rastreo visual con marcadores ArUco](./images/01_aruco_vision.png)

@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, pyth
 date: 2026-06-27
 project: anpr_vision
 description: "広域車両検出（YOLOv3）とROI内高精度プレート検出（YOLOv5）の2段階階層構造、およびCSRT相関フィルタ追跡器を組み合わせた演算最適化手法。"
+keywords: ["YOLOv5 ナンバープレート検出", "CSRT トラッカー OpenCV", "階層型物体検出", "50FPS リアルタイム追跡", "車両ROI 局所特定"]
 ---
 
 ![YOLOv5プレート検出結果](./images/01_plate_localization.png)

@@ -6,6 +6,7 @@ tags: [強化学習, Q-learning, Webots, ロボティクス, 状態空間離散�
 date: 2026-05-17
 project: rl_q_learning
 description: "Webotsロボットシミュレーション環境において、連続センサデータを648の離散状態空間へ圧縮するDiscretizerの設計と、TCPソケット通信に基づく強化学習(RL)アーキテクチャを解説します。"
+keywords: ["Webots 自律走行ロボット", "テーブルQ学習 ロボティクス", "648状態空間離散化", "TCPソケットIPC通信", "差動二輪ナビゲーション"]
 ---
 
 ![Webots シミュレーション環境](./images/01_webots_arena.png)

@@ -6,6 +6,7 @@ tags: [reinforcement-learning, q-learning, evaluation, benchmark, dqn, sarsa, ro
 date: 2026-05-20
 project: rl_q_learning
 description: "Zero-exploration (ε=0) deterministic evaluation pipeline with evaluate_qlearning.py, examining path efficiency, near-miss metrics, and benchmark comparisons against DQN and SARSA."
+keywords: ["Deterministic Policy Evaluation", "Near-Miss Obstacle Metric", "Q-Learning vs DQN vs SARSA", "Autonomous Navigation Benchmark", "Zero Exploration Inference"]
 ---
 
 ![Success and Steps Benchmark](./images/01_eval_success_steps.png)

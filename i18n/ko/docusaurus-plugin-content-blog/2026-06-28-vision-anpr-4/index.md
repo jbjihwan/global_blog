@@ -6,6 +6,7 @@ tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learn
 date: 2026-06-28
 project: anpr_vision
 description: "크롭된 저해상도 번호판 패치를 4배 복원하는 EDSR 딥러닝 초해상화와 연속 프레임 평균화(Image Stacking)를 통한 센서 노이즈 제거 기법."
+keywords: ["EDSR 초해상화", "저화질 번호판 복원", "OpenCV dnn_superres", "다중 프레임 스태킹", "딥러닝 4배 업스케일링"]
 ---
 
 ![EDSR 딥러닝 초해상화 적용 결과](./images/01_edsr_sr_comparison.png)

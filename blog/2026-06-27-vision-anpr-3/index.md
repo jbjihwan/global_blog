@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, pyth
 date: 2026-06-27
 project: anpr_vision
 description: "Two-stage hierarchical localization: broad vehicle detection via YOLOv3, localized license plate inference via YOLOv5, and CSRT correlation filter tracking."
+keywords: ["YOLOv5 License Plate Detection", "CSRT Tracker OpenCV", "Hierarchical Object Detection", "Real-Time Tracking 50FPS", "Vehicle ROI Localization"]
 ---
 
 ![YOLOv5 Plate Detection Localization](./images/01_plate_localization.png)

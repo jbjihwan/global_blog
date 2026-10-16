@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, pyth
 date: 2026-06-26
 project: anpr_vision
 description: "Cannyエッジ検出、確率的ハフ変換、左右の傾きフィルタリング、および車両接地領域と車線ポリゴン間の幾何学的IoU侵犯判定数学。"
+keywords: ["OpenCV 車線検出", "ハフ変換 車線追跡", "車線侵犯 アルゴリズム", "多角形 IoU 計算", "Canny エッジ抽出"]
 ---
 
 ![動的車線検出オーバーレイ](./images/01_lane_detection.png)

@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
 date: 2026-06-29
 project: anpr_vision
 description: "Korean license plate syntax validation, EasyOCR tuning, temporal sliding window majority voting, and the complete 11-iteration engineering journey from v01 to v11."
+keywords: ["EasyOCR Korean License Plate", "ANPR Majority Voting Ensemble", "Korean Plate Regex Normalization", "License Plate Recognition Accuracy", "ITS Traffic Violation Vision"]
 ---
 
 ![Temporal Majority Voting and Final Confirmation](./images/01_voting_evolution.png)

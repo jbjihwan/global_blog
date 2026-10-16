@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
 date: 2026-06-29
 project: anpr_vision
 description: "한국 자동차 번호판 정규표현식 검증, EasyOCR 오인식 보정, 그리고 외계어 노이즈에서 64가1511 확정까지의 시간 축 Majority Voting 엔진과 v01~v11 11단계 진화 결산."
+keywords: ["EasyOCR 한국 번호판", "시간 축 다수결 투표 앙상블", "한국 번호판 정규식", "번호판 인식 정확도 99%", "지능형 교통 단속 비전"]
 ---
 
 ![시간 축 Majority Voting 및 최종 확정 화면](./images/01_voting_evolution.png)

@@ -6,6 +6,7 @@ tags: [reinforcement-learning, sim-to-real, arduino, robotics, computer-vision, 
 date: 2026-05-21
 project: rl_q_learning
 description: "Deploying the simulation-trained 648-bin Q-Learning policy onto a physical 2-wheeled Arduino Uno robot using ceiling webcam homography and real-time ArUco 6-DoF marker pose tracking."
+keywords: ["Sim-to-Real Hardware Transfer", "ArUco Marker Pose Tracking", "Arduino Uno Robot Navigation", "HC-06 Bluetooth IPC", "Webcam Homography Robotics"]
 ---
 
 ![ArUco Marker Vision Tracking](./images/01_aruco_vision.png)

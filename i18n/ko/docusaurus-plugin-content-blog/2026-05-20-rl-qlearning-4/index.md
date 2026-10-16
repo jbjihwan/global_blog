@@ -6,6 +6,7 @@ tags: [강화학습, Q-learning, 성능평가, 벤치마크, DQN, SARSA, 로보�
 date: 2026-05-20
 project: rl_q_learning
 description: "학습된 Q-Table 가중치에 대한 탐색률 0% 결정론적(Greedy) 평가 파이프라인(evaluate_qlearning.py)과 경로 효율성, 근접 충돌(Near-miss), 그리고 DQN 및 SARSA 모델과의 종합 비교 벤치마크."
+keywords: ["결정론적 정책 평가", "장애물 근접 통과 지표", "Q-러닝 DQN SARSA 비교", "자율주행 벤치마크 평가", "무탐색 추론 파이프라인"]
 ---
 
 ![성공률 및 스텝 수 벤치마크](./images/01_eval_success_steps.png)

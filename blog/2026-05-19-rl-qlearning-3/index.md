@@ -6,6 +6,7 @@ tags: [reinforcement-learning, q-learning, webots, obstacle-avoidance, local-min
 date: 2026-05-19
 project: rl_q_learning
 description: "Overcoming the Local Minima dilemma in complex 12-wall obstacle environments (obstacle12) and orchestrating high-speed automated multi-seed Webots simulations."
+keywords: ["Local Minima Reinforcement Learning", "Webots Headless Simulation", "Obstacle Avoidance Multi-Seed", "Deep RL vs Tabular Q", "PowerShell Automated Training"]
 ---
 
 ![obstacle12 Simulation Arena](./images/01_obstacle12_arena.png)

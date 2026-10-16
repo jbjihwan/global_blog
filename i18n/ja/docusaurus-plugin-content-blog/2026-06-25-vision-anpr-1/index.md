@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-l
 date: 2026-06-25
 project: anpr_vision
 description: "動的車線検出、IoU侵犯判定、YOLOv5ナンバープレート検出、EDSR超解像復元、OCR投票アンサンブルを統合した6段階ビジョンシステムのアーキテクチャ設計。"
+keywords: ["ドラレコ ナンバープレート認識", "車線侵犯 検知", "コンピュータビジョン パイプライン", "リアルタイム車両追跡", "YOLO 超解像"]
 ---
 
 ![6段階ANPRパイプライン構成図](./images/01_pipeline_diagram.png)

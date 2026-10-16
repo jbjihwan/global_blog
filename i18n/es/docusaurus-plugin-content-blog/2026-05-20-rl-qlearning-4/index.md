@@ -6,6 +6,7 @@ tags: [aprendizaje-por-refuerzo, q-learning, evaluacion, benchmark, dqn, sarsa, 
 date: 2026-05-20
 project: rl_q_learning
 description: "Canalización de evaluación determinista sin exploración (ε=0) con evaluate_qlearning.py, analizando eficiencia de ruta, situaciones de riesgo (near-miss) y comparativas frente a DQN y SARSA."
+keywords: ["Evaluación Determinista de Políticas", "Métrica de Proximidad a Obstáculos", "Comparativa Q-Learning vs DQN vs SARSA", "Benchmark Navegación Autónoma", "Inferencia Sin Exploración"]
 ---
 
 ![Comparativa de Éxito y Pasos](./images/01_eval_success_steps.png)

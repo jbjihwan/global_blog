@@ -6,6 +6,7 @@ tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, pyth
 date: 2026-06-26
 project: anpr_vision
 description: "Filtro de bordes Canny, transformada probabilística de Hough, umbrales de pendiente y cálculo geométrico de invasión IoU."
+keywords: ["Detección de Carril OpenCV", "Rastreo de Carriles HoughLinesP", "Invasión de Carril Algoritmo", "Cálculo IoU Poligonal", "Bordes Canny Carretera"]
 ---
 
 ![Superposición de Detección Dinámica de Carril](./images/01_lane_detection.png)
