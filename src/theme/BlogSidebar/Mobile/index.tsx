@@ -116,7 +116,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     if (path.includes('maeumjigi')) return 'maeumjigi';
     if (path.includes('vision-anpr')) return 'anpr_vision';
     if (path.includes('rl-qlearning')) return 'rl_q_learning';
-    if (path.includes('static-site-security-hardening')) return 'security';
+    if (path.includes('security') || path.includes('static-site-security')) return 'security';
 
     const hash = (location.hash || '').replace('#', '').toLowerCase();
     if (hash === 'maeumjigi') return 'maeumjigi';
@@ -174,8 +174,9 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         desc: t.securityDesc,
         icon: 'security',
         count: 1,
-        targetUrl: findFirst(/static-site-security-hardening/),
-        filter: (item: any) => item.permalink.includes('static-site-security-hardening'),
+        targetUrl: findFirst(/security|static-site-security/),
+        filter: (item: any) =>
+          item.permalink.includes('security') || item.permalink.includes('static-site-security'),
         sortAscending: true,
       },
       {

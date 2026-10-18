@@ -617,7 +617,7 @@ function BlogListPageContent(props: any) {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('vision-anpr'));
     } else if (activeTab === 'security') {
       list = allSidebarItems.filter((item: any) =>
-        item.permalink.includes('static-site-security-hardening')
+        item.permalink.includes('security') || item.permalink.includes('static-site-security')
       );
     } else if (activeTab === 'all') {
       list = allSidebarItems;
