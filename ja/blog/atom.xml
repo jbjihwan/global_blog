@@ -221,6 +221,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-幾何学的iou侵犯判定">3. 幾何学的IoU侵犯判定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#3-%E5%B9%BE%E4%BD%95%E5%AD%A6%E7%9A%84iou%E4%BE%B5%E7%8A%AF%E5%88%A4%E5%AE%9A" class="hash-link" aria-label="3. 幾何学的IoU侵犯判定 への直接リンク" title="3. 幾何学的IoU侵犯判定 への直接リンク" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="車線侵犯IoU判定画面" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_intrusion_iou-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Footprint = [x_min, y_min + 0.7*h, x_max, y_max]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">IoU = Area(Footprint ∩ Lane_Polygon) / Area(Footprint)</span><br></div></code></pre></div></div>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">check_lane_intrusion</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vehicle_box</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> lane_polygon</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> threshold</span><span class="token operator" style="color:#393A34">=</span><span class="token number" style="color:#36acaa">0.05</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    vx1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vx2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy2 </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> vehicle_box</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    vh </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> vy2 </span><span class="token operator" style="color:#393A34">-</span><span class="token plain"> vy1</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    footprint </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> Polygon</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vx1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.7</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">vh</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vx2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy1 </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.7</span><span class="token operator" style="color:#393A34">*</span><span class="token plain">vh</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vx2</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy2</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">vx1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> vy2</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    intersection </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> footprint</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">intersection</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">lane_polygon</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">area</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    iou </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> intersection </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> footprint</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">area</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> iou </span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> threshold</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> iou</span><br></div></code></pre></div></div>
 <p><code>IoU &gt; 0.05</code> を超えた段階で侵犯フラグを有効化し、ナンバープレート検出器を起動します。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-26-vision-anpr-2#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
@@ -243,7 +244,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-25-vision-anpr-1"/>
         <updated>2026-06-25T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[動的車線検出、IoU侵犯判定、YOLOv5ナンバープレート検出、EDSR超解像復元、OCR投票アンサンブルを統合した6段階ビジョンシステムのアーキテクチャ設計。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="6段階ANPRパイプライン構成図" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_pipeline_diagram-3809726e5215c185d769ef2e10fa2ecb.png" width="293" height="3840" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="6段階ANPRパイプライン構成図" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_pipeline_diagram-3809726e5215c185d769ef2e10fa2ecb.png" width="2200" height="900" class="img_ev3q"></p>
 <blockquote>
 <p>📌 <strong>Key Takeaways (要約)</strong></p>
 <ul>
@@ -288,25 +289,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23"/>
         <updated>2026-06-18T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f7610cbd7000ce42d9a41011ffd8d7ee.png" width="720" height="405" class="img_ev3q"></p>
+        <summary type="html"><![CDATA[最終成果物：二重の安全網を提供するSafety Wrapperガードレール構造を構築し、AWS EC2 GPU上での本番リアルタイム推論サービングを完遂した記録です。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f7610cbd7000ce42d9a41011ffd8d7ee.png" width="2000" height="1125" class="img_ev3q"></p>
 <p>6月に入り、マウムジギチームは1学期の主要な開発をすべて終え、<strong>安全網の構築</strong>と<strong>最終発表</strong>の準備に総力を傾けました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="21比率の勝利とsafety-wrapperの導入">2:1比率の勝利とSafety Wrapperの導入<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23#21%E6%AF%94%E7%8E%87%E3%81%AE%E5%8B%9D%E5%88%A9%E3%81%A8safety-wrapper%E3%81%AE%E5%B0%8E%E5%85%A5" class="hash-link" aria-label="2:1比率の勝利とSafety Wrapperの導入 への直接リンク" title="2:1比率の勝利とSafety Wrapperの導入 への直接リンク" translate="no">​</a></h3>
-<blockquote>
-<p>「私たちが選んだモデルは何だった？」
-「2:1に決定した。Safety Wrapperを適用してメイン大規模言語モデル(LLM)の安全装置として機能させる方法を企画して。」</p>
-</blockquote>
-<p>私たちは「感情対話」と「日常対話」を2:1の比率で混ぜたモデルを最終LLMに選びました。しかし、自殺予防チャットボットという特性上、致命的な誤答は一度たりとも許されません。
-これを防ぐため、LLMの入出力を監視する**Safety Wrapper（安全フィルター）**を導入しました。高リスク状況が感知されれば、即座に危機対応プロトコルに転換されるようアーキテクチャを堅固にしました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="クラウドサーバー予算企画と最終発表">クラウドサーバー予算企画と最終発表<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23#%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%BA%88%E7%AE%97%E4%BC%81%E7%94%BB%E3%81%A8%E6%9C%80%E7%B5%82%E7%99%BA%E8%A1%A8" class="hash-link" aria-label="クラウドサーバー予算企画と最終発表 への直接リンク" title="クラウドサーバー予算企画と最終発表 への直接リンク" translate="no">​</a></h3>
-<blockquote>
-<p>「g5.2xlargeを5ヶ月使用する予算はどうなる？」
-「今までの進行状況をもとに、1学期_最終発表_マウムジギ.pptxを作成して！」</p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="最終発表" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_presentation-864344e0b41d9b78d7435505852200e8.png" width="720" height="405" class="img_ev3q"></p>
-<p>夏休み中に実際のサービスと連動させるため、Amazon EC2 GPUサーバーの予算を算出しました。
-そして6月18日、これまで開発したバックエンド、フロントエンド、人工知能(AI)のすべての成果を一堂に集め、<strong>1学期最終発表資料</strong>を完成させました！</p>
-<p>これで長く険しかった1学期の開発が成功裏に幕を下ろしました。2学期にはさらに高度化されたサービスで戻ってきます！</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -322,21 +308,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22"/>
         <updated>2026-05-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[システムプロンプトの過学習による機械的な回答を防止するため、プロンプトマスキングと正規化を導入した第4次ファインチューニングの記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-5fcc23c7f36696eb5311e706c9d9eede.png" width="2495" height="1393" class="img_ev3q"></p>
 <p>5月の最終週（27日〜30日）、私たちは待望の**4次ファインチューニング（fine_tuning_4）**の結果をまとめ、システムの骨格を固める作業に邁進しました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="最終チェックポイント4400とグラフ分析">最終チェックポイント4400とグラフ分析<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22#%E6%9C%80%E7%B5%82%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%884400%E3%81%A8%E3%82%B0%E3%83%A9%E3%83%95%E5%88%86%E6%9E%90" class="hash-link" aria-label="最終チェックポイント4400とグラフ分析 への直接リンク" title="最終チェックポイント4400とグラフ分析 への直接リンク" translate="no">​</a></h3>
-<p>日常対話と感情対話を混合して学習させた4次ファインチューニングモデルが、ついに最適の重みである<code>checkpoint-4400</code>を吐き出しました。</p>
-<p>以前の学習では、日常的な対話を投げても深刻なカウンセリングモードで答えてしまう過学習問題がありましたが、データ混合比率の実験の結果、ついに「空気の読める」チャットボットに生まれ変わりました！すべての評価指標をグラフで視覚化し、性能差を一目で証明しました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="システムアーキテクチャ設計と最終レポート">システムアーキテクチャ設計と最終レポート<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22#%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%81%A8%E6%9C%80%E7%B5%82%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88" class="hash-link" aria-label="システムアーキテクチャ設計と最終レポート への直接リンク" title="システムアーキテクチャ設計と最終レポート への直接リンク" translate="no">​</a></h3>
-<blockquote>
-<p>「chatbot_architecture.html 生成完了」
-「fine_tuning_4の遂行結果をレポート(.docx)で作成して。」</p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_architecture-41f5095033492354eaf45a8553f49ff6.png" width="2541" height="1390" class="img_ev3q"></p>
-<p>性能検証が終わったモデルを実際のアプリでサービスするため、<code>chatbot_architecture.html</code>という名前でシステム全体アーキテクチャとナレッジグラフ統合案を設計しました。</p>
-<p>そして5月30日、人工知能(AI)の助けを借りて最終レポートを自動生成しました。レポートには、オリジナルモデルと私たちがファインチューニングしたモデルの実際の回答比較が赤裸々に盛り込まれており、これまでの苦労が無駄ではなかったことを証明してくれました。</p>
-<p>これでマウムジギプロジェクトの息苦しかった5月開発日誌がすべて終わりました。6月にはどんな新しい挑戦が待っているのでしょうか？</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -352,24 +327,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21"/>
         <updated>2026-05-22T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[感情対話対日常対話の2:1黄金比学習を通じて、日常の質問には明快に答え、危機シグナルには深く共感する最高性能を達成した記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-a335ed829194fe04a7f1886ca95deda9.png" width="2531" height="1378" class="img_ev3q"></p>
 <p>5月21日と22日、マウムジギチームは大規模データの生成と**4次ファインチューニング（fine_tuning_4）**の準備に突入しました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="感情対話と日常対話の綱引き">感情対話と日常対話の綱引き<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21#%E6%84%9F%E6%83%85%E5%AF%BE%E8%A9%B1%E3%81%A8%E6%97%A5%E5%B8%B8%E5%AF%BE%E8%A9%B1%E3%81%AE%E7%B6%B1%E5%BC%95%E3%81%8D" class="hash-link" aria-label="感情対話と日常対話の綱引き への直接リンク" title="感情対話と日常対話の綱引き への直接リンク" translate="no">​</a></h3>
-<p>3次ファインチューニングモデルをテストしている時、致命的な問題を発見しました。</p>
-<blockquote>
-<p>「haiku_predデータセットで学習させると、回答が感情カウンセリングに偏りすぎているようです。日常対話の能力を維持するにはどう学習させればいいですか？」</p>
-</blockquote>
-<p>私たちが目標とするのは「温かい共感を伝えるカウンセラー」ですが、ユーザーが「今日の天気は？」といった日常的な質問を投げた時にも過度に深刻に答えてしまう**過学習（Overfitting）**の兆候が見られました。これを解決するために、感情データと日常データを適切な比率で混ぜて学習させる実験を企画しました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="10000件のv6感情データセット生成">10,000件のv6感情データセット生成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21#10000%E4%BB%B6%E3%81%AEv6%E6%84%9F%E6%83%85%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E7%94%9F%E6%88%90" class="hash-link" aria-label="10,000件のv6感情データセット生成 への直接リンク" title="10,000件のv6感情データセット生成 への直接リンク" translate="no">​</a></h3>
-<p>最高のデータセットを作るために、Anthropic アプリケーションプログラミングインターフェース(API)のバッチモードを使用して、なんと10,000件に達する感情対話データセットを生成しました。APIがバックグラウンドで処理され進行状況が分からないハプニングもありましたが、追加スクリプトで不足分を満たし完成させました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="感情-vs-日常の黄金比を探すfine_tuning_4">感情 vs 日常の黄金比を探す（fine_tuning_4）<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21#%E6%84%9F%E6%83%85-vs-%E6%97%A5%E5%B8%B8%E3%81%AE%E9%BB%84%E9%87%91%E6%AF%94%E3%82%92%E6%8E%A2%E3%81%99fine_tuning_4" class="hash-link" aria-label="感情 vs 日常の黄金比を探す（fine_tuning_4） への直接リンク" title="感情 vs 日常の黄金比を探す（fine_tuning_4） への直接リンク" translate="no">​</a></h3>
-<blockquote>
-<p>「Emotion_train_dataset_v6.jsonlが完成しました。では、7:3比率、2:1比率、5:5比率のデータセットを作ってください。」
-「今回の学習はデータセットの混合比率基準で進行します。」</p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="比率実験" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
-<p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -438,7 +399,7 @@
 <p>全5回にわたる<strong>RL Q-Learningプロジェクト</strong>開発日誌の連載が完結しました：</p>
 <ol>
 <li class=""><strong>#1</strong>: 648状態空間の離散化モデリングとTCPソケットIPC通信設計</li>
-<li class=""><strong>#2</strong>: Tabular Q-Learning $\epsilon$-減衰探索と多目的報酬シェイピング</li>
+<li class=""><strong>#2</strong>: Tabular Q-Learning ε-減衰探索と多目的報酬シェイピング</li>
 <li class=""><strong>#3</strong>: 12壁障害物アリーナでの局所解脱出とHeadless高速化自動実行</li>
 <li class=""><strong>#4</strong>: <code>evaluate_qlearning</code> による決定論的定量評価とDQN・SARSAとの性能比較</li>
 <li class=""><strong>#5</strong>: Arduino Uno、Bluetooth通信、ArUco視覚追跡によるSim-to-Real実機展開</li>
@@ -455,6 +416,26 @@
         <category label="コンピュータビジョン" term="コンピュータビジョン"/>
         <category label="ArUco" term="ArUco"/>
         <category label="Python" term="Python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
+]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="開発日誌" term="開発日誌"/>
+        <category label="ファインチューニング" term="ファインチューニング"/>
+        <category label="バックエンド" term="バックエンド"/>
+        <category label="フロントエンド" term="フロントエンド"/>
+        <category label="データベース" term="データベース"/>
+        <category label="キャップストーン" term="キャップストーン"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
@@ -498,37 +479,6 @@
         <category label="Python" term="Python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
-<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
-<blockquote>
-<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
-</blockquote>
-<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
-<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
-<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
-<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="ファインチューニング" term="ファインチューニング"/>
-        <category label="バックエンド" term="バックエンド"/>
-        <category label="フロントエンド" term="フロントエンド"/>
-        <category label="データベース" term="データベース"/>
-        <category label="キャップストーン" term="キャップストーン"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3"/>
@@ -554,10 +504,10 @@
 </ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-解決戦略-ヘッドスキャン状態と価値の逆伝播">2. 解決戦略: ヘッドスキャン状態と価値の逆伝播<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#2-%E8%A7%A3%E6%B1%BA%E6%88%A6%E7%95%A5-%E3%83%98%E3%83%83%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E7%8A%B6%E6%85%8B%E3%81%A8%E4%BE%A1%E5%80%A4%E3%81%AE%E9%80%86%E4%BC%9D%E6%92%AD" class="hash-link" aria-label="2. 解決戦略: ヘッドスキャン状態と価値の逆伝播 への直接リンク" title="2. 解決戦略: ヘッドスキャン状態と価値の逆伝播 への直接リンク" translate="no">​</a></h2>
-<p>この局所解を克服できた要因は、**3方向障害物センサ（前方・左・右）<strong>と</strong>高い割引率（$\gamma = 0.99$）**の組み合わせです。</p>
+<p>この局所解を克服できた要因は、**3方向障害物センサ（前方・左・右）<strong>と</strong>高い割引率（γ = 0.99）**の組み合わせです。</p>
 <ol>
 <li class=""><strong>知覚状態の拡張</strong>: 前方危険時に左右のヘッドスキャンで安全な方向を発見し、横方向への旋回を誘導。</li>
-<li class=""><strong>長期的価値の伝播</strong>: 一時的な距離の後退があっても、壁を回って目標へ到達すれば大きな終端報酬（+1.0）が得られます。割引率 $\gamma = 0.99$ により、迂回行動の価値が逆順にQテーブルへ反映され、エージェントは迂回ポリシーを獲得します。</li>
+<li class=""><strong>長期的価値の伝播</strong>: 一時的な距離の後退があっても、壁を回って目標へ到達すれば大きな終端報酬（+1.0）が得られます。割引率 γ = 0.99 により、迂回行動の価値が逆順にQテーブルへ反映され、エージェントは迂回ポリシーを獲得します。</li>
 </ol>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-webots-headless-自動化パイプライン">3. Webots Headless 自動化パイプライン<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-19-rl-qlearning-3#3-webots-headless-%E8%87%AA%E5%8B%95%E5%8C%96%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3" class="hash-link" aria-label="3. Webots Headless 自動化パイプライン への直接リンク" title="3. Webots Headless 自動化パイプライン への直接リンク" translate="no">​</a></h2>
@@ -604,23 +554,23 @@
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-表形式q-learning更新数式とエージェント設計">1. 表形式Q-Learning更新数式とエージェント設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#1-%E8%A1%A8%E5%BD%A2%E5%BC%8Fq-learning%E6%9B%B4%E6%96%B0%E6%95%B0%E5%BC%8F%E3%81%A8%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="1. 表形式Q-Learning更新数式とエージェント設計 への直接リンク" title="1. 表形式Q-Learning更新数式とエージェント設計 への直接リンク" translate="no">​</a></h2>
 <p>表形式Q-Learning（Tabular Q-Learning）は、ベルマン最適方程式に基づく**オフポリシー（Off-policy）時間差学習（TD(0)）**アルゴリズムです。</p>
-<p>エージェントは行動価値関数 $Q(s, a)$ を表す $648 \times 4$ のNumPy配列を保持し、環境からの遷移タプル $(s, a, r, s', done)$ を受け取って以下の数式でQ値を更新します。</p>
+<p>エージェントは行動価値関数 Q(s, a) を表す $648 \times 4$ のNumPy配列を保持し、環境からの遷移タプル $(s, a, r, s', done)$ を受け取って以下の数式でQ値を更新します。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-q-learning-td0-更新式">📐 Q-Learning TD(0) 更新式<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#-q-learning-td0-%E6%9B%B4%E6%96%B0%E5%BC%8F" class="hash-link" aria-label="📐 Q-Learning TD(0) 更新式 への直接リンク" title="📐 Q-Learning TD(0) 更新式 への直接リンク" translate="no">​</a></h3>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Target = r + γ * max_a' Q(s', a') * (1 - done)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">TD Error = Target - Q(s, a)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">Q(s, a) &lt;- Q(s, a) + α * TD Error</span><br></div></code></pre></div></div>
 <ul>
-<li class=""><strong>学習率 ($\alpha = 0.1$)</strong>: 新しい経験が既存のQ値に反映される速度を調整。</li>
-<li class=""><strong>割引率 ($\gamma = 0.99$)</strong>: 将来得られる報酬の現在価値を評価。</li>
+<li class=""><strong>学習率 (α = 0.1)</strong>: 新しい経験が既存のQ値に反映される速度を調整。</li>
+<li class=""><strong>割引率 (γ = 0.99)</strong>: 将来得られる報酬の現在価値を評価。</li>
 <li class=""><strong>終端状態処理 (<code>1 - done</code>)</strong>: 目標到達や衝突時に将来価値をゼロにマスキング。</li>
 </ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-指数減衰ε-greedy戦略">2. 指数減衰ε-Greedy戦略<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#2-%E6%8C%87%E6%95%B0%E6%B8%9B%E8%A1%B0%CE%B5-greedy%E6%88%A6%E7%95%A5" class="hash-link" aria-label="2. 指数減衰ε-Greedy戦略 への直接リンク" title="2. 指数減衰ε-Greedy戦略 への直接リンク" translate="no">​</a></h2>
-<p>初期学習時は環境の構造を広く知る必要があるため、**$\epsilon = 1.0$ (100%ランダム探索)**から開始します。</p>
+<p>初期学習時は環境の構造を広く知る必要があるため、**ε = 1.0 (100%ランダム探索)**から開始します。</p>
 <p>探索率が高すぎると最適な経路を学習しても壁に衝突し続けるため、各エピソード終了時に以下の指数減衰を適用します:</p>
 <p><strong>ε_(ep+1) = max(ε_min, ε_ep × 0.995)</strong></p>
 <ul>
-<li class=""><strong>1エピソード</strong>: $\epsilon = 1.0$</li>
-<li class=""><strong>300エピソード</strong>: $\epsilon \approx 0.22$</li>
-<li class=""><strong>600エピソード</strong>: $\epsilon = 0.05$ (下限到達、95%確率でGreedy行動を実行)</li>
+<li class=""><strong>1エピソード</strong>: ε = 1.0</li>
+<li class=""><strong>300エピソード</strong>: ε ≈ 0.22</li>
+<li class=""><strong>600エピソード</strong>: ε = 0.05 (下限到達、95%確率でGreedy行動を実行)</li>
 </ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-スパース報酬を克服する報酬関数の設計">3. スパース報酬を克服する報酬関数の設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-18-rl-qlearning-2#3-%E3%82%B9%E3%83%91%E3%83%BC%E3%82%B9%E5%A0%B1%E9%85%AC%E3%82%92%E5%85%8B%E6%9C%8D%E3%81%99%E3%82%8B%E5%A0%B1%E9%85%AC%E9%96%A2%E6%95%B0%E3%81%AE%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="3. スパース報酬を克服する報酬関数の設計 への直接リンク" title="3. スパース報酬を克服する報酬関数の設計 への直接リンク" translate="no">​</a></h2>
@@ -646,98 +596,14 @@
         <category label="Python" term="Python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Webots ロボティクス] Q-Learning 自律走行: 648状態空間の離散化とソケット通信アーキテクチャ (#1)]]></title>
-        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</id>
-        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1"/>
-        <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Webotsロボットシミュレーション環境において、連続センサデータを648の離散状態空間へ圧縮するDiscretizerの設計と、TCPソケット通信に基づく強化学習(RL)アーキテクチャを解説します。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Webots シミュレーション環境" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_webots_arena-b49bd821fb90ed1d7e619add024bb5e7.png" width="1721" height="1033" class="img_ev3q"></p>
-<blockquote>
-<p>📌 <strong>キーポイント (TL;DR)</strong></p>
-<ul>
-<li class=""><strong>課題(Problem)</strong>: 連続的なセンサ距離・角度値による表形式Q-Learning（Tabular Q-Learning）の状態爆発と、Webotsシミュレータと外部Python学習スクリプト間のリアルタイム同期の負荷。</li>
-<li class=""><strong>解決策(Solution)</strong>: 5次元の連続センサ入力を幾何学的な意味を持つ区間に分割し、3 × 8 × 3 × 3 × 3 = 648個の離散状態（Bin）にマッピング（<code>discretizer.py</code>）。TCPローカルソケット（Port 5000、Line-delimited JSON）によるIPC通信パイプラインを構築。</li>
-<li class=""><strong>成果(Result)</strong>: $O(1)$の超高速Q-Table更新速度を確保し、32ms物理シミュレーションステップに適合した安定同期ループを実現。</li>
-</ul>
-</blockquote>
-<!-- -->
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-プロジェクト背景-なぜwebotsとq-learningなのか">1. プロジェクト背景: なぜWebotsとQ-Learningなのか？<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#1-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E8%83%8C%E6%99%AF-%E3%81%AA%E3%81%9Cwebots%E3%81%A8q-learning%E3%81%AA%E3%81%AE%E3%81%8B" class="hash-link" aria-label="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" title="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" translate="no">​</a></h2>
-<p>自律走行ロボットが未知の室内環境で障害物を回避しながら目標地点（Target Goal）へ到達することは、ロボティクスにおける古典的かつ重要な課題です。深層強化学習（DQN、PPOなど）は複雑な環境に対応できる反面、計算資源の負荷が高く、モデル重みの解釈性（Interpretability）が低いという課題があります。</p>
-<p>本プロジェクトでは、**数学的収束性が保証された最も直感的な表形式強化学習（Tabular Q-Learning、Off-policy TD(0)）**をWebots 3D物理シミュレータ上の差動駆動モバイルロボットに適用し、1.2m × 1.2mの室内アリーナでの安定した目標探索および障害物回避ポリシーの獲得を目指しました。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-全体システムアーキテクチャ-webots--python-ipc">2. 全体システムアーキテクチャ (Webots ↔ Python IPC)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#2-%E5%85%A8%E4%BD%93%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-webots--python-ipc" class="hash-link" aria-label="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" title="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" translate="no">​</a></h2>
-<p>システムは、**Webots物理環境コントローラ（Server）<strong>と</strong>強化学習アルゴリズムを実行するPythonクライアント（Client）**の2層に明確に分離されています。</p>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Webots["Webots 3D シミュレータ (localhost:5000)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot["Supervisor ロボット&lt;br&gt;(超音波センサ + 車輪)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        HeadScan["ヘッドスキャン機構&lt;br&gt;(左右 1.1 rad サーボ回転)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Server["TCP ソケットサーバ&lt;br&gt;(Line-delimited JSON)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot -→ HeadScan -→ Server</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Python["Python RL エンジン (Client)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env["WebotsEnv (gym-like)&lt;br&gt;reset() / step()"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Disc["Discretizer&lt;br&gt;(連続値 → 0~647 Bin)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Agent["QLearningAgent&lt;br&gt;(Q-Table 648x4)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env -→ Disc -→ Agent</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Server &lt;-→|"request: {type: step, action: 0..3}&lt;br&gt;response: {state: [...], reward, done}"| Env</span><br></div></code></pre></div></div>
-<ul>
-<li class=""><strong>Webotsコントローラ (<code>RL_controller.py</code>)</strong>: アクション実行ごとにロボット車輪を480ms（15 ticks $×$ 32ms）駆動し、サーボモータでヘッドを左右1.1 rad（$\approx 63°$）回転させて死角の障害物距離を正確にスキャンします。</li>
-<li class=""><strong>ソケット通信プロトコル</strong>: 改行区切りJSON（Line-delimited JSON）を採用し、通信オーバーヘッドを最小化。<!-- -->
-<ul>
-<li class="">リクエスト: <code>{"type": "step", "action": 0}</code> (0: 前進, 1: 後退, 2: 左旋回, 3: 右旋回)</li>
-<li class="">レスポンス: <code>{"state": [0.45, 0.12, 0.35, 0.28, 0.40], "reward": 0.05, "done": false, "info": {...}}</code></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-連続センサの648状態空間bin設計">3. 連続センサの648状態空間（Bin）設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#3-%E9%80%A3%E7%B6%9A%E3%82%BB%E3%83%B3%E3%82%B5%E3%81%AE648%E7%8A%B6%E6%85%8B%E7%A9%BA%E9%96%93bin%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="3. 連続センサの648状態空間（Bin）設計 への直接リンク" title="3. 連続センサの648状態空間（Bin）設計 への直接リンク" translate="no">​</a></h2>
-<p>連続的な浮動小数点データを表形式Q-Learningで扱うため、幾何学的に重要な<strong>5つの観測変数</strong>を以下のように定義・分割しました。</p>
-<table><thead><tr><th style="text-align:left">観測変数</th><th style="text-align:center">分割数</th><th style="text-align:left">閾値 (Thresholds)</th><th style="text-align:left">物理的意味</th></tr></thead><tbody><tr><td style="text-align:left"><strong>目標距離 (<code>goal_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.6m, 1.2m]</code></td><td style="text-align:left">近距離(Near), 中距離(Mid), 遠距離(Far)</td></tr><tr><td style="text-align:left"><strong>目標相対角度 (<code>goal_heading</code>)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:left">$[-π, π]$ を8等分（各 $45°$）</td><td style="text-align:left">前, 右前, 右, 右後, 後, 左後, 左, 左前</td></tr><tr><td style="text-align:left"><strong>前方障害物 (<code>front_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険/衝突寸前, 注意/接近, 安全</td></tr><tr><td style="text-align:left"><strong>左側障害物 (<code>left_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr><tr><td style="text-align:left"><strong>右側障害物 (<code>right_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr></tbody></table>
-<p>総状態数:
-<strong>N_states = 3 × 8 × 3 × 3 × 3 = 648</strong></p>
-<p>これにより、Q-Tableのサイズはわずか <strong>$648 × 4 = 2,592$要素</strong>に大幅圧縮され、PCメモリ上でミリ秒未満の更新が可能となりました。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-ヘッドスキャン機構と衝突判定">4. ヘッドスキャン機構と衝突判定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#4-%E3%83%98%E3%83%83%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E6%A9%9F%E6%A7%8B%E3%81%A8%E8%A1%9D%E7%AA%81%E5%88%A4%E5%AE%9A" class="hash-link" aria-label="4. ヘッドスキャン機構と衝突判定 への直接リンク" title="4. ヘッドスキャン機構と衝突判定 への直接リンク" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_architecture-1785ccb38e85aa3dbe073b7924fa4e34.png" width="1080" height="1080" class="img_ev3q"></p>
-<ol>
-<li class=""><strong>移動実行</strong>: 車輪モータを3.0 rad/sで480ms駆動。</li>
-<li class=""><strong>ヘッド回転</strong>: 左へ+1.1 rad回転して左距離測定後、右へ-1.1 rad回転して右距離測定。</li>
-<li class=""><strong>正面復帰</strong>: 0 radへ戻り前方距離を更新。</li>
-<li class=""><strong>終了判定</strong>:<!-- -->
-<ul>
-<li class=""><strong>目標到達</strong>: 目標との距離 $<code>&lt;= 0.10m</code> \rightarrow$ 成功 (<code>done = True</code>, 報酬 $+1.0$)</li>
-<li class=""><strong>壁衝突</strong>: いずれかの距離 $<code>&lt;= 0.08m</code> \rightarrow$ 失敗 (<code>done = True</code>, 報酬 $-1.0$)</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>第1回では、<strong>Webots仮想環境の構築、TCPソケットIPC通信、648状態空間の離散化</strong>をまとめました。</p>
-<p>次回第2回では、<strong>Tabular Q-Learningの数式実装、$\epsilon$-Greedy探索減衰戦略、シミュレーション環境での報酬関数（Reward Function）チューニング</strong>を詳しく解説します！</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="強化学習" term="強化学習"/>
-        <category label="Q-learning" term="Q-learning"/>
-        <category label="Webots" term="Webots"/>
-        <category label="ロボティクス" term="ロボティクス"/>
-        <category label="状態空間離散化" term="状態空間離散化"/>
-        <category label="Python" term="Python"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[マウムジギ 開発日誌 #19] レポート自動化とバックエンドデータベース(DB)連携トラブルシューティング]]></title>
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19"/>
         <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-40d0155750ee39ac23da24992a38442d.png" width="720" height="405" class="img_ev3q"></p>
+        <summary type="html"><![CDATA[キャップストーンデザイン中間発表のため、評価結果のExcel集計およびpython-pptxを活用したスライド自動生成パイプラインを構築した記録です。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-40d0155750ee39ac23da24992a38442d.png" width="2000" height="1125" class="img_ev3q"></p>
 <p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
-<p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
-<blockquote>
-<p>「モデルの推論結果を比較するレポートを作成するためのプロンプトを作って。それに従ってレポートを作成して。」</p>
-</blockquote>
-<p>AIに結果指標を解釈させ、レポートの草案を自動で作成させるプロンプトエンジニアリングを試みました。結果として、AIが各モデルの長所と短所を分析し、立派なWord（.docx）レポートの草案を出力してくれました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドdb連携と401-unauthorizedの沼">バックエンドDB連携と401 Unauthorizedの沼<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89db%E9%80%A3%E6%90%BA%E3%81%A8401-unauthorized%E3%81%AE%E6%B2%BC" class="hash-link" aria-label="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" title="バックエンドDB連携と401 Unauthorizedの沼 への直接リンク" translate="no">​</a></h3>
-<p>レポートが終わるやいなや、システム安定性をテストするために<code>backup.sql</code>データをローカルのPostgreSQL DBに流し込む作業を始めました。</p>
-<blockquote>
-<p>「ログイン成功したのにメニューを押しても反応がない」
-「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
-</blockquote>
-<p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
-<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
-<p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -751,24 +617,83 @@
         <category label="キャップストーン" term="キャップストーン"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Webots ロボティクス] Q-Learning 自律走行: 648状態空間の離散化とソケット通信アーキテクチャ (#1)]]></title>
+        <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1</id>
+        <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Webotsロボットシミュレーション環境において、連続センサデータを648の離散状態空間へ圧縮するDiscretizerの設計と、TCPソケット通信に基づく強化学習(RL)アーキテクチャを解説します。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Webots シミュレーション環境" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_webots_arena-b49bd821fb90ed1d7e619add024bb5e7.png" width="1721" height="1033" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>キーポイント (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>課題(Problem)</strong>: 連続的なセンサ距離・角度値による表形式Q-Learning（Tabular Q-Learning）の状態爆発と、Webotsシミュレータと外部Python学習スクリプト間のリアルタイム同期の負荷。</li>
+<li class=""><strong>解決策(Solution)</strong>: 5次元の連続センサ入力を幾何学的な意味を持つ区間に分割し、3 × 8 × 3 × 3 × 3 = 648個の離散状態（Bin）にマッピング（<code>discretizer.py</code>）。TCPローカルソケット（Port 5000、Line-delimited JSON）によるIPC通信パイプラインを構築。</li>
+<li class=""><strong>成果(Result)</strong>: O(1)の超高速Q-Table更新速度を確保し、32ms物理シミュレーションステップに適合した安定同期ループを実現。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-プロジェクト背景-なぜwebotsとq-learningなのか">1. プロジェクト背景: なぜWebotsとQ-Learningなのか？<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#1-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E8%83%8C%E6%99%AF-%E3%81%AA%E3%81%9Cwebots%E3%81%A8q-learning%E3%81%AA%E3%81%AE%E3%81%8B" class="hash-link" aria-label="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" title="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" translate="no">​</a></h2>
+<p>自律走行ロボットが未知の室内環境で障害物を回避しながら目標地点（Target Goal）へ到達することは、ロボティクスにおける古典的かつ重要な課題です。深層強化学習（DQN、PPOなど）は複雑な環境に対応できる反面、計算資源の負荷が高く、モデル重みの解釈性（Interpretability）が低いという課題があります。</p>
+<p>本プロジェクトでは、**数学的収束性が保証された最も直感的な表形式強化学習（Tabular Q-Learning、Off-policy TD(0)）**をWebots 3D物理シミュレータ上の差動駆動モバイルロボットに適用し、1.2m × 1.2mの室内アリーナでの安定した目標探索および障害物回避ポリシーの獲得を目指しました。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-全体システムアーキテクチャ-webots--python-ipc">2. 全体システムアーキテクチャ (Webots ↔ Python IPC)<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#2-%E5%85%A8%E4%BD%93%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-webots--python-ipc" class="hash-link" aria-label="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" title="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" translate="no">​</a></h2>
+<p>システムは、**Webots物理環境コントローラ（Server）<strong>と</strong>強化学習アルゴリズムを実行するPythonクライアント（Client）**の2層に明確に分離されています。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Webots["Webots 3D シミュレータ (localhost:5000)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot["Supervisor ロボット&lt;br&gt;(超音波センサ + 車輪)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        HeadScan["ヘッドスキャン機構&lt;br&gt;(左右 1.1 rad サーボ回転)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Server["TCP ソケットサーバ&lt;br&gt;(Line-delimited JSON)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot -→ HeadScan -→ Server</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Python["Python RL エンジン (Client)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env["WebotsEnv (gym-like)&lt;br&gt;reset() / step()"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Disc["Discretizer&lt;br&gt;(連続値 → 0~647 Bin)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Agent["QLearningAgent&lt;br&gt;(Q-Table 648x4)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env -→ Disc -→ Agent</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Server &lt;-→|"request: {type: step, action: 0..3}&lt;br&gt;response: {state: [...], reward, done}"| Env</span><br></div></code></pre></div></div>
+<ul>
+<li class=""><strong>Webotsコントローラ (<code>RL_controller.py</code>)</strong>: アクション実行ごとにロボット車輪を480ms（15 ticks × 32ms）駆動し、サーボモータでヘッドを左右1.1 rad（$\approx 63°$）回転させて死角の障害物距離を正確にスキャンします。</li>
+<li class=""><strong>ソケット通信プロトコル</strong>: 改行区切りJSON（Line-delimited JSON）を採用し、通信オーバーヘッドを最小化。<!-- -->
+<ul>
+<li class="">リクエスト: <code>{"type": "step", "action": 0}</code> (0: 前進, 1: 後退, 2: 左旋回, 3: 右旋回)</li>
+<li class="">レスポンス: <code>{"state": [0.45, 0.12, 0.35, 0.28, 0.40], "reward": 0.05, "done": false, "info": {...}}</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-連続センサの648状態空間bin設計">3. 連続センサの648状態空間（Bin）設計<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#3-%E9%80%A3%E7%B6%9A%E3%82%BB%E3%83%B3%E3%82%B5%E3%81%AE648%E7%8A%B6%E6%85%8B%E7%A9%BA%E9%96%93bin%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="3. 連続センサの648状態空間（Bin）設計 への直接リンク" title="3. 連続センサの648状態空間（Bin）設計 への直接リンク" translate="no">​</a></h2>
+<p>連続的な浮動小数点データを表形式Q-Learningで扱うため、幾何学的に重要な<strong>5つの観測変数</strong>を以下のように定義・分割しました。</p>
+<table><thead><tr><th style="text-align:left">観測変数</th><th style="text-align:center">分割数</th><th style="text-align:left">閾値 (Thresholds)</th><th style="text-align:left">物理的意味</th></tr></thead><tbody><tr><td style="text-align:left"><strong>目標距離 (<code>goal_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.6m, 1.2m]</code></td><td style="text-align:left">近距離(Near), 中距離(Mid), 遠距離(Far)</td></tr><tr><td style="text-align:left"><strong>目標相対角度 (<code>goal_heading</code>)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:left">[-π, π] を8等分（各 45°）</td><td style="text-align:left">前, 右前, 右, 右後, 後, 左後, 左, 左前</td></tr><tr><td style="text-align:left"><strong>前方障害物 (<code>front_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険/衝突寸前, 注意/接近, 安全</td></tr><tr><td style="text-align:left"><strong>左側障害物 (<code>left_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr><tr><td style="text-align:left"><strong>右側障害物 (<code>right_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr></tbody></table>
+<p>総状態数:
+<strong>N_states = 3 × 8 × 3 × 3 × 3 = 648</strong></p>
+<p>これにより、Q-Tableのサイズはわずか <strong>648 × 4 = 2,592要素</strong>に大幅圧縮され、PCメモリ上でミリ秒未満の更新が可能となりました。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-ヘッドスキャン機構と衝突判定">4. ヘッドスキャン機構と衝突判定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#4-%E3%83%98%E3%83%83%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E6%A9%9F%E6%A7%8B%E3%81%A8%E8%A1%9D%E7%AA%81%E5%88%A4%E5%AE%9A" class="hash-link" aria-label="4. ヘッドスキャン機構と衝突判定 への直接リンク" title="4. ヘッドスキャン機構と衝突判定 への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_architecture-1785ccb38e85aa3dbe073b7924fa4e34.png" width="2000" height="900" class="img_ev3q"></p>
+<ol>
+<li class=""><strong>移動実行</strong>: 車輪モータを3.0 rad/sで480ms駆動。</li>
+<li class=""><strong>ヘッド回転</strong>: 左へ+1.1 rad回転して左距離測定後、右へ-1.1 rad回転して右距離測定。</li>
+<li class=""><strong>正面復帰</strong>: 0 radへ戻り前方距離を更新。</li>
+<li class=""><strong>終了判定</strong>:<!-- -->
+<ul>
+<li class=""><strong>目標到達</strong>: 目標との距離 ≤ 0.10m → 成功 (<code>done = True</code>, 報酬 $+1.0$)</li>
+<li class=""><strong>壁衝突</strong>: いずれかの距離 ≤ 0.08m → 失敗 (<code>done = True</code>, 報酬 $-1.0$)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-rl-qlearning-1#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
+<p>第1回では、<strong>Webots仮想環境の構築、TCPソケットIPC通信、648状態空間の離散化</strong>をまとめました。</p>
+<p>次回第2回では、<strong>Tabular Q-Learningの数式実装、ε-Greedy探索減衰戦略、シミュレーション環境での報酬関数（Reward Function）チューニング</strong>を詳しく解説します！</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="強化学習" term="強化学習"/>
+        <category label="Q-learning" term="Q-learning"/>
+        <category label="Webots" term="Webots"/>
+        <category label="ロボティクス" term="ロボティクス"/>
+        <category label="状態空間離散化" term="状態空間離散化"/>
+        <category label="Python" term="Python"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[マウムジギ 開発日誌 #18] 推論トークン拡張と2次ファインチューニング結果比較]]></title>
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18"/>
         <updated>2026-05-13T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[短く硬い回答を解決するためにmax_new_tokensを384に拡張し、LoRAのalpha値（8 vs 16）による回答の共感度の違いを分析した記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-4dcde4cef4209e81d49b5f5306af009d.png" width="1484" height="888" class="img_ev3q"></p>
 <p>昨日発見したハードコーディングのバグをすべて修正し、ついにまともな2次ファインチューニングモデルの推論（Inference）テストを再開した5月13日です。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="短い回答の原因トークンの長さを増やせ">短い回答の原因、トークンの長さを増やせ！<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18#%E7%9F%AD%E3%81%84%E5%9B%9E%E7%AD%94%E3%81%AE%E5%8E%9F%E5%9B%A0%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%81%AE%E9%95%B7%E3%81%95%E3%82%92%E5%A2%97%E3%82%84%E3%81%9B" class="hash-link" aria-label="短い回答の原因、トークンの長さを増やせ！ への直接リンク" title="短い回答の原因、トークンの長さを増やせ！ への直接リンク" translate="no">​</a></h3>
-<p>推論結果を一つ一つ紐解いていたところ、<code>Llama33-70B_a8</code>モデルが出した回答が相変わらず妙に短く、硬いことに気がつきました。</p>
-<blockquote>
-<p>「これはLlama33-70B_a8の回答の一つです。max_seq_lengthとmax_new_tokensが少なすぎると感じます。増やしたいです。VRAMの現状を見ると、どれくらい増やせますか？」</p>
-</blockquote>
-<p>人工知能(AI)とVRAMの空き容量（当時39.8GB）を計算した末、生成できる最大単語数である<code>max_new_tokens</code>を384に思い切って上方修正しました。結果は大成功でした！</p>
-<p>単にトークンの許容量を増やしただけなのに、モデルが文脈を最後まで維持し、はるかに深く温かい共感の文章を注ぎ出し始めました。限られたトークン数に閉じ込められ、モデルが自ら言葉を出し惜しんでいたのです。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alpha値の比較分析a8-vs-a16">Alpha値の比較分析（a=8 vs a=16）<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18#alpha%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%88%86%E6%9E%90a8-vs-a16" class="hash-link" aria-label="Alpha値の比較分析（a=8 vs a=16） への直接リンク" title="Alpha値の比較分析（a=8 vs a=16） への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-feb5d1991f44dd7f378232f6b3515752.png" width="2053" height="1460" class="img_ev3q"></p>
-<p>2次ファインチューニングの最大の目的であったLoRAハイパーパラメータ<code>alpha</code>値による性能差の結果も出ました。ログを分析して<code>05_alpha_comparison_daily.png</code>などのグラフを生成しました。<code>rank=16</code>に固定された状態で<code>alpha=8</code>を与えた時と<code>alpha=16</code>を与えた時で、モデルの過学習（Overfitting）の様相と最終回答の質がどう変わるのかを明確に視覚化することができました。</p>
-<p>結果として、正しいハイパーパラメータと十分なトークンの長さを与えられたモデルたちは、ついに私たちが当初企画していた「真のマウムジギ」の姿に近づいていました。中間発表の準備がとても順調に終わりそうです！</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -785,23 +710,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17"/>
         <updated>2026-05-12T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[修正されたプロンプト形式とLoRAハイパーパラメータ調整を適用し、第2次ファインチューニングを実行して学習収束度を検証した記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-14a3c0d517e4c85b93ada4e973112325.png" width="2000" height="1457" class="img_ev3q"></p>
 <p>LoRAハイパーパラメータのミス（alpha/rank設定エラー）を正すために野心的に始めた2次ファインチューニング（<code>fine_tuning_2</code>）並列学習が、5月12日ついに終わりました！</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bestチェックポイント抽出と推論パイプラインの構築">Bestチェックポイント抽出と推論パイプラインの構築<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17#best%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E6%8A%BD%E5%87%BA%E3%81%A8%E6%8E%A8%E8%AB%96%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AE%E6%A7%8B%E7%AF%89" class="hash-link" aria-label="Bestチェックポイント抽出と推論パイプラインの構築 への直接リンク" title="Bestチェックポイント抽出と推論パイプラインの構築 への直接リンク" translate="no">​</a></h3>
-<p>3つのモデルに対して6つのハイパーパラメータの組み合わせで回したファインチューニングがすべて完了しました。すぐに<code>eval_loss</code>を比較して最も性能が良い最高（Best）のチェックポイントを抽出し、モデルごとの<code>adapter</code>フォルダに移す作業を進めました。</p>
-<blockquote>
-<p>「現在HCX-Text-1p5Bモデルが15分間で12個生成しました。GPU Utilは各グラフィックカードにつき1.6GB...」</p>
-</blockquote>
-<p>しかし、推論速度は依然として絶望的でした。最も軽い1.5Bモデルでさえ、1分間に1つの回答も作成できていませんでした。VRAM使用量は1.6GBしかないのに、バッチサイズが1に設定されているためボトルネックが発生したのです。さらにサーバーの容量不足問題まで重なり、プロジェクトの基本パスを急いで移行する騒動もありました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ハードコーディングの罠に陥る">ハードコーディングの罠に陥る<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17#%E3%83%8F%E3%83%BC%E3%83%89%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E7%BD%A0%E3%81%AB%E9%99%A5%E3%82%8B" class="hash-link" aria-label="ハードコーディングの罠に陥る への直接リンク" title="ハードコーディングの罠に陥る への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="ハードコーディングバグ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_bug-900bd56611b3d6521891bcc956843259.png" width="2000" height="1457" class="img_ev3q"></p>
-<p>そうやって苦労して評価コードをすべて回した後、鳥肌が立つような事実を発見しました。</p>
-<blockquote>
-<p>「なぜ20_eval_ft_models.ipynbのMODEL_ALIAS = 'Qwen35-9B_a16'のように1つのモデルにハードコーディングされているのか？」
-「ファイル名とモデル名が違うのが正常だということ？」</p>
-</blockquote>
-<p>そうです。評価自動化スクリプトを作成する際に、誤って<code>MODEL_ALIAS</code>をハードコーディングしてしまったのです。HCXモデルをテストすると言ってファイルを一生懸命コピーして回していましたが、実際のコード内ではずっと<code>Qwen35-9B_a16</code>モデルばかりを呼び出して、同じ推論を繰り返していたのです！明日このバグを修正して推論をやり直さなければなりません。</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -818,30 +730,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16"/>
         <updated>2026-05-08T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[推論結果に現れたプロンプトテンプレートのハードコーディング汚染を逆追跡し、データセットのフォーマット欠陥を緊急修正した記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-9eab7db0dac5c88d9a120a99e5e703d4.png" width="1874" height="1526" class="img_ev3q"></p>
 <p>5月8日は、これまで抽出したファインチューニングの結果を基にキャップストーンデザインの中間発表資料（PPT）を作成していた日でした。しかし、気分良くスライドを埋めていたところ、背筋が凍るようなとんでもないミスを発見してしまいました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="loraハイパーパラメータの致命的なミスを発見">LoRAハイパーパラメータの致命的なミスを発見<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16#lora%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%81%AE%E8%87%B4%E5%91%BD%E7%9A%84%E3%81%AA%E3%83%9F%E3%82%B9%E3%82%92%E7%99%BA%E8%A6%8B" class="hash-link" aria-label="LoRAハイパーパラメータの致命的なミスを発見 への直接リンク" title="LoRAハイパーパラメータの致命的なミスを発見 への直接リンク" translate="no">​</a></h3>
-<p>PPTに入れるモデル構造図とハイパーパラメータ情報を人工知能(AI)と一緒に手直ししていました。</p>
-<blockquote>
-<p>「ファインチューニング結果の例を見ると、base modelよりも回答が短くなっています。これはLoRAのrを8にし、alphaを16にして中間特徴量を減らしすぎたためだと思いますが...」
-「え、a/rだったの？私はr/aだと思ってたんだけど...??? 私は本当にLoRAを欲張って反映してしまったんだな...」</p>
-</blockquote>
-<p>LoRAファインチューニング時、<code>alpha</code>値は通常<code>rank</code>値と同じか2倍にするのが定石です。ところが、計算式の適用比率を完全に逆だと勘違いし、重みの更新が極端に抑え込まれたり、過剰に跳ね返ったりするように設定してしまっていたのです。どうりでファインチューニングされたモデルの回答の長さが途切れ途切れで短くなるわけだ、原因は私の手元にありました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2次ファインチューニングfine_tuning_2の決断">2次ファインチューニング（fine_tuning_2）の決断<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16#2%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0fine_tuning_2%E3%81%AE%E6%B1%BA%E6%96%AD" class="hash-link" aria-label="2次ファインチューニング（fine_tuning_2）の決断 への直接リンク" title="2次ファインチューニング（fine_tuning_2）の決断 への直接リンク" translate="no">​</a></h3>
-<p>すでに1次結果は出ていましたが、完璧な「マウムジギ」のためにこのまま進むわけにはいきませんでした。すぐに<code>fine_tuning_2</code>フォルダを作成し、2次ファインチューニングを決断しました。</p>
-<blockquote>
-<p>「今回使用するモデルはHCX-Text-1p5B, Llama33-70B, Qwen35-9Bです。MIG-0ではrankは16、alphaは16に、MIG-1ではrank=16、a=8に設定して学習を進めて。」
-「Daily_train_dataset.jsonlから最も長いデータ上位2000個を抽出して、Daily_train_dataset_long.jsonlというタイトルのファイルを作成して。」</p>
-</blockquote>
-<p>回答が短くなる現象を防ぐために、テキストの長さが最も長い上位2000個のデータセットのみを別途抽出し、MIG（Multi-Instance GPU）リソースを分割してrankとalphaの比率による性能差を直接比較する並列学習を新たに回し始めました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドモデルが回っている間フロントエンドアプリ開発に着手">バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%A2%E3%83%87%E3%83%AB%E3%81%8C%E5%9B%9E%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E9%96%93%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%82%A2%E3%83%97%E3%83%AA%E9%96%8B%E7%99%BA%E3%81%AB%E7%9D%80%E6%89%8B" class="hash-link" aria-label="バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手 への直接リンク" title="バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手 への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="アプリ開発" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app-9efe68797b061b7eda0d68995627a8cc.png" width="1476" height="1526" class="img_ev3q"></p>
-<p>モデルが再び学習のサイクルに入っている間、私はただ手をこまねいていたわけではありません。ついに実際のユーザーが「マウムジギ」に出会うことになるフロントエンドアプリの開発に着手しました！</p>
-<blockquote>
-<p>「maeum-appを起動するためにQRコードを表示しなければならないんだけど... npx go startと入力してもエラーメッセージしか表示されない。どうやって、そしてどこにQRコードが表示されるのかな？」</p>
-</blockquote>
-<p>React Native（Expo）を使って<code>maeum-app</code>プロジェクトを作成し、ローカルサーバーを立ち上げてスマートフォンと接続しようと奮闘しました。見当違いに<code>npx go start</code>と打ち込んで迷ったりもしましたが、ついにExpoのQRコードを表示し、アプリアイコン（<code>assets/logo.png</code>）を設定することに成功しました。バックエンドの頭脳（AI）とフロントエンドの顔（App）が同時に作られていく、胸が熱くなる一日でした。</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -859,24 +751,10 @@
         <id>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15</id>
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15"/>
         <updated>2026-05-07T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[カバー画像]]></summary>
+        <summary type="html"><![CDATA[各ファインチューニングモデルのPerplexityと評価指標を分析し、matplotlibを活用してモデル間の性能差を可視化した記録です。]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-b5ad981f0a0602b8afaf1bdbc982094d.png" width="1181" height="731" class="img_ev3q"></p>
 <p>5月7日は、これまで苦労してファインチューニングした計5つのモデル（Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B）の結果を集大成し、本格的な視覚化とローカル環境の構築を進めた日です。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="モデル比較のための視覚化とローカル環境設定">モデル比較のための視覚化とローカル環境設定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15#%E3%83%A2%E3%83%87%E3%83%AB%E6%AF%94%E8%BC%83%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E8%A6%96%E8%A6%9A%E5%8C%96%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="モデル比較のための視覚化とローカル環境設定 への直接リンク" title="モデル比較のための視覚化とローカル環境設定 への直接リンク" translate="no">​</a></h3>
-<p>これまで重いサーバー上で回していた結果比較コードを、個人のノートパソコンでも簡単に確認できるように、新しく<code>31_comparison_local.ipynb</code>ノートブックを作成しました。</p>
-<blockquote>
-<p>「30_comparison.ipynbは私のノートパソコンでも動かせるのではないか？」</p>
-</blockquote>
-<p>VSCodeでローカルのJupyterカーネルを設定し、必要なライブラリをインストールする過程で、頻繁なカーネルのクラッシュや<code>ModuleNotFoundError</code>のようなエラーに直面しましたが、フォルダパスを合わせながら一歩一歩解決していきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5モデル総合レポートとグラフ視覚化">5モデル総合レポートとグラフ視覚化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15#5%E3%83%A2%E3%83%87%E3%83%AB%E7%B7%8F%E5%90%88%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A8%E3%82%B0%E3%83%A9%E3%83%95%E8%A6%96%E8%A6%9A%E5%8C%96" class="hash-link" aria-label="5モデル総合レポートとグラフ視覚化 への直接リンク" title="5モデル総合レポートとグラフ視覚化 への直接リンク" translate="no">​</a></h3>
-<p>最も重要な作業は、これら5つのモデルのパフォーマンスを一目で比較できる視覚化でした。AIと共に計画書を作成し、体系的にデータ整理を始めました。</p>
-<blockquote>
-<p>「薄い線と太い線の違いは何か？各モデルのtraining lossとeval lossを取得してグラフとして視覚化して。」
-「太い線は消して、薄い線をはっきりと変更して保存して。」</p>
-</blockquote>
-<p>AIが描いてくれたmatplotlibのグラフから不要なトレンド線（太い線）を取り除き、モデルごとのTraining LossとEval Lossの曲線をきれいに1か所にまとめた<code>03_training_loss_all.png</code>と<code>04_eval_loss_all.png</code>を最終的に抽出しました。</p>
-<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-8f91ee1a78e9220a703c6884ad9a4f40.png" width="1785" height="735" class="img_ev3q"></p>
-<p>これらのグラフを基に、来週のキャップストーンデザインの中間発表資料を立派に飾ることができるようになりました。果たして、この5つのモデルのうちどれが最も優れた「マウムジギ」チャットボットとして最終選定されるのでしょうか？</p>]]></content>
+]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
