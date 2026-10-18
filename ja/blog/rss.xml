@@ -4,10 +4,73 @@
         <title>Global Dev Blog Blog</title>
         <link>https://jbjihwan.github.io/global_blog/ja/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Mon, 29 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 18 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
+        <item>
+            <title><![CDATA[45件のnpm脆弱性警告と無リスクの真実：静的サイトで npm audit fix --force を盲信してはいけない理由]]></title>
+            <link>https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth</link>
+            <guid>https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth</guid>
+            <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[静的サイト(SSG)環境における45件のnpm脆弱性警告がなぜランタイム上で無害なのかを脅威モデリングから紐解き、npm audit fix --forceが本番環境を破壊する理由と実践的セキュリティ対策を解説します。]]></description>
+            <content:encoded><![CDATA[<p>モダンなフロントエンドやドキュメントサイトを運用するエンジニアであれば、一度は血の気が引くような経験をしたことがあるはずです。何気なく <code>npm audit</code> を実行した瞬間、コンソールに警告が溢れ出します：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">45 vulnerabilities (15 moderate, 15 high, 15 critical)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">To address all issues (including breaking changes), run:</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  npm audit fix --force</span><br></div></code></pre></div></div>
+<p><strong>Critical</strong>、<strong>Remote Code Execution (RCE)</strong>、<strong>Prototype Pollution</strong> といった不穏な単語を目にすると、反射的に <code>npm audit fix --force</code> を実行して赤い警告を消したくなります。</p>
+<p>しかし、DocusaurusやNext.jsなどの <strong>静的サイトジェネレーター(SSG)</strong> をGitHub PagesやAWS S3にデプロイするアーキテクチャでは、この無分別なダウングレードこそが最新フレームワークを破壊する最大の原因になります。</p>
+<p>本記事では、<strong>静的サイトの脅威モデル (Threat Model)</strong> を明確にし、ビルドツールとランタイム脆弱性の本質的な違いを分析した上で、実際に守るべき <strong>4層のセキュリティ対策</strong> を共有します。</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="脅威モデル比較: 動的Webサーバー vs 静的サイト" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_threat_model-148aea6caa957a92718a0e3aef2812c9.png" width="2000" height="1000" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-3行まとめエンジニアリングの判断基準">1. 3行まとめ：エンジニアリングの判断基準<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#1-3%E8%A1%8C%E3%81%BE%E3%81%A8%E3%82%81%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%AE%E5%88%A4%E6%96%AD%E5%9F%BA%E6%BA%96" class="hash-link" aria-label="1. 3行まとめ：エンジニアリングの判断基準 への直接リンク" title="1. 3行まとめ：エンジニアリングの判断基準 への直接リンク" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>ビルド時ツール != 本番ランタイム</strong>: 警告されたパッケージ（<code>tinypool</code>、<code>serialize-javascript</code> など）は、ローカルPCで <code>npm run build</code> を実行するときだけ動作するバンドラー依存関係です。</li>
+<li class=""><strong>CDN上に稼働するサーバーはない</strong>: ビルド後のGitHub Pagesには純粋なHTML/CSS/JSしか残りません。<strong>稼働中のNode.jsデーモンも、リッスンしているポートも、データベース接続も存在しません。</strong></li>
+<li class=""><strong><code>--force</code> の危険性</strong>: <code>--force</code> で無理に依存関係を書き換えると、Docusaurusが古いバージョン(3.7.0)に巻き戻され、React 19やMDX v3との互換性が完全に壊れます。</li>
+<li class=""><strong>静的サイトの本当の脅威</strong>: 狙われるのはサーバーではなく、<strong>Git履歴内のAPIキー流出</strong>、<strong>データセット内の個人情報(PII)</strong>、<strong>クライアントのリファラー漏洩</strong>です。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-45件の脆弱性の正体ビルド時-vs-ランタイム">2. 45件の脆弱性の正体：ビルド時 vs ランタイム<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#2-45%E4%BB%B6%E3%81%AE%E8%84%86%E5%BC%B1%E6%80%A7%E3%81%AE%E6%AD%A3%E4%BD%93%E3%83%93%E3%83%AB%E3%83%89%E6%99%82-vs-%E3%83%A9%E3%83%B3%E3%82%BF%E3%82%A4%E3%83%A0" class="hash-link" aria-label="2. 45件の脆弱性の正体：ビルド時 vs ランタイム への直接リンク" title="2. 45件の脆弱性の正体：ビルド時 vs ランタイム への直接リンク" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-tinypool-のプロトタイプ汚染-ghsa-5gmw-xhrv-c9v3---critical">A. Tinypool のプロトタイプ汚染 (<code>GHSA-5gmw-xhrv-c9v3</code> - Critical)<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#a-tinypool-%E3%81%AE%E3%83%97%E3%83%AD%E3%83%88%E3%82%BF%E3%82%A4%E3%83%97%E6%B1%9A%E6%9F%93-ghsa-5gmw-xhrv-c9v3---critical" class="hash-link" aria-label="a-tinypool-のプロトタイプ汚染-ghsa-5gmw-xhrv-c9v3---critical への直接リンク" title="a-tinypool-のプロトタイプ汚染-ghsa-5gmw-xhrv-c9v3---critical への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class=""><code>tinypool</code> はビルドタスクをローカルCPUコアに分散するためのライブラリです。入力値は自身の <code>docusaurus.config.ts</code> のみであり、外部の攻撃者がCDN経由でビルドワーカーに悪意あるペイロードを送信することは不可能です。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-serialize-javascript-の-rce-ghsa-5c6j-r48x-rmvq---high">B. Serialize-JavaScript の RCE (<code>GHSA-5c6j-r48x-rmvq</code> - High)<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#b-serialize-javascript-%E3%81%AE-rce-ghsa-5c6j-r48x-rmvq---high" class="hash-link" aria-label="b-serialize-javascript-の-rce-ghsa-5c6j-r48x-rmvq---high への直接リンク" title="b-serialize-javascript-の-rce-ghsa-5c6j-r48x-rmvq---high への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class="">Webpackが静的チャンクを書き出す際に使用します。出力されたJSファイルは単なる静的ファイルとして配信されるだけであり、サーバー上で逆シリアル化が実行されることはありません。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="c-postcss-selector-parser-の-dos-ghsa-rj75-hqrm-r3gf---moderate">C. PostCSS Selector Parser の DoS (<code>GHSA-rj75-hqrm-r3gf</code> - Moderate)<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#c-postcss-selector-parser-%E3%81%AE-dos-ghsa-rj75-hqrm-r3gf---moderate" class="hash-link" aria-label="c-postcss-selector-parser-の-dos-ghsa-rj75-hqrm-r3gf---moderate への直接リンク" title="c-postcss-selector-parser-の-dos-ghsa-rj75-hqrm-r3gf---moderate への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class="">パース対象のCSSは開発者が作成したスタイルシートです。GitHubリポジトリの書き込み権限が奪われない限り、悪意ある外部CSSが混入することはありません。</li>
+</ul>
+<p>結論として、SSG環境で <code>npm audit fix --force</code> を叩くことは、<strong>存在しない脅威を防ぐために正常に動作しているシステムを破壊する行為</strong>に他なりません。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-実践的4層セキュリティブループリント">3. 実践的4層セキュリティ・ブループリント<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#3-%E5%AE%9F%E8%B7%B5%E7%9A%844%E5%B1%A4%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88" class="hash-link" aria-label="3. 実践的4層セキュリティ・ブループリント への直接リンク" title="3. 実践的4層セキュリティ・ブループリント への直接リンク" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="4層の静的ブログ・セキュリティ強化パイプライン" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_security_pipeline-427d101664b7871343d1d598227f68cb.png" width="2000" height="900" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第1層gitプリコミットシークレットスキャン自動化">第1層：Gitプリコミット・シークレットスキャン自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC1%E5%B1%A4git%E3%83%97%E3%83%AA%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="第1層：Gitプリコミット・シークレットスキャン自動化 への直接リンク" title="第1層：Gitプリコミット・シークレットスキャン自動化 への直接リンク" translate="no">​</a></h3>
+<p>最も致命的なリスクは、APIキー（OpenAI <code>sk-...</code>、GitHub PAT <code>ghp_...</code>、AWS <code>AKIA...</code>）を誤って公開コミットすることです。Gitの追跡ファイルを正規表現で一括検査する監査スクリプト（<code>tools/audit_security.py</code>）を構築し、リリース前にゼロ漏洩を保証します。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第2層個人情報piiとデータセット保護">第2層：個人情報(PII)とデータセット保護<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC2%E5%B1%A4%E5%80%8B%E4%BA%BA%E6%83%85%E5%A0%B1pii%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E4%BF%9D%E8%AD%B7" class="hash-link" aria-label="第2層：個人情報(PII)とデータセット保護 への直接リンク" title="第2層：個人情報(PII)とデータセット保護 への直接リンク" translate="no">​</a></h3>
+<p>AI相談やナンバープレート認識プロジェクトでは、実データの代わりにLLMパイプラインで生成した <strong>合成対話データ (<code>synth_gen</code>)</strong> を活用し、医療倫理やプライバシー侵害を根本から排除しています。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第3層堅牢な-gitignore-設定">第3層：堅牢な <code>.gitignore</code> 設定<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC3%E5%B1%A4%E5%A0%85%E7%89%A2%E3%81%AA-gitignore-%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="第3層堅牢な-gitignore-設定 への直接リンク" title="第3層堅牢な-gitignore-設定 への直接リンク" translate="no">​</a></h3>
+<p><code>.env</code>、SSL秘密鍵（<code>*.pem</code>, <code>*.key</code>）、CSV解析ダンプファイル（<code>*.csv</code>）が誤って公開リポジトリにプッシュされないよう設定を強化しました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第4層クライアント側プライバシー保護">第4層：クライアント側プライバシー保護<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC4%E5%B1%A4%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E4%BF%9D%E8%AD%B7" class="hash-link" aria-label="第4層：クライアント側プライバシー保護 への直接リンク" title="第4層：クライアント側プライバシー保護 への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>厳格なリファラーポリシー</strong>: <code>strict-origin-when-cross-origin</code> を適用し、外部サイトへ遷移する際にブログの詳細URLパスが漏洩しないよう保護。</li>
+<li class=""><strong>Giscus iframeサンドボックス</strong>: <code>emitMetadata="0"</code>, <code>loading="lazy"</code> を設定し、第三者スクリプトによるセッション干渉を遮断。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-エンジニアへの提言">4. エンジニアへの提言<a href="https://jbjihwan.github.io/global_blog/ja/blog/static-site-security-npm-audit-truth#4-%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%B8%E3%81%AE%E6%8F%90%E8%A8%80" class="hash-link" aria-label="4. エンジニアへの提言 への直接リンク" title="4. エンジニアへの提言 への直接リンク" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>赤い警告に惑わされない</strong>: その脆弱性が「ローカルのビルドツール」なのか「本番サーバー」なのかを切り分けることがセキュリティの本質です。</li>
+<li class=""><strong>真の攻撃対象に注力する</strong>: シークレットの検出自動化、個人情報の排除、適切なプライバシー設定こそが、技術ブログの信頼性を高める鍵となります。</li>
+</ul>]]></content:encoded>
+            <category>ウェブセキュリティ</category>
+            <category>npm-audit</category>
+            <category>Docusaurus</category>
+            <category>DevOps</category>
+            <category>サプライチェーン</category>
+        </item>
         <item>
             <title><![CDATA[[Vision AI] 韓国ナンバープレートOCR最適化、正規表現検証および時間軸多数決アンサンブル (v01~v11完結編) (#5)]]></title>
             <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-06-29-vision-anpr-5</link>
@@ -746,33 +809,6 @@
             <category>Jupyter</category>
             <category>キャップストーン</category>
             <category>人工知能(AI)</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #14] すべてのファインチューニング完了と並列推論(Eval)環境の構築]]></title>
-            <link>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-06-maeumjigi-14</link>
-            <guid>https://jbjihwan.github.io/global_blog/ja/blog/2026-05-06-maeumjigi-14</guid>
-            <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[カバー画像]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>5月6日、ついに長く続いたファインチューニングの沼から抜け出しました！数日間の徹夜作業とハイパーパラメータの調整の末、<strong>HCX-Omni-8B</strong>や<strong>Qwen35-9B</strong>などの中小型モデルの学習が成功裏に完了しました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ついに完了したファインチューニングそしてログ分析">ついに完了したファインチューニング、そしてログ分析<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-06-maeumjigi-14#%E3%81%A4%E3%81%84%E3%81%AB%E5%AE%8C%E4%BA%86%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%9D%E3%81%97%E3%81%A6%E3%83%AD%E3%82%B0%E5%88%86%E6%9E%90" class="hash-link" aria-label="ついに完了したファインチューニング、そしてログ分析 への直接リンク" title="ついに完了したファインチューニング、そしてログ分析 への直接リンク" translate="no">​</a></h3>
-<p>学習が進むにつれて、損失（loss）値が安定して減少していくことが確認できました。この値が<code>train loss</code>なのか<code>validation loss</code>なのか混乱して人工知能(AI)に尋ねたり、「コードにeval lossは記録されないのか？」と後になって評価損失の記録が漏れていないか点検するハプニングもありました。しかし、すでに学習がすべて終わっていたため、生成された最新のチェックポイントモデルを基に、すぐに推論と評価（Eval）の段階に移りました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="並列推論parallel-inference環境の構築">並列推論（Parallel Inference）環境の構築<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-06-maeumjigi-14#%E4%B8%A6%E5%88%97%E6%8E%A8%E8%AB%96parallel-inference%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89" class="hash-link" aria-label="並列推論（Parallel Inference）環境の構築 への直接リンク" title="並列推論（Parallel Inference）環境の構築 への直接リンク" translate="no">​</a></h3>
-<p><code>20_eval_ft_models.ipynb</code>ノートブックを使用して、各モデルがユーザーの対話にどのように回答するかの生成（Generation）テストを開始しました。推論時に生成する最大トークン数（<code>max_new_tokens</code>）を1024に統一し、またOOMが発生しないかハラハラしていました。</p>
-<p>しかし、推論速度が思ったよりも遅すぎました。</p>
-<blockquote>
-<p>「学習は2つのグラフィックカードで行ったのに、なぜ推論は1つのグラフィックカードしか使わないのか？」</p>
-</blockquote>
-<p>サーバーに搭載されたGPUリソースを100%活用するために、AIの助けを借りて推論も並列で処理できる<code>run_eval_parallel.sh</code>スクリプトを新たに作成しました。これにより、モデルの推論時間を飛躍的に短縮することができ、モデルごとの推論結果とパープレキシティ（Perplexity）をExcelファイルに自動集計するパイプラインまで見事に構築しました。</p>
-<p><img decoding="async" loading="lazy" alt="評価パイプライン" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>DSR1-70Bモデルの推論後、次のモデルに移行する際にVRAMが正常に解放されずにエラーが発生することもありましたが、これも並列スクリプトで環境を隔離することで解決しました。さあ、いよいよ各モデルの回答の質を比較する時間です！</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>HCX-Omni-8B</category>
-            <category>Qwen35-9B</category>
-            <category>モデル評価</category>
-            <category>推論</category>
-            <category>並列処理</category>
         </item>
     </channel>
 </rss>

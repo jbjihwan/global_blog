@@ -4,10 +4,74 @@
         <title>Global Dev Blog Blog</title>
         <link>https://jbjihwan.github.io/global_blog/es/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Mon, 29 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 18 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>es</language>
+        <item>
+            <title><![CDATA[De 45 Vulnerabilidades en npm a Riesgo Cero: Por Qué No Debes Ejecutar npm audit fix --force a Ciegas en Sitios Estáticos]]></title>
+            <link>https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth</link>
+            <guid>https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth</guid>
+            <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Un análisis profundo sobre el modelo de amenazas en sitios estáticos (SSG), explicando por qué 45 advertencias de npm en herramientas de empaquetado no suponen riesgo en producción.]]></description>
+            <content:encoded><![CDATA[<p>Todo desarrollador web moderno ha experimentado ese sobresalto: ejecutas <code>npm audit</code> en tu repositorio y la terminal responde con un mensaje alarmante en rojo:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">45 vulnerabilities (15 moderate, 15 high, 15 critical)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">To address all issues (including breaking changes), run:</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  npm audit fix --force</span><br></div></code></pre></div></div>
+<p>Al ver palabras como <strong>Critical</strong>, <strong>Remote Code Execution (RCE)</strong> y <strong>Prototype Pollution</strong>, el instinto natural es escribir <code>npm audit fix --force</code> para eliminar las advertencias.</p>
+<p>Sin embargo, en el mundo de los <strong>Generadores de Sitios Estáticos (SSG)</strong> como Docusaurus o Next.js alojados en GitHub Pages o AWS S3, hacer esto a ciegas es un error común que rompe la compilación de producción sin mejorar la seguridad real.</p>
+<p>En este artículo, definimos el <strong>modelo de amenazas en sitios estáticos</strong>, explicamos por qué las vulnerabilidades en herramientas de construcción difieren radicalmente de las vulnerabilidades en tiempo de ejecución, y compartimos un plan práctico de <strong>seguridad en 4 capas</strong>.</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="Comparativa del modelo de amenazas: Servidor Dinámico vs Sitio Estático" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_threat_model-148aea6caa957a92718a0e3aef2812c9.png" width="2000" height="1000" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-resumen-ejecutivo-el-criterio-de-ingeniería">1. Resumen Ejecutivo: El Criterio de Ingeniería<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#1-resumen-ejecutivo-el-criterio-de-ingenier%C3%ADa" class="hash-link" aria-label="Enlace directo al 1. Resumen Ejecutivo: El Criterio de Ingeniería" title="Enlace directo al 1. Resumen Ejecutivo: El Criterio de Ingeniería" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Herramientas de Compilación != Tiempo de Ejecución en Producción</strong>: Paquetes señalados en <code>npm audit</code> (como <code>tinypool</code> o <code>serialize-javascript</code>) son dependencias que solo se ejecutan localmente al compilar con <code>npm run build</code>.</li>
+<li class=""><strong>Cero Servidores Activos en la CDN</strong>: Tras la compilación, GitHub Pages solo aloja archivos estáticos (HTML, CSS, JS). <strong>No hay ningún proceso Node.js en ejecución, ni puertos abiertos, ni conexiones a bases de datos.</strong></li>
+<li class=""><strong>El Peligro de <code>--force</code></strong>: Forzar la resolución degrada frameworks como <code>@docusaurus/core</code> a versiones antiguas (3.7.0), rompiendo la compatibilidad con React 19 y plugins modernos.</li>
+<li class=""><strong>Las Amenazas Reales</strong>: Los verdaderos riesgos en blogs estáticos son la <strong>fuga de claves API en Git</strong>, la <strong>exposición de datos personales (PII)</strong> y la <strong>fuga de privacidad en el cliente</strong>.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-la-realidad-tras-las-45-vulnerabilidades">2. La Realidad tras las 45 Vulnerabilidades<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#2-la-realidad-tras-las-45-vulnerabilidades" class="hash-link" aria-label="Enlace directo al 2. La Realidad tras las 45 Vulnerabilidades" title="Enlace directo al 2. La Realidad tras las 45 Vulnerabilidades" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-tinypool-y-la-polución-de-prototipos-ghsa-5gmw-xhrv-c9v3---critical">A. Tinypool y la Polución de Prototipos (<code>GHSA-5gmw-xhrv-c9v3</code> - Critical)<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#a-tinypool-y-la-poluci%C3%B3n-de-prototipos-ghsa-5gmw-xhrv-c9v3---critical" class="hash-link" aria-label="Enlace directo al a-tinypool-y-la-polución-de-prototipos-ghsa-5gmw-xhrv-c9v3---critical" title="Enlace directo al a-tinypool-y-la-polución-de-prototipos-ghsa-5gmw-xhrv-c9v3---critical" translate="no">​</a></h3>
+<ul>
+<li class=""><code>tinypool</code> se utiliza internamente para paralelizar tareas de compilación entre los núcleos de tu CPU local. Las entradas provienen únicamente de tu archivo <code>docusaurus.config.ts</code>. Ningún visitante externo puede enviar cargas útiles HTTP a tu entorno local.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-serialize-javascript-y-rce-ghsa-5c6j-r48x-rmvq---high">B. Serialize-JavaScript y RCE (<code>GHSA-5c6j-r48x-rmvq</code> - High)<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#b-serialize-javascript-y-rce-ghsa-5c6j-r48x-rmvq---high" class="hash-link" aria-label="Enlace directo al b-serialize-javascript-y-rce-ghsa-5c6j-r48x-rmvq---high" title="Enlace directo al b-serialize-javascript-y-rce-ghsa-5c6j-r48x-rmvq---high" translate="no">​</a></h3>
+<ul>
+<li class="">Webpack utiliza este paquete para generar fragmentos de código estáticos. En el directorio <code>build/</code>, los archivos son activos pasivos distribuidos por HTTPS; no existe deserialización en servidor.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="c-postcss-selector-parser-ghsa-rj75-hqrm-r3gf---moderate">C. PostCSS Selector Parser (<code>GHSA-rj75-hqrm-r3gf</code> - Moderate)<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#c-postcss-selector-parser-ghsa-rj75-hqrm-r3gf---moderate" class="hash-link" aria-label="Enlace directo al c-postcss-selector-parser-ghsa-rj75-hqrm-r3gf---moderate" title="Enlace directo al c-postcss-selector-parser-ghsa-rj75-hqrm-r3gf---moderate" translate="no">​</a></h3>
+<ul>
+<li class="">El CSS analizado corresponde a las hojas de estilo del propio autor (<code>custom.css</code>). Salvo que alguien comprometa los permisos de tu repositorio Git, no se procesa CSS externo malicioso.</li>
+</ul>
+<p>Degradar librerías con <code>--force</code> en este contexto equivale a <strong>introducir fallos reales en tu aplicación para solucionar exploits que físicamente no pueden ocurrir en tu arquitectura</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-seguridad-práctica-en-4-capas-para-sitios-estáticos">3. Seguridad Práctica en 4 Capas para Sitios Estáticos<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#3-seguridad-pr%C3%A1ctica-en-4-capas-para-sitios-est%C3%A1ticos" class="hash-link" aria-label="Enlace directo al 3. Seguridad Práctica en 4 Capas para Sitios Estáticos" title="Enlace directo al 3. Seguridad Práctica en 4 Capas para Sitios Estáticos" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Canal de seguridad en 4 capas para blogs estáticos" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_security_pipeline-427d101664b7871343d1d598227f68cb.png" width="2000" height="900" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-1-escaneo-automatizado-de-secretos-previo-al-commit">Capa 1: Escaneo Automatizado de Secretos Previo al Commit<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#capa-1-escaneo-automatizado-de-secretos-previo-al-commit" class="hash-link" aria-label="Enlace directo al Capa 1: Escaneo Automatizado de Secretos Previo al Commit" title="Enlace directo al Capa 1: Escaneo Automatizado de Secretos Previo al Commit" translate="no">​</a></h3>
+<p>El mayor peligro es subir por error una clave de OpenAI (<code>sk-...</code>), un token de GitHub (<code>ghp_...</code>) o credenciales de AWS (<code>AKIA...</code>). Implementamos un script de auditoría (<code>tools/audit_security.py</code>) que analiza los archivos con expresiones regulares de alta entropía antes de cada despliegue.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-2-protección-de-datos-personales-pii">Capa 2: Protección de Datos Personales (PII)<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#capa-2-protecci%C3%B3n-de-datos-personales-pii" class="hash-link" aria-label="Enlace directo al Capa 2: Protección de Datos Personales (PII)" title="Enlace directo al Capa 2: Protección de Datos Personales (PII)" translate="no">​</a></h3>
+<p>En proyectos de IA y visión por computador, utilizamos <strong>datos sintéticos (<code>synth_gen</code>)</strong> generados con modelos de lenguaje para garantizar el cumplimiento ético y la privacidad médica y personal.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-3-configuración-blindada-de-gitignore">Capa 3: Configuración Blindada de <code>.gitignore</code><a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#capa-3-configuraci%C3%B3n-blindada-de-gitignore" class="hash-link" aria-label="Enlace directo al capa-3-configuración-blindada-de-gitignore" title="Enlace directo al capa-3-configuración-blindada-de-gitignore" translate="no">​</a></h3>
+<p>Ampliamos <code>.gitignore</code> para bloquear exhaustivamente archivos <code>.env</code>, certificados privados (<code>*.pem</code>, <code>*.key</code>) y volcados de métricas (<code>*.csv</code>).</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-4-privacidad-en-cliente-y-sandboxing">Capa 4: Privacidad en Cliente y Sandboxing<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#capa-4-privacidad-en-cliente-y-sandboxing" class="hash-link" aria-label="Enlace directo al Capa 4: Privacidad en Cliente y Sandboxing" title="Enlace directo al Capa 4: Privacidad en Cliente y Sandboxing" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Política de Referrer Estricta</strong>: Configuramos <code>strict-origin-when-cross-origin</code> para evitar que la ruta completa de navegación se transmita a dominios externos.</li>
+<li class=""><strong>Iframe de Giscus Aislado</strong>: Comentarios configurados con <code>emitMetadata="0"</code> y <code>loading="lazy"</code> para prevenir la fuga de metadatos entre orígenes.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-conclusiones-para-desarrolladores">4. Conclusiones para Desarrolladores<a href="https://jbjihwan.github.io/global_blog/es/blog/static-site-security-npm-audit-truth#4-conclusiones-para-desarrolladores" class="hash-link" aria-label="Enlace directo al 4. Conclusiones para Desarrolladores" title="Enlace directo al 4. Conclusiones para Desarrolladores" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>No entres en pánico con <code>npm audit</code></strong>: Distingue siempre entre dependencias de compilación y dependencias en tiempo de ejecución.</li>
+<li class=""><strong>Evita el uso ciego de <code>--force</code></strong>: Las degradaciones automáticas suelen introducir errores reales mientras mitigan riesgos teóricos inexistentes en una CDN.</li>
+<li class=""><strong>Protege lo que de verdad importa</strong>: Automatiza el escaneo de secretos, protege la privacidad de tus datos y asegura tu historial en Git.</li>
+</ul>]]></content:encoded>
+            <category>seguridad-web</category>
+            <category>npm-audit</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+            <category>cadena-de-suministro</category>
+        </item>
         <item>
             <title><![CDATA[[Vision AI] Optimización de OCR para Matrículas Coreanas, Normalización con Regex y Votación Mayoritaria Temporal (Evolución v01 a v11) (#5)]]></title>
             <link>https://jbjihwan.github.io/global_blog/es/blog/2026-06-29-vision-anpr-5</link>
@@ -352,34 +416,6 @@
             <category>python</category>
         </item>
         <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
-            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20</link>
-            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Imagen de Portada]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluyendo-el-3er-fine-tuning">Concluyendo el 3er Fine-Tuning<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20#concluyendo-el-3er-fine-tuning" class="hash-link" aria-label="Enlace directo al Concluyendo el 3er Fine-Tuning" title="Enlace directo al Concluyendo el 3er Fine-Tuning" translate="no">​</a></h3>
-<p>El entrenamiento para el 3er fine-tuning, configurado con conceptos de gráficos de conocimiento en mente, se completó.</p>
-<blockquote>
-<p>"Selecciona el checkpoint con el mejor eval, reemplaza los archivos en la carpeta adapter."</p>
-</blockquote>
-<p>En lugar de copiar checkpoints manualmente, le indiqué a la IA que escribiera un script que extrajera automáticamente los mejores pesos del modelo y los configurara. Luego, ejecuté el script de inferencia paralela en el servidor.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-y-frontend-base-de-datos-y-foro">Backend y Frontend: Base de Datos y Foro<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20#backend-y-frontend-base-de-datos-y-foro" class="hash-link" aria-label="Enlace directo al Backend y Frontend: Base de Datos y Foro" title="Enlace directo al Backend y Frontend: Base de Datos y Foro" translate="no">​</a></h3>
-<p>Mientras los modelos trabajaban en el servidor, aceleré el trabajo de integración de la aplicación y la BD.</p>
-<p>Para resolver el frustrante error <code>401 Unauthorized</code> de la última vez, examiné <code>seed_data.sql</code> para verificar las contraseñas. Como resultado, logré un importante commit en Git:
-<code>feat: Añadido guardado de chatbot en BD, paginación de foro y filtro de diario de emociones</code></p>
-<p><img decoding="async" loading="lazy" alt="Características de la App" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
-<p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>backend</category>
-            <category>frontend</category>
-            <category>database</category>
-            <category>capstone</category>
-        </item>
-        <item>
             <title><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
             <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4</link>
             <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-rl-qlearning-4</guid>
@@ -415,6 +451,34 @@
             <category>sarsa</category>
             <category>robotica</category>
             <category>python</category>
+        </item>
+        <item>
+            <title><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
+            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Imagen de Portada]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluyendo-el-3er-fine-tuning">Concluyendo el 3er Fine-Tuning<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20#concluyendo-el-3er-fine-tuning" class="hash-link" aria-label="Enlace directo al Concluyendo el 3er Fine-Tuning" title="Enlace directo al Concluyendo el 3er Fine-Tuning" translate="no">​</a></h3>
+<p>El entrenamiento para el 3er fine-tuning, configurado con conceptos de gráficos de conocimiento en mente, se completó.</p>
+<blockquote>
+<p>"Selecciona el checkpoint con el mejor eval, reemplaza los archivos en la carpeta adapter."</p>
+</blockquote>
+<p>En lugar de copiar checkpoints manualmente, le indiqué a la IA que escribiera un script que extrajera automáticamente los mejores pesos del modelo y los configurara. Luego, ejecuté el script de inferencia paralela en el servidor.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-y-frontend-base-de-datos-y-foro">Backend y Frontend: Base de Datos y Foro<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-20-maeumjigi-20#backend-y-frontend-base-de-datos-y-foro" class="hash-link" aria-label="Enlace directo al Backend y Frontend: Base de Datos y Foro" title="Enlace directo al Backend y Frontend: Base de Datos y Foro" translate="no">​</a></h3>
+<p>Mientras los modelos trabajaban en el servidor, aceleré el trabajo de integración de la aplicación y la BD.</p>
+<p>Para resolver el frustrante error <code>401 Unauthorized</code> de la última vez, examiné <code>seed_data.sql</code> para verificar las contraseñas. Como resultado, logré un importante commit en Git:
+<code>feat: Añadido guardado de chatbot en BD, paginación de foro y filtro de diario de emociones</code></p>
+<p><img decoding="async" loading="lazy" alt="Características de la App" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
+<p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>]]></content:encoded>
+            <category>devlog</category>
+            <category>fine-tuning</category>
+            <category>backend</category>
+            <category>frontend</category>
+            <category>database</category>
+            <category>capstone</category>
         </item>
         <item>
             <title><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>
@@ -732,32 +796,6 @@
             <category>Jupyter</category>
             <category>capstone</category>
             <category>Inteligencia Artificial (AI)</category>
-        </item>
-        <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #14] Fine-Tuning Completado y Pipeline de Inferencia Paralela]]></title>
-            <link>https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14</link>
-            <guid>https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14</guid>
-            <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Imagen de Portada]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://jbjihwan.github.io/global_blog/es/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>¡El 6 de mayo, finalmente escapamos del largo pantano del fine-tuning! Después de varias noches de trabajo, el entrenamiento de los modelos como <strong>HCX-Omni-8B</strong> y <strong>Qwen35-9B</strong> se completó con éxito.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fine-tuning-completo-y-análisis-de-registros">Fine-Tuning Completo y Análisis de Registros<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14#fine-tuning-completo-y-an%C3%A1lisis-de-registros" class="hash-link" aria-label="Enlace directo al Fine-Tuning Completo y Análisis de Registros" title="Enlace directo al Fine-Tuning Completo y Análisis de Registros" translate="no">​</a></h3>
-<p>A medida que avanzaba el entrenamiento, pudimos ver cómo los valores de pérdida disminuían de manera estable. Tuvimos un momento de confusión tratando de averiguar si esto era <code>train loss</code> o <code>validation loss</code>, pero como el entrenamiento ya estaba completo, pasamos inmediatamente a la fase de inferencia y evaluación (Eval) utilizando los últimos checkpoints.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="entorno-de-inferencia-paralela">Entorno de Inferencia Paralela<a href="https://jbjihwan.github.io/global_blog/es/blog/2026-05-06-maeumjigi-14#entorno-de-inferencia-paralela" class="hash-link" aria-label="Enlace directo al Entorno de Inferencia Paralela" title="Enlace directo al Entorno de Inferencia Paralela" translate="no">​</a></h3>
-<p>Comenzamos las pruebas de generación unificando el <code>max_new_tokens</code> a 1024, preocupándonos por un posible OOM. Sin embargo, la velocidad de inferencia fue mucho más lenta de lo esperado.</p>
-<blockquote>
-<p>"Usamos dos tarjetas gráficas para entrenar, ¿por qué la inferencia solo usa una?"</p>
-</blockquote>
-<p>Para utilizar el 100% de los recursos de la GPU del servidor, escribimos un nuevo script <code>run_eval_parallel.sh</code> para procesar inferencias en paralelo. Esto redujo drásticamente el tiempo de inferencia, y construimos con éxito un pipeline que agrega automáticamente los resultados a un archivo de Excel.</p>
-<p><img decoding="async" loading="lazy" alt="Pipeline de Evaluación" src="https://jbjihwan.github.io/global_blog/es/assets/images/02_eval-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Aunque ocurrió un error porque la VRAM no se liberó correctamente al pasar del DSR1-70B al siguiente modelo, lo resolvimos aislando los entornos con el script paralelo. ¡Ahora es el momento de comparar la calidad de las respuestas!</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>HCX-Omni-8B</category>
-            <category>Qwen35-9B</category>
-            <category>model-evaluation</category>
-            <category>inference</category>
-            <category>parallel-processing</category>
         </item>
     </channel>
 </rss>
