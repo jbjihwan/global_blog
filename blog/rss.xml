@@ -728,41 +728,6 @@
             <category>python</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
-            <link>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</link>
-            <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</guid>
-            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Cover Image]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-32204034b0743dc250f353614333d50a.png" width="720" height="405" class="img_ev3q"></p>
-<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
-<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
-<blockquote>
-<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
-</blockquote>
-<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
-<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
-<blockquote>
-<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
-"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
-</blockquote>
-<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
-<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://jbjihwan.github.io/global_blog/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
-<blockquote>
-<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
-</blockquote>
-<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>report</category>
-            <category>backend</category>
-            <category>DB</category>
-            <category>troubleshooting</category>
-            <category>capstone</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots Robotics] Q-Learning Autonomous Navigation: 648-Bin State Discretization & Socket Architecture (#1)]]></title>
             <link>https://jbjihwan.github.io/global_blog/blog/2026-05-17-rl-qlearning-1</link>
             <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-17-rl-qlearning-1</guid>
@@ -829,6 +794,41 @@
             <category>robotics</category>
             <category>discretization</category>
             <category>python</category>
+        </item>
+        <item>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
+            <link>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</link>
+            <guid>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Cover Image]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-32204034b0743dc250f353614333d50a.png" width="720" height="405" class="img_ev3q"></p>
+<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
+<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
+<blockquote>
+<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
+</blockquote>
+<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
+<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
+<blockquote>
+<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
+"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
+<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://jbjihwan.github.io/global_blog/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
+<blockquote>
+<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
+</blockquote>
+<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content:encoded>
+            <category>devlog</category>
+            <category>fine-tuning</category>
+            <category>report</category>
+            <category>backend</category>
+            <category>DB</category>
+            <category>troubleshooting</category>
+            <category>capstone</category>
         </item>
         <item>
             <title><![CDATA[[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparing 2nd Fine-Tuning Results]]></title>
