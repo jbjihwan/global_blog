@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
-        <title>Maeumjigi Dev Blog Blog</title>
+        <title>Global Dev Blog Blog</title>
         <link>https://jbjihwan.github.io/global_blog/es/blog</link>
-        <description>Maeumjigi Dev Blog Blog</description>
+        <description>Global Dev Blog Blog</description>
         <lastBuildDate>Mon, 29 Jun 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>

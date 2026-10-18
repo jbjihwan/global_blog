@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jbjihwan.github.io/global_blog/es/blog</id>
-    <title>Maeumjigi Dev Blog Blog</title>
+    <title>Global Dev Blog Blog</title>
     <updated>2026-06-29T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jbjihwan.github.io/global_blog/es/blog"/>
-    <subtitle>Maeumjigi Dev Blog Blog</subtitle>
+    <subtitle>Global Dev Blog Blog</subtitle>
     <icon>https://jbjihwan.github.io/global_blog/es/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[[Vision AI] Optimización de OCR para Matrículas Coreanas, Normalización con Regex y Votación Mayoritaria Temporal (Evolución v01 a v11) (#5)]]></title>
