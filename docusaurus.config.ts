@@ -74,7 +74,10 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    metadata: [
+      { name: 'referrer', content: 'strict-origin-when-cross-origin' },
+      { name: 'author', content: 'Jihwan Park (jbjihwan)' },
+    ],
     colorMode: {
       respectPrefersColorScheme: true,
     },

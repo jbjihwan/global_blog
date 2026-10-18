@@ -8,13 +8,25 @@
 .docusaurus
 .cache-loader
 
+# Environment & Secret Protection
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.cert
+*credential*
+*.secret
+
+# Analytics & CSV dumps
+*.csv
+
+# Archived template files
+_old/
+
 # Misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
