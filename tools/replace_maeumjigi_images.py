@@ -142,7 +142,7 @@ MAPPINGS = [
      
     # #23 (2026-06-18)
     ("2026-06-18-maeumjigi-23", 
-     os.path.join(CAPDE_ROOT, r"Week12\_preview\s01.png"), 
+     os.path.join(CAPDE_ROOT, r"Week12\_preview\s03.png"), 
      os.path.join(CAPDE_ROOT, r"Week12\_preview\s05.png"), 
      "02_presentation.png"),
 ]
