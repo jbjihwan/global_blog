@@ -12,11 +12,16 @@ Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국
   - `Contact` (문의처): 4개 국어(`contact.md`) 공식 이메일(`jbgihwan@gmail.com`) 및 GitHub Issue 링크 배치.
   - 불필요한 기본 템플릿 문서(`docs/`, `markdown-page.mdx`) `_old\`로 아카이빙 및 `docs: false` 비활성화로 404 에러 원천 차단.
   - 내비게이션 바 및 푸터 전면 개편 (다국어 공통 안전 경로로 정비).
-- **연재 완료 시리즈**:
+- **연재 완료 시리즈 및 스페셜 아티클**:
   1. **마음지기 캡스톤 개발일지 (총 23편)**
   2. **Webots Q-Learning 로봇 자율주행 강화학습 (총 5편)**
   3. **Blackbox ANPR & Lane Intrusion 비전 AI 시스템 (총 5편)**
-  - 총 33편(4개 국어 132개 포스트) 전편 SEO 상위 5대 키워드 주입 완료.
+  4. **[스페셜 테크 아티클] 정적 사이트 보안 하드닝 & npm audit의 진실 (1편)**:
+     - *From 45 npm Vulnerabilities to Zero-Risk: Why You Shouldn't Blindly Run npm audit fix --force on Static Sites*
+     - 4개 국어(en, ko, ja, es) 완간, 위협 모델/파이프라인 다이어그램 2종 수록, 상위 5대 SEO 키워드 주입.
+  - 총 34편(4개 국어 136개 포스트) 전편 SEO 상위 5대 키워드 주입 완료.
+- **워크플로우 규칙 영구 반영**:
+  - `D:\ai\GEMINI.md` 및 `naver-blog` 스킬(`writing-rules.md`), `WRITING_GUIDE.md`에 "조회수 높이기 상위 키워드 5개 사전 조사 및 주입" 규칙 영구 등록 완료.
 - **빌드 상태**: 4개 국어(en, es, ja, ko) SSG 전체 빌드 PASS (`exit code 0`).
 
 ## 📋 다음 한 걸음
