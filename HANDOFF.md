@@ -19,9 +19,9 @@ Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국
   4. **[스페셜 테크 아티클] 정적 사이트 보안 하드닝 & npm audit의 진실 (1편)**:
      - *From 45 npm Vulnerabilities to Zero-Risk: Why You Shouldn't Blindly Run npm audit fix --force on Static Sites*
      - 4개 국어(en, ko, ja, es) 완간, 위협 모델/파이프라인 다이어그램 2종 수록, 상위 5대 SEO 키워드 주입.
-  - 총 34편(4개 국어 136개 포스트) 전편 SEO 상위 5대 키워드 주입 완료.
-- **워크플로우 규칙 영구 반영**:
-  - `D:\ai\GEMINI.md` 및 `naver-blog` 스킬(`writing-rules.md`), `WRITING_GUIDE.md`에 "조회수 높이기 상위 키워드 5개 사전 조사 및 주입" 규칙 영구 등록 완료.
+- **100% 실제 연구/발표자료 이미지 교체 완료 (34편 전편)**:
+  - 기존 AI 생성 이미지들을 사용자의 실제 **PPT 발표자료 슬라이드(`1학기_최종발표_마음이.pptx` 등)**, **Matplotlib 손실/레이더/지표 그래프**, **GPU VRAM 프로파일링 차트**, **실제 웹/앱 UI 캡처(2500x1400 고해상도)**로 전면 교체 완료 (23편 마음지기 + 5편 Q-Learning + 5편 ANPR + 1편 보안 아티클).
+  - 4개 국어(en, ko, ja, es) 136개 포스트의 이미지 디렉토리 전수 동기화 완료.
 - **빌드 상태**: 4개 국어(en, es, ja, ko) SSG 전체 빌드 PASS (`exit code 0`).
 
 ## 📋 다음 한 걸음
