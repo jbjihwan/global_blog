@@ -428,43 +428,6 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #20] 3rd Fine-Tuning Complete & Backend Feature Enhancements]]></title>
-        <id>https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Cover Image]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Over the two days of May 19th and 20th, the automation of evaluation for the 3rd fine-tuning (<code>fine_tuning_3</code>) and the enhancement of backend/frontend features for building the actual app service proceeded in parallel.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluding-the-3rd-fine-tuning-and-automation-scripts">Concluding the 3rd Fine-Tuning and Automation Scripts<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#concluding-the-3rd-fine-tuning-and-automation-scripts" class="hash-link" aria-label="Direct link to Concluding the 3rd Fine-Tuning and Automation Scripts" title="Direct link to Concluding the 3rd Fine-Tuning and Automation Scripts" translate="no">​</a></h3>
-<p>Based on the insights gained from the previous fine-tuning, the training for the 3rd fine-tuning, which was set up with concepts of knowledge graphs and ontologies in mind, was completed.</p>
-<blockquote>
-<p>"Select the checkpoint with the Best Eval from the experimental models in the fine_tuning_3 folder, replace the files in the adapter folder, and report the results."
-"Write a run_test_20_30.sh file that runs inference and evaluation in parallel for fine_tuning_3 as well."</p>
-</blockquote>
-<p>Instead of manually digging through folders to copy checkpoints like before, I instructed the Artificial Intelligence (AI) to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the <code>adapter</code> folder. Then, I executed the parallel inference script, <code>run_test_20_30.sh</code>, throwing the evaluation for the 4 Alias models to the background server.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backendfrontend-chatbot-database-db-saving-and-community-board-features">Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#backendfrontend-chatbot-database-db-saving-and-community-board-features" class="hash-link" aria-label="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" title="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" translate="no">​</a></h3>
-<p>While the models were hard at work running inferences on the server, I accelerated the <code>mental-health</code> DB and app integration work in my local environment.</p>
-<blockquote>
-<p>"Summarize seed_data.sql. What is the pw for users? Is it Test1234!? What was the db I was trying to apply this sql to?"</p>
-</blockquote>
-<p>To break through the login issue that caused the frustrating <code>401 Unauthorized</code> error last time, I thoroughly examined <code>seed_data.sql</code> to verify the password hashing and user data.</p>
-<p>As a result, I was able to leave a meaningful Git commit on the afternoon of May 20th:
-<code>feat: Added chatbot DB save, board pagination, and emotion diary filter</code></p>
-<p><img decoding="async" loading="lazy" alt="App Features" src="https://jbjihwan.github.io/global_blog/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
-<p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="backend" term="backend"/>
-        <category label="frontend" term="frontend"/>
-        <category label="database" term="database"/>
-        <category label="capstone" term="capstone"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Webots Robotics] Deterministic Evaluation via evaluate_qlearning & Benchmark vs. DQN and SARSA (#4)]]></title>
         <id>https://jbjihwan.github.io/global_blog/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-rl-qlearning-4"/>
@@ -526,6 +489,43 @@
         <category label="sarsa" term="sarsa"/>
         <category label="robotics" term="robotics"/>
         <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #20] 3rd Fine-Tuning Complete & Backend Feature Enhancements]]></title>
+        <id>https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cover Image]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>Over the two days of May 19th and 20th, the automation of evaluation for the 3rd fine-tuning (<code>fine_tuning_3</code>) and the enhancement of backend/frontend features for building the actual app service proceeded in parallel.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluding-the-3rd-fine-tuning-and-automation-scripts">Concluding the 3rd Fine-Tuning and Automation Scripts<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#concluding-the-3rd-fine-tuning-and-automation-scripts" class="hash-link" aria-label="Direct link to Concluding the 3rd Fine-Tuning and Automation Scripts" title="Direct link to Concluding the 3rd Fine-Tuning and Automation Scripts" translate="no">​</a></h3>
+<p>Based on the insights gained from the previous fine-tuning, the training for the 3rd fine-tuning, which was set up with concepts of knowledge graphs and ontologies in mind, was completed.</p>
+<blockquote>
+<p>"Select the checkpoint with the Best Eval from the experimental models in the fine_tuning_3 folder, replace the files in the adapter folder, and report the results."
+"Write a run_test_20_30.sh file that runs inference and evaluation in parallel for fine_tuning_3 as well."</p>
+</blockquote>
+<p>Instead of manually digging through folders to copy checkpoints like before, I instructed the Artificial Intelligence (AI) to write a script that automatically extracted the best performing model weights (Best Checkpoint) and set them up in the <code>adapter</code> folder. Then, I executed the parallel inference script, <code>run_test_20_30.sh</code>, throwing the evaluation for the 4 Alias models to the background server.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backendfrontend-chatbot-database-db-saving-and-community-board-features">Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-20-maeumjigi-20#backendfrontend-chatbot-database-db-saving-and-community-board-features" class="hash-link" aria-label="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" title="Direct link to Backend/Frontend: Chatbot Database (DB) Saving and Community Board Features" translate="no">​</a></h3>
+<p>While the models were hard at work running inferences on the server, I accelerated the <code>mental-health</code> DB and app integration work in my local environment.</p>
+<blockquote>
+<p>"Summarize seed_data.sql. What is the pw for users? Is it Test1234!? What was the db I was trying to apply this sql to?"</p>
+</blockquote>
+<p>To break through the login issue that caused the frustrating <code>401 Unauthorized</code> error last time, I thoroughly examined <code>seed_data.sql</code> to verify the password hashing and user data.</p>
+<p>As a result, I was able to leave a meaningful Git commit on the afternoon of May 20th:
+<code>feat: Added chatbot DB save, board pagination, and emotion diary filter</code></p>
+<p><img decoding="async" loading="lazy" alt="App Features" src="https://jbjihwan.github.io/global_blog/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
+<p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="backend" term="backend"/>
+        <category label="frontend" term="frontend"/>
+        <category label="database" term="database"/>
+        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Webots Robotics] Conquering Local Minima in 12-Wall Obstacles: Multi-Seed Headless Simulation (#3)]]></title>
@@ -691,45 +691,6 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
-        <id>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</id>
-        <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19"/>
-        <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Cover Image]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
-<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
-<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
-<blockquote>
-<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
-</blockquote>
-<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
-<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
-<blockquote>
-<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
-"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
-</blockquote>
-<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
-<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://jbjihwan.github.io/global_blog/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
-<blockquote>
-<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
-</blockquote>
-<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content>
-        <author>
-            <name>jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="report" term="report"/>
-        <category label="backend" term="backend"/>
-        <category label="DB" term="DB"/>
-        <category label="troubleshooting" term="troubleshooting"/>
-        <category label="capstone" term="capstone"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Webots Robotics] Q-Learning Autonomous Navigation: 648-Bin State Discretization & Socket Architecture (#1)]]></title>
         <id>https://jbjihwan.github.io/global_blog/blog/2026-05-17-rl-qlearning-1</id>
         <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-rl-qlearning-1"/>
@@ -800,6 +761,45 @@
         <category label="robotics" term="robotics"/>
         <category label="discretization" term="discretization"/>
         <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
+        <id>https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19</id>
+        <link href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cover Image]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://jbjihwan.github.io/global_blog/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
+<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
+<blockquote>
+<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
+</blockquote>
+<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
+<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
+<blockquote>
+<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
+"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
+<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://jbjihwan.github.io/global_blog/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://jbjihwan.github.io/global_blog/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
+<blockquote>
+<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
+</blockquote>
+<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content>
+        <author>
+            <name>jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="report" term="report"/>
+        <category label="backend" term="backend"/>
+        <category label="DB" term="DB"/>
+        <category label="troubleshooting" term="troubleshooting"/>
+        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparing 2nd Fine-Tuning Results]]></title>
