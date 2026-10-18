@@ -289,7 +289,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23"/>
         <updated>2026-06-18T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-536caabc2f4da9a705deca5f970588a6.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-c89fb96e5c3be1169e4f10f4db424bf0.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>6月に入り、マウムジギチームは1学期の主要な開発をすべて終え、<strong>安全網の構築</strong>と<strong>最終発表</strong>の準備に総力を傾けました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="21比率の勝利とsafety-wrapperの導入">2:1比率の勝利とSafety Wrapperの導入<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-06-18-maeumjigi-23#21%E6%AF%94%E7%8E%87%E3%81%AE%E5%8B%9D%E5%88%A9%E3%81%A8safety-wrapper%E3%81%AE%E5%B0%8E%E5%85%A5" class="hash-link" aria-label="2:1比率の勝利とSafety Wrapperの導入 への直接リンク" title="2:1比率の勝利とSafety Wrapperの導入 への直接リンク" translate="no">​</a></h3>
 <blockquote>
@@ -303,7 +303,7 @@
 <p>「g5.2xlargeを5ヶ月使用する予算はどうなる？」
 「今までの進行状況をもとに、1学期_最終発表_マウムジギ.pptxを作成して！」</p>
 </blockquote>
-<p><img decoding="async" loading="lazy" alt="最終発表" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_presentation-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="最終発表" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_presentation-4d633f8f7c1e0375cfa80546d37e3291.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>夏休み中に実際のサービスと連動させるため、Amazon EC2 GPUサーバーの予算を算出しました。
 そして6月18日、これまで開発したバックエンド、フロントエンド、人工知能(AI)のすべての成果を一堂に集め、<strong>1学期最終発表資料</strong>を完成させました！</p>
 <p>これで長く険しかった1学期の開発が成功裏に幕を下ろしました。2学期にはさらに高度化されたサービスで戻ってきます！</p>]]></content>
@@ -323,7 +323,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22"/>
         <updated>2026-05-30T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-5fcc23c7f36696eb5311e706c9d9eede.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>5月の最終週（27日〜30日）、私たちは待望の**4次ファインチューニング（fine_tuning_4）**の結果をまとめ、システムの骨格を固める作業に邁進しました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="最終チェックポイント4400とグラフ分析">最終チェックポイント4400とグラフ分析<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-30-maeumjigi-22#%E6%9C%80%E7%B5%82%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%884400%E3%81%A8%E3%82%B0%E3%83%A9%E3%83%95%E5%88%86%E6%9E%90" class="hash-link" aria-label="最終チェックポイント4400とグラフ分析 への直接リンク" title="最終チェックポイント4400とグラフ分析 への直接リンク" translate="no">​</a></h3>
 <p>日常対話と感情対話を混合して学習させた4次ファインチューニングモデルが、ついに最適の重みである<code>checkpoint-4400</code>を吐き出しました。</p>
@@ -333,7 +333,7 @@
 <p>「chatbot_architecture.html 生成完了」
 「fine_tuning_4の遂行結果をレポート(.docx)で作成して。」</p>
 </blockquote>
-<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_architecture-8a475bed17c5ba676df214ad75cefe3d.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_architecture-41f5095033492354eaf45a8553f49ff6.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>性能検証が終わったモデルを実際のアプリでサービスするため、<code>chatbot_architecture.html</code>という名前でシステム全体アーキテクチャとナレッジグラフ統合案を設計しました。</p>
 <p>そして5月30日、人工知能(AI)の助けを借りて最終レポートを自動生成しました。レポートには、オリジナルモデルと私たちがファインチューニングしたモデルの実際の回答比較が赤裸々に盛り込まれており、これまでの苦労が無駄ではなかったことを証明してくれました。</p>
 <p>これでマウムジギプロジェクトの息苦しかった5月開発日誌がすべて終わりました。6月にはどんな新しい挑戦が待っているのでしょうか？</p>]]></content>
@@ -353,7 +353,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21"/>
         <updated>2026-05-22T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-40343a2fa676ad2311d82059ca3617cc.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-a335ed829194fe04a7f1886ca95deda9.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>5月21日と22日、マウムジギチームは大規模データの生成と**4次ファインチューニング（fine_tuning_4）**の準備に突入しました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="感情対話と日常対話の綱引き">感情対話と日常対話の綱引き<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-22-maeumjigi-21#%E6%84%9F%E6%83%85%E5%AF%BE%E8%A9%B1%E3%81%A8%E6%97%A5%E5%B8%B8%E5%AF%BE%E8%A9%B1%E3%81%AE%E7%B6%B1%E5%BC%95%E3%81%8D" class="hash-link" aria-label="感情対話と日常対話の綱引き への直接リンク" title="感情対話と日常対話の綱引き への直接リンク" translate="no">​</a></h3>
 <p>3次ファインチューニングモデルをテストしている時、致命的な問題を発見しました。</p>
@@ -368,7 +368,7 @@
 <p>「Emotion_train_dataset_v6.jsonlが完成しました。では、7:3比率、2:1比率、5:5比率のデータセットを作ってください。」
 「今回の学習はデータセットの混合比率基準で進行します。」</p>
 </blockquote>
-<p><img decoding="async" loading="lazy" alt="比率実験" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_ratio-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="比率実験" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
@@ -462,7 +462,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20"/>
         <updated>2026-05-20T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-4057d1a5aff0254c000e39278b60e146.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
 <p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
@@ -474,7 +474,7 @@
 <p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
 <p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
 <code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-ac04a950516438d3209c8adb4d849b57.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
@@ -651,7 +651,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19"/>
         <updated>2026-05-17T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>以前「5月13日がマウムジギ5月開発の最後になるだろう」と勘違いしていたことを訂正します！5月17日、ものすごい量のバックエンド連携テストとレポート作成作業が押し寄せました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="人工知能aiを活用したファインチューニング結果レポートの自動化">人工知能(AI)を活用したファインチューニング結果レポートの自動化<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BDai%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E7%B5%90%E6%9E%9C%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" title="人工知能(AI)を活用したファインチューニング結果レポートの自動化 への直接リンク" translate="no">​</a></h3>
 <p>2次ファインチューニング（<code>fine_tuning_2</code>）の膨大な結果グラフを一つずつ人間が分析して書くには時間が足りませんでした。</p>
@@ -666,7 +666,7 @@
 「パスワードが間違っています... INFO: POST /auth/login 401 Unauthorized」</p>
 </blockquote>
 <p>DBダンプを流し込むことには成功しましたが、ログインできない<code>401 Unauthorized</code>エラーの地獄に陥りました。<code>debug_login.py</code>を作成し、uvicornサーバーを再起動させながら数十回のトラブルシューティングを行いました。</p>
-<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-bc48a3eac7bc9a7d182b54e38e31011b.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="DBトラブルシューティング" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1024" height="1024" class="img_ev3q"></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ナレッジグラフknowledge-graphの導入検討">ナレッジグラフ（Knowledge Graph）の導入検討<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-17-maeumjigi-19#%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8%E3%82%B0%E3%83%A9%E3%83%95knowledge-graph%E3%81%AE%E5%B0%8E%E5%85%A5%E6%A4%9C%E8%A8%8E" class="hash-link" aria-label="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" title="ナレッジグラフ（Knowledge Graph）の導入検討 への直接リンク" translate="no">​</a></h3>
 <p>深夜、単純な大規模言語モデル(LLM)ファインチューニングの限界を克服するために、オントロジーとナレッジグラフ（Knowledge Graph）を融合する方案を新たに悩み始めました。5月中旬を過ぎて、プロジェクトの規模がますます巨大になっています！</p>]]></content>
         <author>
@@ -756,7 +756,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18"/>
         <updated>2026-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-4dcde4cef4209e81d49b5f5306af009d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>昨日発見したハードコーディングのバグをすべて修正し、ついにまともな2次ファインチューニングモデルの推論（Inference）テストを再開した5月13日です。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="短い回答の原因トークンの長さを増やせ">短い回答の原因、トークンの長さを増やせ！<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18#%E7%9F%AD%E3%81%84%E5%9B%9E%E7%AD%94%E3%81%AE%E5%8E%9F%E5%9B%A0%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%81%AE%E9%95%B7%E3%81%95%E3%82%92%E5%A2%97%E3%82%84%E3%81%9B" class="hash-link" aria-label="短い回答の原因、トークンの長さを増やせ！ への直接リンク" title="短い回答の原因、トークンの長さを増やせ！ への直接リンク" translate="no">​</a></h3>
 <p>推論結果を一つ一つ紐解いていたところ、<code>Llama33-70B_a8</code>モデルが出した回答が相変わらず妙に短く、硬いことに気がつきました。</p>
@@ -766,7 +766,7 @@
 <p>人工知能(AI)とVRAMの空き容量（当時39.8GB）を計算した末、生成できる最大単語数である<code>max_new_tokens</code>を384に思い切って上方修正しました。結果は大成功でした！</p>
 <p>単にトークンの許容量を増やしただけなのに、モデルが文脈を最後まで維持し、はるかに深く温かい共感の文章を注ぎ出し始めました。限られたトークン数に閉じ込められ、モデルが自ら言葉を出し惜しんでいたのです。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alpha値の比較分析a8-vs-a16">Alpha値の比較分析（a=8 vs a=16）<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-13-maeumjigi-18#alpha%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%88%86%E6%9E%90a8-vs-a16" class="hash-link" aria-label="Alpha値の比較分析（a=8 vs a=16） への直接リンク" title="Alpha値の比較分析（a=8 vs a=16） への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-feb5d1991f44dd7f378232f6b3515752.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>2次ファインチューニングの最大の目的であったLoRAハイパーパラメータ<code>alpha</code>値による性能差の結果も出ました。ログを分析して<code>05_alpha_comparison_daily.png</code>などのグラフを生成しました。<code>rank=16</code>に固定された状態で<code>alpha=8</code>を与えた時と<code>alpha=16</code>を与えた時で、モデルの過学習（Overfitting）の様相と最終回答の質がどう変わるのかを明確に視覚化することができました。</p>
 <p>結果として、正しいハイパーパラメータと十分なトークンの長さを与えられたモデルたちは、ついに私たちが当初企画していた「真のマウムジギ」の姿に近づいていました。中間発表の準備がとても順調に終わりそうです！</p>]]></content>
         <author>
@@ -786,7 +786,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17"/>
         <updated>2026-05-12T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-14a3c0d517e4c85b93ada4e973112325.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>LoRAハイパーパラメータのミス（alpha/rank設定エラー）を正すために野心的に始めた2次ファインチューニング（<code>fine_tuning_2</code>）並列学習が、5月12日ついに終わりました！</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bestチェックポイント抽出と推論パイプラインの構築">Bestチェックポイント抽出と推論パイプラインの構築<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17#best%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E6%8A%BD%E5%87%BA%E3%81%A8%E6%8E%A8%E8%AB%96%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AE%E6%A7%8B%E7%AF%89" class="hash-link" aria-label="Bestチェックポイント抽出と推論パイプラインの構築 への直接リンク" title="Bestチェックポイント抽出と推論パイプラインの構築 への直接リンク" translate="no">​</a></h3>
 <p>3つのモデルに対して6つのハイパーパラメータの組み合わせで回したファインチューニングがすべて完了しました。すぐに<code>eval_loss</code>を比較して最も性能が良い最高（Best）のチェックポイントを抽出し、モデルごとの<code>adapter</code>フォルダに移す作業を進めました。</p>
@@ -795,7 +795,7 @@
 </blockquote>
 <p>しかし、推論速度は依然として絶望的でした。最も軽い1.5Bモデルでさえ、1分間に1つの回答も作成できていませんでした。VRAM使用量は1.6GBしかないのに、バッチサイズが1に設定されているためボトルネックが発生したのです。さらにサーバーの容量不足問題まで重なり、プロジェクトの基本パスを急いで移行する騒動もありました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ハードコーディングの罠に陥る">ハードコーディングの罠に陥る<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-12-maeumjigi-17#%E3%83%8F%E3%83%BC%E3%83%89%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E7%BD%A0%E3%81%AB%E9%99%A5%E3%82%8B" class="hash-link" aria-label="ハードコーディングの罠に陥る への直接リンク" title="ハードコーディングの罠に陥る への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="ハードコーディングバグ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_bug-8ed4eed988eb17ec15dbe0d41b33198e.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="ハードコーディングバグ" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_bug-900bd56611b3d6521891bcc956843259.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>そうやって苦労して評価コードをすべて回した後、鳥肌が立つような事実を発見しました。</p>
 <blockquote>
 <p>「なぜ20_eval_ft_models.ipynbのMODEL_ALIAS = 'Qwen35-9B_a16'のように1つのモデルにハードコーディングされているのか？」
@@ -819,7 +819,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16"/>
         <updated>2026-05-08T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-9eab7db0dac5c88d9a120a99e5e703d4.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>5月8日は、これまで抽出したファインチューニングの結果を基にキャップストーンデザインの中間発表資料（PPT）を作成していた日でした。しかし、気分良くスライドを埋めていたところ、背筋が凍るようなとんでもないミスを発見してしまいました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="loraハイパーパラメータの致命的なミスを発見">LoRAハイパーパラメータの致命的なミスを発見<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16#lora%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%81%AE%E8%87%B4%E5%91%BD%E7%9A%84%E3%81%AA%E3%83%9F%E3%82%B9%E3%82%92%E7%99%BA%E8%A6%8B" class="hash-link" aria-label="LoRAハイパーパラメータの致命的なミスを発見 への直接リンク" title="LoRAハイパーパラメータの致命的なミスを発見 への直接リンク" translate="no">​</a></h3>
 <p>PPTに入れるモデル構造図とハイパーパラメータ情報を人工知能(AI)と一緒に手直ししていました。</p>
@@ -836,7 +836,7 @@
 </blockquote>
 <p>回答が短くなる現象を防ぐために、テキストの長さが最も長い上位2000個のデータセットのみを別途抽出し、MIG（Multi-Instance GPU）リソースを分割してrankとalphaの比率による性能差を直接比較する並列学習を新たに回し始めました。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドモデルが回っている間フロントエンドアプリ開発に着手">バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-08-maeumjigi-16#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%A2%E3%83%87%E3%83%AB%E3%81%8C%E5%9B%9E%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E9%96%93%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%82%A2%E3%83%97%E3%83%AA%E9%96%8B%E7%99%BA%E3%81%AB%E7%9D%80%E6%89%8B" class="hash-link" aria-label="バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手 への直接リンク" title="バックエンドモデルが回っている間、フロントエンド（アプリ）開発に着手 への直接リンク" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="アプリ開発" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app-c484481dee0859dc42bb5a417f50fe42.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="アプリ開発" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_app-9efe68797b061b7eda0d68995627a8cc.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>モデルが再び学習のサイクルに入っている間、私はただ手をこまねいていたわけではありません。ついに実際のユーザーが「マウムジギ」に出会うことになるフロントエンドアプリの開発に着手しました！</p>
 <blockquote>
 <p>「maeum-appを起動するためにQRコードを表示しなければならないんだけど... npx go startと入力してもエラーメッセージしか表示されない。どうやって、そしてどこにQRコードが表示されるのかな？」</p>
@@ -860,7 +860,7 @@
         <link href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15"/>
         <updated>2026-05-07T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[カバー画像]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-f2081e051168ad60a0a8a7313deed317.png" width="1024" height="1024" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://jbjihwan.github.io/global_blog/ja/assets/images/01_cover-b5ad981f0a0602b8afaf1bdbc982094d.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>5月7日は、これまで苦労してファインチューニングした計5つのモデル（Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B）の結果を集大成し、本格的な視覚化とローカル環境の構築を進めた日です。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="モデル比較のための視覚化とローカル環境設定">モデル比較のための視覚化とローカル環境設定<a href="https://jbjihwan.github.io/global_blog/ja/blog/2026-05-07-maeumjigi-15#%E3%83%A2%E3%83%87%E3%83%AB%E6%AF%94%E8%BC%83%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E8%A6%96%E8%A6%9A%E5%8C%96%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="モデル比較のための視覚化とローカル環境設定 への直接リンク" title="モデル比較のための視覚化とローカル環境設定 への直接リンク" translate="no">​</a></h3>
 <p>これまで重いサーバー上で回していた結果比較コードを、個人のノートパソコンでも簡単に確認できるように、新しく<code>31_comparison_local.ipynb</code>ノートブックを作成しました。</p>
@@ -875,7 +875,7 @@
 「太い線は消して、薄い線をはっきりと変更して保存して。」</p>
 </blockquote>
 <p>AIが描いてくれたmatplotlibのグラフから不要なトレンド線（太い線）を取り除き、モデルごとのTraining LossとEval Lossの曲線をきれいに1か所にまとめた<code>03_training_loss_all.png</code>と<code>04_eval_loss_all.png</code>を最終的に抽出しました。</p>
-<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-62d515d1a9340f8f0b7ab00b1ddbe175.png" width="1024" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://jbjihwan.github.io/global_blog/ja/assets/images/02_graph-8f91ee1a78e9220a703c6884ad9a4f40.png" width="1024" height="1024" class="img_ev3q"></p>
 <p>これらのグラフを基に、来週のキャップストーンデザインの中間発表資料を立派に飾ることができるようになりました。果たして、この5つのモデルのうちどれが最も優れた「マウムジギ」チャットボットとして最終選定されるのでしょうか？</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
