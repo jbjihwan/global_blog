@@ -30,7 +30,7 @@ Como cualquier otro sitio web, Global Dev Blog utiliza "cookies" para almacenar 
 ## 3. Google Analytics 4 (GA4)
 
 Utilizamos **Google Analytics 4** (ID de medición: `G-VM2CVW28SL`) de Google LLC.
-- **Anonimización de IP**: La anonimización de IP está habilitada (`anonymizeIP: true`) para proteger la privacidad de los usuarios.
+- **Protección de IP**: Google Analytics 4 no registra ni almacena direcciones IP por diseño. Adicionalmente, el blog mantiene activados los parámetros de anonimización del cliente.
 - **Inhabilitación**: Los visitantes pueden inhabilitar el seguimiento mediante el [Complemento de inhabilitación para navegadores de Google Analytics](https://tools.google.com/dlpage/gaoptout).
 
 ---
@@ -42,7 +42,16 @@ Google, como proveedor externo, puede utilizar cookies (como la cookie DART) par
 
 ---
 
-## 5. Contacto
+## 5. Sistema de Comentarios (Giscus y GitHub Discussions)
+
+Este blog utiliza **Giscus**, un widget de comentarios de código abierto basado en **GitHub Discussions**.
+- Al interactuar o comentar en las publicaciones, la autenticación se realiza mediante su cuenta de GitHub.
+- Los comentarios, nombre de usuario público, avatar y fecha se procesan a través de la API de GitHub Discussions conforme a la [Declaración de Privacidad de GitHub](https://docs.github.com/es/site-policy/privacy-policies/github-privacy-statement).
+- Global Dev Blog no recopila ni almacena contraseñas ni credenciales personales de GitHub.
+
+---
+
+## 6. Contacto
 
 - **Autor**: Jihwan Park
 - **Correo**: [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com)

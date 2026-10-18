@@ -39,7 +39,7 @@ keywords: [개인정보처리방침, Privacy Policy, 구글 애드센스, 구글
 
 본 블로그는 Google LLC에서 제공하는 웹 분석 도구인 **Google Analytics 4** (측정 ID: `G-VM2CVW28SL`)를 사용하고 있습니다.
 
-- **IP 익명화 조치**: 본 블로그는 IP 익명화 기능(`anonymizeIP: true`)을 적용하여 방문자의 IP 주소 마지막 단위를 마스킹 처리하여 안전하게 보관합니다.
+- **IP 주소 비저장 원칙**: Google Analytics 4는 설계상 IP 주소를 기록하거나 서버에 저장하지 않습니다. 또한 본 블로그는 추가적인 클라이언트 측 익명화 설정을 유지하고 있습니다.
 - **수집 거부 (Opt-out)**: 방문자는 [Google Analytics 차단 브라우저 부가기능](https://tools.google.com/dlpage/gaoptout)을 설치하여 데이터 수집을 거부할 수 있습니다.
 
 ---
@@ -55,13 +55,22 @@ Google은 본 사이트의 타사 공급업체로서 쿠키(DART 쿠키 등)를 
 
 ---
 
-## 5. 아동의 개인정보 보호
+## 5. 댓글 시스템 (Giscus 및 GitHub Discussions)
+
+본 블로그는 GitHub Discussions 기반의 오픈소스 댓글 시스템인 **Giscus**를 사용합니다.
+- 게시글에 댓글을 작성하거나 리액션을 남길 때 방문자의 GitHub 계정을 통한 인증이 이루어집니다.
+- 댓글 내용, GitHub 사용자명, 프로필 아바타 및 참여 타임스탬프는 [GitHub 개인정보 처리방침](https://docs.github.com/ko/site-policy/privacy-policies/github-privacy-statement)에 따라 GitHub Discussions API를 통해 저장·처리됩니다.
+- 본 블로그는 이용자의 GitHub 비밀번호나 인증 자격증명을 일체 수집하거나 저장하지 않습니다.
+
+---
+
+## 6. 아동의 개인정보 보호
 
 글로벌 기술 블로그는 만 14세 미만(해외 기준 만 13세 미만) 아동으로부터 식별 가능한 개인정보를 고의로 수집하지 않습니다. 만약 부모 또는 보호자가 아동의 개인정보가 수집되었다고 판단하시는 경우 즉시 연락 주시면 신속히 파기 조치하겠습니다.
 
 ---
 
-## 6. 문의처
+## 7. 문의처
 
 개인정보처리방침과 관련된 문의 및 요청 사항은 아래로 연락해 주시기 바랍니다:
 - **운영자**: 박지환 (Jihwan Park)

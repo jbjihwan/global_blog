@@ -129,7 +129,7 @@ Transitioning from simulation to physical operation revealed critical edge cases
 With this final Sim-to-Real deployment, our 5-part **RL Q-Learning Robotics series** reaches its conclusion:
 
 1. **#1**: 648-Bin State Discretization & Webots TCP Socket IPC Architecture
-2. **#2**: Tabular Q-Learning $\epsilon$-Decay Exploration & Multi-Objective Reward Shaping
+2. **#2**: Tabular Q-Learning ε-Decay Exploration & Multi-Objective Reward Shaping
 3. **#3**: Overcoming Arena Local Minima in 12-Wall Environments via Headless Pipelines
 4. **#4**: Quantitative Benchmark with `evaluate_qlearning` vs. SARSA & DQN
 5. **#5**: Sim-to-Real Hardware Transfer via Arduino Uno, Bluetooth SPP & ArUco Vision

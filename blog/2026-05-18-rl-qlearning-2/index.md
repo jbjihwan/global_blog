@@ -24,7 +24,7 @@ keywords: ["Q-Learning Reward Shaping", "Epsilon Greedy Exploration", "Sparse Re
 
 Tabular Q-Learning is an **off-policy Temporal Difference (TD(0))** algorithm grounded in the Bellman Optimality Equation.
 
-The agent maintains an action-value table $Q(s, a)$ structured as a 2D NumPy array of shape $(648, 4)$. Using the experience transition tuple $(s, a, r, s', done)$ streamed from the Webots socket server, the $Q$-values are updated in real time via:
+The agent maintains an action-value table Q(s, a) structured as a 2D NumPy array of shape $(648, 4)$. Using the experience transition tuple $(s, a, r, s', done)$ streamed from the Webots socket server, the $Q$-values are updated in real time via:
 
 ### 📐 Q-Learning TD(0) Update Rule
 
@@ -34,8 +34,8 @@ TD Error = Target - Q(s, a)
 Q(s, a) <- Q(s, a) + α * TD Error
 ```
 
-* **Learning Rate ($\alpha = 0.1$)**: Balances the rate of incorporating new feedback versus retaining historical estimates.
-* **Discount Factor ($\gamma = 0.99$)**: Values long-term future returns, critical for multi-step navigation.
+* **Learning Rate (α = 0.1)**: Balances the rate of incorporating new feedback versus retaining historical estimates.
+* **Discount Factor (γ = 0.99)**: Values long-term future returns, critical for multi-step navigation.
 * **Terminal Masking (`1 - done`)**: Clamps future expectations to zero upon goal arrival or collision, isolating the terminal reward.
 
 ### 💻 Agent Core Implementation (`qlearning_agent.py`)
@@ -77,21 +77,21 @@ class QLearningAgent:
 
 ## 2. Exponential Epsilon-Greedy Decay Strategy
 
-At the start of training, the agent has zero domain knowledge, requiring **$\epsilon = 1.0$ (100% random exploration)** to discover the arena boundaries.
+At the start of training, the agent has zero domain knowledge, requiring **ε = 1.0 (100% random exploration)** to discover the arena boundaries.
 
 However, an uncurbed exploration rate induces perpetual collisions even after the optimal path has been resolved. We apply per-episode exponential decay:
 
 **ε_(ep+1) = max(ε_min, ε_ep × 0.995)**
 
-* **Episode 1**: $\epsilon = 1.0$ (Full exploration)
-* **Episode 300**: $\epsilon \approx 0.22$ (Shift toward exploiting high Q-values)
-* **Episode 600**: $\epsilon = 0.05$ (Floor exploration rate $\epsilon__min$, 95% greedy execution)
+* **Episode 1**: ε = 1.0 (Full exploration)
+* **Episode 300**: ε ≈ 0.22 (Shift toward exploiting high Q-values)
+* **Episode 600**: ε = 0.05 (Floor exploration rate ε_min, 95% greedy execution)
 
 ---
 
 ## 3. Dense Reward Shaping for Sparse Navigation
 
-A fundamental challenge in mobile robotics is **sparse reward feedback**. In a $1.2m \times 1.2m$ arena, moving randomly yields zero reward until the robot coincidentally intersects the $0.10m$ goal tolerance.
+A fundamental challenge in mobile robotics is **sparse reward feedback**. In a 1.2m × 1.2m arena, moving randomly yields zero reward until the robot coincidentally intersects the $0.10m$ goal tolerance.
 
 To guide convergence, we engineered a **Dense Reward Shaping** schedule inside the Webots controller (`RL_controller.py`):
 
@@ -124,7 +124,7 @@ Training for 1,500 episodes in the `no_obstacle` world demonstrated remarkable c
    * As distance-delta rewards propagate through the Q-Table, the policy establishes a strong forward-driving preference whenever `goal_heading` is centered.
    * Success rate surges from 20% to **over 80%**.
 3. **Episodes 500 ~ 1,500 (Asymptotic Convergence)**:
-   * With $\epsilon$ settled at 0.05, average steps per episode plummet from 150 (timeout) to **15 ~ 22 steps**.
+   * With ε settled at 0.05, average steps per episode plummet from 150 (timeout) to **15 ~ 22 steps**.
    * The 100-episode moving average success rate converges above **98.5%**.
 
 ---

@@ -30,7 +30,7 @@ keywords: [プライバシーポリシー, Privacy Policy, Google AdSense, Googl
 ## 3. Google Analytics 4 (GA4)
 
 当サイトでは、Google LLCが提供するアクセス解析ツール **Google Analytics 4** (測定ID: `G-VM2CVW28SL`) を導入しています。
-- **IPアドレスの匿名化**: IPアドレス匿名化機能(`anonymizeIP: true`)が有効化されており、訪問者の安全に配慮しています。
+- **IPアドレスの非保持**: Google Analytics 4は設計上、IPアドレスのログ記録および保存を行いません。また、当サイトでは追加的なクライアント側匿名化フラグも有効化しています。
 - **データ収集の無効化**: [Google アナリティクス オプトアウト アドオン](https://tools.google.com/dlpage/gaoptout) を利用することで、情報収集を無効化できます。
 
 ---
@@ -42,7 +42,16 @@ keywords: [プライバシーポリシー, Privacy Policy, Google AdSense, Googl
 
 ---
 
-## 5. お問い合わせ先
+## 5. コメント機能（GiscusおよびGitHub Discussions）
+
+当サイトは、GitHub Discussionsを活用したオープンソースのコメントウィジェットである **Giscus** を採用しています。
+- 記事にコメントやリアクションを投稿する際、訪問者のGitHubアカウント認証が行われます。
+- コメント内容、公開GitHubユーザー名、プロフィールアイコン、投稿日時は、[GitHub プライバシーポリシー](https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement) に従い、GitHub Discussions APIを通じて保存・処理されます。
+- 当サイトが利用者のGitHubパスワードや認証資格情報を取得・保存することはありません。
+
+---
+
+## 6. お問い合わせ先
 
 - **管理者**: Jihwan Park
 - **Email**: [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com)

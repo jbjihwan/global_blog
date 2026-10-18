@@ -129,7 +129,7 @@ def get_robot_pose(frame, homography_matrix):
 총 5편에 걸친 **RL Q-Learning 프로젝트** 개발일지 연재가 모두 마무리되었습니다:
 
 1. **#1**: 648개 상태 공간 이산화와 TCP 소켓 IPC 통신 구조
-2. **#2**: Tabular Q-Learning $\epsilon$-감쇠 탐색과 다차원 보상 셰이핑 설계
+2. **#2**: Tabular Q-Learning ε-감쇠 탐색과 다차원 보상 셰이핑 설계
 3. **#3**: 12개 벽 장애물 맵에서 Local Minima 극복 및 Headless 가속 파이프라인
 4. **#4**: `evaluate_qlearning` 결정론적 정량 평가와 DQN·SARSA 삼각 벤치마크
 5. **#5**: Arduino Uno, HC-06 블루투스, ArUco 마커 비전 추적을 통한 Sim-to-Real 완결

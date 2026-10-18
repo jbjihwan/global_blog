@@ -129,7 +129,7 @@ def get_robot_pose(frame, homography_matrix):
 全5回にわたる**RL Q-Learningプロジェクト**開発日誌の連載が完結しました：
 
 1. **#1**: 648状態空間の離散化モデリングとTCPソケットIPC通信設計
-2. **#2**: Tabular Q-Learning $\epsilon$-減衰探索と多目的報酬シェイピング
+2. **#2**: Tabular Q-Learning ε-減衰探索と多目的報酬シェイピング
 3. **#3**: 12壁障害物アリーナでの局所解脱出とHeadless高速化自動実行
 4. **#4**: `evaluate_qlearning` による決定論的定量評価とDQN・SARSAとの性能比較
 5. **#5**: Arduino Uno、Bluetooth通信、ArUco視覚追跡によるSim-to-Real実機展開

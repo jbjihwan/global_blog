@@ -14,7 +14,7 @@ keywords: ["Robot Autónomo Webots", "Q-Learning Tabular Robótica", "Discretiza
 > 📌 **Puntos Clave (TL;DR)**
 > - **Problema**: Las lecturas continuas de sensores (distancia y orientación) provocan una explosión del espacio de estados para el Q-Learning tabular, y la sincronización con el simulador Webots requiere una comunicación de baja latencia.
 > - **Solución**: Diseño de un mapeador de sensores continuos en 5 dimensiones que produce 3 × 8 × 3 × 3 × 3 = 648 estados discretos (`discretizer.py`) y una canalización IPC mediante sockets TCP (puerto 5000, JSON delimitado por líneas).
-> - **Resultado**: Indexación ultrarrápida de la tabla Q en tiempo $O(1)$ y sincronización física estable en pasos de 32 ms entre el simulador y el agente Python.
+> - **Resultado**: Indexación ultrarrápida de la tabla Q en tiempo O(1) y sincronización física estable en pasos de 32 ms entre el simulador y el agente Python.
 
 {/* truncate */}
 
@@ -51,7 +51,7 @@ flowchart LR
     Server <-→|"petición: {type: step, action: 0..3}<br>respuesta: {state: [...], reward, done}"| Env
 ```
 
-* **Controlador Webots (`RL_controller.py`)**: Ejecuta acciones durante 480 ms (15 pasos de simulación $×$ 32 ms) y gira el sensor ultrasónico montado en la cabeza hacia la izquierda y la derecha en 1.1 rad ($\approx 63°$) para eliminar puntos ciegos.
+* **Controlador Webots (`RL_controller.py`)**: Ejecuta acciones durante 480 ms (15 pasos de simulación × 32 ms) y gira el sensor ultrasónico montado en la cabeza hacia la izquierda y la derecha en 1.1 rad ($\approx 63°$) para eliminar puntos ciegos.
 * **Protocolo de Sockets**: JSON delimitado por líneas sobre TCP localhost:5000 para minimizar la sobrecarga.
 
 ---
@@ -63,7 +63,7 @@ Para aplicar Q-Learning tabular, las variables continuas se asignan a 5 factores
 | Variable de Observación | Bins | Umbrales (Thresholds) | Significado Físico |
 | :--- | :---: | :--- | :--- |
 | **Distancia al objetivo (`goal_distance`)** | **3** | `[0.6m, 1.2m]` | Cerca (Near), Medio (Mid), Lejos (Far) |
-| **Orientación relativa (`goal_heading`)** | **8** | $[-π, π]$ (8 sectores de $45°$) | Frente, Frente-Der, Der, Atrás-Der, Atrás, Atrás-Izq, Izq, Frente-Izq |
+| **Orientación relativa (`goal_heading`)** | **8** | [-π, π] (8 sectores de 45°) | Frente, Frente-Der, Der, Atrás-Der, Atrás, Atrás-Izq, Izq, Frente-Izq |
 | **Obstáculo frontal (`front_distance`)** | **3** | `[0.15m, 0.30m]` | Peligro/Inminente, Precaución, Seguro |
 | **Obstáculo izquierdo (`left_distance`)** | **3** | `[0.15m, 0.30m]` | Peligro, Precaución, Seguro |
 | **Obstáculo derecho (`right_distance`)** | **3** | `[0.15m, 0.30m]` | Peligro, Precaución, Seguro |
@@ -71,7 +71,7 @@ Para aplicar Q-Learning tabular, las variables continuas se asignan a 5 factores
 Número total de estados:
 **N_estados = 3 × 8 × 3 × 3 × 3 = 648**
 
-La tabla Q resultante contiene solo **$648 × 4 = 2,592$ parámetros**, permitiendo actualizaciones en submilisegundos en memoria sin requerir GPU.
+La tabla Q resultante contiene solo **648 × 4 = 2,592 parámetros**, permitiendo actualizaciones en submilisegundos en memoria sin requerir GPU.
 
 ---
 
@@ -83,8 +83,8 @@ La tabla Q resultante contiene solo **$648 × 4 = 2,592$ parámetros**, permitie
 2. **Rotación de la cabeza**: Barrido a +1.1 rad para medir distancia izquierda, luego -1.1 rad para distancia derecha.
 3. **Centrado**: Regreso a 0 rad para refrescar distancia frontal.
 4. **Condiciones de fin de episodio**:
-   * **Objetivo alcanzado**: Distancia euclidiana $`<= 0.10m` \rightarrow$ Éxito (`done = True`, recompensa $+1.0$).
-   * **Colisión con pared**: Cualquier distancia $`<= 0.08m` \rightarrow$ Fallo (`done = True`, recompensa $-1.0$).
+   * **Objetivo alcanzado**: Distancia euclidiana ≤ 0.10m → Éxito (`done = True`, recompensa $+1.0$).
+   * **Colisión con pared**: Cualquier distancia ≤ 0.08m → Fallo (`done = True`, recompensa $-1.0$).
 
 ---
 
@@ -92,4 +92,4 @@ La tabla Q resultante contiene solo **$648 × 4 = 2,592$ parámetros**, permitie
 
 Con el entorno de Webots, la interfaz IPC por sockets TCP y la discretización en 648 estados listos, el robot puede comenzar su aprendizaje.
 
-En el episodio #2, abordaremos la **implementación matemática de Tabular Q-Learning, la política de exploración $\epsilon$-greedy con decaimiento y el ajuste de la función de recompensa**!
+En el episodio #2, abordaremos la **implementación matemática de Tabular Q-Learning, la política de exploración ε-greedy con decaimiento y el ajuste de la función de recompensa**!

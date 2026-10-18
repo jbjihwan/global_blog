@@ -24,7 +24,7 @@ keywords: ["Configuración de Recompensas Q-Learning", "Exploración Epsilon-Gre
 
 Q-Learning tabular es un algoritmo **fuera de política (Off-policy) de Diferencia Temporal (TD(0))** basado en la ecuación de optimalidad de Bellman.
 
-El agente mantiene una tabla $Q(s, a)$ de dimensiones $648 \times 4$, actualizando los valores $Q$ en tiempo real:
+El agente mantiene una tabla Q(s, a) de dimensiones $648 \times 4$, actualizando los valores $Q$ en tiempo real:
 
 ### 📐 Regla de Actualización TD(0)
 
@@ -34,21 +34,21 @@ TD Error = Target - Q(s, a)
 Q(s, a) <- Q(s, a) + α * TD Error
 ```
 
-* **Tasa de aprendizaje ($\alpha = 0.1$)**: Regula la incorporación de nueva experiencia.
-* **Factor de descuento ($\gamma = 0.99$)**: Pondera el valor de las recompensas futuras a largo plazo.
+* **Tasa de aprendizaje (α = 0.1)**: Regula la incorporación de nueva experiencia.
+* **Factor de descuento (γ = 0.99)**: Pondera el valor de las recompensas futuras a largo plazo.
 * **Máscara de estado terminal (`1 - done`)**: Anula el valor futuro al alcanzar el objetivo o colisionar.
 
 ---
 
 ## 2. Estrategia de Decaimiento de Epsilon-Greedy
 
-Iniciamos con **$\epsilon = 1.0$ (100% exploración aleatoria)** y aplicamos decaimiento exponencial al final de cada episodio:
+Iniciamos con **ε = 1.0 (100% exploración aleatoria)** y aplicamos decaimiento exponencial al final de cada episodio:
 
 **ε_(ep+1) = max(ε_min, ε_ep × 0.995)**
 
-* **Episodio 1**: $\epsilon = 1.0$ (Exploración completa)
-* **Episodio 300**: $\epsilon \approx 0.22$ (Transición a explotación de valores Q)
-* **Episodio 600**: $\epsilon = 0.05$ (Tasa mínima $\epsilon__min$, 95% de acciones voraces/greedy)
+* **Episodio 1**: ε = 1.0 (Exploración completa)
+* **Episodio 300**: ε ≈ 0.22 (Transición a explotación de valores Q)
+* **Episodio 600**: ε = 0.05 (Tasa mínima ε_min, 95% de acciones voraces/greedy)
 
 ---
 

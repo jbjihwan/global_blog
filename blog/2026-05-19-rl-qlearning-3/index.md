@@ -42,14 +42,14 @@ flowchart TD
 
 ## 2. Solution Strategy: Head-Scan Perception & Value Backpropagation
 
-Overcoming this trap relies on coupling **3-directional head-scan perception** with a **high discount factor ($\gamma = 0.99$)**:
+Overcoming this trap relies on coupling **3-directional head-scan perception** with a **high discount factor (γ = 0.99)**:
 
 1. **Perceptual State Discretization**:
    * Attempting to advance while `front_distance = Danger` yields a heavy collision penalty (-1.0).
    * Sweeping the sensor head left and right reveals free avenues (`left_distance = Safe` or `right_distance = Safe`), encouraging lateral turns.
 2. **Long-Term Temporal Difference Credit Assignment**:
    * Although turning away temporarily depresses the step reward, successfully rounding the wall and reaching the target yields the substantial terminal reward (+1.0).
-   * Backpropagated through $Q(s, a)$ with $\gamma = 0.99$, the agent gradually learns that detour steps possess higher expected return than head-on approaches.
+   * Backpropagated through Q(s, a) with γ = 0.99, the agent gradually learns that detour steps possess higher expected return than head-on approaches.
 
 ---
 

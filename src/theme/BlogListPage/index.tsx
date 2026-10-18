@@ -534,13 +534,16 @@ function ProjectHubView({
             </div>
             <div className={styles.cardAction}>
               {proj.hasPosts ? (
-                <button
-                  type="button"
+                <a
+                  href={`#${proj.id}`}
                   className={styles.btnPrimary}
-                  onClick={() => onSelectProject(proj.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectProject(proj.id);
+                  }}
                 >
                   {proj.postCountText}
-                </button>
+                </a>
               ) : (
                 <button type="button" className={styles.btnDisabled} disabled>
                   {proj.postCountText}
@@ -721,12 +724,49 @@ function BlogListPageContent(props: any) {
         </div>
       </div>
 
-      {/* Hub Mode (Project Selection Grid) */}
+      {/* Hub Mode (Project Selection Grid & SSR Crawlable Directory) */}
       {activeTab === 'hub' && (
-        <ProjectHubView
-          projects={content.projects}
-          onSelectProject={(id) => handleSelectTab(id as any)}
-        />
+        <>
+          <ProjectHubView
+            projects={content.projects}
+            onSelectProject={(id) => handleSelectTab(id as any)}
+          />
+          <div style={{ marginTop: '2.5rem', borderTop: '1px solid var(--ifm-color-emphasis-200)', paddingTop: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--ifm-color-emphasis-800)' }}>
+              {locale === 'ko'
+                ? '전체 기술 일지 및 아티클 목차'
+                : locale === 'ja'
+                ? '全開発日誌・技術記事目次'
+                : locale === 'es'
+                ? 'Índice de Diarios y Artículos'
+                : 'All Engineering Logs & Articles Index'}
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.6rem' }}>
+              {allSidebarItems.map((item: any) => (
+                <a
+                  key={item.permalink}
+                  href={item.permalink}
+                  style={{
+                    display: 'block',
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: '6px',
+                    backgroundColor: 'var(--ifm-card-background-color, var(--ifm-color-emphasis-100))',
+                    fontSize: '0.85rem',
+                    textDecoration: 'none',
+                    color: 'var(--ifm-color-emphasis-800)',
+                    border: '1px solid var(--ifm-color-emphasis-200)',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                  title={item.title}
+                >
+                  {item.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        </>
       )}
 
       {/* Project View (Full Episode Grid with Sorting) */}

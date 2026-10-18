@@ -14,7 +14,7 @@ keywords: ["Webots Autonomous Robot", "Tabular Q-Learning Robotics", "State Disc
 > 📌 **Key Takeaways (TL;DR)**
 > - **Problem**: Continuous sensor readings (distance & heading) cause a state-space explosion for tabular Q-learning, and synchronous IPC with the Webots simulator requires low-latency coordination.
 > - **Solution**: Designed a geometrically partitioned 5-dimensional continuous sensor mapper producing 3 × 8 × 3 × 3 × 3 = 648 discrete states (`discretizer.py`) and a line-delimited JSON IPC socket pipeline over TCP port 5000.
-> - **Result**: Achieved $O(1)$ fast Q-Table indexing and reliable 32ms physics synchronization between the simulator and Python agent.
+> - **Result**: Achieved O(1) fast Q-Table indexing and reliable 32ms physics synchronization between the simulator and Python agent.
 
 {/* truncate */}
 
@@ -51,7 +51,7 @@ flowchart LR
     Server <-→|"request: {type: step, action: 0..3}<br>response: {state: [...], reward, done}"| Env
 ```
 
-* **Webots Controller (`RL_controller.py`)**: Executes action commands for 480ms (15 simulation ticks $×$ 32ms) and rotates a head-mounted ultrasonic sensor left and right by 1.1 rad ($\approx 63°$) to eliminate blind spots.
+* **Webots Controller (`RL_controller.py`)**: Executes action commands for 480ms (15 simulation ticks × 32ms) and rotates a head-mounted ultrasonic sensor left and right by 1.1 rad ($\approx 63°$) to eliminate blind spots.
 * **Socket Protocol**: Lightweight line-delimited JSON over TCP localhost:5000:
   * Request: `{"type": "step", "action": 0}` (0: Forward, 1: Backward, 2: Turn Left, 3: Turn Right)
   * Response: `{"state": [0.45, 0.12, 0.35, 0.28, 0.40], "reward": 0.05, "done": false, "info": {...}}`
@@ -65,7 +65,7 @@ To apply tabular Q-learning, continuous floats must be mapped into finite discre
 | Feature | Bins | Thresholds | Semantic Meaning |
 | :--- | :---: | :--- | :--- |
 | **`goal_distance`** | **3** | `[0.6m, 1.2m]` | Near, Mid, Far |
-| **`goal_heading`** | **8** | $[-π, π]$ (8 sectors, $45°$ each) | Front, Front-Right, Right, Back-Right, Back, Back-Left, Left, Front-Left |
+| **`goal_heading`** | **8** | [-π, π] (8 sectors, 45° each) | Front, Front-Right, Right, Back-Right, Back, Back-Left, Left, Front-Left |
 | **`front_distance`** | **3** | `[0.15m, 0.30m]` | Danger/Collision, Caution, Safe |
 | **`left_distance`** | **3** | `[0.15m, 0.30m]` | Danger, Caution, Safe |
 | **`right_distance`** | **3** | `[0.15m, 0.30m]` | Danger, Caution, Safe |
@@ -73,7 +73,7 @@ To apply tabular Q-learning, continuous floats must be mapped into finite discre
 Total State Count:
 **N_states = 3 × 8 × 3 × 3 × 3 = 648**
 
-The resulting Q-Table requires only **$648 × 4 = 2,592$ floating-point entries**, allowing sub-millisecond memory updates and zero GPU overhead.
+The resulting Q-Table requires only **648 × 4 = 2,592 floating-point entries**, allowing sub-millisecond memory updates and zero GPU overhead.
 
 ### 💻 State Discretization Code (`discretizer.py`)
 
@@ -113,8 +113,8 @@ A fixed forward-facing sensor leaves lateral blind spots. We implemented an acti
 2. **Head Rotation**: Sweep head servo +1.1 rad to read left distance, then -1.1 rad for right distance.
 3. **Re-center**: Return head to 0 rad and refresh front distance.
 4. **Terminal Conditions**:
-   * **Goal Reached**: Euclidean distance $`<= 0.10m` \rightarrow$ success (`done = True`, reward $+1.0$)
-   * **Collision**: Any distance $`<= 0.08m` \rightarrow$ failure (`done = True`, reward $-1.0$)
+   * **Goal Reached**: Euclidean distance ≤ 0.10m → success (`done = True`, reward $+1.0$)
+   * **Collision**: Any distance ≤ 0.08m → failure (`done = True`, reward $-1.0$)
 
 ---
 
@@ -122,4 +122,4 @@ A fixed forward-facing sensor leaves lateral blind spots. We implemented an acti
 
 With the simulator environment, TCP socket IPC, and 648-bin state discretization established, our agent is ready for reinforcement learning.
 
-In Episode #2, we will cover the **mathematical implementation of Tabular Q-Learning, $\epsilon$-greedy exploration decay, and reward function tuning**!
+In Episode #2, we will cover the **mathematical implementation of Tabular Q-Learning, ε-greedy exploration decay, and reward function tuning**!

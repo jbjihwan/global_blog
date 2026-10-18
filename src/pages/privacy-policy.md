@@ -39,7 +39,7 @@ Like any other website, Global Dev Blog uses "cookies". These cookies are used t
 
 Global Dev Blog utilizes **Google Analytics 4** (Measurement ID: `G-VM2CVW28SL`), a web analytics service provided by Google LLC ("Google"). Google Analytics uses cookies to help us analyze how visitors interact with our technical articles.
 
-- **IP Anonymization**: Global Dev Blog has enabled IP anonymization (`anonymizeIP: true`). Google truncates/anonymizes the last octet of the IP address for Member States of the European Union as well as for other parties to the Agreement on the European Economic Area.
+- **IP Protection**: In Google Analytics 4, IP addresses are not logged or stored. In addition, Global Dev Blog maintains client-side anonymization flags to ensure visitor privacy.
 - **Opt-Out**: Visitors can prevent their data from being used by Google Analytics by installing the **Google Analytics Opt-out Browser Add-on** available at: [https://tools.google.com/dlpage/gaoptout](https://tools.google.com/dlpage/gaoptout).
 
 ---
@@ -58,7 +58,16 @@ Google is a third-party vendor on our site. It also uses cookies, known as DART 
 
 ---
 
-## 5. Third-Party Privacy Policies
+## 5. Comment System (Giscus & GitHub Discussions)
+
+Global Dev Blog uses **Giscus**, an open-source commenting widget powered by **GitHub Discussions**. 
+- When you leave a comment or interact with reactions on our blog posts, authentication is handled through your GitHub account.
+- The comment content, your public GitHub username, avatar, and interaction timestamps are stored and processed via the GitHub Discussions API in accordance with [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+- Global Dev Blog does not collect, store, or process your GitHub passwords or personal authentication credentials.
+
+---
+
+## 6. Third-Party Privacy Policies
 
 Global Dev Blog's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
 

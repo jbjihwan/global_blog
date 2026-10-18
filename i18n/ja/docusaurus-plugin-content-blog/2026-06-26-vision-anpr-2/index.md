@@ -64,6 +64,17 @@ Footprint = [x_min, y_min + 0.7*h, x_max, y_max]
 IoU = Area(Footprint ∩ Lane_Polygon) / Area(Footprint)
 ```
 
+```python
+def check_lane_intrusion(vehicle_box, lane_polygon, threshold=0.05):
+    vx1, vy1, vx2, vy2 = vehicle_box
+    vh = vy2 - vy1
+    footprint = Polygon([(vx1, vy1 + 0.7*vh), (vx2, vy1 + 0.7*vh), (vx2, vy2), (vx1, vy2)])
+    
+    intersection = footprint.intersection(lane_polygon).area
+    iou = intersection / footprint.area
+    return iou > threshold, iou
+```
+
 `IoU > 0.05` を超えた段階で侵犯フラグを有効化し、ナンバープレート検出器を起動します。
 
 ---

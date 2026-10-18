@@ -3,10 +3,18 @@ import BlogPostItem from '@theme-original/BlogPostItem';
 import Giscus from '@giscus/react';
 import { useColorMode } from '@docusaurus/theme-common';
 import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function BlogPostItemWrapper(props: any) {
   const { colorMode } = useColorMode();
   const { isBlogPostPage } = useBlogPost();
+  const {
+    i18n: { currentLocale },
+  } = useDocusaurusContext();
+
+  const giscusLang = ['ko', 'en', 'ja', 'es'].includes(currentLocale)
+    ? currentLocale
+    : 'en';
 
   return (
     <>
@@ -24,7 +32,7 @@ export default function BlogPostItemWrapper(props: any) {
             emitMetadata="0"
             inputPosition="top"
             theme={colorMode === 'dark' ? 'dark' : 'light'}
-            lang="ko"
+            lang={giscusLang}
             loading="lazy"
           />
         </div>

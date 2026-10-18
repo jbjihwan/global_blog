@@ -49,17 +49,14 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'ignore',
-          postsPerPage: 1,
+          onUntruncatedBlogPosts: 'warn',
+          postsPerPage: 'ALL',
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'Projects & Dev Logs',
+          blogTitle: 'Global Dev Blog',
+          blogDescription: 'Production-grade AI engineering, Autonomous Systems, and Full-Stack Development Journey',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -73,7 +70,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
+    image: 'img/social-card.png',
     metadata: [
       { name: 'referrer', content: 'strict-origin-when-cross-origin' },
       { name: 'author', content: 'Jihwan Park (jbjihwan)' },
@@ -120,15 +117,15 @@ const config: Config = {
           title: 'About & Legal',
           items: [
             {
-              label: 'About Me (소개)',
+              label: 'About',
               to: '/about',
             },
             {
-              label: 'Privacy Policy (개인정보처리방침)',
+              label: 'Privacy Policy',
               to: '/privacy-policy',
             },
             {
-              label: 'Contact (문의하기)',
+              label: 'Contact',
               to: '/contact',
             },
           ],

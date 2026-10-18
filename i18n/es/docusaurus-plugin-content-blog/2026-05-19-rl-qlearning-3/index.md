@@ -42,10 +42,10 @@ flowchart TD
 
 ## 2. Estrategia de Solución: Percepción Head-Scan y Retropropagación de Valor
 
-Superar esta trampa requirió combinar la **percepción ultrasónica tridireccional** con un **alto factor de descuento ($\gamma = 0.99$)**:
+Superar esta trampa requirió combinar la **percepción ultrasónica tridireccional** con un **alto factor de descuento (γ = 0.99)**:
 
 1. **Ampliación de estados**: Ante un obstáculo frontal (`front_distance = Danger`), el barrido del sensor revela corredores libres (`left_distance = Safe` o `right_distance = Safe`), induciendo giros laterales.
-2. **Asignación temporal de crédito**: Aunque alejarse reduce la recompensa inmediata, bordear el obstáculo y llegar a la meta otorga la recompensa terminal (+1.0). El factor $\gamma=0.99$ propaga este retorno hacia atrás, consolidando la política de desvío.
+2. **Asignación temporal de crédito**: Aunque alejarse reduce la recompensa inmediata, bordear el obstáculo y llegar a la meta otorga la recompensa terminal (+1.0). El factor γ = 0.99 propaga este retorno hacia atrás, consolidando la política de desvío.
 
 ---
 

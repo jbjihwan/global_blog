@@ -22,7 +22,7 @@ keywords: ["Deterministic Policy Evaluation", "Near-Miss Obstacle Metric", "Q-Le
 
 ## 1. Quantitative Evaluation Pipeline (`evaluate_qlearning.py`)
 
-Training reward curves are inherently noisy due to $\epsilon$-greedy exploration. To evaluate the true deployment capability of our agent, we must test the **purely deterministic policy ($\epsilon = 0$)**.
+Training reward curves are inherently noisy due to ε-greedy exploration. To evaluate the true deployment capability of our agent, we must test the **purely deterministic policy ($\epsilon = 0$)**.
 
 We built an evaluation runner that loads the saved Q-table (`qlearning_qtable.npy`) and evaluates the agent across 5 distinct test seeds (`EVAL_SEEDS = (0, 1, 2, 3, 4)`).
 

@@ -129,7 +129,7 @@ Durante la transición de la simulación al hardware real surgieron desafíos im
 Con este hito de transferencia a hardware real concluye la serie de 5 artículos sobre el **proyecto RL Q-Learning**:
 
 1. **#1**: Discretización del espacio de estados (648 bins) y arquitectura IPC con sockets TCP
-2. **#2**: Tabular Q-Learning con decaimiento $\epsilon$ y diseño de recompensas multidimensionales
+2. **#2**: Tabular Q-Learning con decaimiento ε y diseño de recompensas multidimensionales
 3. **#3**: Superación de mínimos locales en arenas de 12 paredes y aceleración en modo Headless
 4. **#4**: Evaluación cuantitativa determinista con `evaluate_qlearning` vs. SARSA y DQN
 5. **#5**: Sim-to-Real: Despliegue en Arduino Uno, Bluetooth HC-06 y visión ArUco
