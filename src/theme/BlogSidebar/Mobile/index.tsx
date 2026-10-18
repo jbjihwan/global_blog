@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { NavbarSecondaryMenuFiller } from '@docusaurus/theme-common';
+import { ProjectIcon } from '@site/src/components/Icons';
 import styles from './styles.module.css';
 
 type SupportedLocale = 'en' | 'ko' | 'ja' | 'es';
@@ -27,11 +28,11 @@ interface SidebarLocaleData {
 
 const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
   ko: {
-    mainTitle: '🚀 프로젝트 & 개발 일지',
-    homeHub: '🏠 전체 프로젝트 허브',
-    projectsHeader: '📂 프로젝트 분류',
-    postsHeader: '📑 게시글 목차',
-    allPostsName: '📑 전체 글 피드',
+    mainTitle: '프로젝트 & 개발 일지',
+    homeHub: '전체 프로젝트 허브',
+    projectsHeader: '프로젝트 분류',
+    postsHeader: '게시글 목차',
+    allPostsName: '전체 글 피드',
     allPostsDesc: '34개 전체 개발일지',
     maeumjigiName: '마음지기 AI 챗봇',
     maeumjigiDesc: 'Llama 3.1 파인튜닝 (23편)',
@@ -43,11 +44,11 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityDesc: '취약점 방어 & 하드닝 (1편)',
   },
   en: {
-    mainTitle: '🚀 Projects & Dev Logs',
-    homeHub: '🏠 All Projects Hub',
-    projectsHeader: '📂 Projects Category',
-    postsHeader: '📑 Dev Log Table of Contents',
-    allPostsName: '📑 All Posts Feed',
+    mainTitle: 'Projects & Dev Logs',
+    homeHub: 'All Projects Hub',
+    projectsHeader: 'Projects Category',
+    postsHeader: 'Dev Log Table of Contents',
+    allPostsName: 'All Posts Feed',
     allPostsDesc: '34 total dev logs',
     maeumjigiName: 'Maeumjigi AI Chatbot',
     maeumjigiDesc: 'Llama 3.1 Fine-tuning (23 Posts)',
@@ -59,11 +60,11 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityDesc: 'Vulnerability Defense (1 Post)',
   },
   ja: {
-    mainTitle: '🚀 プロジェクト＆開発日誌',
-    homeHub: '🏠 全プロジェクトハブ',
-    projectsHeader: '📂 プロジェクト分類',
-    postsHeader: '📑 開発日誌 目次',
-    allPostsName: '📑 全記事フィード',
+    mainTitle: 'プロジェクト＆開発日誌',
+    homeHub: '全プロジェクトハブ',
+    projectsHeader: 'プロジェクト分類',
+    postsHeader: '開発日誌 目次',
+    allPostsName: '全記事フィード',
     allPostsDesc: '全34編の開発日誌',
     maeumjigiName: 'マウムジギ AIチャットボット',
     maeumjigiDesc: 'Llama 3.1 ファインチューニング (23編)',
@@ -75,11 +76,11 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityDesc: '脆弱性防御＆強化 (1編)',
   },
   es: {
-    mainTitle: '🚀 Proyectos y Diarios',
-    homeHub: '🏠 Panel de Proyectos',
-    projectsHeader: '📂 Categorías de Proyectos',
-    postsHeader: '📑 Índice de Publicaciones',
-    allPostsName: '📑 Todos los Posts',
+    mainTitle: 'Proyectos y Diarios',
+    homeHub: 'Panel de Proyectos',
+    projectsHeader: 'Categorías de Proyectos',
+    postsHeader: 'Índice de Publicaciones',
+    allPostsName: 'Todos los Posts',
     allPostsDesc: '34 diarios de desarrollo',
     maeumjigiName: 'Chatbot IA Maeumjigi',
     maeumjigiDesc: 'Fine-tuning Llama 3.1 (23 Posts)',
@@ -141,7 +142,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         id: 'maeumjigi',
         name: t.maeumjigiName,
         desc: t.maeumjigiDesc,
-        icon: '🧠',
+        icon: 'maeumjigi',
         count: 23,
         targetUrl: findFirst(/maeumjigi/),
         filter: (item: any) => item.permalink.includes('maeumjigi'),
@@ -151,7 +152,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         id: 'anpr_vision',
         name: t.anprName,
         desc: t.anprDesc,
-        icon: '🚗',
+        icon: 'anpr_vision',
         count: 5,
         targetUrl: findFirst(/vision-anpr/),
         filter: (item: any) => item.permalink.includes('vision-anpr'),
@@ -161,7 +162,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         id: 'rl_q_learning',
         name: t.rlName,
         desc: t.rlDesc,
-        icon: '🤖',
+        icon: 'rl_q_learning',
         count: 5,
         targetUrl: findFirst(/rl-qlearning/),
         filter: (item: any) => item.permalink.includes('rl-qlearning'),
@@ -171,7 +172,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         id: 'security',
         name: t.securityName,
         desc: t.securityDesc,
-        icon: '🛡️',
+        icon: 'security',
         count: 1,
         targetUrl: findFirst(/static-site-security-hardening/),
         filter: (item: any) => item.permalink.includes('static-site-security-hardening'),
@@ -181,7 +182,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         id: 'all',
         name: t.allPostsName,
         desc: t.allPostsDesc,
-        icon: '📑',
+        icon: 'all',
         count: items.length,
         targetUrl: `${blogHomeUrl}#all`,
         filter: () => true,
@@ -210,14 +211,19 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       {/* Tier 1: Home */}
       <div className={styles.sectionBlock}>
         <Link to={blogHomeUrl} className={styles.homeButton}>
-          <span>🏠</span>
+          <ProjectIcon id="home" size={17} />
           <span>{t.homeHub}</span>
         </Link>
       </div>
 
       {/* Tier 2: Projects */}
       <div className={styles.sectionBlock}>
-        <div className={styles.sectionHeader}>{t.projectsHeader}</div>
+        <div className={styles.sectionHeader}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+            <ProjectIcon id="folder" size={14} />
+            {t.projectsHeader}
+          </span>
+        </div>
         <div className={styles.projectList}>
           {projects.map((proj) => {
             const isActive = currentProjectId === proj.id;
@@ -230,7 +236,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
                   isActive && styles.projectCardActive
                 )}
               >
-                <span>{proj.icon}</span>
+                <ProjectIcon id={proj.id} size={18} />
                 <div className={styles.projectInfo}>
                   <div>{proj.name}</div>
                   <div className={styles.projectBadge}>{proj.desc}</div>
@@ -244,7 +250,10 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       {/* Tier 3: Posts */}
       <div className={styles.sectionBlock}>
         <div className={styles.sectionHeader}>
-          {activeProject.icon} {activeProject.name} ({displayPosts.length})
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+            <ProjectIcon id={activeProject.id} size={14} />
+            {activeProject.name} ({displayPosts.length})
+          </span>
         </div>
         <ul className={styles.postList}>
           {displayPosts.map((item: any) => {
