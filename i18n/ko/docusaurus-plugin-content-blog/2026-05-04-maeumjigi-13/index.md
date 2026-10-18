@@ -1,45 +1,40 @@
-Aquí tienes la traducción al español del post del blog técnico, manteniendo el formato Markdown, la estructura del *frontmatter* y los bloques de código:
-
-```markdown
 ---
 slug: 2026-05-04-maeumjigi-13
-title: "[Diario de desarrollo de Capstone Maeumjigi #13] Límites del entrenamiento de 70B y estrategia alternativa con modelos medianos y pequeños (HCX, Qwen)"
+title: "[마음지기 캡스톤 개발일지 #13] 70B 학습의 한계와 중소형 모델(HCX, Qwen) 우회 전략"
 authors: [jbgih]
-tags: [diario de desarrollo, fine-tuning, HCX-Omni-8B, Qwen35-9B, checkpoint, hiperparámetros, inteligencia artificial (IA)]
+tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 체크포인트, 하이퍼파라미터, AI]
 date: 2026-05-04
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-## 1. Problemas de OOM y límites en el fine-tuning de modelos de 70B
-Durante el proceso de fine-tuning (ajuste fino) de inteligencia artificial (IA) de los modelos Llama3.3 70B y DeepSeek-R1 70B, que eran nuestro plan inicial, nos enfrentamos a un grave problema de OOM (Out of Memory). Para contener el uso de memoria, aplicamos un método de reducción extrema del tamaño de lote (Batch Size) y forzamos el progreso del entrenamiento hasta `checkpoint-1200` y `1300`. Sin embargo, debido a esto, la velocidad de entrenamiento se redujo de manera exponencial, y nos encontramos en una situación en la que era difícil esperar una convergencia (Convergence) significativa de la pérdida (Loss) dentro de los limitados recursos físicos del servidor y el plazo del proyecto capstone.
+![사진 01](./images/01_cover.png)
 
-## 2. Estrategia de pivoteo (Pivot) hacia modelos medianos y pequeños (sLLM)
-Para superar las limitaciones de recursos físicos y cumplir con el cronograma del proyecto, cambiamos nuestro objetivo hacia modelos medianos y pequeños (1.5B ~ 9B) con un número relativamente menor de parámetros. 
-La nueva línea de modelos adoptados es la siguiente:
-- **HCX-Omni-8B**
-- **Qwen35-9B**
-- **HCX-Text-1.5B**
+70B라는 거대한 모델의 파인튜닝 과정에서 발생한 OOM(메모리 부족) 지옥을 경험한 5월 4일, 저희는 과감한 전략 변경을 시도했습니다. 70B 모델(Llama3.3, DeepSeek-R1)은 배치 사이즈를 극단적으로 줄여 겨우 `checkpoint-1200`, `1300`까지 진행시켰지만, 학습 시간이 너무 오래 걸려 효율이 극악이었습니다.
 
-### 2.1 Ajuste de hiperparámetros y evaluación de rendimiento
-A pesar de la reducción en la escala del modelo, el proceso de optimización de hiperparámetros (Hyperparameter) para extraer el mejor rendimiento era esencial. Especialmente considerando el equilibrio (Trade-off) entre la velocidad de entrenamiento y el rendimiento de generalización (Generalization), probamos principalmente el aumento del tamaño del lote dentro de los límites permitidos por la memoria. 
-Para una validación eficiente del pipeline, completamos primero el entrenamiento del modelo más pequeño, HCX-Text-1.5B, y realizamos una evaluación de inferencia de extremo a extremo (End-to-End). Utilizamos esto como línea base (Baseline) para establecer la dirección de ajuste de los modelos de 8B y 9B.
+### 중소형 모델(1.5B ~ 9B)로 눈을 돌리다
 
-## 3. Solución de problemas (Troubleshooting): Error al guardar checkpoints y problemas de compatibilidad del kernel del sistema
+물리적인 서버 자원과 캡스톤 프로젝트의 마감 기한을 고려했을 때, 70B에만 매달리는 것은 위험하다고 판단했습니다. 그래서 **HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B** 와 같은 상대적으로 가벼운 중소형 모델들로 파인튜닝 대상을 선회하여 실험을 시작했습니다.
 
-Mientras realizábamos un entrenamiento exitoso con el modelo HCX-Omni-8B, ocurrió un error crítico de interrupción del proceso durante el guardado de checkpoints (I/O) alrededor del Step 50.
+> "현재 지정한 하이퍼파라미터로 HCX-Omni-8B, Qwen35-9B, HCX-Text-1p5B를 학습시키는데 시간이 오래 걸리는데, 보편적으로 모델별로 이러한 파라미터가 사용되는가?"
+> "이 batch size 상향이 학습에 어떠한 영향을 미치나요?"
 
-### 3.1 Registros de error (Error Logs)
+작은 모델이라고 해서 모든 것이 순조로운 것은 아니었습니다. 빠른 학습을 위해 배치 사이즈(Batch Size)를 상향 조정해 보고, 모델 크기에 맞는 하이퍼파라미터 최적화 값을 찾아 AI와 끝없는 토론을 이어갔습니다. 가장 작은 모델인 HCX-Text-1.5B의 학습 결과를 먼저 뽑아내어 성능 평가를 진행하며 튜닝의 방향성을 잡아나갔습니다.
+
+### 체크포인트 저장 오류와 커널 버전 문제
+
+HCX-Omni-8B 학습을 순조롭게 진행하던 중, 50 스텝에서 체크포인트를 저장하려다 또 다른 암초를 만났습니다.
+
 ```python
 [RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang.
 ...
+![사진 02](./images/02_error.png)
+
 JSONDecodeError Traceback (most recent call last)
 ---> 60 trainer.train(resume_from_checkpoint=...)
 ```
 
-### 3.2 Análisis de la causa raíz (Root Cause Analysis)
-1. **Advertencia de versión de Kernel del SO inferior:** Se confirmó que la versión del Kernel de Linux del sistema operativo host era 5.4.0, lo cual no alcanzaba la versión mínima recomendada (5.5.0) para procesos de entrenamiento distribuido (como DDP), existiendo la posibilidad de causar un bloqueo (Hang) en el proceso.
-2. **Corrupción de archivos de metadatos de checkpoints:** Debido a la inestabilidad a nivel del sistema mencionada o a problemas de sincronización de I/O, los archivos de metadatos como `trainer_state.json` que el `Trainer` de Hugging Face escribe en el disco no se registraron completamente y se dañaron. Por lo tanto, durante el proceso de reanudación del entrenamiento, el analizador (Parser) no pudo leer el archivo correspondiente y devolvió un `JSONDecodeError`.
+운영체제의 커널 버전이 낮아 프로세스가 멈출 수 있다는 경고와 함께, 저장된 체크포인트의 JSON 파일이 깨져서(`JSONDecodeError`) 학습을 재개하지 못하는 끔찍한 에러였습니다. 
 
-### 3.3 Solución y próximos pasos (Solution & Next Steps)
-- **Confirmación del límite de recuperación de checkpoints:** Aunque está diseñado para permitir la reanudación del entrenamiento a través del argumento `resume_from_checkpoint` del `Trainer` de Hugging Face, confirmamos que es imposible cargarlo cuando el archivo JSON en sí está físicamente dañado.
-- **Plan de acción:** Para la creación estable de checkpoints, ajustamos la frecuencia de guardado y adoptamos el método de revertir (Rollback) y reanudar el entrenamiento desde el estado normal más reciente anterior al checkpoint dañado. Además, en preparación para el caso de que ocurran errores frecuentes de I/O, planeamos revisar de manera adicional la actualización de la versión del kernel a nivel de infraestructura o implementar parches de compatibilidad.
-```
+> "현재 모델들이 학습 중 중단되면 중단된 부분에서 다시 학습을 시작하나요?"
+
+다행히 허깅페이스 `Trainer`는 체크포인트부터 이어서 학습(`resume_from_checkpoint`)하는 기능을 제공하지만, 그 체크포인트 파일 자체가 손상되면 말짱 도루묵이 됩니다. 모델 크기를 줄였음에도 여전히 프레임워크와 인프라 단에서 발생하는 수많은 에러들과 씨름하며 하루를 꼬박 보냈습니다. 과연 안정적인 학습 궤도에 오를 수 있을까요?

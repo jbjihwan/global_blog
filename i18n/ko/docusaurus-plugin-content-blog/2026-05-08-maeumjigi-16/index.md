@@ -1,61 +1,40 @@
-```markdown
 ---
 slug: 2026-05-08-maeumjigi-16
-title: "[Diario de Desarrollo Capstone de Maeumjigi #16] Error Crítico y Segundo Fine-tuning, y el Primer Lanzamiento de la App en React Native"
+title: "[마음지기 캡스톤 개발일지 #16] 치명적 실수와 2차 파인튜닝, 그리고 React Native 앱 첫 구동"
 authors: [jbgih]
-tags: [diario de desarrollo, fine-tuning, LoRA, hiperparámetros, ReactNative, desarrollo de apps, frontend]
+tags: [개발일지, 파인튜닝, LoRA, 하이퍼파라미터, ReactNative, 앱개발, 프론트엔드]
 date: 2026-05-08
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-Mientras preparaba los materiales para la presentación intermedia del diseño capstone y analizaba los resultados del primer fine-tuning, descubrí un error en la configuración de los hiperparámetros (Hyperparameter) que afectaba gravemente la calidad de las respuestas del modelo. En este post, registro el análisis de las causas de este problema, el proceso del segundo fine-tuning para solucionarlo y el proceso de configuración inicial del frontend del lado del cliente (React Native).
+![사진 01](./images/01_cover.png)
 
-## Solución de Problemas: Error de Configuración de Hiperparámetros LoRA y Fenómeno de Acortamiento de la Longitud de Respuesta
+5월 8일은 그동안 뽑아낸 파인튜닝 결과들을 바탕으로 캡스톤디자인 중간 발표 자료(PPT)를 만들던 날이었습니다. 하지만 기분 좋게 슬라이드를 채워나가던 중, 등골이 서늘해지는 엄청난 실수를 발견하고 말았습니다.
 
-### Problema
-Como resultado de la evaluación cualitativa de los resultados del primer fine-tuning del modelo de inteligencia artificial (IA), se produjo un fenómeno en el que la longitud del texto generado era anormalmente corta en comparación con el modelo base (Base Model) y el contexto se cortaba a la mitad.
+### LoRA 하이퍼파라미터의 치명적 실수 발견
 
-### Causa
-La causa fue un error de cálculo en la proporción (Scaling Factor) de los valores `rank(r)` y `alpha` configurados durante el entrenamiento LoRA (Low-Rank Adaptation). 
-Durante el entrenamiento inicial, se configuró como `r=8` y `alpha=16`, pero en la ecuación de actualización de pesos de LoRA, el scaling factor se determina mediante $\frac{\alpha}{r}$. Como norma general, es común configurar `alpha` igual a `rank` o darle el doble del valor para ajustar el scaling factor alrededor de 1.0~2.0. Sin embargo, debido a una confusión en la proporción de aplicación de la fórmula, la actualización de los pesos se configuró para que se suprimiera extremadamente o se reflejara excesivamente. Como resultado, el espacio de representación de características intermedias (Feature) se distorsionó, causando el problema de que el modelo no pudiera generar texto con una longitud suficiente y terminara anticipadamente (Early Stopping).
+PPT에 들어갈 모델 구조도와 하이퍼파라미터 정보를 AI와 함께 다듬고 있었습니다.
 
----
+> "파인튜닝 결과 예시를 보면 base model보다 답변이 짧아졌습니다. 이는 LoRA의 r을 8로 하고 alpha를 16으로 해서 중간 feature를 너무 줄이다 보니 답변이 짧아졌다고 생각이 드는데..."
+> "아니 a/r 이었어? 나는 r/a라고 알고 있었는데...??? 나는 정말 LoRA를 욕심쟁이로 반영한 거구나..."
 
-## Solución: Refinamiento de Datos y Segundo Fine-Tuning en Paralelo (fine_tuning_2)
+LoRA 파인튜닝 시 `alpha` 값은 보통 `rank` 값과 동일하거나 2배로 주는 것이 정석입니다. 그런데 계산식 적용 비율을 완전히 반대로 착각하여, 가중치 업데이트가 극단적으로 억눌리거나 과하게 튕겨버리게 세팅해 버린 것입니다. 어쩐지 파인튜닝된 모델의 답변 길이가 뚝뚝 끊기고 짧아지더라니, 원인은 바로 제 손끝에 있었습니다.
 
-Para resolver fundamentalmente el problema del acortamiento de la longitud de la respuesta y optimizar el rendimiento de generación del modelo, decidimos llevar a cabo un segundo fine-tuning mediante la construcción inmediata del pipeline `fine_tuning_2`.
+### 2차 파인튜닝 (fine_tuning_2) 결단
 
-### 1. Ingeniería de Datos: Extracción de Conjuntos de Datos Largos
-Para inducir al modelo a generar un contexto más largo y rico, reestructuramos los datos de entrenamiento. A partir del `Daily_train_dataset.jsonl` existente, extrajimos por separado solo los 2.000 conjuntos de datos principales con las longitudes de token de texto más largas para generar `Daily_train_dataset_long.jsonl`, y lo utilizamos para el segundo entrenamiento.
+이미 1차 결과가 나왔지만, 완벽한 '마음지기'를 위해 이대로 넘어갈 순 없었습니다. 즉시 `fine_tuning_2` 폴더를 파고 2차 파인튜닝을 결단했습니다.
 
-### 2. Entrenamiento Distribuido: Entrenamiento en Paralelo MIG y Optimización de Hiperparámetros
-Seleccionamos `HCX-Text-1p5B`, `Llama33-70B` y `Qwen35-9B` como modelos para el experimento. Para encontrar la proporción óptima de hiperparámetros LoRA, dividimos los recursos MIG (Multi-Instance GPU) y realizamos el entrenamiento en paralelo con diferentes configuraciones de la siguiente manera:
+> "이번에 사용할 모델은 HCX-Text-1p5B, Llama33-70B, Qwen35-9B 입니다. MIG-0에서는 rank는 16, alpha는 16으로, MIG-1에서는 rank=16, a=8로 설정하여 학습 진행해 줘."
+> "Daily_train_dataset.jsonl에서 가장 긴 데이터 상위 2000개를 뽑아서 Daily_train_dataset_long.jsonl이란 제목의 파일로 생성해 주세요."
 
-*   **Entorno MIG-0**: `rank=16`, `alpha=16` (Scaling factor: 1.0)
-*   **Entorno MIG-1**: `rank=16`, `alpha=8` (Scaling factor: 0.5)
+답변이 짧아지는 현상을 방지하기 위해 가장 텍스트 길이가 긴 상위 2000개의 데이터셋만을 따로 추출하고, MIG(Multi-Instance GPU) 자원을 나누어 rank와 alpha 비율에 따른 성능 차이를 직접 비교하는 병렬 학습을 새롭게 돌리기 시작했습니다.
 
-A continuación, se muestra la estructura de la red neuronal del adaptador LoRA para cada modelo aplicada en este segundo fine-tuning.
+### 백엔드 모델이 도는 동안, 프론트엔드(앱) 개발 착수
 
-![HCX-Text-1p5B LoRA Structure](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week10/HCX-Text-1p5B/hcx_text_with_lora_structure.png)
-*Estructura de la aplicación LoRA del modelo HCX-Text-1p5B*
+![사진 02](./images/02_app.png)
 
-![Llama33-70B LoRA Structure](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week10/Llama33-70B/llama33_with_lora_structure.png)
-*Estructura de la aplicación LoRA del modelo Llama33-70B*
+모델이 다시 학습의 굴레에 빠진 동안, 저는 손을 놓고 있지 않았습니다. 드디어 실제 사용자들이 '마음지기'를 만나게 될 프론트엔드 앱 개발에 착수했습니다!
 
-![Qwen35-9B LoRA Structure](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week10/Qwen35-9B/qwen35_with_lora_structure.png)
-*Estructura de la aplicación LoRA del modelo Qwen35-9B*
+> "maeum-app을 구동하기 위해 QR코드를 시현해야 하는데... npx go start를 입력해도 에러 메시지만 시현돼. 어떻게 그리고 어디에 QR코드가 시현될 수 있을까?"
 
----
-
-## Características: Construcción Inicial de la Aplicación Frontend (React Native)
-
-Mientras se llevaba a cabo el segundo entrenamiento distribuido del modelo de IA backend, comenzamos a desarrollar la aplicación cliente con la que los usuarios reales interactuarán en el servicio 'Maeumjigi'.
-
-### Stack Tecnológico
-*   **Framework**: React Native
-*   **Toolchain**: Expo CLI
-
-### Implementación y Solución de Problemas
-Inicializamos un proyecto React Native (Expo) con el nombre `maeum-app`. Para vincular el teléfono inteligente con el servidor en tiempo de ejecución en el entorno de desarrollo local, fue necesario ejecutar el servidor de desarrollo de Expo.
-
-Durante el inicio inicial, se ingresó un comando incorrecto (`npx go start`), lo que provocó un error de vinculación del servidor local y un error en la terminal. Posteriormente, a través del comando correcto de Expo CLI, construimos el servidor normalmente y logramos conectarnos al entorno de depuración escaneando el código QR de Expo renderizado en la terminal con la cámara del dispositivo físico (Smartphone). Adicionalmente, también completamos la tarea de configurar el entorno del icono (`assets/logo.png`), que es el activo estático inicial de la aplicación, construyendo con éxito el esqueleto del frontend para todo el proyecto.
-```
+React Native(Expo)를 이용해 `maeum-app` 프로젝트를 생성하고 로컬 서버를 띄워 스마트폰과 연결하려 고군분투했습니다. 엉뚱하게 `npx go start`를 치며 헤매기도 했지만, 마침내 Expo QR 코드를 띄우고 앱 아이콘(`assets/logo.png`)을 세팅하는 데 성공했습니다. 백엔드의 두뇌(AI)와 프론트엔드의 얼굴(App)이 동시에 만들어지고 있는 가슴 벅찬 하루였습니다.

@@ -1,58 +1,35 @@
-Here is the translated blog post in Spanish. I have preserved the markdown formatting, frontmatter structure, and image paths as requested.
-
-```markdown
 ---
 slug: 2026-05-13-maeumjigi-18
-title: "[Diario de Desarrollo Capstone Maeumjigi #18] Expansión de Tokens de Inferencia y Comparación de Resultados del Segundo Fine-Tuning"
+title: "[마음지기 캡스톤 개발일지 #18] 추론 토큰(Token) 확장과 2차 파인튜닝 결과 비교"
 authors: [jbgih]
-tags: [diario de desarrollo, fine-tuning, inferencia, max_new_tokens, empatía, diseño capstone]
+tags: [개발일지, 파인튜닝, 추론, max_new_tokens, 공감능력, 캡스톤디자인]
 date: 2026-05-13
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-## 1. Overview & Tech Stack
+![사진 01](./images/01_cover.png)
 
-Después de corregir todos los errores de *hardcoding* identificados ayer en el código de inferencia (Inference), hemos reanudado formalmente las pruebas de inferencia para el modelo del segundo *Fine-Tuning*. Esta publicación es un registro de desarrollo sobre el proceso de resolución de problemas causados por las restricciones de inferencia del modelo y el análisis de los resultados del ajuste de hiperparámetros de LoRA.
+어제 발견했던 하드코딩 버그를 모두 고치고, 드디어 제대로 된 2차 파인튜닝 모델들의 추론(Inference) 테스트를 재개한 5월 13일입니다.
 
-- **Base Model**: Llama33-70B
-- **Fine-Tuning Method**: PEFT (LoRA)
-- **Framework**: PyTorch, Hugging Face Transformers
+### 짧은 답변의 원인, 토큰 길이를 늘려라!
 
-## 2. Troubleshooting: Degradación de la calidad de respuesta debido a restricciones de decodificación
+추론 결과를 하나씩 뜯어보던 중, `Llama33-70B_a8` 모델이 내놓은 답변이 여전히 묘하게 짧고 딱딱하다는 것을 느꼈습니다.
 
-### Issue
-Al analizar los resultados del pipeline de inferencia, se observó que el modelo `Llama33-70B_a8` devolvía respuestas excesivamente cortas, generando textos rígidos que no demostraban suficiente capacidad de empatía.
+> "이것은 Llama33-70B_a8의 답변 중 하나입니다. max_seq_length와 max_new_tokens이 너무 적다고 느껴집니다. 늘리고 싶네요. VRAM 현황을 보면 얼마나 늘릴 수 있나요?"
 
-### Cause Analysis
-La causa radicaba en la configuración de las restricciones de decodificación (Decoding) del pipeline de generación de texto. El cuello de botella (Bottleneck) no era un problema de capacidad de comprensión del lenguaje del modelo de inteligencia artificial (IA) en sí, sino que los valores de `max_seq_length` y `max_new_tokens`, que determinan el número máximo de tokens que se pueden generar, estaban limitados a un nivel demasiado bajo. Antes de que el modelo pudiera desarrollar un contexto complejo y profundo, chocaba con el límite de tokens y la generación terminaba abruptamente (Truncation), lo que provocaba la salida de oraciones fragmentadas y secas.
-
-## 3. Solution: Optimización de `max_new_tokens` basada en el monitoreo de VRAM
-
-### Implementation
-Para una inferencia estable, era necesario aumentar la longitud de los tokens y, al mismo tiempo, evitar fugas de memoria de la GPU o errores de OOM (Out of Memory). Como resultado del monitoreo del espacio libre de VRAM en tiempo real, se confirmaron aproximadamente 39.8 GB de memoria disponible, una cifra suficiente para expandir la ventana de contexto, incluso considerando el KV Cache y los pesos del modelo.
-
-Basándonos en esto, incrementamos audazmente el valor de `max_new_tokens` en el pipeline de generación de texto a `384`.
+AI와 VRAM 여유 공간(당시 39.8GB)을 계산한 끝에, 생성할 수 있는 최대 단어 수인 `max_new_tokens`를 384로 과감하게 상향 조정했습니다. 결과는 대성공이었습니다! 
 
 ```text
-[Antes del cambio] "Debe ser muy difícil que tenga esos pensamientos. Es importante hablar con un profesional."
-[Después del cambio] "Debe ser muy difícil que tenga esos pensamientos. Sin embargo, tener esos pensamientos no significa que sea débil, sino que es una señal de que está soportando demasiada carga en este momento. Le recomiendo que se tome el tiempo para desentrañar estas emociones con un profesional."
+[변경 전] "그런 생각이 드신다니 정말 힘드시겠어요. 전문가와 이야기 나누는 것이 중요합니다."
+[변경 후] "그런 생각이 드신다니 정말 힘드시겠어요. 하지만 그런 생각이 드는 것은 당신이 약해서가 아니라 지금 너무 많은 부담을 지고 계신다는 신호입니다. 전문가와 함께 이런 감정들을 천천히 풀어보시는 것을 권해드립니다."
 ```
 
-### Result
-Al proporcionarle una asignación de tokens de generación más amplia, el modelo comenzó a mantener el contexto hasta el final, generando textos de empatía mucho más profundos y fluidos. Fue el momento en que se demostró que el modelo no carecía de capacidad por sí mismo, sino que había estado reteniendo sus palabras atrapado en un espacio de tokens reducido.
+단지 토큰 허용치만 늘려주었을 뿐인데, 모델이 문맥을 끝까지 유지하며 훨씬 더 깊이 있고 따뜻한 공감의 문장들을 쏟아내기 시작했습니다. 제한된 토큰 수에 갇혀 모델이 스스로 말을 아끼고 있었던 셈입니다.
 
-## 4. Features & Analysis: Comparación de hiperparámetros `alpha` de LoRA (a=8 vs a=16)
+### Alpha 값 비교 분석 (a=8 vs a=16)
 
-Visualizamos y analizamos los cambios en el rendimiento del modelo y los patrones de aprendizaje según el valor del hiperparámetro de escalado de LoRA, `alpha`, que era el objetivo principal del segundo *Fine-Tuning*.
+![사진 02](./images/02_graph.png)
 
-Extrajimos los datos de registro de los modelos `alpha=8` y `alpha=16` en un entorno controlado con el parámetro `rank(r)` fijado en `16`. A través de esto, pudimos cuantificar las diferencias en el momento en que cada modelo causa sobreajuste (Overfitting) en el conjunto de datos de validación a medida que avanza el aprendizaje y la calidad de generación final.
+2차 파인튜닝의 가장 큰 목적이었던 LoRA 하이퍼파라미터 `alpha` 값에 따른 성능 차이도 결과가 나왔습니다. `fine_tuning_2` 폴더에 쌓인 로그를 분석하여 `05_alpha_comparison_daily.png` 등의 그래프를 생성해 냈습니다. `rank=16`으로 고정된 상태에서 `alpha=8`을 주었을 때와 `alpha=16`을 주었을 때, 모델의 과적합(Overfitting) 양상과 최종 답변 퀄리티가 어떻게 달라지는지 명확하게 시각화할 수 있었습니다. 
 
-![Comparación Alpha Dominio Daily](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/.ipynb_checkpoints/05_alpha_comparison_daily-checkpoint.png)
-
-![Comparación Alpha Dominio Common](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week11/fine_tuning_2/results/figures/eval/.ipynb_checkpoints/05_alpha_comparison_common-checkpoint.png)
-
-A través de ambos gráficos, pudimos observar claramente el impacto de los cambios de hiperparámetros en la convergencia del modelo y la estabilidad del aprendizaje, y aseguramos indicadores objetivos para seleccionar el valor óptimo de `alpha`.
-
-## 5. Conclusion
-
-Mediante el ajuste correcto del hiperparámetro (`alpha`) y la obtención de un entorno de inferencia holgado (`max_new_tokens`), el modelo ajustado (*fine-tuned*) demostró con éxito el nivel de capacidad de interacción emocional de un "verdadero guardián del corazón" (*Maeumjigi*), como se planeó inicialmente. Sobre la base de esta optimización de inferencia y los resultados de la comparación de modelos, se espera que podamos proceder sin problemas con la próxima presentación intermedia.
-```
+결과적으로 올바른 하이퍼파라미터와 넉넉한 토큰 길이를 부여받은 모델들은 드디어 저희가 애초에 기획했던 '진정한 마음지기'의 모습에 가까워지고 있었습니다. 중간발표 준비가 아주 순조롭게 마무리될 것 같습니다!

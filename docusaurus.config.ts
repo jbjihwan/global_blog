@@ -59,7 +59,7 @@ const config: Config = {
           onUntruncatedBlogPosts: 'ignore',
           postsPerPage: 1,
           blogSidebarCount: 'ALL',
-          blogSidebarTitle: '모든 개발 일지',
+          blogSidebarTitle: 'Projects & Dev Logs',
         },
         theme: {
           customCss: './src/css/custom.css',

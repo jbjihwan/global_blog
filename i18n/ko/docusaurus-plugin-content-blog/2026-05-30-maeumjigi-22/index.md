@@ -1,47 +1,36 @@
-Here is the translated technical blog post in Spanish:
-
-```markdown
 ---
 slug: 2026-05-30-maeumjigi-22
-title: "[Registro de Desarrollo de Capstone Maeumjigi #22] ¡Finalización del 4º Fine-Tuning! Diseño de la Arquitectura del Chatbot y Reporte Final"
+title: "[마음지기 캡스톤 개발일지 #22] 4차 파인튜닝의 완성! 챗봇 아키텍처 설계와 최종 보고서"
 authors: [jbgih]
-tags: [Registro de Desarrollo, Fine-Tuning, Arquitectura, Diseño Capstone, Reporte Final]
+tags: [개발일지, 파인튜닝, 아키텍처, 캡스톤디자인, 최종보고서]
 date: 2026-05-30
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-## 1. Descripción General (Overview)
-Esta publicación es un registro de desarrollo (Dev Log) sobre el análisis de resultados del cuarto fine-tuning (`fine_tuning_4`) y el diseño de la arquitectura del sistema del proyecto de chatbot 'Maeumjigi', realizado del 27 al 30 de mayo. Aborda la estrategia de mezcla de datos (Data Mixing) para resolver el problema de sesgo de dominio del modelo, la visualización de las métricas de evaluación del modelo final y el diseño de la arquitectura considerando la integración de un grafo de conocimiento (Knowledge Graph).
+![사진 01](./images/01_cover.png)
 
-## 2. Tecnologías Utilizadas (Tech Stack)
-- **Model**: Qwen35-9B
-- **Fine-Tuning**: LoRA (Low-Rank Adaptation)
-- **Data Analysis & Visualization**: `matplotlib`
-- **Architecture**: HTML-based Architecture Diagram, Knowledge Graph
-- **Automation**: Pipeline de generación automática de documentos utilizando Inteligencia Artificial (IA)
+5월의 마지막 주(27일~30일), 저희는 대망의 **4차 파인튜닝(fine_tuning_4)** 결과를 갈무리하고 시스템의 뼈대를 굳히는 작업에 매진했습니다.
 
-## 3. Solución de Problemas (Troubleshooting & Solution)
+### 최종 체크포인트 4400과 그래프 분석
 
-### 3.1. Solución al Problema de Sobreajuste (Overfitting) en un Dominio Específico
-- **Problem**: En el proceso de fine-tuning anterior, el modelo se sobreajustó al dominio de 'Consejería Emocional (Daily)', provocando un fenómeno en el que respondía con un tono excesivamente serio incluso cuando el usuario intentaba una conversación cotidiana (Common) (Olvido Catastrófico y Cambio de Dominio).
-- **Solution**: 
-  - Para solucionar esto, se realizó un reentrenamiento mezclando datos de conversación cotidiana (Common) y emocional (Daily) en una proporción de 7:3 (`Qwen35-9B_mixed_7_3`).
-  - Como resultado del experimento, el modelo pudo asegurar la capacidad de cambio de personalidad (Persona Switching), clasificando claramente la intención (Intent) del usuario para distinguir y responder adecuadamente entre una conversación cotidiana y una consejería de crisis seria.
+> "Qwen35-9B_mixed_7_3/checkpoints/checkpoint-4400/adapter_config.json"
+> "fine_tuning_4/results/figures/eval/06_common_vs_daily.png"
 
-### 3.2. Obtención de Pesos Óptimos y Evaluación de Rendimiento
-- **Solution**: A través del monitoreo continuo del estado de entrenamiento, se obtuvieron los pesos óptimos del adaptador (`adapter_config.json`) en el `checkpoint-4400`. 
-- **Evaluation**: Se visualizaron cuantitativamente todas las métricas de evaluación utilizando `matplotlib`. Se verificó la estabilidad del entrenamiento a través de `01_loss_curves.png` y `04_pareto_efficiency.png`, y en particular, se demostró el equilibrio de pérdida (Loss) entre los dos dominios de datos mediante el análisis del gráfico `06_common_vs_daily.png`.
+일상 대화와 감성 대화를 혼합하여 학습시킨 4차 파인튜닝 모델이 드디어 학습을 마치고 최적의 가중치인 `checkpoint-4400`을 뱉어냈습니다. 
 
-![Visualización de métricas de evaluación](D:/서울과기대 컴퓨터공학과/26-1/WS/보고서 작성 양식_0001.png)
+이전 파인튜닝에서는 일상적인 대화(Common)를 건넸을 때도 모델이 과도하게 심각한 감성 상담(Daily) 모드로 대답하는 오버피팅 문제가 있었죠. 이를 해결하기 위해 데이터 혼합 비율을 실험한 결과, 마침내 모델이 일상적인 대화와 진지한 위기 상담을 완벽하게 구분해서 대응하는 '눈치 있는' 챗봇으로 거듭났습니다!
 
-## 4. Implementación de Funciones Clave (Features)
+모든 평가 지표를 `matplotlib` 그래프(`01_loss_curves.png`, `04_pareto_efficiency.png` 등)로 시각화하여 모델 간 성능 차이를 한눈에 증명해 냈습니다.
 
-### 4.1. Arquitectura del Sistema del Chatbot y Diseño del Grafo de Conocimiento (KG)
-Para vincular el modelo `checkpoint-4400`, cuyo rendimiento ha sido verificado, con el entorno de servicio de la aplicación real, se diseñó la arquitectura general del sistema a través de `chatbot_architecture.html`. 
-Más allá de la simple generación de texto, para controlar el fenómeno de alucinación (Hallucination) y mejorar la precisión de las respuestas basadas en el contexto, se incluyó en la estructura del sistema un plan de integración de grafos de conocimiento (Knowledge Graph).
+### 챗봇 시스템 아키텍처 설계와 최종 보고서
 
-![Diseño de la arquitectura del sistema](D:/서울과기대 컴퓨터공학과/26-1/WS/보고서 작성 양식_0001.png)
+> "chatbot_architecture.html 생성 완료"
+> "fine_tuning_4의 수행 결과를 보고서(.docx)로 작성해 주세요. Base vs Fine-tuned 비교 시 예시가 따로 작성되게 해 주세요."
 
-### 4.2. Prueba A/B (Base vs Fine-tuned) y Automatización del Reporte Final
-Para concluir la primera fase del cuarto proyecto de fine-tuning, se implementó un script que genera automáticamente el documento `fine_tuning_4_보고서.docx` con la ayuda de la IA. 
-Dentro del reporte, se diseñó para incluir automáticamente los resultados de la comparación de texto de respuestas reales (Prueba A/B) entre el modelo base original y nuestro modelo ajustado (fine-tuned), demostrando objetivamente la mejora cualitativa del rendimiento.
-```
+![사진 02](./images/02_architecture.png)
+
+성능 검증이 끝난 모델을 실제 앱으로 서비스하기 위해 `chatbot_architecture.html`이라는 이름으로 전체 시스템 아키텍처와 지식그래프(Knowledge Graph) 통합 방안을 설계했습니다. 
+
+그리고 5월 30일, 대망의 파인튜닝 프로젝트 1단계를 성공적으로 마무리하는 `fine_tuning_4_보고서.docx`를 AI의 도움을 받아 자동으로 생성했습니다. 보고서에는 오리지널 베이스 모델과 우리가 파인튜닝한 모델의 실제 응답 텍스트 비교가 적나라하게 담겨 있어, 그동안의 고생이 헛되지 않았음을 증명해 주었습니다.
+
+이로써 마음지기 프로젝트의 숨 가빴던 5월 개발 일지가 모두 마무리되었습니다. 6월에는 또 어떤 새로운 챌린지가 기다리고 있을까요?

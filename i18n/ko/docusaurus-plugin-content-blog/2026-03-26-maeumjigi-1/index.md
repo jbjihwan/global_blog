@@ -1,45 +1,31 @@
-```markdown
 ---
 slug: maeumjigi-1
-title: "[Registro de Desarrollo Capstone de Maeumjigi #1] El primer inicio y planificación del proyecto"
+title: "[마음지기 캡스톤 개발일지 #1] 프로젝트의 첫 시작과 기획"
 authors: [jbgih]
-tags: [개발일지, 인공지능(AI)코딩, ClaudeCode, 캡스톤디자인, 프로젝트기획]
+tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 프로젝트기획]
 date: 2026-03-26
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-Este post es un registro de desarrollo (Dev Log) sobre la planificación inicial y la fase de diseño de arquitectura del proyecto capstone 'Maeumjigi' realizado el 26 de marzo de 2026. Cubre el diseño de la estructura del sistema de la aplicación inicial basada en Android y el proceso de construcción de un entorno de generación de código basado en inteligencia artificial (IA), antes de que evolucionara al proyecto actual de ajuste fino (fine-tuning) de un modelo de lenguaje grande (LLM).
+![사진 01](./images/01_cover.png)
 
-## 1. Objetivos de implementación y características principales (Features)
+마음지기 캡스톤 프로젝트의 대장정이 처음 시작된 2026년 3월 26일의 기록입니다. 
+당시에는 현재의 '마음지기'라는 이름 대신 단순한 안드로이드 알람 애플리케이션 기획으로 프로젝트의 첫발을 내디뎠습니다.
 
-El objetivo principal del proyecto inicial era el desarrollo de una aplicación para Android que monitorizara el estado de las reservas en tiempo real de un sitio web específico (Convención de Defensa Nacional) y detectara cambios de estado.
+### Claude Code와의 첫 만남
 
-- **Target System**: Sistema de reservas del sitio web de la Convención de Defensa Nacional
-- **Core Feature**: Un sistema de detección de estado basado en rastreo (crawling) que envía inmediatamente una notificación push al dispositivo del usuario cuando un horario no disponible cambia al estado 'disponible para reserva'.
-- **Architecture Draft**: Planificación de un planificador de rastreo web (crawler scheduler) para verificar el estado periódicamente y la estructura de integración con el cliente móvil (Android).
+- **과정**: 프로젝트의 시작은 AI 코딩 어시스턴트인 Claude Code를 프로젝트에 도입하는 것이었습니다. 
+  > "한국말도 알아 듣니?"
+- **결과**: 위와 같은 가벼운 인사로 시작해, 본격적으로 시스템 구조를 논의하기 시작했습니다. 
 
-## 2. Configuración del entorno de desarrollo y stack tecnológico (Tech Stack)
+### 초기 알람 앱 기획과 규칙 수립
 
-Para maximizar la productividad inicial del proyecto, integramos Claude Code, un asistente de codificación de IA basado en CLI, en nuestro flujo de trabajo de desarrollo.
+- **문제**: 맨 처음 기획했던 아이디어는 특정 웹사이트(국방컨벤션)의 예약 현황을 크롤링하여, 예약이 불가능했던 시간대가 '예약 가능'으로 변하면 알람을 보내주는 실용적인 안드로이드 어플리케이션이었습니다.
+- **과정**:
+  > Claude Code에게: "...예약가능으로 변하면 알람을 보내주는 어플을 만들려고해 이를 만들기 위한 계획을 단계별로 제작해줘"
+  > "알람을 받지 않습니다... Claude.md에 따라 안드로이드 어플은 만들 것입니다."
+- **결과**: 초기 구상과 기획을 바탕으로 프로젝트의 개발 방향을 담은 문서인 `Claude.md`와 `CLAUDE_coding_rule.md`를 작성했습니다. 특히 AI 에이전트가 코드를 작성할 때 지켜야 할 코딩 컨벤션과 규칙을 명확히 세팅하여, 이후 방대한 양의 코드를 자동 생성할 때 발생할 수 있는 혼란을 미연에 방지하고자 했습니다. 비록 이 날의 알람 앱 기획은 이후 방향을 선회하여 '마음지기'라는 완전히 새로운 인공지능 기반 캡스톤 프로젝트로 거대한 방향 전환을 겪게 되지만, 프로젝트 초기 구조와 협업 규칙을 세우는 중요한 첫 단추가 되었습니다. 당시 만들어진 협업 문서 템플릿은 훗날 대규모 모델 훈련 과정에서도 유용하게 쓰였습니다.
 
-- **AI Agent**: Claude Code
-- **Integration Test**: Para verificar la capacidad de procesamiento de lenguaje natural (NLP) en coreano y la comprensión del contexto del agente, probamos la capacidad de respuesta del sistema con un prompt inicial como `"¿Entiendes coreano?"`. Luego, introdujimos un prompt específico: `"Quiero crear una aplicación que envíe una alarma cuando cambie a 'disponible para reserva'. Por favor, crea un plan paso a paso para construir esto"`, para inducir al agente a diseñar la arquitectura inicial y la hoja de ruta de desarrollo (roadmap).
+![사진 02](./images/02_term.png)
 
-## 3. Problemas y soluciones (Troubleshooting)
-
-### Problem: Pérdida de contexto e inconsistencia en la generación automática masiva de código
-Durante el proceso de desarrollo utilizando el agente, se anticipó que si se generaban automáticamente cantidades masivas de código, el agente podría olvidar los objetivos principales del proyecto o desviarse de las convenciones de codificación, causando problemas de alucinación (Hallucination) y fragmentación del código.
-
-### Solution: Establecimiento de una estructura de control del agente basada en documentación de reglas declarativas (Rule-based Documentation)
-Para controlar el radio de acción del agente y mantener forzosamente el contexto del proyecto, definimos documentos de reglas globales a nivel de repositorio para que funcionaran como prompts del sistema (system prompts).
-
-- `Claude.md`: El documento maestro que especifica la lógica de negocio general y los requisitos del sistema del proyecto.
-- `CLAUDE_coding_rule.md`: Un documento de reglas a nivel de análisis estático que el agente de IA debe cumplir estrictamente al escribir código, como convenciones de nomenclatura (naming conventions), estructura de directorios y manejo de excepciones.
-
-Como resultado, pudimos establecer con éxito restricciones (Constraints) para que el agente dependiera de las reglas de los documentos de referencia durante el desarrollo, como se vio en respuestas como *"No recibiré alarmas... Construiré la aplicación de Android de acuerdo con Claude.md"*.
-
-## 4. Dirección futura del proyecto
-
-La planificación inicial de la aplicación de alarmas establecida este día sufrió un pivote (Pivot) de acuerdo con los cambios en los requisitos del proyecto, marcando un gran cambio de dirección hacia el proyecto actual de 'Maeumjigi', que involucra el ajuste fino (fine-tuning) de Llama y datos sintéticos de texto a gran escala (Synthetic Data).
-
-Aunque el dominio del producto ha cambiado, las reglas de control del agente basadas en documentos y el pipeline de ingeniería de prompts establecidos inicialmente se convirtieron en una base de arquitectura central para procesar cantidades masivas de datos de texto y automatizar el proceso de entrenamiento de modelos más adelante. Junto con los cambios en la planificación inicial, los próximos posts cubrirán pipelines de entrenamiento de modelos específicos y técnicas de síntesis de datos.
-```
+오늘은 캡스톤 디자인의 첫날로서 아이디어를 기획하고 AI와 소통하는 기틀을 다졌습니다. 이 작고 단순했던 안드로이드 앱 기획이 앞으로 어떻게 거대한 Llama 파인튜닝과 대규모 텍스트 합성 데이터 프로젝트로 발전해 가는지, 앞으로 이어질 스펙터클한 연재를 통해 함께 확인해 주세요! 초기 기획의 변화 과정도 캡스톤 디자인의 묘미입니다.

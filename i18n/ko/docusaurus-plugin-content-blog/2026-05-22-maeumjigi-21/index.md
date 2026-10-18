@@ -1,42 +1,38 @@
-Here is the translated blog post in Spanish, preserving the frontmatter structure, markdown formatting, and original tags:
-
-```markdown
 ---
 slug: 2026-05-22-maeumjigi-21
-title: "[Diario de desarrollo de Capstone Maeumjigi #21] Optimización de la proporción de mezcla de datos e inicio del 4º fine-tuning"
+title: "[마음지기 캡스톤 개발일지 #21] 데이터 혼합 비율 최적화와 4차 파인튜닝 돌입"
 authors: [jbgih]
 tags: [개발일지, 파인튜닝, 데이터셋, 프롬프트, 캡스톤디자인]
 date: 2026-05-22
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-En esta publicación, tratamos el progreso del cuarto fine-tuning (`fine_tuning_4`) del proyecto Maeumjigi y el proceso de experimentación de optimización de la mezcla del conjunto de datos para resolver el problema de sobreajuste (overfitting) del modelo de inteligencia artificial (IA).
+![사진 01](./images/01_cover.png)
 
-## 1. Problema: Sesgo hacia el dominio de la conversación emocional y sobreajuste
+5월 21일과 22일, 마음지기 캡스톤 팀은 대규모 데이터 생성과 **4차 파인튜닝(fine_tuning_4)** 준비에 돌입했습니다. 
 
-Durante las pruebas del tercer modelo con fine-tuning (`fine_tuning_3`), descubrimos un fenómeno fatal de sobreajuste (overfitting) en el que la calidad de las respuestas del modelo estaba excesivamente sesgada hacia el dominio de la asesoría emocional. 
+### 감성 대화와 일상 대화의 줄다리기
 
-Como resultado de realizar el fine-tuning únicamente con el conjunto de datos `haiku_pred` existente, se produjo un problema en el que el modelo respondía con la personalidad de un asesor excesivamente serio y pesado, incluso cuando el usuario hacía preguntas cotidianas como "¿Cómo está el clima hoy?" o "¿Qué deberíamos comer?". Este es un fenómeno en el que el modelo base pierde su capacidad original para la conversación diaria de propósito general durante el proceso de aprendizaje del dominio objetivo (asesoría), y era un desafío que debía resolverse necesariamente para lograr la intención de planificación original de "un asesor de prevención del suicidio que transmite una cálida empatía".
+3차 파인튜닝 모델을 테스트하던 중 치명적인 문제점을 발견했습니다. 
 
-## 2. Implementación: Construcción de un conjunto de datos emocionales propio (v6) de 10,000 casos
+> "haiku_pred 데이터셋으로 파인튜닝을 하면 대답이 감성 상담에 너무 치중되는 것 같습니다. 본래 모델의 일상 대화 능력을 유지하기 위해서는 어떻게 파인튜닝하는 게 좋을까요?"
 
-### Tubería de datos a gran escala utilizando Anthropic Batch API
-Para resolver el problema anterior y mejorar la calidad del aprendizaje, procedimos a construir un conjunto de datos propio a gran escala (`Emotion_train_dataset_v6.jsonl`) utilizando el modo Batch de la API de Anthropic (Claude 3 Haiku). 
+우리가 목표로 하는 것은 '따뜻한 공감을 전하는 자살 예방 상담사'이지만, 사용자가 일상적인 질문("오늘 날씨 어때?", "밥 뭐 먹을까?")을 던졌을 때도 지나치게 심각하고 감성적으로 대답하는 **오버피팅(Overfitting)** 징후가 보였습니다. 
 
-- **Especificaciones de los datos (Data Specification)**: Promedio de 500 tokens por dato (unificado a un máximo de 512 tokens), aplicación de un total de 20 tipos de personalidades detalladas.
-- **Tamaño objetivo (Target Size)**: 10,000 casos.
+이를 해결하기 위해 감성 데이터와 일상 데이터를 적절한 비율로 섞어 학습시키는 실험을 기획했습니다.
 
-### Solución de problemas (Troubleshooting): Imposibilidad de rastrear el procesamiento asíncrono y aparición de datos faltantes
-Aunque introdujimos el modo Batch de la API para lograr eficiencia de costos, hubo un problema por el cual no podíamos rastrear el progreso y el consumo de créditos en tiempo real debido a la naturaleza del procesamiento asíncrono en segundo plano. Esto provocó la pérdida de algunos datos, pero desarrollamos un script de Python adicional (`fill_v6.py`) que analiza los resultados de la respuesta asíncrona para identificar los elementos faltantes y realizar llamadas a la API complementarias, logrando construir perfectamente el conjunto de datos de alta calidad objetivo de 10,000 casos.
+### 10,000건의 v6 감성 데이터셋 API 자동 생성
 
-## 3. Experimento principal: Optimización de la proporción de mezcla de datos (Data Mixing) para fine_tuning_4
+> "1. 512 토큰 통일 / 건당 평균 토큰: 500토큰 / 페르소나 종수: 20종 / 저장 파일명: v6.jsonl"
+> "내 10달러가 사용되었는데 어디에 어떻게 쓰였고 결과가 무엇인지 확인도 못해!"
 
-Con base en el conjunto de datos emocionales v6 recién construido, comenzamos a diseñar el experimento para el cuarto fine-tuning (`fine_tuning_4`). 
+최고의 데이터셋을 만들기 위해 Anthropic API (Haiku) Batch 모드를 사용해 무려 10,000건에 달하는 감성 대화 데이터셋(`Emotion_train_dataset_v6.jsonl`)을 생성했습니다. 중간에 API 배치가 백그라운드에서 돌아가며 진행 상황을 알 수 없어 답답해하는 해프닝도 있었지만, 부족한 건수를 추가 스크립트(`fill_v6.py`)로 꽉꽉 채워 10,000건을 완성했습니다.
 
-El núcleo de este fine-tuning es alejarse del ajuste de hiperparámetros existente, como el valor Alpha de LoRA, y equilibrar el rendimiento específico del dominio y el rendimiento de propósito general en función de la **proporción de mezcla del conjunto de datos de entrenamiento (Data Mixing Ratio)**. Con el fin de mezclar y entrenar datos de conversación diaria como un tipo de regularización (Regularization), construimos conjuntos de datos de entrenamiento en las siguientes tres proporciones:
+### 감성 vs 일상 황금비율 찾기 (fine_tuning_4)
 
-- `mixed_7_3` (Emocional 7 : Cotidiano 3)
-- `mixed_5_5` (Emocional 5 : Cotidiano 5)
-- `mixed_2_1` (Emocional 2 : Cotidiano 1)
+> "Emotion_train_dataset_v6.jsonl 1만 줄이 완성되었습니다. 그럼 7:3 비율의 훈련 데이터셋 하나와 2:1 비율 하나, 마지막으로 5:5 비율 데이터셋 하나 만들어주세요."
+> "이번 파인튜닝(fine_tuning_4)은 alpha 값이 아닌 훈련 데이터셋 혼합 비율(mixed_2_1, mixed_5_5, mixed_7_3) 기준으로 훈련을 진행합니다."
 
-Actualmente, utilizando los 3 tipos de conjuntos de datos anteriores, estamos aplicando de lleno el cuarto fine-tuning al modelo `Qwen3.5-9B`. A través de la verificación de los modelos entrenados en cada proporción, planeamos derivar la proporción áurea de la mezcla de datos que armonice de manera ideal la "cotidianidad" del chatbot y la "experiencia" del asesor.
-```
+![사진 02](./images/02_ratio.png)
+
+이제 4차 파인튜닝은 어떤 데이터 비율이 AI의 '일상성'과 '전문성(상담)'을 가장 완벽하게 조화시킬 수 있는지 검증하는 무대가 되었습니다. `mixed_7_3`, `mixed_5_5`, `mixed_2_1` 세 가지 버전의 데이터셋을 생성하고 Qwen3.5-9B 모델에 주입하기 시작했습니다!

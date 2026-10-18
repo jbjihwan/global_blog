@@ -1,0 +1,94 @@
+/**
+ * Mobile Blog Sidebar Styles
+ */
+
+.mobileContainer {
+  padding: 0.75rem 0.5rem;
+}
+
+.sectionBlock {
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.homeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  color: var(--ifm-font-color-base);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sectionHeader {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.projectCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.projectCardActive {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.projectBadge {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.postList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.postItem {
+  margin-top: 0.35rem;
+}
+
+.postLink {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.postLinkActive {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary) !important;
+  font-weight: 600;
+}

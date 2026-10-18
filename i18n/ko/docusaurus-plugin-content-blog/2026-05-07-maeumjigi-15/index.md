@@ -1,64 +1,34 @@
-```markdown
 ---
 slug: 2026-05-07-maeumjigi-15
-title: "[Diario de Desarrollo Capstone Maeumjigi #15] Visualización de Resultados del Fine-Tuning de 5 Modelos y Configuración del Entorno Local"
+title: "[마음지기 캡스톤 개발일지 #15] 5개 모델 파인튜닝 결과 시각화 및 로컬 환경 세팅"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 결과분석, 시각화, Jupyter, 캡스톤디자인, 인공지능(AI)]
+tags: [개발일지, 파인튜닝, 결과분석, 시각화, Jupyter, 캡스톤디자인, AI]
 date: 2026-05-07
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-## 1. Descripción general (Overview)
-En esta publicación, abordamos el proceso de integración de los resultados y visualización de las métricas de evaluación de rendimiento de 5 modelos de lenguaje grande (Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B), cuyo fine-tuning basado en inteligencia artificial (IA) se ha completado para la construcción del servicio de chatbot 'Maeumjigi'. También registramos los problemas que surgieron al migrar el pipeline de análisis, que dependía de un servidor remoto, al entorno local, junto con su proceso de resolución (Troubleshooting).
+![사진 01](./images/01_cover.png)
 
-## 2. Tecnologías utilizadas (Tech Stack)
-- **Environment**: VSCode Jupyter Kernel, Local Python Environment
-- **Data Analysis & Visualization**: `pandas`, `matplotlib`, `seaborn`
-- **Evaluation Metrics**: `bert_score`
-- **Models (PEFT/LoRA)**: Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B
+5월 7일은 그동안 피땀 흘려 파인튜닝한 총 5개의 모델(Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B)의 결과를 집대성하고, 본격적인 시각화와 로컬 환경 구성을 진행한 날입니다. 
 
-## 3. Configuración del entorno de análisis local y resolución de problemas (Troubleshooting)
-Para resolver las limitaciones (renderizado lento e inconveniencia en el manejo de la UI) de `30_comparison.ipynb` que se ejecutaba en el servidor remoto, hemos configurado un nuevo notebook dedicado al entorno local, `31_comparison_local.ipynb`. Durante este proceso, resolvimos los siguientes problemas.
+### 모델 비교를 위한 시각화와 로컬 환경 세팅
 
-### 3.1. Caída del Kernel (Kernel Crash) y conflictos de dependencias de paquetes
-- **Problema**: Ocurrencia frecuente del fenómeno "Kernel Crashed" durante el proceso de configuración del kernel de Jupyter en VSCode local y la instalación y carga de `pandas`, `matplotlib`, `seaborn`, y `bert_score`.
-- **Solución**: En lugar del entorno Python global, restablecimos explícitamente un entorno virtual aislado (venv) y reinstalamos las bibliotecas necesarias ajustando las dependencias entre sus versiones, asegurando así un entorno de ejecución del kernel estable.
+그동안 무거운 서버에서 돌리던 결과 비교 코드를 이제 제 개인 노트북에서도 편하게 확인하기 위해 `31_comparison_local.ipynb` 노트북을 새롭게 작성했습니다.
 
-### 3.2. Error de referencia de módulo personalizado (ModuleNotFoundError)
-- **Problema**: Debido a la diferencia en la estructura de directorios entre el servidor remoto y el local, ocurría `ModuleNotFoundError: No module named 'ft_utils'` al ejecutar la visualización.
-- **Solución**: Resolvimos el problema de referencia de módulos añadiendo dinámicamente la ruta absoluta del directorio raíz del proyecto y de la carpeta de utilidades mediante `sys.path.append()`.
+> "30_comparison.ipynb은 내 노트북에서도 작동할 수 있지 않나?"
+> "현재 선택된 kernel에 pandas, matplotlib, seaborn, bert_score를 설치하는 방법을 알려주세요."
 
-### 3.3. Recuperación de datos de métricas omitidos en ciertos modelos
-- **Problema**: Se identificó que faltaba el archivo de indicadores de evaluación `ft_metrics.json` en el directorio de resultados de algunos modelos, como DSR1-70B.
-- **Solución**: Escribimos un script de Python independiente que parsea los checkpoints y los datos de registro (logging) que quedaban en el servidor para recalcular y recuperar las métricas faltantes, regenerando así `ft_metrics.json` correctamente.
+VSCode에서 로컬 Jupyter 커널을 잡고 필요한 라이브러리들을 설치하는 과정에서 잦은 커널 충돌(Kernel Crashed)과 `ModuleNotFoundError: No module named 'ft_utils'` 같은 짜증 나는 에러들을 마주했지만, 차근차근 폴더 경로를 맞추며 해결해 나갔습니다. 일부 모델(DSR1-70B 등)에서 누락되었던 `ft_metrics.json` 파일도 스크립트를 통해 성공적으로 복구해 냈습니다.
 
-## 4. Características principales (Features): Visualización integral de datos de 5 modelos
-Para comparar el rendimiento de los modelos de manera objetiva e intuitiva, establecimos un plan de análisis llamado `5MODELS_ORGANIZATION_PLAN_present.md` y mejoramos el pipeline de visualización.
+### 5개 모델 종합 리포트 및 그래프 시각화
 
-### 4.1. Eliminación de ruido en la curva de pérdida (Loss Curve) y mejora de la legibilidad
-Eliminamos las líneas de tendencia innecesarias (líneas gruesas) que aparecían en el gráfico inicial y ajustamos la transparencia (Alpha) y el grosor de la curva de aprendizaje real (línea tenue) de cada modelo para aumentar la nitidez. A través de esto, mejoramos el gráfico para poder comparar de un vistazo la velocidad de convergencia (Convergence) y la presencia de sobreajuste (Overfitting) de los 5 modelos.
+가장 중요한 작업은 이 5개 모델의 성능을 한눈에 비교할 수 있는 시각화였습니다. AI와 함께 `5MODELS_ORGANIZATION_PLAN_present.md`라는 계획서를 세우고 체계적으로 데이터 정리를 시작했습니다.
 
-![Training Loss ALL](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week9/fine_tuning/results/figures/training/03_training_loss_all.png)
-*▲ Visualización de las curvas de pérdida de entrenamiento (Training Loss) de los 5 modelos. Se puede observar una tendencia de reducción de pérdida estable a medida que avanzan los pasos de entrenamiento.*
+> "희미한 선과 굵은 선의 차이가 무엇인가? 각 모델별 training loss와 eval loss를 가져와서 전체 모델의 loss를 각각 그래프로 시각화하시오."
+> "굵은 선은 없애고 희미한 선을 선명하게 변경하여 저장해 줘."
 
-![Eval Loss ALL](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week9/fine_tuning/results/figures/training/04_eval_loss_all.png)
-*▲ Visualización de las curvas de pérdida de evaluación (Eval Loss) de los 5 modelos. Comparamos de forma intuitiva el rendimiento de generalización sobre el conjunto de datos de evaluación.*
+AI가 그려준 matplotlib 그래프에서 불필요한 추세선(굵은 선)을 제거하고, 모델별 Training Loss와 Eval Loss 곡선을 깔끔하게 한곳에 모은 `03_training_loss_all.png`와 `04_eval_loss_all.png`를 최종적으로 뽑아냈습니다. 또한 각 모델의 LoRA Rank 붕괴 현상(Rank Decomposition)을 분석한 그래프와 GPU 메모리 점유율 차트(`02_gpu_memory.png`)까지 완벽하게 문서화했습니다.
 
-### 4.2. Análisis de ocupación de recursos y optimización de parámetros (LoRA)
-Además de las métricas de rendimiento, analizamos adicionalmente el consumo de recursos de cada modelo y la estabilidad de las capas LoRA, considerando la implementación en el servicio real.
+![사진 02](./images/02_graph.png)
 
-![GPU Memory](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week9/fine_tuning/results/figures/training/02_gpu_memory.png)
-*▲ Resultados del benchmark de la ocupación de memoria GPU (VRAM) por modelo durante el proceso de entrenamiento*
-
-Además, para verificar la eficiencia del fine-tuning por modelo, analizamos la distribución de valores singulares (Singular Value) mediante la visualización de la descomposición del rango de LoRA (fenómeno de colapso de rango). A continuación, se muestran los resultados del análisis de dos modelos representativos.
-
-![Llama3.3-70B LoRA Rank](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week10/Llama33-70B/llama33_lora_rank_decomposition.png)
-*▲ Análisis del fenómeno de LoRA Rank Decomposition de Llama3.3-70B*
-
-![Qwen35-9B LoRA Rank](D:/서울과기대 컴퓨터공학과/26-1/CapDe/팀플/Week10/Qwen35-9B/qwen35_lora_rank_decomposition.png)
-*▲ Análisis del fenómeno de LoRA Rank Decomposition de Qwen35-9B*
-
-> *※ Los indicadores de Rank Decomposition del resto de los modelos como DSR1-70B, HCX-Omni-8B y HCX-Text-1.5B también han sido documentados y guardados utilizando el mismo pipeline.*
-
-## 5. Conclusión y planes futuros
-Al construir un pipeline estable de comparación y análisis en el entorno local, la eficiencia del trabajo de validación de datos ha mejorado significativamente. Los diversos gráficos e indicadores cuantitativos extraídos se utilizarán como material base principal para la presentación intermedia del proyecto Capstone que se llevará a cabo la próxima semana, y en base a esto, planeamos seleccionar el modelo final que se integrará en el servicio de chatbot 'Maeumjigi'.
-```
+이제 이 그래프들을 바탕으로 다음 주 캡스톤디자인 중간발표 자료를 멋지게 꾸밀 수 있게 되었습니다. 과연 이 5개의 모델 중 어떤 모델이 가장 뛰어난 퀄리티의 '마음지기' 챗봇으로 최종 선정될까요?

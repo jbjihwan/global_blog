@@ -1,0 +1,184 @@
+/**
+ * Categorized 3-tier Blog Sidebar Styles (Home / Projects / Posts)
+ */
+
+.sidebar {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1.5rem);
+  padding-right: 0.75rem;
+}
+
+@media (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.sectionBlock {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.sectionBlock:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.homeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  color: var(--ifm-font-color-base);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.homeButton:hover {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.homeButtonActive {
+  background-color: var(--ifm-color-primary-lightest);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.homeIcon {
+  font-size: 1.15rem;
+}
+
+.sectionHeader {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.projectCard {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.projectCard:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  border-color: var(--ifm-color-emphasis-200);
+}
+
+.projectCardActive {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .projectCardActive {
+  background-color: rgba(53, 120, 229, 0.15);
+}
+
+.projectIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.projectInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.projectName {
+  font-size: 0.88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.projectBadge {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-500);
+  line-height: 1.2;
+}
+
+.projectCardActive .projectBadge {
+  color: var(--ifm-color-primary);
+}
+
+.postsHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.sidebarItemList {
+  font-size: 0.84rem;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebarItem {
+  margin-top: 0.35rem;
+  list-style: none;
+}
+
+.sidebarItemLink {
+  color: var(--ifm-font-color-base);
+  display: block;
+  padding: 0.35rem 0.55rem;
+  border-radius: 5px;
+  text-decoration: none;
+  line-height: 1.35;
+  transition: all 0.15s ease-in-out;
+  border-left: 2px solid transparent;
+}
+
+.sidebarItemLink:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.sidebarItemLinkActive {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary) !important;
+  font-weight: 700;
+  border-left: 2px solid var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .sidebarItemLinkActive {
+  background-color: rgba(53, 120, 229, 0.18);
+}

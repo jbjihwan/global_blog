@@ -1,39 +1,32 @@
-```markdown
 ---
 slug: maeumjigi-2
-title: "[Diario de desarrollo Capstone Maeumjigi #2] Concreción y pruebas del diseño inicial de la aplicación de alarmas"
+title: "[마음지기 캡스톤 개발일지 #2] 초기 알람 앱 기획 구체화와 테스트"
 authors: [jbgih]
-tags: [Diario de desarrollo, Codificación de Inteligencia Artificial (IA), ClaudeCode, Diseño Capstone, Planificación de proyectos, Código de prueba]
+tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 프로젝트기획, 테스트코드]
 date: 2026-03-30
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-Este es el registro del 30 de marzo, cuando comenzamos el desarrollo de la aplicación 'Alarma de reservas del Centro de Convenciones de Defensa', que fue el plan inicial del proyecto Maeumjigi. Nos centramos en diseñar la arquitectura general del sistema y los hitos de implementación detallados en función de convenciones de codificación predefinidas, y en construir un entorno de Mock para un ciclo de TDD (Test-Driven Development) fluido.
+![사진 01](./images/01_cover.png)
 
-## 📌 Tech Stack
-- **AI Coding Agent**: Claude Code
-- **Testing**: HTML Fixture-based Mocking
+마음지기 프로젝트의 초기 아이디어였던 '국방컨벤션 예약 알람' 애플리케이션의 개발을 본격적으로 시작한 3월 30일의 기록입니다.
+지난번 세웠던 코딩 규칙을 바탕으로 구체적인 프로젝트 진행 계획을 수립하고, 테스트 주도 개발(TDD)을 위한 기반을 다졌습니다.
 
-## 🚀 Características e Hitos
+### 프로젝트 마일스톤 설계
 
-### 1. Diseño y documentación de los hitos del proyecto
-Los requisitos de la aplicación estaban definidos, pero existía el problema de que la estructura de comunicación entre el cliente Android y el servidor backend, y el orden de implementación del módulo del rastreador (crawler), no estaban claros. Para resolver esto, indicamos al agente de inteligencia artificial (IA) Claude Code que procediera de forma autónoma con el proyecto basándose en `plan.md`.
+- **문제**: 애플리케이션 기획은 있었으나, 구체적으로 어떤 순서로 개발을 진행할지 명확한 단계별 계획이 필요했습니다.
+- **과정**: 
+  > Claude Code에게: "Claude plan.md에 따라 프로젝트를 진행해주세요"
+- **결과**: `Claude plan.md`라는 프로젝트 상세 계획 문서를 완성했습니다. 이 문서에는 안드로이드 클라이언트와 서버 구조, 그리고 크롤링 등 각 단계별 구현 목표가 상세히 적혀 있으며, AI와 함께 작업할 때 흔들리지 않는 이정표 역할을 하게 됩니다. 
 
-Como resultado, se generó un documento de hitos detallado llamado `Claude plan.md`. En este documento, se especifican paso a paso los objetivos de implementación para cada dominio, como el flujo UI/UX del cliente Android, las especificaciones de la API del servidor y la estrategia de rastreo del sitio objetivo. Esto se utilizará como un hito clave para mantener el contexto durante el proceso futuro de programación en pareja (pair programming) con la IA.
+### 테스트용 웹페이지(Fixture) 구축
 
-### 2. Construcción de Fixtures para la validación del rastreador basada en TDD
-Antes de implementar el módulo del rastreador que realiza un seguimiento de los cambios en el estado de las reservas en tiempo real, era necesario construir un entorno de pruebas.
+- **문제**: 예약 사이트의 변화를 실시간으로 감지하는 크롤러를 만들기 위해서는, 실제 웹사이트에 지속적으로 접속하며 테스트해야 합니다. 하지만 이는 서버에 무리를 줄 수 있고 불안정한 테스트 환경을 만듭니다. 따라서 오프라인 환경에서도 마음껏 안정적으로 테스트할 수 있는 목업(Mockup) 환경이 필수적이었습니다.
+- **과정**:
+  > Claude Code에게: "continue"
+- **결과**: AI가 스스로 판단하여 프론트엔드와 백엔드 테스트에 필요한 가짜 웹페이지(Fixture) HTML 데이터들을 완벽하게 만들어냈습니다. `sample_page.html`(예약이 꽉 차서 불가능한 상태)과 `sample_page_changed.html`(취소표가 발생해 예약이 가능해진 상태)을 정밀하게 생성해 두어, 서버 측 크롤러 코드가 정상적으로 HTML DOM 요소의 변화를 감지하는지 빠르고 안전하게 테스트할 수 있는 강력한 기반이 마련되었습니다. 
 
-#### 🚨 Solución de problemas: Inestabilidad en las pruebas del rastreador
-- **Problema**: Enviar solicitudes continuamente al sitio web objetivo que está en servicio activo para probar la lógica de análisis del DOM del rastreador genera una carga innecesaria en el servidor objetivo, y es una causa de pruebas inestables (Flaky Tests) donde los resultados varían según el estado de la red.
-- **Solución**: Eliminamos las dependencias externas y construimos un entorno de Mockup (Fixture) que opera de manera determinista en un entorno offline.
-  
-A través del comando `continue` en Claude Code, le indicamos que generara automáticamente datos HTML simulados para las pruebas de frontend y backend. En consecuencia, se construyeron Fixtures HTML precisos que representan los siguientes dos estados:
-- `sample_page.html`: Estructura DOM de un estado donde las reservas están llenas y no hay asientos disponibles.
-- `sample_page_changed.html`: Estructura DOM de un estado donde se ha producido una cancelación y el botón de reserva está activado.
+![사진 02](./images/02_term.png)
 
-Utilizando estos Fixtures, sentamos las bases de pruebas unitarias que permiten verificar de forma rápida y estable si el código del rastreador en el lado del servidor detecta con precisión el cambio de estado (reserva no disponible -> reserva disponible) del HTML DOM Tree y desencadena eventos de notificación, sin necesidad de comunicación de red real.
-
----
-
-El trabajo de hoy es un ejemplo que demuestra la eficiencia de un flujo de trabajo de desarrollo impulsado por IA, automatizando desde la división de hitos hasta la generación de recursos para el código de prueba, otorgando al agente una planificación general y autonomía en lugar de que el desarrollador escriba directamente cada detalle de la lógica de implementación. En la próxima publicación, cubriremos cómo la arquitectura inicialmente simple de la aplicación de alarmas evolucionará a un proyecto Capstone a gran escala basado en aprendizaje profundo (Deep Learning) y LLM.
-```
+오늘은 사람이 일일이 지시하지 않고 단지 AI에게 '계획에 따라 알아서 진행해'라고 지시했을 때, AI가 스스로 마일스톤을 쪼개고 필요한 테스트 데이터와 문서까지 척척 만들어내는 'AI 주도형 자동화 개발'의 묘미를 제대로 엿본 날이었습니다. 
+이후 이 단순한 알람 앱 프로젝트가 어떻게 거대한 딥러닝과 언어모델 기반의 캡스톤 프로젝트로 변모해 가는지, 앞으로의 험난한(?) 과정을 계속 지켜봐 주세요!

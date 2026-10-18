@@ -1,49 +1,32 @@
-Aquí tienes la traducción al español, manteniendo intactos el formato markdown, la estructura del *frontmatter* y las rutas de las imágenes, tal como solicitaste:
-
-```markdown
 ---
 slug: 2026-04-09-maeumjigi-9
-title: "[Diario de Desarrollo del Capstone Maeumjigi #9] Lucha contra Errores en el Fine-Tuning de Llama 3.1 y Presentación Intermedia de la Semana 6"
+title: "[마음지기 캡스톤 개발일지 #9] Llama 3.1 파인튜닝 에러 사투와 6주차 중간발표"
 authors: [jbgih]
-tags: [Diario de desarrollo, Llama3.1, Fine-tuning, Troubleshooting, Generación de PPT, ERD]
+tags: [개발일지, Llama3.1, 파인튜닝, 트러블슈팅, PPT생성, ERD]
 date: 2026-04-09
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-## 1. Overview
-El 9 de abril, llevamos a cabo el primer fine-tuning del modelo de inteligencia artificial (IA) Llama 3.1 en el entorno de Colab (`llama31_finetuning_colab.ipynb`) configurado el día anterior. Depuramos y resolvimos un error de análisis de tokens (token parsing error) y un problema de desbordamiento de memoria (OOM) que ocurrieron durante el entrenamiento. Paralelamente, completamos la organización del progreso del frontend y el diseño del diagrama de relación de entidades (ERD) de la base de datos para la presentación intermedia de la sexta semana del proyecto Capstone.
+![사진 01](./images/01_cover.png)
 
-## 2. Tech Stack
-- **Model**: Llama 3.1
-- **Environment**: Google Colab
-- **Task**: LLM Fine-Tuning
-- **Documentation**: AI-assisted Presentation & DB Architecture Diagram
+4월 9일, 어제 야심 차게 완성한 Colab 노트북을 이용해 드디어 인공지능 모델(Llama 3.1)의 첫 학습(파인튜닝)을 시도했습니다. 하지만 현실은 역시 호락호락하지 않았고 수많은 에러와 마주해야 했습니다. 동시에 캡스톤 디자인 6주차 중간발표 자료까지 만들어야 했던 험난한 하루였습니다.
 
-## 3. Troubleshooting: Fine-Tuning de Llama 3.1
+### Colab 파인튜닝 에러와의 끝없는 사투
 
-### Issue 1: Fuga de `eos_token` y error de procesamiento
-- **Síntoma (Symptom)**: Inmediatamente después de ejecutar el script de fine-tuning, el token de finalización `eos_token` no se escapaba en los resultados de generación de texto y aparecía como texto sin formato (Raw text), o provocaba un error de procesamiento.
-- **Causa (Cause)**: Ocurrió debido a un error de configuración del tokenizador (Tokenizer) o a que el mapeo de las señales de padding y finalización de oración no se realizó correctamente durante el proceso de preprocesamiento del conjunto de datos.
-- **Solución (Solution)**: Analizamos los registros de errores (error logs) para corregir la lógica de procesamiento de tokens especiales (Special tokens) del tokenizador. Revisamos la estructura de formato del conjunto de datos para garantizar que el modelo reconociera correctamente el rol semántico del `eos_token`.
+- **문제**: 어제 만든 `llama31_finetuning_colab.ipynb`를 실행하자마자 각종 에러가 쏟아졌습니다.
+- **과정**: 
+  > "llama31_finetuning_colab (3).ipynb에서 M1 파인튜닝 진행 중 오류가 발생한 이유가 무엇일까요?"
+  > "실행한 결과에 eos_token이 포함되어 있습니다. 왜 이런 문제가 발생할까요?"
+- **결과**: AI 모델이 학습 데이터를 토해내는 과정에서 특수 토큰(`eos_token`) 처리가 제대로 되지 않는 문제, 메모리 오버플로우 문제 등이 연달아 발생했습니다. 발생한 에러 로그 전체를 Claude에게 복사해서 던져주고(Pasted text) 해결책을 받아 코드를 수정하는 과정을 수차례 반복했습니다. 결국 우여곡절 끝에 학습이 완료되었고, `학습데이터별학습결과.png`라는 의미 있는 결과 그래프를 뽑아낼 수 있었습니다!
 
-### Issue 2: Desbordamiento de memoria (CUDA OOM)
-- **Síntoma (Symptom)**: Se produjo un error de ejecución (Runtime Error) tras entrar en el bucle de entrenamiento del modelo debido a que se superó la cuota asignada de VRAM de la GPU.
-- **Solución (Solution)**: Rastreamos el punto de fuga de memoria (memory leak) basándonos en el seguimiento de la pila (stack trace) generado. Ajustamos el parámetro del tamaño de lote (batch size) y resolvimos el cuello de botella mediante la elaboración de perfiles de memoria (memory profiling) del proceso de entrenamiento. Tras varias sesiones de ajuste de parámetros, establecimos un entorno de entrenamiento estable.
+### AI 비서의 발표 자료(PPT) 만들기
 
-### Resultado (Result)
-Completamos con éxito el fine-tuning del modelo y calculamos las métricas de resultados según la distribución del conjunto de datos de entrenamiento.
+- **문제**: 모델 훈련으로 밤을 새우고 있는데 당장 다음 주 발표를 위한 6주차 프론트엔드 및 데이터베이스 진행 상황 PPT를 만들어야 했습니다.
+- **과정**:
+  > "캡디_6주차_Frontend.pptx는 지금까지 진행한 개요를 소개하는 이미지 모음입니다. 이를 활용하여 이번 주 진행 상황 발표 자료를 만들어주세요."
+  > "데이터베이스 설계의 Table들이 backend에 구현된 테이블의 관계를 참고하여 관계가 보이도록 표현해 줘... 표가 너무 크고 중구난방입니다. User 테이블을 중심에 배치해 주세요."
+- **결과**: 놀랍게도 AI는 프론트엔드 이미지 스크린샷들을 엮어 발표 스크립트와 슬라이드 뼈대를 만들어 주었습니다. 심지어 제가 백엔드 코드를 기반으로 복잡한 데이터베이스 ERD(Entity Relationship Diagram)를 그려달라고 집요하게 피드백(User 중심 배치)을 주자, 완벽하게 데이터베이스 관계도까지 정리해서 설명해 주었습니다.
 
-![학습데이터별학습결과](D:/Projects/26_1/CapDe/TestClaudeCode/data_preprocessing/for_Llama/data/output/학습데이터별학습결과.png)
+![사진 02](./images/02_term.png)
 
-## 4. Características (Features): Automatización de Material de Presentación y Diseño de ERD
-
-### Creación del material para la presentación intermedia de la sexta semana (Frontend y BD)
-- **Generación de diapositivas del Frontend (Frontend Slide Generation)**: Proporcionamos capturas de pantalla de la interfaz de usuario del frontend creadas previamente (`캡디_6주차_Frontend.pptx`) como contexto para generar automáticamente la estructura de las diapositivas de la presentación y un borrador del guión (Script).
-- **Refactorización del ERD de la base de datos (Database ERD Refactoring)**: Aplicamos el ajuste de prompts (prompt tuning) durante el proceso de generación del diagrama de relaciones de las tablas basado en el esquema del backend, con el fin de resolver la complejidad del resultado inicial.
-    - **Optimización (Optimization)**: Añadimos la restricción: "Coloca la tabla User en el centro y estructura el diagrama para que las relaciones de referencia entre las tablas se visualicen claramente".
-    - **Resultado (Result)**: Obtuvimos un ERD con una legibilidad significativamente mejorada mediante una distribución radial centralizada (User-centric) y lo integramos en los materiales de la presentación intermedia.
-
-![테스트 결과](D:/서울과기대%20컴퓨터공학과/26-1/CapDe/팀플/Week6/테스트%20결과.png)
-
-## 5. Próximos pasos (Next Steps)
-Validamos con éxito el primer ciclo de fine-tuning del modelo Llama 3.1 y establecimos un pipeline automatizado para la creación de documentación utilizando los recursos de desarrollo (entregables, estructura de la base de datos). La próxima semana, realizaremos pruebas de inferencia (Inference) del modelo ajustado y analizaremos los resultados de la evaluación de rendimiento.
-```
+오늘은 Llama 3.1이라는 최신 언어 모델을 직접 내 손(과 AI의 머리)으로 튜닝해 보는 쾌감을 느낀 날입니다. 동시에 코딩뿐만 아니라 발표 자료 제작, DB 아키텍처 다이어그램 설계까지 AI를 100% 활용하는 방법을 터득해 가고 있습니다. 과연 우리 마음지기 AI는 얼마나 똑똑해졌을까요? 다음 시간에 그 테스트 결과를 공개합니다!

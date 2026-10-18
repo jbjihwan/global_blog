@@ -1,51 +1,35 @@
-```markdown
 ---
 slug: 2026-05-12-maeumjigi-17
-title: "[Diario de desarrollo Capstone Maeumjigi #17] Finalización del segundo Fine-Tuning y las trampas del pipeline de evaluación automatizada"
+title: "[마음지기 캡스톤 개발일지 #17] 2차 파인튜닝 완료 및 평가 자동화 파이프라인의 함정"
 authors: [jbgih]
-tags: [diario-de-desarrollo, fine-tuning, máximo-rendimiento, checkpoint, hardcoding, diseño-capstone]
+tags: [개발일지, 파인튜닝, 최고성능, 체크포인트, 하드코딩, 캡스톤디자인]
 date: 2026-05-12
+keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 ---
 
-Esta publicación es un registro de desarrollo (Dev Log) que aborda los problemas experimentados durante el proceso de informar sobre la finalización del segundo Fine-Tuning y la construcción del pipeline de automatización de evaluación (Evaluation) para la optimización del modelo de lenguaje de inteligencia artificial (IA) del proyecto Maeumjigi. Resume el proceso de diseño del pipeline y resolución de problemas (troubleshooting) para corregir los errores de configuración de hiperparámetros del experimento anterior y verificar eficientemente los resultados de inferencia de múltiples modelos.
+![사진 01](./images/01_cover.png)
 
-## 🛠 Tech Stack
-- **Model:** Qwen35-9B, HCX-Text-1p5B
-- **Tuning Method:** PEFT (LoRA)
-- **Infrastructure:** Linux GPU Server
-- **Scripting:** Shell Script (`.sh`), Jupyter Notebook
+LoRA 하이퍼파라미터 실수(alpha/rank 설정 오류)를 바로잡기 위해 야심 차게 시작했던 2차 파인튜닝(`fine_tuning_2`) 병렬 학습이 5월 12일 마침내 끝이 났습니다!
 
-## ✨ Features: Finalización del segundo Fine-Tuning y construcción del pipeline para extraer el mejor Checkpoint
+### Best Checkpoint 추출과 추론 파이프라인 구축
 
-### 1. Finalización del Fine-Tuning y extracción de los pesos óptimos (Best Checkpoint)
-Se completó el aprendizaje en paralelo del segundo Fine-Tuning (`fine_tuning_2`) corrigiendo los errores de configuración de los hiperparámetros `alpha` y `rank` de LoRA descubiertos en el primer entrenamiento. En total, se exploraron 6 combinaciones de hiperparámetros basadas en 3 modelos base.
-Se construyó una lógica para transferir automáticamente al directorio `adapter` el mejor (Best) checkpoint que logró el mayor rendimiento evitando el sobreajuste (Overfitting) para cada modelo, analizando comparativamente la métrica de pérdida de validación (`eval_loss`) inmediatamente después de finalizar el entrenamiento.
+3개 모델에 대해 6가지 하이퍼파라미터 조합으로 돌렸던 파인튜닝이 모두 완료되었습니다. 곧바로 `eval_loss`를 비교하여 가장 성능이 좋은 최고(Best)의 체크포인트를 뽑아내 모델별 `adapter` 폴더로 옮기는 작업을 진행했습니다.
 
-### 2. Creación de script de shell para automatización de evaluación y comparación
-Se implementó el script `run_test_20_30.sh` para procesar la inferencia del modelo (Eval) y la comparación de resultados (Comparison) de una vez en forma de pipeline en el entorno en segundo plano del servidor. A través de esto, se sentaron las bases para cargar secuencialmente múltiples modelos con fine-tuning y ejecutar pruebas por lotes.
+또한, 서버에서 백그라운드로 추론(Eval)과 결과 비교(Comparison)를 한 번에 끝낼 수 있도록 `run_test_20_30.sh` 스크립트를 새롭게 구성했습니다.
 
-## 🚨 Troubleshooting
+> "현재 HCX-Text-1p5B 모델들이 15분 동안 12개 생성했습니다. GPU Util은 각 그래픽 카드 당 1.6GB..."
 
-### Issue 1: Disminución de la velocidad de inferencia debido a un cuello de botella por Batch Size y falta de almacenamiento
-**[Problem]**
-Ocurrió un fenómeno anormal de disminución de la velocidad de inferencia durante el proceso de ejecución del script de automatización de evaluación. El rendimiento (Throughput) fue tan bajo que solo se generaron 12 muestras en 15 minutos en el modelo `HCX-Text-1p5B`, que tiene la menor cantidad de parámetros. Como resultado del monitoreo de GPU, el uso de VRAM se mantuvo en el nivel de 1.6GB por dispositivo, por lo que los recursos casi no se utilizaban. Para empeorar las cosas, al mismo tiempo ocurrió un problema de falta de capacidad de almacenamiento del servidor.
+그러나 추론 속도는 여전히 절망적이었습니다. 가장 가벼운 1.5B 모델조차 1분에 채 1개의 답변도 만들어내지 못하고 있었습니다. VRAM 사용량은 1.6GB밖에 안 되는데, Batch Size가 1로 잡혀 있어 병목 현상이 발생한 것입니다. 여기에 서버 용량 부족 문제까지 겹치면서, 프로젝트 기본 경로를 `~/home/`에서 `~/home/data/temporary/`로 급하게 이전하느라 모든 스크립트 경로를 수정하는 소동도 있었습니다.
 
-**[Cause]**
-- Dentro del script de inferencia, el `Batch Size` estaba fijo en 1, lo que limitaba el procesamiento en paralelo de la GPU y causaba un grave cuello de botella computacional.
-- Al acumularse grandes archivos de checkpoints y registros, se excedió la capacidad de almacenamiento disponible de la ruta del proyecto existente (`~/home/`).
+### 하드코딩의 함정에 빠지다
 
-**[Solution]**
-- Para resolver las limitaciones de infraestructura, se migró todo el espacio de trabajo del proyecto a la ruta `~/home/data/temporary/`, que tiene espacio libre, y se restablecieron las rutas de referencia de directorio de todos los scripts de shell relacionados.
-- Se planea optimizar la velocidad de inferencia en el futuro aumentando el Batch Size del código de evaluación hasta el límite de la VRAM de la GPU (un nivel donde no ocurra OOM).
+![사진 02](./images/02_bug.png)
 
-### Issue 2: Contaminación de las pruebas debido al Hardcoding en el script de evaluación
-**[Problem]**
-Pensé que el pipeline de evaluación había funcionado normalmente, pero encontré un error lógico fatal (Logical Bug) durante el proceso de verificación del registro de resultados ejecutados. Copié y ejecuté en segundo plano archivos de cuaderno individuales compuestos por el nombre de cada modelo objetivo, como `20_eval_HCX-Text-1p5B_a8.ipynb`, pero en realidad todos los resultados se generaban solo para un modelo específico idéntico.
+그렇게 힘들게 평가 코드를 다 돌리고 난 후, 소름 돋는 사실을 발견했습니다.
 
-**[Cause]**
-Al copiar el archivo `.ipynb` que sirve como plantilla mientras se configuraba la lógica de automatización, solo se cambió el nombre del archivo y el nombre del modelo objetivo de evaluación en el código interno mantuvo el estado hardcodeado como `MODEL_ALIAS = 'Qwen35-9B_a16'`. Como resultado, el pipeline cargaba continuamente solo los pesos del modelo `Qwen35-9B_a16` en la VRAM, independientemente del nombre del archivo, repitiendo tareas de inferencia duplicadas.
+> "왜 20_eval_ft_models.ipynb의 MODEL_ALIAS = 'Qwen35-9B_a16' 이렇게 하나의 모델로 하드코딩 되어 있나?"
+> "그럼 서버에서 logs/.../20_eval_HCX-Text-1p5B_a8.ipynb에서도 MODEL_ALIAS = 'Qwen35-9B_a16'가 정의되어 있었는데, 파일명과 모델명이 다른 게 정상이라는 거지?"
 
-**[Solution]**
-- Se eliminaron las variables hardcodeadas y se refactorizó el código de evaluación para que el nombre del modelo objetivo se pueda mapear dinámicamente (Dynamic Mapping) a través de argumentos (Argument) o variables de entorno durante la ejecución del script.
-- Todos los registros de resultados de inferencia existentes contaminados y los productos se eliminaron (Drop), y se planea volver a realizar la inferencia del modelo basándose en el código con el error corregido.
-```
+그렇습니다. 평가 자동화 스크립트를 짜면서 실수로 `MODEL_ALIAS`를 하드코딩해버린 것입니다. HCX 모델을 테스트한다고 파일은 열심히 복사해서 돌렸지만, 정작 코드 내에서는 계속 `Qwen35-9B_a16` 모델만 주구장창 불러와서 똑같은 추론을 반복하고 있었던 셈입니다! 
+
+파인튜닝은 과학이 아니라 꼼꼼함의 싸움이라는 것을 또 한 번 뼈저리게 느낀 하루였습니다. 하드코딩된 버그를 고치고 내일 다시 추론을 돌려야 할 것 같습니다.
