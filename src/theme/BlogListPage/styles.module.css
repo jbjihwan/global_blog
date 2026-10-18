@@ -272,3 +272,147 @@
   font-size: 3rem;
   margin-bottom: 0.5rem;
 }
+
+/* Sort Control Bar */
+.sortBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1.2rem;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.sortButtonsGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sortButton {
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.sortButton:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.sortButtonActive {
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  border-color: var(--ifm-color-primary);
+}
+
+.quickActionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quickActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  transition: all 0.15s ease-in-out;
+}
+
+.quickActionBtn:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+/* Episode Card Grid */
+.episodeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.episodeCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.episodeCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-color: var(--ifm-color-primary);
+}
+
+.episodeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.episodeBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(46, 133, 85, 0.15);
+  color: var(--ifm-color-primary);
+  border: 1px solid rgba(46, 133, 85, 0.25);
+  letter-spacing: 0.5px;
+}
+
+.episodeDate {
+  font-size: 0.78rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.episodeTitle {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-900);
+  line-height: 1.45;
+  margin: 0 0 0.8rem 0;
+  flex-grow: 1;
+}
+
+.episodeFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  padding-top: 0.6rem;
+}
+
+.readMoreText {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+

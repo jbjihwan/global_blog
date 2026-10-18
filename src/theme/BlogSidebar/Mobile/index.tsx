@@ -121,6 +121,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     if (hash === 'maeumjigi') return 'maeumjigi';
     if (hash === 'anpr_vision' || hash === 'anpr' || hash === 'cv') return 'anpr_vision';
     if (hash === 'rl_q_learning' || hash === 'rl') return 'rl_q_learning';
+    if (hash === 'security' || hash === 'infra') return 'security';
     if (hash === 'all') return 'all';
 
     return 'maeumjigi';
