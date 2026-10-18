@@ -1,36 +1,29 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-10-16 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-10-18 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
 ## 📌 지금 하는 일
-Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국어 기술 블로그 운영 및 프로젝트별 개발 일지 연재.
+Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국어 기술 블로그 운영, 구글 애드센스 승인 요건 구축 및 정기 연재 루틴 확립.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-16)
+## 🚀 마지막으로 확인된 상태 (2026-10-18)
 - **블로그 라이브 배포 URL**: [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/)
+- **구글 애드센스(AdSense) 승인 인프라 구축**:
+  - `About Me` (소개): 4개 국어(`src/pages/about.md`, `i18n/*/about.md`) 엔지니어링 경력, 연구 분야, 오픈소스 철학 명시 (E-E-A-T 충족).
+  - `Privacy Policy` (개인정보처리방침): 4개 국어(`privacy-policy.md`) GA4(`G-VM2CVW28SL`), 쿠키 및 AdSense 맞춤 광고 Opt-out 조항 완비 (GDPR/CCPA 준수).
+  - `Contact` (문의처): 4개 국어(`contact.md`) 공식 이메일(`jbgihwan@gmail.com`) 및 GitHub Issue 링크 배치.
+  - 불필요한 기본 템플릿 문서(`docs/`, `markdown-page.mdx`) `_old\`로 아카이빙 및 `docs: false` 비활성화로 404 에러 원천 차단.
+  - 내비게이션 바 및 푸터 전면 개편 (다국어 공통 안전 경로로 정비).
 - **연재 완료 시리즈**:
   1. **마음지기 캡스톤 개발일지 (총 23편)**
-     - 2026-03-26 ~ 2026-06-18
-     - en, es, ja, ko 4개 국어 번역 및 대표/본문 이미지 매핑 완료.
   2. **Webots Q-Learning 로봇 자율주행 강화학습 (총 5편)**
-     - 2026-05-17 ~ 2026-05-21
-     - 648개 상태 공간 이산화, 조밀한 보상 형성, 12개 장애물 로컬 미니마 극복, 무탐색 결정론적 평가, Arduino Sim-to-Real 전이.
-     - 4개 국어 전편 수록 완료.
   3. **Blackbox ANPR & Lane Intrusion 비전 AI 시스템 (총 5편)**
-     - 2026-06-25 ~ 2026-06-29 (`D:\CV` 프로젝트 기반)
-     - `#1`: 6-Stage End-to-End Pipeline & Real-Time Constraints
-     - `#2`: Dynamic Lane Boundary Extraction & Geometric IoU Intrusion Criterion
-     - `#3`: Hierarchical Object Detection: YOLOv3 Vehicle ROI, YOLOv5 Plate Detector & CSRT Tracking
-     - `#4`: Overcoming Blurry Blackbox Artifacts: Deep Super-Resolution (EDSR) & Multi-Frame Image Stacking
-     - `#5`: Korean ANPR OCR Engine, Regex Normalization & Temporal Majority Voting (v01 to v11 Evolution)
-     - 4개 국어(en, ko, ja, es) 및 실제 시뮬레이션/주행 결과 이미지 일괄 수록 완료.
-- **UI & 테마 커스텀**:
-  - `src/theme/BlogListPage`: 프로젝트 선택 허브(마음지기, Q-Learning, ANPR Vision, 전체 피드 탭) 및 4개 국어 배너/뱃지 UI 적용.
-  - `src/pages/index.tsx`: `/global_blog/blog` 자동 리다이렉트 처리.
-  - `tools/publish.ps1`: 원스톱 자동 배포(Git Stage -> Commit -> Push -> GitHub Pages Deploy) 스크립트 구축.
+  - 총 33편(4개 국어 132개 포스트) 전편 SEO 상위 5대 키워드 주입 완료.
+- **빌드 상태**: 4개 국어(en, es, ja, ko) SSG 전체 빌드 PASS (`exit code 0`).
 
 ## 📋 다음 한 걸음
-1. **2학기 프로젝트 연재 기획**:
-   - 캡스톤 디자인 2학기: 위기감지 NLP 모델 고도화(순서형 회귀, MIL, Guardrail 파이프라인 등) 시리즈 기획.
-   - SDC 동적 임무계획 변경 연구 관련 기술 아티클 연재 검토.
-2. **블로그 추가 기능 고도화**:
-   - Giscus 댓글 설정 완료 및 확인.
-   - 소셜 공유 메타태그(OpenGraph) 점검.
+1. **[골든 타임 루틴] 화/목 밤 10~11시 정기 연재 루틴**:
+   - 마음지기 2학기 AI 고도화(순서형 회귀, Guardrail 파이프라인) 신규 시리즈 1편 발행.
+2. **[할 일 보관] 네이버 블로그 전용 원고 변환 (총 10편)**:
+   - Webots Q-Learning (5편) 및 Blackbox ANPR 비전 (5편) 스마트에디터 최적화 원고 생성.
+3. **구글 서치 콘솔 및 네이버 서치어드바이저 사이트맵 점검**:
+   - `sitemap.xml` 및 신규 3개 페이지 색인 요청.
+

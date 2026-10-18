@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Maeumjigi Dev Blog',
-  tagline: 'AI 자살 예방 챗봇 개발기',
+  title: 'Global Dev Blog',
+  tagline: 'Engineering Deep Dives in AI, Robotics, Computer Vision & Reinforcement Learning',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -42,13 +42,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        docs: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -85,14 +79,17 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Maeumjigi Blog',
+      title: 'Global Dev Blog',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Global Dev Blog Logo',
         src: 'img/logo.svg',
       },
       items: [
-        { type: 'localeDropdown', position: 'right' },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/about', label: 'About', position: 'left'},
+        {to: '/privacy-policy', label: 'Privacy Policy', position: 'left'},
+        {to: '/contact', label: 'Contact', position: 'left'},
+        { type: 'localeDropdown', position: 'right' },
         {
           href: 'https://github.com/jbjihwan/global_blog',
           label: 'GitHub',
@@ -104,20 +101,50 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'More',
+          title: 'Explore & Feed',
           items: [
             {
-              label: 'Blog',
+              label: 'Blog Hub & All Posts',
               to: '/blog',
             },
             {
-              label: 'GitHub',
+              label: 'GitHub Source Code',
+              href: 'https://github.com/jbjihwan/global_blog',
+            },
+          ],
+        },
+        {
+          title: 'About & Legal',
+          items: [
+            {
+              label: 'About Me (소개)',
+              to: '/about',
+            },
+            {
+              label: 'Privacy Policy (개인정보처리방침)',
+              to: '/privacy-policy',
+            },
+            {
+              label: 'Contact (문의하기)',
+              to: '/contact',
+            },
+          ],
+        },
+        {
+          title: 'Connect & Code',
+          items: [
+            {
+              label: 'GitHub Profile',
+              href: 'https://github.com/jbjihwan',
+            },
+            {
+              label: 'Blog Repository',
               href: 'https://github.com/jbjihwan/global_blog',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} jbjihwan.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Jihwan Park (jbjihwan). All rights reserved. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
