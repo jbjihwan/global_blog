@@ -4,10 +4,97 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/ja/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Sun, 18 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
+        <item>
+            <title><![CDATA[GitHub Pagesからカスタムドメイン(Porkbun+Cloudflare)への移行、AdSense審査設定、および主要3大検索エンジン(Google/Naver/Bing)SEO完全ガイド]]></title>
+            <link>https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide</link>
+            <guid>https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide</guid>
+            <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[GitHub Pages上のDocusaurus静的ブログをPorkbunとCloudflare DNSを活用して独自ドメインへ移行し、Google AdSense審査設定およびGoogle・Naver・Bing検索エンジンのインデックス登録トラブルを解決した実践的エンジニアリング記録。]]></description>
+            <content:encoded><![CDATA[<p>GitHub Pagesの無料サブドメイン（<code>username.github.io/project</code>）上で技術ブログを運営することは手軽で便利ですが、プロフェッショナルな収益化を目指す段階で大きな技術的障壁に直面します。<strong>Google AdSenseは <code>*.github.io</code> などの無料サブドメインでのサイト登録を厳格に禁止</strong>しているためです。AdSenseの審査を通過し、ドメイン評価（Domain Authority）を蓄積するためには、独自の**ネイキッド／カスタムドメイン（Apex Domain）**が不可欠です。</p>
+<p>静的サイトジェネレーター（SSG）におけるドメイン移行は、単なるDNSレコードの書き換えにとどまりません。レジストラ（Porkbun）のネームサーバー委任、エッジSSL終端、CNAMEフラット化、ビルドルートの再設定、<code>ads.txt</code> のホスティング、そして各国検索エンジンのUIトラップの回避が必要です。</p>
+<p>本記事では、<code>jbjihwan.github.io/global_blog</code> から独自ドメイン <code>https://globaldevlog.com</code> へのゼロダウンタイム移行アーキテクチャと、Google Search Console、Naver Search Advisor、Bing Webmaster Toolsのトラブルシューティングを包括的に解説します。</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="静的エンジニアリングブログ向け本番DNSおよびCDNルーティングアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-アーキテクチャ戦略-porkbun--cloudflare--github-pages">1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#1-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%88%A6%E7%95%A5-porkbun--cloudflare--github-pages" class="hash-link" aria-label="1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages への直接リンク" title="1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages への直接リンク" translate="no">​</a></h2>
+<p>GitHub Pagesにネイキッドドメインを接続する際、GitHubのIPアドレスに対して素の <code>A</code> レコードを直接指定する従来の手法は、エッジキャッシュ、DDoS保護、自動SSL更新の観点で脆弱です。</p>
+<p>そこで、高可用性を担保する<strong>3層アーキテクチャ</strong>を採用しました:</p>
+<table><thead><tr><th style="text-align:left">レイヤー</th><th style="text-align:left">プロバイダー</th><th style="text-align:left">主な役割</th></tr></thead><tbody><tr><td style="text-align:left"><strong>レジストラ</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">ドメイン（<code>globaldevlog.com</code>）取得、無料WHOISプライバシー保護、CloudflareへのNS委任</td></tr><tr><td style="text-align:left"><strong>エッジDNS &amp; セキュリティ</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">グローバルAnycast DNS、ルートCNAMEフラット化、Universal SSL暗号化、Bot防御</td></tr><tr><td style="text-align:left"><strong>オリジンSSG</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">Docusaurus静的アーティファクト配信、サーバー管理不要・維持費0円、<code>gh-pages</code>自動同期</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="porkbun-ネームサーバー委任">Porkbun ネームサーバー委任<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#porkbun-%E3%83%8D%E3%83%BC%E3%83%A0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E5%A7%94%E4%BB%BB" class="hash-link" aria-label="Porkbun ネームサーバー委任 への直接リンク" title="Porkbun ネームサーバー委任 への直接リンク" translate="no">​</a></h3>
+<p>Porkbunの管理コンソールで、デフォルトのネームサーバーをCloudflare指定のものに切り替えます:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">NS: roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">NS: sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cloudflare-cname-flattening設定">Cloudflare CNAME Flattening設定<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#cloudflare-cname-flattening%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="Cloudflare CNAME Flattening設定 への直接リンク" title="Cloudflare CNAME Flattening設定 への直接リンク" translate="no">​</a></h3>
+<p>RFC 1034の制限により、通常ルートドメイン（<code>@</code>）にCNAMEは設定できませんが、Cloudflareの <strong>CNAME Flattening</strong> 技術により、GitHub Pagesへの直接プロキシが可能になります:</p>
+<ul>
+<li class=""><strong>Type</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>@</code> | <strong>Target</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy status</strong>: Proxied</li>
+<li class=""><strong>Type</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>www</code> | <strong>Target</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy status</strong>: Proxied</li>
+<li class=""><strong>SSL/TLSモード</strong>: <strong>Full</strong>（またはFull Strict）を選択し、エンドツーエンドの暗号化を確保します。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-docusaurus-設定マイグレーション">2. Docusaurus 設定マイグレーション<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#2-docusaurus-%E8%A8%AD%E5%AE%9A%E3%83%9E%E3%82%A4%E3%82%B0%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3" class="hash-link" aria-label="2. Docusaurus 設定マイグレーション への直接リンク" title="2. Docusaurus 設定マイグレーション への直接リンク" translate="no">​</a></h2>
+<p>サブパス（<code>/global_blog/</code>）からドメインルート（<code>/</code>）へスムーズに移行するため、<code>docusaurus.config.ts</code> を修正します:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="静的-cname-ファイルの配置">静的 CNAME ファイルの配置<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#%E9%9D%99%E7%9A%84-cname-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%85%8D%E7%BD%AE" class="hash-link" aria-label="静的 CNAME ファイルの配置 への直接リンク" title="静的 CNAME ファイルの配置 への直接リンク" translate="no">​</a></h3>
+<p>GitHub Pagesが正しいリポジトリにルーティングできるよう、<code>static/CNAME</code> を作成します:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>デプロイコマンド（<code>npm run deploy</code>）により、<code>static/</code> 配下のファイルはすべてビルドルート（<code>gh-pages</code> ブランチの最上位）へ自動配置されます。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-静的サイト向け-google-adsense-審査設定">3. 静的サイト向け Google AdSense 審査設定<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#3-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E5%90%91%E3%81%91-google-adsense-%E5%AF%A9%E6%9F%BB%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="3. 静的サイト向け Google AdSense 審査設定 への直接リンク" title="3. 静的サイト向け Google AdSense 審査設定 への直接リンク" translate="no">​</a></h2>
+<p>Google AdSenseの審査プロセスには、サイト所有権の確認、広告スクリプトの挿入、ルートパスにおける <code>ads.txt</code> のクロール検証が含まれます。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-パブリッシャースクリプトの非同期挿入">A. パブリッシャースクリプトの非同期挿入<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#a-%E3%83%91%E3%83%96%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E6%8C%BF%E5%85%A5" class="hash-link" aria-label="A. パブリッシャースクリプトの非同期挿入 への直接リンク" title="A. パブリッシャースクリプトの非同期挿入 への直接リンク" translate="no">​</a></h3>
+<p><code>docusaurus.config.ts</code> の <code>scripts</code> 配列にコードを挿入します:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">  scripts</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      src</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      async</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      crossorigin</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'anonymous'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-ルート-adstxt-の配置と稼働検証">B. ルート <code>ads.txt</code> の配置と稼働検証<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#b-%E3%83%AB%E3%83%BC%E3%83%88-adstxt-%E3%81%AE%E9%85%8D%E7%BD%AE%E3%81%A8%E7%A8%BC%E5%83%8D%E6%A4%9C%E8%A8%BC" class="hash-link" aria-label="b-ルート-adstxt-の配置と稼働検証 への直接リンク" title="b-ルート-adstxt-の配置と稼働検証 への直接リンク" translate="no">​</a></h3>
+<p><code>static/ads.txt</code> を作成し、パブリッシャー情報を記述します:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">google.com, pub-4654073335496617, DIRECT, f08c47fec0942fa0</span><br></div></code></pre></div></div>
+<p>本番環境で HTTP 200 が返ることを確認します:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com/ads.txt</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># content-type: text/plain; charset=utf-8</span><br></div></code></pre></div></div>
+<hr>
+<p><img decoding="async" loading="lazy" alt="グローバル検索エンジンインデックス登録およびAdSense収益化パイプライン" src="https://globaldevlog.com/ja/assets/images/02_indexing_pipeline-8f17d9e45c07877c55ba651d6017360f.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-検索エンジン別-seo--トラブルシューティング">4. 検索エンジン別 SEO &amp; トラブルシューティング<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#4-%E6%A4%9C%E7%B4%A2%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E5%88%A5-seo--%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0" class="hash-link" aria-label="4. 検索エンジン別 SEO &amp; トラブルシューティング への直接リンク" title="4. 検索エンジン別 SEO &amp; トラブルシューティング への直接リンク" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-google-search-console-サイトマップ削除uiの落とし穴">A. Google Search Console: サイトマップ削除UIの落とし穴<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#a-google-search-console-%E3%82%B5%E3%82%A4%E3%83%88%E3%83%9E%E3%83%83%E3%83%97%E5%89%8A%E9%99%A4ui%E3%81%AE%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4" class="hash-link" aria-label="A. Google Search Console: サイトマップ削除UIの落とし穴 への直接リンク" title="A. Google Search Console: サイトマップ削除UIの落とし穴 への直接リンク" translate="no">​</a></h3>
+<p>誤ってルートURL（<code>https://globaldevlog.com/</code>）をサイトマップとして送信してしまった場合、テーブル行右側の3点リーダー（<code>⋮</code>）をクリックしても削除ボタンが表示されず、無効化された「インデックス登録を表示」しか見当たりません。</p>
+<p><strong>解決手順:</strong></p>
+<ol>
+<li class="">表右端のメニューではなく、<strong>エラーが発生しているURLテキストそのものを直接クリック</strong>して詳細ビューを開きます。</li>
+<li class="">詳細画面右上のヘッダーにある縦3点リーダー（<code>⋮</code>）をクリックします。</li>
+<li class="">表示されるメニューから <strong>[サイトマップの削除]</strong> を選択すると、誤登録が即座に消去されます。</li>
+<li class="">一時的に「取得できませんでした」となった多言語サイトマップ（例: <code>es/sitemap.xml</code>）は、上の入力欄から再送信することで即時<strong>成功</strong>に転換します。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-naver-search-advisor-urlをホスト単位で入力してください">B. Naver Search Advisor: 「URLをホスト単位で入力してください」<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#b-naver-search-advisor-url%E3%82%92%E3%83%9B%E3%82%B9%E3%83%88%E5%8D%98%E4%BD%8D%E3%81%A7%E5%85%A5%E5%8A%9B%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84" class="hash-link" aria-label="B. Naver Search Advisor: 「URLをホスト単位で入力してください」 への直接リンク" title="B. Naver Search Advisor: 「URLをホスト単位で入力してください」 への直接リンク" translate="no">​</a></h3>
+<p>韓国最大手ポータルNaverの登録手順におけるポイント:</p>
+<ol>
+<li class=""><strong>ホスト単位エラーの回避</strong>: 最初の「サイト登録」画面でサイトマップURLを入力するとエラーダイアログが出ます。ドメイン名のみで登録を完了させた後、管理画面内の <strong>[リクエスト] &gt; [サイトマップ送信]</strong> にて <code>sitemap.xml</code> を入力します。</li>
+<li class=""><strong>HTML認証＋メタタグの二重配備</strong>: <code>static/naver&lt;hash&gt;.html</code> と設定ファイル内メタタグの双方を配備し、確実な所有権認証を実現します。</li>
+<li class=""><strong>Yetiクローラーの優先巡回</strong>: <strong>[リクエスト] &gt; [ウェブページの収集]</strong> にて <code>blog</code>, <code>ko/blog</code> 等の主要パスをリクエストし、インデックス反映を促進します。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="c-bing-webmaster-tools--ai検索copilot--chatgpt連携">C. Bing Webmaster Tools &amp; AI検索（Copilot / ChatGPT）連携<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#c-bing-webmaster-tools--ai%E6%A4%9C%E7%B4%A2copilot--chatgpt%E9%80%A3%E6%90%BA" class="hash-link" aria-label="C. Bing Webmaster Tools &amp; AI検索（Copilot / ChatGPT）連携 への直接リンク" title="C. Bing Webmaster Tools &amp; AI検索（Copilot / ChatGPT）連携 への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>GSCワンクリックインポート</strong>: Googleアカウント連携により、検証済みドメインと登録サイトマップを1秒で複製同期します。</li>
+<li class=""><strong>48時間の同期遅延を短縮</strong>: Googleからのデータ自動反映を待つことなく、左側メニュー <strong>[Sitemaps]</strong> から <code>https://globaldevlog.com/sitemap.xml</code> を手動送信することで、Bingクローラーの即時巡回を促せます。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-本番検証チェックリスト">5. 本番検証チェックリスト<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#5-%E6%9C%AC%E7%95%AA%E6%A4%9C%E8%A8%BC%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88" class="hash-link" aria-label="5. 本番検証チェックリスト への直接リンク" title="5. 本番検証チェックリスト への直接リンク" translate="no">​</a></h2>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>DNS正常性</strong>: <code>globaldevlog.com</code> および <code>www</code> がSSL警告なしで正常に応答</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>CNAME配置</strong>: GitHub Pagesデプロイ先ルートに <code>CNAME</code> が存在</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>ads.txt検証</strong>: 配信パスでパブリッシャーIDが正常出力</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>多言語サイトマップ</strong>: 全言語用サイトマップ（<code>sitemap.xml</code>, <code>ko/</code>, <code>ja/</code>, <code>es/</code>）がHTTP 200を返却</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>主要検索エンジンの設定完了</strong>: Google, Naver, Bing すべてで所有権確認およびインデックス収集進行中</li>
+</ul>
+<p>これにより、サーバー運用費完全0円のまま、高速なエッジCDN、多言語SEOインフラ、そしてGoogle AdSenseの収益基盤が万全に整いました。</p>]]></content:encoded>
+            <category>docusaurus</category>
+            <category>devops</category>
+            <category>cloudflare</category>
+            <category>seo</category>
+            <category>web-monetization</category>
+        </item>
         <item>
             <title><![CDATA[45件のnpm脆弱性警告と無リスクの真実：静的サイトで npm audit fix --force を盲信してはいけない理由]]></title>
             <link>https://globaldevlog.com/ja/blog/static-site-security-npm-audit-truth</link>
@@ -422,34 +509,6 @@
             <category>Python</category>
         </item>
         <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
-            <link>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</link>
-            <guid>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
-<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
-<blockquote>
-<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
-</blockquote>
-<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
-<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
-<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
-<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>バックエンド</category>
-            <category>フロントエンド</category>
-            <category>データベース</category>
-            <category>キャップストーン</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
             <link>https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4</link>
             <guid>https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4</guid>
@@ -485,6 +544,34 @@
             <category>SARSA</category>
             <category>ロボティクス</category>
             <category>Python</category>
+        </item>
+        <item>
+            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
+            <link>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
+<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
+<blockquote>
+<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
+</blockquote>
+<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
+<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
+<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
+<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
+<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
+            <category>開発日誌</category>
+            <category>ファインチューニング</category>
+            <category>バックエンド</category>
+            <category>フロントエンド</category>
+            <category>データベース</category>
+            <category>キャップストーン</category>
         </item>
         <item>
             <title><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
@@ -787,38 +874,6 @@
             <category>ReactNative</category>
             <category>アプリ開発</category>
             <category>フロントエンド</category>
-        </item>
-        <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #15] 5モデルのファインチューニング結果の視覚化とローカル環境構築]]></title>
-            <link>https://globaldevlog.com/ja/blog/2026-05-07-maeumjigi-15</link>
-            <guid>https://globaldevlog.com/ja/blog/2026-05-07-maeumjigi-15</guid>
-            <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[各ファインチューニングモデルのPerplexityと評価指標を分析し、matplotlibを活用してモデル間の性能差を可視化した記録です。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-b5ad981f0a0602b8afaf1bdbc982094d.png" width="1181" height="731" class="img_ev3q"></p>
-<p>5月7日は、これまで苦労してファインチューニングした計5つのモデル（Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B）の結果を集大成し、本格的な視覚化とローカル環境の構築を進めた日です。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="モデル比較のための視覚化とローカル環境設定">モデル比較のための視覚化とローカル環境設定<a href="https://globaldevlog.com/ja/blog/2026-05-07-maeumjigi-15#%E3%83%A2%E3%83%87%E3%83%AB%E6%AF%94%E8%BC%83%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E8%A6%96%E8%A6%9A%E5%8C%96%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="モデル比較のための視覚化とローカル環境設定 への直接リンク" title="モデル比較のための視覚化とローカル環境設定 への直接リンク" translate="no">​</a></h3>
-<p>これまで重いサーバー上で回していた結果比較コードを、個人のノートパソコンでも簡単に確認できるように、新しく<code>31_comparison_local.ipynb</code>ノートブックを作成しました。</p>
-<blockquote>
-<p>「30_comparison.ipynbは私のノートパソコンでも動かせるのではないか？」</p>
-</blockquote>
-<p>VSCodeでローカルのJupyterカーネルを設定し、必要なライブラリをインストールする過程で、頻繁なカーネルのクラッシュや<code>ModuleNotFoundError</code>のようなエラーに直面しましたが、フォルダパスを合わせながら一歩一歩解決していきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5モデル総合レポートとグラフ視覚化">5モデル総合レポートとグラフ視覚化<a href="https://globaldevlog.com/ja/blog/2026-05-07-maeumjigi-15#5%E3%83%A2%E3%83%87%E3%83%AB%E7%B7%8F%E5%90%88%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A8%E3%82%B0%E3%83%A9%E3%83%95%E8%A6%96%E8%A6%9A%E5%8C%96" class="hash-link" aria-label="5モデル総合レポートとグラフ視覚化 への直接リンク" title="5モデル総合レポートとグラフ視覚化 への直接リンク" translate="no">​</a></h3>
-<p>最も重要な作業は、これら5つのモデルのパフォーマンスを一目で比較できる視覚化でした。AIと共に計画書を作成し、体系的にデータ整理を始めました。</p>
-<blockquote>
-<p>「薄い線と太い線の違いは何か？各モデルのtraining lossとeval lossを取得してグラフとして視覚化して。」
-「太い線は消して、薄い線をはっきりと変更して保存して。」</p>
-</blockquote>
-<p>AIが描いてくれたmatplotlibのグラフから不要なトレンド線（太い線）を取り除き、モデルごとのTraining LossとEval Lossの曲線をきれいに1か所にまとめた<code>03_training_loss_all.png</code>と<code>04_eval_loss_all.png</code>を最終的に抽出しました。</p>
-<p><img decoding="async" loading="lazy" alt="グラフの視覚化" src="https://globaldevlog.com/ja/assets/images/02_graph-8f91ee1a78e9220a703c6884ad9a4f40.png" width="1785" height="735" class="img_ev3q"></p>
-<p>これらのグラフを基に、来週のキャップストーンデザインの中間発表資料を立派に飾ることができるようになりました。果たして、この5つのモデルのうちどれが最も優れた「マウムジギ」チャットボットとして最終選定されるのでしょうか？</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>結果分析</category>
-            <category>視覚化</category>
-            <category>Jupyter</category>
-            <category>キャップストーン</category>
-            <category>人工知能(AI)</category>
         </item>
     </channel>
 </rss>

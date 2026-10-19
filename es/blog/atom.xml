@@ -2,11 +2,106 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://globaldevlog.com/es/blog</id>
     <title>Global Dev Blog Blog</title>
-    <updated>2026-10-18T00:00:00.000Z</updated>
+    <updated>2026-10-20T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://globaldevlog.com/es/blog"/>
     <subtitle>Global Dev Blog Blog</subtitle>
     <icon>https://globaldevlog.com/es/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[De GitHub Pages a Dominio Personalizado: Guía Completa de Porkbun, Cloudflare DNS, Aprobación de AdSense y SEO Multimotor]]></title>
+        <id>https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide</id>
+        <link href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide"/>
+        <updated>2026-10-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Guía técnica paso a paso para migrar un blog estático Docusaurus en GitHub Pages a un dominio apex propio mediante Porkbun y Cloudflare DNS, preparar la verificación de Google AdSense y optimizar la indexación en Google, Naver y Bing.]]></summary>
+        <content type="html"><![CDATA[<p>Alojar un blog de ingeniería en GitHub Pages bajo <code>username.github.io/proyecto</code> es rápido y eficiente. Sin embargo, en cuanto se busca profesionalizar la marca e implementar monetización, surge un impedimento crítico: <strong>Google AdSense prohíbe taxativamente registrar subdominios gratuitos como <code>*.github.io</code></strong>. Para calificar para la cuenta de editor de AdSense y forjar autoridad de dominio (Domain Authority), es indispensable contar con un <strong>dominio apex propio</strong>.</p>
+<p>Migrar un sitio estático generado por Docusaurus implica mucho más que cambiar un registro DNS: requiere delegación autoritativa en el registrador, cifrado SSL en el edge, aplanamiento CNAME (Flattening), mapeo de rutas raíz, provisión directa de <code>ads.txt</code> y sortear peculiaridades de interfaz en Google Search Console, Naver Search Advisor y Bing Webmaster Tools.</p>
+<p>En este artículo detallamos la arquitectura técnica de nuestra migración de <code>jbjihwan.github.io/global_blog</code> a <code>https://globaldevlog.com</code>, junto con la resolución de los errores reales de indexación encontrados.</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="Arquitectura de Enrutamiento DNS y CDN en Producción" src="https://globaldevlog.com/es/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-estrategia-de-arquitectura-porkbun--cloudflare--github-pages">1. Estrategia de Arquitectura: Porkbun + Cloudflare + GitHub Pages<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#1-estrategia-de-arquitectura-porkbun--cloudflare--github-pages" class="hash-link" aria-label="Enlace directo al 1. Estrategia de Arquitectura: Porkbun + Cloudflare + GitHub Pages" title="Enlace directo al 1. Estrategia de Arquitectura: Porkbun + Cloudflare + GitHub Pages" translate="no">​</a></h2>
+<p>Conectar un dominio apex (<code>globaldevlog.com</code>) directamente a las IPs de GitHub mediante registros <code>A</code> convencionales carece de protección DDoS, mitigación de bots y renovación automatizada de certificados edge.</p>
+<p>Implementamos una arquitectura robusta de 3 capas:</p>
+<table><thead><tr><th style="text-align:left">Capa</th><th style="text-align:left">Proveedor</th><th style="text-align:left">Responsabilidades Clave</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Registrador</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">Compra de dominio, privacidad WHOIS perpetua gratuita y delegación de servidores de nombres</td></tr><tr><td style="text-align:left"><strong>Edge DNS &amp; Seguridad</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">DNS Anycast de baja latencia, aplanamiento CNAME en <code>@</code>, Universal SSL Edge y cortafuegos de bots</td></tr><tr><td style="text-align:left"><strong>Origen SSG</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">Alojamiento de artefactos estáticos compilados por Docusaurus, costo cero de servidor y sincronización <code>gh-pages</code></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="delegación-de-servidores-de-nombres-en-porkbun">Delegación de Servidores de Nombres en Porkbun<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#delegaci%C3%B3n-de-servidores-de-nombres-en-porkbun" class="hash-link" aria-label="Enlace directo al Delegación de Servidores de Nombres en Porkbun" title="Enlace directo al Delegación de Servidores de Nombres en Porkbun" translate="no">​</a></h3>
+<p>En la consola de Porkbun, se sustituyen los servidores de nombres predeterminados por los asignados por Cloudflare:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">NS: roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">NS: sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuración-de-cname-flattening-en-cloudflare">Configuración de CNAME Flattening en Cloudflare<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#configuraci%C3%B3n-de-cname-flattening-en-cloudflare" class="hash-link" aria-label="Enlace directo al Configuración de CNAME Flattening en Cloudflare" title="Enlace directo al Configuración de CNAME Flattening en Cloudflare" translate="no">​</a></h3>
+<p>El estándar RFC 1034 no admite CNAME en el apex (<code>@</code>), pero Cloudflare lo soluciona con <strong>CNAME Flattening</strong>:</p>
+<ul>
+<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nombre</strong>: <code>@</code> | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Estado</strong>: Con proxy (Nube naranja)</li>
+<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nombre</strong>: <code>www</code> | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Estado</strong>: Con proxy</li>
+<li class=""><strong>Modo SSL/TLS</strong>: Configurado en <strong>Full</strong> (o Full Strict) para garantizar cifrado integral.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-migración-de-la-configuración-de-docusaurus">2. Migración de la Configuración de Docusaurus<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#2-migraci%C3%B3n-de-la-configuraci%C3%B3n-de-docusaurus" class="hash-link" aria-label="Enlace directo al 2. Migración de la Configuración de Docusaurus" title="Enlace directo al 2. Migración de la Configuración de Docusaurus" translate="no">​</a></h2>
+<p>Para adaptar las rutas desde la subcarpeta (<code>/global_blog/</code>) a la raíz del nuevo dominio (<code>/</code>), se ajusta <code>docusaurus.config.ts</code>:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="archivo-cname-estático">Archivo CNAME Estático<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#archivo-cname-est%C3%A1tico" class="hash-link" aria-label="Enlace directo al Archivo CNAME Estático" title="Enlace directo al Archivo CNAME Estático" translate="no">​</a></h3>
+<p>Se añade el archivo <code>static/CNAME</code>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>Al ejecutar <code>npm run deploy</code>, este archivo se traslada a la raíz de la rama <code>gh-pages</code>, indicando al router de GitHub a qué repositorio enlazar el tráfico entrante.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-configuración-de-google-adsense-para-sitios-estáticos">3. Configuración de Google AdSense para Sitios Estáticos<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#3-configuraci%C3%B3n-de-google-adsense-para-sitios-est%C3%A1ticos" class="hash-link" aria-label="Enlace directo al 3. Configuración de Google AdSense para Sitios Estáticos" title="Enlace directo al 3. Configuración de Google AdSense para Sitios Estáticos" translate="no">​</a></h2>
+<p>La revisión de AdSense exige verificar la titularidad, inyectar el script de carga y alojar un archivo <code>ads.txt</code> accesible en la raíz.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-inyección-asíncrona-del-script-de-adsense">A. Inyección Asíncrona del Script de AdSense<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#a-inyecci%C3%B3n-as%C3%ADncrona-del-script-de-adsense" class="hash-link" aria-label="Enlace directo al A. Inyección Asíncrona del Script de AdSense" title="Enlace directo al A. Inyección Asíncrona del Script de AdSense" translate="no">​</a></h3>
+<p>Se agrega el script en el arreglo <code>scripts</code> de <code>docusaurus.config.ts</code>:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">  scripts</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      src</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      async</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      crossorigin</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'anonymous'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-despliegue-de-staticadstxt">B. Despliegue de <code>static/ads.txt</code><a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#b-despliegue-de-staticadstxt" class="hash-link" aria-label="Enlace directo al b-despliegue-de-staticadstxt" title="Enlace directo al b-despliegue-de-staticadstxt" translate="no">​</a></h3>
+<p>Se crea el archivo con la identificación de editor correspondiente:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">google.com, pub-4654073335496617, DIRECT, f08c47fec0942fa0</span><br></div></code></pre></div></div>
+<p>Comprobación inmediata vía terminal:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com/ads.txt</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># content-type: text/plain; charset=utf-8</span><br></div></code></pre></div></div>
+<hr>
+<p><img decoding="async" loading="lazy" alt="Canal de Indexación en Motores de Búsqueda y Monetización" src="https://globaldevlog.com/es/assets/images/02_indexing_pipeline-8f17d9e45c07877c55ba651d6017360f.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-seo-multimotor-y-resolución-de-errores-reales">4. SEO Multimotor y Resolución de Errores Reales<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#4-seo-multimotor-y-resoluci%C3%B3n-de-errores-reales" class="hash-link" aria-label="Enlace directo al 4. SEO Multimotor y Resolución de Errores Reales" title="Enlace directo al 4. SEO Multimotor y Resolución de Errores Reales" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-google-search-console-cómo-eliminar-sitemaps-con-errores">A. Google Search Console: Cómo Eliminar Sitemaps con Errores<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#a-google-search-console-c%C3%B3mo-eliminar-sitemaps-con-errores" class="hash-link" aria-label="Enlace directo al A. Google Search Console: Cómo Eliminar Sitemaps con Errores" title="Enlace directo al A. Google Search Console: Cómo Eliminar Sitemaps con Errores" translate="no">​</a></h3>
+<p>Si por error se registra la URL raíz (<code>https://globaldevlog.com/</code>) en lugar del sitemap, hacer clic en los tres puntos (<code>⋮</code>) de la fila en la tabla únicamente mostrará desactivada la opción "Ver indexación de páginas", sin botón de borrado.</p>
+<p><strong>La Solución:</strong></p>
+<ol>
+<li class="">No use el menú flotante de la fila. <strong>Haga clic directamente sobre el texto de la URL del sitemap</strong> para ingresar a la <strong>Vista de Detalles</strong>.</li>
+<li class="">En la esquina superior derecha de la pantalla de detalle, haga clic en los tres puntos verticales (<code>⋮</code>).</li>
+<li class="">Seleccione <strong>[Eliminar sitemap]</strong>.</li>
+<li class="">Si un sitemap multilingüe (como <code>es/sitemap.xml</code>) arrojó temporalmente "No se pudo recuperar", basta con volver a ingresarlo en "Añadir un sitemap" y enviar para que cambie a <strong>Correcto</strong>.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-naver-search-advisor-error-de-entrada-a-nivel-de-host">B. Naver Search Advisor: Error de Entrada a Nivel de Host<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#b-naver-search-advisor-error-de-entrada-a-nivel-de-host" class="hash-link" aria-label="Enlace directo al B. Naver Search Advisor: Error de Entrada a Nivel de Host" title="Enlace directo al B. Naver Search Advisor: Error de Entrada a Nivel de Host" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Error de Host</strong>: Ingresar la URL del sitemap en la ventana inicial de alta genera el mensaje <em>"URL을 호스트 단위로 입력해주세요"</em>. Debe registrarse primero solo el dominio (<code>https://globaldevlog.com</code>).</li>
+<li class=""><strong>Doble Verificación</strong>: Se despliega simultáneamente el archivo HTML de autenticación (<code>static/naver&lt;hash&gt;.html</code>) y la etiqueta meta en la configuración de cabeceras.</li>
+<li class=""><strong>Envío de Sitemaps y RSS</strong>: En el panel de control de Naver:<!-- -->
+<ul>
+<li class=""><strong>[Petición]</strong> &gt; <strong>[Envío de Sitemap]</strong>: ingresar <code>sitemap.xml</code></li>
+<li class=""><strong>[Petición]</strong> &gt; <strong>[Envío de RSS]</strong>: ingresar <code>https://globaldevlog.com/blog/rss.xml</code></li>
+</ul>
+</li>
+<li class=""><strong>Aceleración del Robot Yeti</strong>: Mediante la opción de recolección manual de páginas se envían las rutas prioritarias (<code>blog</code>, <code>ko/blog</code>).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="c-herramientas-para-webmasters-de-bing-y-búsquedas-ai">C. Herramientas para Webmasters de Bing y Búsquedas AI<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#c-herramientas-para-webmasters-de-bing-y-b%C3%BAsquedas-ai" class="hash-link" aria-label="Enlace directo al C. Herramientas para Webmasters de Bing y Búsquedas AI" title="Enlace directo al C. Herramientas para Webmasters de Bing y Búsquedas AI" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Importación directa desde GSC</strong>: Con un clic se transfieren las credenciales de verificación y los sitemaps.</li>
+<li class=""><strong>Evitar la latencia de 48 horas</strong>: El proceso de sincronización automática puede demorar dos días. Ingresar manualmente <code>https://globaldevlog.com/sitemap.xml</code> en la sección de sitemaps de Bing activa el rastreador al instante para ChatGPT Search y Copilot.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-lista-de-verificación-en-producción">5. Lista de Verificación en Producción<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide#5-lista-de-verificaci%C3%B3n-en-producci%C3%B3n" class="hash-link" aria-label="Enlace directo al 5. Lista de Verificación en Producción" title="Enlace directo al 5. Lista de Verificación en Producción" translate="no">​</a></h2>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Resolución DNS</strong>: <code>globaldevlog.com</code> y <code>www</code> responden sin alertas SSL.</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Archivo CNAME</strong>: Activo en el origen de GitHub Pages.</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Activos de AdSense</strong>: <code>ads.txt</code> responde con código HTTP 200 y el ID correcto.</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Sitemaps Multilingües</strong>: Las 4 variantes (<code>sitemap.xml</code>, <code>ko/</code>, <code>ja/</code>, <code>es/</code>) son operativas.</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Indexación Activa</strong>: Google, Naver y Bing registran y procesan los feeds y páginas.</li>
+</ul>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="docusaurus" term="docusaurus"/>
+        <category label="devops" term="devops"/>
+        <category label="cloudflare" term="cloudflare"/>
+        <category label="seo" term="seo"/>
+        <category label="web-monetization" term="web-monetization"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[De 45 Vulnerabilidades en npm a Riesgo Cero: Por Qué No Debes Ejecutar npm audit fix --force a Ciegas en Sitios Estáticos]]></title>
         <id>https://globaldevlog.com/es/blog/static-site-security-npm-audit-truth</id>
@@ -849,40 +944,5 @@
         <category label="ReactNative" term="ReactNative"/>
         <category label="app-development" term="app-development"/>
         <category label="frontend" term="frontend"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #15] Visualización de Resultados de 5 Modelos y Configuración Local]]></title>
-        <id>https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15</id>
-        <link href="https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15"/>
-        <updated>2026-05-07T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Análisis de perplejidad y métricas de rendimiento, construyendo un pipeline de visualización con matplotlib para comparar modelos.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-b5ad981f0a0602b8afaf1bdbc982094d.png" width="1181" height="731" class="img_ev3q"></p>
-<p>El 7 de mayo sintetizamos los resultados de los 5 modelos que habíamos entrenado (Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B) y procedimos con la visualización a gran escala.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuración-local-para-la-comparación-de-modelos">Configuración Local para la Comparación de Modelos<a href="https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15#configuraci%C3%B3n-local-para-la-comparaci%C3%B3n-de-modelos" class="hash-link" aria-label="Enlace directo al Configuración Local para la Comparación de Modelos" title="Enlace directo al Configuración Local para la Comparación de Modelos" translate="no">​</a></h3>
-<p>Para revisar cómodamente los resultados en mi computadora portátil, creé un nuevo cuaderno: <code>31_comparison_local.ipynb</code>.</p>
-<blockquote>
-<p>"¿No puede 30_comparison.ipynb ejecutarse también en mi computadora?"</p>
-</blockquote>
-<p>Al configurar el kernel local de Jupyter en VSCode e instalar las bibliotecas, enfrenté bloqueos del kernel y errores como <code>ModuleNotFoundError</code>. Sin embargo, los resolví paso a paso arreglando las rutas.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="informe-completo-y-gráficos">Informe Completo y Gráficos<a href="https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15#informe-completo-y-gr%C3%A1ficos" class="hash-link" aria-label="Enlace directo al Informe Completo y Gráficos" title="Enlace directo al Informe Completo y Gráficos" translate="no">​</a></h3>
-<p>La tarea más importante fue visualizar el rendimiento de estos 5 modelos para compararlos de un vistazo. Junto con la IA, establecimos un plan y comenzamos a organizar los datos sistemáticamente.</p>
-<blockquote>
-<p>"¿Cuál es la diferencia entre la línea tenue y la línea gruesa? Visualice el training loss y el eval loss."</p>
-</blockquote>
-<p>Eliminé las líneas de tendencia innecesarias de los gráficos generados por la IA, extrayendo finalmente <code>03_training_loss_all.png</code> y <code>04_eval_loss_all.png</code> que reunieron perfectamente las curvas de pérdida de todos los modelos en un solo lugar.</p>
-<p><img decoding="async" loading="lazy" alt="Visualización de Gráficos" src="https://globaldevlog.com/es/assets/images/02_graph-8f91ee1a78e9220a703c6884ad9a4f40.png" width="1785" height="735" class="img_ev3q"></p>
-<p>Ahora, basándonos en estos gráficos, podemos decorar maravillosamente nuestros materiales de presentación de la próxima semana.</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="results-analysis" term="results-analysis"/>
-        <category label="visualization" term="visualization"/>
-        <category label="Jupyter" term="Jupyter"/>
-        <category label="capstone" term="capstone"/>
-        <category label="Inteligencia Artificial (AI)" term="Inteligencia Artificial (AI)"/>
     </entry>
 </feed>
