@@ -82,6 +82,7 @@ const config: Config = {
     metadata: [
       { name: 'referrer', content: 'strict-origin-when-cross-origin' },
       { name: 'author', content: 'Jihwan Park (jbjihwan)' },
+      { name: 'naver-site-verification', content: 'f04ea0b38166c1e280ce8e18acef37093b75f383' },
     ],
     colorMode: {
       respectPrefersColorScheme: true,
