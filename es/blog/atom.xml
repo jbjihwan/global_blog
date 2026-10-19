@@ -20,7 +20,7 @@
 <p>En este artículo, definimos el <strong>modelo de amenazas en sitios estáticos</strong>, explicamos por qué las vulnerabilidades en herramientas de construcción difieren radicalmente de las vulnerabilidades en tiempo de ejecución, y compartimos un plan práctico de <strong>seguridad en 4 capas</strong>.</p>
 <!-- -->
 <hr>
-<p><img decoding="async" loading="lazy" alt="Comparativa del modelo de amenazas: Servidor Dinámico vs Sitio Estático" src="https://globaldevlog.com/es/assets/images/01_threat_model-e5bfe89cfc589075328a468547203a8d.png" width="2000" height="1000" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Comparativa del modelo de amenazas: Servidor Dinámico vs Sitio Estático" src="https://globaldevlog.com/es/assets/images/01_threat_model-4770df6c58430b3bba205124a37d91ab.png" width="2000" height="1000" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-resumen-ejecutivo-el-criterio-de-ingeniería">1. Resumen Ejecutivo: El Criterio de Ingeniería<a href="https://globaldevlog.com/es/blog/static-site-security-npm-audit-truth#1-resumen-ejecutivo-el-criterio-de-ingenier%C3%ADa" class="hash-link" aria-label="Enlace directo al 1. Resumen Ejecutivo: El Criterio de Ingeniería" title="Enlace directo al 1. Resumen Ejecutivo: El Criterio de Ingeniería" translate="no">​</a></h2>
 <ol>
@@ -46,7 +46,7 @@
 <p>Degradar librerías con <code>--force</code> en este contexto equivale a <strong>introducir fallos reales en tu aplicación para solucionar exploits que físicamente no pueden ocurrir en tu arquitectura</strong>.</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-seguridad-práctica-en-4-capas-para-sitios-estáticos">3. Seguridad Práctica en 4 Capas para Sitios Estáticos<a href="https://globaldevlog.com/es/blog/static-site-security-npm-audit-truth#3-seguridad-pr%C3%A1ctica-en-4-capas-para-sitios-est%C3%A1ticos" class="hash-link" aria-label="Enlace directo al 3. Seguridad Práctica en 4 Capas para Sitios Estáticos" title="Enlace directo al 3. Seguridad Práctica en 4 Capas para Sitios Estáticos" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="Canal de seguridad en 4 capas para blogs estáticos" src="https://globaldevlog.com/es/assets/images/02_security_pipeline-7bc72cc32b50e4b77be088a676b291d4.png" width="2000" height="900" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Canal de seguridad en 4 capas para blogs estáticos" src="https://globaldevlog.com/es/assets/images/02_security_pipeline-120240a37282a9b3b578a5dc4f6231c0.png" width="2000" height="900" class="img_ev3q"></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-1-escaneo-automatizado-de-secretos-previo-al-commit">Capa 1: Escaneo Automatizado de Secretos Previo al Commit<a href="https://globaldevlog.com/es/blog/static-site-security-npm-audit-truth#capa-1-escaneo-automatizado-de-secretos-previo-al-commit" class="hash-link" aria-label="Enlace directo al Capa 1: Escaneo Automatizado de Secretos Previo al Commit" title="Enlace directo al Capa 1: Escaneo Automatizado de Secretos Previo al Commit" translate="no">​</a></h3>
 <p>El mayor peligro es subir por error una clave de OpenAI (<code>sk-...</code>), un token de GitHub (<code>ghp_...</code>) o credenciales de AWS (<code>AKIA...</code>). Implementamos un script de auditoría (<code>tools/audit_security.py</code>) que analiza los archivos con expresiones regulares de alta entropía antes de cada despliegue.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="capa-2-protección-de-datos-personales-pii">Capa 2: Protección de Datos Personales (PII)<a href="https://globaldevlog.com/es/blog/static-site-security-npm-audit-truth#capa-2-protecci%C3%B3n-de-datos-personales-pii" class="hash-link" aria-label="Enlace directo al Capa 2: Protección de Datos Personales (PII)" title="Enlace directo al Capa 2: Protección de Datos Personales (PII)" translate="no">​</a></h3>
@@ -243,7 +243,7 @@
         <link href="https://globaldevlog.com/es/blog/2026-06-25-vision-anpr-1"/>
         <updated>2026-06-25T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Diseño de un pipeline de visión de 6 etapas que combina detección dinámica de carril, métricas de invasión IoU, detección de matrículas YOLOv5, superresolución EDSR y votación OCR.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Diagrama del Pipeline ANPR de 6 Etapas" src="https://globaldevlog.com/es/assets/images/01_pipeline_diagram-39b59c7f0cc4591bbe0757c1a87adc96.png" width="2200" height="900" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Diagrama del Pipeline ANPR de 6 Etapas" src="https://globaldevlog.com/es/assets/images/01_pipeline_diagram-fb1b5567c4acb0cd59bd89773f15c5c8.png" width="2200" height="900" class="img_ev3q"></p>
 <blockquote>
 <p>📌 <strong>Key Takeaways (Puntos Clave)</strong></p>
 <ul>
@@ -289,9 +289,21 @@
         <link href="https://globaldevlog.com/es/blog/2026-06-18-maeumjigi-23"/>
         <updated>2026-06-18T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Hito final: Construcción de la arquitectura de salvaguardas Safety Wrapper y despliegue del modelo en producción sobre GPUs de AWS EC2.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-ae78a4647024e415433d906f41f4bf3a.png" width="2000" height="1125" class="img_ev3q"></p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-5db6b43f8eb8d83178d8ba6f56f13f4f.png" width="720" height="405" class="img_ev3q"></p>
 <p>Al entrar en junio, el equipo completó los desarrollos principales del primer semestre y se enfocó en construir <strong>redes de seguridad</strong> y preparar la <strong>presentación final</strong>.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-modelo-21-y-el-safety-wrapper">El Modelo 2:1 y el Safety Wrapper<a href="https://globaldevlog.com/es/blog/2026-06-18-maeumjigi-23#el-modelo-21-y-el-safety-wrapper" class="hash-link" aria-label="Enlace directo al El Modelo 2:1 y el Safety Wrapper" title="Enlace directo al El Modelo 2:1 y el Safety Wrapper" translate="no">​</a></h3>
+<blockquote>
+<p>"Decidimos la proporción 2:1. Ahora diseña un safety_wrapper como bloqueo de seguridad."</p>
+</blockquote>
+<p>Seleccionamos el modelo mezclado con una proporción de 2:1 de chat 'emocional' a 'cotidiano'. Sin embargo, para prevenir cualquier alucinación en nuestro chatbot de prevención del suicidio, introdujimos un <strong>Safety Wrapper</strong>. Este módulo verifica las entradas y salidas, cambiando instantáneamente a un protocolo de crisis si se detecta alto riesgo.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="presupuesto-de-servidor-ec2-y-presentación-final">Presupuesto de Servidor (EC2) y Presentación Final<a href="https://globaldevlog.com/es/blog/2026-06-18-maeumjigi-23#presupuesto-de-servidor-ec2-y-presentaci%C3%B3n-final" class="hash-link" aria-label="Enlace directo al Presupuesto de Servidor (EC2) y Presentación Final" title="Enlace directo al Presupuesto de Servidor (EC2) y Presentación Final" translate="no">​</a></h3>
+<blockquote>
+<p>"¿Cuál es el presupuesto para 5 meses de AWS EC2 g5.2xlarge?"</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="Presentación Final" src="https://globaldevlog.com/es/assets/images/02_presentation-4d633f8f7c1e0375cfa80546d37e3291.png" width="720" height="405" class="img_ev3q"></p>
+<p>Calculamos el presupuesto del servidor AWS EC2 para ejecutar el chatbot. El 18 de junio, reunimos todos los logros del backend, frontend e IA para completar la <strong>Presentación Final del 1er Semestre (PPTX)</strong>.</p>
+<p>¡El primer semestre ha concluido con éxito! Regresaremos con un servicio más avanzado en el segundo semestre.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -310,7 +322,21 @@
         <summary type="html"><![CDATA[4ª ronda de fine-tuning: aplicación de enmascaramiento de prompts y regularización para evitar respuestas robóticas y sobreajuste.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-5fcc23c7f36696eb5311e706c9d9eede.png" width="2495" height="1393" class="img_ev3q"></p>
 <p>En la última semana de mayo, nos dedicamos a concluir los resultados del tan esperado <strong>4to Fine-Tuning (fine_tuning_4)</strong> y solidificar la estructura del sistema.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="checkpoint-final-4400-y-análisis">Checkpoint Final 4400 y Análisis<a href="https://globaldevlog.com/es/blog/2026-05-30-maeumjigi-22#checkpoint-final-4400-y-an%C3%A1lisis" class="hash-link" aria-label="Enlace directo al Checkpoint Final 4400 y Análisis" title="Enlace directo al Checkpoint Final 4400 y Análisis" translate="no">​</a></h3>
+<blockquote>
+<p>"Qwen35-9B_mixed_7_3/checkpoints/checkpoint-4400/adapter_config.json"</p>
+</blockquote>
+<p>El cuarto modelo, entrenado con una mezcla de chat casual y datos de consejería emocional, finalmente terminó el entrenamiento y produjo el peso óptimo: <code>checkpoint-4400</code>.</p>
+<p>Al experimentar con la proporción de mezcla de datos, el modelo finalmente renació como un chatbot perceptivo que distingue perfectamente entre conversaciones diarias y consejería de crisis seria.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="arquitectura-del-sistema-e-informe-final">Arquitectura del Sistema e Informe Final<a href="https://globaldevlog.com/es/blog/2026-05-30-maeumjigi-22#arquitectura-del-sistema-e-informe-final" class="hash-link" aria-label="Enlace directo al Arquitectura del Sistema e Informe Final" title="Enlace directo al Arquitectura del Sistema e Informe Final" translate="no">​</a></h3>
+<blockquote>
+<p>"Generación de chatbot_architecture.html completa"</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="Arquitectura del Sistema" src="https://globaldevlog.com/es/assets/images/02_architecture-41f5095033492354eaf45a8553f49ff6.png" width="2541" height="1390" class="img_ev3q"></p>
+<p>Para servir el modelo verificado como una aplicación real, diseñamos la arquitectura de todo el sistema y el plan de integración de Gráficos de Conocimiento (Knowledge Graph) bajo el nombre <code>chatbot_architecture.html</code>.</p>
+<p>Y el 30 de mayo generamos automáticamente el <code>informe_fine_tuning_4.docx</code>. El informe contiene comparaciones de respuestas reales entre el modelo original y el nuestro, ¡demostrando que nuestro arduo trabajo no fue en vano!</p>
+<p>Con esto concluyen los registros de desarrollo de mayo.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -329,7 +355,22 @@
         <summary type="html"><![CDATA[Alcance del rendimiento óptimo mediante la proporción 2:1 entre diálogo emocional y cotidiano, logrando empatía y coherencia.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-a335ed829194fe04a7f1886ca95deda9.png" width="2531" height="1378" class="img_ev3q"></p>
 <p>El 21 y 22 de mayo, el equipo de Maeumjigi se embarcó en la generación masiva de datos y la preparación para el <strong>Cuarto Fine-Tuning (fine_tuning_4)</strong>.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="conversaciones-emocionales-vs-cotidianas">Conversaciones Emocionales vs. Cotidianas<a href="https://globaldevlog.com/es/blog/2026-05-22-maeumjigi-21#conversaciones-emocionales-vs-cotidianas" class="hash-link" aria-label="Enlace directo al Conversaciones Emocionales vs. Cotidianas" title="Enlace directo al Conversaciones Emocionales vs. Cotidianas" translate="no">​</a></h3>
+<p>Mientras probaba el modelo del tercer fine-tuning, descubrí un problema crítico.</p>
+<blockquote>
+<p>"Las respuestas están demasiado inclinadas hacia la consejería emocional. ¿Cómo mantenemos las habilidades de conversación cotidiana del modelo?"</p>
+</blockquote>
+<p>Nuestro modelo mostraba signos de sobreajuste, dando respuestas excesivamente serias a preguntas mundanas. Para resolver esto, planeamos mezclar datos emocionales y cotidianos.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="generando-10000-datos-emocionales-v6">Generando 10,000 Datos Emocionales (v6)<a href="https://globaldevlog.com/es/blog/2026-05-22-maeumjigi-21#generando-10000-datos-emocionales-v6" class="hash-link" aria-label="Enlace directo al Generando 10,000 Datos Emocionales (v6)" title="Enlace directo al Generando 10,000 Datos Emocionales (v6)" translate="no">​</a></h3>
+<p>Utilicé el modo Batch de la Interfaz de Programación de Aplicaciones (API) de Anthropic (Haiku) para generar 10,000 entradas de datos de conversaciones emocionales. Completé las entradas faltantes con un script adicional para asegurar la calidad.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="buscando-la-proporción-dorada">Buscando la Proporción Dorada<a href="https://globaldevlog.com/es/blog/2026-05-22-maeumjigi-21#buscando-la-proporci%C3%B3n-dorada" class="hash-link" aria-label="Enlace directo al Buscando la Proporción Dorada" title="Enlace directo al Buscando la Proporción Dorada" translate="no">​</a></h3>
+<blockquote>
+<p>"Genera un dataset de 7:3, otro de 2:1 y otro de 5:5."
+"Este cuarto fine-tuning se basará en la proporción de mezcla (mixed_2_1, mixed_5_5, mixed_7_3)."</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="Experimento de Proporción" src="https://globaldevlog.com/es/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
+<p>El 4to fine-tuning ahora verifica qué proporción armoniza la 'casualidad diaria' con la 'consejería profesional'. ¡Comenzamos a inyectar estos 3 datasets en el modelo Qwen3.5-9B!</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -417,6 +458,39 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
+        <id>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Estrategia para el 3º fine-tuning: calibración de la proporción entre charla casual y diálogo de crisis para evitar respuestas exageradas.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluyendo-el-3er-fine-tuning">Concluyendo el 3er Fine-Tuning<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#concluyendo-el-3er-fine-tuning" class="hash-link" aria-label="Enlace directo al Concluyendo el 3er Fine-Tuning" title="Enlace directo al Concluyendo el 3er Fine-Tuning" translate="no">​</a></h3>
+<p>El entrenamiento para el 3er fine-tuning, configurado con conceptos de gráficos de conocimiento en mente, se completó.</p>
+<blockquote>
+<p>"Selecciona el checkpoint con el mejor eval, reemplaza los archivos en la carpeta adapter."</p>
+</blockquote>
+<p>En lugar de copiar checkpoints manualmente, le indiqué a la IA que escribiera un script que extrajera automáticamente los mejores pesos del modelo y los configurara. Luego, ejecuté el script de inferencia paralela en el servidor.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-y-frontend-base-de-datos-y-foro">Backend y Frontend: Base de Datos y Foro<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#backend-y-frontend-base-de-datos-y-foro" class="hash-link" aria-label="Enlace directo al Backend y Frontend: Base de Datos y Foro" title="Enlace directo al Backend y Frontend: Base de Datos y Foro" translate="no">​</a></h3>
+<p>Mientras los modelos trabajaban en el servidor, aceleré el trabajo de integración de la aplicación y la BD.</p>
+<p>Para resolver el frustrante error <code>401 Unauthorized</code> de la última vez, examiné <code>seed_data.sql</code> para verificar las contraseñas. Como resultado, logré un importante commit en Git:
+<code>feat: Añadido guardado de chatbot en BD, paginación de foro y filtro de diario de emociones</code></p>
+<p><img decoding="async" loading="lazy" alt="Características de la App" src="https://globaldevlog.com/es/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
+<p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="backend" term="backend"/>
+        <category label="frontend" term="frontend"/>
+        <category label="database" term="database"/>
+        <category label="capstone" term="capstone"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
         <id>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4"/>
@@ -456,26 +530,6 @@
         <category label="sarsa" term="sarsa"/>
         <category label="robotica" term="robotica"/>
         <category label="python" term="python"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
-        <id>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Estrategia para el 3º fine-tuning: calibración de la proporción entre charla casual y diálogo de crisis para evitar respuestas exageradas.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
-]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="backend" term="backend"/>
-        <category label="frontend" term="frontend"/>
-        <category label="database" term="database"/>
-        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>
@@ -592,27 +646,6 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD]]></title>
-        <id>https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19</id>
-        <link href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19"/>
-        <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Automatización del resumen de resultados de evaluación y generación de presentaciones de diapositivas con python-pptx para el examen intermedio.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-a6c3eb6c25c3a199c1a2c31d134afbaa.png" width="2000" height="1125" class="img_ev3q"></p>
-<p>¡Debo corregir mi suposición de que el 13 de mayo fue el último día! El 17 de mayo hubo una ola masiva de pruebas de backend y redacción de informes.</p>
-]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="report" term="report"/>
-        <category label="backend" term="backend"/>
-        <category label="Base de Datos (DB)" term="Base de Datos (DB)"/>
-        <category label="troubleshooting" term="troubleshooting"/>
-        <category label="capstone" term="capstone"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Robótica Webots] Navegación Autónoma con Q-Learning: Discretización de 648 Estados y Arquitectura de Sockets (#1)]]></title>
         <id>https://globaldevlog.com/es/blog/2026-05-17-rl-qlearning-1</id>
         <link href="https://globaldevlog.com/es/blog/2026-05-17-rl-qlearning-1"/>
@@ -649,7 +682,7 @@
 <p>La tabla Q resultante contiene solo <strong>648 × 4 = 2,592 parámetros</strong>, permitiendo actualizaciones en submilisegundos en memoria sin requerir GPU.</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-mecanismo-head-scan-y-criterios-de-finalización">4. Mecanismo Head-Scan y Criterios de Finalización<a href="https://globaldevlog.com/es/blog/2026-05-17-rl-qlearning-1#4-mecanismo-head-scan-y-criterios-de-finalizaci%C3%B3n" class="hash-link" aria-label="Enlace directo al 4. Mecanismo Head-Scan y Criterios de Finalización" title="Enlace directo al 4. Mecanismo Head-Scan y Criterios de Finalización" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="Arquitectura del Sistema" src="https://globaldevlog.com/es/assets/images/02_architecture-db850b8096827570e0511cf7cdf5e30d.png" width="2000" height="900" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Arquitectura del Sistema" src="https://globaldevlog.com/es/assets/images/02_architecture-83a0cdfb8297ac248797b32bbc7fd69b.png" width="2000" height="900" class="img_ev3q"></p>
 <ol>
 <li class=""><strong>Ejecución del paso</strong>: Motores a 3.0 rad/s durante 480 ms.</li>
 <li class=""><strong>Rotación de la cabeza</strong>: Barrido a +1.1 rad para medir distancia izquierda, luego -1.1 rad para distancia derecha.</li>
@@ -677,6 +710,42 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD]]></title>
+        <id>https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19</id>
+        <link href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Automatización del resumen de resultados de evaluación y generación de presentaciones de diapositivas con python-pptx para el examen intermedio.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
+<p>¡Debo corregir mi suposición de que el 13 de mayo fue el último día! El 17 de mayo hubo una ola masiva de pruebas de backend y redacción de informes.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automatizando-el-informe-con-ia">Automatizando el Informe con IA<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#automatizando-el-informe-con-ia" class="hash-link" aria-label="Enlace directo al Automatizando el Informe con IA" title="Enlace directo al Automatizando el Informe con IA" translate="no">​</a></h3>
+<p>No había tiempo suficiente para analizar manualmente los gráficos masivos del segundo fine-tuning.</p>
+<blockquote>
+<p>"Crea un prompt para escribir un informe comparando los resultados. Guárdalo y escribe el informe."</p>
+</blockquote>
+<p>Intenté utilizar ingeniería de prompts para que la IA interpretara las métricas. La IA analizó los pros y contras de cada modelo, generando un excelente borrador en Word (.docx).</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integración-de-base-de-datos-y-el-error-401">Integración de Base de Datos y el Error 401<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#integraci%C3%B3n-de-base-de-datos-y-el-error-401" class="hash-link" aria-label="Enlace directo al Integración de Base de Datos y el Error 401" title="Enlace directo al Integración de Base de Datos y el Error 401" translate="no">​</a></h3>
+<p>Comencé a insertar datos de <code>backup.sql</code> en la BD local de PostgreSQL para probar la estabilidad.</p>
+<blockquote>
+<p>"Contraseña incorrecta... POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>Caí en un infierno de errores de inicio de sesión. Creé scripts de depuración y reinicié el servidor uvicorn sin fin.</p>
+<p><img decoding="async" loading="lazy" alt="Problemas de BD" src="https://globaldevlog.com/es/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gráficos-de-conocimiento-knowledge-graphs">Gráficos de Conocimiento (Knowledge Graphs)<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#gr%C3%A1ficos-de-conocimiento-knowledge-graphs" class="hash-link" aria-label="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" title="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" translate="no">​</a></h3>
+<p>A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="report" term="report"/>
+        <category label="backend" term="backend"/>
+        <category label="Base de Datos (DB)" term="Base de Datos (DB)"/>
+        <category label="troubleshooting" term="troubleshooting"/>
+        <category label="capstone" term="capstone"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #18] Expandiendo Tokens de Inferencia y Comparando Resultados]]></title>
         <id>https://globaldevlog.com/es/blog/2026-05-13-maeumjigi-18</id>
         <link href="https://globaldevlog.com/es/blog/2026-05-13-maeumjigi-18"/>
@@ -684,7 +753,18 @@
         <summary type="html"><![CDATA[Ampliación de max_new_tokens a 384 para enriquecer las respuestas y análisis del impacto de LoRA alpha (8 vs 16) en la empatía del bot.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-4dcde4cef4209e81d49b5f5306af009d.png" width="1484" height="888" class="img_ev3q"></p>
 <p>El 13 de mayo, después de corregir los errores, reanudamos las pruebas de inferencia para los modelos del 2do fine-tuning.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aumentar-la-longitud-del-token">Aumentar la Longitud del Token<a href="https://globaldevlog.com/es/blog/2026-05-13-maeumjigi-18#aumentar-la-longitud-del-token" class="hash-link" aria-label="Enlace directo al Aumentar la Longitud del Token" title="Enlace directo al Aumentar la Longitud del Token" translate="no">​</a></h3>
+<p>Revisando los resultados de inferencia, sentí que las respuestas de <code>Llama33-70B_a8</code> seguían siendo extrañamente cortas.</p>
+<blockquote>
+<p>"Siento que max_seq_length y max_new_tokens son muy pequeños. Mirando la VRAM, ¿cuánto puedo aumentarlos?"</p>
+</blockquote>
+<p>Calculando la VRAM disponible con la IA, aumentamos audazmente <code>max_new_tokens</code> a 384. ¡El resultado fue un gran éxito!</p>
+<p>Al simplemente aumentar la asignación de tokens, el modelo comenzó a generar oraciones de empatía mucho más profundas y cálidas. El modelo había estado limitando sus palabras porque estaba atrapado en un recuento de tokens limitado.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="análisis-comparativo-del-valor-alfa">Análisis Comparativo del Valor Alfa<a href="https://globaldevlog.com/es/blog/2026-05-13-maeumjigi-18#an%C3%A1lisis-comparativo-del-valor-alfa" class="hash-link" aria-label="Enlace directo al Análisis Comparativo del Valor Alfa" title="Enlace directo al Análisis Comparativo del Valor Alfa" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Visualización de Gráficos" src="https://globaldevlog.com/es/assets/images/02_graph-feb5d1991f44dd7f378232f6b3515752.png" width="2053" height="1460" class="img_ev3q"></p>
+<p>También se obtuvieron los resultados de la diferencia de rendimiento según el hiperparámetro de LoRA <code>alpha</code>. Generamos gráficos como <code>05_alpha_comparison_daily.png</code>. Con <code>rank=16</code> fijo, visualizamos claramente cómo diferían los patrones y la calidad final al dar <code>alpha=8</code> frente a <code>alpha=16</code>.</p>
+<p>Los modelos con los parámetros correctos y suficiente longitud de token se estaban acercando al verdadero 'Maeumjigi' que planeamos.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -704,7 +784,20 @@
         <summary type="html"><![CDATA[Ejecución de la 2ª ronda de fine-tuning con plantillas de chat limpias y ajuste de hiperparámetros LoRA para mejorar la convergencia.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-14a3c0d517e4c85b93ada4e973112325.png" width="2000" height="1457" class="img_ev3q"></p>
 <p>¡El entrenamiento paralelo del 2do fine-tuning (<code>fine_tuning_2</code>), que comenzó para corregir el error de los hiperparámetros, finalmente terminó el 12 de mayo!</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="el-mejor-checkpoint-y-el-pipeline-de-inferencia">El Mejor Checkpoint y el Pipeline de Inferencia<a href="https://globaldevlog.com/es/blog/2026-05-12-maeumjigi-17#el-mejor-checkpoint-y-el-pipeline-de-inferencia" class="hash-link" aria-label="Enlace directo al El Mejor Checkpoint y el Pipeline de Inferencia" title="Enlace directo al El Mejor Checkpoint y el Pipeline de Inferencia" translate="no">​</a></h3>
+<p>El fine-tuning de 3 modelos con 6 combinaciones de hiperparámetros se completó. Comparé el <code>eval_loss</code> para extraer los mejores checkpoints y los moví a las carpetas <code>adapter</code>.</p>
+<blockquote>
+<p>"Los modelos HCX-Text-1p5B generaron 12 salidas en 15 minutos. Uso de GPU es de 1.6GB..."</p>
+</blockquote>
+<p>Sin embargo, la velocidad de inferencia era desesperante. Hubo un cuello de botella porque el tamaño del lote se estableció en 1. Además, los problemas de almacenamiento del servidor nos obligaron a migrar la ruta del proyecto.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cayendo-en-la-trampa-del-hardcoding">Cayendo en la Trampa del Hardcoding<a href="https://globaldevlog.com/es/blog/2026-05-12-maeumjigi-17#cayendo-en-la-trampa-del-hardcoding" class="hash-link" aria-label="Enlace directo al Cayendo en la Trampa del Hardcoding" title="Enlace directo al Cayendo en la Trampa del Hardcoding" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Error de Hardcoding" src="https://globaldevlog.com/es/assets/images/02_bug-900bd56611b3d6521891bcc956843259.png" width="2000" height="1457" class="img_ev3q"></p>
+<p>Después de ejecutar laboriosamente todos los códigos de evaluación, descubrí un hecho horrible.</p>
+<blockquote>
+<p>"¿Por qué MODEL_ALIAS está codificado de forma rígida a 'Qwen35-9B_a16'?"</p>
+</blockquote>
+<p>Accidentalmente codifiqué de forma rígida <code>MODEL_ALIAS</code>. El script copiaba archivos diligentemente para probar el modelo HCX, pero dentro del código, ¡seguía cargando solo el modelo <code>Qwen35-9B</code> y repitiendo la misma inferencia una y otra vez! Mañana tendré que arreglar este error y volver a ejecutar las inferencias.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -724,7 +817,27 @@
         <summary type="html"><![CDATA[Diagnóstico de errores de hardcoding en las plantillas de prompts y depuración urgente para asegurar la integridad de los datos.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-9eab7db0dac5c88d9a120a99e5e703d4.png" width="1874" height="1526" class="img_ev3q"></p>
 <p>El 8 de mayo preparábamos la presentación de los resultados. Sin embargo, descubrí un error masivo.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="error-fatal-en-los-hiperparámetros-de-lora">Error Fatal en los Hiperparámetros de LoRA<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#error-fatal-en-los-hiperpar%C3%A1metros-de-lora" class="hash-link" aria-label="Enlace directo al Error Fatal en los Hiperparámetros de LoRA" title="Enlace directo al Error Fatal en los Hiperparámetros de LoRA" translate="no">​</a></h3>
+<blockquote>
+<p>"Las respuestas del modelo son más cortas. Creo que es porque establecer r de LoRA a 8 y alfa a 16 redujo demasiado las características..."
+"Espera, ¿era a/r? Pensé que era r/a...???"</p>
+</blockquote>
+<p>Comprendí mal la ecuación, configurándola de una manera que suprimió severamente o amplificó excesivamente las actualizaciones de peso. Con razón las respuestas eran anormalmente cortas.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2da-ronda-de-fine-tuning-fine_tuning_2">2da Ronda de Fine-Tuning (fine_tuning_2)<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#2da-ronda-de-fine-tuning-fine_tuning_2" class="hash-link" aria-label="Enlace directo al 2da Ronda de Fine-Tuning (fine_tuning_2)" title="Enlace directo al 2da Ronda de Fine-Tuning (fine_tuning_2)" translate="no">​</a></h3>
+<p>No podíamos simplemente avanzar. Inmediatamente creé una carpeta <code>fine_tuning_2</code> para una segunda ronda de fine-tuning.</p>
+<blockquote>
+<p>"Entrenar con rank=16, alpha=16, y en MIG-1 con rank=16, a=8."
+"Extraiga las 2000 entradas más largas de Daily_train_dataset."</p>
+</blockquote>
+<p>Para evitar respuestas cortas, extrajimos solo los 2000 conjuntos de datos más largos y dividimos nuestros recursos de GPU para ejecutar entrenamiento en paralelo.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="desarrollo-frontend-app">Desarrollo Frontend (App)<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#desarrollo-frontend-app" class="hash-link" aria-label="Enlace directo al Desarrollo Frontend (App)" title="Enlace directo al Desarrollo Frontend (App)" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Desarrollo de App" src="https://globaldevlog.com/es/assets/images/02_app-9efe68797b061b7eda0d68995627a8cc.png" width="1476" height="1526" class="img_ev3q"></p>
+<p>Mientras los modelos entrenaban, comencé a desarrollar la aplicación frontend.</p>
+<blockquote>
+<p>"Necesito mostrar un código QR para ejecutar maeum-app... pero cuando escribo npx go start, solo obtengo un error."</p>
+</blockquote>
+<p>Creé el proyecto usando React Native (Expo) y, después de algunos errores tipográficos, logré mostrar el código QR de Expo. Fue un día emocionante construyendo tanto el cerebro (IA) como la cara de la aplicación.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -745,7 +858,21 @@
         <summary type="html"><![CDATA[Análisis de perplejidad y métricas de rendimiento, construyendo un pipeline de visualización con matplotlib para comparar modelos.]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-b5ad981f0a0602b8afaf1bdbc982094d.png" width="1181" height="731" class="img_ev3q"></p>
 <p>El 7 de mayo sintetizamos los resultados de los 5 modelos que habíamos entrenado (Llama3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen35-9B, HCX-Text-1.5B) y procedimos con la visualización a gran escala.</p>
-]]></content>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuración-local-para-la-comparación-de-modelos">Configuración Local para la Comparación de Modelos<a href="https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15#configuraci%C3%B3n-local-para-la-comparaci%C3%B3n-de-modelos" class="hash-link" aria-label="Enlace directo al Configuración Local para la Comparación de Modelos" title="Enlace directo al Configuración Local para la Comparación de Modelos" translate="no">​</a></h3>
+<p>Para revisar cómodamente los resultados en mi computadora portátil, creé un nuevo cuaderno: <code>31_comparison_local.ipynb</code>.</p>
+<blockquote>
+<p>"¿No puede 30_comparison.ipynb ejecutarse también en mi computadora?"</p>
+</blockquote>
+<p>Al configurar el kernel local de Jupyter en VSCode e instalar las bibliotecas, enfrenté bloqueos del kernel y errores como <code>ModuleNotFoundError</code>. Sin embargo, los resolví paso a paso arreglando las rutas.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="informe-completo-y-gráficos">Informe Completo y Gráficos<a href="https://globaldevlog.com/es/blog/2026-05-07-maeumjigi-15#informe-completo-y-gr%C3%A1ficos" class="hash-link" aria-label="Enlace directo al Informe Completo y Gráficos" title="Enlace directo al Informe Completo y Gráficos" translate="no">​</a></h3>
+<p>La tarea más importante fue visualizar el rendimiento de estos 5 modelos para compararlos de un vistazo. Junto con la IA, establecimos un plan y comenzamos a organizar los datos sistemáticamente.</p>
+<blockquote>
+<p>"¿Cuál es la diferencia entre la línea tenue y la línea gruesa? Visualice el training loss y el eval loss."</p>
+</blockquote>
+<p>Eliminé las líneas de tendencia innecesarias de los gráficos generados por la IA, extrayendo finalmente <code>03_training_loss_all.png</code> y <code>04_eval_loss_all.png</code> que reunieron perfectamente las curvas de pérdida de todos los modelos en un solo lugar.</p>
+<p><img decoding="async" loading="lazy" alt="Visualización de Gráficos" src="https://globaldevlog.com/es/assets/images/02_graph-8f91ee1a78e9220a703c6884ad9a4f40.png" width="1785" height="735" class="img_ev3q"></p>
+<p>Ahora, basándonos en estos gráficos, podemos decorar maravillosamente nuestros materiales de presentación de la próxima semana.</p>]]></content>
         <author>
             <name>Jihwan Park (jaybee)</name>
             <uri>https://github.com/jbjihwan</uri>
