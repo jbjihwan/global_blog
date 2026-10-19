@@ -9,7 +9,7 @@ keywords: [Política de Privacidad, Privacy Policy, Google AdSense, Google Analy
 **Fecha de entrada en vigor:** 18 de octubre de 2026  
 **Última actualización:** 18 de octubre de 2026
 
-En **Global Dev Blog** (disponible en [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/)), la privacidad de nuestros visitantes es de extrema importancia. Este documento describe los tipos de información que se recopilan y cómo se utilizan.
+En **Global Dev Blog** (disponible en [https://globaldevlog.com/](https://globaldevlog.com/)), la privacidad de nuestros visitantes es de extrema importancia. Este documento describe los tipos de información que se recopilan y cómo se utilizan.
 
 Si tiene preguntas adicionales, contáctenos en [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com).
 

@@ -60,4 +60,4 @@ keywords: [블로그 소개, 개발자 소개, 박지환, 인공지능 엔지니
 
 - **GitHub 프로필**: [github.com/jbjihwan](https://github.com/jbjihwan)
 - **블로그 소스 저장소**: [github.com/jbjihwan/global_blog](https://github.com/jbjihwan/global_blog)
-- **문의하기**: [문의 페이지](/global_blog/ko/contact) 또는 [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com)
+- **문의하기**: [문의 페이지](/ko/contact) 또는 [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com)

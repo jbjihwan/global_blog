@@ -85,7 +85,7 @@ def create_social_card():
             y_badge += 60
 
     # Footer note
-    draw.text((110, 545), "https://jbjihwan.github.io/global_blog/  •  4-Locale Multilingual Technical Series", fill=(100, 116, 139, 255), font=font_tag)
+    draw.text((110, 545), "https://globaldevlog.com/  •  4-Locale Multilingual Technical Series", fill=(100, 116, 139, 255), font=font_tag)
 
     card_path = os.path.join(STATIC_IMG, "social-card.png")
     img.save(card_path, format="PNG")

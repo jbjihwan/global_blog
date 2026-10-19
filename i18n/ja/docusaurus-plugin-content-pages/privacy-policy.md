@@ -9,7 +9,7 @@ keywords: [プライバシーポリシー, Privacy Policy, Google AdSense, Googl
 **発効日:** 2026年10月18日  
 **最終更新日:** 2026年10月18日
 
-**グローバル技術ブログ (Global Dev Blog)** (URL: [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/)) は、訪問者のプライバシー保護を重視しています。本ドキュメントでは、当サイトが収集する情報およびGoogle Analytics 4、Google AdSenseの取り扱いについて説明します。
+**グローバル技術ブログ (Global Dev Blog)** (URL: [https://globaldevlog.com/](https://globaldevlog.com/)) は、訪問者のプライバシー保護を重視しています。本ドキュメントでは、当サイトが収集する情報およびGoogle Analytics 4、Google AdSenseの取り扱いについて説明します。
 
 ご質問がある場合は、[jbgihwan@gmail.com](mailto:jbgihwan@gmail.com) までお問い合わせください。
 

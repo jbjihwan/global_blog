@@ -65,4 +65,4 @@ All technical series published on this blog are backed by real, executable repos
 
 - **GitHub Profile**: [github.com/jbjihwan](https://github.com/jbjihwan)
 - **Blog Source Repository**: [github.com/jbjihwan/global_blog](https://github.com/jbjihwan/global_blog)
-- **Get in Touch**: Visit the [Contact Page](/global_blog/contact) or reach out via [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com).
+- **Get in Touch**: Visit the [Contact Page](/contact) or reach out via [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com).

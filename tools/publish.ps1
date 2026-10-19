@@ -23,4 +23,4 @@ Write-Host "==> [4/4] Deploying to GitHub Pages..." -ForegroundColor Cyan
 $env:GIT_USER = "jbjihwan"
 npm run deploy
 
-Write-Host "All tasks finished! Live at https://jbjihwan.github.io/global_blog/" -ForegroundColor Green
+Write-Host "All tasks finished! Live at https://globaldevlog.com/" -ForegroundColor Green

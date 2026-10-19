@@ -9,7 +9,7 @@ keywords: [개인정보처리방침, Privacy Policy, 구글 애드센스, 구글
 **시행일자:** 2026년 10월 18일  
 **최종 수정일:** 2026년 10월 18일
 
-**글로벌 기술 블로그(Global Dev Blog)**(웹사이트: [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/))는 방문자의 개인정보 보호를 매우 중요하게 생각합니다. 본 방침은 블로그가 수집하는 정보와 그 사용 목적, 제3자 서비스(Google Analytics, Google AdSense)와의 연동 사항을 투명하게 안내합니다.
+**글로벌 기술 블로그(Global Dev Blog)**(웹사이트: [https://globaldevlog.com/](https://globaldevlog.com/))는 방문자의 개인정보 보호를 매우 중요하게 생각합니다. 본 방침은 블로그가 수집하는 정보와 그 사용 목적, 제3자 서비스(Google Analytics, Google AdSense)와의 연동 사항을 투명하게 안내합니다.
 
 문의 사항이 있으신 경우 [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com)으로 연락 주시기 바랍니다.
 

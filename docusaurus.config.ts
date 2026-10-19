@@ -14,8 +14,8 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  url: 'https://jbjihwan.github.io',
-  baseUrl: '/global_blog/',
+  url: 'https://globaldevlog.com',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   organizationName: 'jbjihwan', // Usually your GitHub org/user name.

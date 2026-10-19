@@ -9,7 +9,7 @@ keywords: [Privacy Policy, Google AdSense, Google Analytics, GDPR, CCPA, Cookies
 **Effective Date:** October 18, 2026  
 **Last Updated:** October 18, 2026
 
-At **Global Dev Blog** (accessible at [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/)), the privacy of our visitors is of extreme importance to us. This Privacy Policy document outlines the types of personal information that is received and collected by Global Dev Blog and how it is used.
+At **Global Dev Blog** (accessible at [https://globaldevlog.com/](https://globaldevlog.com/)), the privacy of our visitors is of extreme importance to us. This Privacy Policy document outlines the types of personal information that is received and collected by Global Dev Blog and how it is used.
 
 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at [jbgihwan@gmail.com](mailto:jbgihwan@gmail.com).
 
