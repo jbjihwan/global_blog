@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://globaldevlog.com/sitemap.xml
+Sitemap: https://globaldevlog.com/ko/sitemap.xml
+Sitemap: https://globaldevlog.com/ja/sitemap.xml
+Sitemap: https://globaldevlog.com/es/sitemap.xml
