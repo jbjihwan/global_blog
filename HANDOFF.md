@@ -1,11 +1,11 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-10-18 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-10-20 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
 ## 📌 지금 하는 일
-Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국어 기술 블로그 운영, 구글 애드센스 승인 요건 구축 및 정기 연재 루틴 확립.
+Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국어 기술 블로그 운영, 커스텀 도메인(`globaldevlog.com`) 연동, 구글 애드센스 승인 요건 구축 및 정기 연재 루틴 확립.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-18)
-- **블로그 라이브 배포 URL**: [https://jbjihwan.github.io/global_blog/](https://jbjihwan.github.io/global_blog/)
+## 🚀 마지막으로 확인된 상태 (2026-10-20)
+- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (커스텀 도메인 Porkbun + Cloudflare 연동 완료)
 - **구글 애드센스(AdSense) 승인 인프라 구축**:
   - `About Me` (소개): 4개 국어(`src/pages/about.md`, `i18n/*/about.md`) 엔지니어링 경력, 연구 분야, 오픈소스 철학 명시 (E-E-A-T 충족).
   - `Privacy Policy` (개인정보처리방침): 4개 국어(`privacy-policy.md`) GA4(`G-VM2CVW28SL`), 쿠키 및 AdSense 맞춤 광고 Opt-out 조항 완비 (GDPR/CCPA 준수).
