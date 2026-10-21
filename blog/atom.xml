@@ -993,6 +993,46 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
+        <id>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</id>
+        <link href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Automating evaluation data aggregation and generating presentation-ready slide decks using python-pptx for our capstone midterm defense.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://globaldevlog.com/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
+<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
+<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
+<blockquote>
+<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
+</blockquote>
+<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
+<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
+<blockquote>
+<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
+"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
+<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://globaldevlog.com/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
+<blockquote>
+<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
+</blockquote>
+<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="report" term="report"/>
+        <category label="backend" term="backend"/>
+        <category label="DB" term="DB"/>
+        <category label="troubleshooting" term="troubleshooting"/>
+        <category label="capstone" term="capstone"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[Webots Robotics] Q-Learning Autonomous Navigation: 648-Bin State Discretization & Socket Architecture (#1)]]></title>
         <id>https://globaldevlog.com/blog/2026-05-17-rl-qlearning-1</id>
         <link href="https://globaldevlog.com/blog/2026-05-17-rl-qlearning-1"/>
@@ -1063,46 +1103,6 @@
         <category label="robotics" term="robotics"/>
         <category label="discretization" term="discretization"/>
         <category label="python" term="python"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
-        <id>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</id>
-        <link href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19"/>
-        <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Automating evaluation data aggregation and generating presentation-ready slide decks using python-pptx for our capstone midterm defense.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://globaldevlog.com/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
-<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
-<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
-<blockquote>
-<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
-</blockquote>
-<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
-<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
-<blockquote>
-<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
-"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
-</blockquote>
-<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
-<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://globaldevlog.com/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
-<blockquote>
-<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
-</blockquote>
-<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="report" term="report"/>
-        <category label="backend" term="backend"/>
-        <category label="DB" term="DB"/>
-        <category label="troubleshooting" term="troubleshooting"/>
-        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparing 2nd Fine-Tuning Results]]></title>
