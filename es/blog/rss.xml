@@ -4,10 +4,97 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/es/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>es</language>
+        <item>
+            <title><![CDATA[[Dominio Personalizado en GitHub Pages #1] Migración de github.io con Porkbun y Cloudflare DNS: CNAME Flattening y SSL Gratuito]]></title>
+            <link>https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Guía de producción paso a paso para abandonar los subdominios gratuitos github.io, adquirir un dominio apex con Porkbun, delegar a Cloudflare Anycast DNS, configurar CNAME Flattening y solventar el reseteo del archivo CNAME en Docusaurus.]]></description>
+            <content:encoded><![CDATA[<p>Alojarse en GitHub Pages mediante el subdominio gratuito (<code>username.github.io/proyecto</code>) es una de las soluciones más ágiles para publicar un blog de ingeniería sin incurrir en costes de servidor.</p>
+<p>No obstante, cuando se persigue una marca profesional y se contempla la <strong>monetización mediante Google AdSense</strong>, surge un impedimento ineludible: <strong>las políticas de Google AdSense prohíben estrictamente el registro de subdominios secundarios gratuitos como <code>*.github.io</code></strong>. Adicionalmente, para que la autoridad de dominio acumulada en los motores de búsqueda sea un activo propio, es imprescindible disponer de un <strong>dominio apex personalizado (por ejemplo, <code>globaldevlog.com</code>)</strong>.</p>
+<p>En esta primera entrega de nuestra serie sobre infraestructura para blogs estáticos, explicamos la arquitectura de 3 capas con <strong>Porkbun + Cloudflare + GitHub Pages</strong> que utilizamos para migrar <code>jbjihwan.github.io/global_blog</code> a <code>https://globaldevlog.com</code> con cero tiempo de inactividad.</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="Arquitectura de Enrutamiento DNS y CDN en Producción" src="https://globaldevlog.com/es/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-filosofía-de-arquitectura-configuración-robusta-en-3-capas">1. Filosofía de Arquitectura: Configuración Robusta en 3 Capas<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#1-filosof%C3%ADa-de-arquitectura-configuraci%C3%B3n-robusta-en-3-capas" class="hash-link" aria-label="Enlace directo al 1. Filosofía de Arquitectura: Configuración Robusta en 3 Capas" title="Enlace directo al 1. Filosofía de Arquitectura: Configuración Robusta en 3 Capas" translate="no">​</a></h2>
+<p>El método elemental para conectar un dominio a GitHub Pages consiste en apuntar registros <code>A</code> directamente a las 4 direcciones IP fijas de GitHub (<code>185.199.108.153</code>, etc.).</p>
+<p>Sin embargo, esta solución tradicional adolece de desventajas operativas notables:</p>
+<ul>
+<li class="">Ausencia de cortafuegos perimetral contra ataques DDoS o tráfico abusivo de bots.</li>
+<li class="">Lentitud en la propagación de DNS ante cualquier contingencia.</li>
+<li class="">Imposibilidad de optimizar la caché de activos estáticos (CSS, JS, imágenes).</li>
+</ul>
+<p>Separamos las responsabilidades en 3 proveedores especializados:</p>
+<table><thead><tr><th style="text-align:left">Capa</th><th style="text-align:left">Proveedor</th><th style="text-align:left">Responsabilidades Clave</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. Registrador</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">Adquisición de dominio y costes anuales de renovación más bajos del mercado, privacidad WHOIS perpetua gratuita</td></tr><tr><td style="text-align:left"><strong>2. Edge DNS &amp; Seguridad</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">DNS Anycast de latencia mínima, <strong>CNAME Flattening en el dominio apex (<code>@</code>)</strong>, Universal SSL gratuito y protección perimetral</td></tr><tr><td style="text-align:left"><strong>3. Origen Estático</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">Servidor de archivos compilados por Docusaurus, despliegue continuo mediante la rama <code>gh-pages</code>, coste de alojamiento 0 €</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-paso-1-adquisición-en-porkbun-y-delegación-de-servidores-de-nombres">2. Paso 1: Adquisición en Porkbun y Delegación de Servidores de Nombres<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#2-paso-1-adquisici%C3%B3n-en-porkbun-y-delegaci%C3%B3n-de-servidores-de-nombres" class="hash-link" aria-label="Enlace directo al 2. Paso 1: Adquisición en Porkbun y Delegación de Servidores de Nombres" title="Enlace directo al 2. Paso 1: Adquisición en Porkbun y Delegación de Servidores de Nombres" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Compra del Dominio</strong>: Se adquiere el dominio en Porkbun con tarifas transparentes y sin recargos sorpresa de renovación.</li>
+<li class=""><strong>Alta en Cloudflare</strong>: En el panel de Cloudflare, se hace clic en <strong>Añadir sitio</strong>, se ingresa <code>globaldevlog.com</code> y se escoge el <strong>Plan Gratuito</strong>.</li>
+<li class=""><strong>Servidores de Nombres Asignados</strong>: Cloudflare provee dos servidores autoritativos, por ejemplo:<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>Configuración en Porkbun</strong>: Dentro de la consola de gestión de Porkbun (<code>Authoritative Nameservers</code>), se sustituyen las entradas por defecto por las dos proporcionadas por Cloudflare. La propagación suele completarse en 5 a 15 minutos.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-paso-2-cname-flattening-y-modo-full-ssl-en-cloudflare">3. Paso 2: CNAME Flattening y Modo Full SSL en Cloudflare<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#3-paso-2-cname-flattening-y-modo-full-ssl-en-cloudflare" class="hash-link" aria-label="Enlace directo al 3. Paso 2: CNAME Flattening y Modo Full SSL en Cloudflare" title="Enlace directo al 3. Paso 2: CNAME Flattening y Modo Full SSL en Cloudflare" translate="no">​</a></h2>
+<p>Conforme al estándar RFC 1034, el dominio apex (<code>@</code>) no admite registros CNAME convencionales debido a la convivencia con registros SOA y NS.</p>
+<p>Cloudflare elimina este obstáculo mediante la función <strong>CNAME Flattening</strong>: en el momento de la consulta DNS, el edge de Cloudflare resuelve internamente el destino (<code>username.github.io</code>) y devuelve directamente las IPs, otorgando todas las ventajas de CNAME en el propio apex.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-registros-dns-en-cloudflare">A. Registros DNS en Cloudflare<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#a-registros-dns-en-cloudflare" class="hash-link" aria-label="Enlace directo al A. Registros DNS en Cloudflare" title="Enlace directo al A. Registros DNS en Cloudflare" translate="no">​</a></h3>
+<p>En la sección <strong>[DNS] &gt; [Registros]</strong>, se agregan dos registros con proxy activado:</p>
+<table><thead><tr><th style="text-align:left">Tipo (Type)</th><th style="text-align:left">Nombre (Name)</th><th style="text-align:left">Destino (Target)</th><th style="text-align:left">Estado de proxy</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>Con proxy (Nube naranja activada)</strong></td><td style="text-align:left">Automático</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>Con proxy (Nube naranja activada)</strong></td><td style="text-align:left">Automático</td></tr></tbody></table>
+<blockquote>
+<p><strong>Proxy Obligatorio</strong>: Mantener la nube naranja activa asegura que todo el tráfico transite por el edge Anycast de Cloudflare, garantizando cifrado SSL gratuito, compresión Brotli y distribución ultra veloz.</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-modo-de-cifrado-ssltls">B. Modo de Cifrado SSL/TLS<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#b-modo-de-cifrado-ssltls" class="hash-link" aria-label="Enlace directo al B. Modo de Cifrado SSL/TLS" title="Enlace directo al B. Modo de Cifrado SSL/TLS" translate="no">​</a></h3>
+<p>En <strong>[SSL/TLS] &gt; [Información general]</strong>:</p>
+<ul>
+<li class="">Se selecciona el modo <strong>Full</strong> (o <strong>Full Strict</strong>).</li>
+<li class="">Con ello se garantiza el cifrado seguro de extremo a extremo: entre el navegador del visitante y Cloudflare, y entre Cloudflare y el origen en GitHub Pages.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-paso-3-ajuste-de-la-configuración-en-docusaurus-docusaurusconfigts">4. Paso 3: Ajuste de la Configuración en Docusaurus (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#4-paso-3-ajuste-de-la-configuraci%C3%B3n-en-docusaurus-docusaurusconfigts" class="hash-link" aria-label="Enlace directo al 4-paso-3-ajuste-de-la-configuración-en-docusaurus-docusaurusconfigts" title="Enlace directo al 4-paso-3-ajuste-de-la-configuración-en-docusaurus-docusaurusconfigts" translate="no">​</a></h2>
+<p>Para trasladar las rutas relativas desde la subcarpeta (<code>/global_blog/</code>) a la raíz del nuevo dominio (<code>/</code>), se actualiza <code>docusaurus.config.ts</code>:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// Dirección oficial del dominio personalizado</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// Se define la raíz absoluta</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-paso-4-corrección-del-fallo-de-reseteo-del-dominio-en-github-pages-staticcname">5. Paso 4: Corrección del Fallo de Reseteo del Dominio en GitHub Pages (<code>static/CNAME</code>)<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#5-paso-4-correcci%C3%B3n-del-fallo-de-reseteo-del-dominio-en-github-pages-staticcname" class="hash-link" aria-label="Enlace directo al 5-paso-4-corrección-del-fallo-de-reseteo-del-dominio-en-github-pages-staticcname" title="Enlace directo al 5-paso-4-corrección-del-fallo-de-reseteo-del-dominio-en-github-pages-staticcname" translate="no">​</a></h2>
+<p>Un error habitual al enlazar un dominio propio en GitHub Pages es la <strong>pérdida silenciosa de la configuración al desplegar</strong>:</p>
+<ol>
+<li class="">Se define <code>globaldevlog.com</code> en <code>Settings &gt; Pages &gt; Custom domain</code>.</li>
+<li class="">Se ejecuta <code>npm run deploy</code> desde el equipo local.</li>
+<li class="">El despliegue sobreescribe la rama <code>gh-pages</code> y borra la asignación, provocando errores 404 o caídas del certificado SSL.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="la-causa">La Causa<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#la-causa" class="hash-link" aria-label="Enlace directo al La Causa" title="Enlace directo al La Causa" translate="no">​</a></h3>
+<p>El script de despliegue compila en <code>build/</code> y fuerza un push (<code>git push --force</code>) a la rama <code>gh-pages</code>. Si el archivo <code>CNAME</code> no se encuentra en la compilación, GitHub asume que el dominio ha sido retirado.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="solución-definitiva">Solución Definitiva<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#soluci%C3%B3n-definitiva" class="hash-link" aria-label="Enlace directo al Solución Definitiva" title="Enlace directo al Solución Definitiva" translate="no">​</a></h3>
+<p>Se crea el archivo <code>static/CNAME</code> (sin extensión) con el dominio en texto plano:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>Dado que Docusaurus traslada automáticamente todo el contenido de <code>static/</code> a la raíz de la compilación, el archivo <code>CNAME</code> se incorpora de forma perpetua en cada nuevo despliegue.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-verificación-en-producción">6. Verificación en Producción<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#6-verificaci%C3%B3n-en-producci%C3%B3n" class="hash-link" aria-label="Enlace directo al 6. Verificación en Producción" title="Enlace directo al 6. Verificación en Producción" translate="no">​</a></h2>
+<p>Se compila y despliega el sitio:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
+<p>Se comprueba la cabecera HTTP y la validez del certificado:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 (o redirección 301 al apex)</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-próximas-entregas">🔜 Próximas Entregas<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#-pr%C3%B3ximas-entregas" class="hash-link" aria-label="Enlace directo al 🔜 Próximas Entregas" title="Enlace directo al 🔜 Próximas Entregas" translate="no">​</a></h2>
+<p>Con el dominio apex plenamente operativo, los siguientes hitos son la monetización y la indexación en buscadores:</p>
+<ul>
+<li class=""><strong>Parte 2</strong>: <em>[Monetización de Sitios Estáticos #2] Aprobación de Google AdSense en Docusaurus: Resolución del error 404 en ads.txt e Inyección Asíncrona de Scripts</em></li>
+<li class=""><strong>Parte 3</strong>: <em>[SEO Multimotor #3] Registro en Google, Naver y Bing: Trucos para la Eliminación de Sitemaps y Errores de Nivel Host</em></li>
+</ul>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+        </item>
         <item>
             <title><![CDATA[De GitHub Pages a Dominio Personalizado: Guía Completa de Porkbun, Cloudflare DNS, Aprobación de AdSense y SEO Multimotor]]></title>
             <link>https://globaldevlog.com/es/blog/github-pages-custom-domain-adsense-seo-guide</link>
@@ -828,43 +915,6 @@
             <category>checkpoint</category>
             <category>hardcoding</category>
             <category>capstone</category>
-        </item>
-        <item>
-            <title><![CDATA[[Registro de Desarrollo Maeumjigi #16] Error Fatal, 2do Fine-Tuning y App React Native]]></title>
-            <link>https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16</link>
-            <guid>https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16</guid>
-            <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Diagnóstico de errores de hardcoding en las plantillas de prompts y depuración urgente para asegurar la integridad de los datos.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-9eab7db0dac5c88d9a120a99e5e703d4.png" width="1874" height="1526" class="img_ev3q"></p>
-<p>El 8 de mayo preparábamos la presentación de los resultados. Sin embargo, descubrí un error masivo.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="error-fatal-en-los-hiperparámetros-de-lora">Error Fatal en los Hiperparámetros de LoRA<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#error-fatal-en-los-hiperpar%C3%A1metros-de-lora" class="hash-link" aria-label="Enlace directo al Error Fatal en los Hiperparámetros de LoRA" title="Enlace directo al Error Fatal en los Hiperparámetros de LoRA" translate="no">​</a></h3>
-<blockquote>
-<p>"Las respuestas del modelo son más cortas. Creo que es porque establecer r de LoRA a 8 y alfa a 16 redujo demasiado las características..."
-"Espera, ¿era a/r? Pensé que era r/a...???"</p>
-</blockquote>
-<p>Comprendí mal la ecuación, configurándola de una manera que suprimió severamente o amplificó excesivamente las actualizaciones de peso. Con razón las respuestas eran anormalmente cortas.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2da-ronda-de-fine-tuning-fine_tuning_2">2da Ronda de Fine-Tuning (fine_tuning_2)<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#2da-ronda-de-fine-tuning-fine_tuning_2" class="hash-link" aria-label="Enlace directo al 2da Ronda de Fine-Tuning (fine_tuning_2)" title="Enlace directo al 2da Ronda de Fine-Tuning (fine_tuning_2)" translate="no">​</a></h3>
-<p>No podíamos simplemente avanzar. Inmediatamente creé una carpeta <code>fine_tuning_2</code> para una segunda ronda de fine-tuning.</p>
-<blockquote>
-<p>"Entrenar con rank=16, alpha=16, y en MIG-1 con rank=16, a=8."
-"Extraiga las 2000 entradas más largas de Daily_train_dataset."</p>
-</blockquote>
-<p>Para evitar respuestas cortas, extrajimos solo los 2000 conjuntos de datos más largos y dividimos nuestros recursos de GPU para ejecutar entrenamiento en paralelo.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="desarrollo-frontend-app">Desarrollo Frontend (App)<a href="https://globaldevlog.com/es/blog/2026-05-08-maeumjigi-16#desarrollo-frontend-app" class="hash-link" aria-label="Enlace directo al Desarrollo Frontend (App)" title="Enlace directo al Desarrollo Frontend (App)" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="Desarrollo de App" src="https://globaldevlog.com/es/assets/images/02_app-9efe68797b061b7eda0d68995627a8cc.png" width="1476" height="1526" class="img_ev3q"></p>
-<p>Mientras los modelos entrenaban, comencé a desarrollar la aplicación frontend.</p>
-<blockquote>
-<p>"Necesito mostrar un código QR para ejecutar maeum-app... pero cuando escribo npx go start, solo obtengo un error."</p>
-</blockquote>
-<p>Creé el proyecto usando React Native (Expo) y, después de algunos errores tipográficos, logré mostrar el código QR de Expo. Fue un día emocionante construyendo tanto el cerebro (IA) como la cara de la aplicación.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>LoRA</category>
-            <category>hyperparameters</category>
-            <category>ReactNative</category>
-            <category>app-development</category>
-            <category>frontend</category>
         </item>
     </channel>
 </rss>

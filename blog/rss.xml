@@ -4,10 +4,109 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Custom Domain on GitHub Pages #1: Zero-Downtime Migration with Porkbun and Cloudflare DNS (CNAME Flattening & Universal SSL)]]></title>
+            <link>https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A step-by-step production guide to ditching free github.io subdomains, acquiring an apex custom domain via Porkbun, delegating to Cloudflare Anycast DNS, configuring CNAME flattening, and setting up Docusaurus without breaking HTTPS.]]></description>
+            <content:encoded><![CDATA[<p>Hosting an engineering blog on GitHub Pages under <code>username.github.io/project</code> is one of the most cost-effective and friction-free setups for developers. You push markdown files, Git workflows trigger, and GitHub serves your static artifacts worldwide.</p>
+<p>However, as soon as you consider serious branding and monetization, you hit an uncompromising roadblock: <strong>Google AdSense strictly bans free secondary subdomains like <code>*.github.io</code> from site application</strong>. Furthermore, any search engine authority (PageRank and Domain Authority) you build remains tied to GitHub's domain rather than your personal asset.</p>
+<p>To build a professional engineering presence, you need an <strong>apex custom domain</strong> (e.g., <code>globaldevlog.com</code>). In this first installment of our static blog infrastructure series, we walk through the exact zero-downtime migration blueprint from <code>jbjihwan.github.io/global_blog</code> to <code>https://globaldevlog.com</code>, powered by a high-availability <strong>Porkbun + Cloudflare + GitHub Pages 3-tier architecture</strong>.</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="Production DNS &amp;amp; CDN Routing Architecture for Static Engineering Blog" src="https://globaldevlog.com/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-architectural-philosophy-the-3-tier-production-setup">1. Architectural Philosophy: The 3-Tier Production Setup<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#1-architectural-philosophy-the-3-tier-production-setup" class="hash-link" aria-label="Direct link to 1. Architectural Philosophy: The 3-Tier Production Setup" title="Direct link to 1. Architectural Philosophy: The 3-Tier Production Setup" translate="no">​</a></h2>
+<p>The naive approach to connecting a custom domain to GitHub Pages is pointing raw <code>A</code> records from your registrar directly to GitHub's Anycast IP addresses (<code>185.199.108.153</code>, <code>185.199.109.153</code>, <code>185.199.110.153</code>, <code>185.199.111.153</code>).</p>
+<p>While functional, this legacy approach has significant operational flaws:</p>
+<ul>
+<li class="">No edge DDoS protection or bot challenge filtering.</li>
+<li class="">Slow DNS propagation when switching underlying infrastructure.</li>
+<li class="">Zero fine-grained caching control over static assets.</li>
+</ul>
+<p>We decouple responsibilities across three specialized providers:</p>
+<table><thead><tr><th style="text-align:left">Tier</th><th style="text-align:left">Provider</th><th style="text-align:left">Core Responsibilities</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. Registrar</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">Lowest acquisition &amp; annual renewal fees, perpetual free WHOIS privacy, DNSSEC</td></tr><tr><td style="text-align:left"><strong>2. Edge DNS &amp; Security</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">Global Anycast DNS (&lt; 10ms resolution), <strong>CNAME Flattening on apex (<code>@</code>)</strong>, Universal SSL, Bot Fight mode</td></tr><tr><td style="text-align:left"><strong>3. Static Origin</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">Pre-compiled Docusaurus artifacts, automated CI/CD via <code>gh-pages</code> branch, zero hosting cost</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-step-1-purchasing-via-porkbun-and-delegating-nameservers">2. Step 1: Purchasing via Porkbun and Delegating NameServers<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#2-step-1-purchasing-via-porkbun-and-delegating-nameservers" class="hash-link" aria-label="Direct link to 2. Step 1: Purchasing via Porkbun and Delegating NameServers" title="Direct link to 2. Step 1: Purchasing via Porkbun and Delegating NameServers" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Domain Acquisition</strong>: Acquire your target <code>.com</code> domain on Porkbun. Porkbun offers transparent pricing with no hidden renewal markups.</li>
+<li class=""><strong>Add Domain to Cloudflare</strong>: Log into Cloudflare, click <strong>Add Site</strong>, enter your root domain (<code>globaldevlog.com</code>), and select the <strong>Free Plan</strong>.</li>
+<li class=""><strong>Obtain Edge Nameservers</strong>: Cloudflare assigns a dedicated pair of authoritative nameservers, for example:<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>Delegate in Porkbun</strong>: In the Porkbun domain management dashboard:<!-- -->
+<ul>
+<li class="">Locate <strong>Authoritative Nameservers</strong>.</li>
+<li class="">Remove Porkbun's default records (<code>fwd0.porkbun.com</code>, etc.).</li>
+<li class="">Paste Cloudflare's two nameserver addresses and save. Propagation typically finishes within 5 to 15 minutes.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-step-2-cloudflare-cname-flattening--full-ssl-mode">3. Step 2: Cloudflare CNAME Flattening &amp; Full SSL Mode<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#3-step-2-cloudflare-cname-flattening--full-ssl-mode" class="hash-link" aria-label="Direct link to 3. Step 2: Cloudflare CNAME Flattening &amp; Full SSL Mode" title="Direct link to 3. Step 2: Cloudflare CNAME Flattening &amp; Full SSL Mode" translate="no">​</a></h2>
+<p>According to RFC 1034, an apex/naked domain (<code>@</code>) cannot be configured as a <code>CNAME</code> record because it must coexist with <code>SOA</code> and <code>NS</code> records at the zone apex. Traditionally, this forced developers to use brittle <code>A</code> records.</p>
+<p>Cloudflare solves this via <strong>CNAME Flattening</strong>: at runtime, Cloudflare's edge DNS resolves the CNAME target (<code>username.github.io</code>) into IP addresses and returns them directly to DNS queries, providing full CNAME benefits on the naked apex.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-configure-dns-records">A. Configure DNS Records<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#a-configure-dns-records" class="hash-link" aria-label="Direct link to A. Configure DNS Records" title="Direct link to A. Configure DNS Records" translate="no">​</a></h3>
+<p>In the Cloudflare dashboard under <strong>[DNS] &gt; [Records]</strong>, create two proxied records:</p>
+<table><thead><tr><th style="text-align:left">Type</th><th style="text-align:left">Name</th><th style="text-align:left">Target</th><th style="text-align:left">Proxy Status</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>Proxied (Orange Cloud)</strong></td><td style="text-align:left">Auto</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>Proxied (Orange Cloud)</strong></td><td style="text-align:left">Auto</td></tr></tbody></table>
+<blockquote>
+<p><strong>Proxy Status Must Be Enabled</strong>: Keeping the orange cloud active routes all incoming traffic through Cloudflare's global Anycast edge, providing instant SSL termination, compression (Brotli), and automated HTTPS redirects.</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-configure-ssltls-encryption">B. Configure SSL/TLS Encryption<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#b-configure-ssltls-encryption" class="hash-link" aria-label="Direct link to B. Configure SSL/TLS Encryption" title="Direct link to B. Configure SSL/TLS Encryption" translate="no">​</a></h3>
+<p>Navigate to Cloudflare's <strong>[SSL/TLS] &gt; [Overview]</strong>:</p>
+<ul>
+<li class="">Set the encryption mode to <strong>Full</strong> (or <strong>Full Strict</strong>).</li>
+<li class="">This ensures complete encryption across the entire route: from the user's browser to Cloudflare Edge, and from Cloudflare Edge to GitHub Pages over TLS.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-step-3-docusaurus-configuration-update">4. Step 3: Docusaurus Configuration Update<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#4-step-3-docusaurus-configuration-update" class="hash-link" aria-label="Direct link to 4. Step 3: Docusaurus Configuration Update" title="Direct link to 4. Step 3: Docusaurus Configuration Update" translate="no">​</a></h2>
+<p>When moving from a GitHub repository subpath (e.g. <code>/global_blog/</code>) to an apex domain root, you must update <code>docusaurus.config.ts</code>:</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// Update URL to the new apex custom domain</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// Change baseUrl from subpath '/global_blog/' to root '/'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-step-4-the-github-pages-cname-reset-trap--solution">5. Step 4: The GitHub Pages CNAME Reset Trap &amp; Solution<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#5-step-4-the-github-pages-cname-reset-trap--solution" class="hash-link" aria-label="Direct link to 5. Step 4: The GitHub Pages CNAME Reset Trap &amp; Solution" title="Direct link to 5. Step 4: The GitHub Pages CNAME Reset Trap &amp; Solution" translate="no">​</a></h2>
+<p>One of the most maddening bugs when connecting GitHub Pages to a custom domain is the <strong>silent CNAME wipe</strong>:</p>
+<ol>
+<li class="">You enter <code>globaldevlog.com</code> in GitHub's repository <strong>Settings &gt; Pages &gt; Custom domain</strong>.</li>
+<li class="">You run <code>npm run deploy</code> from your local machine.</li>
+<li class="">Suddenly, your custom domain resets to <code>username.github.io/project</code>, and visitors get 404s or SSL certificate mismatches!</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-happens">Why This Happens<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#why-this-happens" class="hash-link" aria-label="Direct link to Why This Happens" title="Direct link to Why This Happens" translate="no">​</a></h3>
+<p>GitHub Pages expects a plain text <code>CNAME</code> file in the root of the deployment branch (<code>gh-pages</code>). When Docusaurus runs <code>deploy</code>, it builds fresh artifacts into <code>build/</code> and force-pushes that folder to <code>gh-pages</code>. If the <code>CNAME</code> file is not inside <code>build/</code>, the deployment obliterates the previous <code>CNAME</code> commit on GitHub.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-permanent-fix">The Permanent Fix<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#the-permanent-fix" class="hash-link" aria-label="Direct link to The Permanent Fix" title="Direct link to The Permanent Fix" translate="no">​</a></h3>
+<p>Place your domain directly inside <code>static/CNAME</code>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>Because Docusaurus automatically copies everything in <code>static/</code> to the build output root during compilation, your <code>CNAME</code> file is committed to <code>gh-pages</code> on every single release. The domain connection will never drop again.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-live-production-verification">6. Live Production Verification<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#6-live-production-verification" class="hash-link" aria-label="Direct link to 6. Live Production Verification" title="Direct link to 6. Live Production Verification" translate="no">​</a></h2>
+<p>Run the deployment command:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
+<p>Once deployment succeeds, run quick terminal checks to verify headers and SSL certificate authenticity:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 or 301 Redirect to apex</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary-of-what-we-achieved">Summary of What We Achieved<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#summary-of-what-we-achieved" class="hash-link" aria-label="Direct link to Summary of What We Achieved" title="Direct link to Summary of What We Achieved" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Zero Server Overhead</strong>: The entire platform runs completely free on GitHub Pages.</li>
+<li class=""><strong>Enterprise CDN &amp; Protection</strong>: Cloudflare absorbs traffic spikes, DDoS attempts, and manages SSL certificates automatically.</li>
+<li class=""><strong>Monetization &amp; Search Independence</strong>: The domain is ready for Google AdSense review and search engine ownership verification.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-next-in-this-series">🔜 Next in This Series<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#-next-in-this-series" class="hash-link" aria-label="Direct link to 🔜 Next in This Series" title="Direct link to 🔜 Next in This Series" translate="no">​</a></h2>
+<p>With your apex custom domain live, the next critical milestones are monetization approval and multi-engine visibility:</p>
+<ul>
+<li class=""><strong>Part 2</strong>: <em>[Static Site Monetization #2] Google AdSense Approval on Docusaurus: ads.txt 404 Resolution and Asynchronous Script Injection</em></li>
+<li class=""><strong>Part 3</strong>: <em>[Multi-Search Engine SEO #3] Google, Naver &amp; Bing Webmaster Setup: Sitemap Deletion Quirks and Host Error Troubleshooting</em></li>
+</ul>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+        </item>
         <item>
             <title><![CDATA[From GitHub Pages to Custom Domain: Complete Guide to Porkbun, Cloudflare DNS, AdSense Approval, and Multi-Engine SEO]]></title>
             <link>https://globaldevlog.com/blog/github-pages-custom-domain-adsense-seo-guide</link>
@@ -831,42 +930,6 @@
             <category>python</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
-            <link>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</link>
-            <guid>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</guid>
-            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Automating evaluation data aggregation and generating presentation-ready slide decks using python-pptx for our capstone midterm defense.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://globaldevlog.com/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
-<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
-<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
-<blockquote>
-<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
-</blockquote>
-<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
-<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
-<blockquote>
-<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
-"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
-</blockquote>
-<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
-<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://globaldevlog.com/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
-<blockquote>
-<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
-</blockquote>
-<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>report</category>
-            <category>backend</category>
-            <category>DB</category>
-            <category>troubleshooting</category>
-            <category>capstone</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots Robotics] Q-Learning Autonomous Navigation: 648-Bin State Discretization & Socket Architecture (#1)]]></title>
             <link>https://globaldevlog.com/blog/2026-05-17-rl-qlearning-1</link>
             <guid>https://globaldevlog.com/blog/2026-05-17-rl-qlearning-1</guid>
@@ -935,6 +998,42 @@
             <category>python</category>
         </item>
         <item>
+            <title><![CDATA[[Maeumjigi Capstone Dev Log #19] Automating Reports and Backend Database (DB) Troubleshooting]]></title>
+            <link>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</link>
+            <guid>https://globaldevlog.com/blog/2026-05-17-maeumjigi-19</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Automating evaluation data aggregation and generating presentation-ready slide decks using python-pptx for our capstone midterm defense.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://globaldevlog.com/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
+<p>I must correct my previous assumption that "May 13th was the last of Maeumjigi's May development"! On May 17th, a massive wave of backend integration testing and report drafting hit us.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-the-fine-tuning-report-using-artificial-intelligence-ai">Automating the Fine-Tuning Report using Artificial Intelligence (AI)<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#automating-the-fine-tuning-report-using-artificial-intelligence-ai" class="hash-link" aria-label="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" title="Direct link to Automating the Fine-Tuning Report using Artificial Intelligence (AI)" translate="no">​</a></h3>
+<p>There was simply not enough time for a human to manually analyze the massive result graphs from the 2nd fine-tuning (<code>fine_tuning_2</code>).</p>
+<blockquote>
+<p>"Create a prompt to write a report comparing the inference results of the models. Save it as report_prompt.md and write the report."</p>
+</blockquote>
+<p>I attempted prompt engineering to have the AI interpret the metrics and automatically draft the report. Ultimately, the AI analyzed the pros and cons of each model and the differences based on Alpha values, generating an excellent Word (.docx) report draft.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-db-integration-and-the-swamp-of-401-unauthorized">Backend DB Integration and the Swamp of 401 Unauthorized<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#backend-db-integration-and-the-swamp-of-401-unauthorized" class="hash-link" aria-label="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" title="Direct link to Backend DB Integration and the Swamp of 401 Unauthorized" translate="no">​</a></h3>
+<p>Right after the report, I started pushing <code>backup.sql</code> data into the local PostgreSQL DB to test the system stability of the frontend and backend.</p>
+<blockquote>
+<p>"I logged in successfully after running the backend and frontend, but nothing responds when I click menus."
+"Email or password incorrect... INFO: POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>I successfully pushed the DB dump and accessed the web, but fell into a hell of <code>401 Unauthorized</code> login errors. I created <code>debug_login.py</code> and endlessly restarted the uvicorn server for troubleshooting.</p>
+<p><img decoding="async" loading="lazy" alt="DB Troubleshooting" src="https://globaldevlog.com/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="contemplating-knowledge-graphs">Contemplating Knowledge Graphs<a href="https://globaldevlog.com/blog/2026-05-17-maeumjigi-19#contemplating-knowledge-graphs" class="hash-link" aria-label="Direct link to Contemplating Knowledge Graphs" title="Direct link to Contemplating Knowledge Graphs" translate="no">​</a></h3>
+<blockquote>
+<p>"Techniques using ontology and knowledge graphs are rising. Using these might create a chatbot with better stability than just focusing on a single Large Language Model (LLM)."</p>
+</blockquote>
+<p>Late at night, to overcome the limitations of simple LLM fine-tuning, I began designing <code>chatbot_design_prompt.md</code> to explore fusing ontologies and Knowledge Graphs. As we pass mid-May, the scale of the project is growing massive!</p>]]></content:encoded>
+            <category>devlog</category>
+            <category>fine-tuning</category>
+            <category>report</category>
+            <category>backend</category>
+            <category>DB</category>
+            <category>troubleshooting</category>
+            <category>capstone</category>
+        </item>
+        <item>
             <title><![CDATA[[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparing 2nd Fine-Tuning Results]]></title>
             <link>https://globaldevlog.com/blog/2026-05-13-maeumjigi-18</link>
             <guid>https://globaldevlog.com/blog/2026-05-13-maeumjigi-18</guid>
@@ -993,44 +1092,6 @@
             <category>checkpoint</category>
             <category>hardcoding</category>
             <category>capstone</category>
-        </item>
-        <item>
-            <title><![CDATA[[Maeumjigi Capstone Dev Log #16] Fatal Mistake, 2nd Fine-Tuning, and React Native App Launch]]></title>
-            <link>https://globaldevlog.com/blog/2026-05-08-maeumjigi-16</link>
-            <guid>https://globaldevlog.com/blog/2026-05-08-maeumjigi-16</guid>
-            <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Diagnosing prompt template pollution hardcoded into training dialogues and performing rapid debugging to restore dataset formatting integrity.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Cover Image" src="https://globaldevlog.com/assets/images/01_cover-9eab7db0dac5c88d9a120a99e5e703d4.png" width="1874" height="1526" class="img_ev3q"></p>
-<p>May 8th was the day we were building our capstone design mid-term presentation (PPT) based on the fine-tuning results. However, while happily filling in the slides, I discovered a massive, chilling mistake.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="discovering-the-fatal-lora-hyperparameter-mistake">Discovering the Fatal LoRA Hyperparameter Mistake<a href="https://globaldevlog.com/blog/2026-05-08-maeumjigi-16#discovering-the-fatal-lora-hyperparameter-mistake" class="hash-link" aria-label="Direct link to Discovering the Fatal LoRA Hyperparameter Mistake" title="Direct link to Discovering the Fatal LoRA Hyperparameter Mistake" translate="no">​</a></h3>
-<p>I was refining the model structure diagrams and hyperparameter info with the Artificial Intelligence (AI) for the PPT.</p>
-<blockquote>
-<p>"Looking at the fine-tuning examples, the answers are shorter than the base model. I think this is because setting LoRA's r to 8 and alpha to 16 reduced the intermediate features too much..."
-"Wait, it was a/r? I thought it was r/a...??? I really applied LoRA greedily..."</p>
-</blockquote>
-<p>When fine-tuning with LoRA, it's standard to set the <code>alpha</code> value equal to or twice the <code>rank</code> value. However, I completely misunderstood the scaling ratio equation, setting it in a way that either severely suppressed or excessively amplified the weight updates. No wonder the fine-tuned models' answers were unnaturally short and chopped off—the fault lay right at my fingertips.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-decision-for-2nd-round-fine-tuning-fine_tuning_2">The Decision for 2nd Round Fine-Tuning (fine_tuning_2)<a href="https://globaldevlog.com/blog/2026-05-08-maeumjigi-16#the-decision-for-2nd-round-fine-tuning-fine_tuning_2" class="hash-link" aria-label="Direct link to The Decision for 2nd Round Fine-Tuning (fine_tuning_2)" title="Direct link to The Decision for 2nd Round Fine-Tuning (fine_tuning_2)" translate="no">​</a></h3>
-<p>Although we already had the 1st round results, we couldn't just move on for a perfect 'Maeumjigi'. I immediately created a <code>fine_tuning_2</code> folder and decided on a 2nd round of fine-tuning.</p>
-<blockquote>
-<p>"The models to use this time are HCX-Text-1p5B, Llama33-70B, and Qwen35-9B. Train on MIG-0 with rank=16, alpha=16, and on MIG-1 with rank=16, a=8."
-"Extract the top 2000 longest entries from Daily_train_dataset.jsonl and create a file named Daily_train_dataset_long.jsonl."</p>
-</blockquote>
-<p>To prevent the answers from becoming too short, we extracted only the top 2000 datasets with the longest text length. We also split our MIG (Multi-Instance GPU) resources to run parallel training, directly comparing the performance differences based on the rank and alpha ratios.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="starting-frontend-app-development-while-the-backend-trains">Starting Frontend (App) Development While the Backend Trains<a href="https://globaldevlog.com/blog/2026-05-08-maeumjigi-16#starting-frontend-app-development-while-the-backend-trains" class="hash-link" aria-label="Direct link to Starting Frontend (App) Development While the Backend Trains" title="Direct link to Starting Frontend (App) Development While the Backend Trains" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="App Development" src="https://globaldevlog.com/assets/images/02_app-9efe68797b061b7eda0d68995627a8cc.png" width="1476" height="1526" class="img_ev3q"></p>
-<p>While the models fell back into the cycle of training, I didn't just sit around. I finally started developing the frontend app where actual users will meet 'Maeumjigi'!</p>
-<blockquote>
-<p>"I need to show a QR code to run maeum-app... but when I type npx go start, I only get an error message. How and where can the QR code be shown?"</p>
-</blockquote>
-<p>I created the <code>maeum-app</code> project using React Native (Expo) and struggled to launch the local server and connect it to my smartphone. I even mistakenly typed <code>npx go start</code> instead of <code>expo</code>, but I finally succeeded in pulling up the Expo QR code and setting up the app icons (<code>assets/logo.png</code>). It was a thrilling day where the brain of the backend (AI) and the face of the frontend (App) were being built simultaneously.</p>]]></content:encoded>
-            <category>devlog</category>
-            <category>fine-tuning</category>
-            <category>LoRA</category>
-            <category>hyperparameters</category>
-            <category>ReactNative</category>
-            <category>app-development</category>
-            <category>frontend</category>
         </item>
     </channel>
 </rss>
