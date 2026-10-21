@@ -832,42 +832,6 @@
         <category label="python" term="python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD]]></title>
-        <id>https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19</id>
-        <link href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19"/>
-        <updated>2026-05-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Automatización del resumen de resultados de evaluación y generación de presentaciones de diapositivas con python-pptx para el examen intermedio.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
-<p>¡Debo corregir mi suposición de que el 13 de mayo fue el último día! El 17 de mayo hubo una ola masiva de pruebas de backend y redacción de informes.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automatizando-el-informe-con-ia">Automatizando el Informe con IA<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#automatizando-el-informe-con-ia" class="hash-link" aria-label="Enlace directo al Automatizando el Informe con IA" title="Enlace directo al Automatizando el Informe con IA" translate="no">​</a></h3>
-<p>No había tiempo suficiente para analizar manualmente los gráficos masivos del segundo fine-tuning.</p>
-<blockquote>
-<p>"Crea un prompt para escribir un informe comparando los resultados. Guárdalo y escribe el informe."</p>
-</blockquote>
-<p>Intenté utilizar ingeniería de prompts para que la IA interpretara las métricas. La IA analizó los pros y contras de cada modelo, generando un excelente borrador en Word (.docx).</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integración-de-base-de-datos-y-el-error-401">Integración de Base de Datos y el Error 401<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#integraci%C3%B3n-de-base-de-datos-y-el-error-401" class="hash-link" aria-label="Enlace directo al Integración de Base de Datos y el Error 401" title="Enlace directo al Integración de Base de Datos y el Error 401" translate="no">​</a></h3>
-<p>Comencé a insertar datos de <code>backup.sql</code> en la BD local de PostgreSQL para probar la estabilidad.</p>
-<blockquote>
-<p>"Contraseña incorrecta... POST /auth/login 401 Unauthorized"</p>
-</blockquote>
-<p>Caí en un infierno de errores de inicio de sesión. Creé scripts de depuración y reinicié el servidor uvicorn sin fin.</p>
-<p><img decoding="async" loading="lazy" alt="Problemas de BD" src="https://globaldevlog.com/es/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gráficos-de-conocimiento-knowledge-graphs">Gráficos de Conocimiento (Knowledge Graphs)<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#gr%C3%A1ficos-de-conocimiento-knowledge-graphs" class="hash-link" aria-label="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" title="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" translate="no">​</a></h3>
-<p>A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="report" term="report"/>
-        <category label="backend" term="backend"/>
-        <category label="Base de Datos (DB)" term="Base de Datos (DB)"/>
-        <category label="troubleshooting" term="troubleshooting"/>
-        <category label="capstone" term="capstone"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Robótica Webots] Navegación Autónoma con Q-Learning: Discretización de 648 Estados y Arquitectura de Sockets (#1)]]></title>
         <id>https://globaldevlog.com/es/blog/2026-05-17-rl-qlearning-1</id>
         <link href="https://globaldevlog.com/es/blog/2026-05-17-rl-qlearning-1"/>
@@ -930,6 +894,42 @@
         <category label="robotica" term="robotica"/>
         <category label="discretizacion" term="discretizacion"/>
         <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #19] Automatización de Informes y Problemas de BD]]></title>
+        <id>https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19</id>
+        <link href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19"/>
+        <updated>2026-05-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Automatización del resumen de resultados de evaluación y generación de presentaciones de diapositivas con python-pptx para el examen intermedio.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-12712349ddac15465e60572918ef40de.png" width="720" height="405" class="img_ev3q"></p>
+<p>¡Debo corregir mi suposición de que el 13 de mayo fue el último día! El 17 de mayo hubo una ola masiva de pruebas de backend y redacción de informes.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="automatizando-el-informe-con-ia">Automatizando el Informe con IA<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#automatizando-el-informe-con-ia" class="hash-link" aria-label="Enlace directo al Automatizando el Informe con IA" title="Enlace directo al Automatizando el Informe con IA" translate="no">​</a></h3>
+<p>No había tiempo suficiente para analizar manualmente los gráficos masivos del segundo fine-tuning.</p>
+<blockquote>
+<p>"Crea un prompt para escribir un informe comparando los resultados. Guárdalo y escribe el informe."</p>
+</blockquote>
+<p>Intenté utilizar ingeniería de prompts para que la IA interpretara las métricas. La IA analizó los pros y contras de cada modelo, generando un excelente borrador en Word (.docx).</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integración-de-base-de-datos-y-el-error-401">Integración de Base de Datos y el Error 401<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#integraci%C3%B3n-de-base-de-datos-y-el-error-401" class="hash-link" aria-label="Enlace directo al Integración de Base de Datos y el Error 401" title="Enlace directo al Integración de Base de Datos y el Error 401" translate="no">​</a></h3>
+<p>Comencé a insertar datos de <code>backup.sql</code> en la BD local de PostgreSQL para probar la estabilidad.</p>
+<blockquote>
+<p>"Contraseña incorrecta... POST /auth/login 401 Unauthorized"</p>
+</blockquote>
+<p>Caí en un infierno de errores de inicio de sesión. Creé scripts de depuración y reinicié el servidor uvicorn sin fin.</p>
+<p><img decoding="async" loading="lazy" alt="Problemas de BD" src="https://globaldevlog.com/es/assets/images/02_db-1d0bb76370f8508377e9472ff5cb15c8.png" width="1373" height="5225" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gráficos-de-conocimiento-knowledge-graphs">Gráficos de Conocimiento (Knowledge Graphs)<a href="https://globaldevlog.com/es/blog/2026-05-17-maeumjigi-19#gr%C3%A1ficos-de-conocimiento-knowledge-graphs" class="hash-link" aria-label="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" title="Enlace directo al Gráficos de Conocimiento (Knowledge Graphs)" translate="no">​</a></h3>
+<p>A altas horas de la noche, para superar las limitaciones del simple Modelo de Lenguaje Grande (LLM), comencé a diseñar un plan para explorar la fusión de ontologías y Gráficos de Conocimiento. ¡El proyecto se está volviendo masivo!</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="report" term="report"/>
+        <category label="backend" term="backend"/>
+        <category label="Base de Datos (DB)" term="Base de Datos (DB)"/>
+        <category label="troubleshooting" term="troubleshooting"/>
+        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #18] Expandiendo Tokens de Inferencia y Comparando Resultados]]></title>
