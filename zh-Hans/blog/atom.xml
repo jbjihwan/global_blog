@@ -99,6 +99,105 @@
         <category label="devops" term="devops"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[网站收益化 #2] 静态网站 Google AdSense 审核自动化：破解 ads.txt 404 抓取陷阱与 HeadTags 集成实战]]></title>
+        <id>https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide</id>
+        <link href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide"/>
+        <updated>2026-10-21T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[深度解析 Docusaurus 静态博客中 Google AdSense 所有权验证元标签的高性能注入、static/ads.txt 根路径部署及 Cloudflare WAF 爬虫防误杀配置全流程。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Google AdSense 审核与爬虫抓取流水线" src="https://globaldevlog.com/zh-Hans/assets/images/01_ads_txt_crawler_flow-8f17d9e45c07877c55ba651d6017360f.png" width="2200" height="1100" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>核心要点 (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>问题 (Problem)</strong>：与传统动态 CMS (WordPress) 不同，托管在 GitHub Pages 或 Cloudflare Pages 上的 Docusaurus、Next.js 等静态网站生成器 (SSG) 极易遭遇恶名昭彰的 <strong>“收益受损风险：缺少 ads.txt 文件”</strong> 警报，并因客户端水合延迟或 WAF 误杀导致所有权审核失败。</li>
+<li class=""><strong>解决方案 (Solution)</strong>：利用 Docusaurus 原生的 <code>headTags</code> 配置将验证元标签直接注入静态 HTML，通过 <code>static/ads.txt</code> 实现根目录资产部署，并在 Cloudflare WAF 中为 <code>Googlebot-AdsTxt</code> 抓取爬虫配置放行白名单。</li>
+<li class=""><strong>实验结果 (Result)</strong>：实现爬虫 100% 顺畅访问、<code>/ads.txt</code> 零 404 响应，在确保 Lighthouse 性能与 SEO 得分稳定在 95 分以上的同时，一次性符合 AdSense 审核规范。</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-静态网站-ssg-集成-adsense-面临的独特挑战">1. 静态网站 (SSG) 集成 AdSense 面临的独特挑战<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#1-%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99-ssg-%E9%9B%86%E6%88%90-adsense-%E9%9D%A2%E4%B8%B4%E7%9A%84%E7%8B%AC%E7%89%B9%E6%8C%91%E6%88%98" class="hash-link" aria-label="1. 静态网站 (SSG) 集成 AdSense 面临的独特挑战的直接链接" title="1. 静态网站 (SSG) 集成 AdSense 面临的独特挑战的直接链接" translate="no">​</a></h2>
+<p>将开发博客从默认的子路径 (<code>username.github.io/blog</code>) 迁移至独立顶级域名 (<code>https://globaldevlog.com</code>) 后，下一步核心战略便是接入 <strong>Google AdSense 商业化广告</strong>。然而，静态网站在架构上面临着以下特殊瓶颈：</p>
+<ol>
+<li class=""><strong>缺乏服务端数据库与动态插件支持</strong>：WordPress 可以通过 Site Kit 插件一键注入代码并生成 <code>ads.txt</code>，而在 Docusaurus 中，所有资源必须在编译阶段严格固化。</li>
+<li class=""><strong>客户端水合 vs 静态 Head 注入</strong>：若通过 React 组件生命周期动态载入脚本，搜索引擎爬虫在执行 JavaScript 之前可能就因抓取超时而判定审核失败。</li>
+<li class=""><strong><code>ads.txt</code> 404 抓取陷阱</strong>：编译产物路径错配将导致 AdSense 爬虫 (<code>Googlebot-AdsTxt</code>) 访问 <code>https://yourdomain.com/ads.txt</code> 时返回 404，导致域名收益被全量冻结。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-第一步在-docusaurus-中注入所有权验证元标签">2. 第一步：在 Docusaurus 中注入所有权验证元标签<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#2-%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%9C%A8-docusaurus-%E4%B8%AD%E6%B3%A8%E5%85%A5%E6%89%80%E6%9C%89%E6%9D%83%E9%AA%8C%E8%AF%81%E5%85%83%E6%A0%87%E7%AD%BE" class="hash-link" aria-label="2. 第一步：在 Docusaurus 中注入所有权验证元标签的直接链接" title="2. 第一步：在 Docusaurus 中注入所有权验证元标签的直接链接" translate="no">​</a></h2>
+<p>在 AdSense 控制台（<strong>网站 &gt; 添加网站</strong>）提交域名后，Google 会要求验证网站所有权。对于静态博客而言，<strong>通过 <code>docusaurus.config.ts</code> 的 <code>headTags</code> 选项注入静态 <code>&lt;meta&gt;</code> 标签</strong>是最优雅且零性能损耗的解决方案。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-配置文件代码-docusaurusconfigts">📐 配置文件代码 (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%A3%E7%A0%81-docusaurusconfigts" class="hash-link" aria-label="-配置文件代码-docusaurusconfigts的直接链接" title="-配置文件代码-docusaurusconfigts的直接链接" translate="no">​</a></h3>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">type</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain">Config</span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'@docusaurus/types'</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 注入 Google AdSense 所有权验证元标签</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  headTags</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      tagName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'meta'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      attributes</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        name</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'google-adsense-account'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        content</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'ca-pub-XXXXXXXXXXXXXXXX'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token comment" style="color:#999988;font-style:italic">// 替换为您的 AdSense 发布商 ID</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ... 其它配置项</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">export</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">default</span><span class="token plain"> config</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-为何优先选用-headtags-而非-scripts">💡 为何优先选用 <code>headTags</code> 而非 <code>scripts</code>？<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#-%E4%B8%BA%E4%BD%95%E4%BC%98%E5%85%88%E9%80%89%E7%94%A8-headtags-%E8%80%8C%E9%9D%9E-scripts" class="hash-link" aria-label="-为何优先选用-headtags-而非-scripts的直接链接" title="-为何优先选用-headtags-而非-scripts的直接链接" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>零运行时性能开销</strong>：无需在审核初期预加载重达约 120 KB 的 <code>adsbygoogle.js</code> 脚本包，避免拖慢 PageSpeed 跑分。</li>
+<li class=""><strong>100% 确定性抓取</strong>：元标签直接编译嵌入到服务端预渲染的静态文件 (<code>build/index.html</code>) 中，确保 Google 审核机器人瞬时验证通过。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-第二步彻底根除-adstxt-404-抓取陷阱">3. 第二步：彻底根除 ads.txt 404 抓取陷阱<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5%E5%BD%BB%E5%BA%95%E6%A0%B9%E9%99%A4-adstxt-404-%E6%8A%93%E5%8F%96%E9%99%B7%E9%98%B1" class="hash-link" aria-label="3. 第二步：彻底根除 ads.txt 404 抓取陷阱的直接链接" title="3. 第二步：彻底根除 ads.txt 404 抓取陷阱的直接链接" translate="no">​</a></h2>
+<p>提交审核后，发布商最常遭遇的红色警报莫过于：</p>
+<blockquote>
+<p>⚠️ <em>“收益受损风险：您需要解决一些 ads.txt 文件问题，以免对您的收入造成严重影响。”</em></p>
+</blockquote>
+<p>其诱因极其明确：Google 的 <code>Googlebot-AdsTxt</code> 爬虫请求 <code>https://globaldevlog.com/ads.txt</code> 时遭遇了 HTTP 404 错误。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="️-基于-staticadstxt-实现根目录直接部署">🛠️ 基于 <code>static/ads.txt</code> 实现根目录直接部署<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#%EF%B8%8F-%E5%9F%BA%E4%BA%8E-staticadstxt-%E5%AE%9E%E7%8E%B0%E6%A0%B9%E7%9B%AE%E5%BD%95%E7%9B%B4%E6%8E%A5%E9%83%A8%E7%BD%B2" class="hash-link" aria-label="️-基于-staticadstxt-实现根目录直接部署的直接链接" title="️-基于-staticadstxt-实现根目录直接部署的直接链接" translate="no">​</a></h3>
+<p>Docusaurus 在执行编译时，会将项目根目录下 <code>static/</code> 中的所有文件直接原样拷贝到产物根路径 (<code>build/</code>)。</p>
+<ol>
+<li class="">
+<p>新建 <code>static/ads.txt</code> 文件：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0</span><br></div></code></pre></div></div>
+<p><em>(请将 <code>pub-XXXXXXXXXXXXXXXX</code> 替换为您个人的发布商 ID)</em></p>
+</li>
+<li class="">
+<p>确认文件并部署上线：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-部署后连通性验证">🔍 部署后连通性验证<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#-%E9%83%A8%E7%BD%B2%E5%90%8E%E8%BF%9E%E9%80%9A%E6%80%A7%E9%AA%8C%E8%AF%81" class="hash-link" aria-label="🔍 部署后连通性验证的直接链接" title="🔍 部署后连通性验证的直接链接" translate="no">​</a></h3>
+<p>在终端中利用 <code>curl</code> 检查响应头：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com/ads.txt</span><br></div></code></pre></div></div>
+<p>标准响应输出：</p>
+<div class="language-http codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-http codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">content-type: text/plain; charset=utf-8</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">cache-control: max-age=600</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">server: cloudflare</span><br></div></code></pre></div></div>
+<p>同时请确认访问 <code>https://www.globaldevlog.com/ads.txt</code> 时能正常执行 301/308 重定向至根域名。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-第三步cloudflare-waf-与边缘安全防护调优">4. 第三步：Cloudflare WAF 与边缘安全防护调优<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#4-%E7%AC%AC%E4%B8%89%E6%AD%A5cloudflare-waf-%E4%B8%8E%E8%BE%B9%E7%BC%98%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E8%B0%83%E4%BC%98" class="hash-link" aria-label="4. 第三步：Cloudflare WAF 与边缘安全防护调优的直接链接" title="4. 第三步：Cloudflare WAF 与边缘安全防护调优的直接链接" translate="no">​</a></h2>
+<p>若您的域名开启了 Cloudflare 的橙色云朵代理，其内置的 Bot 防御规则可能会意外拦截 Google 的自动抓取程序。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Bot["Googlebot-AdsTxt 爬虫"] --&gt; Edge["Cloudflare 边缘 WAF"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Edge --&gt;|"校验 User-Agent 与 ASN"| Rule{"WAF 安全防火墙规则"}</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Rule --&gt;|"Bot Fight Mode (误报)"| Drop["403 Forbidden / 质询拦截"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Rule --&gt;|"放行绕过规则"| Origin["GitHub Pages 源站 (/ads.txt)"]</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cloudflare-waf-自定义规则配置">Cloudflare WAF 自定义规则配置<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#cloudflare-waf-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE" class="hash-link" aria-label="Cloudflare WAF 自定义规则配置的直接链接" title="Cloudflare WAF 自定义规则配置的直接链接" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>规则表达式</strong>：<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">(http.user_agent contains "Googlebot-AdsTxt") or (http.user_agent contains "Mediapartners-Google")</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>执行动作</strong>：<em>跳过 (Skip)</em> — 绕过 WAF 质询及速率限制，确保爬虫顺畅拉取 <code>ads.txt</code>。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-adsense-首次审核通关必备四大准则">5. AdSense 首次审核通关必备四大准则<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#5-adsense-%E9%A6%96%E6%AC%A1%E5%AE%A1%E6%A0%B8%E9%80%9A%E5%85%B3%E5%BF%85%E5%A4%87%E5%9B%9B%E5%A4%A7%E5%87%86%E5%88%99" class="hash-link" aria-label="5. AdSense 首次审核通关必备四大准则的直接链接" title="5. AdSense 首次审核通关必备四大准则的直接链接" translate="no">​</a></h2>
+<table><thead><tr><th style="text-align:left">评审维度</th><th style="text-align:left">必须达标项</th><th style="text-align:left">违背时的典型拒审理由</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. 必备法律政策页面</strong></td><td style="text-align:left">完备的 <code>/privacy-policy</code>、<code>/about</code> 与 <code>/contact</code> 页面</td><td style="text-align:left">违反网站导航政策</td></tr><tr><td style="text-align:left"><strong>2. 原创深度技术文章量</strong></td><td style="text-align:left">至少 20~30 篇高质量原创技术长文（单篇 1,500 字以上）</td><td style="text-align:left">低价值内容 / 内容匮乏</td></tr><tr><td style="text-align:left"><strong>3. 零失效死链</strong></td><td style="text-align:left">0 个 404 错误链接，无未定义锚点 (#)</td><td style="text-align:left">网站无法正常运作</td></tr><tr><td style="text-align:left"><strong>4. 移动端自适应布局</strong></td><td style="text-align:left">手机端无水平横向滚动与文字重叠</td><td style="text-align:left">移动端易用性差</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-总结与后续规划">6. 总结与后续规划<a href="https://globaldevlog.com/zh-Hans/blog/static-site-adsense-ads-txt-guide#6-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%90%8E%E7%BB%AD%E8%A7%84%E5%88%92" class="hash-link" aria-label="6. 总结与后续规划的直接链接" title="6. 总结与后续规划的直接链接" translate="no">​</a></h2>
+<p>通过 <code>headTags</code> 完成元标签校验、<code>static/ads.txt</code> 根目录部署以及 Cloudflare WAF 爬虫白名单调优，您的静态技术博客现已具备坚不可摧的 AdSense 准入技术条件。</p>
+<ul>
+<li class="">在下一期 <strong>第 3 篇</strong> 中，我们将深入剖析 Google Search Console、Naver Search Advisor 与 Bing Webmaster Tools 的 6 语言站点地图多路提交与 SEO 自动化流水线！</li>
+</ul>
+<hr>
+<blockquote>
+<p>📌 <strong>Global Dev Blog 精选技术推荐</strong>：<br>
+<!-- -->• <a href="https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns" target="_blank" rel="noopener noreferrer" class="">Global Dev Blog - GitHub Pages 绑定自定义域名与 Cloudflare DNS 实战</a><br>
+<!-- -->• <a href="https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth" target="_blank" rel="noopener noreferrer" class="">Global Dev Blog - 静态网站安全加固与 npm audit 漏洞真相</a><br>
+<!-- -->• <a href="https://globaldevlog.com/" target="_blank" rel="noopener noreferrer" class="">访问支持 6 大语种的 Global Dev Blog 首页</a></p>
+</blockquote>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="google-adsense" term="google-adsense"/>
+        <category label="docusaurus" term="docusaurus"/>
+        <category label="github-pages" term="github-pages"/>
+        <category label="web-monetization" term="web-monetization"/>
+        <category label="devops" term="devops"/>
+        <category label="cloudflare" term="cloudflare"/>
+        <category label="seo" term="seo"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[从 GitHub Pages 到独立顶级域名：Porkbun、Cloudflare DNS、AdSense 审核通过与多引擎 SEO 全方位指南]]></title>
         <id>https://globaldevlog.com/zh-Hans/blog/github-pages-custom-domain-adsense-seo-guide</id>
         <link href="https://globaldevlog.com/zh-Hans/blog/github-pages-custom-domain-adsense-seo-guide"/>
@@ -1133,42 +1232,6 @@
         <category label="推理" term="推理"/>
         <category label="max_new_tokens" term="max_new_tokens"/>
         <category label="共情能力" term="共情能力"/>
-        <category label="毕业设计" term="毕业设计"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Maeumjigi 心语伴侣毕业设计开发日志 #17] 第二轮微调胜利收官与自动化评估流水线的硬编码陷阱]]></title>
-        <id>https://globaldevlog.com/zh-Hans/blog/2026-05-12-maeumjigi-17</id>
-        <link href="https://globaldevlog.com/zh-Hans/blog/2026-05-12-maeumjigi-17"/>
-        <updated>2026-05-12T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[应用规范的 Prompt 模板与重构后的 LoRA 超参完成第二轮微调，提取最优 Checkpoint，排查自动化评估流水线中的致命硬编码陷阱。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面图" src="https://globaldevlog.com/zh-Hans/assets/images/01_cover-14a3c0d517e4c85b93ada4e973112325.png" width="2000" height="1457" class="img_ev3q"></p>
-<p>为了拨乱反正、纠正 LoRA 超参数配比倒置而仓促启动的第二轮微调 (<code>fine_tuning_2</code>) 多卡并行长跑，终于在 5 月 12 日迎来了胜利的曙光！</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="萃取最佳检查点-best-checkpoint-与端到端推理管线组装">萃取最佳检查点 (Best Checkpoint) 与端到端推理管线组装<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-12-maeumjigi-17#%E8%90%83%E5%8F%96%E6%9C%80%E4%BD%B3%E6%A3%80%E6%9F%A5%E7%82%B9-best-checkpoint-%E4%B8%8E%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%8E%A8%E7%90%86%E7%AE%A1%E7%BA%BF%E7%BB%84%E8%A3%85" class="hash-link" aria-label="萃取最佳检查点 (Best Checkpoint) 与端到端推理管线组装的直接链接" title="萃取最佳检查点 (Best Checkpoint) 与端到端推理管线组装的直接链接" translate="no">​</a></h3>
-<p>覆盖 3 大模型、6 组超参数组合的矩阵微调全量收敛。我们比对验证集损失 <code>eval_loss</code>，提取出泛化能力最强的第一梯队检查点，归档至各模型对应的 <code>adapter</code> 目录。</p>
-<p>为了在后台全自动串接批处理推理 (Eval) 与结果对比 (Comparison)，我们编写了 <code>run_test_20_30.sh</code> 脚本：</p>
-<blockquote>
-<p>“当前 HCX-Text-1p5B 模型在 15 分钟内仅输出了 12 条生成结果，GPU 显存利用率仅有 1.6GB……”</p>
-</blockquote>
-<p>推理吞吐却再次陷入令人绝望的龟速泥潭。即便针对参数量仅 1.5B 的极轻量模型，平均每分钟也吐不出完整的一句话。显存利用率长期徘徊在 1.6GB 低位，究其根源在于推理端 Batch Size 被死死锁死为 1。加之服务器磁盘空间告警，被迫紧急将工程根目录整体迁移至 <code>~/home/data/temporary/</code>，修改了全套脚本路径。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="乐极生悲跌入自动化流水线的硬编码陷阱">乐极生悲：跌入自动化流水线的“硬编码陷阱”<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-12-maeumjigi-17#%E4%B9%90%E6%9E%81%E7%94%9F%E6%82%B2%E8%B7%8C%E5%85%A5%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E7%A1%AC%E7%BC%96%E7%A0%81%E9%99%B7%E9%98%B1" class="hash-link" aria-label="乐极生悲：跌入自动化流水线的“硬编码陷阱”的直接链接" title="乐极生悲：跌入自动化流水线的“硬编码陷阱”的直接链接" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="硬编码 Bug 截图" src="https://globaldevlog.com/zh-Hans/assets/images/02_bug-900bd56611b3d6521891bcc956843259.png" width="2000" height="1457" class="img_ev3q"></p>
-<p>在费尽周折将所有耗时评估脚本跑完后，团队却在代码审查时赫然发现了一个令人窒息的隐蔽 Bug：</p>
-<blockquote>
-<p>“为什么在 20_eval_ft_models.ipynb 中，模型别名居然被死死硬编码为了 MODEL_ALIAS = 'Qwen35-9B_a16'？！”
-“这意味着在服务器日志中，即使执行的是 20_eval_HCX-Text-1p5B_a8.ipynb，代码底层加载的仍然是 Qwen35-9B_a16？！脚本文件名和实际推断模型完全两码事？！”</p>
-</blockquote>
-<p>是的，在编写自动化批处理模板时，开发者一时疏忽遗留了固定别名硬编码。表面上脚本为 HCX 每次都克隆并派生了独立的 Notebook，但底层代码却始终单调地加载着 <code>Qwen35-9B_a16</code> 的权重反复进行着无效重复推测！</p>
-<p>这再次印证：大模型深度微调不仅是高深的科学探索，更是对工程细致度的终极考验。立刻动手扑灭硬编码 Bug，重跑推理流水线！</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="开发日志" term="开发日志"/>
-        <category label="微调" term="微调"/>
-        <category label="最佳性能" term="最佳性能"/>
-        <category label="检查点" term="检查点"/>
-        <category label="硬编码" term="硬编码"/>
         <category label="毕业设计" term="毕业设计"/>
     </entry>
 </feed>
