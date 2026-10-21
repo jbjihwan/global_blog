@@ -63,8 +63,8 @@ for ep in range(n_episodes):
 除了基础的“是否到达目标”之外，我们从**平滑度与安全性**等多维度进行了深入度量：
 
 1. **到达成功率 (Success Rate)**：在 150 步以内无碰撞且顺利进入目标半径 (0.10m) 范围的回合比例。
-2. **路径效率 (Path Efficiency)**：理论最短几何距离 ($L_{shortest}$) 与机器人实际行驶累积距离 ($L_{actual}$) 的百分比比值：
-   $$\text{Path Efficiency (\%)} = \left(\frac{L_{shortest}}{L_{actual}}\right) \times 100\%$$
+2. **路径效率 (Path Efficiency)**：理论最短几何距离 (L_shortest) 与机器人实际行驶累积距离 (L_actual) 的百分比比值：
+   **Path Efficiency (%) = (Shortest Path / Actual Path) × 100%**
 3. **近距危险频次 (Near-Miss Count)**：机器人超声波测距与墙体距离低于 0.15m 的危险步数。
 4. **振荡与打转指标 (Oscillation & Spin)**：连续左右摆头抖动与原地无效打转的步数统计。
 
@@ -86,7 +86,7 @@ for ep in range(n_episodes):
 | **近距擦碰危险 (Near-miss)** | 较低 (游刃有余的绕行) | 极低 (过度避碰，极端保守) | 中等 |
 
 ### 🔍 算法行为深度剖析
-* **Q-Learning 的优势**：得益于 $\max_{a'} Q(s', a')$ 的离策略特性，Q-Learning 在反向传播时剔除了探索阶段遭遇的随机碰撞惩罚，能够精确收敛至**最短可行迂回路径**。
+* **Q-Learning 的优势**：得益于 `max_a' Q(s', a')` 的离策略特性，Q-Learning 在反向传播时剔除了探索阶段遭遇的随机碰撞惩罚，能够精确收敛至**最短可行迂回路径**。
 * **SARSA 的局限性**：由于根据实际采样的下一步动作更新价值，SARSA 过度畏惧探索期的碰撞，导致策略**大幅度绕开墙体，走出过于冗长、效率低下的迂回航线**。
 * **DQN 的权衡**：虽然能精细表达连续状态，但训练稳定性高度依赖经验回放池与目标网络，且 2.15ms 的推理开销与 GPU 依赖对于 Arduino 等超低功耗微控制器带来了不可承受的负担。
 

@@ -81,7 +81,7 @@ class QLearningAgent:
 
 然而，若不对探索率进行收敛，即便智能体已经摸索出最优路径，仍会因高频随机动作而不断撞墙。为此，我们在每个回合结束时应用逐回合指数衰减公式：
 
-$$\varepsilon_{ep+1} = \max(\varepsilon_{min}, \varepsilon_{ep} \times 0.995)$$
+**ε_(ep+1) = max(ε_min, ε_ep × 0.995)**
 
 * **第 1 回合**：ε = 1.0（全方位随机探索）
 * **第 300 回合**：ε ≈ 0.22（探索显著收敛，重心向利用高 Q 值经验倾斜）
@@ -91,7 +91,7 @@ $$\varepsilon_{ep+1} = \max(\varepsilon_{min}, \varepsilon_{ep} \times 0.995)$$
 
 ## 3. 克服稀疏导航奖励的稠密奖励整形机制
 
-移动机器人导航面临的核心挑战是**极端稀疏的奖励反馈 (Sparse Reward Feedback)**。在 $1.2\text{m} \times 1.2\text{m}$ 的竞技场中，随机游走几乎无法获得任何有效反馈，直到偶然撞入 $0.10\text{m}$ 的目标容差范围。
+移动机器人导航面临的核心挑战是**极端稀疏的奖励反馈 (Sparse Reward Feedback)**。在 1.2m × 1.2m 的竞技场中，随机游走几乎无法获得任何有效反馈，直到偶然撞入 0.10m 的目标容差范围。
 
 为了有效引导策略收敛，我们在 Webots 控制器 (`RL_controller.py`) 内部设计了多层**稠密奖励整形 (Dense Reward Shaping)** 体系：
 
@@ -105,8 +105,8 @@ $$\varepsilon_{ep+1} = \max(\varepsilon_{min}, \varepsilon_{ep} \times 0.995)$$
 | **倒车惩罚 (`REWARD_BACKWARD`)** | **-0.05** | 惩罚效率低下的后退动作，强化直面前方目标 |
 
 ### 🔍 距离增量 (Distance Delta) 的数学原理
-$$\Delta dist = dist_{prev} - dist_{curr}$$
-* 朝目标方向前进一步 ($0.05\text{m}$)，立即获得 $+0.1 \times 0.05 = +0.005$ 的即时正向激励。
+**Δdist = dist_prev - dist_curr**
+* 朝目标方向前进一步 (0.05m)，立即获得 +0.1 × 0.05 = +0.005 的即时正向激励。
 * 相反，若背离目标行驶，则会承受即时扣分。这使得智能体在最初 100 个回合内就能迅速学会将车头航向对准目标中心。
 
 ---
