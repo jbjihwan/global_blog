@@ -83,7 +83,7 @@ const config: Config = {
     image: 'img/social-card.png',
     metadata: [
       { name: 'referrer', content: 'strict-origin-when-cross-origin' },
-      { name: 'author', content: 'Jihwan Park (jbjihwan)' },
+      { name: 'author', content: 'Jaybee' },
       { name: 'naver-site-verification', content: 'f04ea0b38166c1e280ce8e18acef37093b75f383' },
     ],
     colorMode: {
@@ -155,7 +155,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Jihwan Park (jbjihwan). All rights reserved. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Jaybee. All rights reserved. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
