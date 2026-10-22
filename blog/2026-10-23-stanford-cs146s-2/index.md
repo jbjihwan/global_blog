@@ -27,7 +27,7 @@ To effectively prompt, orchestrate, and debug an AI coding assistant, a software
 ```mermaid
 flowchart LR
     subgraph Stage1 ["Stage 1: Pre-training"]
-        D1[Raw Web & GitHub Code<br/>Trillions of Tokens] --> N1[Transformer Base Model<br/>Next-Token Probability P(w_t | w_{<t})]
+        D1[Raw Web & GitHub Code<br/>Trillions of Tokens] --> N1[Transformer Base Model<br/>Next-Token Probability P(w_t | Context)]
     end
 
     subgraph Stage2 ["Stage 2: Supervised Fine-Tuning (SFT)"]
@@ -44,8 +44,12 @@ flowchart LR
 #### 1.1. Pre-training: Self-Supervised Knowledge Ingestion
 During pre-training, a dense decoder-only Transformer model processes petabytes of raw text and source code. The model does not understand words in a human linguistic sense; instead, text is chunked into sub-word tokens via **Byte-Pair Encoding (BPE)**:
 - A typical token represents roughly 3–4 characters or common code fragments (e.g., `def `, `return `, `const `).
-- The loss objective is deceptively simple: **Next-Token Prediction**. Given a context window of tokens $w_1, w_2, \dots, w_{t-1}$, the network computes a softmax probability distribution over the entire vocabulary $V$:
-  $$P(w_t \mid w_1, \dots, w_{t-1}) = 	ext{Softmax}(W_v \cdot h_{t-1})$$
+- The loss objective is deceptively simple: **Next-Token Prediction**. Given a context window of previous tokens, the network computes a softmax probability distribution over the entire vocabulary `V`:
+
+```text
+P(w_t | w_1, w_2, ..., w_t-1) = Softmax(W_v * h_t-1)
+```
+
 - By minimizing cross-entropy loss across trillions of code tokens, the network implicitly encodes syntax trees, algorithmic idioms, API conventions, and typing relationships. However, a purely pre-trained base model is merely an autocomplete engine—it will continue code blindly without following conversational intent.
 
 #### 1.2. Supervised Fine-Tuning (SFT): The Dialogue Protocol

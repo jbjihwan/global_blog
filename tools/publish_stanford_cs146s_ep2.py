@@ -37,7 +37,7 @@ To effectively prompt, orchestrate, and debug an AI coding assistant, a software
 ```mermaid
 flowchart LR
     subgraph Stage1 ["Stage 1: Pre-training"]
-        D1[Raw Web & GitHub Code<br/>Trillions of Tokens] --> N1[Transformer Base Model<br/>Next-Token Probability P(w_t | w_{<t})]
+        D1[Raw Web & GitHub Code<br/>Trillions of Tokens] --> N1[Transformer Base Model<br/>Next-Token Probability P(w_t | Context)]
     end
 
     subgraph Stage2 ["Stage 2: Supervised Fine-Tuning (SFT)"]
@@ -54,8 +54,12 @@ flowchart LR
 #### 1.1. Pre-training: Self-Supervised Knowledge Ingestion
 During pre-training, a dense decoder-only Transformer model processes petabytes of raw text and source code. The model does not understand words in a human linguistic sense; instead, text is chunked into sub-word tokens via **Byte-Pair Encoding (BPE)**:
 - A typical token represents roughly 3–4 characters or common code fragments (e.g., `def `, `return `, `const `).
-- The loss objective is deceptively simple: **Next-Token Prediction**. Given a context window of tokens $w_1, w_2, \dots, w_{t-1}$, the network computes a softmax probability distribution over the entire vocabulary $V$:
-  $$P(w_t \mid w_1, \dots, w_{t-1}) = \text{Softmax}(W_v \cdot h_{t-1})$$
+- The loss objective is deceptively simple: **Next-Token Prediction**. Given a context window of previous tokens, the network computes a softmax probability distribution over the entire vocabulary `V`:
+
+```text
+P(w_t | w_1, w_2, ..., w_t-1) = Softmax(W_v * h_t-1)
+```
+
 - By minimizing cross-entropy loss across trillions of code tokens, the network implicitly encodes syntax trees, algorithmic idioms, API conventions, and typing relationships. However, a purely pre-trained base model is merely an autocomplete engine—it will continue code blindly without following conversational intent.
 
 #### 1.2. Supervised Fine-Tuning (SFT): The Dialogue Protocol
@@ -276,7 +280,7 @@ AI 코딩 어시스턴트를 효과적으로 제어하고 디버깅하려면, �
 ```mermaid
 flowchart LR
     subgraph 1단계 ["1단계: 사전 학습 (Pre-training)"]
-        D1[인터넷 문서 및 GitHub 소스코드<br/>수조 개의 토큰] --> N1[트랜스포머 기반 베이스 모델<br/>다음 토큰 확률 예측 P(w_t | w_{<t})]
+        D1[인터넷 문서 및 GitHub 소스코드<br/>수조 개의 토큰] --> N1[트랜스포머 기반 베이스 모델<br/>다음 토큰 확률 예측 P(w_t | Context)]
     end
 
     subgraph 2단계 ["2단계: 지도 학습 미세 조정 (SFT)"]
@@ -294,7 +298,11 @@ flowchart LR
 사전 학습 단계에서 디코더 전용(Decoder-only) 트랜스포머 모델은 수 페타바이트에 달하는 웹 텍스트와 오픈소스 코드를 학습합니다. 이때 텍스트는 단어가 아니라 **BPE(Byte-Pair Encoding)** 방식의 '토큰(Token)' 단위로 쪼개어 처리됩니다:
 - 1개의 토큰은 대략 3~4글자 혹은 자주 쓰이는 코드 조각(`def `, `return `, `const ` 등)에 해당합니다.
 - 학습의 목적 함수(Loss Objective)는 놀랍도록 단순한 **'다음 토큰 예측(Next-Token Prediction)'**입니다:
-  $$P(w_t \mid w_1, \dots, w_{t-1}) = \text{Softmax}(W_v \cdot h_{t-1})$$
+
+```text
+P(w_t | w_1, w_2, ..., w_t-1) = Softmax(W_v * h_t-1)
+```
+
 - 수조 개의 토큰을 거치며 모델은 문법 트리, 알고리즘 패턴, 표준 라이브러리 사용법을 암묵적으로 내재화합니다. 하지만 사전 학습만 마친 베이스 모델은 단지 거대한 '자동완성 기계'일 뿐이며, 사용자의 질문에 답하는 대화 능력을 갖추지 못합니다.
 
 #### 1.2. 지도 학습 미세 조정 (SFT): 대화 및 코딩 프로토콜 수립
