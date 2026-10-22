@@ -4,10 +4,48 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/ja/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Thu, 22 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
+        <item>
+            <title><![CDATA[[スタンフォード CS146S #2] コーディングLLMの動作原理とプロンプトエンジニアリング：事前学習・RLHFからスイスチーズモデルの検証まで]]></title>
+            <link>https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering</link>
+            <guid>https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering</guid>
+            <pubDate>Fri, 23 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[スタンフォード大学CS146S第2講の完全解説：事前学習からRLHFに至るコーディングLLMの内部パイプライン、思考の連鎖(CoT)プロンプト技術、そしてAIコードの『スイスチーズモデル』を防ぐ検証アーキテクチャを詳解。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Inside Coding LLMs &amp;amp; Prompt Engineering" src="https://globaldevlog.com/ja/assets/images/02_cs146s_coding_llms_swiss_cheese-9131c0ba0d80b39529748741901e16f3.png" width="1376" height="768" class="img_ev3q"></p>
+<p>スタンフォード大学の最先端ソフトウェア工学講義 <strong>CS146S: 現代のソフトウェア開発者 (The Modern Software Developer)</strong> 第2講の技術解説へようこそ。</p>
+<p>第1講では、開発者が単なる構文のタイピストから、複数のAIエージェントを指揮する「オーケストラの指揮者」へと進化するパラダイムシフトを概観しました。<strong>第2講 (Week 1)</strong> では、この革命を支える計算エンジンである <strong>コーディング大規模言語モデル (Coding LLMs)</strong> の動作メカニズムと、これらを制御する <strong>プロンプトエンジニアリング (Prompt Engineering)</strong> の真髄に迫ります。</p>
+<p>Andrej Karpathyの <em>Deep Dive into LLMs</em>、OpenAIの <em>How OpenAI Uses Codex</em>、Google Cloud / DAIR.AIの最新研究に基づき、事前学習・RLHFの3段階パイプライン、AIコードに潜む <strong>スイスチーズモデル (Swiss Cheese Model)</strong>、そして <strong>「信頼せよ、されど検証せよ (Trust but Verify)」</strong> の防御的アーキテクチャを解説します。</p>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-llmの3段階トレーニングパイプライン">1. LLMの3段階トレーニングパイプライン<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering#1-llm%E3%81%AE3%E6%AE%B5%E9%9A%8E%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3" class="hash-link" aria-label="1. LLMの3段階トレーニングパイプライン への直接リンク" title="1. LLMの3段階トレーニングパイプライン への直接リンク" translate="no">​</a></h3>
+<p>AIコーディングモデルを正確に操るためには、その重み（Weights）がどのように構築されたかを理解することが不可欠です。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph ステップ1 ["ステップ1: 事前学習 (Pre-training)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D1[Webデータ &amp; GitHubコード&lt;br/&gt;数兆トークン] --&gt; N1[Transformerベースモデル&lt;br/&gt;次トークン予測 P(w_t | w_{&lt;t})]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph ステップ2 ["ステップ2: 教師あり微調整 (SFT)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        N1 --&gt; D2[高品質な対話ペア&lt;br/&gt;指示応答プロトコル]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D2 --&gt; N2[指示追従アシスタント]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph ステップ3 ["ステップ3: 人間のフィードバックによる強化学習 (RLHF)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        N2 --&gt; D3[人間の選好ランキング&lt;br/&gt;報酬モデル(Reward Model)評価]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D3 --&gt; N3[プロダクションLLM&lt;br/&gt;安全かつ整列されたコード生成]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div></code></pre></div></div>
+<ol>
+<li class=""><strong>事前学習 (Pre-training)</strong>: バイトペアエンコーディング (BPE) トークンを基に、数兆トークンのコードから次トークンの生起確率を最大化します。</li>
+<li class=""><strong>教師あり微調整 (SFT)</strong>: 人間が作成した優れたコード対話ペアを学習させ、実用的なアシスタントとして振る舞う規則を注入します。</li>
+<li class=""><strong>RLHF / DPO</strong>: 人間の好みに合致する安全で効率的なコードを選択する報酬モデルを用い、強化学習でアライメントを行います。</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-スイスチーズモデルと信頼せよされど検証せよ">2. スイスチーズモデルと「信頼せよ、されど検証せよ」<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering#2-%E3%82%B9%E3%82%A4%E3%82%B9%E3%83%81%E3%83%BC%E3%82%BA%E3%83%A2%E3%83%87%E3%83%AB%E3%81%A8%E4%BF%A1%E9%A0%BC%E3%81%9B%E3%82%88%E3%81%95%E3%82%8C%E3%81%A9%E6%A4%9C%E8%A8%BC%E3%81%9B%E3%82%88" class="hash-link" aria-label="2. スイスチーズモデルと「信頼せよ、されど検証せよ」 への直接リンク" title="2. スイスチーズモデルと「信頼せよ、されど検証せよ」 への直接リンク" translate="no">​</a></h3>
+<p>AIモデルは一見美しく完璧なコードを出力しますが、極稀に致命的な境界外参照や競合状態という「穴」を残します（<strong>スイスチーズモデル</strong>）。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    A["LLM生成コード: 95%の流麗なロジック"] --&gt; H1["穴1: オフバイワンエラー"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    A --&gt; H2["穴2: 非スレッドセーフなロック順序"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    H1 --&gt; L1["第1防衛線: 厳格な型検査 &amp; リンター (tsc / mypy)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    H2 --&gt; L2["第2防衛線: 単体テスト &amp; プロパティファジング"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L2 --&gt; L3["第3防衛線: 人間アーキテクトによる最終レビュー"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L3 ==&gt; PASS[安全な本番リリース]</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="参考文献--公式教材">参考文献 &amp; 公式教材<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE--%E5%85%AC%E5%BC%8F%E6%95%99%E6%9D%90" class="hash-link" aria-label="参考文献 &amp; 公式教材 への直接リンク" title="参考文献 &amp; 公式教材 への直接リンク" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>公式YouTubeプレイリスト</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>
+<li class=""><strong>主要文献</strong>: Andrej Karpathy, <em>Deep Dive into LLMs</em>; OpenAI, <em>How OpenAI Uses Codex</em>; Google Cloud &amp; DAIR.AI, <em>Prompt Engineering Guide</em>.</li>
+<li class=""><strong>提供機関</strong>: スタンフォード大学 コンピュータサイエンス学科</li>
+</ul>]]></content:encoded>
+            <category>stanford-cs146s</category>
+            <category>coding-llms</category>
+            <category>prompt-engineering</category>
+            <category>rlhf</category>
+            <category>chain-of-thought</category>
+            <category>swiss-cheese-model</category>
+            <category>software-architecture</category>
+        </item>
         <item>
             <title><![CDATA[[スタンフォード CS146S #1] 現代のソフトウェア開発者: AIエージェント時代、タイピストから指揮者へのパラダイムシフト]]></title>
             <link>https://globaldevlog.com/ja/blog/stanford-cs146s-1-modern-software-developer</link>
@@ -794,34 +832,6 @@
             <category>Python</category>
         </item>
         <item>
-            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
-            <link>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</link>
-            <guid>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
-<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
-<blockquote>
-<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
-</blockquote>
-<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
-<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
-<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
-<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
-            <category>開発日誌</category>
-            <category>ファインチューニング</category>
-            <category>バックエンド</category>
-            <category>フロントエンド</category>
-            <category>データベース</category>
-            <category>キャップストーン</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
             <link>https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4</link>
             <guid>https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4</guid>
@@ -857,6 +867,34 @@
             <category>SARSA</category>
             <category>ロボティクス</category>
             <category>Python</category>
+        </item>
+        <item>
+            <title><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
+            <link>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
+<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
+<blockquote>
+<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
+</blockquote>
+<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
+<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
+<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
+<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
+<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content:encoded>
+            <category>開発日誌</category>
+            <category>ファインチューニング</category>
+            <category>バックエンド</category>
+            <category>フロントエンド</category>
+            <category>データベース</category>
+            <category>キャップストーン</category>
         </item>
         <item>
             <title><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
@@ -965,71 +1003,6 @@
             <category>Webots</category>
             <category>ロボティクス</category>
             <category>機械学習</category>
-            <category>Python</category>
-        </item>
-        <item>
-            <title><![CDATA[[Webots ロボティクス] Q-Learning 自律走行: 648状態空間の離散化とソケット通信アーキテクチャ (#1)]]></title>
-            <link>https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1</link>
-            <guid>https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1</guid>
-            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Webotsロボットシミュレーション環境において、連続センサデータを648の離散状態空間へ圧縮するDiscretizerの設計と、TCPソケット通信に基づく強化学習(RL)アーキテクチャを解説します。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Webots シミュレーション環境" src="https://globaldevlog.com/ja/assets/images/01_webots_arena-b49bd821fb90ed1d7e619add024bb5e7.png" width="1721" height="1033" class="img_ev3q"></p>
-<blockquote>
-<p>📌 <strong>キーポイント (TL;DR)</strong></p>
-<ul>
-<li class=""><strong>課題(Problem)</strong>: 連続的なセンサ距離・角度値による表形式Q-Learning（Tabular Q-Learning）の状態爆発と、Webotsシミュレータと外部Python学習スクリプト間のリアルタイム同期の負荷。</li>
-<li class=""><strong>解決策(Solution)</strong>: 5次元の連続センサ入力を幾何学的な意味を持つ区間に分割し、3 × 8 × 3 × 3 × 3 = 648個の離散状態（Bin）にマッピング（<code>discretizer.py</code>）。TCPローカルソケット（Port 5000、Line-delimited JSON）によるIPC通信パイプラインを構築。</li>
-<li class=""><strong>成果(Result)</strong>: O(1)の超高速Q-Table更新速度を確保し、32ms物理シミュレーションステップに適合した安定同期ループを実現。</li>
-</ul>
-</blockquote>
-<!-- -->
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-プロジェクト背景-なぜwebotsとq-learningなのか">1. プロジェクト背景: なぜWebotsとQ-Learningなのか？<a href="https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1#1-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E8%83%8C%E6%99%AF-%E3%81%AA%E3%81%9Cwebots%E3%81%A8q-learning%E3%81%AA%E3%81%AE%E3%81%8B" class="hash-link" aria-label="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" title="1. プロジェクト背景: なぜWebotsとQ-Learningなのか？ への直接リンク" translate="no">​</a></h2>
-<p>自律走行ロボットが未知の室内環境で障害物を回避しながら目標地点（Target Goal）へ到達することは、ロボティクスにおける古典的かつ重要な課題です。深層強化学習（DQN、PPOなど）は複雑な環境に対応できる反面、計算資源の負荷が高く、モデル重みの解釈性（Interpretability）が低いという課題があります。</p>
-<p>本プロジェクトでは、**数学的収束性が保証された最も直感的な表形式強化学習（Tabular Q-Learning、Off-policy TD(0)）**をWebots 3D物理シミュレータ上の差動駆動モバイルロボットに適用し、1.2m × 1.2mの室内アリーナでの安定した目標探索および障害物回避ポリシーの獲得を目指しました。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-全体システムアーキテクチャ-webots--python-ipc">2. 全体システムアーキテクチャ (Webots ↔ Python IPC)<a href="https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1#2-%E5%85%A8%E4%BD%93%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-webots--python-ipc" class="hash-link" aria-label="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" title="2. 全体システムアーキテクチャ (Webots ↔ Python IPC) への直接リンク" translate="no">​</a></h2>
-<p>システムは、**Webots物理環境コントローラ（Server）<strong>と</strong>強化学習アルゴリズムを実行するPythonクライアント（Client）**の2層に明確に分離されています。</p>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Webots["Webots 3D シミュレータ (localhost:5000)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot["Supervisor ロボット&lt;br&gt;(超音波センサ + 車輪)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        HeadScan["ヘッドスキャン機構&lt;br&gt;(左右 1.1 rad サーボ回転)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Server["TCP ソケットサーバ&lt;br&gt;(Line-delimited JSON)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Robot -→ HeadScan -→ Server</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Python["Python RL エンジン (Client)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env["WebotsEnv (gym-like)&lt;br&gt;reset() / step()"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Disc["Discretizer&lt;br&gt;(連続値 → 0~647 Bin)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Agent["QLearningAgent&lt;br&gt;(Q-Table 648x4)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Env -→ Disc -→ Agent</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Server &lt;-→|"request: {type: step, action: 0..3}&lt;br&gt;response: {state: [...], reward, done}"| Env</span><br></div></code></pre></div></div>
-<ul>
-<li class=""><strong>Webotsコントローラ (<code>RL_controller.py</code>)</strong>: アクション実行ごとにロボット車輪を480ms（15 ticks × 32ms）駆動し、サーボモータでヘッドを左右1.1 rad（$\approx 63°$）回転させて死角の障害物距離を正確にスキャンします。</li>
-<li class=""><strong>ソケット通信プロトコル</strong>: 改行区切りJSON（Line-delimited JSON）を採用し、通信オーバーヘッドを最小化。<!-- -->
-<ul>
-<li class="">リクエスト: <code>{"type": "step", "action": 0}</code> (0: 前進, 1: 後退, 2: 左旋回, 3: 右旋回)</li>
-<li class="">レスポンス: <code>{"state": [0.45, 0.12, 0.35, 0.28, 0.40], "reward": 0.05, "done": false, "info": {...}}</code></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-連続センサの648状態空間bin設計">3. 連続センサの648状態空間（Bin）設計<a href="https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1#3-%E9%80%A3%E7%B6%9A%E3%82%BB%E3%83%B3%E3%82%B5%E3%81%AE648%E7%8A%B6%E6%85%8B%E7%A9%BA%E9%96%93bin%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="3. 連続センサの648状態空間（Bin）設計 への直接リンク" title="3. 連続センサの648状態空間（Bin）設計 への直接リンク" translate="no">​</a></h2>
-<p>連続的な浮動小数点データを表形式Q-Learningで扱うため、幾何学的に重要な<strong>5つの観測変数</strong>を以下のように定義・分割しました。</p>
-<table><thead><tr><th style="text-align:left">観測変数</th><th style="text-align:center">分割数</th><th style="text-align:left">閾値 (Thresholds)</th><th style="text-align:left">物理的意味</th></tr></thead><tbody><tr><td style="text-align:left"><strong>目標距離 (<code>goal_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.6m, 1.2m]</code></td><td style="text-align:left">近距離(Near), 中距離(Mid), 遠距離(Far)</td></tr><tr><td style="text-align:left"><strong>目標相対角度 (<code>goal_heading</code>)</strong></td><td style="text-align:center"><strong>8</strong></td><td style="text-align:left">[-π, π] を8等分（各 45°）</td><td style="text-align:left">前, 右前, 右, 右後, 後, 左後, 左, 左前</td></tr><tr><td style="text-align:left"><strong>前方障害物 (<code>front_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険/衝突寸前, 注意/接近, 安全</td></tr><tr><td style="text-align:left"><strong>左側障害物 (<code>left_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr><tr><td style="text-align:left"><strong>右側障害物 (<code>right_distance</code>)</strong></td><td style="text-align:center"><strong>3</strong></td><td style="text-align:left"><code>[0.15m, 0.30m]</code></td><td style="text-align:left">危険, 注意, 安全</td></tr></tbody></table>
-<p>総状態数:
-<strong>N_states = 3 × 8 × 3 × 3 × 3 = 648</strong></p>
-<p>これにより、Q-Tableのサイズはわずか <strong>648 × 4 = 2,592要素</strong>に大幅圧縮され、PCメモリ上でミリ秒未満の更新が可能となりました。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-ヘッドスキャン機構と衝突判定">4. ヘッドスキャン機構と衝突判定<a href="https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1#4-%E3%83%98%E3%83%83%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E6%A9%9F%E6%A7%8B%E3%81%A8%E8%A1%9D%E7%AA%81%E5%88%A4%E5%AE%9A" class="hash-link" aria-label="4. ヘッドスキャン機構と衝突判定 への直接リンク" title="4. ヘッドスキャン機構と衝突判定 への直接リンク" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="システムアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/02_architecture-83a0cdfb8297ac248797b32bbc7fd69b.png" width="2000" height="900" class="img_ev3q"></p>
-<ol>
-<li class=""><strong>移動実行</strong>: 車輪モータを3.0 rad/sで480ms駆動。</li>
-<li class=""><strong>ヘッド回転</strong>: 左へ+1.1 rad回転して左距離測定後、右へ-1.1 rad回転して右距離測定。</li>
-<li class=""><strong>正面復帰</strong>: 0 radへ戻り前方距離を更新。</li>
-<li class=""><strong>終了判定</strong>:<!-- -->
-<ul>
-<li class=""><strong>目標到達</strong>: 目標との距離 ≤ 0.10m → 成功 (<code>done = True</code>, 報酬 $+1.0$)</li>
-<li class=""><strong>壁衝突</strong>: いずれかの距離 ≤ 0.08m → 失敗 (<code>done = True</code>, 報酬 $-1.0$)</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-05-17-rl-qlearning-1#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>第1回では、<strong>Webots仮想環境の構築、TCPソケットIPC通信、648状態空間の離散化</strong>をまとめました。</p>
-<p>次回第2回では、<strong>Tabular Q-Learningの数式実装、ε-Greedy探索減衰戦略、シミュレーション環境での報酬関数（Reward Function）チューニング</strong>を詳しく解説します！</p>]]></content:encoded>
-            <category>強化学習</category>
-            <category>Q-learning</category>
-            <category>Webots</category>
-            <category>ロボティクス</category>
-            <category>状態空間離散化</category>
             <category>Python</category>
         </item>
         <item>
