@@ -76,7 +76,7 @@
 <li class=""><strong>開講機関</strong>: Stanford University, Department of Computer Science</li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="stanford-cs146s" term="stanford-cs146s"/>
@@ -167,7 +167,7 @@
 <li class=""><strong>第3回</strong>: <em>[主要3大検索エンジンSEO #3] Google・Naver・Bingウェブマスター登録の実践: サイトマップ削除トラップとホストエラーの解決</em></li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="github-pages" term="github-pages"/>
@@ -248,7 +248,7 @@
 <!-- -->• <a href="https://globaldevlog.com/" target="_blank" rel="noopener noreferrer" class="">6言語で展開中の Global Dev Blog ホームはこちら</a></p>
 </blockquote>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="google-adsense" term="google-adsense"/>
@@ -341,7 +341,7 @@
 </ul>
 <p>これにより、サーバー運用費完全0円のまま、高速なエッジCDN、多言語SEOインフラ、そしてGoogle AdSenseの収益基盤が万全に整いました。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="docusaurus" term="docusaurus"/>
@@ -408,7 +408,7 @@
 <li class=""><strong>真の攻撃対象に注力する</strong>: シークレットの検出自動化、個人情報の排除、適切なプライバシー設定こそが、技術ブログの信頼性を高める鍵となります。</li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="ウェブセキュリティ" term="ウェブセキュリティ"/>
@@ -447,7 +447,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-シリーズ完結">4. シリーズ完結<a href="https://globaldevlog.com/ja/blog/2026-06-29-vision-anpr-5#4-%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA%E5%AE%8C%E7%B5%90" class="hash-link" aria-label="4. シリーズ完結 への直接リンク" title="4. シリーズ完結 への直接リンク" translate="no">​</a></h2>
 <p>全5編にわたり、<strong>動的車線検出、IoU侵犯判定、階層型YOLO検出、CSRT追跡、EDSR超解像、多数決OCR</strong>を統合した堅牢なビジョンパイプラインを完遂しました。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -484,7 +484,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-28-vision-anpr-4#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>最終回（第5編）では、<strong>EasyOCR韓国ナンバープレート正規表現検証</strong>、初期の文字化けから「64가1511」確定に至る<strong>多数決投票アンサンブルとv01~v11の進化記録</strong>を総括します。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -521,7 +521,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-27-vision-anpr-3#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>第4編では、ぼやけたプレート画像を復元する<strong>EDSR_x4深層超解像ネットワーク</strong>と、ノイズを低減する<strong>マルチフレームスタッキング技術</strong>を解説します。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -570,7 +570,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-26-vision-anpr-2#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>第3編では、<strong>階層的物体検出（YOLOv3 + YOLOv5プレート専用モデル）<strong>と、GPU負荷を大幅に削減する</strong>CSRT追跡器の統合</strong>について解説します。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -616,7 +616,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-25-vision-anpr-1#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>第2編では、<strong>Cannyエッジ検出、確率的ハフ変換（HoughLinesP）、傾きフィルタリング数学</strong>、および車両バウンディングボックスと車線間の<strong>動的ポリゴンIoU侵犯判定アルゴリズム</strong>を詳しく解説します。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -671,7 +671,7 @@
 <li class="">Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!</li>
 </ol>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -727,7 +727,7 @@
 </ol>
 <p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -763,7 +763,7 @@
 <p><img decoding="async" loading="lazy" alt="比率実験" src="https://globaldevlog.com/ja/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
 <p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
@@ -837,7 +837,7 @@
 </ol>
 <p>仮想シミュレータの構築から始まり、アルゴリズムの理論検証、大規模ヘッドレス自動化、そして実機組み込みハードウェアへの移植に至る強化学習ロボティクスの全工程を記録することができました。今後の新たなプロジェクト連載にもぜひご期待ください！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="強化学習" term="強化学習"/>
@@ -870,7 +870,7 @@
 <p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
 <p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="開発日誌" term="開発日誌"/>
@@ -909,7 +909,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>次回最終第5回では、シミュレーションモデルを実際の <strong>Arduino Uno 2輪ロボットへ移植し、HC-06 Bluetooth通信、チェッカーボード歪み補正、ArUcoマーカービジョン追跡</strong>を組み合わせた Sim-to-Real の全容を公開します！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="強化学習" term="強化学習"/>
@@ -967,7 +967,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-05-19-rl-qlearning-3#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>次回第4回では、保存されたモデル（<code>models/*.npy</code>）を読み込み、純粋な決定論的走行の定量的評価を行う <strong><code>evaluate_qlearning.py</code> ベンチマークおよびDQN/SARSAとの性能比較</strong>をお届けします！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="強化学習" term="強化学習"/>
@@ -1027,7 +1027,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-次回予告">5. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-05-18-rl-qlearning-2#5-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="5. 次回予告 への直接リンク" title="5. 次回予告 への直接リンク" translate="no">​</a></h2>
 <p>次回第3回では、12個の壁が配置された <strong><code>obstacle12</code> および高難易度 <code>obstacle_hard</code> 環境における局所的最適解（Local Minima）の罠と、複数シード並列学習</strong>について解説します！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="強化学習" term="強化学習"/>
@@ -1082,7 +1082,7 @@
 </ol>
 <p>In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the rollout of live community board features!</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -1153,7 +1153,7 @@
 <p>第1回では、<strong>Webots仮想環境の構築、TCPソケットIPC通信、648状態空間の離散化</strong>をまとめました。</p>
 <p>次回第2回では、<strong>Tabular Q-Learningの数式実装、ε-Greedy探索減衰戦略、シミュレーション環境での報酬関数（Reward Function）チューニング</strong>を詳しく解説します！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="強化学習" term="強化学習"/>

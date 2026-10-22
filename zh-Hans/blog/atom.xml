@@ -76,7 +76,7 @@
 <li class=""><strong>开设机构</strong>: Stanford University, Department of Computer Science</li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="stanford-cs146s" term="stanford-cs146s"/>
@@ -167,7 +167,7 @@
 <li class=""><strong>第三篇</strong>：<em>[全球多搜索引擎 SEO #3] Google、Naver 与 Bing 站长平台权威配置：Sitemap 无法删除之谜与主机级别报错排查</em></li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="github-pages" term="github-pages"/>
@@ -265,7 +265,7 @@
 <!-- -->• <a href="https://globaldevlog.com/" target="_blank" rel="noopener noreferrer" class="">访问支持 6 大语种的 Global Dev Blog 首页</a></p>
 </blockquote>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="google-adsense" term="google-adsense"/>
@@ -368,7 +368,7 @@
 </ul>
 <p>凭借这套现代化的工程基础设施，你的静态博客不仅享有边缘 CDN 的极致加载速度、零服务器账单开支，更获得了覆盖全球主要语种的顶级搜索可见度，并为 Google AdSense 商业化变现奠定了坚实的基石。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="docusaurus" term="docusaurus"/>
@@ -460,7 +460,7 @@
 <li class=""><strong>聚焦真正的攻击面</strong>：建立代码提交前密钥扫描、清洗敏感数据集、配置严密的客户端隐私策略，守护真正的数字核心。</li>
 </ul>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="web-security" term="web-security"/>
@@ -504,7 +504,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-总结与未来展望">4. 总结与未来展望<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-29-vision-anpr-5#4-%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B" class="hash-link" aria-label="4. 总结与未来展望的直接链接" title="4. 总结与未来展望的直接链接" translate="no">​</a></h2>
 <p>至此，在这个由 5 篇深度专栏构成的 ANPR 视觉工程系列中，我们完整构建了一套涵盖 <strong>动态车道线拟合、多边形 IoU 压线侵入判定、分层目标定位、CSRT 目标跟踪、EDSR 深度超分辨率重建与时序多数表决 OCR</strong> 的工业级端到端视觉系统。这套架构为边缘计算设备上的高精度实时智能交通检测（ITS）提供了经过实战检验的标准范式。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -549,7 +549,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-下篇预告">3. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-28-vision-anpr-4#3-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="3. 下篇预告的直接链接" title="3. 下篇预告的直接链接" translate="no">​</a></h2>
 <p>在接下来的第 5 篇（收官篇）中，我们将全面揭秘 <strong>韩国车牌语法校验、EasyOCR 字符识别调优</strong> 以及核心的 <strong>时序滑动窗口多数表决引擎</strong>，复盘从最初一堆全屏乱码到最终百分之百锁定目标车牌（<code>64가1511</code>）的完整工程突破历程。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -594,7 +594,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-下篇预告">3. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-27-vision-anpr-3#3-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="3. 下篇预告的直接链接" title="3. 下篇预告的直接链接" translate="no">​</a></h2>
 <p>在接下来的第 4 篇中，我们将深入解决裁剪出的微小车牌分辨率过低且受严重运动模糊污染的挑战，探索基于 <strong>EDSR_x4 深度超分辨率算法</strong> 与 <strong>多帧图像叠加降噪</strong> 的字符边缘高保真重建实践。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -646,7 +646,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下篇预告">4. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-26-vision-anpr-2#4-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="4. 下篇预告的直接链接" title="4. 下篇预告的直接链接" translate="no">​</a></h2>
 <p>在第 3 篇中，我们将深入解析 <strong>两阶段分层目标检测架构</strong>，展示如何将 YOLOv3 车辆框与精调的 YOLOv5 车牌模型结合，并借助 <strong>CSRT 跟踪器</strong> 节省 80% 的 GPU 推断开销。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -702,7 +702,7 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下篇预告">4. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-25-vision-anpr-1#4-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="4. 下篇预告的直接链接" title="4. 下篇预告的直接链接" translate="no">​</a></h2>
 <p>在接下来的第 2 篇中，我们将深入解析 <strong>Canny 边缘提取算法、概率霍夫变换数学原理 (HoughLinesP)、斜率几何异常值剔除</strong> 以及核心的几何多边形车道侵入判定规则。</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="computer-vision" term="computer-vision"/>
@@ -757,7 +757,7 @@
 <li class="">Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!</li>
 </ol>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -813,7 +813,7 @@
 </ol>
 <p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -853,7 +853,7 @@
 <p><img decoding="async" loading="lazy" alt="比例实验设计" src="https://globaldevlog.com/zh-Hans/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
 <p>第 4 轮微调自此化身为一场验证“日常常识”与“专业共情”能否达成最完美动态平衡的技术竞技场。三组异构数据集被注入 Qwen3.5-9B 底座，新一轮 GPU 矩阵训练轰鸣打响！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="开发日志" term="开发日志"/>
@@ -927,7 +927,7 @@
 </ol>
 <p>从虚拟仿真物理建模、算法核心推导，到大批量多随机种子自动化测试，最终成功落地于低成本嵌入式实体机器人，本系列完整呈现了机器人强化学习研发的全生命周期。感谢大家的关注与支持，后续敬请期待我们全新的前沿开发实录！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="强化学习" term="强化学习"/>
@@ -966,7 +966,7 @@
 <p>至此，微调大语言模型的交互上下文终于正式打通数据库实现了安全落盘存储！社区看板分页浏览组件以及记录每日心情起伏的日记多维过滤面板也全部在移动端高质量渲染上线。</p>
 <p>无形而庞大的前沿大模型，终于被稳稳装入了精美的移动应用容器之中！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="开发日志" term="开发日志"/>
@@ -1028,7 +1028,7 @@
 <p>至此，在仿真环境中的全套定量评估已圆满收官。强化学习最具挑战性的最终门槛在于<strong>向现实物理世界迁移 (Sim-to-Real)</strong>。</p>
 <p>在最后的第 5 篇中，我们将深入硬件实战：将训练好的 Q-Table 部署至 <strong>2 轮差速 Arduino Uno 小车，通过 HC-06 蓝牙通信联动，并结合俯视摄像头棋盘格去畸变标定与 ArUco 视觉标记追踪</strong>，揭秘软硬件联调与 Sim-to-Real 的关键避坑指南！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="强化学习" term="强化学习"/>
@@ -1102,7 +1102,7 @@
 <p>我们成功证明了 648 状态离散表格型 Q-Learning 能够应对迷宫级别的复杂障碍绕行。</p>
 <p>在第 4 篇中，我们将加载训练完成的权重文件 (<code>models/*.npy</code>)，在关闭探索策略的情况下利用 <strong><code>evaluate_qlearning.py</code> 进行确定性测试，并与 DQN 及 SARSA 等经典算法开展横向性能对比分析</strong>！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="强化学习" term="强化学习"/>
@@ -1192,7 +1192,7 @@
 <p>我们已经验证，在 648 个离散状态空间下，表格型 Q-Learning 能够完美征服开阔平原导航。</p>
 <p>然而，<strong>真实物理世界充满着复杂的墙体与死胡同障碍</strong>。在第 3 篇中，我们将直面 <strong><code>obstacle12</code> 与 <code>obstacle_hard</code> 迷宫地图</strong>，深入剖析智能体如何跳出局部最优陷阱，并利用多种子并行训练构建高鲁棒性导航策略！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="强化学习" term="强化学习"/>
@@ -1247,7 +1247,7 @@
 </ol>
 <p>In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the rollout of live community board features!</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="devlog" term="devlog"/>
@@ -1321,7 +1321,7 @@
 <p>环境框架、Socket IPC 通信与 648 维状态离散化体系已经就位。</p>
 <p>在第 2 篇中，我们将深入解析 <strong>表格型 Q-Learning 更新公式的数学推导、ε-贪婪指数衰减策略，以及攻克稀疏奖励难题的稠密奖励函数设计 (Reward Shaping)</strong>！</p>]]></content>
         <author>
-            <name>Jihwan Park (jaybee)</name>
+            <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
         </author>
         <category label="reinforcement-learning" term="reinforcement-learning"/>
