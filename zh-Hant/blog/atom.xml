@@ -2,11 +2,85 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://globaldevlog.com/zh-Hant/blog</id>
     <title>Global Dev Blog Blog</title>
-    <updated>2026-10-21T00:00:00.000Z</updated>
+    <updated>2026-10-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://globaldevlog.com/zh-Hant/blog"/>
     <subtitle>Global Dev Blog Blog</subtitle>
     <icon>https://globaldevlog.com/zh-Hant/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[[史丹佛 CS146S #1] 現代軟體工程師: AI Agent 時代，從代碼打字員到架構指揮家的歷史性躍遷]]></title>
+        <id>https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer</id>
+        <link href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer"/>
+        <updated>2026-10-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[史丹佛大學 CS146S 第一講技術全解：告別逐行敲代碼的手工作坊時代，深入剖析基於規範驅動開發（SDD）、循環工程及 MCP 協議驅動的自主 AI Agent 協作範式。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Stanford CS146S Modern Software Developer" src="https://globaldevlog.com/zh-Hant/assets/images/01_cs146s_human_agent_orchestration-ff1d028d7549c84680ec6bd668c01c3c.png" width="1200" height="630" class="img_ev3q"></p>
+<p>Welcome to the comprehensive technical breakdown of <strong>Stanford University's CS146S: The Modern Software Developer</strong>.</p>
+<p>For the past five decades, computer science education has trained developers to be meticulous typists: memorizing syntactic permutations, writing algorithmic routines from scratch, and manually hand-crafting thousands of lines of boilerplate code. Today, the software engineering industry is undergoing its most radical transformation since the invention of the compiler: the transition from <strong>Manual Coding</strong> to <strong>Human-Agent Engineering</strong>.</p>
+<p>In this foundational inaugural lecture, we unpack how high-velocity engineering organizations (Google, Meta, OpenAI) are redefining developer productivity, why the developer is transforming from a code typist into an orchestra conductor, and how <strong>Spec-Driven Development (SDD)</strong>, <strong>Agentic Workflows</strong>, and the <strong>Model Context Protocol (MCP)</strong> constitute the indispensable toolkit for the modern engineer.</p>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-the-paradigm-shift-from-syntax-typist-to-system-conductor">1. The Paradigm Shift: From Syntax Typist to System Conductor<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#1-the-paradigm-shift-from-syntax-typist-to-system-conductor" class="hash-link" aria-label="1. The Paradigm Shift: From Syntax Typist to System Conductor的直接連結" title="1. The Paradigm Shift: From Syntax Typist to System Conductor的直接連結" translate="no">​</a></h3>
+<p>In traditional software engineering workflows, the primary bottleneck has always been human keyboard throughput and cognitive syntax recall. An engineer conceives an architectural intent, translates that intent into concrete language tokens (Java, TypeScript, Python), and spends 70% of their time navigating mundane plumbing: defining schema interfaces, wiring REST controllers, writing boilerplate CRUD tests, and fixing trivial syntactic typos.</p>
+<p>With the advent of foundation reasoning models and autonomous coding agents (Claude Code, Cursor, GitHub Copilot Workspace), the generation of syntactically valid code has effectively reached near-zero marginal cost.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Traditional_Workflow ["Traditional Manual Paradigm: Developer as Typist"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        A1[Human Architectural Idea] --&gt;|Manual Typing 70% Time| B1[Boilerplate Syntax &amp; Plumbing]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        B1 --&gt;|Manual Test Writing| C1[Local Compilation &amp; Debugging]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        C1 --&gt;|Slow Linear Velocity| D1[Single Feature Delivery]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Modern_Agentic_Workflow ["Stanford CS146S Paradigm: Developer as Conductor"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        A2[Human Architect: Specification &amp; Invariants] ==&gt;|High-Level Spec.md| B2[Autonomous AI Agent Squad]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        B2 --&gt;|Multi-File Edit via MCP| C2[Automated Loop Engineering: Test &amp; Self-Heal]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        C2 --&gt;|Continuous Feedback| B2</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        C2 ==&gt;|Verified Code Base| D2[Human Architectural &amp; Security Review]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D2 ==&gt;|10x Scaled Velocity| E2[Production Deployment]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div></code></pre></div></div>
+<p>Modern developers are no longer evaluated by how many lines of code (LOC) they write per day. Instead, they operate as <strong>Engineering Managers presiding over a squad of autonomous AI agents</strong>. When an engineering manager delegates work to junior engineers, they do not dictate every keypress. Instead, they provide unambiguous specifications, outline system boundaries, and define deterministic acceptance criteria.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-spec-driven-development-sdd-what-over-how">2. Spec-Driven Development (SDD): "What" Over "How"<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#2-spec-driven-development-sdd-what-over-how" class="hash-link" aria-label="2. Spec-Driven Development (SDD): &quot;What&quot; Over &quot;How&quot;的直接連結" title="2. Spec-Driven Development (SDD): &quot;What&quot; Over &quot;How&quot;的直接連結" translate="no">​</a></h3>
+<p>The central methodology championed by Stanford CS146S is <strong>Spec-Driven Development (SDD)</strong>. In naive AI-assisted coding, developers interact with models through chatty, conversational prompts like: <em>"Can you make a user login system?"</em></p>
+<p>This approach invariably leads to architectural divergence, code hallucination, and missing edge-case handling. Under SDD, the primary engineering deliverable is not the raw code, but a formal, machine-actionable <strong>Specification Document (<code>SPEC.md</code>)</strong>.</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> Engineering Specification Template (SPEC.md)</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 1. Context &amp; Business Domain</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Implement idempotent payment webhook processing for Stripe API v2024-06.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Database: PostgreSQL 16 with Row-Level Security (RLS) enabled.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 2. Invariants &amp; Non-Negotiable Constraints</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> All database mutations MUST occur inside an explicit database transaction.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Webhook signature validation (HMAC-SHA256) MUST fail closed before any payload parsing.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Latency threshold: P99 response time &lt; 80ms.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 3. Interfaces &amp; Schemas</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Input: </span><span class="token code-snippet code keyword" style="color:#00009f">`POST /api/v1/payments/webhook`</span><span class="token plain"> with raw request body buffer.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Event Types Handled: </span><span class="token code-snippet code keyword" style="color:#00009f">`payment_intent.succeeded`</span><span class="token plain">, </span><span class="token code-snippet code keyword" style="color:#00009f">`payment_intent.payment_failed`</span><span class="token plain">.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 4. Verification &amp; Test Suite Requirements</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Unit test coverage &gt; 95% for transaction rollbacks on duplicate event IDs.</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Concurrency test: 50 concurrent duplicate webhooks MUST produce exactly 1 database insert.</span><br></div></code></pre></div></div>
+<p>By investing deep cognitive effort into crafting rigorous specifications, human developers establish unbreakable guardrails. The AI agent is given total autonomy over the <em>"How"</em> (synthesizing the implementation), while the human retains absolute authority over the <em>"What"</em> and the <em>"Why"</em>.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-agentic-workflows--automated-loop-engineering">3. Agentic Workflows &amp; Automated Loop Engineering<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#3-agentic-workflows--automated-loop-engineering" class="hash-link" aria-label="3. Agentic Workflows &amp; Automated Loop Engineering的直接連結" title="3. Agentic Workflows &amp; Automated Loop Engineering的直接連結" translate="no">​</a></h3>
+<p>A defining concept introduced in Lecture 1 is <strong>Loop Engineering</strong>. Foundation models are probabilistic engines; expecting an LLM to generate a complex, multi-file distributed system in a single forward pass without errors is mathematically flawed.</p>
+<p>Instead of expecting one-shot perfection, modern software engineering structures the agent workflow into a closed, self-correcting autonomous loop:</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">stateDiagram-v2</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    [*] --&gt; Spec_Ingestion: Human Supplies SPEC.md</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Spec_Ingestion --&gt; Workspace_Planning: Agent Maps Codebase Graph</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    state Workspace_Planning {</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        [*] --&gt; IdentifyDependencies</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IdentifyDependencies --&gt; FormulatePatchPlan</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    }</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Workspace_Planning --&gt; Multi_File_Edit: Execute Code Modifications</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Multi_File_Edit --&gt; Automated_Verification: Trigger CI/CD &amp; Unit Test Suite</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    state Automated_Verification {</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        [*] --&gt; RunTests</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        RunTests --&gt; InspectExitCode</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    }</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Automated_Verification --&gt; Self_Correction: Test Failure or Lint Error</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Self_Correction --&gt; Multi_File_Edit: Inject Stack Trace into Agent Context</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Automated_Verification --&gt; Human_Review: All Tests Pass (Exit Code 0)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Human_Review --&gt; Merge_Production: Architectural &amp; Security Sign-off</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Merge_Production --&gt; [*]</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-four-stages-of-the-autonomous-loop">The Four Stages of the Autonomous Loop:<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#the-four-stages-of-the-autonomous-loop" class="hash-link" aria-label="The Four Stages of the Autonomous Loop:的直接連結" title="The Four Stages of the Autonomous Loop:的直接連結" translate="no">​</a></h4>
+<ol>
+<li class=""><strong>Planning (Workspace Discovery)</strong>: The agent traverses the project file graph, reading interface contracts and schema definitions.</li>
+<li class=""><strong>Execution (Multi-File Transformation)</strong>: The agent applies diffs across client, server, and migration files simultaneously.</li>
+<li class=""><strong>Verification (Deterministic Feedback)</strong>: The agent autonomously invokes test runners (<code>pytest</code>, <code>vitest</code>, <code>cargo test</code>) and linters.</li>
+<li class=""><strong>Self-Correction (Loop Iteration)</strong>: When an assertion fails, the agent intercepts the stdout/stderr trace, analyzes the root cause, and edits the code until all test suites pass.</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-model-context-protocol-mcp-the-universal-agent-protocol">4. Model Context Protocol (MCP): The Universal Agent Protocol<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#4-model-context-protocol-mcp-the-universal-agent-protocol" class="hash-link" aria-label="4. Model Context Protocol (MCP): The Universal Agent Protocol的直接連結" title="4. Model Context Protocol (MCP): The Universal Agent Protocol的直接連結" translate="no">​</a></h3>
+<p>How does an AI model escape the isolated text sandbox and interact with real-world developer tools? The answer lies in the <strong>Model Context Protocol (MCP)</strong>, the open industry standard for agentic tool integration.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">sequenceDiagram</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    autonumber</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    actor Dev as Developer (Conductor)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    participant IDE as AI Native IDE / Agent Host</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    participant MCP as MCP Server Gateway</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    participant FS as Local Filesystem &amp; Git</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    participant DB as Development Database</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    participant CI as Test Runner / Linter</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Dev-&gt;&gt;IDE: Execute Spec ("Migrate Auth to JWT")</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    IDE-&gt;&gt;MCP: List Available Tools &amp; Resources</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    MCP--&gt;&gt;IDE: Tools: [read_file, write_patch, run_tests, query_db]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    loop Loop Engineering Iteration</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;MCP: Call tool: "read_file(/src/auth.py)"</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP-&gt;&gt;FS: Fetch file buffer</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        FS--&gt;&gt;MCP: Raw file stream</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP--&gt;&gt;IDE: File content in Context Window</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;MCP: Call tool: "write_patch(/src/auth.py, diff)"</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP-&gt;&gt;FS: Apply atomic diff</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;MCP: Call tool: "run_tests('tests/test_auth.py')"</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP-&gt;&gt;CI: Spawn subprocess pytest</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        CI--&gt;&gt;MCP: Test Output: 1 Failed (Missing Secret Key)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP--&gt;&gt;IDE: Error log feedback</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;IDE: Reason: Secret key missing in config.py</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;MCP: Call tool: "write_patch(/src/config.py)"</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP-&gt;&gt;FS: Apply patch</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        IDE-&gt;&gt;MCP: Call tool: "run_tests('tests/test_auth.py')"</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        MCP-&gt;&gt;CI: Spawn subprocess pytest</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        CI--&gt;&gt;MCP: Test Output: 100% Passed (Exit 0)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    IDE--&gt;&gt;Dev: Ready for Review: Clean Git Diff &amp; All Tests Passing</span><br></div></code></pre></div></div>
+<p>Through MCP, coding agents can query PostgreSQL schemas, inspect runtime logs, trigger headless browser tests, and execute git worktree checkouts without human manual copying and pasting.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-architectural-comparison-typist-vs-conductor">5. Architectural Comparison: Typist vs. Conductor<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#5-architectural-comparison-typist-vs-conductor" class="hash-link" aria-label="5. Architectural Comparison: Typist vs. Conductor的直接連結" title="5. Architectural Comparison: Typist vs. Conductor的直接連結" translate="no">​</a></h3>
+<table><thead><tr><th style="text-align:left">Engineering Dimension</th><th style="text-align:left">Traditional Paradigm (The Code Typist)</th><th style="text-align:left">Modern Stanford CS146S Paradigm (The AI Conductor)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Primary Skillset</strong></td><td style="text-align:left">Syntactic fluency, manual typing speed, regex memorization</td><td style="text-align:left">System architecture, specification writing, threat modeling</td></tr><tr><td style="text-align:left"><strong>Development Unit</strong></td><td style="text-align:left">Functions, lines of code, individual file edits</td><td style="text-align:left">Whole-system specifications, invariants, automated test contracts</td></tr><tr><td style="text-align:left"><strong>Tooling</strong></td><td style="text-align:left">Passive text editors, standard linters, manual debuggers</td><td style="text-align:left">Autonomous agents (Claude Code, Cursor), MCP servers, CI/CD loops</td></tr><tr><td style="text-align:left"><strong>Primary Bottleneck</strong></td><td style="text-align:left">Typing speed, cognitive fatigue, manual boilerplate writing</td><td style="text-align:left">Ambiguous specifications, incomplete test coverage, prompt leakage</td></tr><tr><td style="text-align:left"><strong>Verification Strategy</strong></td><td style="text-align:left">Manual step-through debugging, console.log printouts</td><td style="text-align:left">Automated deterministic test suites, invariant fuzzing, property tests</td></tr><tr><td style="text-align:left"><strong>Failure Modes</strong></td><td style="text-align:left">Syntax errors, missed semicolons, off-by-one loops</td><td style="text-align:left">Semantic hallucination, architectural drift, subtle security oversights</td></tr></tbody></table>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-deep-qa-why-fundamentals-matter-more-than-ever">6. Deep Q&amp;A: Why Fundamentals Matter More Than Ever<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#6-deep-qa-why-fundamentals-matter-more-than-ever" class="hash-link" aria-label="6. Deep Q&amp;A: Why Fundamentals Matter More Than Ever的直接連結" title="6. Deep Q&amp;A: Why Fundamentals Matter More Than Ever的直接連結" translate="no">​</a></h3>
+<p>During the inaugural lecture at Stanford, students raised a critical question that every computer science major is asking today:</p>
+<blockquote>
+<p><strong>Q. Professor, if AI agents can write 80% of our code in seconds, do we still need to study algorithms, memory management, and data structures?</strong></p>
+</blockquote>
+<p>The faculty answer is profound and decisive: <strong>Computer science fundamentals are significantly more critical today than they were a decade ago.</strong></p>
+<ol>
+<li class=""><strong>The Reviewer's Burden</strong>: Generating 1,000 lines of plausible code takes an AI 15 seconds. Reviewing that code to detect an $O(N^2)$ algorithmic trap, an unclosed database connection pool, a subtle race condition, or a cryptographic vulnerability requires <strong>profound, master-level understanding of systems programming</strong>.</li>
+<li class=""><strong>Accountability Remains 100% Human</strong>: An AI agent cannot be held legally or professionally liable when a production service crashes or customer data leaks. The human engineer whose name is on the pull request bears total responsibility.</li>
+<li class=""><strong>Debugging the Edge Cases</strong>: When an autonomous agent gets stuck in a self-correction loop, only an engineer with deep knowledge of operating systems, network protocols, and hardware architectures can step in and diagnose the underlying impedance mismatch.</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-lecture-1-takeaways--series-roadmap">7. Lecture 1 Takeaways &amp; Series Roadmap<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#7-lecture-1-takeaways--series-roadmap" class="hash-link" aria-label="7. Lecture 1 Takeaways &amp; Series Roadmap的直接連結" title="7. Lecture 1 Takeaways &amp; Series Roadmap的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Redefine Your Identity</strong>: Stop thinking of yourself as a code author. You are an architect, a spec designer, and an agent manager.</li>
+<li class=""><strong>Master Spec-Driven Development</strong>: Treat <code>SPEC.md</code> as your primary high-leverage engineering artifact.</li>
+<li class=""><strong>Embrace Loop Engineering</strong>: Shift from expecting single-shot AI answers to designing self-healing loops backed by rigorous unit tests.</li>
+</ol>
+<p>In <strong>Lecture 2</strong>, we will dive into <strong>Context Management &amp; Prompt Architecture</strong>: how to structure multi-thousand-token context windows, optimize repository maps, and prevent context saturation during complex multi-file feature additions. Stay tuned to GlobalDevLog!</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="stanford-cs146s" term="stanford-cs146s"/>
+        <category label="agentic-workflows" term="agentic-workflows"/>
+        <category label="spec-driven-development" term="spec-driven-development"/>
+        <category label="human-agent-engineering" term="human-agent-engineering"/>
+        <category label="mcp" term="mcp"/>
+        <category label="software-architecture" term="software-architecture"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[GitHub Pages 獨立網域 #1] 告別免費 github.io：使用 Porkbun + Cloudflare 綁定自訂網域 (CNAME 扁平化與免費 SSL)]]></title>
         <id>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</id>
@@ -860,44 +934,6 @@
         <category label="Python" term="Python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Maeumjigi 心語伴侶畢業專題開發日誌 #20] 第三輪微調收官與全端功能 (DB 持久化、社群看板) 深度整合]]></title>
-        <id>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[透過精細校準日常閒聊與危機介入比例完成第 3 輪微調，打通對話持久化資料庫與前端社群分頁及情緒日記篩選元件。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5 月 19 日至 20 日的兩天時間裡，第三輪微調 (<code>fine_tuning_3</code>) 的評估自動化與面向生產級 App 服務的全端功能深度打磨實作了全面齊頭並進。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三輪微調收尾自動化提取最佳-checkpoint-與平行推論">第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BC%AA%E5%BE%AE%E8%AA%BF%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8B%95%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BD%B3-checkpoint-%E8%88%87%E5%B9%B3%E8%A1%8C%E6%8E%A8%E8%AB%96" class="hash-link" aria-label="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" title="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" translate="no">​</a></h3>
-<p>汲取前序微調經驗，旨在兼顧知識圖譜確定性規則與自然同理心引導的第三輪微調實驗順利完成訓練：</p>
-<blockquote>
-<p>「自動遍歷 fine_tuning_3 目錄下所有實驗模型，精準篩選 Eval Loss 表現最佳的最佳檢查點 (Best Checkpoint)，替換至對應 adapter 目錄並回報指標。」
-「編寫全新的 run_test_20_30.sh 自動化指令碼，在背景針對 fine_tuning_3 展開多卡平行推論與自動評測。」</p>
-</blockquote>
-<p>告別以往繁瑣的人工跨資料夾複製，AI 編寫的高可用指令碼自主提煉最佳權重並配置至推論服務，將 4 組別名候選模型一次性掛在 GPU 伺服器背景展開全自動化基準盲測。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全端貫通大模型對話-db-持久化與社群互動功能落地">全端貫通：大模型對話 DB 持久化與社群互動功能落地<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E7%AB%AF%E8%B2%AB%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%B0%8D%E8%A9%B1-db-%E6%8C%81%E4%B9%85%E5%8C%96%E8%88%87%E7%A4%BE%E7%BE%A4%E4%BA%92%E5%8B%95%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" title="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" translate="no">​</a></h3>
-<p>在伺服器叢集高速運算的同時，本地全端整合測試也迎來了實質性突破：</p>
-<blockquote>
-<p>「深度梳理 seed_data.sql 初始化認證資訊。預設測試使用者初始密碼究竟是 Test1234! 嗎？當前指令碼目標寫入的目標 DB 架構為何？」</p>
-</blockquote>
-<p>為了徹底殲滅此前導致 <code>401 Unauthorized</code> 鑑權死結的根本誘因，我們逆向審查了資料種子的雜湊散列格式，成功修復了驗證鏈路。</p>
-<p>5 月 20 日下午，我們提交了一個里程碑意義的 Git Commit：
-<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支援大模型對話持久化、社群看板分頁及情緒日記多維篩選)</code></p>
-<p><img decoding="async" loading="lazy" alt="行動端功能截圖" src="https://globaldevlog.com/zh-Hant/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>至此，微調大型語言模型的互動上下文終於正式打通資料庫實作了安全落盤儲存！社群看板分頁瀏覽元件以及記錄每日心情起伏的日記多維過濾面板也全部在行動端高品質渲染上線。</p>
-<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開發日誌" term="開發日誌"/>
-        <category label="微調" term="微調"/>
-        <category label="後端" term="後端"/>
-        <category label="前端" term="前端"/>
-        <category label="資料庫" term="資料庫"/>
-        <category label="畢業專題" term="畢業專題"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Webots 機器人] evaluate_qlearning：確定性導航定量評估與 DQN·SARSA 對比基準 (#4)]]></title>
         <id>https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4"/>
@@ -960,6 +996,44 @@
         <category label="SARSA" term="SARSA"/>
         <category label="機器人學" term="機器人學"/>
         <category label="Python" term="Python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Maeumjigi 心語伴侶畢業專題開發日誌 #20] 第三輪微調收官與全端功能 (DB 持久化、社群看板) 深度整合]]></title>
+        <id>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[透過精細校準日常閒聊與危機介入比例完成第 3 輪微調，打通對話持久化資料庫與前端社群分頁及情緒日記篩選元件。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5 月 19 日至 20 日的兩天時間裡，第三輪微調 (<code>fine_tuning_3</code>) 的評估自動化與面向生產級 App 服務的全端功能深度打磨實作了全面齊頭並進。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三輪微調收尾自動化提取最佳-checkpoint-與平行推論">第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BC%AA%E5%BE%AE%E8%AA%BF%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8B%95%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BD%B3-checkpoint-%E8%88%87%E5%B9%B3%E8%A1%8C%E6%8E%A8%E8%AB%96" class="hash-link" aria-label="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" title="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" translate="no">​</a></h3>
+<p>汲取前序微調經驗，旨在兼顧知識圖譜確定性規則與自然同理心引導的第三輪微調實驗順利完成訓練：</p>
+<blockquote>
+<p>「自動遍歷 fine_tuning_3 目錄下所有實驗模型，精準篩選 Eval Loss 表現最佳的最佳檢查點 (Best Checkpoint)，替換至對應 adapter 目錄並回報指標。」
+「編寫全新的 run_test_20_30.sh 自動化指令碼，在背景針對 fine_tuning_3 展開多卡平行推論與自動評測。」</p>
+</blockquote>
+<p>告別以往繁瑣的人工跨資料夾複製，AI 編寫的高可用指令碼自主提煉最佳權重並配置至推論服務，將 4 組別名候選模型一次性掛在 GPU 伺服器背景展開全自動化基準盲測。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全端貫通大模型對話-db-持久化與社群互動功能落地">全端貫通：大模型對話 DB 持久化與社群互動功能落地<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E7%AB%AF%E8%B2%AB%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%B0%8D%E8%A9%B1-db-%E6%8C%81%E4%B9%85%E5%8C%96%E8%88%87%E7%A4%BE%E7%BE%A4%E4%BA%92%E5%8B%95%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" title="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" translate="no">​</a></h3>
+<p>在伺服器叢集高速運算的同時，本地全端整合測試也迎來了實質性突破：</p>
+<blockquote>
+<p>「深度梳理 seed_data.sql 初始化認證資訊。預設測試使用者初始密碼究竟是 Test1234! 嗎？當前指令碼目標寫入的目標 DB 架構為何？」</p>
+</blockquote>
+<p>為了徹底殲滅此前導致 <code>401 Unauthorized</code> 鑑權死結的根本誘因，我們逆向審查了資料種子的雜湊散列格式，成功修復了驗證鏈路。</p>
+<p>5 月 20 日下午，我們提交了一個里程碑意義的 Git Commit：
+<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支援大模型對話持久化、社群看板分頁及情緒日記多維篩選)</code></p>
+<p><img decoding="async" loading="lazy" alt="行動端功能截圖" src="https://globaldevlog.com/zh-Hant/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>至此，微調大型語言模型的互動上下文終於正式打通資料庫實作了安全落盤儲存！社群看板分頁瀏覽元件以及記錄每日心情起伏的日記多維過濾面板也全部在行動端高品質渲染上線。</p>
+<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>]]></content>
+        <author>
+            <name>Jihwan Park (jaybee)</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="開發日誌" term="開發日誌"/>
+        <category label="微調" term="微調"/>
+        <category label="後端" term="後端"/>
+        <category label="前端" term="前端"/>
+        <category label="資料庫" term="資料庫"/>
+        <category label="畢業專題" term="畢業專題"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Webots 機器人] 克服 12 面牆體障礙與 Local Minima 陷阱：多隨機種子 Headless 模擬 (#3)]]></title>
@@ -1251,39 +1325,5 @@
         <category label="robotics" term="robotics"/>
         <category label="discretization" term="discretization"/>
         <category label="python" term="python"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Maeumjigi 心語伴侶畢業專題開發日誌 #18] 推論產生 Token 擴容與第二輪微調 LoRA Alpha 效果對照]]></title>
-        <id>https://globaldevlog.com/zh-Hant/blog/2026-05-13-maeumjigi-18</id>
-        <link href="https://globaldevlog.com/zh-Hant/blog/2026-05-13-maeumjigi-18"/>
-        <updated>2026-05-13T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[將推論產生 max_new_tokens 放寬至 384 根除生硬截斷，深入對比評估 LoRA alpha 縮放參數（8 vs 16）對心理同理心引導的顯著影響。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_cover-4dcde4cef4209e81d49b5f5306af009d.png" width="1484" height="888" class="img_ev3q"></p>
-<p>在徹底修復昨天排查出的別名硬編碼缺陷後，5 月 13 日，我們終於重啟了第二輪微調大模型真實端到端的推論產生能力基準測試。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="破除生硬斷裂放寬產生-token-長度上限釋放深層同理心">破除生硬斷裂：放寬產生 Token 長度上限釋放深層同理心<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-13-maeumjigi-18#%E7%A0%B4%E9%99%A4%E7%94%9F%E7%A1%AC%E6%96%B7%E8%A3%82%E6%94%BE%E5%AF%AC%E7%94%A2%E7%94%9F-token-%E9%95%B7%E5%BA%A6%E4%B8%8A%E9%99%90%E9%87%8B%E6%94%BE%E6%B7%B1%E5%B1%A4%E5%90%8C%E7%90%86%E5%BF%83" class="hash-link" aria-label="破除生硬斷裂：放寬產生 Token 長度上限釋放深層同理心的直接連結" title="破除生硬斷裂：放寬產生 Token 長度上限釋放深層同理心的直接連結" translate="no">​</a></h3>
-<p>逐句審讀推論產生的應答文本時，我們發現 <code>Llama33-70B_a8</code> 模型的輸出依然呈現出一種微妙的乾癟與機械緊縮感：</p>
-<blockquote>
-<p>「這是 Llama33-70B_a8 輸出的典型答覆。明顯感覺 max_seq_length 與 max_new_tokens 設得太緊，嚴重束縛了模型表達。結合當前物理顯示記憶體富餘量，極限能上調至多少？」</p>
-</blockquote>
-<p>結合當時約 39.8GB 的空閒 VRAM，我們果斷將最大產生 Token 預算 (<code>max_new_tokens</code>) 調寬至 384。調整帶來的產生質變立竿見影：</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">[修改前] 「產生這種消極念頭一定讓您備受折磨。及時向專業諮商師求助非常重要。」</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">[修改後] 「產生這樣的念頭一定讓您獨自承受著巨大的痛苦。但請相信，這絕不代表您內心軟弱，而是身體在向您發出訊號——說明您此刻背負的壓力已經嚴重超載了。我由衷建議您在專業諮商師的陪同下，試著把這些鬱結的情緒一點一點傾訴梳理出來。」</span><br></div></code></pre></div></div>
-<p>僅僅是鬆綁了產生長度配額，模型便能從容保持長程邏輯一致性，吐露出層層遞進、飽含人情溫度與心理撫慰力量的真摯同理心長句。此前模型之所以三緘其口，純粹是被狹窄的產生長度強行截斷了思路。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lora-超參數深度剖析alpha-縮放因子對比a8-vs-a16">LoRA 超參數深度剖析：Alpha 縮放因子對比（a=8 vs. a=16）<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-13-maeumjigi-18#lora-%E8%B6%85%E5%8F%83%E6%95%B8%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90alpha-%E7%B8%AE%E6%94%BE%E5%9B%A0%E5%AD%90%E5%B0%8D%E6%AF%94a8-vs-a16" class="hash-link" aria-label="LoRA 超參數深度剖析：Alpha 縮放因子對比（a=8 vs. a=16）的直接連結" title="LoRA 超參數深度剖析：Alpha 縮放因子對比（a=8 vs. a=16）的直接連結" translate="no">​</a></h3>
-<p><img decoding="async" loading="lazy" alt="超參數對比圖表" src="https://globaldevlog.com/zh-Hant/assets/images/02_graph-feb5d1991f44dd7f378232f6b3515752.png" width="2053" height="1460" class="img_ev3q"></p>
-<p>第二輪微調的核心科研目的——驗證 LoRA 縮放因子 <code>alpha</code> 對領域適應能力的影響也迎來了定量結論。
-透過深入挖掘 <code>fine_tuning_2</code> 目錄下的收斂日誌，我們繪製出了 <code>05_alpha_comparison_daily.png</code> 等對比折線。在固定 <code>rank=16</code> 的前提下，清晰揭示了 $\alpha=8$（欠擬合防漂移）與 $\alpha=16$（強化領域風格吸收）在訓練後期的損失震盪差異與主觀諮商品質的微妙權衡。</p>
-<p>在被賦予合理的超參數與充裕的產生空間後，各大模型終於蛻變出了我們最初構想中那個體貼細膩、專業包容的「心語伴侶」。
-中期簡報資料的最終拼圖，在此刻宣告圓滿合攏！</p>]]></content>
-        <author>
-            <name>Jihwan Park (jaybee)</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開發日誌" term="開發日誌"/>
-        <category label="微調" term="微調"/>
-        <category label="推論" term="推論"/>
-        <category label="max_new_tokens" term="max_new_tokens"/>
-        <category label="同理心能力" term="同理心能力"/>
-        <category label="畢業專題" term="畢業專題"/>
     </entry>
 </feed>
