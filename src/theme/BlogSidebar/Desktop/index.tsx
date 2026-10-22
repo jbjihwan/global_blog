@@ -44,7 +44,7 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityName: '보안 & 웹 엔지니어링',
     securityDesc: '취약점 방어 & 하드닝 (1편)',
     stanfordName: '스탠포드 CS146S',
-    stanfordDesc: '현대 소프트웨어 개발자 (1편)',
+    stanfordDesc: '현대 소프트웨어 개발자 (2편)',
   },
   en: {
     mainTitle: 'Projects & Dev Logs',
@@ -62,7 +62,7 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityName: 'Security & Web Infra',
     securityDesc: 'Vulnerability Defense (1 Post)',
     stanfordName: 'Stanford CS146S',
-    stanfordDesc: 'Modern Software Dev (1 Post)',
+    stanfordDesc: 'Modern Software Dev (2 Posts)',
   },
   ja: {
     mainTitle: 'プロジェクト＆開発日誌',
@@ -80,7 +80,7 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityName: 'セキュリティ＆インフラ',
     securityDesc: '脆弱性防御＆強化 (1編)',
     stanfordName: 'スタンフォード CS146S',
-    stanfordDesc: '現代ソフトウェア開発者 (1編)',
+    stanfordDesc: '現代ソフトウェア開発者 (2編)',
   },
   es: {
     mainTitle: 'Proyectos y Diarios',
@@ -98,7 +98,7 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     securityName: 'Seguridad e Infraestructura',
     securityDesc: 'Blindaje y Hardening (1 Post)',
     stanfordName: 'Stanford CS146S',
-    stanfordDesc: 'Desarrollo Moderno (1 Post)',
+    stanfordDesc: 'Desarrollo Moderno (2 Posts)',
   },
 };
 

@@ -70,7 +70,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5편)',
     tabAnpr: 'ANPR & 차선침범 (5편)',
     tabSecurity: '보안 & 엔지니어링 (1편)',
-    tabStanford: '스탠포드 CS146S (1편)',
+    tabStanford: '스탠포드 CS146S (2편)',
     tabAll: '전체 글 피드',
     bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',
     bannerMaeumjigiDesc: 'AI 자살 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지 (총 23회차)',
@@ -95,7 +95,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'stanford_cs146s',
         name: '스탠포드 CS146S',
-        badge: 'Active · 1편',
+        badge: 'Active · 2편',
         badgeType: 'active',
         category: '소프트웨어 공학 / AI 에이전트',
         icon: 'stanford_cs146s',
@@ -103,7 +103,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '개발일지 보러가기 (1편) →',
+        postCountText: '개발일지 보러가기 (2편) →',
         hasPosts: true,
       },
       {
@@ -151,7 +151,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'security',
         name: '보안 & 웹 엔지니어링',
-        badge: 'Active · 1편',
+        badge: 'Active · 2편',
         badgeType: 'active',
         category: '웹 보안 / DevSecOps',
         icon: 'security',
@@ -159,7 +159,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '45개 npm 취약점 경고의 실제 런타임 위협 모델링, Git 시크릿 스캔, 개인정보(PII) 누출 차단, Referrer Policy 및 지속적 보안 파이프라인 구축 기록.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: '개발일지 보러가기 (1편) →',
+        postCountText: '개발일지 보러가기 (2편) →',
         hasPosts: true,
       },
       {
@@ -186,7 +186,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5 Posts)',
     tabAnpr: 'ANPR & Lane Intrusion (5 Posts)',
     tabSecurity: 'Security & Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (1 Post)',
+    tabStanford: 'Stanford CS146S (2 Posts)',
     tabAll: 'All Posts Feed',
     bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',
     bannerMaeumjigiDesc:
@@ -212,7 +212,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'stanford_cs146s',
         name: 'Stanford CS146S',
-        badge: 'Active · 1 Post',
+        badge: 'Active · 2 Posts',
         badgeType: 'active',
         category: 'Software Engineering / AI Agents',
         icon: 'stanford_cs146s',
@@ -268,7 +268,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'security',
         name: 'Security & Web Engineering',
-        badge: 'Active · 1 Post',
+        badge: 'Active · 2 Posts',
         badgeType: 'active',
         category: 'Web Security / DevSecOps',
         icon: 'security',
@@ -303,7 +303,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5編)',
     tabAnpr: 'ANPR＆車線侵犯 (5編)',
     tabSecurity: 'セキュリティ＆インフラ (1編)',
-    tabStanford: 'スタンフォード CS146S (1編)',
+    tabStanford: 'スタンフォード CS146S (2編)',
     tabAll: '全記事フィード',
     bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',
     bannerMaeumjigiDesc:
@@ -329,7 +329,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'stanford_cs146s',
         name: 'スタンフォード CS146S',
-        badge: 'Active · 1編',
+        badge: 'Active · 2編',
         badgeType: 'active',
         category: 'ソフトウェア工学 / AIエージェント',
         icon: 'stanford_cs146s',
@@ -337,7 +337,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '開発日誌を見る (1編) →',
+        postCountText: '開発日誌を見る (2編) →',
         hasPosts: true,
       },
       {
@@ -385,7 +385,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
       {
         id: 'security',
         name: 'セキュリティ＆ウェブ工学',
-        badge: 'Active · 1編',
+        badge: 'Active · 2編',
         badgeType: 'active',
         category: 'Webセキュリティ / DevSecOps',
         icon: 'security',
@@ -393,7 +393,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '45件のnpm脆弱性警告に対する実行時脅威モデリング、Gitシークレットスキャン、個人情報(PII)保護、Referrer Policy適用および自動セキュリティパイプライン構築。',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: '開発日誌を見る (1編) →',
+        postCountText: '開発日誌を見る (2編) →',
         hasPosts: true,
       },
       {
@@ -420,7 +420,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5 Posts)',
     tabAnpr: 'ANPR e Invasión (5 Posts)',
     tabSecurity: 'Seguridad e Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (1 Post)',
+    tabStanford: 'Stanford CS146S (2 Posts)',
     tabAll: 'Todos los Posts',
     bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',
     bannerMaeumjigiDesc:
