@@ -200,3 +200,8 @@ The faculty answer is profound and decisive: **Computer science fundamentals are
 3. **Embrace Loop Engineering**: Shift from expecting single-shot AI answers to designing self-healing loops backed by rigorous unit tests.
 
 In **Lecture 2**, we will dive into **Context Management & Prompt Architecture**: how to structure multi-thousand-token context windows, optimize repository maps, and prevent context saturation during complex multi-file feature additions. Stay tuned to GlobalDevLog!
+---
+
+### References & Course Materials
+- **Official Course Video Playlist**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
+- **Academic Institution**: Stanford University, Department of Computer Science

@@ -84,7 +84,10 @@ flowchart TD
 CS146S 1강의 핵심 개념 중 하나는 바로 **루프 엔지니어링(Loop Engineering)**입니다.
 거대 언어 모델은 확률적 추론 엔진입니다. 수십 개의 파일에 걸쳐 복잡하게 얽힌 분산 시스템 코드를 단 한 번의 프롬프트 호출로 오차 없이 짜내기를 기대하는 것은 수학적으로 불가능합니다.
 
-따라서 현대 소프트웨어 공학은 한 번에 정답을 요구하는 대신, [코드 생성 $ightarrow$ 자동 테스트 $ightarrow$ 에러 피드백 $ightarrow$ 자가 수정]이 연속되는 **폐루프 자율 순환 시스템**을 구축합니다:
+따라서 현대 소프트웨어 공학은 한 번에 정답을 요구하는 대신, [코드 생성 $
+ightarrow$ 자동 테스트 $
+ightarrow$ 에러 피드백 $
+ightarrow$ 자가 수정]이 연속되는 **폐루프 자율 순환 시스템**을 구축합니다:
 
 ```mermaid
 stateDiagram-v2
@@ -202,3 +205,8 @@ MCP 표준을 통해 AI 에이전트는 사람이 수작업으로 코드를 복�
 3. **루프 엔지니어링 환경을 구축하라**: 한 번에 정답을 요구하지 말고, 자동화 테스트와 MCP 도구로 무장한 자가 복구 루프를 가동하십시오.
 
 다음 **스탠포드 CS146S 2강**에서는 수천 토큰의 문맥을 효율적으로 압축하고 에이전트의 환각을 방지하는 **'컨텍스트 관리와 프롬프트 아키텍처(Context Management & Prompt Architecture)'**를 심층 분석하겠습니다. 글로벌 개발 블로그 GlobalDevLog의 연재를 계속 주목해 주세요!
+---
+
+### 참고 자료 및 공식 출처 (References)
+- **스탠포드 공식 강의 영상 재생목록**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
+- **개설 기관**: Stanford University, Department of Computer Science
