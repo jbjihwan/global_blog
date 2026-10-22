@@ -204,6 +204,8 @@ export function ProjectIcon({
       return <LayersIcon size={size} className={className} />;
     case 'ai_research':
       return <CodeIcon size={size} className={className} />;
+    case 'stanford_cs146s':
+      return <CodeIcon size={size} className={className} />;
     case 'home':
       return <HomeIcon size={size} className={className} />;
     case 'folder':

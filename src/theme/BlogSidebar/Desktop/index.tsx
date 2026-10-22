@@ -23,6 +23,8 @@ interface SidebarLocaleData {
   rlDesc: string;
   securityName: string;
   securityDesc: string;
+  stanfordName: string;
+  stanfordDesc: string;
 }
 
 const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
@@ -41,6 +43,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     rlDesc: 'Webots 자율주행 주행 (5편)',
     securityName: '보안 & 웹 엔지니어링',
     securityDesc: '취약점 방어 & 하드닝 (1편)',
+    stanfordName: '스탠포드 CS146S',
+    stanfordDesc: '현대 소프트웨어 개발자 (1편)',
   },
   en: {
     mainTitle: 'Projects & Dev Logs',
@@ -57,6 +61,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     rlDesc: 'Webots Autonomous Driving (5 Posts)',
     securityName: 'Security & Web Infra',
     securityDesc: 'Vulnerability Defense (1 Post)',
+    stanfordName: 'Stanford CS146S',
+    stanfordDesc: 'Modern Software Dev (1 Post)',
   },
   ja: {
     mainTitle: 'プロジェクト＆開発日誌',
@@ -73,6 +79,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     rlDesc: 'Webots 自律走行 (5編)',
     securityName: 'セキュリティ＆インフラ',
     securityDesc: '脆弱性防御＆強化 (1編)',
+    stanfordName: 'スタンフォード CS146S',
+    stanfordDesc: '現代ソフトウェア開発者 (1編)',
   },
   es: {
     mainTitle: 'Proyectos y Diarios',
@@ -89,11 +97,13 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     rlDesc: 'Conducción en Webots (5 Posts)',
     securityName: 'Seguridad e Infraestructura',
     securityDesc: 'Blindaje y Hardening (1 Post)',
+    stanfordName: 'Stanford CS146S',
+    stanfordDesc: 'Desarrollo Moderno (1 Post)',
   },
 };
 
 function getEpisodeNumber(permalink: string): number {
-  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning)-(\d+)/);
+  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
 
@@ -116,6 +126,7 @@ function BlogSidebarDesktop({ sidebar }: { sidebar: any }) {
   // Determine active project from pathname or hash
   const currentProjectId = useMemo(() => {
     const path = location.pathname.toLowerCase();
+    if (path.includes('stanford-cs146s')) return 'stanford_cs146s';
     if (path.includes('maeumjigi')) return 'maeumjigi';
     if (path.includes('vision-anpr')) return 'anpr_vision';
     if (path.includes('rl-qlearning')) return 'rl_q_learning';
@@ -123,6 +134,7 @@ function BlogSidebarDesktop({ sidebar }: { sidebar: any }) {
 
     // If on blog list/hub page, check hash
     const hash = (location.hash || '').replace('#', '').toLowerCase();
+    if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s') return 'stanford_cs146s';
     if (hash === 'maeumjigi') return 'maeumjigi';
     if (hash === 'anpr_vision' || hash === 'anpr' || hash === 'cv') return 'anpr_vision';
     if (hash === 'rl_q_learning' || hash === 'rl') return 'rl_q_learning';
@@ -145,6 +157,16 @@ function BlogSidebarDesktop({ sidebar }: { sidebar: any }) {
     };
 
     return [
+      {
+        id: 'stanford_cs146s',
+        name: t.stanfordName,
+        desc: t.stanfordDesc,
+        icon: 'stanford_cs146s',
+        count: items.filter((item: any) => item.permalink.includes('stanford-cs146s')).length || 1,
+        targetUrl: findFirst(/stanford-cs146s/),
+        filter: (item: any) => item.permalink.includes('stanford-cs146s'),
+        sortAscending: true,
+      },
       {
         id: 'maeumjigi',
         name: t.maeumjigiName,

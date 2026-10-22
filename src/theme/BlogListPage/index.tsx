@@ -37,6 +37,7 @@ interface LocaleContent {
   tabRl: string;
   tabAnpr: string;
   tabSecurity: string;
+  tabStanford: string;
   tabAll: string;
   bannerMaeumjigiTitle: string;
   bannerMaeumjigiDesc: string;
@@ -46,6 +47,8 @@ interface LocaleContent {
   bannerAnprDesc: string;
   bannerSecurityTitle: string;
   bannerSecurityDesc: string;
+  bannerStanfordTitle: string;
+  bannerStanfordDesc: string;
   bannerAllTitle: string;
   bannerAllDesc: string;
   sortNewest: string;
@@ -67,6 +70,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5편)',
     tabAnpr: 'ANPR & 차선침범 (5편)',
     tabSecurity: '보안 & 엔지니어링 (1편)',
+    tabStanford: '스탠포드 CS146S (1편)',
     tabAll: '전체 글 피드',
     bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',
     bannerMaeumjigiDesc: 'AI 자살 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지 (총 23회차)',
@@ -76,6 +80,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerAnprDesc: '블랙박스 차선 침범 감지 및 딥러닝 초해상화(EDSR) 기반 한국형 번호판 인식 시스템 (총 5회차)',
     bannerSecurityTitle: '프로젝트: 보안 & 웹 엔지니어링',
     bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
+    bannerStanfordTitle: '프로젝트: 스탠포드 CS146S (The Modern Software Developer)',
+    bannerStanfordDesc: 'AI 에이전트 시대의 현대 소프트웨어 개발론: 스펙 주도 개발(SDD), 루프 엔지니어링, MCP 표준 아키텍처',
     bannerAllTitle: '전체 개발 일지 피드',
     bannerAllDesc: '모든 프로젝트의 글이 정렬 순서대로 표시됩니다.',
     sortNewest: '최근 작성순 (최신)',
@@ -86,6 +92,20 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadPost: '게시글 읽기 →',
     emptyNotice: '해당 카테고리의 포스트가 준비 중입니다.',
     projects: [
+      {
+        id: 'stanford_cs146s',
+        name: '스탠포드 CS146S',
+        badge: 'Active · 1편',
+        badgeType: 'active',
+        category: '소프트웨어 공학 / AI 에이전트',
+        icon: 'stanford_cs146s',
+        subtitle: '스탠포드 대학교 현대 소프트웨어 개발자 강의 시리즈',
+        description:
+          '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        postCountText: '개발일지 보러가기 (1편) →',
+        hasPosts: true,
+      },
       {
         id: 'maeumjigi',
         name: '마음지기 (Maeumjigi)',
@@ -166,6 +186,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5 Posts)',
     tabAnpr: 'ANPR & Lane Intrusion (5 Posts)',
     tabSecurity: 'Security & Infra (1 Post)',
+    tabStanford: 'Stanford CS146S (1 Post)',
     tabAll: 'All Posts Feed',
     bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',
     bannerMaeumjigiDesc:
@@ -176,6 +197,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerAnprDesc: 'Real-time blackbox lane intrusion detection & deep super-resolution (EDSR) Korean ANPR system (5 Episodes)',
     bannerSecurityTitle: 'Project: Security & Web Engineering',
     bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
+    bannerStanfordTitle: 'Project: Stanford CS146S (The Modern Software Developer)',
+    bannerStanfordDesc: 'Modern software engineering in the age of AI agents: Spec-Driven Development, Loop Engineering, and Model Context Protocol (MCP)',
     bannerAllTitle: 'All Dev Logs Feed',
     bannerAllDesc: 'Chronological feed of all posts across all projects.',
     sortNewest: 'Newest First',
@@ -186,6 +209,20 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadPost: 'Read Post →',
     emptyNotice: 'Posts in this category are coming soon.',
     projects: [
+      {
+        id: 'stanford_cs146s',
+        name: 'Stanford CS146S',
+        badge: 'Active · 1 Post',
+        badgeType: 'active',
+        category: 'Software Engineering / AI Agents',
+        icon: 'stanford_cs146s',
+        subtitle: 'Stanford University Modern Software Developer Series',
+        description:
+          'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        postCountText: 'Explore Dev Logs (1 Post) →',
+        hasPosts: true,
+      },
       {
         id: 'maeumjigi',
         name: 'Maeumjigi',
@@ -266,6 +303,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5編)',
     tabAnpr: 'ANPR＆車線侵犯 (5編)',
     tabSecurity: 'セキュリティ＆インフラ (1編)',
+    tabStanford: 'スタンフォード CS146S (1編)',
     tabAll: '全記事フィード',
     bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',
     bannerMaeumjigiDesc:
@@ -275,7 +313,9 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerAnprTitle: 'プロジェクト: Blackbox ANPR＆車線侵犯検知システム',
     bannerAnprDesc: 'ドライブレコーダー車線侵犯リアルタイム検知および深層超解像(EDSR)ベースの韓国ナンバープレート認識システム (全5回)',
     bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',
-    bannerSecurityDesc: '静的サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
+    bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
+    bannerStanfordTitle: 'プロジェクト: スタンフォード CS146S (現代ソフトウェア開発者)',
+    bannerStanfordDesc: 'AIエージェント時代の現代ソフトウェア開発論：仕様駆動開発(SDD)、ループエンジニアリング、MCP規格',
     bannerAllTitle: '全開発日誌フィード',
     bannerAllDesc: 'すべてのプロジェクトの記事が指定した順序で表示されます。',
     sortNewest: '新しい順 (最新)',
@@ -286,6 +326,20 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadPost: '記事を読む →',
     emptyNotice: 'このカテゴリの投稿は準備中です。',
     projects: [
+      {
+        id: 'stanford_cs146s',
+        name: 'スタンフォード CS146S',
+        badge: 'Active · 1編',
+        badgeType: 'active',
+        category: 'ソフトウェア工学 / AIエージェント',
+        icon: 'stanford_cs146s',
+        subtitle: 'スタンフォード大学 現代ソフトウェア開発者講義シリーズ',
+        description:
+          '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        postCountText: '開発日誌を見る (1編) →',
+        hasPosts: true,
+      },
       {
         id: 'maeumjigi',
         name: 'マウムジギ (Maeumjigi)',
@@ -366,6 +420,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning (5 Posts)',
     tabAnpr: 'ANPR e Invasión (5 Posts)',
     tabSecurity: 'Seguridad e Infra (1 Post)',
+    tabStanford: 'Stanford CS146S (1 Post)',
     tabAll: 'Todos los Posts',
     bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',
     bannerMaeumjigiDesc:
@@ -376,6 +431,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerAnprDesc: 'Detección en tiempo real de invasión de carril y reconocimiento de matrículas con superresolución profunda (EDSR) (5 episodios)',
     bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
     bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
+    bannerStanfordTitle: 'Proyecto: Stanford CS146S (El Desarrollador de Software Moderno)',
+    bannerStanfordDesc: 'Ingeniería de software en la era de los agentes de IA: Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y MCP',
     bannerAllTitle: 'Todos los Diarios de Desarrollo',
     bannerAllDesc: 'Publicaciones de todos los proyectos ordenadas según tu preferencia.',
     sortNewest: 'Más recientes primero',
@@ -386,6 +443,20 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadPost: 'Leer Artículo →',
     emptyNotice: 'Las publicaciones de esta categoría se están preparando.',
     projects: [
+      {
+        id: 'stanford_cs146s',
+        name: 'Stanford CS146S',
+        badge: 'Activo · 1 Post',
+        badgeType: 'active',
+        category: 'Ingeniería de Software / Agentes de IA',
+        icon: 'stanford_cs146s',
+        subtitle: 'Serie El Desarrollador de Software Moderno de Stanford',
+        description:
+          'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        postCountText: 'Ver Diarios de Desarrollo (1 Post) →',
+        hasPosts: true,
+      },
       {
         id: 'maeumjigi',
         name: 'Maeumjigi',
@@ -461,7 +532,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 };
 
 function getEpisodeNumber(permalink: string): number {
-  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning)-(\d+)/);
+  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
 
@@ -572,7 +643,7 @@ function BlogListPageContent(props: any) {
 
   // Active tab state: hub | maeumjigi | anpr_vision | rl_q_learning | security | all
   const [activeTab, setActiveTab] = useState<
-    'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'
   >(isFirstPage ? 'hub' : 'all');
 
   // Sort order: 'asc' (oldest first / 1화부터 정주행) | 'desc' (newest first / 최근순)
@@ -589,6 +660,8 @@ function BlogListPageContent(props: any) {
         setActiveTab('anpr_vision');
       } else if (hash === 'security' || hash === 'infra') {
         setActiveTab('security');
+      } else if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s') {
+        setActiveTab('stanford_cs146s');
       } else if (hash === 'all') {
         setActiveTab('all');
       } else if (hash === 'hub' || hash === 'projects') {
@@ -598,7 +671,7 @@ function BlogListPageContent(props: any) {
   }, []);
 
   const handleSelectTab = (
-    tab: 'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    tab: 'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'
   ) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
@@ -622,6 +695,8 @@ function BlogListPageContent(props: any) {
       list = allSidebarItems.filter((item: any) =>
         item.permalink.includes('security') || item.permalink.includes('static-site-security')
       );
+    } else if (activeTab === 'stanford_cs146s') {
+      list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s'));
     } else if (activeTab === 'all') {
       list = allSidebarItems;
     }
@@ -664,6 +739,9 @@ function BlogListPageContent(props: any) {
       <span id="anpr_vision" aria-hidden="true" />
       <span id="rl_q_learning" aria-hidden="true" />
       <span id="security" aria-hidden="true" />
+      <span id="stanford_cs146s" aria-hidden="true" />
+      <span id="stanford" aria-hidden="true" />
+      <span id="cs146s" aria-hidden="true" />
       <span id="all" aria-hidden="true" />
 
       {/* Top Navigation & Hub Header */}
@@ -706,6 +784,13 @@ function BlogListPageContent(props: any) {
             onClick={() => handleSelectTab('rl_q_learning')}
           >
             {content.tabRl}
+          </button>
+          <button
+            type="button"
+            className={clsx(styles.tabButton, activeTab === 'stanford_cs146s' && styles.tabButtonActive)}
+            onClick={() => handleSelectTab('stanford_cs146s')}
+          >
+            {content.tabStanford}
           </button>
           <button
             type="button"
@@ -784,6 +869,8 @@ function BlogListPageContent(props: any) {
                   ? content.bannerRlTitle
                   : activeTab === 'security'
                   ? content.bannerSecurityTitle
+                  : activeTab === 'stanford_cs146s'
+                  ? content.bannerStanfordTitle
                   : content.bannerAllTitle}
               </h3>
               <p className={styles.bannerDesc}>
@@ -795,6 +882,8 @@ function BlogListPageContent(props: any) {
                   ? content.bannerRlDesc
                   : activeTab === 'security'
                   ? content.bannerSecurityDesc
+                  : activeTab === 'stanford_cs146s'
+                  ? content.bannerStanfordDesc
                   : content.bannerAllDesc}
               </p>
             </div>
