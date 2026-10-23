@@ -1101,7 +1101,15 @@
 <li class=""><strong>#4</strong>：<code>evaluate_qlearning</code> 零探索確定性評測及與 DQN、SARSA 的三方基準測試</li>
 <li class=""><strong>#5</strong>：基於 Arduino Uno、藍牙通訊與 ArUco 視覺姿態追蹤的 Sim-to-Real 硬體落地</li>
 </ol>
-<p>從虛擬模擬物理建模、演算法核心推導，到大批量多隨機種子自動化測試，最終成功落地於低成本嵌入式實體機器人，本系列完整呈現了機器人強化學習研發的全生命週期。感謝大家的關注與支持，後續敬請期待我們全新的前沿開發實錄！</p>]]></content:encoded>
+<p>從虛擬模擬物理建模、演算法核心推導，到大批量多隨機種子自動化測試，最終成功落地於低成本嵌入式實體機器人，本系列完整呈現了機器人強化學習研發的全生命週期。感謝大家的關注與支持，後續敬請期待我們全新的前沿開發實錄！</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-21-rl-qlearning-5#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>跨越 Sim-to-Real 模擬現實鴻溝</strong>：針對嵌入式微控制器 (Arduino Uno 2KB SRAM) 極端算力瓶頸與物理打滑擾動，零樣本遷移 Webots 模擬中淬煉的 648 狀態 Q-Table。</li>
+<li class=""><strong>分散式大腦-肌肉 (Brain-Muscle) 架構</strong>：上位機 PC 承擔 OpenCV 視覺定位與 Q-Table 決策運算，透過 115,200 鮑率的 HC-06 藍牙串列埠向 Arduino 下發毫秒級馬達 PWM 驅動指令。</li>
+<li class=""><strong>亞厘米級 ArUco 視覺單應性標定</strong>：架設頂部超廣角相機消除桶形畸變，高頻追蹤機體頂部的 ArUco 二維標章 (<code>DICT_4X4_50</code>)，經透視單應性變換解算物理姿態 (x, y, θ)。</li>
+<li class=""><strong>實體機器人達成 86.7% 導航成功率</strong>：在 1.2m × 1.2m 真實物理場地中斬獲 30 輪測試中 26 次精準抵達目標點 (86.7%)，證實無需實機微調即可閉環控制。</li>
+</ol>]]></content:encoded>
             <category>強化學習</category>
             <category>Sim-to-Real</category>
             <category>Arduino</category>

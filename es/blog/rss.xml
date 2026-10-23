@@ -1032,7 +1032,15 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <li class=""><strong>#4</strong>: Evaluación cuantitativa determinista con <code>evaluate_qlearning</code> vs. SARSA y DQN</li>
 <li class=""><strong>#5</strong>: Sim-to-Real: Despliegue en Arduino Uno, Bluetooth HC-06 y visión ArUco</li>
 </ol>
-<p>Desde el modelado en simulación y la fundamentación algorítmica, hasta la automatización headless y la transferencia a sistemas embebidos reales, esta serie documentó todo el ciclo de vida del aprendizaje por refuerzo aplicado a la robótica. ¡Nos vemos en los próximos proyectos de desarrollo!</p>]]></content:encoded>
+<p>Desde el modelado en simulación y la fundamentación algorítmica, hasta la automatización headless y la transferencia a sistemas embebidos reales, esta serie documentó todo el ciclo de vida del aprendizaje por refuerzo aplicado a la robótica. ¡Nos vemos en los próximos proyectos de desarrollo!</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/2026-05-21-rl-qlearning-5#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Superación de la Brecha Realidad-Simulación</strong>: Supera la memoria limitada del microcontrolador (Arduino Uno 2KB SRAM) y el deslizamiento mecánico transfiriendo la Q-Table de 648 estados entrenada en Webots.</li>
+<li class=""><strong>Arquitectura Distribuida Cerebro-Músculo</strong>: El PC anfitrión ejecuta la visión artificial y la inferencia Q-Learning, enviando órdenes de movimiento por Bluetooth HC-06 a 115,200 baudios al Arduino para accionar los motores PWM.</li>
+<li class=""><strong>Homografía de Visión ArUco Subcentimétrica</strong>: Una cámara cenital con corrección de distorsión óptica rastrea marcadores ArUco (<code>DICT_4X4_50</code>), mapeando píxeles a coordenadas métricas reales (x, y, θ).</li>
+<li class=""><strong>86.7% de Éxito en Hardware Físico</strong>: Registró 26 aciertos en 30 pruebas en un cuadrilátero físico de 1.2m × 1.2m, demostrando que la discretización tabular cierra la brecha Sim-to-Real sin reentrenamiento.</li>
+</ol>]]></content:encoded>
             <category>aprendizaje-por-refuerzo</category>
             <category>sim-to-real</category>
             <category>arduino</category>

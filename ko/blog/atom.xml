@@ -1247,7 +1247,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <li class=""><strong>#4</strong>: <code>evaluate_qlearning</code> 결정론적 정량 평가와 DQN·SARSA 삼각 벤치마크</li>
 <li class=""><strong>#5</strong>: Arduino Uno, HC-06 블루투스, ArUco 마커 비전 추적을 통한 Sim-to-Real 완결</li>
 </ol>
-<p>시뮬레이션 가상 환경 구축부터 시작해 알고리즘 이론 정립, 대규모 무인 자동화, 그리고 실제 임베디드 하드웨어로의 이식까지 이어지는 풀스택 로보틱스 강화학습의 전 과정을 기록으로 남길 수 있었습니다. 앞으로도 새로운 프로젝트 연재로 찾아뵙겠습니다!</p>]]></content>
+<p>시뮬레이션 가상 환경 구축부터 시작해 알고리즘 이론 정립, 대규모 무인 자동화, 그리고 실제 임베디드 하드웨어로의 이식까지 이어지는 풀스택 로보틱스 강화학습의 전 과정을 기록으로 남길 수 있었습니다. 앞으로도 새로운 프로젝트 연재로 찾아뵙겠습니다!</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35줄-최종-요약-executive-summary">📌 3~5줄 최종 요약 (Executive Summary)<a href="https://globaldevlog.com/ko/blog/2026-05-21-rl-qlearning-5#-35%EC%A4%84-%EC%B5%9C%EC%A2%85-%EC%9A%94%EC%95%BD-executive-summary" class="hash-link" aria-label="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" title="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Sim-to-Real Reality Gap 극복</strong>: 마이크로컨트롤러(Arduino Uno 2KB SRAM)의 연산 한계와 휠 슬립 오차를 Webots 가상 시뮬레이션에서 사전 훈련된 648개 상태 Q-Table 제로샷 이식으로 극복했습니다.</li>
+<li class=""><strong>분산형 두뇌-근육(Brain-Muscle) 아키텍처</strong>: 고부하 컴퓨터 비전과 Q-Table 추론은 호스트 PC(두뇌)가 전담하고, 115,200 baud HC-06 블루투스 통신을 통해 아두이노(근육)가 모터 PWM을 실시간 제어합니다.</li>
+<li class=""><strong>서브 센티미터급 ArUco 비전 호모그래피</strong>: 렌즈 왜곡을 보정한 천장 웹캠이 로봇 상단의 ArUco 마커(<code>DICT_4X4_50</code>)를 추적하고, 원근 호모그래피 변환을 통해 물리 좌표계 (x, y, θ)를 정밀 복원합니다.</li>
+<li class=""><strong>실제 하드웨어 성공률 86.7% 달성</strong>: 가상 환경 정책을 실제 1.2m × 1.2m 물리 아레나에 배포하여 30회 중 26회(86.7%) 목표 도달에 성공하며 재학습 없는 실물 로봇 제어를 입증했습니다.</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
