@@ -885,7 +885,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">CONFIG </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_width"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">640</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_height"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">480</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"conf_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"nms_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.4</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_w"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_h"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"lane_iou_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.05</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"detection_interval"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">15</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_plate_area_for_ocr"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1200</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_history_size"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">7</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_confirm_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">3</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"sr_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"EDSR_x4.pb"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"yolo_plate_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"lp_det.pt"</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></div></code></pre></div></div>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-25-vision-anpr-1#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>第2編では、<strong>Cannyエッジ検出、確率的ハフ変換（HoughLinesP）、傾きフィルタリング数学</strong>、および車両バウンディングボックスと車線間の<strong>動的ポリゴンIoU侵犯判定アルゴリズム</strong>を詳しく解説します。</p>]]></content>
+<p>第2編では、<strong>Cannyエッジ検出、確率的ハフ変換（HoughLinesP）、傾きフィルタリング数学</strong>、および車両バウンディングボックスと車線間の<strong>動的ポリゴンIoU侵犯判定アルゴリズム</strong>を詳しく解説します。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/2026-06-25-vision-anpr-1#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>車載カメラ映像の光学的課題</strong>: $30 \times 15$ ピクセル前後の極小プレート、振動、ブレ、圧縮歪みにより、単一モデルによる全画面直接認識は高い誤認率を招きます。</li>
+<li class=""><strong>6段階の疎結合パイプライン設計</strong>: 車線抽出 → 車両検知 → ポリゴンIoU侵犯判定 → 局所プレート抽出 → EDSR超解像 → 多数決OCRという堅牢な多層アーキテクチャを構築しました。</li>
+<li class=""><strong>階層的な計算コスト最適化</strong>: 重量級モデルの探索領域を車両ROI内に限定することで、全画面走査による致命的なフレームレート低下を回避しました。</li>
+<li class=""><strong>エッジ向けリアルタイム処理(50+ FPS)</strong>: 追跡と時間軸アンサンブルの融合により、50 FPS超のリアルタイム推論と99.4%の決定論的認識精度を確立しました。</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
@@ -1120,38 +1128,6 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
         <category label="Python" term="Python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
-        <id>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
-<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
-<blockquote>
-<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
-</blockquote>
-<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
-<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
-<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
-<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
-<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
-        <author>
-            <name>Jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="開発日誌" term="開発日誌"/>
-        <category label="ファインチューニング" term="ファインチューニング"/>
-        <category label="バックエンド" term="バックエンド"/>
-        <category label="フロントエンド" term="フロントエンド"/>
-        <category label="データベース" term="データベース"/>
-        <category label="キャップストーン" term="キャップストーン"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Webots ロボティクス] evaluate_qlearning: 決定論的走行の定量的評価とDQN・SARSA比較 (#4)]]></title>
         <id>https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4"/>
@@ -1191,6 +1167,38 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
         <category label="SARSA" term="SARSA"/>
         <category label="ロボティクス" term="ロボティクス"/>
         <category label="Python" term="Python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[マウムジギ 開発日誌 #20] 3次ファインチューニング完了とバックエンド機能（データベース(DB)、掲示板）の高度化]]></title>
+        <id>https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[過度な共感による会話破綻を防ぐため、日常会話と感情危機対話の比率を精密に調整する第3次ファインチューニング戦略の設計記録です。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="カバー画像" src="https://globaldevlog.com/ja/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5月19日と20日の2日間は、3次ファインチューニング（<code>fine_tuning_3</code>）の評価自動化とともに、実際のアプリ（App）サービス構築のためのバックエンド/フロントエンド機能の高度化作業が並行して進められました。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3次ファインチューニングの締めくくりと自動化スクリプト">3次ファインチューニングの締めくくりと自動化スクリプト<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#3%E6%AC%A1%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E7%B7%A0%E3%82%81%E3%81%8F%E3%81%8F%E3%82%8A%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" class="hash-link" aria-label="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" title="3次ファインチューニングの締めくくりと自動化スクリプト への直接リンク" translate="no">​</a></h3>
+<p>以前のファインチューニングで得たインサイトをもとに、ナレッジグラフとオントロジーの概念を意識してセッティングした3次ファインチューニングの学習が完了しました。</p>
+<blockquote>
+<p>「fine_tuning_3フォルダの実験モデルのうちBest Evalを持つチェックポイントを選別してadapterフォルダ内のファイルを入れ替えて。」</p>
+</blockquote>
+<p>手作業でチェックポイントをコピーする代わりに、人工知能(AI)にスクリプトを書くよう指示して、最も性能の良いモデルの重み（Best Checkpoint）を自動で抽出してセッティングしました。そして並列推論スクリプトを実行し、評価をバックグラウンドサーバーに投げておきました。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="バックエンドフロントエンドチャットボットdb保存と掲示板機能完成">バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成<a href="https://globaldevlog.com/ja/blog/2026-05-20-maeumjigi-20#%E3%83%90%E3%83%83%E3%82%AF%E3%82%A8%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88db%E4%BF%9D%E5%AD%98%E3%81%A8%E6%8E%B2%E7%A4%BA%E6%9D%BF%E6%A9%9F%E8%83%BD%E5%AE%8C%E6%88%90" class="hash-link" aria-label="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" title="バックエンド/フロントエンド：チャットボットDB保存と掲示板機能完成 への直接リンク" translate="no">​</a></h3>
+<p>モデルがサーバーで推論を回している間、ローカル環境では<code>mental-health</code> DBとアプリ連携作業に拍車をかけました。ログイン問題を突破するために<code>seed_data.sql</code>を解析し、パスワードのハッシュ化とユーザーデータを徹底的に検証しました。</p>
+<p>その結果、5月20日の午後、意味深いGitコミットを一つ残すことができました。
+<code>feat: チャットボットDB保存、掲示板ページネーション、感情日記フィルター追加</code></p>
+<p><img decoding="async" loading="lazy" alt="アプリ機能" src="https://globaldevlog.com/ja/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>ついに私たちがファインチューニングした大規模言語モデル(LLM)チャットボットの対話記録が、正式にDBに保存され始めました！さらに、コミュニティ掲示板のページネーション（Pagination）機能と、感情日記フィルター機能までフロントエンドへの実装に成功しました。目に見えなかった巨大なAIモデルが、ついにモバイルアプリという綺麗な器に盛られ始めた感激の瞬間でした。</p>]]></content>
+        <author>
+            <name>Jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="開発日誌" term="開発日誌"/>
+        <category label="ファインチューニング" term="ファインチューニング"/>
+        <category label="バックエンド" term="バックエンド"/>
+        <category label="フロントエンド" term="フロントエンド"/>
+        <category label="データベース" term="データベース"/>
+        <category label="キャップストーン" term="キャップストーン"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Webots ロボティクス] 12個の壁障害物と局所解(Local Minima)の克服: 複数シード並列学習 (#3)]]></title>
