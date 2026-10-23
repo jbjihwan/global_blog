@@ -134,3 +134,13 @@ Training for 1,500 episodes in the `no_obstacle` world demonstrated remarkable c
 We have proven that Tabular Q-Learning over 648 states solves empty arena navigation cleanly.
 
 However, **real-world environments are packed with walls and obstacles**. In Episode #3, we will investigate the **`obstacle12` and `obstacle_hard` maps**, examining how our agent handles local minima traps and running multi-seed parallel training!
+
+---
+
+## Summary & Key Takeaways
+
+- **Bellman Optimality Formulation**: Formulated tabular Q-value updates with learning rate α = 0.1 and discount factor γ = 0.95 to guarantee mathematical convergence across discrete state transitions.
+- **Multi-Objective Reward Shaping**: Engineered a balanced reward function combining distance-delta incentives (+10 × Δd), goal arrival bonuses (+100), step costs (-0.1), and collision penalties (-50).
+- **Adaptive Exploration Schedule**: Applied an exponential ε-decay policy from 1.0 down to a floor of 0.05 over 1,000 episodes, effectively balancing exploration with exploitation.
+- **Empirical Convergence**: Validated rapid policy convergence within 300 to 500 episodes in open benchmark environments before scaling to obstacle-dense arenas.
+
