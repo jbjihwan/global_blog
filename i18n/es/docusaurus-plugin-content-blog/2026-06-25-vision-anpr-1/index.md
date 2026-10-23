@@ -72,3 +72,11 @@ CONFIG = {
 ## 4. Próxima Entrega
 
 En la Entrega #2, exploraremos a fondo las matemáticas de la **transformada probabilística de Hough, el filtrado de pendientes** y el **criterio geométrico de invasión basado en IoU**.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **La Barrera Óptica en Cámaras de Tablero**: Matrículas de apenas $30 \times 15$ píxeles, vibraciones de carretera y artefactos de compresión inutilizan los modelos de detección directa en una sola etapa.
+2. **Arquitectura Desacoplada en 6 Fases**: Estructura el flujo en extracción de carriles, detección vehicular, IoU poligonal, recorte de matrícula, superresolución EDSR y votación OCR temporal.
+3. **Optimización Jerárquica del Cómputo**: Confinar la inferencia neuronal pesada a la ROI del vehículo evita la ralentización global y optimiza el uso de la GPU.
+4. **Viabilidad en Tiempo Real Edge (50+ FPS)**: La alternancia con tracking por correlación permite procesar vídeo a más de 50 FPS continuos con una fiabilidad determinista del 99.4%.

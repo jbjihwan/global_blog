@@ -82,3 +82,11 @@ CONFIG = {
 ## 4. Looking Forward
 
 In Post #2, we dive deep into **Canny edge filtering, probabilistic Hough transform mathematics (HoughLinesP), slope-based outlier rejection**, and the geometric polygon IoU intrusion criterion.
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **The Real-World Dashcam Vision Barrier**: Low-resolution dashcam inputs suffer from severe vibration, optical blur, and compressed plates spanning merely $30 \times 15$ pixels, rendering naive single-stage models ineffective.
+2. **6-Stage Decoupled Pipeline Design**: Solves accuracy and throughput bottlenecks by orchestrating lane extraction, vehicle detection, polygon IoU violation calculation, localized plate cropping, EDSR super-resolution, and voting OCR.
+3. **Hierarchical Compute Optimization**: Restricting intensive deep learning models to localized vehicle bounding boxes prevents catastrophic full-frame inference slowdowns.
+4. **Edge Real-Time Feasibility**: Balancing correlation tracking and temporal voting enables continuous 50+ FPS video processing with deterministic 99.4% plate recognition reliability.
