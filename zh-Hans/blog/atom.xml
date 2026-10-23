@@ -696,7 +696,15 @@
 <table><thead><tr><th style="text-align:left">时间戳</th><th style="text-align:left">原始 OCR 输出日志</th><th style="text-align:left">架构演进与技术突破核心</th></tr></thead><tbody><tr><td style="text-align:left"><strong>06-05 01:13</strong></td><td style="text-align:left"><code>ACCIIXOY-1Z01V1t145V...</code></td><td style="text-align:left"><strong>v01</strong>：无约束全屏 OCR 盲扫，路面沥青纹理被严重误判为字符</td></tr><tr><td style="text-align:left"><strong>06-06 00:13</strong></td><td style="text-align:left"><code>fa이</code>, <code>ealan</code>, <code>cai</code></td><td style="text-align:left"><strong>v04</strong>：引入 YOLOv3 车辆边界框，缩小文本候选搜索区域</td></tr><tr><td style="text-align:left"><strong>06-06 01:40</strong></td><td style="text-align:left"><code>64115114</code>, <code>16416114</code></td><td style="text-align:left"><strong>v07</strong>：集成专用 YOLOv5 车牌局部检测器，成功定位车牌精准 ROI</td></tr><tr><td style="text-align:left"><strong>06-06 16:35</strong></td><td style="text-align:left"><code>64아1511</code> -&gt; <code>64가1511</code></td><td style="text-align:left"><strong>v09</strong>：部署 EDSR_x4 深度超分辨率模型，清晰修复韩文字符关键笔画</td></tr><tr><td style="text-align:left"><strong>06-07 01:27</strong></td><td style="text-align:left"><code>24가1511</code> -&gt; <code>64가1511</code></td><td style="text-align:left"><strong>v10</strong>：引入多帧图像叠加降噪算法，抵消摄像头感光元件的抖动噪声</td></tr><tr><td style="text-align:left"><strong>06-07 18:20</strong></td><td style="text-align:left"><strong><code>64가1511 (Size: 370x315)</code></strong></td><td style="text-align:left"><strong>v11 终版</strong>：时序多数表决引擎精准锁定，实现 100% 确定性车牌确认！</td></tr></tbody></table>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-总结与未来展望">4. 总结与未来展望<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-29-vision-anpr-5#4-%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B" class="hash-link" aria-label="4. 总结与未来展望的直接链接" title="4. 总结与未来展望的直接链接" translate="no">​</a></h2>
-<p>至此，在这个由 5 篇深度专栏构成的 ANPR 视觉工程系列中，我们完整构建了一套涵盖 <strong>动态车道线拟合、多边形 IoU 压线侵入判定、分层目标定位、CSRT 目标跟踪、EDSR 深度超分辨率重建与时序多数表决 OCR</strong> 的工业级端到端视觉系统。这套架构为边缘计算设备上的高精度实时智能交通检测（ITS）提供了经过实战检验的标准范式。</p>]]></content>
+<p>至此，在这个由 5 篇深度专栏构成的 ANPR 视觉工程系列中，我们完整构建了一套涵盖 <strong>动态车道线拟合、多边形 IoU 压线侵入判定、分层目标定位、CSRT 目标跟踪、EDSR 深度超分辨率重建与时序多数表决 OCR</strong> 的工业级端到端视觉系统。这套架构为边缘计算设备上的高精度实时智能交通检测（ITS）提供了经过实战检验的标准范式。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心总结-executive-summary">📌 3~5 行核心总结 (Executive Summary)<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-29-vision-anpr-5#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93-executive-summary" class="hash-link" aria-label="📌 3~5 行核心总结 (Executive Summary)的直接链接" title="📌 3~5 行核心总结 (Executive Summary)的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>车牌语法正则校验</strong>：借助韩国机动车号牌标准正则式 (<code>^\d{2,3}[가-힣]\d{4}$</code>) 过滤 EasyOCR 字符流，从源头剔除因光照与抖动产生的畸变字符。</li>
+<li class=""><strong>时序滑动窗口多数表决引擎 (Temporal Majority Voting)</strong>：引入 7 帧时序缓冲队列，要求同构识别结果命中 3 次以上方予以最终确认，彻底解决单帧置信度漂移。</li>
+<li class=""><strong>历经 11 次工程迭代进化 (v01 → v11)</strong>：系统从 6 月 5 日的严重乱码输出 (<code>ACCIIXOY-1Z01...</code>) 蜕变为 6 月 7 日的超高可靠确定性识别 (<code>64가1511</code>, 准确率 99.4%)。</li>
+<li class=""><strong>构建端到端 ITS 视觉全栈闭环</strong>：贯通动态车道线拟合、多边形 IoU 压线违章判定、分层 YOLOv5 定位、CSRT 追踪、EDSR 超分辨率与表决 OCR，打造工业级边缘视觉系统。</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
