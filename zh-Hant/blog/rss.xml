@@ -415,6 +415,13 @@
 <li class="">在下一期 <strong>第 3 篇</strong> 中，我們將深入剖析 Google Search Console、Naver Search Advisor 與 Bing Webmaster Tools 的 6 語言站台地圖多路提交與 SEO 自動化管線！</li>
 </ul>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/static-site-adsense-ads-txt-guide#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>靜態網站所有權驗證標籤注入</strong>：規避用戶端 Hydration 渲染延遲，直接透過 Docusaurus 的 <code>headTags</code> 設定將 AdSense 驗證中繼標籤硬編碼注入 <code>&lt;head&gt;</code>，確保檢索器瞬時捕獲。</li>
+<li class=""><strong>根除 ads.txt 404 檢索陷阱</strong>：將發布商憑證置於根目錄 <code>static/ads.txt</code>，保障其直達 <code>https://網域/ads.txt</code>，徹底消除「收益面臨風險」懲罰警告。</li>
+<li class=""><strong>Cloudflare WAF 檢索器白名單放行</strong>：針對 <code>Googlebot-AdsTxt</code> 與 <code>Mediapartners-Google</code> 設定專屬 WAF 繞過規則，防止 Bot Fight Mode 誤觸發人機驗證攔截檢索。</li>
+<li class=""><strong>一次性過審的 4 大黃金標準</strong>：健全隱私權政策/關於/聯絡頁面、儲備 20 篇以上原創深度技術長文、保持 404 死鏈率為零，並確保極致的行動裝置自適應排版。</li>
+</ol>
 <blockquote>
 <p>📌 <strong>Global Dev Blog 精選技術推薦</strong>：<br>
 <!-- -->• <a href="https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns" target="_blank" rel="noopener noreferrer" class="">Global Dev Blog - GitHub Pages 綁定自訂網域與 Cloudflare DNS 實戰</a><br>

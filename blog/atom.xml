@@ -534,6 +534,13 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <li class="">In the upcoming <strong>Episode #3</strong>, we will explore multi-engine search indexing: configuring Google Search Console, Naver Search Advisor, and Bing Webmaster Tools across multiple sitemaps!</li>
 </ul>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-line-executive-summary">📌 3–5 Line Executive Summary<a href="https://globaldevlog.com/blog/static-site-adsense-ads-txt-guide#-35-line-executive-summary" class="hash-link" aria-label="Direct link to 📌 3–5 Line Executive Summary" title="Direct link to 📌 3–5 Line Executive Summary" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Static Site Ownership Verification</strong>: Bypassing client-side hydration delays, inject the AdSense publisher verification meta tag directly into <code>&lt;head&gt;</code> via Docusaurus <code>headTags</code> for instantaneous crawler detection.</li>
+<li class=""><strong>Eliminating the ads.txt 404 Crawl Trap</strong>: Placing <code>ads.txt</code> in the root <code>static/</code> directory ensures it is deployed directly to <code>https://domain.com/ads.txt</code>, permanently preventing the "Earnings at Risk" penalty.</li>
+<li class=""><strong>Cloudflare WAF Bot Bypass</strong>: Configure Cloudflare custom WAF rules to skip Managed Challenge on <code>Googlebot-AdsTxt</code> and <code>Mediapartners-Google</code>, averting false-positive CAPTCHA crawl dropouts.</li>
+<li class=""><strong>4-Pillar AdSense Review Readiness</strong>: Guarantee first-attempt approval by establishing statutory privacy/about/contact pages, maintaining zero 404 broken links, and offering 20+ comprehensive technical articles.</li>
+</ol>
 <blockquote>
 <p>📌 <strong>Explore the Production Implementation</strong>:<br>
 <!-- -->• <a href="https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns" target="_blank" rel="noopener noreferrer" class="">Global Dev Blog - GitHub Pages Custom Domain &amp; Cloudflare DNS Guide</a><br>

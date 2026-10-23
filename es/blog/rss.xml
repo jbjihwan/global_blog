@@ -416,6 +416,13 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <li class="">En el <strong>Episodio #3</strong>, analizaremos la indexación en motores de búsqueda: ¡Google Search Console, Naver Search Advisor y Bing Webmaster Tools con mapas de sitio en 6 idiomas!</li>
 </ul>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/static-site-adsense-ads-txt-guide#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Verificación Estática de Propiedad</strong>: Inyecta la metaetiqueta de verificación de Google AdSense directamente en <code>&lt;head&gt;</code> mediante la configuración <code>headTags</code> de Docusaurus, evitando retrasos de hidratación en el cliente.</li>
+<li class=""><strong>Solución al Error 404 en ads.txt</strong>: Ubicar <code>ads.txt</code> dentro del directorio <code>static/</code> garantiza su despliegue en la raíz (<code>https://dominio/ads.txt</code>), eliminando permanentemente la alerta de "Ingresos en riesgo".</li>
+<li class=""><strong>Bypass del WAF en Cloudflare</strong>: Configura reglas de omisión en Cloudflare para que los rastreadores <code>Googlebot-AdsTxt</code> y <code>Mediapartners-Google</code> no sean bloqueados por desafíos de CAPTCHA automatizados.</li>
+<li class=""><strong>Los 4 Pilares de Aprobación Inmediata</strong>: Disponer de páginas estatutarias (política de privacidad, contacto), más de 20 artículos técnicos originales, cero enlaces rotos (404) y diseño móvil responsivo garantizan el éxito en la revisión.</li>
+</ol>
 <blockquote>
 <p>📌 <strong>Artículos Relacionados en Global Dev Blog</strong>:<br>
 <!-- -->• <a href="https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns" target="_blank" rel="noopener noreferrer" class="">Global Dev Blog - Dominio Personalizado en GitHub Pages y Cloudflare DNS</a><br>
