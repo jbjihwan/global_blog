@@ -1202,7 +1202,15 @@
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-下一步研究方向">5. 下一步研究方向<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4#5-%E4%B8%8B%E4%B8%80%E6%AD%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="hash-link" aria-label="5. 下一步研究方向的直接連結" title="5. 下一步研究方向的直接連結" translate="no">​</a></h2>
 <p>至此，在模擬環境中的全套定量評估已圓滿收官。強化學習最具挑戰性的最終門檻在於<strong>向現實物理世界遷移 (Sim-to-Real)</strong>。</p>
-<p>在最後的第 5 篇中，我們將深入硬體實戰：將訓練好的 Q-Table 部署至 <strong>2 輪差速 Arduino Uno 小車，透過 HC-06 藍牙通訊連動，並結合俯視攝影機棋盤格去畸變標定與 ArUco 視覺標記追蹤</strong>，揭秘軟硬體聯調與 Sim-to-Real 的關鍵避坑指南！</p>]]></content:encoded>
+<p>在最後的第 5 篇中，我們將深入硬體實戰：將訓練好的 Q-Table 部署至 <strong>2 輪差速 Arduino Uno 小車，透過 HC-06 藍牙通訊連動，並結合俯視攝影機棋盤格去畸變標定與 ArUco 視覺標記追蹤</strong>，揭秘軟硬體聯調與 Sim-to-Real 的關鍵避坑指南！</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>零探索確定性評測流水線</strong>：徹底剝離訓練探索雜訊，將探索率鎖定為零 (ε=0)，依託 <code>evaluate_qlearning.py</code> 在 5 組獨立評估隨機種子上展開 30 輪確定性閉環推演。</li>
+<li class=""><strong>三維立體評估指標矩陣</strong>：除終點抵達率外，創新引入理論最佳路徑效率比 (Path Efficiency) 與障礙物近距離驚險擦碰次數 (Near-Miss) 雙重嚴苛安全度量。</li>
+<li class=""><strong>三方演算法基準橫評 (Q-Learning vs SARSA vs DQN)</strong>：在 12 牆高阻礙迷宮中，表格型 Q-Learning 斬獲 93.3% 的確定性通關率，顯著超越同策略 SARSA (80.0%) 與離線 DQN (86.7%)。</li>
+<li class=""><strong>低功耗嵌入式端延時統治力</strong>：基於狀態索引的查表決策耗時僅 0.02ms，記憶體開銷微乎其微，為低算力單晶片機器人自主導航確立了算力能效典範。</li>
+</ol>]]></content:encoded>
             <category>強化學習</category>
             <category>Q-Learning</category>
             <category>性能評估</category>

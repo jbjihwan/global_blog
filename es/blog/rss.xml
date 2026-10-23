@@ -1050,43 +1050,6 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
             <category>python</category>
         </item>
         <item>
-            <title><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
-            <link>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</link>
-            <guid>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Canalización de evaluación determinista sin exploración (ε=0) con evaluate_qlearning.py, analizando eficiencia de ruta, situaciones de riesgo (near-miss) y comparativas frente a DQN y SARSA.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Comparativa de Éxito y Pasos" src="https://globaldevlog.com/es/assets/images/01_eval_success_steps-1434c5fba2793b6877d335bf289ef59b.png" width="1170" height="650" class="img_ev3q"></p>
-<blockquote>
-<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
-<ul>
-<li class=""><strong>Objetivo</strong>: Medir el desempeño puro y determinista de la política voraz aprendida (ε=0) sin ruido exploratorio, validando su viabilidad de despliegue.</li>
-<li class=""><strong>Metodología</strong>: Implementación de <code>evaluate_qlearning.py</code> con 30 pruebas independientes distribuidas en 5 semillas de evaluación, monitoreando tasa de éxito, eficiencia de ruta frente a la distancia mínima teórica y conteo de aproximaciones críticas (near-miss).</li>
-<li class=""><strong>Resultado</strong>: Q-Learning tabular alcanzó un 93.3% de éxito determinista en el cuadrilátero con 12 paredes con una latencia de inferencia ultrabaja de 0.02 ms, superando a modelos más pesados como DQN y SARSA.</li>
-</ul>
-</blockquote>
-<!-- -->
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy">1. Canalización de Evaluación Cuantitativa (<code>evaluate_qlearning.py</code>)<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#1-canalizaci%C3%B3n-de-evaluaci%C3%B3n-cuantitativa-evaluate_qlearningpy" class="hash-link" aria-label="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" title="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" translate="no">​</a></h2>
-<p>Para medir la capacidad real de navegación del robot cargamos la tabla Q entrenada (<code>qlearning_qtable.npy</code>) y evaluamos con $\epsilon = 0$ a través de 5 semillas de prueba.</p>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Model["Tabla Q Entrenada&lt;br&gt;(qlearning_qtable.npy)"] --&gt; Agent["Agente Voraz&lt;br&gt;(ε = 0 Fijo)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    EvalSeeds["5 Semillas de Prueba&lt;br&gt;(EVAL_SEEDS 0..4)"] --&gt; Webots["Simulador Webots&lt;br&gt;(30 Pruebas)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Agent &lt;--&gt; Webots</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Webots --&gt; CSV["Registro de Datos&lt;br&gt;(eval_log.csv / traces)"]</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn">2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn" class="hash-link" aria-label="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" title="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="Calidad de Trayectoria" src="https://globaldevlog.com/es/assets/images/02_eval_quality-42dd1fc5e31c5e63d48c26ece24e8936.png" width="1625" height="585" class="img_ev3q"></p>
-<p>Evaluación en el mismo escenario de 12 paredes en Webots:</p>
-<table><thead><tr><th style="text-align:left">Métrica</th><th style="text-align:center">Q-Learning Tabular (Propuesto)</th><th style="text-align:center">SARSA (On-policy)</th><th style="text-align:center">Deep Q-Network (DQN)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Paradigma</strong></td><td style="text-align:center">Off-policy TD(0)</td><td style="text-align:center">On-policy TD(0)</td><td style="text-align:center">Red Neuronal Profunda</td></tr><tr><td style="text-align:left"><strong>Tamaño de Modelo</strong></td><td style="text-align:center"><strong>~2.5 KB (2,592 valores)</strong></td><td style="text-align:center">~2.5 KB</td><td style="text-align:center">~600 KB (~150k pesos)</td></tr><tr><td style="text-align:left"><strong>Tasa de Éxito (<code>obstacle12</code>)</strong></td><td style="text-align:center"><strong>93.3%</strong></td><td style="text-align:center">86.7%</td><td style="text-align:center">90.0%</td></tr><tr><td style="text-align:left"><strong>Pasos Promedio por Episodio</strong></td><td style="text-align:center"><strong>41.2 pasos</strong></td><td style="text-align:center">48.5 pasos</td><td style="text-align:center">44.7 pasos</td></tr><tr><td style="text-align:left"><strong>Latencia por Inferencia</strong></td><td style="text-align:center"><strong>0.02 ms</strong> (consulta en array)</td><td style="text-align:center">0.02 ms</td><td style="text-align:center">2.15 ms (PyTorch)</td></tr><tr><td style="text-align:left"><strong>Aproximación Crítica a Paredes</strong></td><td style="text-align:center">Moderada (desvío balanceado)</td><td style="text-align:center">Mínima (excesivamente conservador)</td><td style="text-align:center">Media</td></tr></tbody></table>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-próximos-pasos">3. Próximos Pasos<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#3-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 3. Próximos Pasos" title="Enlace directo al 3. Próximos Pasos" translate="no">​</a></h2>
-<p>En el episodio final #5, presentaremos la transferencia a hardware real (<strong>Sim-to-Real</strong>): <strong>integración en un robot Arduino Uno de 2 ruedas, comunicación Bluetooth HC-06, calibración de distorsión con tablero de ajedrez y seguimiento visual con marcadores ArUco</strong>.</p>]]></content:encoded>
-            <category>aprendizaje-por-refuerzo</category>
-            <category>q-learning</category>
-            <category>evaluacion</category>
-            <category>benchmark</category>
-            <category>dqn</category>
-            <category>sarsa</category>
-            <category>robotica</category>
-            <category>python</category>
-        </item>
-        <item>
             <title><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
             <link>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</link>
             <guid>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</guid>
@@ -1114,6 +1077,51 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
             <category>frontend</category>
             <category>database</category>
             <category>capstone</category>
+        </item>
+        <item>
+            <title><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
+            <link>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</link>
+            <guid>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Canalización de evaluación determinista sin exploración (ε=0) con evaluate_qlearning.py, analizando eficiencia de ruta, situaciones de riesgo (near-miss) y comparativas frente a DQN y SARSA.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Comparativa de Éxito y Pasos" src="https://globaldevlog.com/es/assets/images/01_eval_success_steps-1434c5fba2793b6877d335bf289ef59b.png" width="1170" height="650" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>Puntos Clave (TL;DR)</strong></p>
+<ul>
+<li class=""><strong>Objetivo</strong>: Medir el desempeño puro y determinista de la política voraz aprendida (ε=0) sin ruido exploratorio, validando su viabilidad de despliegue.</li>
+<li class=""><strong>Metodología</strong>: Implementación de <code>evaluate_qlearning.py</code> con 30 pruebas independientes distribuidas en 5 semillas de evaluación, monitoreando tasa de éxito, eficiencia de ruta frente a la distancia mínima teórica y conteo de aproximaciones críticas (near-miss).</li>
+<li class=""><strong>Resultado</strong>: Q-Learning tabular alcanzó un 93.3% de éxito determinista en el cuadrilátero con 12 paredes con una latencia de inferencia ultrabaja de 0.02 ms, superando a modelos más pesados como DQN y SARSA.</li>
+</ul>
+</blockquote>
+<!-- -->
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy">1. Canalización de Evaluación Cuantitativa (<code>evaluate_qlearning.py</code>)<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#1-canalizaci%C3%B3n-de-evaluaci%C3%B3n-cuantitativa-evaluate_qlearningpy" class="hash-link" aria-label="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" title="Enlace directo al 1-canalización-de-evaluación-cuantitativa-evaluate_qlearningpy" translate="no">​</a></h2>
+<p>Para medir la capacidad real de navegación del robot cargamos la tabla Q entrenada (<code>qlearning_qtable.npy</code>) y evaluamos con $\epsilon = 0$ a través de 5 semillas de prueba.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Model["Tabla Q Entrenada&lt;br&gt;(qlearning_qtable.npy)"] --&gt; Agent["Agente Voraz&lt;br&gt;(ε = 0 Fijo)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    EvalSeeds["5 Semillas de Prueba&lt;br&gt;(EVAL_SEEDS 0..4)"] --&gt; Webots["Simulador Webots&lt;br&gt;(30 Pruebas)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Agent &lt;--&gt; Webots</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Webots --&gt; CSV["Registro de Datos&lt;br&gt;(eval_log.csv / traces)"]</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn">2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#2-comparativa-de-algoritmos-q-learning-vs-sarsa-vs-dqn" class="hash-link" aria-label="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" title="Enlace directo al 2. Comparativa de Algoritmos: Q-Learning vs. SARSA vs. DQN" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Calidad de Trayectoria" src="https://globaldevlog.com/es/assets/images/02_eval_quality-42dd1fc5e31c5e63d48c26ece24e8936.png" width="1625" height="585" class="img_ev3q"></p>
+<p>Evaluación en el mismo escenario de 12 paredes en Webots:</p>
+<table><thead><tr><th style="text-align:left">Métrica</th><th style="text-align:center">Q-Learning Tabular (Propuesto)</th><th style="text-align:center">SARSA (On-policy)</th><th style="text-align:center">Deep Q-Network (DQN)</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Paradigma</strong></td><td style="text-align:center">Off-policy TD(0)</td><td style="text-align:center">On-policy TD(0)</td><td style="text-align:center">Red Neuronal Profunda</td></tr><tr><td style="text-align:left"><strong>Tamaño de Modelo</strong></td><td style="text-align:center"><strong>~2.5 KB (2,592 valores)</strong></td><td style="text-align:center">~2.5 KB</td><td style="text-align:center">~600 KB (~150k pesos)</td></tr><tr><td style="text-align:left"><strong>Tasa de Éxito (<code>obstacle12</code>)</strong></td><td style="text-align:center"><strong>93.3%</strong></td><td style="text-align:center">86.7%</td><td style="text-align:center">90.0%</td></tr><tr><td style="text-align:left"><strong>Pasos Promedio por Episodio</strong></td><td style="text-align:center"><strong>41.2 pasos</strong></td><td style="text-align:center">48.5 pasos</td><td style="text-align:center">44.7 pasos</td></tr><tr><td style="text-align:left"><strong>Latencia por Inferencia</strong></td><td style="text-align:center"><strong>0.02 ms</strong> (consulta en array)</td><td style="text-align:center">0.02 ms</td><td style="text-align:center">2.15 ms (PyTorch)</td></tr><tr><td style="text-align:left"><strong>Aproximación Crítica a Paredes</strong></td><td style="text-align:center">Moderada (desvío balanceado)</td><td style="text-align:center">Mínima (excesivamente conservador)</td><td style="text-align:center">Media</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-próximos-pasos">3. Próximos Pasos<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#3-pr%C3%B3ximos-pasos" class="hash-link" aria-label="Enlace directo al 3. Próximos Pasos" title="Enlace directo al 3. Próximos Pasos" translate="no">​</a></h2>
+<p>En el episodio final #5, presentaremos la transferencia a hardware real (<strong>Sim-to-Real</strong>): <strong>integración en un robot Arduino Uno de 2 ruedas, comunicación Bluetooth HC-06, calibración de distorsión con tablero de ajedrez y seguimiento visual con marcadores ArUco</strong>.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Evaluación Determinista sin Exploración</strong>: Evaluó la política puramente voraz (ε=0) mediante <code>evaluate_qlearning.py</code> a lo largo de 30 ensayos independientes y 5 semillas de prueba.</li>
+<li class=""><strong>Tríada de Métricas de Calidad de Ruta</strong>: Cuantificó la tasa de éxito, el ratio de eficiencia frente al camino óptimo teórico y el recuento de roces cercanos (Near-Miss) con muros.</li>
+<li class=""><strong>Benchmark Triangular (Q-Learning vs SARSA vs DQN)</strong>: En la arena de 12 paredes, Q-Learning tabular alcanzó un 93.3% de éxito determinista, superando a SARSA (80.0%) y DQN (86.7%).</li>
+<li class=""><strong>Ventaja Extrema de Latencia Embebida</strong>: Con un tiempo de inferencia de 0.02ms por búsqueda directa en tabla, superó decisivamente la sobrecarga neuronal de DQN en microcontroladores de baja potencia.</li>
+</ol>]]></content:encoded>
+            <category>aprendizaje-por-refuerzo</category>
+            <category>q-learning</category>
+            <category>evaluacion</category>
+            <category>benchmark</category>
+            <category>dqn</category>
+            <category>sarsa</category>
+            <category>robotica</category>
+            <category>python</category>
         </item>
         <item>
             <title><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>

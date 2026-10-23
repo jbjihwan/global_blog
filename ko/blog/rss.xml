@@ -1289,7 +1289,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-다음-편-예고">5. 다음 편 예고<a href="https://globaldevlog.com/ko/blog/2026-05-20-rl-qlearning-4#5-%EB%8B%A4%EC%9D%8C-%ED%8E%B8-%EC%98%88%EA%B3%A0" class="hash-link" aria-label="5. 다음 편 예고에 대한 직접 링크" title="5. 다음 편 예고에 대한 직접 링크" translate="no">​</a></h2>
 <p>가상 시뮬레이션에서의 정량 검증이 완벽하게 끝났습니다. 이제 강화학습의 최종 관문인 **현실 세계로의 전이(Sim-to-Real)**가 남아있습니다.</p>
-<p>다음 마지막 5회차 포스팅에서는 시뮬레이션에서 검증된 Q-Table을 실제 <strong>2륜 구동 Arduino Uno 로봇에 탑재하고, HC-06 블루투스 통신과 천장 웹캠 체커보드 왜곡 보정, ArUco 마커 비전 추적</strong>을 결합하여 현실 주행을 구현하는 기획과 트러블슈팅을 다루겠습니다!</p>]]></content:encoded>
+<p>다음 마지막 5회차 포스팅에서는 시뮬레이션에서 검증된 Q-Table을 실제 <strong>2륜 구동 Arduino Uno 로봇에 탑재하고, HC-06 블루투스 통신과 천장 웹캠 체커보드 왜곡 보정, ArUco 마커 비전 추적</strong>을 결합하여 현실 주행을 구현하는 기획과 트러블슈팅을 다루겠습니다!</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35줄-최종-요약-executive-summary">📌 3~5줄 최종 요약 (Executive Summary)<a href="https://globaldevlog.com/ko/blog/2026-05-20-rl-qlearning-4#-35%EC%A4%84-%EC%B5%9C%EC%A2%85-%EC%9A%94%EC%95%BD-executive-summary" class="hash-link" aria-label="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" title="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>무탐색 결정론적 평가 파이프라인</strong>: 훈련 중의 확률적 잡음을 완전히 배제하고 탐색률을 0(ε=0)으로 고정한 뒤, 5개 평가 시드 기반의 30회 독립 주행(<code>evaluate_qlearning.py</code>)으로 배포 성능을 검증했습니다.</li>
+<li class=""><strong>3차원 정량 평가 지표 도입</strong>: 단순 목적지 도달률 외에 이론적 최단 경로 대비 주행 효율(Path Efficiency)과 장애물 근접 위험도(Near-Miss)를 정량화하여 안전성을 입증했습니다.</li>
+<li class=""><strong>3각 벤치마크 (Q-Learning vs SARSA vs DQN)</strong>: 복잡한 12벽 아레나에서 Tabular Q-Learning은 93.3%의 결정론적 성공률을 달성하여 SARSA(80.0%) 및 DQN(86.7%)을 능가했습니다.</li>
+<li class=""><strong>마이크로컨트롤러 최적화 추론 속도</strong>: 룩업 테이블 기반 인퍼런스는 단 0.02ms만에 완료되어, 고사양 신경망 연산이 불가능한 저전력 임베디드 로봇 제어에 가장 적합함을 확인했습니다.</li>
+</ol>]]></content:encoded>
             <category>강화학습</category>
             <category>Q-learning</category>
             <category>성능평가</category>

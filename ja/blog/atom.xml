@@ -1194,7 +1194,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <table><thead><tr><th style="text-align:left">評価指標</th><th style="text-align:center">表形式Q-Learning（本手法）</th><th style="text-align:center">SARSA（オンポリシー）</th><th style="text-align:center">DQN（深層強化学習）</th></tr></thead><tbody><tr><td style="text-align:left"><strong>学習方式</strong></td><td style="text-align:center">オフポリシー TD(0)</td><td style="text-align:center">オンポリシー TD(0)</td><td style="text-align:center">ニューラルネットワーク</td></tr><tr><td style="text-align:left"><strong>モデルサイズ</strong></td><td style="text-align:center"><strong>約2.5 KB (2,592要素)</strong></td><td style="text-align:center">約2.5 KB</td><td style="text-align:center">約600 KB (~15万重み)</td></tr><tr><td style="text-align:left"><strong>決定論的成功率 (<code>obstacle12</code>)</strong></td><td style="text-align:center"><strong>93.3%</strong></td><td style="text-align:center">86.7%</td><td style="text-align:center">90.0%</td></tr><tr><td style="text-align:left"><strong>平均走行ステップ数</strong></td><td style="text-align:center"><strong>41.2 ステップ</strong></td><td style="text-align:center">48.5 ステップ</td><td style="text-align:center">44.7 ステップ</td></tr><tr><td style="text-align:left"><strong>ステップあたり推論遅延</strong></td><td style="text-align:center"><strong>0.02 ms</strong> (配列参照)</td><td style="text-align:center">0.02 ms</td><td style="text-align:center">2.15 ms (PyTorch推論)</td></tr><tr><td style="text-align:left"><strong>壁接近リスク</strong></td><td style="text-align:center">低い（適切な迂回）</td><td style="text-align:center">極小（過度な安全重視）</td><td style="text-align:center">中程度</td></tr></tbody></table>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>次回最終第5回では、シミュレーションモデルを実際の <strong>Arduino Uno 2輪ロボットへ移植し、HC-06 Bluetooth通信、チェッカーボード歪み補正、ArUcoマーカービジョン追跡</strong>を組み合わせた Sim-to-Real の全容を公開します！</p>]]></content>
+<p>次回最終第5回では、シミュレーションモデルを実際の <strong>Arduino Uno 2輪ロボットへ移植し、HC-06 Bluetooth通信、チェッカーボード歪み補正、ArUcoマーカービジョン追跡</strong>を組み合わせた Sim-to-Real の全容を公開します！</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/2026-05-20-rl-qlearning-4#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>完全決定論的評価パイプライン</strong>: 探索ノイズを排除し ε=0 に固定した greedy 方策を <code>evaluate_qlearning.py</code> により 5 シード・30 試行で厳密に検証しました。</li>
+<li class=""><strong>多次元定量評価指標の導入</strong>: 単なる到達成功率にとどまらず、理論的最短距離に対する移動効率比や障害物近接度（Near-Miss）を計測し安全走行を保証しました。</li>
+<li class=""><strong>3者比較ベンチマーク (Q-Learning vs SARSA vs DQN)</strong>: 12壁の高難度アリーナにおいて、テーブル型Q学習が93.3%の決定論的成功率を記録し、SARSA(80.0%)やDQN(86.7%)を凌駕しました。</li>
+<li class=""><strong>組込みマイコン向けの超低遅延</strong>: テーブル参照推論はわずか0.02msで完了し、ニューラルネットの重い行列演算が不可能な超低消費電力マイコンに最適な特性を実証しました。</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

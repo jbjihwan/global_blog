@@ -1369,7 +1369,15 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-whats-next">5. What's Next?<a href="https://globaldevlog.com/blog/2026-05-20-rl-qlearning-4#5-whats-next" class="hash-link" aria-label="Direct link to 5. What's Next?" title="Direct link to 5. What's Next?" translate="no">​</a></h2>
 <p>With simulation benchmarks thoroughly concluded, the ultimate milestone remains: <strong>transferring policy to reality (Sim-to-Real)</strong>.</p>
-<p>In our final Episode #5, we will detail the hardware integration: deploying our policy to a <strong>2-wheel differential Arduino Uno robot, communicating via HC-06 Bluetooth, and tracking ground-truth position via ceiling webcam checkerboard calibration and ArUco markers</strong>!</p>]]></content>
+<p>In our final Episode #5, we will detail the hardware integration: deploying our policy to a <strong>2-wheel differential Arduino Uno robot, communicating via HC-06 Bluetooth, and tracking ground-truth position via ceiling webcam checkerboard calibration and ArUco markers</strong>!</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-line-executive-summary">📌 3–5 Line Executive Summary<a href="https://globaldevlog.com/blog/2026-05-20-rl-qlearning-4#-35-line-executive-summary" class="hash-link" aria-label="Direct link to 📌 3–5 Line Executive Summary" title="Direct link to 📌 3–5 Line Executive Summary" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Zero-Exploration Deterministic Evaluation</strong>: Evaluated the greedy policy with exploration set to zero (ε=0) across 30 trials and 5 evaluation seeds via <code>evaluate_qlearning.py</code> to verify true deployment readiness.</li>
+<li class=""><strong>Three-Dimensional Metric Triad</strong>: Measured not just success rates, but path efficiency ratios against theoretical shortest paths and safety near-miss counts to guarantee collision avoidance.</li>
+<li class=""><strong>Triangular Benchmark (Q-Learning vs SARSA vs DQN)</strong>: Tabular Q-Learning achieved 93.3% success in the 12-wall obstacle arena, outperforming on-policy SARSA (80.0%) and off-policy DQN (86.7%).</li>
+<li class=""><strong>Microcontroller Latency Dominance</strong>: Discretized Q-table lookups executed in 0.02ms with negligible memory footprints, decisively outclassing deep neural network inference on constrained embedded hardware.</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
