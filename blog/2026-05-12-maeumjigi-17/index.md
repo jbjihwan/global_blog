@@ -42,7 +42,7 @@ It was a day that made me realize once again that fine-tuning is not a science, 
 ## Summary & Key Takeaways
 
 - **2nd Fine-Tuning Checkpoint Extraction**: Concluded parallel training for 3 baseline architectures across 6 hyperparameter matrices, automatically staging minimum validation loss weights.
-- **Inference Throughput Bottleneck**: Uncovered severe evaluation latency (<1 sample/min on 1.5B models) caused by unbatched execution (batch size 1) and VRAM under-allocation.
+- **Inference Throughput Bottleneck**: Uncovered severe evaluation latency (under 1 sample/min on 1.5B models) caused by unbatched execution (batch size 1) and VRAM under-allocation.
 - **The Hardcoded Automation Bug**: Caught a critical pipeline flaw where `MODEL_ALIAS` was hardcoded to `Qwen35-9B_a16`, masking true model distinctions during batch Jupyter evaluation.
 - **Engineering Rigor in LLM Pipelines**: Reinforced the imperative of dynamic parameterization and automated assertion checks in multi-model evaluation suites before logging comparative benchmarks.
 
