@@ -1,42 +1,32 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-10-20 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-10-23 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
 ## 📌 지금 하는 일
-Docusaurus 기반 4개 국어(한국어, 영어, 일본어, 스페인어) 다국어 기술 블로그 운영, 커스텀 도메인(`globaldevlog.com`) 연동, 구글 애드센스 승인 요건 구축 및 정기 연재 루틴 확립.
+Docusaurus 기반 6개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체) 기술 블로그 운영, GA4 & 구글 서치 콘솔 API 실시간 애널리틱스 연동, 스탠포드 CS146S 자율 에이전트 시리즈 연재 및 유입 최적화.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-20)
-- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (커스텀 도메인 Porkbun + Cloudflare 연동 완료)
-- **구글 애드센스(AdSense) 승인 인프라 구축**:
-  - `About Me` (소개): 4개 국어(`src/pages/about.md`, `i18n/*/about.md`) 엔지니어링 경력, 연구 분야, 오픈소스 철학 명시 (E-E-A-T 충족).
-  - `Privacy Policy` (개인정보처리방침): 4개 국어(`privacy-policy.md`) GA4(`G-VM2CVW28SL`), 쿠키 및 AdSense 맞춤 광고 Opt-out 조항 완비 (GDPR/CCPA 준수).
-  - `Contact` (문의처): 4개 국어(`contact.md`) 공식 이메일(`jbgihwan@gmail.com`) 및 GitHub Issue 링크 배치.
-  - 불필요한 기본 템플릿 문서(`docs/`, `markdown-page.mdx`) `_old\`로 아카이빙 및 `docs: false` 비활성화로 404 에러 원천 차단.
-  - 내비게이션 바 및 푸터 전면 개편 (다국어 공통 안전 경로로 정비).
-- **연재 완료 시리즈 및 스페셜 아티클**:
-  1. **마음지기 캡스톤 개발일지 (총 23편)**
-  2. **Webots Q-Learning 로봇 자율주행 강화학습 (총 5편)**
-  3. **Blackbox ANPR & Lane Intrusion 비전 AI 시스템 (총 5편)**
-  4. **[스페셜 테크 아티클] 정적 사이트 보안 하드닝 & npm audit의 진실 (1편)**:
-     - *From 45 npm Vulnerabilities to Zero-Risk: Why You Shouldn't Blindly Run npm audit fix --force on Static Sites*
-     - 4개 국어(en, ko, ja, es) 완간, 위협 모델/파이프라인 다이어그램 2종 수록, 상위 5대 SEO 키워드 주입.
-- **100% 실제 연구/발표자료 이미지 교체 완료 (34편 전편)**:
-  - 기존 AI 생성 이미지들을 사용자의 실제 **PPT 발표자료 슬라이드(`1학기_최종발표_마음이.pptx` 등)**, **Matplotlib 손실/레이더/지표 그래프**, **GPU VRAM 프로파일링 차트**, **실제 웹/앱 UI 캡처(2500x1400 고해상도)**로 전면 교체 완료 (23편 마음지기 + 5편 Q-Learning + 5편 ANPR + 1편 보안 아티클).
-  - 4개 국어(en, ko, ja, es) 136개 포스트의 이미지 디렉토리 전수 동기화 완료.
-- **빌드 상태**: 4개 국어(en, es, ja, ko) SSG 전체 빌드 PASS (`exit code 0`).
+## 🚀 마지막으로 확인된 상태 (2026-10-23)
+- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK)
+- **실시간 애널리틱스 인텔리전스 인프라 구축**:
+  - `Google Search Console API` (`sc-domain:globaldevlog.com`, `siteFullUser` 권한 연동 완료)
+  - `Google Analytics 4 Data API` (속성 ID: `558130708` 실시간 리포팅 스크립트 완비)
+  - 최근 30일 활성 사용자 82명, 페이지뷰 493회, 참여율 77.2%, 미국 트래픽 55% 점유 확인.
+- **성장 전략 3대 액션 완수**:
+  1. **구글 1페이지 노출 포스트 CTR 극대화**: `static-site-security-npm-audit-truth` (구글 9위 노출글) 4개 언어권 메타 제목/설명문 문제 해결형 카피라이팅 최적화 완료.
+  2. **유입 플랫폼 및 캠페인 키워드 맞춤 웰컴 토스트 구축**: `src/components/WelcomeToast.tsx` 및 `src/theme/Root.tsx` 전역 마운트 완료 (Google, Naver, ChatGPT, GitHub 및 `utm_term`/`kw` 실시간 감지).
+  3. **스탠포드 CS146S (The Modern Software Developer) 시리즈 3편 연재 완료**:
+     - #1: 현대 소프트웨어 개발자: AI 에이전트 시대, 코드 타이피스트에서 오케스트라 지휘자로의 대전환
+     - #2: 코딩 LLM의 작동 원리와 프롬프트 엔지니어링: 사전학습·RLHF부터 '스위스 치즈 모델'과 검증의 미학까지
+     - #3: 모델 컨텍스트 프로토콜(MCP)과 자율 도구 연동: AI 에이전트를 위한 범용 표준 아키텍처
+     - 6개 언어 동시 발행, 네이버 블로그 동반 원고 생성, 전용 다이어그램 3종 탑재 완료.
+- **Projects & Dev Logs 허브**: 스탠포드 CS146S 활성 뱃지 및 카운트(총 3편) 갱신 완료.
 
 ## 📋 다음 한 걸음
-1. **[우선 구현 과제] 실시간 유입 출처 & 캠페인 키워드 감지 맞춤형 웰컴 배너/토스트 구축**:
-   - `document.referrer` 기반 유입 플랫폼(구글, 네이버, ChatGPT, GitHub 등) 실시간 감지 및 다국어 웰컴 플로팅 바 구현.
-   - 캠페인/공유 URL 파라미터(`utm_term`, `kw`) 추출을 통한 키워드 타겟팅 배너 (`"'{keyword}' 관련 주제를 찾아오셨군요!"`).
-   - Docusaurus Root Theme 컴포넌트(`src/theme/Root.tsx`)에 비침습적(Non-intrusive) 토스트로 연동.
-2. **[연재 진행] 스탠포드 CS146S (The Modern Software Developer) 강의 시리즈 (총 9편 예정)**:
-   - #1: 완료 (현대 소프트웨어 개발자: AI 에이전트 시대, 코드 타이피스트에서 오케스트라 지휘자로의 대전환)
-   - #2: 진행 중 (코딩 LLM의 작동 원리와 프롬프트 엔지니어링: 사전학습·RLHF부터 '스위스 치즈 모델'과 검증의 미학까지)
-   - #3~#9: 순차 집필 예정.
+1. **[연재 진행] 스탠포드 CS146S 시리즈 4편 집필**:
+   - 주제: 스펙 주도 코드 생성과 테스트 하네스 실전 (Claude Code & Cursor 기반 자가 치유 회귀 테스트 루프).
+2. **[정기 모니터링] 구글 검색 콘솔 순위 및 CTR 변동 추적**:
+   - `python tools/fetch_search_console.py` 및 `python tools/fetch_full_ga4_report.py` 주간 실행.
 3. **[골든 타임 루틴] 화/목 밤 10~11시 정기 연재 루틴**:
    - 마음지기 2학기 AI 고도화(순서형 회귀, Guardrail 파이프라인) 신규 시리즈 발행.
 4. **[할 일 보관] 네이버 블로그 전용 원고 변환 (총 10편)**:
    - Webots Q-Learning (5편) 및 Blackbox ANPR 비전 (5편) 스마트에디터 최적화 원고 생성.
-5. **구글 서치 콘솔 및 네이버 서치어드바이저 사이트맵 점검**:
-   - `sitemap.xml` 및 신규 3개 페이지 색인 요청.
 
