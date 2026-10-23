@@ -38,3 +38,13 @@ To create the best dataset, I used the Anthropic API (Haiku) Batch mode to gener
 ![Ratio Experiment](./images/02_ratio.png)
 
 The 4th fine-tuning has now become an arena to verify which data ratio perfectly harmonizes the Artificial Intelligence (AI)'s 'daily casualness' with 'professional counseling'. We generated three versions of the dataset and started injecting them into the Qwen3.5-9B model!
+
+---
+
+## Summary & Key Takeaways
+
+- **Identifying Conversational Skew**: Discovered severe emotional counseling bias where the 3rd fine-tuning model gave overly solemn, therapeutic responses to mundane everyday greetings.
+- **Large-Scale Synthetic Corpus Generation**: Engineered 10,000 standardized emotional dialogues (`v6.jsonl`) via Anthropic Haiku Batch API across 20 distinct personas with 500-token length constraints.
+- **Multi-Ratio Experimental Matrix**: Formulated three comparative dataset mixtures (`mixed_7_3`, `mixed_2_1`, and `mixed_5_5`) blending emotional counseling with daily banter.
+- **Initiating the 4th Fine-Tuning Sprint**: Commenced training on Qwen 3.5-9B to rigorously identify the golden dataset ratio that harmonizes professional counseling empathy with natural daily conversation.
+

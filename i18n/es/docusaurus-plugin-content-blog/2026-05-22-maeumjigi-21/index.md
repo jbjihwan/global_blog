@@ -34,3 +34,13 @@ Utilicé el modo Batch de la Interfaz de Programación de Aplicaciones (API) de 
 ![Experimento de Proporción](./images/02_ratio.png)
 
 El 4to fine-tuning ahora verifica qué proporción armoniza la 'casualidad diaria' con la 'consejería profesional'. ¡Comenzamos a inyectar estos 3 datasets en el modelo Qwen3.5-9B!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Deteccion del Sesgo Emocional**: Identificado un sesgo excesivo donde el modelo de la 3a fase respondia con gravedad terapeutica a preguntas cotidianas sencillas.
+- **Generacion de Corpus Sintetico a Gran Escala**: Creadas 10,000 entradas estandarizadas de dialogo emocional (`v6.jsonl`) mediante Anthropic Haiku Batch API con 20 personas distintas y limite de 500 tokens.
+- **Diseno de Matriz de Mezcla de Datos**: Formuladas tres proporciones experimentales (`mixed_7_3`, `mixed_2_1` y `mixed_5_5`) para equilibrar terapia psicologica y conversacion informal.
+- **Lanzamiento del 4o Ciclo de Fine-Tuning**: Iniciado el entrenamiento sobre Qwen 3.5-9B para determinar la proporcion dorada que garantice empatia clinica sin perder naturalidad.
+
