@@ -195,6 +195,12 @@ Es el problema de **Saturación de Contexto y Dilución de la Atención**.
 
 ---
 
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **La Naturaleza de los LLMs de Código**: Los LLMs no son entidades conscientes, sino simuladores estadísticos de tokens forjados a través de pre-entrenamiento, SFT y alineación por RLHF/DPO.
+2. **Ingeniería de Prompts Disciplinada**: Para lógicas complejas y concurrencia, exigir razonamiento paso a paso (Chain-of-Thought) y restricciones negativas previene alucinaciones y valida invariantes.
+3. **El Peligro del Queso Suizo**: El código generado con IA luce impecable superficialmente pero oculta agujeros sutiles (off-by-one, deadlocks); los desarrolladores deben vencer el sesgo de automatización.
+4. **Doctrina "Confía pero Verifica"**: Implementar una compuerta defensiva de cuatro capas—tipado estricto, pruebas unitarias deterministas, fuzzing de invariantes y revisión arquitectónica humana—es indispensable para producción.
+
 ### Referencias y Materiales del Curso
 - **Lista de Reproducción Oficial en YouTube**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Literatura Principal**: Andrej Karpathy, *Deep Dive into LLMs*; OpenAI, *How OpenAI Uses Codex*; Google Cloud & DAIR.AI, *Prompt Engineering Guide*.

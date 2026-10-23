@@ -216,6 +216,12 @@ sequenceDiagram
 
 ---
 
+### 📌 3〜5行のエグゼクティブサマリー (Executive Summary)
+1. **コーディングLLMの本質**: LLMは意識ある知能ではなく、事前学習（次トークン予測）、SFT（対話プロトコル注入）、RLHF/DPO（選好アライメント）を経て完成した「熟練コードの高速統計シミュレーター」です。
+2. **工学としてのプロンプト設計**: 複雑な並行処理やアルゴリズムに対し、思考の連鎖(CoT)を強制して中間推論トークンを生成させ、明示的な禁止制約を課すことで論理エラーを防ぎます。
+3. **スイスチーズモデルの警告**: 完璧に見えるAIコードの裏には、境界外エラーや競合状態という致命的な穴（Hole）が潜んでおり、自動化バイアスを捨てて疑う必要があります。
+4. **「信頼せよ、されど検証せよ」**: 厳格な静的型検査、決定論的単体テスト、境界ファジング、人間によるアーキテクチャ監査という多層防衛ハーネスの構築が本番運用の前提です。
+
 ### 参考文献 & 公式教材
 - **公式YouTubeプレイリスト**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **主要文献**: Andrej Karpathy, *Deep Dive into LLMs*; OpenAI, *How OpenAI Uses Codex*; Google Cloud & DAIR.AI, *Prompt Engineering Guide*.

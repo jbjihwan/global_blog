@@ -234,6 +234,12 @@ In **Lecture 3**, we will tackle **Context Management & Repository Architecture*
 
 ---
 
+### 📌 3–5 Line Executive Summary
+1. **The Nature of Coding LLMs**: LLMs are statistical simulators forged through a 3-stage pipeline (Pre-training next-token prediction, SFT instruction protocols, and RLHF/DPO alignment) rather than conscious reasoning agents.
+2. **Prompting as Software Engineering**: For complex concurrency and logic, forcing Chain-of-Thought (CoT) reasoning steps and negative constraints provides critical self-grounding tokens that eliminate hallucinations.
+3. **The Swiss Cheese Hazard**: Impeccably formatted AI code frequently harbors latent off-by-one errors and race conditions; engineering teams must actively counteract automation bias.
+4. **The "Trust but Verify" Doctrine**: Deploy a rigorous four-gate verification harness—strict static typing, deterministic unit tests, property-based invariant fuzzing, and human architectural code review—before any AI code reaches production.
+
 ### References & Course Materials
 - **Official Course Video Playlist**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Primary Literature**: Andrej Karpathy, *Deep Dive into LLMs*; OpenAI, *How OpenAI Uses Codex*; Google Cloud & DAIR.AI, *Prompt Engineering Guide*.

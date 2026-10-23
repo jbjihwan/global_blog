@@ -231,6 +231,12 @@ sequenceDiagram
 
 ---
 
+### 📌 3~5줄 최종 요약 (Executive Summary)
+1. **3단계 훈련의 본질**: 코딩 LLM은 의식을 가진 존재가 아니라, 사전 학습(다음 토큰 확률 예측), SFT(지시 프로토콜 튜닝), RLHF/DPO(인간 선호도 정렬)를 거쳐 완성된 '수석 엔지니어 코드의 초고속 통계 시뮬레이터'입니다.
+2. **소프트웨어 공학으로서의 프롬프트**: 복잡한 비즈니스 로직과 동시성 제어 시 생각의 사슬(CoT)을 강제하여 중간 추론 토큰을 확보하고, 엄격한 부정 제약 조건을 부여해야 환각을 차단할 수 있습니다.
+3. **스위스 치즈 모델의 경고**: AI가 생성한 코드는 겉보기에 유려해도 배열 인덱스 초과, 경합 상태, 보안 취약점이라는 치명적인 구멍(Hole)을 내포하므로 '자동화 편향'을 경계해야 합니다.
+4. **Trust but Verify (신뢰하되 검증하라)**: 정적 타입 분석(Gate 1) → 단위 테스트 계약(Gate 2) → 속성 기반 퍼징(Gate 3) → 인간 아키텍처 서명(Gate 4)으로 이어지는 다층 방어 하네스를 구축해야만 안전하게 프로덕션에 배포할 수 있습니다.
+
 ### References & Course Materials
 - **Official Course Video Playlist**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Primary Literature**: Andrej Karpathy, *Deep Dive into LLMs*; OpenAI, *How OpenAI Uses Codex*; Google Cloud & DAIR.AI, *Prompt Engineering Guide*.
