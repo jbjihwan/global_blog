@@ -41,3 +41,13 @@ Along with a warning that the OS kernel version was too low and could cause the 
 > "If the models stop during training, do they resume from where they stopped?"
 
 Fortunately, the Hugging Face `Trainer` provides a feature to resume training from checkpoints (`resume_from_checkpoint`), but it's useless if the checkpoint file itself is corrupted. Despite reducing the model size, we spent the entire day wrestling with numerous framework and infrastructure errors. Will we ever reach a stable training orbit?
+
+---
+
+## Summary & Key Takeaways
+
+- **Strategic Pivot from 70B to Mid-Scale Models**: Reallocated project compute from sluggish 70B architectures to nimble mid-size models (HCX-Omni-8B, Qwen 3.5-9B, HCX-Text-1.5B) to guarantee deadline feasibility.
+- **Batch Size & Hyperparameter Retuning**: Re-engineered batch sizes and learning schedules to maximize throughput and GPU utilization on 1.5B to 9B model baselines.
+- **Checkpoint Corruption Post-Mortem**: Diagnosed fatal `JSONDecodeError` failures during `resume_from_checkpoint` triggered by incomplete disk serialization and OS kernel 5.4.0 hanging states.
+- **Training Infrastructure Hardening**: Established atomic checkpoint writing protocols to ensure uninterrupted training resumption across unexpected server crashes.
+
