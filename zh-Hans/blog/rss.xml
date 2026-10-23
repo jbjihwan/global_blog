@@ -718,7 +718,15 @@
 <p>这种时序叠加机制不仅在不损失边缘锐度的前提下消除了高达 70% 的高频随机噪点，还显著增强了字符与反光底板之间的明暗对比度。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-下篇预告">3. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-28-vision-anpr-4#3-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="3. 下篇预告的直接链接" title="3. 下篇预告的直接链接" translate="no">​</a></h2>
-<p>在接下来的第 5 篇（收官篇）中，我们将全面揭秘 <strong>韩国车牌语法校验、EasyOCR 字符识别调优</strong> 以及核心的 <strong>时序滑动窗口多数表决引擎</strong>，复盘从最初一堆全屏乱码到最终百分之百锁定目标车牌（<code>64가1511</code>）的完整工程突破历程。</p>]]></content:encoded>
+<p>在接下来的第 5 篇（收官篇）中，我们将全面揭秘 <strong>韩国车牌语法校验、EasyOCR 字符识别调优</strong> 以及核心的 <strong>时序滑动窗口多数表决引擎</strong>，复盘从最初一堆全屏乱码到最终百分之百锁定目标车牌（<code>64가1511</code>）的完整工程突破历程。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心总结-executive-summary">📌 3~5 行核心总结 (Executive Summary)<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-28-vision-anpr-4#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93-executive-summary" class="hash-link" aria-label="📌 3~5 行核心总结 (Executive Summary)的直接链接" title="📌 3~5 行核心总结 (Executive Summary)的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>低分辨率与压缩噪点瓶颈</strong>：行车记录仪画面中裁切出的车牌区域往往不足 $40 \times 20$ 像素，双三次插值 (Bicubic) 算法无法恢复因 H.264 压缩而丢失的文字笔画边缘。</li>
+<li class=""><strong>引入 EDSR_x4 深度残差超分辨率</strong>：EDSR 架构剥离了批归一化 (BatchNorm) 层以保留像素级动态范围，依托 OpenCV <code>dnn_superres</code> 高效重建高频字符轮廓细节。</li>
+<li class=""><strong>时序多帧图像叠加降噪 (Image Stacking)</strong>：对连续 $3 \sim 5$ 帧的车牌候选框进行亚像素几何对齐并像素均值化，强力消除相机传感器随机噪点与抖动模糊。</li>
+<li class=""><strong>下游 OCR 准确率爆发式提升</strong>：经由 4 倍超分与图像叠加复合增强，下游 EasyOCR 的复杂字符识别准确率由最初的 32% 跨越式跃升至 91% 以上。</li>
+</ol>]]></content:encoded>
             <category>computer-vision</category>
             <category>super-resolution</category>
             <category>edsr</category>
