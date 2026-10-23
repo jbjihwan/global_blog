@@ -1181,6 +1181,44 @@
         <category label="Python" term="Python"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[Maeumjigi 心语伴侣毕业设计开发日志 #20] 第三轮微调收官与全栈功能 (DB 持久化、社区看板) 深度整合]]></title>
+        <id>https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[通过精细校准日常闲聊与危机干预比例完成第 3 轮微调，打通对话持久化数据库与前端社区分页及情绪日记筛选组件。]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面图" src="https://globaldevlog.com/zh-Hans/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5 月 19 日至 20 日的两天时间里，第三轮微调 (<code>fine_tuning_3</code>) 的评估自动化与面向生产级 App 服务的全栈功能深度打磨实现了全面齐头并进。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三轮微调收尾自动化提取最优-checkpoint-与并行推理">第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BD%AE%E5%BE%AE%E8%B0%83%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BC%98-checkpoint-%E4%B8%8E%E5%B9%B6%E8%A1%8C%E6%8E%A8%E7%90%86" class="hash-link" aria-label="第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理的直接链接" title="第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理的直接链接" translate="no">​</a></h3>
+<p>汲取前序微调经验，旨在兼顾知识图谱确定性规则与自然共情引导的第三轮微调实验顺利完成训练：</p>
+<blockquote>
+<p>“自动遍历 fine_tuning_3 目录下所有实验模型，精准筛选 Eval Loss 表现最优的最佳检查点 (Best Checkpoint)，替换至对应 adapter 目录并汇报指标。”
+“编写全新的 run_test_20_30.sh 自动化脚本，在后台针对 fine_tuning_3 展开多卡并行推理与自动评测。”</p>
+</blockquote>
+<p>告别以往繁琐的人工跨文件夹复制，AI 编写的高可用脚本自主提炼最优权重并配置至推理服务，将 4 组别名候选模型一次性挂在 GPU 服务器后台展开全自动化基准盲测。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全栈贯通大模型对话-db-持久化与社区互动功能落地">全栈贯通：大模型对话 DB 持久化与社区互动功能落地<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E6%A0%88%E8%B4%AF%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AF%B9%E8%AF%9D-db-%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E7%A4%BE%E5%8C%BA%E4%BA%92%E5%8A%A8%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全栈贯通：大模型对话 DB 持久化与社区互动功能落地的直接链接" title="全栈贯通：大模型对话 DB 持久化与社区互动功能落地的直接链接" translate="no">​</a></h3>
+<p>在服务器集群高速运算的同时，本地全栈联调也迎来了实质性突破：</p>
+<blockquote>
+<p>“深度梳理 seed_data.sql 初始化凭据。默认测试用户初始密码究竟是 Test1234! 吗？当前脚本目标写入的目标 DB 架构为何？”</p>
+</blockquote>
+<p>为了彻底歼灭此前导致 <code>401 Unauthorized</code> 鉴权死锁的根本诱因，我们逆向审查了数据种子的哈希散列格式，成功修复了认证链路。</p>
+<p>5 月 20 日下午，我们提交了一个里程碑意义的 Git Commit：
+<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支持大模型对话持久化、社区看板分页及情绪日记多维筛选)</code></p>
+<p><img decoding="async" loading="lazy" alt="移动端功能截图" src="https://globaldevlog.com/zh-Hans/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>至此，微调大语言模型的交互上下文终于正式打通数据库实现了安全落盘存储！社区看板分页浏览组件以及记录每日心情起伏的日记多维过滤面板也全部在移动端高质量渲染上线。</p>
+<p>无形而庞大的前沿大模型，终于被稳稳装入了精美的移动应用容器之中！</p>]]></content>
+        <author>
+            <name>Jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="开发日志" term="开发日志"/>
+        <category label="微调" term="微调"/>
+        <category label="后端" term="后端"/>
+        <category label="前端" term="前端"/>
+        <category label="数据库" term="数据库"/>
+        <category label="毕业设计" term="毕业设计"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[Webots 机器人] evaluate_qlearning：确定性导航定量评估与 DQN·SARSA 对比基准 (#4)]]></title>
         <id>https://globaldevlog.com/zh-Hans/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-rl-qlearning-4"/>
@@ -1251,44 +1289,6 @@
         <category label="SARSA" term="SARSA"/>
         <category label="机器人学" term="机器人学"/>
         <category label="Python" term="Python"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Maeumjigi 心语伴侣毕业设计开发日志 #20] 第三轮微调收官与全栈功能 (DB 持久化、社区看板) 深度整合]]></title>
-        <id>https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[通过精细校准日常闲聊与危机干预比例完成第 3 轮微调，打通对话持久化数据库与前端社区分页及情绪日记筛选组件。]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="封面图" src="https://globaldevlog.com/zh-Hans/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5 月 19 日至 20 日的两天时间里，第三轮微调 (<code>fine_tuning_3</code>) 的评估自动化与面向生产级 App 服务的全栈功能深度打磨实现了全面齐头并进。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三轮微调收尾自动化提取最优-checkpoint-与并行推理">第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BD%AE%E5%BE%AE%E8%B0%83%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BC%98-checkpoint-%E4%B8%8E%E5%B9%B6%E8%A1%8C%E6%8E%A8%E7%90%86" class="hash-link" aria-label="第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理的直接链接" title="第三轮微调收尾：自动化提取最优 Checkpoint 与并行推理的直接链接" translate="no">​</a></h3>
-<p>汲取前序微调经验，旨在兼顾知识图谱确定性规则与自然共情引导的第三轮微调实验顺利完成训练：</p>
-<blockquote>
-<p>“自动遍历 fine_tuning_3 目录下所有实验模型，精准筛选 Eval Loss 表现最优的最佳检查点 (Best Checkpoint)，替换至对应 adapter 目录并汇报指标。”
-“编写全新的 run_test_20_30.sh 自动化脚本，在后台针对 fine_tuning_3 展开多卡并行推理与自动评测。”</p>
-</blockquote>
-<p>告别以往繁琐的人工跨文件夹复制，AI 编写的高可用脚本自主提炼最优权重并配置至推理服务，将 4 组别名候选模型一次性挂在 GPU 服务器后台展开全自动化基准盲测。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全栈贯通大模型对话-db-持久化与社区互动功能落地">全栈贯通：大模型对话 DB 持久化与社区互动功能落地<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E6%A0%88%E8%B4%AF%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AF%B9%E8%AF%9D-db-%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E7%A4%BE%E5%8C%BA%E4%BA%92%E5%8A%A8%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全栈贯通：大模型对话 DB 持久化与社区互动功能落地的直接链接" title="全栈贯通：大模型对话 DB 持久化与社区互动功能落地的直接链接" translate="no">​</a></h3>
-<p>在服务器集群高速运算的同时，本地全栈联调也迎来了实质性突破：</p>
-<blockquote>
-<p>“深度梳理 seed_data.sql 初始化凭据。默认测试用户初始密码究竟是 Test1234! 吗？当前脚本目标写入的目标 DB 架构为何？”</p>
-</blockquote>
-<p>为了彻底歼灭此前导致 <code>401 Unauthorized</code> 鉴权死锁的根本诱因，我们逆向审查了数据种子的哈希散列格式，成功修复了认证链路。</p>
-<p>5 月 20 日下午，我们提交了一个里程碑意义的 Git Commit：
-<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支持大模型对话持久化、社区看板分页及情绪日记多维筛选)</code></p>
-<p><img decoding="async" loading="lazy" alt="移动端功能截图" src="https://globaldevlog.com/zh-Hans/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>至此，微调大语言模型的交互上下文终于正式打通数据库实现了安全落盘存储！社区看板分页浏览组件以及记录每日心情起伏的日记多维过滤面板也全部在移动端高质量渲染上线。</p>
-<p>无形而庞大的前沿大模型，终于被稳稳装入了精美的移动应用容器之中！</p>]]></content>
-        <author>
-            <name>Jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="开发日志" term="开发日志"/>
-        <category label="微调" term="微调"/>
-        <category label="后端" term="后端"/>
-        <category label="前端" term="前端"/>
-        <category label="数据库" term="数据库"/>
-        <category label="毕业设计" term="毕业设计"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Webots 机器人] 克服 12 面墙体障碍与 Local Minima 陷阱：多随机种子 Headless 仿真 (#3)]]></title>
