@@ -1140,7 +1140,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <li class=""><strong>골든 체크포인트 확정</strong>: 검증 손실 2.68의 역대 최고 성능 가중치 <code>checkpoint-4400</code> 확보.</li>
 <li class=""><strong>상용 아키텍처 완성</strong>: Next.js, FastAPI, vLLM, Redis를 아우르는 풀스택 서빙 구조 수립.</li>
 </ol>
-<p>다음 23편에서는 1학기 최종 마일스톤인 이중 Safety Wrapper 구축과 실제 클라우드 GPU 서버 예산 견적 및 1학기 최종 발표 소식을 전해드리겠습니다!</p>]]></content>
+<p>다음 23편에서는 1학기 최종 마일스톤인 이중 Safety Wrapper 구축과 실제 클라우드 GPU 서버 예산 견적 및 1학기 최종 발표 소식을 전해드리겠습니다!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="핵심-요약-및-배운-점">핵심 요약 및 배운 점<a href="https://globaldevlog.com/ko/blog/2026-05-30-maeumjigi-22#%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%95%BD-%EB%B0%8F-%EB%B0%B0%EC%9A%B4-%EC%A0%90" class="hash-link" aria-label="핵심 요약 및 배운 점에 대한 직접 링크" title="핵심 요약 및 배운 점에 대한 직접 링크" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>과상담(Over-Counseling) 트랩 종결</strong>: 일상 인사에도 과도한 심리 치료 어투로 반응하던 문제를 해결하기 위해 심리 상담과 일상 대화를 2:1로 조합한 황금 데이터 믹스를 규명했습니다.</li>
+<li class=""><strong>골든 가중치 Checkpoint-4400 확보</strong>: 4차 파인튜닝 실험을 통해 검증 손실 2.68로 역대 최저치를 달성하고 정성 평가에서 가장 높은 공감 점수를 기록한 최적 가중치를 확보했습니다.</li>
+<li class=""><strong>프로덕션 풀스택 서빙 아키텍처</strong>: Next.js 프론트엔드, FastAPI 비동기 오케스트레이터, vLLM 고속 추론 엔진, Redis 세션 캐시를 결합한 상용급 시스템 파이프라인을 구축했습니다.</li>
+<li class=""><strong>1단계 모델링 마일스톤 달성</strong>: 1초 미만의 응답 지연 시간과 자연스러운 대화 전환을 입증하여 1학기 최종 방어 심사를 위한 완성도 높은 AI 코어를 확립했습니다.</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

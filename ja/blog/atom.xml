@@ -1012,7 +1012,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <li class=""><strong>Golden Weight Staged</strong>: Checkpoint-4400 achieved our project's lowest validation perplexity (2.68) and highest human evaluation scores.</li>
 <li class=""><strong>Production Blueprint Published</strong>: Completed the full-stack architecture bridging Next.js, FastAPI, vLLM, and Redis.</li>
 </ol>
-<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>]]></content>
+<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="まとめと要点">まとめと要点<a href="https://globaldevlog.com/ja/blog/2026-05-30-maeumjigi-22#%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A8%E8%A6%81%E7%82%B9" class="hash-link" aria-label="まとめと要点 への直接リンク" title="まとめと要点 への直接リンク" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>過剰カウンセリング問題の解決</strong>: 日常的な会話にも過度に重い治療的応答をしてしまう問題を、専門相談と日常会話を2:1で配合した最適データミックスにより解決しました。</li>
+<li class=""><strong>ゴールデン重み Checkpoint-4400 の確定</strong>: 第4次ファインチューニングを通じて検証損失2.68の最小値を達成し、共感性評価で最高スコアを記録した最良モデルを確立しました。</li>
+<li class=""><strong>本番向けフルスタックアーキテクチャ</strong>: Next.js、FastAPI、vLLM高速推論エンジン、Redisセッションキャッシュを連携したエンドツーエンドのシステム基盤を完成させました。</li>
+<li class=""><strong>フェーズ1モデル検証の達成</strong>: 1秒未満の応答レイテンシと自然な対話フローを実現し、第1学期最終審査に向けた堅牢なAIコアを構築しました。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

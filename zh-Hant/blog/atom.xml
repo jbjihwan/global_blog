@@ -1054,7 +1054,15 @@
 <li class=""><strong>Golden Weight Staged</strong>: Checkpoint-4400 achieved our project's lowest validation perplexity (2.68) and highest human evaluation scores.</li>
 <li class=""><strong>Production Blueprint Published</strong>: Completed the full-stack architecture bridging Next.js, FastAPI, vLLM, and Redis.</li>
 </ol>
-<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>]]></content>
+<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-30-maeumjigi-22#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>攻克「過度心理諮商」病理缺陷</strong>：透過創新設計的 2:1 黃金數據配比（66.7% 臨床危機對話 + 33.3% 開放域日常社交閒聊），徹底治癒了模型草木皆兵的死板治療反應。</li>
+<li class=""><strong>鎖定黃金權重 Checkpoint-4400</strong>：在第 4 輪微調實驗中，該檢查點錄得全專案歷史最低驗證集損失（2.68），並在人工盲測盲評中奪得同理心最高評分。</li>
+<li class=""><strong>落地生產級全端服務架構</strong>：建立了無縫串聯 Next.js 前端互動、FastAPI 非同步編排調度、vLLM 連續批次處理推論與 Redis 高速對話快取的高可用生產底座。</li>
+<li class=""><strong>達成一階段模型收官里程碑</strong>：實測端到端首字響應延遲穩定在 1 秒以內，為畢業設計第一學期終審答辯奠定了堅實的技術底牌。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

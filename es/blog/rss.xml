@@ -938,7 +938,15 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <li class=""><strong>Golden Weight Staged</strong>: Checkpoint-4400 achieved our project's lowest validation perplexity (2.68) and highest human evaluation scores.</li>
 <li class=""><strong>Production Blueprint Published</strong>: Completed the full-stack architecture bridging Next.js, FastAPI, vLLM, and Redis.</li>
 </ol>
-<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>]]></content:encoded>
+<p>In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resumen-y-puntos-clave">Resumen y Puntos Clave<a href="https://globaldevlog.com/es/blog/2026-05-30-maeumjigi-22#resumen-y-puntos-clave" class="hash-link" aria-label="Enlace directo al Resumen y Puntos Clave" title="Enlace directo al Resumen y Puntos Clave" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Resolucion de la Sobrecounseling</strong>: Superada la reaccion terapeutica rigida e hiperformal en charlas cotidianas implementando una proporcion de mezcla de datos 2:1 (clinico frente a casual).</li>
+<li class=""><strong>Identificacion del Checkpoint-4400 Dorado</strong>: Confirmado el Checkpoint-4400 como el peso optimo, logrando la menor perdida de validacion del proyecto (2.68) y maximas puntuaciones de empatia humana.</li>
+<li class=""><strong>Arquitectura Full-Stack de Produccion</strong>: Integrado un pipeline integral con frontend en Next.js, orquestacion con FastAPI, inferencia acelerada con vLLM y cache de sesiones en Redis.</li>
+<li class=""><strong>Validacion de Rendimiento en Tiempo Real</strong>: Demostradas latencias de respuesta inferiores a un segundo y alta fluidez conversacional para la defensa final del semestre.</li>
+</ul>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
             <category>qwen</category>
