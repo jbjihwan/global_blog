@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME 扁平化 根域名 GitHub Pages, Cloudflare 免费 Universal SSL, static CNAME 部署重置解决]
 description: "彻底告别免费 github.io 二级域名，通过 Porkbun 购买顶级域名并委托至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 实现 GitHub Pages 零停机平滑迁移，解决 Docusaurus CNAME 自动重置难题的完整工程实战。"
+
 ---
 
 对于技术开发者而言，利用 GitHub Pages 的免费二级域名（`username.github.io/project`）搭建博客几乎是零成本的最佳入门选择。只需一次 Git Push，即可通过全球 CDN 免费分发静态页面，完全无需维护底层服务器。
@@ -146,3 +147,11 @@ curl -I https://www.globaldevlog.com
 独立域名成功上线后，真正的商业化与多引擎搜索获客工作才刚刚拉开序幕：
 - **第二篇**：*[静态网站商业化 #2] Docusaurus 接入 Google AdSense 审核实战：解决 ads.txt 404 爬取故障与异步脚本安全植入*
 - **第三篇**：*[全球多搜索引擎 SEO #3] Google、Naver 与 Bing 站长平台权威配置：Sitemap 无法删除之谜与主机级别报错排查*
+
+---
+
+### 📌 3~5 行核心总结 (Executive Summary)
+1. **零服务器成本的企业级全栈架构**：通过融合成本价域名注册商 (Porkbun)、全球 Anycast CDN 与 DNS (Cloudflare) 以及零成本静态托管 (GitHub Pages)，以零运维开销打造毫秒级全球加速博客。
+2. **借助 CNAME 扁平化技术突破 RFC 1034 限制**：利用 Cloudflare 的 CNAME Flattening 机制，完美攻克根域名 (`@`) 无法配置别名解析的行业死结，将裸域名平滑直连 GitHub Pages。
+3. **Full (Strict) 全链路 HTTPS 强加密**：开启 Cloudflare 严格加密模式，实现“访客 ↔ CDN 边缘 ↔ GitHub Pages 源站”的全程双向 TLS 加密防护。
+4. **static/CNAME 实现部署配置永固**：将 `CNAME` 文件固化在 Docusaurus 的 `static/` 目录下，彻底杜绝 CI/CD 自动发布时自定义域名被冲刷重置的行业顽疾。

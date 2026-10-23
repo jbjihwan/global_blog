@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME Flattening apex domain GitHub Pages, Cloudflare Full SSL Edge Certificate, static CNAME deployment reset bug fix]
 description: "Guía de producción paso a paso para abandonar los subdominios gratuitos github.io, adquirir un dominio apex con Porkbun, delegar a Cloudflare Anycast DNS, configurar CNAME Flattening y solventar el reseteo del archivo CNAME en Docusaurus."
+
 ---
 
 Alojarse en GitHub Pages mediante el subdominio gratuito (`username.github.io/proyecto`) es una de las soluciones más ágiles para publicar un blog de ingeniería sin incurrir en costes de servidor.
@@ -146,3 +147,11 @@ curl -I https://www.globaldevlog.com
 Con el dominio apex plenamente operativo, los siguientes hitos son la monetización y la indexación en buscadores:
 - **Parte 2**: *[Monetización de Sitios Estáticos #2] Aprobación de Google AdSense en Docusaurus: Resolución del error 404 en ads.txt e Inyección Asíncrona de Scripts*
 - **Parte 3**: *[SEO Multimotor #3] Registro en Google, Naver y Bing: Trucos para la Eliminación de Sitemaps y Errores de Nivel Host*
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Arquitectura Empresarial con Costo Cero de Servidor**: La combinación de Porkbun (registro al costo), Cloudflare (Anycast CDN y DNS global) y GitHub Pages (alojamiento estático gratuito) ofrece infraestructura de alto rendimiento sin costes operativos.
+2. **Superación del Límite RFC 1034 con CNAME Flattening**: Resuelve la restricción técnica de asignar CNAMEs en el dominio raíz (`@`) mediante la técnica de aplanamiento de Cloudflare, conectando el apex directamente a GitHub Pages.
+3. **Cifrado Extremo a Extremo en Modo Full (Strict)**: Establece túneles HTTPS seguros tanto entre el visitante y Cloudflare como entre Cloudflare y los servidores de origen de GitHub Pages.
+4. **Persistencia Garantizada con static/CNAME**: Alojar el archivo `CNAME` en el directorio `static/` de Docusaurus evita que los despliegues automatizados eliminen la configuración del dominio personalizado.

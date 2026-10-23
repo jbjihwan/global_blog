@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME Flattening apex domain GitHub Pages, Cloudflare Full SSL Edge Certificate, static CNAME deployment reset bug fix]
 description: "무료 github.io 서브도메인을 탈출하여 Porkbun에서 구매한 독립 도메인을 Cloudflare Anycast DNS와 CNAME 평탄화(Flattening)를 통해 GitHub Pages에 무중단 연결하고, Docusaurus CNAME 리셋 버그를 완벽히 해결하는 프로덕션 실전 가이드."
+
 ---
 
 개발자라면 누구나 한 번쯤 GitHub Pages의 무료 서브도메인(`username.github.io/project`)을 이용해 블로그를 운영해 보았을 것입니다. Git 푸시 한 번으로 전 세계에 정적 사이트가 배포되고 서버 유지비가 들지 않는다는 점은 초기 개발자 블로그에 최고의 장점입니다.
@@ -151,3 +152,11 @@ curl -I https://www.globaldevlog.com
 독립 도메인 연동을 완수했다면, 이제 본격적인 블로그 수익화와 검색엔진 트래픽 확장을 시작해야 합니다:
 - **제2편**: *[정적 사이트 수익화 #2] Docusaurus 구글 애드센스 승인 신청: ads.txt 404 해결과 스크립트 비동기 주입 실전*
 - **제3편**: *[4대 검색엔진 SEO #3] 구글·네이버·빙 웹마스터 도구 완벽 등록: 사이트맵 삭제 트랩과 네이버 호스트 오류 탈출기*
+
+---
+
+### 📌 3~5줄 최종 요약 (Executive Summary)
+1. **서버 비용 0원의 엔터프라이즈 아키텍처**: 최저가 도메인 등록대행사(Porkbun), 글로벌 Anycast CDN·DNS(Cloudflare), 무료 정적 호스팅(GitHub Pages)을 결합하여 유지비용 없이 기업급 블로그 인프라를 구축합니다.
+2. **CNAME Flattening으로 루트 제약 극복**: DNS 표준(RFC 1034)상 루트 도메인(`@`)에 CNAME을 지정할 수 없는 한계를 Cloudflare 평탄화 기술로 해결하여 apex 도메인을 GitHub Pages로 직결합니다.
+3. **Full Strict 전 구간 암호화**: Cloudflare SSL 암호화 모드를 'Full (Strict)'로 지정하여 방문자-Cloudflare 구간뿐 아니라 Cloudflare-GitHub Pages 오리진 구간까지 완벽한 HTTPS 보안을 적용합니다.
+4. **static/CNAME 영구 고정**: Docusaurus의 `static/CNAME` 파일 배치 및 설정 파일 업데이트를 통해 `npm run deploy` 시 도메인 연결이 초기화되는 배포 유실 문제를 완벽히 차단합니다.

@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME 扁平化 根網域 GitHub Pages, Cloudflare 免費 Universal SSL, static CNAME 部署重置解決]
 description: "徹底告別免費 github.io 二級子網域，透過 Porkbun 購買頂級網域並委派至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 達成 GitHub Pages 零停機平滑遷移，解決 Docusaurus CNAME 自動重設難題的完整工程實戰。"
+
 ---
 
 對於技術開發者而言，利用 GitHub Pages 的免費二級子網域（`username.github.io/project`）架設部落格幾乎是零成本的最佳入門選擇。只需一次 Git Push，即可透過全球 CDN 免費分發靜態頁面，完全無需維護底層伺服器。
@@ -146,3 +147,11 @@ curl -I https://www.globaldevlog.com
 獨立網域成功上線後，真正的商業化與多引擎搜尋獲客工作才剛剛拉開序幕：
 - **第二篇**：*[靜態網站商業化 #2] Docusaurus 接入 Google AdSense 審查實戰：解決 ads.txt 404 爬取故障與非同步指令碼安全植入*
 - **第三篇**：*[全球多搜尋引擎 SEO #3] Google、Naver 與 Bing 站長平台權威配置：Sitemap 無法刪除之謎與主機層級報錯排查*
+
+---
+
+### 📌 3~5 行核心總結 (Executive Summary)
+1. **零伺服器成本的企業級全端架構**：透過融合成本價網域註冊商 (Porkbun)、全球 Anycast CDN 與 DNS (Cloudflare) 以及零成本靜態代管 (GitHub Pages)，以零維運開銷打造毫秒級全球加速部落格。
+2. **藉助 CNAME 扁平化技術突破 RFC 1034 限制**：利用 Cloudflare 的 CNAME Flattening 機制，完美攻克根網域 (`@`) 無法設定別名解析的產業死結，將裸網域平滑直連 GitHub Pages。
+3. **Full (Strict) 全鏈路 HTTPS 強加密**：開啟 Cloudflare 嚴格加密模式，實現「訪客 ↔ CDN 邊緣 ↔ GitHub Pages 來源站」的全程雙向 TLS 加密防護。
+4. **static/CNAME 實現部署配置永固**：將 `CNAME` 檔案固化在 Docusaurus 的 `static/` 目錄下，徹底杜絕 CI/CD 自動發布時自訂網域被沖刷重設的產業頑疾。

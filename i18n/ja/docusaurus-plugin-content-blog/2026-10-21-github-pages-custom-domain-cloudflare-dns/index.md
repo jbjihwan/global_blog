@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME Flattening apex domain GitHub Pages, Cloudflare Full SSL Edge Certificate, static CNAME deployment reset bug fix]
 description: "無料のgithub.ioサブドメインから脱却し、Porkbunで取得した独自ドメインをCloudflare Anycast DNSとCNAMEフラット化を用いてGitHub Pagesに接続、DocusaurusのCNAMEリセット問題を解決する実践ガイド。"
+
 ---
 
 GitHub Pagesの無料サブドメイン（`username.github.io/project`）上で技術ブログを運営することは、サーバー維持費ゼロかつGitプッシュだけで静的サイトが自動配信されるため、エンジニアにとって非常に魅力的な選択肢です。
@@ -146,3 +147,11 @@ curl -I https://www.globaldevlog.com
 独自ドメインの開通が完了したら、次は収益化の申請と検索エンジンのインデックス登録を加速させます:
 - **第2回**: *[静的サイト収益化 #2] DocusaurusにおけるGoogle AdSense審査申請: ads.txt 404エラーの完全防止と非同期スクリプト組み込み*
 - **第3回**: *[主要3大検索エンジンSEO #3] Google・Naver・Bingウェブマスター登録の実践: サイトマップ削除トラップとホストエラーの解決*
+
+---
+
+### 📌 3〜5行のエグゼクティブサマリー (Executive Summary)
+1. **サーバー費用ゼロのエンタープライズ構成**: 卸値ドメインレジストラ(Porkbun)、Anycast CDN・DNS(Cloudflare)、無料静的ホスティング(GitHub Pages)を組み合わせ、運用費ゼロで世界最高峰のエッジ配信網を実現します。
+2. **CNAME Flattening によるルート制限の克服**: DNS標準(RFC 1034)で禁止されているルートドメイン(`@`)へのCNAME割り当てをCloudflare平坦化技術で解決し、直接GitHub Pagesへ紐付けます。
+3. **Full Strict による完全な通信暗号化**: CloudflareのSSLモードを「Full (Strict)」に設定することで、訪問者〜CDN間だけでなくCDN〜GitHub Pagesオリジン間も強固なHTTPS暗号化を確立します。
+4. **static/CNAME によるデプロイ永続化**: Docusaurusの `static/CNAME` 配置と設定ファイル更新により、デプロイ時にカスタムドメイン設定が初期化・消失するトラブルを恒久的に防ぎます。

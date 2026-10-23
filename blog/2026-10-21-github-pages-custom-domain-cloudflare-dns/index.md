@@ -5,6 +5,7 @@ authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
 keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME Flattening apex domain GitHub Pages, Cloudflare Full SSL Edge Certificate, static CNAME deployment reset bug fix]
 description: "A step-by-step production guide to ditching free github.io subdomains, acquiring an apex custom domain via Porkbun, delegating to Cloudflare Anycast DNS, configuring CNAME flattening, and setting up Docusaurus without breaking HTTPS."
+
 ---
 
 Hosting an engineering blog on GitHub Pages under `username.github.io/project` is one of the most cost-effective and friction-free setups for developers. You push markdown files, Git workflows trigger, and GitHub serves your static artifacts worldwide. 
@@ -154,3 +155,11 @@ curl -I https://www.globaldevlog.com
 With your apex custom domain live, the next critical milestones are monetization approval and multi-engine visibility:
 - **Part 2**: *[Static Site Monetization #2] Google AdSense Approval on Docusaurus: ads.txt 404 Resolution and Asynchronous Script Injection*
 - **Part 3**: *[Multi-Search Engine SEO #3] Google, Naver & Bing Webmaster Setup: Sitemap Deletion Quirks and Host Error Troubleshooting*
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **Architectural Cost-Efficiency**: By combining Porkbun (wholesale domain registrar), Cloudflare (enterprise Anycast CDN & DNS), and GitHub Pages (zero-cost static hosting), you achieve enterprise-grade global edge distribution at $0 hosting overhead.
+2. **Overcoming RFC 1034 via CNAME Flattening**: Cloudflare resolves the DNS zone apex limitation by dynamically synthesizing pseudo-A records for `@`, allowing clean root domain routing (`https://domain.com`) directly to GitHub Pages.
+3. **End-to-End Strict Encryption**: Configuring Cloudflare SSL/TLS to 'Full (Strict)' establishes verified, bidirectional cryptographic protection from the visitor's browser all the way to GitHub's origin servers.
+4. **Permanent Deployment Persistence**: Hardcoding `static/CNAME` in Docusaurus and configuring `docusaurus.config.ts` prevents GitHub Pages from resetting your custom domain during automated CI/CD and deploy cycles.
