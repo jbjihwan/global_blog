@@ -33,3 +33,13 @@ On April 9, using the Colab notebook we ambitiously completed yesterday, we fina
 ![Terminal Screenshot](./images/02_term.png)
 
 Today was a day to feel the thrill of directly tuning the latest language model called Llama 3.1 with my own hands (and the AI's brain). At the same time, we are learning how to fully utilize AI not only for coding but also for creating presentation materials and designing Database (DB) architecture diagrams. How smart has our Maeumjigi AI become? We will reveal the test results next time!
+
+---
+
+## Summary & Key Takeaways
+
+- **First Llama 3.1 Fine-Tuning Run**: Executed initial LoRA fine-tuning on Llama 3.1 8B via Google Colab, resolving critical `eos_token` formatting and memory overflow issues.
+- **Empirical Training Diagnostics**: Extracted empirical loss convergence graphs across dataset variants, confirming valid weight updates for specialized empathetic counseling.
+- **AI-Assisted Slide Deck Synthesis**: Leveraged LLMs to convert frontend interface screenshots into a polished 6th-week capstone presentation script and slide structure.
+- **Automated Database ERD Architecture**: Directed AI to reverse-engineer backend models into a user-centric Entity-Relationship Diagram (ERD), clarifying schema constraints.
+

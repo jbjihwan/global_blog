@@ -33,3 +33,13 @@ El 9 de abril, usando el cuaderno de Colab que completamos ayer de manera ambici
 ![Captura de Terminal](./images/02_term.png)
 
 Hoy fue un día para sentir la emoción de ajustar directamente el último modelo de lenguaje Llama 3.1 con mis propias manos (y el cerebro de la IA). ¡Revelaremos los resultados de las pruebas la próxima vez!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Primer Ajuste Fino de Llama 3.1 8B**: Ejecutamos el entrenamiento LoRA inicial en Google Colab, solucionando fallos críticos de tokens `eos_token` y límites de memoria.
+- **Diagnóstico y Curvas de Aprendizaje**: Depuramos los registros y extrajimos gráficos de convergencia de pérdidas para verificar la adaptación al dominio de consejería.
+- **Automatización de Presentaciones con IA**: Generamos la estructura de diapositivas y el guión de presentación de la 6ª semana a partir de capturas de la interfaz frontend.
+- **Diseño de Arquitectura ERD Centrada en el Usuario**: Reestructuramos el diagrama de entidad-relación de la base de datos colocando la tabla User en el centro visual y lógico.
+
