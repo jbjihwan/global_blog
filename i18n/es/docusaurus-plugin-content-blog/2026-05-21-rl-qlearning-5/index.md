@@ -141,5 +141,5 @@ Desde el modelado en simulación y la fundamentación algorítmica, hasta la aut
 ### 📌 Resumen Ejecutivo de 3 a 5 Líneas
 1. **Superación de la Brecha Realidad-Simulación**: Supera la memoria limitada del microcontrolador (Arduino Uno 2KB SRAM) y el deslizamiento mecánico transfiriendo la Q-Table de 648 estados entrenada en Webots.
 2. **Arquitectura Distribuida Cerebro-Músculo**: El PC anfitrión ejecuta la visión artificial y la inferencia Q-Learning, enviando órdenes de movimiento por Bluetooth HC-06 a 115,200 baudios al Arduino para accionar los motores PWM.
-3. **Homografía de Visión ArUco Subcentimétrica**: Una cámara cenital con corrección de distorsión óptica rastrea marcadores ArUco (`DICT_4X4_50`), mapeando píxeles a coordenadas métricas reales $(x, y, \theta)$.
-4. **86.7% de Éxito en Hardware Físico**: Registró 26 aciertos en 30 pruebas en un cuadrilátero físico de $1.2\text{m} \times 1.2\text{m}$, demostrando que la discretización tabular cierra la brecha Sim-to-Real sin reentrenamiento.
+3. **Homografía de Visión ArUco Subcentimétrica**: Una cámara cenital con corrección de distorsión óptica rastrea marcadores ArUco (`DICT_4X4_50`), mapeando píxeles a coordenadas métricas reales (x, y, θ).
+4. **86.7% de Éxito en Hardware Físico**: Registró 26 aciertos en 30 pruebas en un cuadrilátero físico de 1.2m × 1.2m, demostrando que la discretización tabular cierra la brecha Sim-to-Real sin reentrenamiento.
