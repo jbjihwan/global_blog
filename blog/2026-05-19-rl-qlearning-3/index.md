@@ -102,3 +102,13 @@ The graph above contrasts convergence across 3 random seeds between the unobstru
 Our 648-bin Tabular Q-Learning model successfully navigates maze-like obstacle configurations.
 
 In Episode #4, we will load the saved model checkpoints (`models/*.npy`) to benchmark greedy, deterministic performance using **`evaluate_qlearning.py` and analyze comparative metrics against DQN and SARSA**!
+
+---
+
+## Summary & Key Takeaways
+
+- **Complex Obstacle Arena Design**: Configured a constrained 1.2m × 1.2m environment in Webots featuring 12 randomized interior wall blocks to evaluate non-trivial spatial pathfinding.
+- **Dynamic Episode Management**: Implemented automatic collision thresholds, goal radius triggering, and programmatic episode resets via Webots Supervisor IPC.
+- **Overcoming Local Minima**: Augmented reward shaping with negative gradient penalties against entrapment and oscillatory turning behaviors near corners.
+- **Headless Training Acceleration**: Achieved over 1,000 episodes per hour by disabling 3D rendering and running the Webots physics engine in fast headless batch mode.
+

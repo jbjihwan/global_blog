@@ -67,3 +67,13 @@ Para agilizar el entrenamiento repetido con múltiples semillas (Seeds 0, 1, 2),
 ## 5. Próximos Pasos
 
 En el episodio #4, evaluaremos los modelos guardados (`models/*.npy`) mediante **`evaluate_qlearning.py` para medir el rendimiento determinista y comparar métricas frente a DQN y SARSA**.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Diseno de Arena con Obstaculos Complejos**: Configurado un entorno cerrado de 1.2m × 1.2m en Webots con 12 bloques internos para evaluar navegacion y planificacion no trivial.
+- **Gestion Dinamica del Ciclo de Episodios**: Implementada deteccion automatica de colisiones mediante sensores de distancia, activacion de objetivos y reinicios por Supervisor IPC.
+- **Superacion de Minimos Locales**: Aplicado moldeado de recompensas (Reward Shaping) con penalizaciones de gradiente negativo para evitar bloqueos y oscilaciones en esquinas.
+- **Aceleracion de Entrenamiento Headless**: Logrado un rendimiento superior a 1,000 episodios por hora al desactivar la renderizacion 3D y ejecutar Webots en modo rapido.
+
