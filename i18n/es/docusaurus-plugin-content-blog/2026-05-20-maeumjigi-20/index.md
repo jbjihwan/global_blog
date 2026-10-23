@@ -34,3 +34,13 @@ Para resolver el frustrante error `401 Unauthorized` de la última vez, examiné
 ¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones. 
 
 Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Seleccion Automatizada de Checkpoints**: Implementados scripts de evaluacion en servidor que extraen y configuran automaticamente los mejores pesos de adaptadores sin intervencion manual.
+- **Benchmarking Paralelo Multimodelo**: Orquestado un pipeline de evaluacion en segundo plano ejecutando inferencias simultaneas sobre cuatro modelos candidatos en GPUs remotas.
+- **Persistencia de Conversaciones en Base de Datos**: Resueltos los bloqueos de autenticacion (`401 Unauthorized`) y asegurado el registro permanente de los dialogos en PostgreSQL/MySQL.
+- **Ampliacion de Funciones en App Movil**: Integradas la paginacion del foro comunitario y el filtrado avanzado del diario de animo en el cliente movil React Native.
+

@@ -39,3 +39,13 @@ As a result, I was able to leave a meaningful Git commit on the afternoon of May
 Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.
 
 It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.
+
+---
+
+## Summary & Key Takeaways
+
+- **Automated Checkpoint Selection**: Engineered server-side evaluation scripts (`run_test_20_30.sh`) that dynamically extract and stage the best-performing adapter weights without manual intervention.
+- **Parallel Multi-Model Benchmarking**: Orchestrated background evaluation pipelines running simultaneous inference across four distinct alias model candidates on remote GPU compute nodes.
+- **Full-Duplex Conversation Persistence**: Resolved authentication deadlocks (`401 Unauthorized`) and established persistent relational database logging for all multi-turn chatbot exchanges.
+- **Frontend App Feature Expansion**: Integrated community discussion pagination and multi-attribute mood diary filtering into the production React Native mobile client.
+
