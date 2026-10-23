@@ -990,7 +990,15 @@
 <li class="">Provisioning our AWS EC2 <code>g5.2xlarge</code> instance with automated containerized health checks.</li>
 <li class="">Launching closed-beta testing across military welfare communities.</li>
 <li class="">Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!</li>
-</ol>]]></content>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-18-maeumjigi-23#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>雙層安全包裝器（Safety Wrapper）架構</strong>：結合推論前的危機關鍵詞與語意分類分流，以及推論後的臨床倫理合規校驗，建立了零容錯的安全護欄。</li>
+<li class=""><strong>自殺危機即時阻斷與確定性路由</strong>：一旦識別極高危自殺傾向，堅決切斷模型幻覺，毫秒級直接旁路引流至官方 24 小時生命救助專線。</li>
+<li class=""><strong>生產級雲端 GPU 推論成本精算</strong>：實測 AWS EC2 <code>g5.2xlarge</code>（NVIDIA A10G 24GB）實例，在嚴格專案預算內達成支撐 60 路並發對話的高效吞吐。</li>
+<li class=""><strong>大一學期畢業設計終審答辯通關</strong>：圓滿完成第一階段答辯，全面驗證了端到端臨床共情度、護欄攔截準確率以及工程高可用底座。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

@@ -878,7 +878,15 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <li class="">Provisioning our AWS EC2 <code>g5.2xlarge</code> instance with automated containerized health checks.</li>
 <li class="">Launching closed-beta testing across military welfare communities.</li>
 <li class="">Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!</li>
-</ol>]]></content:encoded>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resumen-y-puntos-clave">Resumen y Puntos Clave<a href="https://globaldevlog.com/es/blog/2026-06-18-maeumjigi-23#resumen-y-puntos-clave" class="hash-link" aria-label="Enlace directo al Resumen y Puntos Clave" title="Enlace directo al Resumen y Puntos Clave" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Arquitectura de Safety Wrapper de Doble Capa</strong>: Implementado un guardarrail critico que combina triaje semantico previo con validacion etica posterior a la generacion.</li>
+<li class=""><strong>Protocolo de Intervencion Inmediata en Crisis</strong>: Disenado un bypass determinista que redirige inmediatamente expresiones suicidas de alto riesgo hacia lineas de ayuda 24/7 sin riesgo de alucinacion.</li>
+<li class=""><strong>Optimizacion de Costes de GPU en Cloud</strong>: Evaluada la instancia AWS EC2 <code>g5.2xlarge</code> (NVIDIA A10G 24GB) para soportar mas de 60 sesiones concurrentes dentro del presupuesto academico.</li>
+<li class=""><strong>Defensa Exitosa del Capstone Semestre 1</strong>: Concluido el primer semestre con una evaluacion sobresaliente del tribunal universitario, validando la empatia clinica y la robustez del sistema.</li>
+</ul>]]></content:encoded>
             <category>devlog</category>
             <category>safety-wrapper</category>
             <category>guardrail</category>

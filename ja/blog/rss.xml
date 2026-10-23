@@ -901,7 +901,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <li class="">Provisioning our AWS EC2 <code>g5.2xlarge</code> instance with automated containerized health checks.</li>
 <li class="">Launching closed-beta testing across military welfare communities.</li>
 <li class="">Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!</li>
-</ol>]]></content:encoded>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="まとめと要点">まとめと要点<a href="https://globaldevlog.com/ja/blog/2026-06-18-maeumjigi-23#%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A8%E8%A6%81%E7%82%B9" class="hash-link" aria-label="まとめと要点 への直接リンク" title="まとめと要点 への直接リンク" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>2層セーフティラッパー（Safety Wrapper）の構築</strong>: 推論前の危機キーワード・意味分類トリアージと、生成後の臨床倫理検証を組み合わせた安全アーキテクチャを実装しました。</li>
+<li class=""><strong>緊急即時バイパスプロトコル</strong>: 自殺高リスク発言を検知した場合、LLMのハルシネーションを排除し、24時間相談窓口へ即座に誘導する決定論的フェイルセーフを確立しました。</li>
+<li class=""><strong>本番GPUサービングのコスト最適化</strong>: AWS EC2 <code>g5.2xlarge</code>（NVIDIA A10G 24GB）を検証し、予算制約下で60ユーザー同時アクセスを処理できる高効率インフラを策定しました。</li>
+<li class=""><strong>第1学期キャップストーン最終審査合格</strong>: 技術実証と共感対話デモを通じて学部最終審査を成功裏に終え、第2学期の実フィールド展開への足がかりを築きました。</li>
+</ul>]]></content:encoded>
             <category>devlog</category>
             <category>safety-wrapper</category>
             <category>guardrail</category>

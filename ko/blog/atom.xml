@@ -1075,7 +1075,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <li class="">확정된 AWS EC2 <code>g5.2xlarge</code> 인스턴스 프로비저닝 및 Docker 컨테이너 오케스트레이션 구축</li>
 <li class="">군 장병 및 청년 대상 클로즈드 베타 테스트 운영 및 피드백 수집</li>
 <li class="">2학기 최종 상용 배포와 멀티모달(음성 음향 분석) 기능 확장!</li>
-</ol>]]></content>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="핵심-요약-및-배운-점">핵심 요약 및 배운 점<a href="https://globaldevlog.com/ko/blog/2026-06-18-maeumjigi-23#%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%95%BD-%EB%B0%8F-%EB%B0%B0%EC%9A%B4-%EC%A0%90" class="hash-link" aria-label="핵심 요약 및 배운 점에 대한 직접 링크" title="핵심 요약 및 배운 점에 대한 직접 링크" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>이중 계층 안전 래퍼(Safety Wrapper) 구축</strong>: 추론 전 위기 키워드 및 의미론적 분류 트리아지와 생성 후 임상 윤리 검증을 결합한 무결점 가드레일 아키텍처를 구현했습니다.</li>
+<li class=""><strong>위기 즉각 개입 프로토콜</strong>: 자살 고위험군 발언 감지 시 LLM 환각 가능성을 차단하고 24시간 자살예방 상담전화 및 긴급 기관으로 즉각 우회 라우팅하는 결정론적 방어선을 구축했습니다.</li>
+<li class=""><strong>상용 클라우드 GPU 서빙 비용 최적화</strong>: AWS EC2 <code>g5.2xlarge</code>(NVIDIA A10G 24GB) 인스턴스를 벤치마킹하여 예산 범위 내에서 60명 동시 접속을 수용하는 경제적 서빙 파이프라인을 확립했습니다.</li>
+<li class=""><strong>1학기 캡스톤 최종 심사 통과</strong>: 기술 검증 및 임상 공감도 시연을 통해 1학기 최종 발표 평가를 우수한 성적으로 마무리하며 2학기 현장 실증의 토대를 완성했습니다.</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
