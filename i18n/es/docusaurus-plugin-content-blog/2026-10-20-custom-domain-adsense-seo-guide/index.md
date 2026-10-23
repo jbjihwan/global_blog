@@ -140,3 +140,11 @@ Si por error se registra la URL raíz (`https://globaldevlog.com/`) en lugar del
 - [x] **Activos de AdSense**: `ads.txt` responde con código HTTP 200 y el ID correcto.
 - [x] **Sitemaps Multilingües**: Las 4 variantes (`sitemap.xml`, `ko/`, `ja/`, `es/`) son operativas.
 - [x] **Indexación Activa**: Google, Naver y Bing registran y procesan los feeds y páginas.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Infraestructura Edge con Costo Cero de Servidor**: Migrar del subdominio gratuito `github.io` a un dominio apex combinando Porkbun, Cloudflare DNS y GitHub Pages brinda CDN Anycast y SSL sin pagar hosting.
+2. **Aplanamiento CNAME y Enrutamiento Canónico**: Supera las restricciones de RFC 1034 para dominios raíz mediante CNAME Flattening, redirigiendo tráfico de `www` al apex de forma transparente.
+3. **Verificación de AdSense y Despliegue de ads.txt**: Inserta etiquetas de propiedad en `<head>` y expone `static/ads.txt` en la raíz para garantizar la aprobación sin errores 404 de rastreo.
+4. **Indexación Integral en Tres Buscadores**: Sincroniza sitemaps multilingües y canales RSS en Google Search Console, Naver Search Advisor y Bing Webmaster Tools sin fallos de host.

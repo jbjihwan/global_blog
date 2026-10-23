@@ -155,3 +155,11 @@ Before announcing your custom domain, run this sanity check:
 - [x] **Search Console Health**: Google, Naver, and Bing show clean, verified properties with active RSS feeds.
 
 With this modern infrastructure in place, your static blog operates with the speed of an edge CDN, zero server hosting bills, maximum search visibility across four languages, and full readiness for AdSense monetization.
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **Zero-Cost Edge Infrastructure**: Transitioning from free `github.io` to an apex domain via Porkbun, Cloudflare DNS, and GitHub Pages achieves enterprise CDN caching and SSL security at $0 server cost.
+2. **CNAME Flattening & Route Canonicalization**: Resolves RFC 1034 apex limitations and canonicalizes `www` to root domain with zero SSL handshake friction or redirect loops.
+3. **AdSense Ownership & ads.txt Hardening**: Directly injects publisher verification into static `<head>` and serves `static/ads.txt` from site root, averting crawler 404 traps.
+4. **Multi-Engine Search Indexing Triad**: Synchronizes localized sitemaps and RSS feeds across Google Search Console, Naver Search Advisor, and Bing Webmaster Tools with zero host mismatches.
