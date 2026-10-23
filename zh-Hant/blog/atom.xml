@@ -1102,7 +1102,15 @@
 「本次 fine_tuning_4 擺脫單純調整 LoRA Alpha，轉向以語料混合比例 (mixed_2_1, mixed_5_5, mixed_7_3) 作為核心自變數展開橫向對抗實驗。」</p>
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="比例實驗設計" src="https://globaldevlog.com/zh-Hant/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
-<p>第 4 輪微調自此化身為一場驗證「日常常識」與「專業同理心」能否達成最完美動態平衡的技術競技場。三組異質資料集被注入 Qwen3.5-9B 底座，新一輪 GPU 矩陣訓練轟鳴打響！</p>]]></content>
+<p>第 4 輪微調自此化身為一場驗證「日常常識」與「專業同理心」能否達成最完美動態平衡的技術競技場。三組異質資料集被注入 Qwen3.5-9B 底座，新一輪 GPU 矩陣訓練轟鳴打響！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-22-maeumjigi-21#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>精準捕捉日常對話失衡問題</strong>：排查發現第 3 輪微調模型對天氣或用餐等日常閒聊也表現出過於沉重的心理治療說教傾向，存在嚴重過度擬合。</li>
+<li class=""><strong>萬級規模 v6 高品質語料生成</strong>：透過 Anthropic Haiku Batch API 批次生成了涵蓋 20 類受眾畫像、統一 500 詞元規格的 10,000 條專業情緒對白資料集（<code>v6.jsonl</code>）。</li>
+<li class=""><strong>配比實驗矩陣系統設計</strong>：科學配置了 7:3、2:1 及 5:5 三組對照混合資料集，系統化探索專業危機諮商與開放域社交閒聊的黃金平衡點。</li>
+<li class=""><strong>啟動第 4 輪微調攻堅實驗</strong>：正式在 Qwen 3.5-9B 基座上展開全量訓練，旨在兼具高度臨床危機共情力與自然流暢的日常對答體驗。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

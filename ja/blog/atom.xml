@@ -1056,7 +1056,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 「今回の学習はデータセットの混合比率基準で進行します。」</p>
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="比率実験" src="https://globaldevlog.com/ja/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
-<p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>]]></content>
+<p>4次ファインチューニングは、人工知能(AI)の「日常性」と「専門性（カウンセリング）」を最も完璧に調和させるデータ比率を検証する舞台となりました！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="まとめと要点">まとめと要点<a href="https://globaldevlog.com/ja/blog/2026-05-22-maeumjigi-21#%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A8%E8%A6%81%E7%82%B9" class="hash-link" aria-label="まとめと要点 への直接リンク" title="まとめと要点 への直接リンク" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>感情偏向バイアスの特定</strong>: 第3次ファインチューニングモデルが天気や食事などの日常的な質問に対しても過度に深刻なカウンセリング調で応答する問題を特定しました。</li>
+<li class=""><strong>1万件規模のv6合成データ生成</strong>: Anthropic Haiku Batch APIを活用し、20のペルソナと平均500トークン規格を持つ高品質な感情対話データ10,000件（<code>v6.jsonl</code>）を構築しました。</li>
+<li class=""><strong>データ配合比率の実験設計</strong>: 専門的カウンセリングと日常会話の調和を目指し、7:3、2:1、5:5の3つのデータセット配合マトリックスを設計しました。</li>
+<li class=""><strong>第4次ファインチューニングの開始</strong>: Qwen 3.5-9Bモデルへの学習を開始し、危機対応の共感性と自然な対話の流暢性を両立させる最適比率の検証に着手しました。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

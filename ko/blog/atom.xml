@@ -1189,7 +1189,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 "이번 파인튜닝(fine_tuning_4)은 alpha 값이 아닌 훈련 데이터셋 혼합 비율(mixed_2_1, mixed_5_5, mixed_7_3) 기준으로 훈련을 진행합니다."</p>
 </blockquote>
 <p><img decoding="async" loading="lazy" alt="사진 02" src="https://globaldevlog.com/ko/assets/images/02_ratio-aa49284ad0e0859f6efd82a31aa871ce.png" width="2507" height="1395" class="img_ev3q"></p>
-<p>이제 4차 파인튜닝은 어떤 데이터 비율이 AI의 '일상성'과 '전문성(상담)'을 가장 완벽하게 조화시킬 수 있는지 검증하는 무대가 되었습니다. <code>mixed_7_3</code>, <code>mixed_5_5</code>, <code>mixed_2_1</code> 세 가지 버전의 데이터셋을 생성하고 Qwen3.5-9B 모델에 주입하기 시작했습니다!</p>]]></content>
+<p>이제 4차 파인튜닝은 어떤 데이터 비율이 AI의 '일상성'과 '전문성(상담)'을 가장 완벽하게 조화시킬 수 있는지 검증하는 무대가 되었습니다. <code>mixed_7_3</code>, <code>mixed_5_5</code>, <code>mixed_2_1</code> 세 가지 버전의 데이터셋을 생성하고 Qwen3.5-9B 모델에 주입하기 시작했습니다!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="핵심-요약-및-배운-점">핵심 요약 및 배운 점<a href="https://globaldevlog.com/ko/blog/2026-05-22-maeumjigi-21#%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%95%BD-%EB%B0%8F-%EB%B0%B0%EC%9A%B4-%EC%A0%90" class="hash-link" aria-label="핵심 요약 및 배운 점에 대한 직접 링크" title="핵심 요약 및 배운 점에 대한 직접 링크" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>과도한 감정 편향 문제 포착</strong>: 3차 파인튜닝 모델이 날씨나 식사 같은 일상적인 질문에도 무겁고 심각한 심리 치료 어조로 반응하는 대화 불균형을 확인했습니다.</li>
+<li class=""><strong>1만 건 규모 v6 합성 데이터 구축</strong>: Anthropic Haiku Batch API를 활용하여 20개 페르소나 및 500토큰 길이 규격의 고품질 감정 대화 10,000건(<code>v6.jsonl</code>)을 생성했습니다.</li>
+<li class=""><strong>데이터 혼합 비율(Mix Ratio) 실험 설계</strong>: 전문 심리 상담과 일상 잡담의 최적 조화를 찾기 위해 7:3, 2:1, 5:5의 세 가지 데이터셋 믹스를 체계적으로 구성했습니다.</li>
+<li class=""><strong>4차 파인튜닝 훈련 착수</strong>: Qwen 3.5-9B 기반 모델 학습을 시작하여 전문적인 위기 공감 능력과 자연스러운 일상 대화 유창성을 동시에 확보하는 기틀을 마련했습니다.</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
