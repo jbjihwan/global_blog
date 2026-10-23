@@ -93,3 +93,13 @@ La tabla Q resultante contiene solo **648 × 4 = 2,592 parámetros**, permitiend
 Con el entorno de Webots, la interfaz IPC por sockets TCP y la discretización en 648 estados listos, el robot puede comenzar su aprendizaje.
 
 En el episodio #2, abordaremos la **implementación matemática de Tabular Q-Learning, la política de exploración ε-greedy con decaimiento y el ajuste de la función de recompensa**!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Configuracion de Simulacion en Webots**: Construido un entorno de robot movil con traccion diferencial, fisica realista y sensores infrarrojos de proximidad en Webots.
+- **Arquitectura IPC por Sockets TCP**: Disenado un puente de comunicacion TCP de baja latencia que desacopla la simulacion fisica del motor de aprendizaje por refuerzo en Python.
+- **Discretizacion del Espacio a 648 Estados**: Reducidas las coordenadas continuas y lecturas de sensores a 648 estados discretos (3 de distancia × 12 de orientacion × 18 de obstaculos).
+- **Espacio de Acciones Cinematicas**: Definidas tres acciones discretas de velocidad (Avanzar, Girar Izquierda, Girar Derecha) para garantizar un control determinista y estable.
+
