@@ -855,7 +855,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <p>CSRT 추적기는 공간 신뢰도 맵을 활용하므로 차선 변경이나 앞차의 일시적 회전 시에도 바운딩 박스를 놓치지 않고 안정적으로 유지합니다.</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-다음-편-예고">3. 다음 편 예고<a href="https://globaldevlog.com/ko/blog/2026-06-27-vision-anpr-3#3-%EB%8B%A4%EC%9D%8C-%ED%8E%B8-%EC%98%88%EA%B3%A0" class="hash-link" aria-label="3. 다음 편 예고에 대한 직접 링크" title="3. 다음 편 예고에 대한 직접 링크" translate="no">​</a></h2>
-<p>다음 4편에서는 작은 번호판 크롭 이미지의 심한 뭉개짐을 극복하기 위한 <strong>EDSR_x4 심층 잔차 초해상화 신경망</strong>과, 센서 노이즈를 상쇄하는 <strong>다중 프레임 이미지 스태킹(Stacking)</strong> 기술을 다룹니다.</p>]]></content:encoded>
+<p>다음 4편에서는 작은 번호판 크롭 이미지의 심한 뭉개짐을 극복하기 위한 <strong>EDSR_x4 심층 잔차 초해상화 신경망</strong>과, 센서 노이즈를 상쇄하는 <strong>다중 프레임 이미지 스태킹(Stacking)</strong> 기술을 다룹니다.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35줄-최종-요약-executive-summary">📌 3~5줄 최종 요약 (Executive Summary)<a href="https://globaldevlog.com/ko/blog/2026-06-27-vision-anpr-3#-35%EC%A4%84-%EC%B5%9C%EC%A2%85-%EC%9A%94%EC%95%BD-executive-summary" class="hash-link" aria-label="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" title="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>전체 화면 단일 검출의 한계</strong>: $640 \times 480$ 전체 프레임에서 $30 \times 15$ 픽셀 수준의 미소 번호판을 직접 탐색하면 도로 표지판·간판 오탐율이 급증하고 처리 속도가 10 FPS 이하로 급락합니다.</li>
+<li class=""><strong>2단계 계층형 객체 검출(Hierarchical Detection)</strong>: YOLOv3-tiny로 차량 관심 영역(ROI)을 1차 크롭한 뒤, 차량 내부에서 전용 YOLOv5 모델로 번호판을 2차 정밀 검출하여 오탐을 98% 제거했습니다.</li>
+<li class=""><strong>CSRT 상관 필터 기반 추적 연동</strong>: 매 프레임 딥러닝 추론을 돌리는 대신 OpenCV CSRT 트래커를 결합하고 15프레임 주기 재검출 인터벌을 적용하여 추적 연속성을 확보했습니다.</li>
+<li class=""><strong>GPU 연산량 80% 절감 및 50+ FPS 달성</strong>: 추적과 검출의 하이브리드 파이프라인 설계를 통해 GPU 부하를 80% 이상 감축하며 실시간 50 FPS 이상의 고속 처리를 완성했습니다.</li>
+</ol>]]></content:encoded>
             <category>computer-vision</category>
             <category>anpr</category>
             <category>yolo</category>

@@ -774,7 +774,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p><img decoding="async" loading="lazy" alt="CSRTトラッカーによる追跡画面" src="https://globaldevlog.com/ja/assets/images/02_csrt_tracking-bea82f7c3eb5c74b33968501166fbe5a.png" width="2139" height="1599" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-次回予告">3. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-27-vision-anpr-3#3-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="3. 次回予告 への直接リンク" title="3. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>第4編では、ぼやけたプレート画像を復元する<strong>EDSR_x4深層超解像ネットワーク</strong>と、ノイズを低減する<strong>マルチフレームスタッキング技術</strong>を解説します。</p>]]></content>
+<p>第4編では、ぼやけたプレート画像を復元する<strong>EDSR_x4深層超解像ネットワーク</strong>と、ノイズを低減する<strong>マルチフレームスタッキング技術</strong>を解説します。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/2026-06-27-vision-anpr-3#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>全画面単一推論の限界</strong>: $640 \times 480$ の画像全体から極小のナンバープレートを直接探索すると、看板等の誤検知が多発し推論速度も10 FPS未満に低下します。</li>
+<li class=""><strong>2段階の階層型オブジェクト検出</strong>: 軽量なYOLOv3-tinyで車両領域(ROI)を大まかに切り出し、その内部でのみ特化型YOLOv5を走らせることで誤認を98%排除しました。</li>
+<li class=""><strong>CSRT相関フィルタ追跡の融合</strong>: 毎フレームのDNN推論を避け、OpenCV CSRTトラッカーと15フレーム周期の再検出を組み合わせることで追跡の安定性と高速性を両立しました。</li>
+<li class=""><strong>GPU負荷80%削減と50+ FPSの実現</strong>: 検出と追跡のハイブリッド設計によりGPUリソース消費を80%カットし、50 FPSを超える超高速リアルタイムパイプラインを確立しました。</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
