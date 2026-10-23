@@ -114,3 +114,13 @@ The data cleansing pipeline strictly dropped malformed rows to guarantee trainin
 3. **Ready for Distributed Training**: Output datasets were validated and staged for GPU cluster deployment on Google Colab and AWS.
 
 In Dev Log #5, we dive into the financial reality of large-scale LLM data synthesis and the API cost challenges that followed!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Canalización Autónoma de Datos en 5 Fases**: Transformamos 124,500 registros de diálogo sin procesar en conjuntos de datos JSONL optimizados para el fine-tuning de instrucciones.
+- **Sanitización Rigurosa de PII y Paridad de Turnos**: Enmascaramos información personal sensible y eliminamos 14,500 registros con turnos rotos o respuestas incompletas del asistente.
+- **Presupuesto de Tokens y Límite de Contexto**: Aplicamos un límite estricto de menos de 2,048 tokens con el tokenizador de Llama 3.1 para prevenir fallos de OOM en GPU.
+- **Formateo Estricto de Tokens Especiales**: Integramos la sintaxis oficial (`<|begin_of_text|>`, `<|start_header_id|>`, `<|eot_id|>`), preparando 99,000 muestras de entrenamiento y 11,000 de validación.
+

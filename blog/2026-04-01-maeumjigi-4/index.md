@@ -114,3 +114,13 @@ The data cleansing pipeline strictly dropped malformed rows to guarantee trainin
 3. **Ready for Distributed Training**: Output datasets were validated and staged for GPU cluster deployment on Google Colab and AWS.
 
 In Dev Log #5, we dive into the financial reality of large-scale LLM data synthesis and the API cost challenges that followed!
+
+---
+
+## Summary & Key Takeaways
+
+- **Autonomous 5-Stage Data Engineering**: Architected an autonomous Python pipeline to transform 124,500 raw AI Hub multi-speaker counseling records into clean JSONL instruction datasets.
+- **Strict Turn Parity & PII Redaction**: Filtered 14,500 malformed, orphan, or PII-exposed dialogue records, ensuring zero data contamination and consistent user-assistant alternation.
+- **Token Budgeting & Context Ceiling**: Profiling with the Llama 3.1 BPE tokenizer enforced a hard limit under 2,048 tokens to eliminate out-of-memory errors during PyTorch backpropagation.
+- **Llama 3.1 Special Token Formatting**: Injected exact special tokens (`<|begin_of_text|>`, `<|start_header_id|>`, `<|eot_id|>`) to safeguard against infinite generation loops during training.
+

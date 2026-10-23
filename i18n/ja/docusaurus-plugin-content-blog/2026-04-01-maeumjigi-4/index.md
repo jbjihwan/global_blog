@@ -114,3 +114,13 @@ The data cleansing pipeline strictly dropped malformed rows to guarantee trainin
 3. **Ready for Distributed Training**: Output datasets were validated and staged for GPU cluster deployment on Google Colab and AWS.
 
 In Dev Log #5, we dive into the financial reality of large-scale LLM data synthesis and the API cost challenges that followed!
+
+---
+
+## 要約と重要なポイント
+
+- **自律型5段階データ前処理パイプラインの構築**: 124,500件のAI Hub生データを、指示チューニング用の標準JSONLデータセットへ変換する完全自動処理を実現しました。
+- **個人情報（PII）の匿名化とターン整合性の確保**: 電話番号や部隊名等の機密情報をマスキングし、アシスタントの未応答など欠陥データ14,500件を除外しました。
+- **2048トークンのコンテキスト上限管理**: Llama 3.1 BPEトークナイザーを用いたプロファイリングにより、2,048トークンを超える長文対話を事前に制御してOOMを回避しました。
+- **Llama 3.1専用チャットテンプレートの厳格適用**: `<|begin_of_text|>`、`<|start_header_id|>`、`<|eot_id|>` 等の特殊トークンを正確に組み込み、学習と検証の9:1分割セットを完成させました。
+
