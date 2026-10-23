@@ -31,3 +31,13 @@ Al simplemente aumentar la asignación de tokens, el modelo comenzó a generar o
 También se obtuvieron los resultados de la diferencia de rendimiento según el hiperparámetro de LoRA `alpha`. Generamos gráficos como `05_alpha_comparison_daily.png`. Con `rank=16` fijo, visualizamos claramente cómo diferían los patrones y la calidad final al dar `alpha=8` frente a `alpha=16`. 
 
 Los modelos con los parámetros correctos y suficiente longitud de token se estaban acercando al verdadero 'Maeumjigi' que planeamos.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Ampliacion del Limite de Tokens**: Descubierto que las respuestas rigidas se debian a limitaciones de generacion; se incremento `max_new_tokens` a 384 aprovechando la VRAM libre de la GPU.
+- **Mejora Cualitativa de la Empatia**: Comprobado que un mayor margen de tokens permite construir respuestas terapeuticas multicapa en lugar de disclaimers medicos superficiales de una sola linea.
+- **Comparativa de Hiperparametros LoRA**: Evaluado el factor de escala alpha = 8 frente a alpha = 16 (con rank = 16 fijo), analizando la estabilidad del sobreajuste y la absorcion del dominio.
+- **Consolidacion para la Defensa Intermedia**: Generadas curvas de aprendizaje y matrices comparativas para la presentacion de mitad de semestre del proyecto capstone.
+

@@ -36,3 +36,13 @@ By simply increasing the token allowance, the model maintained its context to th
 The results for the biggest objective of the 2nd fine-tuning—the performance difference based on the LoRA hyperparameter `alpha`—were also out. By analyzing the logs piled up in the `fine_tuning_2` folder, we generated graphs like `05_alpha_comparison_daily.png`. With `rank=16` fixed, we clearly visualized how the model's overfitting patterns and final answer quality differed when given `alpha=8` versus `alpha=16`.
 
 Ultimately, models granted the correct hyperparameters and ample token length were finally getting closer to the true 'Maeumjigi' (Heart-keeper) we had originally planned. It seems our mid-term presentation preparations will wrap up very smoothly!
+
+---
+
+## Summary & Key Takeaways
+
+- **Expanding Generation Headroom**: Diagnosed curt, robotic counseling responses as artificial token truncation and safely scaled `max_new_tokens` to 384 utilizing available GPU VRAM headroom.
+- **Qualitative Empathy Breakthrough**: Verified that expanded context windows enable multi-sentence empathetic validation and de-escalation rather than dismissive, one-line medical disclaimers.
+- **LoRA Hyperparameter Benchmark**: Compared LoRA scaling factor alpha = 8 versus alpha = 16 (with fixed rank = 16), mapping empirical trade-offs between domain overfitting and conversational flexibility.
+- **Mid-Term Milestone Alignment**: Synthesized automated loss curves and qualitative evaluation matrices, confirming readiness for our university capstone mid-term presentation.
+
