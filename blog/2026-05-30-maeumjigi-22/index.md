@@ -132,3 +132,13 @@ On May 30th, our autonomous documentation script compiled `fine_tuning_4_report.
 3. **Production Blueprint Published**: Completed the full-stack architecture bridging Next.js, FastAPI, vLLM, and Redis.
 
 In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!
+
+---
+
+## Summary & Key Takeaways
+
+- **Over-Counseling Paradox Resolved**: Eliminated hyper-formal, robotic therapeutic reactions by curating a balanced 2:1 training data mix ratio of clinical counseling to daily casual chit-chat.
+- **Golden Weight Checkpoint-4400**: Identified Checkpoint-4400 as our optimal fine-tuned weight, achieving the project's lowest validation loss (2.68) and peak human empathy scores.
+- **Production Full-Stack Architecture**: Established an end-to-end serving blueprint integrating Next.js, FastAPI orchestration, vLLM continuous batching, and Redis session caching.
+- **Milestone Validation**: Confirmed stable sub-second response latencies and high conversational fluency, completing our Phase 1 experimental modeling sprint.
+

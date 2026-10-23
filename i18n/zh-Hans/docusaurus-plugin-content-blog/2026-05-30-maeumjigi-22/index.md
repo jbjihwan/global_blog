@@ -132,3 +132,13 @@ On May 30th, our autonomous documentation script compiled `fine_tuning_4_report.
 3. **Production Blueprint Published**: Completed the full-stack architecture bridging Next.js, FastAPI, vLLM, and Redis.
 
 In Dev Log #23, we enter the final milestone of Semester 1: building our dual-layer Safety Wrapper guardrail and calculating cloud GPU server budgets for university deployment!
+
+---
+
+## 核心总结与技术要点
+
+- **攻克“过度心理咨询”病理缺陷**：通过创新设计的 2:1 黄金数据配比（66.7% 临床危机对话 + 33.3% 开放域日常社交闲聊），彻底治愈了模型草木皆兵的死板治疗反应。
+- **锁定黄金权重 Checkpoint-4400**：在第 4 轮微调实验中，该检查点录得全项目历史最低验证集损失（2.68），并在人工盲测盲评中夺得同理心最高评分。
+- **落地生产级全栈服务架构**：构建了无缝串联 Next.js 前端交互、FastAPI 异步编排调度、vLLM 连续批处理推理与 Redis 高速会话缓存的高可用生产底座。
+- **达成一阶段模型收官里程碑**：实测端到端首字响应延迟稳定在 1 秒以内，为毕业设计第一学期终审答辩奠定了坚实的技术底牌。
+
