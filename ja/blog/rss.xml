@@ -792,7 +792,15 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p><code>IoU &gt; 0.05</code> を超えた段階で侵犯フラグを有効化し、ナンバープレート検出器を起動します。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-次回予告">4. 次回予告<a href="https://globaldevlog.com/ja/blog/2026-06-26-vision-anpr-2#4-%E6%AC%A1%E5%9B%9E%E4%BA%88%E5%91%8A" class="hash-link" aria-label="4. 次回予告 への直接リンク" title="4. 次回予告 への直接リンク" translate="no">​</a></h2>
-<p>第3編では、<strong>階層的物体検出（YOLOv3 + YOLOv5プレート専用モデル）<strong>と、GPU負荷を大幅に削減する</strong>CSRT追跡器の統合</strong>について解説します。</p>]]></content:encoded>
+<p>第3編では、<strong>階層的物体検出（YOLOv3 + YOLOv5プレート専用モデル）<strong>と、GPU負荷を大幅に削減する</strong>CSRT追跡器の統合</strong>について解説します。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/2026-06-26-vision-anpr-2#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>消失点台形ROIマスキング</strong>: 遠近法に基づいた台形マスクを適用することで、路肩の看板や空など95%以上の無関係なエッジノイズをカットします。</li>
+<li class=""><strong>確率的ハフ変換と傾きフィルタリング</strong>: Canny輪郭抽出に <code>HoughLinesP</code> と傾き閾値制約（$|slope| &gt; 0.5$）を適用し、道路の亀裂や影を本物の白線から分離します。</li>
+<li class=""><strong>7フレーム移動平均によるジッター抑制</strong>: 検出された直線パラメータを直近7フレームの移動平均で平滑化し、路面の振動による車線検出の激しいブレを防止します。</li>
+<li class=""><strong>幾何学的ポリゴンIoU侵犯判定</strong>: 単純な点接触判定ではなく、車両タイヤ接地ポリゴンと車線間の幾何学的IoUを算出して確実な車線逸脱・侵犯を判定します。</li>
+</ol>]]></content:encoded>
             <category>computer-vision</category>
             <category>anpr</category>
             <category>lane-detection</category>

@@ -824,7 +824,15 @@
 <p>當 <code>IoU &gt; 0.05</code> 時，系統判定發生壓線違規事件，立即啟動下游的 <strong>YOLOv5 車牌局部檢測與超解析度重建</strong>。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下篇預告">4. 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-26-vision-anpr-2#4-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="4. 下篇預告的直接連結" title="4. 下篇預告的直接連結" translate="no">​</a></h2>
-<p>在第 3 篇中，我們將深入解析 <strong>兩階段分層目標檢測架構</strong>，展示如何將 YOLOv3 車輛框與精調的 YOLOv5 車牌模型結合，並藉助 <strong>CSRT 追蹤器</strong> 節省 80% 的 GPU 推論開銷。</p>]]></content:encoded>
+<p>在第 3 篇中，我們將深入解析 <strong>兩階段分層目標檢測架構</strong>，展示如何將 YOLOv3 車輛框與精調的 YOLOv5 車牌模型結合，並藉助 <strong>CSRT 追蹤器</strong> 節省 80% 的 GPU 推論開銷。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-26-vision-anpr-2#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>滅點梯形透視 ROI 遮罩</strong>：基於道路滅點建立梯形感興趣區域遮罩，預先過濾超 95% 的路側廣告牌、天空與無關邊緣雜訊。</li>
+<li class=""><strong>機率霍夫變換與斜率嚴密過濾</strong>：深度融合 Canny 邊緣運算子與 <code>HoughLinesP</code>，施加斜率閾值約束 ($|slope| &gt; 0.5$)，精準剝離瀝青裂縫與陰影干擾。</li>
+<li class=""><strong>7 幀時序滑動平均平滑佇列</strong>：對車線擬合參數建立 7 幀移動均值濾波，徹底撫平因路面顛簸與光影瞬變導致的車道線劇烈抖動。</li>
+<li class=""><strong>幾何多邊形 IoU 壓線侵入判據</strong>：釋棄粗糙的單點碰撞檢測，計算車輪接地多邊形與車道實線的幾何交並比 (IoU)，實現高精度違章壓線事件觸發。</li>
+</ol>]]></content:encoded>
             <category>computer-vision</category>
             <category>anpr</category>
             <category>lane-detection</category>

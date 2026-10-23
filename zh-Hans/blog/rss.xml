@@ -823,7 +823,15 @@
 <p>当 <code>IoU &gt; 0.05</code> 时，系统判定发生压线违章事件，立即激活下游的 <strong>YOLOv5 车牌局部检测与超分辨率重建</strong>。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下篇预告">4. 下篇预告<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-26-vision-anpr-2#4-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A" class="hash-link" aria-label="4. 下篇预告的直接链接" title="4. 下篇预告的直接链接" translate="no">​</a></h2>
-<p>在第 3 篇中，我们将深入解析 <strong>两阶段分层目标检测架构</strong>，展示如何将 YOLOv3 车辆框与精调的 YOLOv5 车牌模型结合，并借助 <strong>CSRT 跟踪器</strong> 节省 80% 的 GPU 推断开销。</p>]]></content:encoded>
+<p>在第 3 篇中，我们将深入解析 <strong>两阶段分层目标检测架构</strong>，展示如何将 YOLOv3 车辆框与精调的 YOLOv5 车牌模型结合，并借助 <strong>CSRT 跟踪器</strong> 节省 80% 的 GPU 推断开销。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心总结-executive-summary">📌 3~5 行核心总结 (Executive Summary)<a href="https://globaldevlog.com/zh-Hans/blog/2026-06-26-vision-anpr-2#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93-executive-summary" class="hash-link" aria-label="📌 3~5 行核心总结 (Executive Summary)的直接链接" title="📌 3~5 行核心总结 (Executive Summary)的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>灭点梯形透视 ROI 掩膜</strong>：基于道路灭点建立梯形感兴趣区域掩码，预先过滤超 95% 的路侧广告牌、天空与无关边缘噪点。</li>
+<li class=""><strong>概率霍夫变换与斜率严密过滤</strong>：深度融合 Canny 边缘算子与 <code>HoughLinesP</code>，施加斜率阈值约束 ($|slope| &gt; 0.5$)，精准剥离沥青裂缝与阴影干扰。</li>
+<li class=""><strong>7 帧时序滑动平均平滑队列</strong>：对车线拟合参数建立 7 帧移动均值滤波，彻底抚平因路面颠簸与光影瞬变导致的车道线剧烈抖动。</li>
+<li class=""><strong>几何多边形 IoU 压线侵入判据</strong>：摒弃粗糙的单点碰撞检测，计算车轮接地多边形与车道实线的几何交并比 (IoU)，实现高精度违章压线事件触发。</li>
+</ol>]]></content:encoded>
             <category>computer-vision</category>
             <category>anpr</category>
             <category>lane-detection</category>
