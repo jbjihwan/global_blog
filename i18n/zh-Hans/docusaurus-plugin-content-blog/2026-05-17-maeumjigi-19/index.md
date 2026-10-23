@@ -146,3 +146,13 @@ By drafting `chatbot_design_prompt.md`, we laid the theoretical foundation for b
 3. **Hybrid AI Vision**: Established the conceptual design for integrating symbolic Knowledge Graphs to eliminate clinical hallucinations in mental health counseling.
 
 In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the rollout of live community board features!
+
+---
+
+## 核心总结与技术要点
+
+- **评估技术报告全自动流水线**：依托结构化 Prompt 引导智能体，将繁杂的微调多检查点 JSON 评测矩阵在 3 分钟内直接转化为专业格式的 Word 技术分析专报。
+- **彻底根除 401 Unauthorized 鉴权死锁**：逆向深挖定位了 PostgreSQL 备份还原后引发登录死循环的 Bcrypt 盐值兼容性与 JWT 密钥隐形换行符缺陷，彻底完成修复。
+- **首创知识图谱混合防幻觉架构**：在参数化大模型柔性共情的基础上，深度融合 Neo4j 确定性医学知识图谱三元组检索，彻底拦截精神类药物咨询中的虚假幻觉。
+- **全栈会话持久化工程落地**：稳固打通了 Next.js 前端、FastAPI 异步路由与 PostgreSQL 之间的高可靠 CORS 跨域通信与会话状态管理底座。
+

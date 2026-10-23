@@ -146,3 +146,13 @@ By drafting `chatbot_design_prompt.md`, we laid the theoretical foundation for b
 3. **Hybrid AI Vision**: Established the conceptual design for integrating symbolic Knowledge Graphs to eliminate clinical hallucinations in mental health counseling.
 
 In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the rollout of live community board features!
+
+---
+
+## Summary & Key Takeaways
+
+- **Autonomous Benchmark Reporting**: Automated multi-checkpoint fine-tuning analysis, transforming raw JSON matrices into formatted technical Word documents in under 3 minutes via structured AI prompts.
+- **Root-Cause Authentication Resolution**: Diagnosed and permanently fixed cascading `401 Unauthorized` errors stemming from bcrypt salt incompatibilities and JWT secret newline mismatches.
+- **Hybrid Knowledge Graph Design**: Architected a dual-engine blueprint coupling parametric LLM empathy with deterministic Neo4j graph triples to prevent clinical medication hallucinations.
+- **Full-Stack Session Reliability**: Established resilient session persistence and clean CORS handshake pipelines across Next.js, FastAPI, and PostgreSQL.
+
