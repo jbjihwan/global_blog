@@ -205,3 +205,10 @@ In **Lecture 2**, we will dive into **Context Management & Prompt Architecture**
 ### 參考資料與官方課程影片 (References)
 - **史丹佛官方課程影片播放清單**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **開設機構**: Stanford University, Department of Computer Science
+---
+
+### 📌 3~5 行核心總結 (Executive Summary)
+1. **典範轉移**：軟體工程師的角色從純手工敲擊語法的「程式碼打字員」，徹底轉變為調度多個 AI 智慧代理人的「系統交響樂指揮家」。
+2. **規範驅動開發 (SDD)**：工程高槓桿的核心在於撰寫機器可讀的 `SPEC.md` 規格書與邊界不變量契約，而非手寫瑣碎的實作細節。
+3. **閉環工程與 MCP**：摒棄單次對話直出程式碼的幻覺，全面結合模型上下文協定 (MCP) 與自動化單元測試，打造具備自動修復能力的工程反饋迴路。
+4. **底層基礎的關鍵價值**：AI 產出程式碼的成本趨近於零，審查並排查複雜競爭狀態、效能瓶頸與安全漏洞所需的底層基礎知識反而變得更加不可或缺。

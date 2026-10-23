@@ -205,3 +205,10 @@ In **Lecture 2**, we will dive into **Context Management & Prompt Architecture**
 ### 参考資料および公式講義映像 (References)
 - **スタンフォード公式講義動画プレイリスト**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **開講機関**: Stanford University, Department of Computer Science
+---
+
+### 📌 3〜5行のエグゼクティブサマリー (Executive Summary)
+1. **パラダイムの大転換**: ソフトウェアエンジニアの役割は、手動で構文を入力する「コードタイピスト」から、自律型AIエージェントチームを統率する「オーケストラの指揮者」へと進化しました。
+2. **仕様駆動開発 (SDD)**: 実装方法を指示するのではなく、不変条件と受け入れ基準を厳格に定めた `SPEC.md` を設計することが現代エンジニアの最重要スキルです。
+3. **ループ工学とMCP**: 単発の回答を期待するのではなく、Model Context Protocol (MCP) と自動単体テストを連動させた自己修復フィードバックループを構築します。
+4. **基礎知識の重要性**: AIが高速にコードを生成するからこそ、隠れた並行性バグや脆弱性を見抜くためのコンピュータ科学の基礎（データ構造、OS、分散システム）が極めて重要になります。

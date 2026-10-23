@@ -205,3 +205,10 @@ In **Lecture 2**, we will dive into **Context Management & Prompt Architecture**
 ### 参考资料与官方课程视频 (References)
 - **斯坦福官方课程视频播放列表**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **开设机构**: Stanford University, Department of Computer Science
+---
+
+### 📌 3~5 行核心总结 (Executive Summary)
+1. **范式巨变**：软件工程师的角色从手工敲击语法的“代码打字员”，彻底转变为调度自律 AI 智能体编队的“系统交响乐指挥家”。
+2. **规范驱动开发 (SDD)**：工程核心杠杆在于设计机器可读的 `SPEC.md` 规范与边界不变量契约，而非在对话框中手写具体实现细节。
+3. **闭环工程与 MCP**：不再依赖单次直出的代码，而是结合模型上下文协议 (MCP) 与确定性单元测试，构建具备自动自愈能力的工程闭环。
+4. **计算机基础的逆向升值**：AI 生成代码速度越快，为排查隐蔽死锁、算法性能瓶颈与安全漏洞所需的底层体系结构与操作系统知识就越显无可替代。

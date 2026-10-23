@@ -202,6 +202,12 @@ The faculty answer is profound and decisive: **Computer science fundamentals are
 In **Lecture 2**, we will dive into **Context Management & Prompt Architecture**: how to structure multi-thousand-token context windows, optimize repository maps, and prevent context saturation during complex multi-file feature additions. Stay tuned to GlobalDevLog!
 ---
 
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **El Cambio de Paradigma**: El ingeniero de software pasa de ser un mecanógrafo de sintaxis a un director de orquesta que coordina escuadrones de agentes de IA autónomos.
+2. **Desarrollo Guiado por Especificaciones (SDD)**: La habilidad de mayor impacto consiste en diseñar documentos formales `SPEC.md` con invariantes y criterios de aceptación deterministas en lugar de escribir código repetitivo.
+3. **Ingeniería de Bucles y MCP**: Los flujos de trabajo de alto rendimiento se basan en bucles de retroalimentación autorreparables respaldados por pruebas automatizadas y el Model Context Protocol (MCP).
+4. **La Carga del Revisor**: Con la generación de código a coste marginal casi nulo, los fundamentos de ciencias de la computación (sistemas operativos, concurrencia, algoritmos) son más críticos que nunca para auditar vulnerabilidades sutiles.
+
 ### Referencias y Materiales del Curso
 - **Lista de Reproducción Oficial de Videos**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Institución Académica**: Stanford University, Department of Computer Science
