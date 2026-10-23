@@ -63,3 +63,11 @@ else:
 ## 3. Looking Forward
 
 In Post #4, we explore deep **EDSR_x4 super-resolution** to reconstruct crisp alphanumeric strokes from blurry low-resolution plate crops, combined with **multi-frame image stacking**.
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **The Global Search Bottleneck**: Detecting tiny $30 \times 15$ pixel license plates directly on raw full-frame inputs triggers heavy background false positives from billboards and bogs down inference below 10 FPS.
+2. **Two-Stage Hierarchical Localization**: Deploying lightweight YOLOv3-tiny for coarse vehicle ROI extraction followed by dedicated YOLOv5 plate detection within the vehicle patch eliminates 98% of false alarms.
+3. **CSRT Correlation Filter Tracking**: Utilizing OpenCV CSRT tracker with a 15-frame periodic redetection schedule reduces full-model inference frequency while maintaining stable bounding box continuity.
+4. **80% GPU Overhead Reduction & 50+ FPS**: Decoupling continuous detection from correlation tracking slashes GPU computational load by 80%, sustaining real-time processing exceeding 50 FPS.

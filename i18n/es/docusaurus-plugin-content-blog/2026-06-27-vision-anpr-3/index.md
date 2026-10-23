@@ -45,3 +45,11 @@ for box in vehicle_boxes:
 ## 3. Próxima Entrega
 
 En la Entrega #4, abordaremos la **superresolución profunda EDSR_x4** y el **apilamiento multifotograma** para recuperar contornos alfanuméricos nítidos.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **El Cuello de Botella de Detección Global**: Buscar placas diminutas de $30 \times 15$ píxeles en el fotograma completo genera falsos positivos masivos con carteles y colapsa la tasa de cuadros por debajo de 10 FPS.
+2. **Localización Jerárquica en Dos Etapas**: Usar YOLOv3-tiny para extraer la región de interés (ROI) del vehículo y un YOLOv5 especializado para la placa dentro de dicho recorte erradica el 98% de falsas alarmas.
+3. **Seguimiento por Filtros de Correlación CSRT**: Integrar el rastreador CSRT de OpenCV con un intervalo de redetección periódica cada 15 fotogramas asegura la continuidad visual sin sobrecargar el pipeline.
+4. **Reducción del 80% en GPU y 50+ FPS**: Al alternar inferencia y tracking por correlación, se alivia el cómputo de la GPU en un 80%, manteniendo más de 50 FPS estables en tiempo real.
