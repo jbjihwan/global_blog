@@ -100,6 +100,6 @@ In Post #3, we explore **hierarchical object detection with fine-tuned YOLOv5 (`
 
 ### 📌 3–5 Line Executive Summary
 1. **Vanishing-Point Trapezoidal Masking**: Focusing edge analysis within a geometric perspective ROI eliminates 95% of irrelevant roadside background clutter and false edge artifacts.
-2. **Probabilistic Hough Transform & Slope Filtering**: Applying `HoughLinesP` combined with strict slope boundaries ($|\text{slope}| > 0.5$) separates true lane markers from pavement cracks and tar seams.
+2. **Probabilistic Hough Transform & Slope Filtering**: Applying `HoughLinesP` combined with strict slope boundaries ($|slope| > 0.5$) separates true lane markers from pavement cracks and tar seams.
 3. **Temporal Moving Average Smoothing**: Buffering slope and intercept coefficients across a 7-frame temporal queue prevents erratic lane jitter caused by bumps and lighting changes.
 4. **Geometric Polygon IoU Intrusion Criterion**: Replaces naive point-in-polygon checks with strict tire-footprint intersection-over-union (IoU), reliably triggering violation events without false alarms.
