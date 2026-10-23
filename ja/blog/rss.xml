@@ -180,6 +180,13 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <li class=""><strong>信頼せよ、されど検証せよ</strong>: 自動化されたテストハーネスを構築し、人間はアーキテクチャの検証に注力してください。</li>
 </ol>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>コーディングLLMの本質</strong>: LLMは意識ある知能ではなく、事前学習（次トークン予測）、SFT（対話プロトコル注入）、RLHF/DPO（選好アライメント）を経て完成した「熟練コードの高速統計シミュレーター」です。</li>
+<li class=""><strong>工学としてのプロンプト設計</strong>: 複雑な並行処理やアルゴリズムに対し、思考の連鎖(CoT)を強制して中間推論トークンを生成させ、明示的な禁止制約を課すことで論理エラーを防ぎます。</li>
+<li class=""><strong>スイスチーズモデルの警告</strong>: 完璧に見えるAIコードの裏には、境界外エラーや競合状態という致命的な穴（Hole）が潜んでおり、自動化バイアスを捨てて疑う必要があります。</li>
+<li class=""><strong>「信頼せよ、されど検証せよ」</strong>: 厳格な静的型検査、決定論的単体テスト、境界ファジング、人間によるアーキテクチャ監査という多層防衛ハーネスの構築が本番運用の前提です。</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="参考文献--公式教材">参考文献 &amp; 公式教材<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-2-coding-llms-prompt-engineering#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE--%E5%85%AC%E5%BC%8F%E6%95%99%E6%9D%90" class="hash-link" aria-label="参考文献 &amp; 公式教材 への直接リンク" title="参考文献 &amp; 公式教材 への直接リンク" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>公式YouTubeプレイリスト</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

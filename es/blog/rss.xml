@@ -155,6 +155,13 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <li class=""><strong>Confía pero Verifica</strong>: Automatiza linters, pruebas unitarias y fuzzers antes de la revisión humana.</li>
 </ol>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/stanford-cs146s-2-coding-llms-prompt-engineering#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>La Naturaleza de los LLMs de Código</strong>: Los LLMs no son entidades conscientes, sino simuladores estadísticos de tokens forjados a través de pre-entrenamiento, SFT y alineación por RLHF/DPO.</li>
+<li class=""><strong>Ingeniería de Prompts Disciplinada</strong>: Para lógicas complejas y concurrencia, exigir razonamiento paso a paso (Chain-of-Thought) y restricciones negativas previene alucinaciones y valida invariantes.</li>
+<li class=""><strong>El Peligro del Queso Suizo</strong>: El código generado con IA luce impecable superficialmente pero oculta agujeros sutiles (off-by-one, deadlocks); los desarrolladores deben vencer el sesgo de automatización.</li>
+<li class=""><strong>Doctrina "Confía pero Verifica"</strong>: Implementar una compuerta defensiva de cuatro capas—tipado estricto, pruebas unitarias deterministas, fuzzing de invariantes y revisión arquitectónica humana—es indispensable para producción.</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="referencias-y-materiales-del-curso">Referencias y Materiales del Curso<a href="https://globaldevlog.com/es/blog/stanford-cs146s-2-coding-llms-prompt-engineering#referencias-y-materiales-del-curso" class="hash-link" aria-label="Enlace directo al Referencias y Materiales del Curso" title="Enlace directo al Referencias y Materiales del Curso" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Lista de Reproducción Oficial en YouTube</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

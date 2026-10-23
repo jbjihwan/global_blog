@@ -134,7 +134,7 @@
 这是典型的<strong>上下文饱和 (Context Saturation)</strong> 与 <strong>注意力稀释 (Attention Dilution)</strong>。
 大型語言模型存在 <strong>“迷失在中间 (Lost in the Middle)”</strong> 现象：过多不相关代码冲淡了注意力权重，模型只关注首尾提示而遗漏中间的关键不变量。现代工程必须依靠 <strong>代码仓符号图谱 (Repo Mapping)</strong> 与 Tree-sitter AST 精准提取关键依赖。</p>
 <hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-第-2-讲核心总结">7. 第 2 讲核心总结<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-2-coding-llms-prompt-engineering#7-%E7%AC%AC-2-%E8%AE%B2%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93" class="hash-link" aria-label="7. 第 2 讲核心总结的直接連結" title="7. 第 2 讲核心总结的直接連結" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-2-coding-llms-prompt-engineering#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
 <ol>
 <li class=""><strong>认清工具本质</strong>：代码大型語言模型是经过预训练、SFT 和 RLHF 训练的概率 Token 模拟器。</li>
 <li class=""><strong>驾驭思維鏈</strong>：引入 CoT 产生显式推理步骤，大幅提升逻辑正确率。</li>
