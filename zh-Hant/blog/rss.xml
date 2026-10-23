@@ -1168,7 +1168,15 @@
 <code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支援大模型對話持久化、社群看板分頁及情緒日記多維篩選)</code></p>
 <p><img decoding="async" loading="lazy" alt="行動端功能截圖" src="https://globaldevlog.com/zh-Hant/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
 <p>至此，微調大型語言模型的互動上下文終於正式打通資料庫實作了安全落盤儲存！社群看板分頁瀏覽元件以及記錄每日心情起伏的日記多維過濾面板也全部在行動端高品質渲染上線。</p>
-<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>]]></content:encoded>
+<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>最佳權重自動化提取流水線</strong>：撰寫伺服端批次處理指令碼，自動化抓取第 3 輪微調中驗證集表現最佳的 LoRA 檢查點並無縫覆蓋至 <code>adapter</code> 生產就緒目錄。</li>
+<li class=""><strong>遠端多模型後台平行評估</strong>：依託遠端 GPU 伺服器執行 <code>run_test_20_30.sh</code>，實現 4 組別名候選模型在後台高效並行推論與量化評分。</li>
+<li class=""><strong>打通對話日誌全鏈路資料庫持久化</strong>：徹底解決驗證階段的 <code>401 Unauthorized</code> 鑑權死結，實現多輪人機同理心對話記錄的結構化安全落盤。</li>
+<li class=""><strong>行動端多維業務功能齊備</strong>：在 React Native 前端上線了社群看板高效分頁瀏覽與心情日記多維度過濾元件，完成大型模型與行動容器的深度工程閉環。</li>
+</ul>]]></content:encoded>
             <category>開發日誌</category>
             <category>微調</category>
             <category>後端</category>

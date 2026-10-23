@@ -1269,7 +1269,15 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <code>feat: Added chatbot DB save, board pagination, and emotion diary filter</code></p>
 <p><img decoding="async" loading="lazy" alt="App Features" src="https://globaldevlog.com/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
 <p>Finally, the conversation logs of our fine-tuned Large Language Model (LLM) chatbot officially started being saved to the DB! In addition, the pagination feature for the community board where users can communicate, and the emotion diary filter feature for recording daily moods were successfully added to the frontend.</p>
-<p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>]]></content:encoded>
+<p>It was a thrilling moment when the massive, invisible fine-tuned model finally began to be served in the beautiful vessel of a mobile app.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary--key-takeaways">Summary &amp; Key Takeaways<a href="https://globaldevlog.com/blog/2026-05-20-maeumjigi-20#summary--key-takeaways" class="hash-link" aria-label="Direct link to Summary &amp; Key Takeaways" title="Direct link to Summary &amp; Key Takeaways" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Automated Checkpoint Selection</strong>: Engineered server-side evaluation scripts (<code>run_test_20_30.sh</code>) that dynamically extract and stage the best-performing adapter weights without manual intervention.</li>
+<li class=""><strong>Parallel Multi-Model Benchmarking</strong>: Orchestrated background evaluation pipelines running simultaneous inference across four distinct alias model candidates on remote GPU compute nodes.</li>
+<li class=""><strong>Full-Duplex Conversation Persistence</strong>: Resolved authentication deadlocks (<code>401 Unauthorized</code>) and established persistent relational database logging for all multi-turn chatbot exchanges.</li>
+<li class=""><strong>Frontend App Feature Expansion</strong>: Integrated community discussion pagination and multi-attribute mood diary filtering into the production React Native mobile client.</li>
+</ul>]]></content:encoded>
             <category>devlog</category>
             <category>fine-tuning</category>
             <category>backend</category>
