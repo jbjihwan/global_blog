@@ -37,3 +37,13 @@ El 19 de abril es el día en que evaluamos el rendimiento del modelo (M6) entren
 ![Captura de Terminal](./images/02_term.png)
 
 Hoy fue un día en el que todo el trabajo duro dio sus frutos. ¡La emoción de confirmar que el modelo de IA entrenado se volvió notablemente más inteligente es increíble! Con el rendimiento del modelo probado y FAISS DB integrado, el chatbot Maeumjigi está un paso más cerca.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Evaluación Comparativa de Fine-Tuning con Datos Sintéticos**: Contrastamos el modelo base (M0), el modelo con datos filtrados (M5) y el modelo entrenado con datos sintéticos v5 (M6).
+- **Mejora Notoria en Empatía y Tono Clínico**: El modelo M6 exhibió una respuesta empática cálida y profesional, superando las limitaciones rígidas de los modelos anteriores.
+- **Automatización de Informes Académicos con IA**: Generamos automáticamente informes ejecutivos y detallados de la 7ª semana en formato Word (`.docx`) a partir de métricas estructuradas.
+- **Integración de Arquitectura RAG con FAISS**: Construimos una base de datos vectorial FAISS para mitigar alucinaciones y fundamentar las respuestas del chatbot en guías de salud mental validadas.
+

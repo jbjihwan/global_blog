@@ -37,3 +37,13 @@ April 19 is the day we evaluated the performance of the model (M6) trained on th
 ![Terminal Screenshot](./images/02_term.png)
 
 Today was a day when all the hard work paid off. The thrill of confirming that the trained AI model actually became noticeably smarter is incredible! With model performance proven and the FAISS DB successfully integrated, the Maeumjigi chatbot is one step closer to completion.
+
+---
+
+## Summary & Key Takeaways
+
+- **Comparative Evaluation of Synthetic Fine-Tuning**: Conducted qualitative and quantitative benchmarking across un-tuned base model M0, filtered-data model M5, and synthetic-dataset model M6.
+- **Superior Empathetic Dialogue**: Model M6, trained on synthetic dataset v5, demonstrated professional counseling tone and nuanced emotional resonance without generic platitudes.
+- **Automated Reporting Pipeline**: Prompted AI to generate comprehensive and concise 7th-week academic reports (`.docx`) with empirical comparison tables (`m0_m6_compare.json`).
+- **RAG Architecture with FAISS Vector DB**: Integrated an external FAISS vector retrieval database alongside fine-tuned weights to ground responses in verified clinical knowledge and curb hallucination.
+
