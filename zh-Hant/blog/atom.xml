@@ -553,7 +553,15 @@
 <li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>多語言網站地圖</strong>：各語言專屬網站地圖（<code>/sitemap.xml</code>, <code>/ko/</code>, <code>/ja/</code>, <code>/es/</code>, <code>/zh-Hans/</code>, <code>/zh-Hant/</code>）均返回 HTTP 200。</li>
 <li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>三大搜尋引擎收錄</strong>：Google、Naver 和 Bing 均已成功完成所有權驗證，RSS 訂閱源均處於活躍抓取狀態。</li>
 </ul>
-<p>憑藉這套現代化的工程基礎設施，你的靜態部落格不僅享有邊緣 CDN 的極致載入速度、零伺服器帳單開支，更獲得了覆蓋全球主要語系的頂級搜尋可見度，並為 Google AdSense 商業化變現奠定了堅實的基石。</p>]]></content>
+<p>憑藉這套現代化的工程基礎設施，你的靜態部落格不僅享有邊緣 CDN 的極致載入速度、零伺服器帳單開支，更獲得了覆蓋全球主要語系的頂級搜尋可見度，並為 Google AdSense 商業化變現奠定了堅實的基石。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-adsense-seo-guide#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>零成本企業級邊緣架構</strong>：告別免費 <code>github.io</code> 次網域，透過 Porkbun、Cloudflare Anycast DNS 與 GitHub Pages 組合，在零伺服器帳單前提下實現全球加速與全鏈路 SSL。</li>
+<li class=""><strong>CNAME 扁平化與標準網域規範化</strong>：藉助 Cloudflare CNAME Flattening 攻克 RFC 1034 根網域解析瓶頸，實現 <code>www</code> 向主網域的無縫平滑重定向。</li>
+<li class=""><strong>AdSense 驗證與 ads.txt 全面護航</strong>：在靜態頁面 <code>&lt;head&gt;</code> 中硬編碼所有權中繼標籤並根目錄部署 <code>static/ads.txt</code>，徹底阻斷檢索器 404 檢索失敗陷阱。</li>
+<li class=""><strong>全球三大搜尋引擎全量收錄</strong>：將多語言網站地圖與 RSS 訂閱源同步提交至 Google、Naver 與 Bing 站長平台，規避主機級報錯並最大化自然搜尋流量。</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

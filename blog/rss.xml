@@ -640,7 +640,15 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Localized Sitemaps</strong>: All language sitemaps (<code>/sitemap.xml</code>, <code>/ko/</code>, <code>/ja/</code>, <code>/es/</code>) return HTTP 200.</li>
 <li class="task-list-item"><input type="checkbox" disabled="" checked=""> <strong>Search Console Health</strong>: Google, Naver, and Bing show clean, verified properties with active RSS feeds.</li>
 </ul>
-<p>With this modern infrastructure in place, your static blog operates with the speed of an edge CDN, zero server hosting bills, maximum search visibility across four languages, and full readiness for AdSense monetization.</p>]]></content:encoded>
+<p>With this modern infrastructure in place, your static blog operates with the speed of an edge CDN, zero server hosting bills, maximum search visibility across four languages, and full readiness for AdSense monetization.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-line-executive-summary">📌 3–5 Line Executive Summary<a href="https://globaldevlog.com/blog/github-pages-custom-domain-adsense-seo-guide#-35-line-executive-summary" class="hash-link" aria-label="Direct link to 📌 3–5 Line Executive Summary" title="Direct link to 📌 3–5 Line Executive Summary" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Zero-Cost Edge Infrastructure</strong>: Transitioning from free <code>github.io</code> to an apex domain via Porkbun, Cloudflare DNS, and GitHub Pages achieves enterprise CDN caching and SSL security at $0 server cost.</li>
+<li class=""><strong>CNAME Flattening &amp; Route Canonicalization</strong>: Resolves RFC 1034 apex limitations and canonicalizes <code>www</code> to root domain with zero SSL handshake friction or redirect loops.</li>
+<li class=""><strong>AdSense Ownership &amp; ads.txt Hardening</strong>: Directly injects publisher verification into static <code>&lt;head&gt;</code> and serves <code>static/ads.txt</code> from site root, averting crawler 404 traps.</li>
+<li class=""><strong>Multi-Engine Search Indexing Triad</strong>: Synchronizes localized sitemaps and RSS feeds across Google Search Console, Naver Search Advisor, and Bing Webmaster Tools with zero host mismatches.</li>
+</ol>]]></content:encoded>
             <category>docusaurus</category>
             <category>devops</category>
             <category>cloudflare</category>
