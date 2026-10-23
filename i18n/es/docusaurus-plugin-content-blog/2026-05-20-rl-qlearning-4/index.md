@@ -54,3 +54,11 @@ Evaluación en el mismo escenario de 12 paredes en Webots:
 ## 3. Próximos Pasos
 
 En el episodio final #5, presentaremos la transferencia a hardware real (**Sim-to-Real**): **integración en un robot Arduino Uno de 2 ruedas, comunicación Bluetooth HC-06, calibración de distorsión con tablero de ajedrez y seguimiento visual con marcadores ArUco**.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Evaluación Determinista sin Exploración**: Evaluó la política puramente voraz (ε=0) mediante `evaluate_qlearning.py` a lo largo de 30 ensayos independientes y 5 semillas de prueba.
+2. **Tríada de Métricas de Calidad de Ruta**: Cuantificó la tasa de éxito, el ratio de eficiencia frente al camino óptimo teórico y el recuento de roces cercanos (Near-Miss) con muros.
+3. **Benchmark Triangular (Q-Learning vs SARSA vs DQN)**: En la arena de 12 paredes, Q-Learning tabular alcanzó un 93.3% de éxito determinista, superando a SARSA (80.0%) y DQN (86.7%).
+4. **Ventaja Extrema de Latencia Embebida**: Con un tiempo de inferencia de 0.02ms por búsqueda directa en tabla, superó decisivamente la sobrecarga neuronal de DQN en microcontroladores de baja potencia.

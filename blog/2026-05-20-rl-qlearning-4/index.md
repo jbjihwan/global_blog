@@ -101,3 +101,11 @@ Our discrete 648-bin **Tabular Q-Learning model requires just 2.5 KB of memory**
 With simulation benchmarks thoroughly concluded, the ultimate milestone remains: **transferring policy to reality (Sim-to-Real)**.
 
 In our final Episode #5, we will detail the hardware integration: deploying our policy to a **2-wheel differential Arduino Uno robot, communicating via HC-06 Bluetooth, and tracking ground-truth position via ceiling webcam checkerboard calibration and ArUco markers**!
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **Zero-Exploration Deterministic Evaluation**: Evaluated the greedy policy with exploration set to zero (ε=0) across 30 trials and 5 evaluation seeds via `evaluate_qlearning.py` to verify true deployment readiness.
+2. **Three-Dimensional Metric Triad**: Measured not just success rates, but path efficiency ratios against theoretical shortest paths and safety near-miss counts to guarantee collision avoidance.
+3. **Triangular Benchmark (Q-Learning vs SARSA vs DQN)**: Tabular Q-Learning achieved 93.3% success in the 12-wall obstacle arena, outperforming on-policy SARSA (80.0%) and off-policy DQN (86.7%).
+4. **Microcontroller Latency Dominance**: Discretized Q-table lookups executed in 0.02ms with negligible memory footprints, decisively outclassing deep neural network inference on constrained embedded hardware.
