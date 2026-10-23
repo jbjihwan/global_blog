@@ -16,6 +16,8 @@
 *.pfx
 *.cert
 *credential*
+credentials/
+service_account*.json
 *.secret
 
 # Analytics & CSV dumps

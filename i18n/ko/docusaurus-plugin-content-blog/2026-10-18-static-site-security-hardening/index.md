@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "45개 npm 취약점 경고와 무위험의 진실: 정적 사이트에서 npm audit fix --force를 맹신하면 안 되는 이유"
-authors: [jbjihwan]
+title: "[2026 실전 가이드] npm audit fix --force 함정과 해결법: 정적 사이트 보안 취약점 0개 달성 전략"
+authors: [jbgih]
 tags: [웹보안, npm-audit, Docusaurus, 데브옵스, 공급망보안]
-keywords: [npm audit fix --force, 정적 사이트 보안 (SSG), Docusaurus 보안 하드닝, Git 시크릿 유출 방지, 공급망 취약점 오탐]
-description: "정적 사이트(SSG) 환경에서 번들러 도구의 45개 취약점 경고가 왜 런타임에 무해한지 분석하고, npm audit fix --force가 사이트를 망가뜨리는 원인과 4단계 실전 보안 하드닝 방안을 공유합니다."
+keywords: [npm audit fix, npm audit fix --force, 정적 사이트 보안 (SSG), Docusaurus 보안 하드닝, GHSA 공급망 취약점]
+description: "npm audit fix --force 실행 시 빌드가 깨지는 원인과 안전한 해결법. 정적 사이트 위협 모델링과 GHSA 공급망 취약점을 올바르게 진단하고 보안 위험을 0으로 만드는 4단계 엔지니어링 가이드."
 ---
 
 프론트엔드나 정적 블로그를 운영하는 개발자라면 누구나 한 번쯤 등골이 서늘해지는 순간을 겪어보셨을 것입니다. 평화롭게 `npm audit`을 입력했을 때, 터미널 가득 시뻘건 경고 문구가 쏟아져 내리는 장면입니다:
