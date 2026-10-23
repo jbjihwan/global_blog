@@ -1137,47 +1137,6 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
         <category label="python" term="python"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
-        <id>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</id>
-        <link href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20"/>
-        <updated>2026-05-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Estrategia para el 3º fine-tuning: calibración de la proporción entre charla casual y diálogo de crisis para evitar respuestas exageradas.]]></summary>
-        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluyendo-el-3er-fine-tuning">Concluyendo el 3er Fine-Tuning<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#concluyendo-el-3er-fine-tuning" class="hash-link" aria-label="Enlace directo al Concluyendo el 3er Fine-Tuning" title="Enlace directo al Concluyendo el 3er Fine-Tuning" translate="no">​</a></h3>
-<p>El entrenamiento para el 3er fine-tuning, configurado con conceptos de gráficos de conocimiento en mente, se completó.</p>
-<blockquote>
-<p>"Selecciona el checkpoint con el mejor eval, reemplaza los archivos en la carpeta adapter."</p>
-</blockquote>
-<p>En lugar de copiar checkpoints manualmente, le indiqué a la IA que escribiera un script que extrajera automáticamente los mejores pesos del modelo y los configurara. Luego, ejecuté el script de inferencia paralela en el servidor.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-y-frontend-base-de-datos-y-foro">Backend y Frontend: Base de Datos y Foro<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#backend-y-frontend-base-de-datos-y-foro" class="hash-link" aria-label="Enlace directo al Backend y Frontend: Base de Datos y Foro" title="Enlace directo al Backend y Frontend: Base de Datos y Foro" translate="no">​</a></h3>
-<p>Mientras los modelos trabajaban en el servidor, aceleré el trabajo de integración de la aplicación y la BD.</p>
-<p>Para resolver el frustrante error <code>401 Unauthorized</code> de la última vez, examiné <code>seed_data.sql</code> para verificar las contraseñas. Como resultado, logré un importante commit en Git:
-<code>feat: Añadido guardado de chatbot en BD, paginación de foro y filtro de diario de emociones</code></p>
-<p><img decoding="async" loading="lazy" alt="Características de la App" src="https://globaldevlog.com/es/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
-<p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resumen-y-puntos-clave">Resumen y Puntos Clave<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#resumen-y-puntos-clave" class="hash-link" aria-label="Enlace directo al Resumen y Puntos Clave" title="Enlace directo al Resumen y Puntos Clave" translate="no">​</a></h2>
-<ul>
-<li class=""><strong>Seleccion Automatizada de Checkpoints</strong>: Implementados scripts de evaluacion en servidor que extraen y configuran automaticamente los mejores pesos de adaptadores sin intervencion manual.</li>
-<li class=""><strong>Benchmarking Paralelo Multimodelo</strong>: Orquestado un pipeline de evaluacion en segundo plano ejecutando inferencias simultaneas sobre cuatro modelos candidatos en GPUs remotas.</li>
-<li class=""><strong>Persistencia de Conversaciones en Base de Datos</strong>: Resueltos los bloqueos de autenticacion (<code>401 Unauthorized</code>) y asegurado el registro permanente de los dialogos en PostgreSQL/MySQL.</li>
-<li class=""><strong>Ampliacion de Funciones en App Movil</strong>: Integradas la paginacion del foro comunitario y el filtrado avanzado del diario de animo en el cliente movil React Native.</li>
-</ul>]]></content>
-        <author>
-            <name>Jaybee</name>
-            <uri>https://github.com/jbjihwan</uri>
-        </author>
-        <category label="devlog" term="devlog"/>
-        <category label="fine-tuning" term="fine-tuning"/>
-        <category label="backend" term="backend"/>
-        <category label="frontend" term="frontend"/>
-        <category label="database" term="database"/>
-        <category label="capstone" term="capstone"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[[Robótica Webots] Evaluación Determinista con evaluate_qlearning y Comparativa frente a DQN y SARSA (#4)]]></title>
         <id>https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4</id>
         <link href="https://globaldevlog.com/es/blog/2026-05-20-rl-qlearning-4"/>
@@ -1225,6 +1184,47 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
         <category label="sarsa" term="sarsa"/>
         <category label="robotica" term="robotica"/>
         <category label="python" term="python"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Registro de Desarrollo Maeumjigi #20] 3er Fine-Tuning y Mejoras del Backend]]></title>
+        <id>https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20</id>
+        <link href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20"/>
+        <updated>2026-05-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Estrategia para el 3º fine-tuning: calibración de la proporción entre charla casual y diálogo de crisis para evitar respuestas exageradas.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Imagen de Portada" src="https://globaldevlog.com/es/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>Durante el 19 y 20 de mayo, la evaluación del tercer fine-tuning (<code>fine_tuning_3</code>) y la mejora de las características de backend y frontend procedieron en paralelo.</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="concluyendo-el-3er-fine-tuning">Concluyendo el 3er Fine-Tuning<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#concluyendo-el-3er-fine-tuning" class="hash-link" aria-label="Enlace directo al Concluyendo el 3er Fine-Tuning" title="Enlace directo al Concluyendo el 3er Fine-Tuning" translate="no">​</a></h3>
+<p>El entrenamiento para el 3er fine-tuning, configurado con conceptos de gráficos de conocimiento en mente, se completó.</p>
+<blockquote>
+<p>"Selecciona el checkpoint con el mejor eval, reemplaza los archivos en la carpeta adapter."</p>
+</blockquote>
+<p>En lugar de copiar checkpoints manualmente, le indiqué a la IA que escribiera un script que extrajera automáticamente los mejores pesos del modelo y los configurara. Luego, ejecuté el script de inferencia paralela en el servidor.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="backend-y-frontend-base-de-datos-y-foro">Backend y Frontend: Base de Datos y Foro<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#backend-y-frontend-base-de-datos-y-foro" class="hash-link" aria-label="Enlace directo al Backend y Frontend: Base de Datos y Foro" title="Enlace directo al Backend y Frontend: Base de Datos y Foro" translate="no">​</a></h3>
+<p>Mientras los modelos trabajaban en el servidor, aceleré el trabajo de integración de la aplicación y la BD.</p>
+<p>Para resolver el frustrante error <code>401 Unauthorized</code> de la última vez, examiné <code>seed_data.sql</code> para verificar las contraseñas. Como resultado, logré un importante commit en Git:
+<code>feat: Añadido guardado de chatbot en BD, paginación de foro y filtro de diario de emociones</code></p>
+<p><img decoding="async" loading="lazy" alt="Características de la App" src="https://globaldevlog.com/es/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>¡Finalmente, los registros de conversación de nuestro chatbot comenzaron a guardarse oficialmente en la base de datos! Además, se añadieron la paginación para el foro comunitario y el filtro del diario de emociones.</p>
+<p>Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en una aplicación móvil.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resumen-y-puntos-clave">Resumen y Puntos Clave<a href="https://globaldevlog.com/es/blog/2026-05-20-maeumjigi-20#resumen-y-puntos-clave" class="hash-link" aria-label="Enlace directo al Resumen y Puntos Clave" title="Enlace directo al Resumen y Puntos Clave" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Seleccion Automatizada de Checkpoints</strong>: Implementados scripts de evaluacion en servidor que extraen y configuran automaticamente los mejores pesos de adaptadores sin intervencion manual.</li>
+<li class=""><strong>Benchmarking Paralelo Multimodelo</strong>: Orquestado un pipeline de evaluacion en segundo plano ejecutando inferencias simultaneas sobre cuatro modelos candidatos en GPUs remotas.</li>
+<li class=""><strong>Persistencia de Conversaciones en Base de Datos</strong>: Resueltos los bloqueos de autenticacion (<code>401 Unauthorized</code>) y asegurado el registro permanente de los dialogos en PostgreSQL/MySQL.</li>
+<li class=""><strong>Ampliacion de Funciones en App Movil</strong>: Integradas la paginacion del foro comunitario y el filtrado avanzado del diario de animo en el cliente movil React Native.</li>
+</ul>]]></content>
+        <author>
+            <name>Jaybee</name>
+            <uri>https://github.com/jbjihwan</uri>
+        </author>
+        <category label="devlog" term="devlog"/>
+        <category label="fine-tuning" term="fine-tuning"/>
+        <category label="backend" term="backend"/>
+        <category label="frontend" term="frontend"/>
+        <category label="database" term="database"/>
+        <category label="capstone" term="capstone"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[Robótica Webots] Superando Mínimos Locales en 12 Obstáculos: Simulación Headless Multi-Semilla (#3)]]></title>
