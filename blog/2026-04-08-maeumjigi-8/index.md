@@ -33,3 +33,13 @@ April 8th was the day we experienced the biggest crisis and a 'laugh-and-cry' ha
 ![Terminal Screenshot](./images/02_term.png)
 
 Today was a day of overcoming a realistic barrier of the project, paying a terrifying initiation fee called the API bill bomb. However, in return, we completed an excellent dataset and a Colab notebook for fine-tuning. Finally, the next step is to train the real artificial intelligence model!
+
+---
+
+## Summary & Key Takeaways
+
+- **API Expenditure Shock & Diagnosis**: Encountered sudden Claude API rate and monthly billing cap limits due to accumulating context tokens during unmanned synthetic dialogue generation.
+- **Cost Guardrails & Real-Time Monitoring**: Promptly integrated real-time token tracking, console expenditure estimation, and automatic kill-switches to prevent unbudgeted API runs.
+- **Colab Fine-Tuning Pipeline Authoring**: Engineered `llama31_finetuning_colab.ipynb` incorporating Unsloth optimization for efficient parameter-efficient fine-tuning (PEFT).
+- **Data Splitting & Preparation**: Partitioned synthesized dialogue datasets into a 9:1 train/validation split to maximize learning samples while preserving validation accuracy.
+

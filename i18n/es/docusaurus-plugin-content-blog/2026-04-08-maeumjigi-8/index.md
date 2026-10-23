@@ -33,3 +33,13 @@ El 8 de abril fue el día en que experimentamos la mayor crisis y un suceso de '
 ![Captura de Terminal](./images/02_term.png)
 
 Hoy superamos una barrera realista del proyecto, pagando una tarifa de iniciación aterradora llamada bomba de facturas de API. Sin embargo, a cambio, completamos un excelente conjunto de datos y un cuaderno de Colab para el fine-tuning. ¡Finalmente, el siguiente paso es entrenar el modelo de IA real!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Diagnóstico del Pico de Facturación de API**: Identificamos una acumulación excesiva de tokens de contexto durante la generación no supervisada de diálogos sintéticos que agotó el límite mensual.
+- **Guardarraíles de Costo y Monitoreo en Tiempo Real**: Implementamos el cálculo en vivo de gastos por token en consola y mecanismos de corte automático para evitar sobrecostos.
+- **Creación del Cuaderno de Colab con Unsloth**: Diseñamos `llama31_finetuning_colab.ipynb` optimizado con Unsloth para ejecutar el fine-tuning de Llama 3.1 en la nube.
+- **Estrategia de División de Datos 9:1**: Segmentamos los conjuntos de datos de diálogo en una proporción 9:1 entre entrenamiento y validación para maximizar el aprovechamiento de muestras.
+
