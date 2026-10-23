@@ -117,3 +117,13 @@ if __name__ == "__main__":
 3. **Data Acquisition Strategy**: Outlined the pipeline to source and filter over 100,000 multi-turn counseling dialogues from AI Hub.
 
 In the next devlog, we will explore our initial Android and React Native UI scaffolding and the first attempts at data ingestion!
+
+---
+
+## 核心总结与技术要点
+
+- **确立自律型 AI 协作研发规范**：编写 `CLAUDE_coding_rule.md` 与 `Claude.md`，为 Claude Code 智能体建立工程安全边界，释放全自动敏捷编码效能。
+- **决定性技术转向：锚定心理咨询 AI**：摒弃单一预约爬虫工具的局限，全面蜕变为服务于青年与官兵心理疏导的“心语伴侣 (Maeumjigi)”大语言模型平台。
+- **工程可行性与危机安全防御论证**：确立以 FastAPI、Llama 3.1 领域微调、LoRA 及自杀干预安全护栏为核心的全栈技术架构。
+- **规划 10 万级多轮咨询语料路线图**：基于 AI Hub 韩国语心理咨询公开数据，绘制涵盖隐私脱敏、上下文截断与模板对齐的百级数据工程施工蓝图。
+
