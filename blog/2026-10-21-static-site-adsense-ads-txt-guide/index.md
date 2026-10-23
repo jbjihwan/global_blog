@@ -168,6 +168,12 @@ With `headTags` injecting your verification metadata, `static/ads.txt` reliably 
 
 ---
 
+### 📌 3–5 Line Executive Summary
+1. **Static Site Ownership Verification**: Bypassing client-side hydration delays, inject the AdSense publisher verification meta tag directly into `<head>` via Docusaurus `headTags` for instantaneous crawler detection.
+2. **Eliminating the ads.txt 404 Crawl Trap**: Placing `ads.txt` in the root `static/` directory ensures it is deployed directly to `https://domain.com/ads.txt`, permanently preventing the "Earnings at Risk" penalty.
+3. **Cloudflare WAF Bot Bypass**: Configure Cloudflare custom WAF rules to skip Managed Challenge on `Googlebot-AdsTxt` and `Mediapartners-Google`, averting false-positive CAPTCHA crawl dropouts.
+4. **4-Pillar AdSense Review Readiness**: Guarantee first-attempt approval by establishing statutory privacy/about/contact pages, maintaining zero 404 broken links, and offering 20+ comprehensive technical articles.
+
 > 📌 **Explore the Production Implementation**:  
 > • [Global Dev Blog - GitHub Pages Custom Domain & Cloudflare DNS Guide](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - Static Site Security & npm audit Vulnerability Truth](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  

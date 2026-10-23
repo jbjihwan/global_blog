@@ -160,6 +160,12 @@ flowchart LR
 
 ---
 
+### 📌 3~5줄 최종 요약 (Executive Summary)
+1. **정적 사이트 소유권 메타태그 주입**: 클라이언트 사이드 하이드레이션 지연을 피하기 위해 Docusaurus `headTags` 설정을 통해 애드센스 소유권 확인 태그를 `<head>`에 직접 정적으로 삽입합니다.
+2. **ads.txt 404 크롤링 누락 방지**: `static/ads.txt`에 게시자 ID를 배치하여 루트 경로(`https://도메인/ads.txt`)로 직접 배포되도록 구성함으로써 '수익 손실 위험' 경고를 원천 차단합니다.
+3. **Cloudflare WAF 봇 바이패스**: Cloudflare 보안 설정에서 `Googlebot-AdsTxt`와 `Mediapartners-Google`에 대해 봇 챌린지(CAPTCHA)를 건너뛰는 바이패스 규칙을 등록해야 크롤링 실패를 막을 수 있습니다.
+4. **애드센스 원패스 4대 기준**: 개인정보처리방침/소개/문의 필수 페이지 완비, 20편 이상의 심화 기술 포스트, 깨진 링크(404) 0건, 완벽한 모바일 반응형 뷰포트를 갖추어야 거절 없이 승인됩니다.
+
 > 📌 **프로덕션 라이브 구현체 살펴보기**:  
 > • [Global Dev Blog - GitHub Pages 커스텀 도메인 & Cloudflare DNS 연동 가이드](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - 정적 사이트 보안 하드닝과 npm audit 취약점의 진실](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  

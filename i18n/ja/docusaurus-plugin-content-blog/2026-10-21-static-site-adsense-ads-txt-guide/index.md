@@ -123,6 +123,12 @@ flowchart LR
 
 ---
 
+### 📌 3〜5行のエグゼクティブサマリー (Executive Summary)
+1. **静的サイトの所有権確認メタタグ注入**: クライアント側のハイドレーション遅延を排除するため、Docusaurusの `headTags` 設定を用いて `<head>` 直下に所有権確認メタタグを直接静的出力します。
+2. **ads.txt 404クロールエラーの完全防止**: ルートの `static/ads.txt` にパブリッシャー情報を配置し、`https://ドメイン/ads.txt` で即座に配信されるようにすることで「収益の危険」警告を未然に防ぎます。
+3. **Cloudflare WAF によるボットバイパス**: `Googlebot-AdsTxt` や `Mediapartners-Google` に対し、Cloudflareのボットチャレンジ（CAPTCHA）をスキップする許可ルールを設定しクローラー遮断を回避します。
+4. **アドセンス一発合格のための4大基準**: プライバシーポリシー・運営者情報・お問い合わせページの完備、20本以上の独自技術記事、404リンクのゼロ化、モバイル最適化を完了して審査に臨む必要があります。
+
 > 📌 **Global Dev Blog の関連記事**:  
 > • [Global Dev Blog - GitHub Pages カスタムドメイン & Cloudflare DNS 設定ガイド](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - 静的サイトのセキュリティ強化と npm audit 脆弱性の真実](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  

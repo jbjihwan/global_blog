@@ -148,6 +148,12 @@ flowchart LR
 
 ---
 
+### 📌 3~5 行核心总结 (Executive Summary)
+1. **静态网站所有权验证标签注入**：规避客户端 Hydration 渲染延迟，直接通过 Docusaurus 的 `headTags` 配置将 AdSense 验证元标签硬编码注入 `<head>`，确保爬虫瞬时捕获。
+2. **根除 ads.txt 404 抓取陷阱**：将发布商凭据置于根目录 `static/ads.txt`，保障其直达 `https://域名/ads.txt`，彻底消除“收益存在风险”惩罚警告。
+3. **Cloudflare WAF 爬虫白名单放行**：针对 `Googlebot-AdsTxt` 与 `Mediapartners-Google` 配置专属 WAF 绕过规则，防止 Bot Fight Mode 误触发人机验证拦截抓取。
+4. **一次性过审的 4 大黄金标准**：健全隐私政策/关于/联系页面、储备 20 篇以上原创深度技术长文、保持 404 死链率为零，并确保极致的移动端自适应排版。
+
 > 📌 **Global Dev Blog 精选技术推荐**：  
 > • [Global Dev Blog - GitHub Pages 绑定自定义域名与 Cloudflare DNS 实战](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - 静态网站安全加固与 npm audit 漏洞真相](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  

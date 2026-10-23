@@ -123,6 +123,12 @@ Con la etiqueta meta en `headTags`, `static/ads.txt` en la raíz y las reglas de
 
 ---
 
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Verificación Estática de Propiedad**: Inyecta la metaetiqueta de verificación de Google AdSense directamente en `<head>` mediante la configuración `headTags` de Docusaurus, evitando retrasos de hidratación en el cliente.
+2. **Solución al Error 404 en ads.txt**: Ubicar `ads.txt` dentro del directorio `static/` garantiza su despliegue en la raíz (`https://dominio/ads.txt`), eliminando permanentemente la alerta de "Ingresos en riesgo".
+3. **Bypass del WAF en Cloudflare**: Configura reglas de omisión en Cloudflare para que los rastreadores `Googlebot-AdsTxt` y `Mediapartners-Google` no sean bloqueados por desafíos de CAPTCHA automatizados.
+4. **Los 4 Pilares de Aprobación Inmediata**: Disponer de páginas estatutarias (política de privacidad, contacto), más de 20 artículos técnicos originales, cero enlaces rotos (404) y diseño móvil responsivo garantizan el éxito en la revisión.
+
 > 📌 **Artículos Relacionados en Global Dev Blog**:  
 > • [Global Dev Blog - Dominio Personalizado en GitHub Pages y Cloudflare DNS](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - Seguridad en Sitios Estáticos y la Verdad de npm audit](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  

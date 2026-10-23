@@ -148,6 +148,12 @@ flowchart LR
 
 ---
 
+### 📌 3~5 行核心總結 (Executive Summary)
+1. **靜態網站所有權驗證標籤注入**：規避用戶端 Hydration 渲染延遲，直接透過 Docusaurus 的 `headTags` 設定將 AdSense 驗證中繼標籤硬編碼注入 `<head>`，確保檢索器瞬時捕獲。
+2. **根除 ads.txt 404 檢索陷阱**：將發布商憑證置於根目錄 `static/ads.txt`，保障其直達 `https://網域/ads.txt`，徹底消除「收益面臨風險」懲罰警告。
+3. **Cloudflare WAF 檢索器白名單放行**：針對 `Googlebot-AdsTxt` 與 `Mediapartners-Google` 設定專屬 WAF 繞過規則，防止 Bot Fight Mode 誤觸發人機驗證攔截檢索。
+4. **一次性過審的 4 大黃金標準**：健全隱私權政策/關於/聯絡頁面、儲備 20 篇以上原創深度技術長文、保持 404 死鏈率為零，並確保極致的行動裝置自適應排版。
+
 > 📌 **Global Dev Blog 精選技術推薦**：  
 > • [Global Dev Blog - GitHub Pages 綁定自訂網域與 Cloudflare DNS 實戰](https://globaldevlog.com/ko/blog/github-pages-custom-domain-cloudflare-dns)  
 > • [Global Dev Blog - 靜態網站安全強化與 npm audit 弱點真相](https://globaldevlog.com/ko/blog/static-site-security-npm-audit-truth)  
