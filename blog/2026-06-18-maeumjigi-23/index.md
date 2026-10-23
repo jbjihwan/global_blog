@@ -137,3 +137,13 @@ With Phase 1 concluded, our team enters summer deployment:
 1. Provisioning our AWS EC2 `g5.2xlarge` instance with automated containerized health checks.
 2. Launching closed-beta testing across military welfare communities.
 3. Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!
+
+---
+
+## Summary & Key Takeaways
+
+- **Dual-Layer Safety Wrapper Architecture**: Engineered a mission-critical guardrail combining pre-inference crisis keyword/semantic triage with post-generation ethical compliance checks.
+- **Zero-Hallucination Emergency Routing**: Implemented deterministic emergency bypass protocols that immediately route high-risk suicidal ideation directly to 24/7 lifeline hotlines.
+- **Production GPU Serving Economics**: Benchmarked AWS EC2 `g5.2xlarge` (NVIDIA A10G 24GB) instances, establishing 60+ concurrent session capacity within an optimized student capstone budget.
+- **Semester 1 Final Defense Success**: Concluded Phase 1 with a successful faculty defense, validating end-to-end clinical empathy, pipeline safety, and system resilience.
+

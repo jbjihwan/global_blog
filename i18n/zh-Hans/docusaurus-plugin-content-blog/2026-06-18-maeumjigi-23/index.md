@@ -137,3 +137,13 @@ With Phase 1 concluded, our team enters summer deployment:
 1. Provisioning our AWS EC2 `g5.2xlarge` instance with automated containerized health checks.
 2. Launching closed-beta testing across military welfare communities.
 3. Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!
+
+---
+
+## 核心总结与技术要点
+
+- **双层安全包装器（Safety Wrapper）架构**：结合推理前的危机关键词与语义分类分流，以及推理后的临床伦理合规校验，构建了零容错的安全护栏。
+- **自杀危机实时阻断与确定性路由**：一旦识别极高危自杀倾向，坚决切断模型幻觉，毫秒级直接旁路引流至官方 24 小时生命救助热线。
+- **生产级云端 GPU 推理成本精算**：实测 AWS EC2 `g5.2xlarge`（NVIDIA A10G 24GB）实例，在严格项目预算内达成支撑 60 路并发对话的高效吞吐。
+- **大一学期毕业设计终审答辩通关**：圆满完成第一阶段答辩，全面验证了端到端临床共情度、护栏拦截准确率以及工程高可用底座。
+

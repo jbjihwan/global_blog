@@ -137,3 +137,13 @@ With Phase 1 concluded, our team enters summer deployment:
 1. Provisioning our AWS EC2 `g5.2xlarge` instance with automated containerized health checks.
 2. Launching closed-beta testing across military welfare communities.
 3. Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Arquitectura de Safety Wrapper de Doble Capa**: Implementado un guardarrail critico que combina triaje semantico previo con validacion etica posterior a la generacion.
+- **Protocolo de Intervencion Inmediata en Crisis**: Disenado un bypass determinista que redirige inmediatamente expresiones suicidas de alto riesgo hacia lineas de ayuda 24/7 sin riesgo de alucinacion.
+- **Optimizacion de Costes de GPU en Cloud**: Evaluada la instancia AWS EC2 `g5.2xlarge` (NVIDIA A10G 24GB) para soportar mas de 60 sesiones concurrentes dentro del presupuesto academico.
+- **Defensa Exitosa del Capstone Semestre 1**: Concluido el primer semestre con una evaluacion sobresaliente del tribunal universitario, validando la empatia clinica y la robustez del sistema.
+

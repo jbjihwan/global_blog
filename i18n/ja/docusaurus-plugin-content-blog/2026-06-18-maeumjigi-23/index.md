@@ -137,3 +137,13 @@ With Phase 1 concluded, our team enters summer deployment:
 1. Provisioning our AWS EC2 `g5.2xlarge` instance with automated containerized health checks.
 2. Launching closed-beta testing across military welfare communities.
 3. Returning in Semester 2 with live multi-turn field data and expanded knowledge graph capabilities!
+
+---
+
+## まとめと要点
+
+- **2層セーフティラッパー（Safety Wrapper）の構築**: 推論前の危機キーワード・意味分類トリアージと、生成後の臨床倫理検証を組み合わせた安全アーキテクチャを実装しました。
+- **緊急即時バイパスプロトコル**: 自殺高リスク発言を検知した場合、LLMのハルシネーションを排除し、24時間相談窓口へ即座に誘導する決定論的フェイルセーフを確立しました。
+- **本番GPUサービングのコスト最適化**: AWS EC2 `g5.2xlarge`（NVIDIA A10G 24GB）を検証し、予算制約下で60ユーザー同時アクセスを処理できる高効率インフラを策定しました。
+- **第1学期キャップストーン最終審査合格**: 技術実証と共感対話デモを通じて学部最終審査を成功裏に終え、第2学期の実フィールド展開への足がかりを築きました。
+
