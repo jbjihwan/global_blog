@@ -35,3 +35,13 @@ También fue el día en que ejecutamos una canalización masiva que hace que la 
 
 Hoy fue el día en que nos golpeamos contra el muro realista de los 'costos computacionales'.
 Aunque logramos obtener datos refinados de alta calidad, fue una experiencia valiosa que nos dejó contemplando cómo equilibrar el costo y la eficiencia a medida que avanzamos con el fine-tuning.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Reclasificación Emocional Basada en Contexto**: Diseñamos la versión v4 del dataset utilizando un LLM para mapear diálogos completos hacia categorías psicológicas precisas.
+- **Diferenciación de Costos de API vs Suscripción**: Comprendimos en la práctica que el uso automatizado de la API de Anthropic factura por token, separado de la suscripción mensual Pro.
+- **Impacto Financiero en Escala**: El procesamiento de 100,000 líneas iniciales costó $10.27, demostrando la inviabilidad de procesar un millón de registros sin optimización.
+- **Adopción de Muestreo Estratificado**: Reorientamos el pipeline hacia el filtrado inteligente de datos y la reducción de tokens en los prompts para equilibrar presupuesto y rendimiento.
+

@@ -35,3 +35,13 @@ It was also the day we ran a massive pipeline that makes the Artificial Intellig
 
 Today was the day we hit the realistic wall of 'computing costs' inevitably encountered during deep learning data preprocessing.
 Although we successfully obtained high-quality, refined data (`v4_report.md`), it was a valuable experience that left us deeply contemplating how to balance cost and efficiency as we proceed with fine-tuning!
+
+---
+
+## Summary & Key Takeaways
+
+- **Context-Aware Emotion Reclassification**: Transitioned dataset v3 to v4 by utilizing LLMs to read conversational context and map multi-turn dialogues into target counseling emotion tags.
+- **API Pay-As-You-Go Economics**: Discovered firsthand that scripted automated batch ingestion incurs pay-per-token API charges independent of personal Pro subscriptions.
+- **Empirical Cost Realities**: Sustained a $10.27 expenditure for processing the first 100,000 records, exposing the fiscal impossibility of processing the full 1-million sample corpus naively.
+- **Pivoting to Stratified Sampling**: Promptly re-evaluated pipeline architecture to balance training efficiency with budget, prioritizing high-leverage samples and prompt compression.
+
