@@ -59,3 +59,11 @@ This temporal stacking cancels random sensor noise while boosting text-backgroun
 ## 3. Looking Forward
 
 In Post #5, we conclude the series with **Korean ANPR OCR tuning, regex syntactic validation**, and the **temporal majority voting engine**, recounting our engineering evolution from initial gibberish to finalized recognition (`64가1511`).
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **The Low-Resolution Optical Barrier**: Cropped license plate patches from dashcam video often measure under $40 \times 20$ pixels with heavy compression artifacts, causing standard bicubic interpolation to blur critical character strokes.
+2. **EDSR_x4 Deep Super-Resolution**: By removing batch normalization layers, the EDSR residual architecture preserves pixel-level dynamic range and reconstructs sharp high-frequency edges via OpenCV `dnn_superres`.
+3. **Temporal Multi-Frame Image Stacking**: Aligning and averaging $3 \sim 5$ consecutive bounding box patches cancels out stochastic camera sensor noise and motion jitter before feeding the image to OCR.
+4. **Massive OCR Accuracy Recovery**: The combined super-resolution and frame stacking pipeline quadruples pixel density, elevating downstream Korean character recognition rates from 32% to over 91%.

@@ -45,3 +45,11 @@ Promediar parches alineados a lo largo del tiempo cancela el ruido del sensor y 
 ## 3. Próxima Entrega
 
 En la Entrega #5, concluiremos con la **optimización de EasyOCR, el filtrado regex** y el **motor de votación temporal mayoritaria (evolución v01 a v11)**.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **La Barrera Óptica de Baja Resolución**: Las placas recortadas de cámaras de tablero miden menos de $40 \times 20$ píxeles, donde la interpolación bicúbica tradicional solo incrementa el desenfoque sin aportar nitidez.
+2. **Superresolución Profunda con EDSR_x4**: Al omitir la normalización por lotes, la red residual EDSR preserva el rango dinámico de píxeles y reconstruye bordes de alta frecuencia con OpenCV `dnn_superres`.
+3. **Apilamiento Temporal Multifotograma**: El alineamiento y promediado de $3 \sim 5$ fotogramas consecutivos cancela el ruido estocástico del sensor y el desenfoque por movimiento.
+4. **Recuperación Masiva de Precisión OCR**: Esta combinación de superresolución y cancelación de ruido cuadruplica la densidad de píxeles, elevando el éxito de EasyOCR del 32% a más del 91%.
