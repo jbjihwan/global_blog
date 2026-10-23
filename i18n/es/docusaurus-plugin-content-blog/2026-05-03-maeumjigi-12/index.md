@@ -33,3 +33,13 @@ El 3 de mayo, habiendo ganado suficiente experiencia con los modelos 8B, nuestro
 ![Captura de Terminal](./images/02_term.png)
 
 Domesticar una bestia masiva como 70B no es fácil. ¿Lograremos hacer fine-tuning a los modelos de 70B? ¡Continuará!
+
+---
+
+## Resumen y Puntos Clave
+
+- **Desafío de Fine-Tuning de 70B Parámetros**: Iniciamos el ajuste fino LoRA en Llama 3.3-70B y DeepSeek-R1-70B, enfrentando restricciones críticas de hardware.
+- **Saturación Inmediata de VRAM y Errores OOM**: Al cargar las matrices masivas de 70B, la memoria GPU colapsó con fallos de Out-of-Memory y bloqueos de proceso.
+- **Estrategias Rigurosas de Ahorro de Memoria**: Redujimos la longitud de secuencia (`max_seq_length`) a 512, limitamos los checkpoints guardados y afinamos el early stopping.
+- **Evaluación Empírica de Infraestructura**: Validamos los límites computacionales físicos al entrenar arquitecturas de 70B y la necesidad de optimización de software avanzada.
+
