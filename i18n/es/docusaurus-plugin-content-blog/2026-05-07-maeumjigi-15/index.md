@@ -33,3 +33,13 @@ Eliminé las líneas de tendencia innecesarias de los gráficos generados por la
 ![Visualización de Gráficos](./images/02_graph.png)
 
 Ahora, basándonos en estos gráficos, podemos decorar maravillosamente nuestros materiales de presentación de la próxima semana.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Comparativa Integral de 5 Modelos**: Evaluado el rendimiento de fine-tuning entre Llama 3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen 3.5-9B y HCX-Text-1.5B.
+- **Visualizacion Automatizada con Matplotlib**: Depuradas lineas de tendencia ruidosas para exportar curvas comparativas limpias de perdida de entrenamiento y evaluacion.
+- **Perfilado de Memoria y Recursos GPU**: Documentado el consumo de VRAM (`02_gpu_memory.png`) y la descomposicion de rango LoRA segun la escala de parametros.
+- **Entorno de Analisis Local en Jupyter**: Resueltos bloqueos de kernel y rutas de modulos (`ft_utils`) para permitir prototipado y analisis rapido fuera del servidor.
+

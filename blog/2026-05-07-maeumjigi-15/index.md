@@ -35,3 +35,13 @@ I removed the unnecessary trend lines (thick lines) from the matplotlib graphs g
 ![Graph Visualization](./images/02_graph.png)
 
 Now, based on these graphs, we can beautifully decorate our capstone design mid-term presentation materials for next week. Which of these 5 models will ultimately be selected as the best quality 'Maeumjigi' chatbot?
+
+---
+
+## Summary & Key Takeaways
+
+- **5-Model Benchmark Synthesis**: Systematically evaluated and compared fine-tuning performance across five architectures (Llama 3.3-70B, DSR1-70B, HCX-Omni-8B, Qwen 3.5-9B, HCX-Text-1.5B).
+- **Automated Matplotlib Visualization**: Filtered trendline artifacts to generate publication-grade training and validation loss curves in a unified visual dashboard.
+- **Hardware Profile & VRAM Auditing**: Benchmarked GPU memory utilization and analyzed LoRA rank decomposition dynamics across parameter scales.
+- **Local Analytical Environment Setup**: Overcame Jupyter kernel failures and module path discrepancies to establish reproducible local analysis notebooks.
+
