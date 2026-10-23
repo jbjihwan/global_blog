@@ -62,6 +62,13 @@
 <li class=""><strong>构筑人类确认防线</strong>：涉及状态变更的破坏性操作必须坚持人在回路授权机制。</li>
 </ol>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心总结-executive-summary">📌 3~5 行核心总结 (Executive Summary)<a href="https://globaldevlog.com/zh-Hans/blog/stanford-cs146s-3-mcp-tool-use-architecture#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93-executive-summary" class="hash-link" aria-label="📌 3~5 行核心总结 (Executive Summary)的直接链接" title="📌 3~5 行核心总结 (Executive Summary)的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>MCP 工业级标准化范式</strong>：模型上下文协议 (MCP) 被誉为“AI 智能体领域的 LSP”，彻底终结了 $N \times M$ 的私有胶水代码乱象，建立了开放双向的 JSON-RPC 2.0 通信标准。</li>
+<li class=""><strong>大脑决策与物理执行解耦</strong>：大模型专注于上下文逻辑推理与决策，文件读写与数据库变更等有状态物理操作全权交由沙箱化 MCP 服务端隔离执行。</li>
+<li class=""><strong>双重传输层架构 (Stdio vs HTTP/SSE)</strong>：本地开发环境借助亚毫秒级 Stdio 高速管道交互，远程企业级集群则通过经由 OAuth 2.0 鉴权的流式 HTTP/SSE 实现弹性扩展。</li>
+<li class=""><strong>人在回路安全防线</strong>：坚决贯彻最小权限原则，对文件删除与数据库覆盖等高危破坏性操作强制引入人类开发者确认卡点，杜绝智能体失控风险。</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="课程参考资料">课程参考资料<a href="https://globaldevlog.com/zh-Hans/blog/stanford-cs146s-3-mcp-tool-use-architecture#%E8%AF%BE%E7%A8%8B%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="hash-link" aria-label="课程参考资料的直接链接" title="课程参考资料的直接链接" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>官方 YouTube 教学视频列表</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

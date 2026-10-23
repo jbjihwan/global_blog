@@ -78,6 +78,13 @@ Function calling is simply an <strong>LLM API feature</strong>: a model emits JS
 </ol>
 <p>In <strong>Lecture 4</strong>, we will explore <strong>Spec-Driven Code Generation &amp; Test Harnesses in Practice</strong>: how to configure Claude Code and Cursor with automated regression loops that write, debug, and verify production features autonomously. Stay tuned to GlobalDevLog!</p>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-line-executive-summary">📌 3–5 Line Executive Summary<a href="https://globaldevlog.com/blog/stanford-cs146s-3-mcp-tool-use-architecture#-35-line-executive-summary" class="hash-link" aria-label="Direct link to 📌 3–5 Line Executive Summary" title="Direct link to 📌 3–5 Line Executive Summary" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>The MCP Standardization Paradigm</strong>: Model Context Protocol (MCP) serves as the "LSP for AI Agents", replacing brittle $N \times M$ custom wrappers with an open, bidirectional JSON-RPC 2.0 protocol across AI hosts and tools.</li>
+<li class=""><strong>Decoupling Brain from Hands</strong>: The LLM context window remains strictly dedicated to high-level logical reasoning, delegating physical I/O and state mutations to sandboxed, isolated MCP servers.</li>
+<li class=""><strong>Dual Transport Architecture</strong>: High-speed, local low-latency workflows execute via sub-millisecond Stdio pipes, while enterprise distributed agents scale via Streamable HTTP/SSE secured with OAuth 2.0.</li>
+<li class=""><strong>Human-in-the-Loop Security Guardrails</strong>: Mission-critical agent deployments enforce the Principle of Least Privilege—blocking destructive disk and database state mutations until explicit developer confirmation is granted.</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="references--course-materials">References &amp; Course Materials<a href="https://globaldevlog.com/blog/stanford-cs146s-3-mcp-tool-use-architecture#references--course-materials" class="hash-link" aria-label="Direct link to References &amp; Course Materials" title="Direct link to References &amp; Course Materials" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Official Course Video Playlist</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

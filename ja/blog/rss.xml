@@ -65,6 +65,13 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <li class=""><strong>人間の承認ゲートを維持せよ</strong>: 破壊的な状態変更ツールは必ず人間の明示的確認を必須として設計してください。</li>
 </ol>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35行のエグゼクティブサマリー-executive-summary">📌 3〜5行のエグゼクティブサマリー (Executive Summary)<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-3-mcp-tool-use-architecture#-35%E8%A1%8C%E3%81%AE%E3%82%A8%E3%82%B0%E3%82%BC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC-executive-summary" class="hash-link" aria-label="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" title="📌 3〜5行のエグゼクティブサマリー (Executive Summary) への直接リンク" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>MCPによる標準化パラダイム</strong>: Model Context Protocol(MCP)は「AIエージェント界のLSP」として、$N \times M$ の独自連携スパゲッティを解消し、オープンな双方向JSON-RPC 2.0規格を確立しました。</li>
+<li class=""><strong>頭脳と物理的な手の完全分離</strong>: LLMはコンテキスト内での論理推論に専念し、ファイルI/OやDBクエリといった物理的実行はサンドボックス化されたMCPサーバへ安全に委任されます。</li>
+<li class=""><strong>2系統のトランスポート層 (Stdio vs HTTP/SSE)</strong>: ローカル開発ではサブミリ秒の高速Stdioパイプを活用し、リモートのエンタープライズ連携ではOAuth 2.0認可を伴うストリーミングHTTP/SSEが機能します。</li>
+<li class=""><strong>人間の承認による安全ガードレール</strong>: 強力な自律エージェント運用において最小権限の原則を徹底し、破壊的な状態変更には必ず人間の明示的な承認を挟む設計が不可欠です。</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="参考文献--公式教材">参考文献 &amp; 公式教材<a href="https://globaldevlog.com/ja/blog/stanford-cs146s-3-mcp-tool-use-architecture#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE--%E5%85%AC%E5%BC%8F%E6%95%99%E6%9D%90" class="hash-link" aria-label="参考文献 &amp; 公式教材 への直接リンク" title="参考文献 &amp; 公式教材 への直接リンク" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>公式YouTubeプレイリスト</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

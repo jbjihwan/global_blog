@@ -61,6 +61,13 @@ MCP es un <strong>protocolo industrial abierto</strong>. Un servidor MCP de Post
 <li class=""><strong>Mantén al Humano en el Bucle</strong>: Exige compuertas de autorización explícita para herramientas que modifiquen el estado del sistema.</li>
 </ol>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/stanford-cs146s-3-mcp-tool-use-architecture#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>El Paradigma de Estandarización de MCP</strong>: Model Context Protocol (MCP) actúa como el "LSP para Agentes de IA", resolviendo el espagueti de integraciones $N \times M$ mediante un protocolo abierto y bidireccional JSON-RPC 2.0.</li>
+<li class=""><strong>Desacoplamiento entre Cerebro y Manos</strong>: El LLM se concentra exclusivamente en el razonamiento lógico, mientras que las mutaciones físicas de estado e I/O se delegan a servidores MCP aislados.</li>
+<li class=""><strong>Arquitectura de Doble Transporte (Stdio vs HTTP/SSE)</strong>: Permite flujos locales de sub-milisegundo mediante pipes Stdio de alta velocidad, escalando a entornos remotos con streaming HTTP/SSE protegido por OAuth 2.0.</li>
+<li class=""><strong>Guardarraíles de Seguridad con Humano en el Bucle</strong>: Aplica el principio de mínimo privilegio, bloqueando cualquier mutación destructiva de disco o base de datos hasta recibir confirmación explícita del desarrollador.</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="referencias-y-materiales-del-curso">Referencias y Materiales del Curso<a href="https://globaldevlog.com/es/blog/stanford-cs146s-3-mcp-tool-use-architecture#referencias-y-materiales-del-curso" class="hash-link" aria-label="Enlace directo al Referencias y Materiales del Curso" title="Enlace directo al Referencias y Materiales del Curso" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Lista de Reproducción Oficial en YouTube</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>

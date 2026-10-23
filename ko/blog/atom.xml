@@ -64,6 +64,13 @@
 </ol>
 <p><strong>4강</strong>에서는 스펙 주도 개발(SDD)과 회귀 테스트 하네스를 결합하여, Claude Code와 Cursor가 <strong>프로덕션 수준의 기능을 버그 없이 스스로 구현하고 자가 치유하는 실전 워크플로</strong>를 다루겠습니다. GlobalDevLog를 계속 지켜봐 주시기 바랍니다!</p>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35줄-최종-요약-executive-summary">📌 3~5줄 최종 요약 (Executive Summary)<a href="https://globaldevlog.com/ko/blog/stanford-cs146s-3-mcp-tool-use-architecture#-35%EC%A4%84-%EC%B5%9C%EC%A2%85-%EC%9A%94%EC%95%BD-executive-summary" class="hash-link" aria-label="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" title="📌 3~5줄 최종 요약 (Executive Summary)에 대한 직접 링크" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>MCP 표준화의 패러다임</strong>: Model Context Protocol(MCP)은 AI 에이전트 계의 LSP(Language Server Protocol)로서, $N \times M$ 스파게티 연동 문제를 해결하고 개방형 JSON-RPC 2.0 표준 통신을 확립했습니다.</li>
+<li class=""><strong>두뇌와 물리적 손의 완벽한 분리</strong>: LLM은 복잡한 논리 추론에만 집중하고, 파일 I/O와 데이터베이스 쿼리 등 상태를 변경하는 물리적 작업은 샌드박스화된 MCP 서버가 전담합니다.</li>
+<li class=""><strong>이원화된 전송 계층 (Stdio vs HTTP/SSE)</strong>: 로컬 개발 환경에서는 밀리초 미만의 초고속 Stdio 파이프라인을 사용하고, 원격 엔터프라이즈 환경에서는 OAuth 2.0 기반의 스트리밍 HTTP/SSE 전송을 채택합니다.</li>
+<li class=""><strong>인간 승인 기반의 보안 가드레일</strong>: 강력한 에이전트 자율성 뒤에 '최소 권한의 원칙'과 파일 삭제·DB 수정 시 개발자의 명시적 승인을 요구하는 Human-in-the-Loop 방어선을 구축해야 안전합니다.</li>
+</ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="references--course-materials">References &amp; Course Materials<a href="https://globaldevlog.com/ko/blog/stanford-cs146s-3-mcp-tool-use-architecture#references--course-materials" class="hash-link" aria-label="References &amp; Course Materials에 대한 직접 링크" title="References &amp; Course Materials에 대한 직접 링크" translate="no">​</a></h3>
 <ul>
 <li class=""><strong>Official Course Video Playlist</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>
