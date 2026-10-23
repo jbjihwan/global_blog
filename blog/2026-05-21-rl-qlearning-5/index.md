@@ -135,3 +135,11 @@ With this final Sim-to-Real deployment, our 5-part **RL Q-Learning Robotics seri
 5. **#5**: Sim-to-Real Hardware Transfer via Arduino Uno, Bluetooth SPP & ArUco Vision
 
 From foundational simulator modeling and algorithmic tuning to multi-seed automation and physical hardware deployment, this series documented the complete lifecycle of reinforcement learning for embedded robotics. Stay tuned for future deep dives into our next projects!
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **Closing the Sim-to-Real Reality Gap**: Solves microcontroller computational limits (Arduino Uno 2KB SRAM) and physical wheel slip by zero-shot transferring the Webots-trained 648-state Q-Table to physical hardware.
+2. **Distributed Brain-Muscle Architecture**: A host PC executes heavy OpenCV vision and tabular Q-learning inference, transmitting binary movement commands via HC-06 Bluetooth SPP at 115,200 baud to the Arduino PWM motor controller.
+3. **Sub-Centimeter ArUco Vision Homography**: An overhead camera calibrated for barrel distortion tracks 6-DoF ArUco markers (`DICT_4X4_50`), transforming raw pixels into accurate real-world metric coordinates $(x, y, \theta)$.
+4. **86.7% Physical Hardware Target Success**: Achieved a 26/30 successful target-reaching benchmark in a physical $1.2\text{m} \times 1.2\text{m}$ arena, demonstrating that discretized state spaces bridge the simulation-to-reality divide without on-device retraining.

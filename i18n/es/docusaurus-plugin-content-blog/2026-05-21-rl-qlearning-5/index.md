@@ -135,3 +135,11 @@ Con este hito de transferencia a hardware real concluye la serie de 5 artículos
 5. **#5**: Sim-to-Real: Despliegue en Arduino Uno, Bluetooth HC-06 y visión ArUco
 
 Desde el modelado en simulación y la fundamentación algorítmica, hasta la automatización headless y la transferencia a sistemas embebidos reales, esta serie documentó todo el ciclo de vida del aprendizaje por refuerzo aplicado a la robótica. ¡Nos vemos en los próximos proyectos de desarrollo!
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Superación de la Brecha Realidad-Simulación**: Supera la memoria limitada del microcontrolador (Arduino Uno 2KB SRAM) y el deslizamiento mecánico transfiriendo la Q-Table de 648 estados entrenada en Webots.
+2. **Arquitectura Distribuida Cerebro-Músculo**: El PC anfitrión ejecuta la visión artificial y la inferencia Q-Learning, enviando órdenes de movimiento por Bluetooth HC-06 a 115,200 baudios al Arduino para accionar los motores PWM.
+3. **Homografía de Visión ArUco Subcentimétrica**: Una cámara cenital con corrección de distorsión óptica rastrea marcadores ArUco (`DICT_4X4_50`), mapeando píxeles a coordenadas métricas reales $(x, y, \theta)$.
+4. **86.7% de Éxito en Hardware Físico**: Registró 26 aciertos en 30 pruebas en un cuadrilátero físico de $1.2\text{m} \times 1.2\text{m}$, demostrando que la discretización tabular cierra la brecha Sim-to-Real sin reentrenamiento.
