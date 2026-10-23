@@ -422,7 +422,15 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <ul>
 <li class=""><strong>Part 2</strong>: <em>[Static Site Monetization #2] Google AdSense Approval on Docusaurus: ads.txt 404 Resolution and Asynchronous Script Injection</em></li>
 <li class=""><strong>Part 3</strong>: <em>[Multi-Search Engine SEO #3] Google, Naver &amp; Bing Webmaster Setup: Sitemap Deletion Quirks and Host Error Troubleshooting</em></li>
-</ul>]]></content>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-line-executive-summary">📌 3–5 Line Executive Summary<a href="https://globaldevlog.com/blog/github-pages-custom-domain-cloudflare-dns#-35-line-executive-summary" class="hash-link" aria-label="Direct link to 📌 3–5 Line Executive Summary" title="Direct link to 📌 3–5 Line Executive Summary" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Architectural Cost-Efficiency</strong>: By combining Porkbun (wholesale domain registrar), Cloudflare (enterprise Anycast CDN &amp; DNS), and GitHub Pages (zero-cost static hosting), you achieve enterprise-grade global edge distribution at $0 hosting overhead.</li>
+<li class=""><strong>Overcoming RFC 1034 via CNAME Flattening</strong>: Cloudflare resolves the DNS zone apex limitation by dynamically synthesizing pseudo-A records for <code>@</code>, allowing clean root domain routing (<code>https://domain.com</code>) directly to GitHub Pages.</li>
+<li class=""><strong>End-to-End Strict Encryption</strong>: Configuring Cloudflare SSL/TLS to 'Full (Strict)' establishes verified, bidirectional cryptographic protection from the visitor's browser all the way to GitHub's origin servers.</li>
+<li class=""><strong>Permanent Deployment Persistence</strong>: Hardcoding <code>static/CNAME</code> in Docusaurus and configuring <code>docusaurus.config.ts</code> prevents GitHub Pages from resetting your custom domain during automated CI/CD and deploy cycles.</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

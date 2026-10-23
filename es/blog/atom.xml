@@ -355,7 +355,15 @@ Es el problema de <strong>Saturación de Contexto y Dilución de la Atención</s
 <ul>
 <li class=""><strong>Parte 2</strong>: <em>[Monetización de Sitios Estáticos #2] Aprobación de Google AdSense en Docusaurus: Resolución del error 404 en ads.txt e Inyección Asíncrona de Scripts</em></li>
 <li class=""><strong>Parte 3</strong>: <em>[SEO Multimotor #3] Registro en Google, Naver y Bing: Trucos para la Eliminación de Sitemaps y Errores de Nivel Host</em></li>
-</ul>]]></content>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumen-ejecutivo-de-3-a-5-líneas">📌 Resumen Ejecutivo de 3 a 5 Líneas<a href="https://globaldevlog.com/es/blog/github-pages-custom-domain-cloudflare-dns#-resumen-ejecutivo-de-3-a-5-l%C3%ADneas" class="hash-link" aria-label="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" title="Enlace directo al 📌 Resumen Ejecutivo de 3 a 5 Líneas" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Arquitectura Empresarial con Costo Cero de Servidor</strong>: La combinación de Porkbun (registro al costo), Cloudflare (Anycast CDN y DNS global) y GitHub Pages (alojamiento estático gratuito) ofrece infraestructura de alto rendimiento sin costes operativos.</li>
+<li class=""><strong>Superación del Límite RFC 1034 con CNAME Flattening</strong>: Resuelve la restricción técnica de asignar CNAMEs en el dominio raíz (<code>@</code>) mediante la técnica de aplanamiento de Cloudflare, conectando el apex directamente a GitHub Pages.</li>
+<li class=""><strong>Cifrado Extremo a Extremo en Modo Full (Strict)</strong>: Establece túneles HTTPS seguros tanto entre el visitante y Cloudflare como entre Cloudflare y los servidores de origen de GitHub Pages.</li>
+<li class=""><strong>Persistencia Garantizada con static/CNAME</strong>: Alojar el archivo <code>CNAME</code> en el directorio <code>static/</code> de Docusaurus evita que los despliegues automatizados eliminen la configuración del dominio personalizado.</li>
+</ol>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
