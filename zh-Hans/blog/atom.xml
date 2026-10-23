@@ -1350,7 +1350,15 @@
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-下一步研究方向">5. 下一步研究方向<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-19-rl-qlearning-3#5-%E4%B8%8B%E4%B8%80%E6%AD%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="hash-link" aria-label="5. 下一步研究方向的直接链接" title="5. 下一步研究方向的直接链接" translate="no">​</a></h2>
 <p>我们成功证明了 648 状态离散表格型 Q-Learning 能够应对迷宫级别的复杂障碍绕行。</p>
-<p>在第 4 篇中，我们将加载训练完成的权重文件 (<code>models/*.npy</code>)，在关闭探索策略的情况下利用 <strong><code>evaluate_qlearning.py</code> 进行确定性测试，并与 DQN 及 SARSA 等经典算法开展横向性能对比分析</strong>！</p>]]></content>
+<p>在第 4 篇中，我们将加载训练完成的权重文件 (<code>models/*.npy</code>)，在关闭探索策略的情况下利用 <strong><code>evaluate_qlearning.py</code> 进行确定性测试，并与 DQN 及 SARSA 等经典算法开展横向性能对比分析</strong>！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心总结与技术要点">核心总结与技术要点<a href="https://globaldevlog.com/zh-Hans/blog/2026-05-19-rl-qlearning-3#%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93%E4%B8%8E%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9" class="hash-link" aria-label="核心总结与技术要点的直接链接" title="核心总结与技术要点的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>复杂障碍物竞技场设计</strong>：在 Webots 中搭建了包含 12 个内部障碍物方块的 1.2m × 1.2m 仿真竞技场，验证复杂空间内的自主避障路径规划。</li>
+<li class=""><strong>动态回合生命周期管理</strong>：结合距离传感器碰撞阈值检测、目标到达判定以及 Supervisor IPC 自动化重置机制，保障长周期无人值守训练。</li>
+<li class=""><strong>克服局部最优解（Local Minima）</strong>：针对死角停滞与震荡打转现象引入负梯度惩罚与前进激励奖励塑形（Reward Shaping），引导智能体果断逃逸。</li>
+<li class=""><strong>无头（Headless）加速训练</strong>：关闭 3D 图形渲染并开启 Webots 极速无头批处理模式，实现每小时超过 1,000 回合的高效离线训练吞吐量。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>

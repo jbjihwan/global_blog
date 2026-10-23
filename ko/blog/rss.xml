@@ -1367,7 +1367,15 @@ ightarrow$ 자가 수정]이 연속되는 <strong>폐루프 자율 순환 시스
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-다음-편-예고">5. 다음 편 예고<a href="https://globaldevlog.com/ko/blog/2026-05-19-rl-qlearning-3#5-%EB%8B%A4%EC%9D%8C-%ED%8E%B8-%EC%98%88%EA%B3%A0" class="hash-link" aria-label="5. 다음 편 예고에 대한 직접 링크" title="5. 다음 편 예고에 대한 직접 링크" translate="no">​</a></h2>
 <p>장애물이 가득한 가상 시뮬레이션에서도 648개 상태 공간의 Tabular Q-Learning이 우회 경로를 성공적으로 학습할 수 있음을 입증했습니다.</p>
-<p>다음 4회차 포스팅에서는 학습이 완료된 Q-Table 가중치 파일(<code>models/*.npy</code>)을 불러와 탐색(Epsilon)을 끈 상태에서 순수 결정론적(Greedy) 주행 성능을 정량 평가하는 <strong><code>evaluate_qlearning.py</code> 벤치마크 및 타 알고리즘(DQN, SARSA)과의 성능 비교 분석</strong>을 진행하겠습니다!</p>]]></content:encoded>
+<p>다음 4회차 포스팅에서는 학습이 완료된 Q-Table 가중치 파일(<code>models/*.npy</code>)을 불러와 탐색(Epsilon)을 끈 상태에서 순수 결정론적(Greedy) 주행 성능을 정량 평가하는 <strong><code>evaluate_qlearning.py</code> 벤치마크 및 타 알고리즘(DQN, SARSA)과의 성능 비교 분석</strong>을 진행하겠습니다!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="핵심-요약-및-배운-점">핵심 요약 및 배운 점<a href="https://globaldevlog.com/ko/blog/2026-05-19-rl-qlearning-3#%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%95%BD-%EB%B0%8F-%EB%B0%B0%EC%9A%B4-%EC%A0%90" class="hash-link" aria-label="핵심 요약 및 배운 점에 대한 직접 링크" title="핵심 요약 및 배운 점에 대한 직접 링크" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>복합 장애물 아레나 환경 구축</strong>: 12개의 내부 장애물 블록이 배치된 1.2m × 1.2m Webots 가상 환경을 구축하여 단순 직진을 넘어선 복합 경로 탐색 과제를 수립했습니다.</li>
+<li class=""><strong>동적 에피소드 라이프사이클 관리</strong>: 거리 센서 기반의 충돌 임계치 감지, 목표 도달 판정, Supervisor IPC를 통한 에피소드 자동 리셋 파이프라인을 구현했습니다.</li>
+<li class=""><strong>국소 해(Local Minima) 탈출 기법</strong>: 구석 갇힘 및 진동성 선회 패턴을 방지하기 위해 음수 구배 페널티와 직진 가중치 기반의 보상 성형(Reward Shaping)을 적용했습니다.</li>
+<li class=""><strong>헤드리스 고속 학습 가속</strong>: 3D 그래픽 렌더링을 비활성화한 헤드리스(Headless) 배치 모드를 통해 시간당 1,000회 이상의 에피소드를 초고속 학습할 수 있는 환경을 달성했습니다.</li>
+</ul>]]></content:encoded>
             <category>강화학습</category>
             <category>Q-learning</category>
             <category>Webots</category>

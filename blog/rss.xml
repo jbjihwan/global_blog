@@ -1380,7 +1380,15 @@ This is the fundamental problem of <strong>Context Saturation &amp; Attention Di
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-whats-next">5. What's Next?<a href="https://globaldevlog.com/blog/2026-05-19-rl-qlearning-3#5-whats-next" class="hash-link" aria-label="Direct link to 5. What's Next?" title="Direct link to 5. What's Next?" translate="no">​</a></h2>
 <p>Our 648-bin Tabular Q-Learning model successfully navigates maze-like obstacle configurations.</p>
-<p>In Episode #4, we will load the saved model checkpoints (<code>models/*.npy</code>) to benchmark greedy, deterministic performance using <strong><code>evaluate_qlearning.py</code> and analyze comparative metrics against DQN and SARSA</strong>!</p>]]></content:encoded>
+<p>In Episode #4, we will load the saved model checkpoints (<code>models/*.npy</code>) to benchmark greedy, deterministic performance using <strong><code>evaluate_qlearning.py</code> and analyze comparative metrics against DQN and SARSA</strong>!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary--key-takeaways">Summary &amp; Key Takeaways<a href="https://globaldevlog.com/blog/2026-05-19-rl-qlearning-3#summary--key-takeaways" class="hash-link" aria-label="Direct link to Summary &amp; Key Takeaways" title="Direct link to Summary &amp; Key Takeaways" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Complex Obstacle Arena Design</strong>: Configured a constrained 1.2m × 1.2m environment in Webots featuring 12 randomized interior wall blocks to evaluate non-trivial spatial pathfinding.</li>
+<li class=""><strong>Dynamic Episode Management</strong>: Implemented automatic collision thresholds, goal radius triggering, and programmatic episode resets via Webots Supervisor IPC.</li>
+<li class=""><strong>Overcoming Local Minima</strong>: Augmented reward shaping with negative gradient penalties against entrapment and oscillatory turning behaviors near corners.</li>
+<li class=""><strong>Headless Training Acceleration</strong>: Achieved over 1,000 episodes per hour by disabling 3D rendering and running the Webots physics engine in fast headless batch mode.</li>
+</ul>]]></content:encoded>
             <category>reinforcement-learning</category>
             <category>q-learning</category>
             <category>webots</category>
