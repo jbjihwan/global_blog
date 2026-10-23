@@ -160,6 +160,12 @@ MCP 是一套 **“开放工业协议”**。今天编写的一个 PostgreSQL MC
 
 ---
 
+### 📌 3~5 行核心总结 (Executive Summary)
+1. **MCP 工业级标准化范式**：模型上下文协议 (MCP) 被誉为“AI 智能体领域的 LSP”，彻底终结了 $N \times M$ 的私有胶水代码乱象，建立了开放双向的 JSON-RPC 2.0 通信标准。
+2. **大脑决策与物理执行解耦**：大模型专注于上下文逻辑推理与决策，文件读写与数据库变更等有状态物理操作全权交由沙箱化 MCP 服务端隔离执行。
+3. **双重传输层架构 (Stdio vs HTTP/SSE)**：本地开发环境借助亚毫秒级 Stdio 高速管道交互，远程企业级集群则通过经由 OAuth 2.0 鉴权的流式 HTTP/SSE 实现弹性扩展。
+4. **人在回路安全防线**：坚决贯彻最小权限原则，对文件删除与数据库覆盖等高危破坏性操作强制引入人类开发者确认卡点，杜绝智能体失控风险。
+
 ### 课程参考资料
 - **官方 YouTube 教学视频列表**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **核心文献**: Model Context Protocol Specification (modelcontextprotocol.io); Anthropic Claude Tool Use Architecture; Microsoft Language Server Protocol (LSP).

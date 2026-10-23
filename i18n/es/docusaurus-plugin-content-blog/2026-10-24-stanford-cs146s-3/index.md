@@ -159,6 +159,12 @@ MCP es un **protocolo industrial abierto**. Un servidor MCP de PostgreSQL desarr
 
 ---
 
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **El Paradigma de Estandarización de MCP**: Model Context Protocol (MCP) actúa como el "LSP para Agentes de IA", resolviendo el espagueti de integraciones $N \times M$ mediante un protocolo abierto y bidireccional JSON-RPC 2.0.
+2. **Desacoplamiento entre Cerebro y Manos**: El LLM se concentra exclusivamente en el razonamiento lógico, mientras que las mutaciones físicas de estado e I/O se delegan a servidores MCP aislados.
+3. **Arquitectura de Doble Transporte (Stdio vs HTTP/SSE)**: Permite flujos locales de sub-milisegundo mediante pipes Stdio de alta velocidad, escalando a entornos remotos con streaming HTTP/SSE protegido por OAuth 2.0.
+4. **Guardarraíles de Seguridad con Humano en el Bucle**: Aplica el principio de mínimo privilegio, bloqueando cualquier mutación destructiva de disco o base de datos hasta recibir confirmación explícita del desarrollador.
+
 ### Referencias y Materiales del Curso
 - **Lista de Reproducción Oficial en YouTube**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Literatura Principal**: Model Context Protocol Specification (modelcontextprotocol.io); Anthropic Claude Tool Use Architecture; Microsoft Language Server Protocol (LSP).

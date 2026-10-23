@@ -201,6 +201,12 @@ In **Lecture 4**, we will explore **Spec-Driven Code Generation & Test Harnesses
 
 ---
 
+### 📌 3–5 Line Executive Summary
+1. **The MCP Standardization Paradigm**: Model Context Protocol (MCP) serves as the "LSP for AI Agents", replacing brittle $N \times M$ custom wrappers with an open, bidirectional JSON-RPC 2.0 protocol across AI hosts and tools.
+2. **Decoupling Brain from Hands**: The LLM context window remains strictly dedicated to high-level logical reasoning, delegating physical I/O and state mutations to sandboxed, isolated MCP servers.
+3. **Dual Transport Architecture**: High-speed, local low-latency workflows execute via sub-millisecond Stdio pipes, while enterprise distributed agents scale via Streamable HTTP/SSE secured with OAuth 2.0.
+4. **Human-in-the-Loop Security Guardrails**: Mission-critical agent deployments enforce the Principle of Least Privilege—blocking destructive disk and database state mutations until explicit developer confirmation is granted.
+
 ### References & Course Materials
 - **Official Course Video Playlist**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Primary Literature**: Model Context Protocol Specification (modelcontextprotocol.io); Anthropic Claude Tool Use Architecture; Microsoft Language Server Protocol (LSP).

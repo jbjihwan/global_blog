@@ -166,6 +166,12 @@ MCP는 기능이 아니라 **'산업 개방형 표준 프로토콜'**입니다. 
 
 ---
 
+### 📌 3~5줄 최종 요약 (Executive Summary)
+1. **MCP 표준화의 패러다임**: Model Context Protocol(MCP)은 AI 에이전트 계의 LSP(Language Server Protocol)로서, $N \times M$ 스파게티 연동 문제를 해결하고 개방형 JSON-RPC 2.0 표준 통신을 확립했습니다.
+2. **두뇌와 물리적 손의 완벽한 분리**: LLM은 복잡한 논리 추론에만 집중하고, 파일 I/O와 데이터베이스 쿼리 등 상태를 변경하는 물리적 작업은 샌드박스화된 MCP 서버가 전담합니다.
+3. **이원화된 전송 계층 (Stdio vs HTTP/SSE)**: 로컬 개발 환경에서는 밀리초 미만의 초고속 Stdio 파이프라인을 사용하고, 원격 엔터프라이즈 환경에서는 OAuth 2.0 기반의 스트리밍 HTTP/SSE 전송을 채택합니다.
+4. **인간 승인 기반의 보안 가드레일**: 강력한 에이전트 자율성 뒤에 '최소 권한의 원칙'과 파일 삭제·DB 수정 시 개발자의 명시적 승인을 요구하는 Human-in-the-Loop 방어선을 구축해야 안전합니다.
+
 ### References & Course Materials
 - **Official Course Video Playlist**: [Stanford CS146S: The Modern Software Development (YouTube Playlist)](https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9)
 - **Primary Literature**: Model Context Protocol Specification (modelcontextprotocol.io); Anthropic Claude Tool Use Architecture; Microsoft Language Server Protocol (LSP).
