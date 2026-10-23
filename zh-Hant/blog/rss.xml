@@ -1143,48 +1143,6 @@
             <category>Python</category>
         </item>
         <item>
-            <title><![CDATA[[Maeumjigi 心語伴侶畢業專題開發日誌 #20] 第三輪微調收官與全端功能 (DB 持久化、社群看板) 深度整合]]></title>
-            <link>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</link>
-            <guid>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</guid>
-            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[透過精細校準日常閒聊與危機介入比例完成第 3 輪微調，打通對話持久化資料庫與前端社群分頁及情緒日記篩選元件。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="封面圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
-<p>5 月 19 日至 20 日的兩天時間裡，第三輪微調 (<code>fine_tuning_3</code>) 的評估自動化與面向生產級 App 服務的全端功能深度打磨實作了全面齊頭並進。</p>
-<!-- -->
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三輪微調收尾自動化提取最佳-checkpoint-與平行推論">第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BC%AA%E5%BE%AE%E8%AA%BF%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8B%95%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BD%B3-checkpoint-%E8%88%87%E5%B9%B3%E8%A1%8C%E6%8E%A8%E8%AB%96" class="hash-link" aria-label="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" title="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" translate="no">​</a></h3>
-<p>汲取前序微調經驗，旨在兼顧知識圖譜確定性規則與自然同理心引導的第三輪微調實驗順利完成訓練：</p>
-<blockquote>
-<p>「自動遍歷 fine_tuning_3 目錄下所有實驗模型，精準篩選 Eval Loss 表現最佳的最佳檢查點 (Best Checkpoint)，替換至對應 adapter 目錄並回報指標。」
-「編寫全新的 run_test_20_30.sh 自動化指令碼，在背景針對 fine_tuning_3 展開多卡平行推論與自動評測。」</p>
-</blockquote>
-<p>告別以往繁瑣的人工跨資料夾複製，AI 編寫的高可用指令碼自主提煉最佳權重並配置至推論服務，將 4 組別名候選模型一次性掛在 GPU 伺服器背景展開全自動化基準盲測。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全端貫通大模型對話-db-持久化與社群互動功能落地">全端貫通：大模型對話 DB 持久化與社群互動功能落地<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E7%AB%AF%E8%B2%AB%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%B0%8D%E8%A9%B1-db-%E6%8C%81%E4%B9%85%E5%8C%96%E8%88%87%E7%A4%BE%E7%BE%A4%E4%BA%92%E5%8B%95%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" title="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" translate="no">​</a></h3>
-<p>在伺服器叢集高速運算的同時，本地全端整合測試也迎來了實質性突破：</p>
-<blockquote>
-<p>「深度梳理 seed_data.sql 初始化認證資訊。預設測試使用者初始密碼究竟是 Test1234! 嗎？當前指令碼目標寫入的目標 DB 架構為何？」</p>
-</blockquote>
-<p>為了徹底殲滅此前導致 <code>401 Unauthorized</code> 鑑權死結的根本誘因，我們逆向審查了資料種子的雜湊散列格式，成功修復了驗證鏈路。</p>
-<p>5 月 20 日下午，我們提交了一個里程碑意義的 Git Commit：
-<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支援大模型對話持久化、社群看板分頁及情緒日記多維篩選)</code></p>
-<p><img decoding="async" loading="lazy" alt="行動端功能截圖" src="https://globaldevlog.com/zh-Hant/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
-<p>至此，微調大型語言模型的互動上下文終於正式打通資料庫實作了安全落盤儲存！社群看板分頁瀏覽元件以及記錄每日心情起伏的日記多維過濾面板也全部在行動端高品質渲染上線。</p>
-<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
-<ul>
-<li class=""><strong>最佳權重自動化提取流水線</strong>：撰寫伺服端批次處理指令碼，自動化抓取第 3 輪微調中驗證集表現最佳的 LoRA 檢查點並無縫覆蓋至 <code>adapter</code> 生產就緒目錄。</li>
-<li class=""><strong>遠端多模型後台平行評估</strong>：依託遠端 GPU 伺服器執行 <code>run_test_20_30.sh</code>，實現 4 組別名候選模型在後台高效並行推論與量化評分。</li>
-<li class=""><strong>打通對話日誌全鏈路資料庫持久化</strong>：徹底解決驗證階段的 <code>401 Unauthorized</code> 鑑權死結，實現多輪人機同理心對話記錄的結構化安全落盤。</li>
-<li class=""><strong>行動端多維業務功能齊備</strong>：在 React Native 前端上線了社群看板高效分頁瀏覽與心情日記多維度過濾元件，完成大型模型與行動容器的深度工程閉環。</li>
-</ul>]]></content:encoded>
-            <category>開發日誌</category>
-            <category>微調</category>
-            <category>後端</category>
-            <category>前端</category>
-            <category>資料庫</category>
-            <category>畢業專題</category>
-        </item>
-        <item>
             <title><![CDATA[[Webots 機器人] evaluate_qlearning：確定性導航定量評估與 DQN·SARSA 對比基準 (#4)]]></title>
             <link>https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4</link>
             <guid>https://globaldevlog.com/zh-Hant/blog/2026-05-20-rl-qlearning-4</guid>
@@ -1251,6 +1209,48 @@
             <category>SARSA</category>
             <category>機器人學</category>
             <category>Python</category>
+        </item>
+        <item>
+            <title><![CDATA[[Maeumjigi 心語伴侶畢業專題開發日誌 #20] 第三輪微調收官與全端功能 (DB 持久化、社群看板) 深度整合]]></title>
+            <link>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</link>
+            <guid>https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20</guid>
+            <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[透過精細校準日常閒聊與危機介入比例完成第 3 輪微調，打通對話持久化資料庫與前端社群分頁及情緒日記篩選元件。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="封面圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_cover-ac5e0126cfa930b87e044dbc1b82cc03.png" width="2519" height="1373" class="img_ev3q"></p>
+<p>5 月 19 日至 20 日的兩天時間裡，第三輪微調 (<code>fine_tuning_3</code>) 的評估自動化與面向生產級 App 服務的全端功能深度打磨實作了全面齊頭並進。</p>
+<!-- -->
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第三輪微調收尾自動化提取最佳-checkpoint-與平行推論">第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E7%AC%AC%E4%B8%89%E8%BC%AA%E5%BE%AE%E8%AA%BF%E6%94%B6%E5%B0%BE%E8%87%AA%E5%8B%95%E5%8C%96%E6%8F%90%E5%8F%96%E6%9C%80%E4%BD%B3-checkpoint-%E8%88%87%E5%B9%B3%E8%A1%8C%E6%8E%A8%E8%AB%96" class="hash-link" aria-label="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" title="第三輪微調收尾：自動化提取最佳 Checkpoint 與平行推論的直接連結" translate="no">​</a></h3>
+<p>汲取前序微調經驗，旨在兼顧知識圖譜確定性規則與自然同理心引導的第三輪微調實驗順利完成訓練：</p>
+<blockquote>
+<p>「自動遍歷 fine_tuning_3 目錄下所有實驗模型，精準篩選 Eval Loss 表現最佳的最佳檢查點 (Best Checkpoint)，替換至對應 adapter 目錄並回報指標。」
+「編寫全新的 run_test_20_30.sh 自動化指令碼，在背景針對 fine_tuning_3 展開多卡平行推論與自動評測。」</p>
+</blockquote>
+<p>告別以往繁瑣的人工跨資料夾複製，AI 編寫的高可用指令碼自主提煉最佳權重並配置至推論服務，將 4 組別名候選模型一次性掛在 GPU 伺服器背景展開全自動化基準盲測。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="全端貫通大模型對話-db-持久化與社群互動功能落地">全端貫通：大模型對話 DB 持久化與社群互動功能落地<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E5%85%A8%E7%AB%AF%E8%B2%AB%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%B0%8D%E8%A9%B1-db-%E6%8C%81%E4%B9%85%E5%8C%96%E8%88%87%E7%A4%BE%E7%BE%A4%E4%BA%92%E5%8B%95%E5%8A%9F%E8%83%BD%E8%90%BD%E5%9C%B0" class="hash-link" aria-label="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" title="全端貫通：大模型對話 DB 持久化與社群互動功能落地的直接連結" translate="no">​</a></h3>
+<p>在伺服器叢集高速運算的同時，本地全端整合測試也迎來了實質性突破：</p>
+<blockquote>
+<p>「深度梳理 seed_data.sql 初始化認證資訊。預設測試使用者初始密碼究竟是 Test1234! 嗎？當前指令碼目標寫入的目標 DB 架構為何？」</p>
+</blockquote>
+<p>為了徹底殲滅此前導致 <code>401 Unauthorized</code> 鑑權死結的根本誘因，我們逆向審查了資料種子的雜湊散列格式，成功修復了驗證鏈路。</p>
+<p>5 月 20 日下午，我們提交了一個里程碑意義的 Git Commit：
+<code>feat: 챗봇 DB 저장, 게시판 페이지네이션, 감정일기 필터 추가 (支援大模型對話持久化、社群看板分頁及情緒日記多維篩選)</code></p>
+<p><img decoding="async" loading="lazy" alt="行動端功能截圖" src="https://globaldevlog.com/zh-Hant/assets/images/02_app_feature-26d976bed8544fa566bd187f86d90617.png" width="2522" height="1384" class="img_ev3q"></p>
+<p>至此，微調大型語言模型的互動上下文終於正式打通資料庫實作了安全落盤儲存！社群看板分頁瀏覽元件以及記錄每日心情起伏的日記多維過濾面板也全部在行動端高品質渲染上線。</p>
+<p>無形而龐大的前沿大模型，終於被穩穩裝入了精美的行動應用程式容器之中！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-20-maeumjigi-20#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>最佳權重自動化提取流水線</strong>：撰寫伺服端批次處理指令碼，自動化抓取第 3 輪微調中驗證集表現最佳的 LoRA 檢查點並無縫覆蓋至 <code>adapter</code> 生產就緒目錄。</li>
+<li class=""><strong>遠端多模型後台平行評估</strong>：依託遠端 GPU 伺服器執行 <code>run_test_20_30.sh</code>，實現 4 組別名候選模型在後台高效並行推論與量化評分。</li>
+<li class=""><strong>打通對話日誌全鏈路資料庫持久化</strong>：徹底解決驗證階段的 <code>401 Unauthorized</code> 鑑權死結，實現多輪人機同理心對話記錄的結構化安全落盤。</li>
+<li class=""><strong>行動端多維業務功能齊備</strong>：在 React Native 前端上線了社群看板高效分頁瀏覽與心情日記多維度過濾元件，完成大型模型與行動容器的深度工程閉環。</li>
+</ul>]]></content:encoded>
+            <category>開發日誌</category>
+            <category>微調</category>
+            <category>後端</category>
+            <category>前端</category>
+            <category>資料庫</category>
+            <category>畢業專題</category>
         </item>
         <item>
             <title><![CDATA[[Webots 機器人] 克服 12 面牆體障礙與 Local Minima 陷阱：多隨機種子 Headless 模擬 (#3)]]></title>
