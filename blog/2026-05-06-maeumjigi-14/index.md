@@ -39,3 +39,13 @@ To utilize 100% of the server's GPU resources, with the AI's help, we wrote a ne
 ![Evaluation Pipeline](./images/02_eval.png)
 
 Although an error occurred because VRAM was not properly released when transitioning from DSR1-70B inference to the next model, we resolved it by isolating the environments with the parallel script. Now, it's finally time to compare the actual answer quality of each model!
+
+---
+
+## Summary & Key Takeaways
+
+- **8B-9B Architecture Fine-Tuning Convergence**: Successfully concluded training for HCX-Omni-8B and Qwen 3.5-9B, validating steady loss reduction down to 0.85.
+- **Multi-GPU Parallel Evaluation Architecture**: Engineered `run_eval_parallel.sh` to saturate dual-GPU compute capacity and eliminate single-device inference bottlenecks.
+- **Automated Metric Aggregation**: Established an automated benchmarking suite compiling perplexity metrics and sample outputs directly into analytical spreadsheets.
+- **PyTorch VRAM Leak Isolation**: Solved cross-model GPU memory fragmentation and OOM traps through isolated multi-process execution environments.
+
