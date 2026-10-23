@@ -39,3 +39,13 @@ Mientras los modelos entrenaban, comencé a desarrollar la aplicación frontend.
 > "Necesito mostrar un código QR para ejecutar maeum-app... pero cuando escribo npx go start, solo obtengo un error."
 
 Creé el proyecto usando React Native (Expo) y, después de algunos errores tipográficos, logré mostrar el código QR de Expo. Fue un día emocionante construyendo tanto el cerebro (IA) como la cara de la aplicación.
+
+---
+
+## Resumen y Puntos Clave
+
+- **Diagnostico de Hiperparametros LoRA**: Descubierto que las respuestas truncadas se debian a un error en la proporcion de escala entre rank y alpha, reestructurando la configuracion.
+- **Lanzamiento del 2o Ciclo de Fine-Tuning**: Iniciado el entrenamiento paralelo dividiendo particiones GPU MIG para comparar `rank=16, alpha=16` frente a `rank=16, alpha=8`.
+- **Curacion de Dataset de Texto Largo**: Filtradas las 2,000 conversaciones mas extensas (`Daily_train_dataset_long.jsonl`) para incentivar respuestas de empatia profunda y sostenida.
+- **Inicio de la App Movil en React Native**: Creado el proyecto `maeum-app` con Expo, configurando la depuracion por codigo QR y los recursos visuales de la aplicacion.
+

@@ -41,3 +41,13 @@ While the models fell back into the cycle of training, I didn't just sit around.
 > "I need to show a QR code to run maeum-app... but when I type npx go start, I only get an error message. How and where can the QR code be shown?"
 
 I created the `maeum-app` project using React Native (Expo) and struggled to launch the local server and connect it to my smartphone. I even mistakenly typed `npx go start` instead of `expo`, but I finally succeeded in pulling up the Expo QR code and setting up the app icons (`assets/logo.png`). It was a thrilling day where the brain of the backend (AI) and the face of the frontend (App) were being built simultaneously.
+
+---
+
+## Summary & Key Takeaways
+
+- **LoRA Hyperparameter Post-Mortem**: Diagnosed unnatural response truncation as a fundamental scaling flaw in our LoRA rank-to-alpha ratio and restructured the parameter matrix.
+- **Launching 2nd Fine-Tuning Sprint**: Initiated multi-architecture parallel training across MIG GPU partitions to benchmark rank = 16 with alpha = 8 versus alpha = 16.
+- **Long-Sequence Dataset Extraction**: Curated the top 2,000 longest conversational dialogues (`Daily_train_dataset_long.jsonl`) to force the models to generate deep, multi-sentence empathetic support.
+- **React Native Mobile App Bootstrap**: Initiated client frontend engineering with Expo, configuring local bundler QR bridges and setting up initial mobile brand assets.
+
