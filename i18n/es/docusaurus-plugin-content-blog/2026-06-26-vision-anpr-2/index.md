@@ -69,3 +69,11 @@ Si `IoU > 0.05`, se dispara el evento de infracción y se inicia la localizació
 ## 4. Próxima Entrega
 
 En la Entrega #3, analizaremos la **detección jerárquica con YOLOv5 (`lp_det.pt`)** y el **seguimiento en tiempo real con CSRT**.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Enmascaramiento Trapezoidal con Punto de Fuga**: Confinar la detección de bordes a una ROI trapezoidal perspectival descarta más del 95% de artefactos de fondo ajenos a la calzada.
+2. **Transformada de Hough Probabilística y Filtrado de Pendiente**: Combina Canny y `HoughLinesP` con restricciones de pendiente ($|\text{pendiente}| > 0.5$) para aislar líneas reales de grietas en el pavimento.
+3. **Suavizado por Media Móvil de 7 Fotogramas**: Amortigua los coeficientes de recta en una cola temporal de 7 fotogramas, eliminando oscilaciones visuales por baches o cambios de luz.
+4. **Criterio Geométrico de Invasión por IoU de Polígonos**: Evalúa la intersección entre la huella de los neumáticos y el carril mediante IoU, asegurando alertas precisas sin falsas alarmas.
