@@ -223,7 +223,15 @@
 <ul>
 <li class=""><strong>史丹佛官方課程影片播放清單</strong>: <a href="https://www.youtube.com/playlist?list=PLxpwjSdVZQ95OWe3QvkVEcU1f1X-6NDj9" target="_blank" rel="noopener noreferrer" class="">Stanford CS146S: The Modern Software Development (YouTube Playlist)</a></li>
 <li class=""><strong>開設機構</strong>: Stanford University, Department of Computer Science</li>
-</ul>]]></content:encoded>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs146s-1-modern-software-developer#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>典範轉移</strong>：軟體工程師的角色從純手工敲擊語法的「程式碼打字員」，徹底轉變為調度多個 AI 智慧代理人的「系統交響樂指揮家」。</li>
+<li class=""><strong>規範驅動開發 (SDD)</strong>：工程高槓桿的核心在於撰寫機器可讀的 <code>SPEC.md</code> 規格書與邊界不變量契約，而非手寫瑣碎的實作細節。</li>
+<li class=""><strong>閉環工程與 MCP</strong>：摒棄單次對話直出程式碼的幻覺，全面結合模型上下文協定 (MCP) 與自動化單元測試，打造具備自動修復能力的工程反饋迴路。</li>
+<li class=""><strong>底層基礎的關鍵價值</strong>：AI 產出程式碼的成本趨近於零，審查並排查複雜競爭狀態、效能瓶頸與安全漏洞所需的底層基礎知識反而變得更加不可或缺。</li>
+</ol>]]></content:encoded>
             <category>stanford-cs146s</category>
             <category>agentic-workflows</category>
             <category>spec-driven-development</category>
