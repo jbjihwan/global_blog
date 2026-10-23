@@ -1449,7 +1449,15 @@
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-下一步研究方向">5. 下一步研究方向<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-18-rl-qlearning-2#5-%E4%B8%8B%E4%B8%80%E6%AD%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="hash-link" aria-label="5. 下一步研究方向的直接連結" title="5. 下一步研究方向的直接連結" translate="no">​</a></h2>
 <p>我們已經驗證，在 648 個離散狀態空間下，表格型 Q-Learning 能夠乾淨俐落地征服開闊平原導航。</p>
-<p>然而，<strong>真實物理世界充滿著複雜的牆面與死胡同障礙</strong>。在第 3 篇中，我們將直面 <strong><code>obstacle12</code> 與 <code>obstacle_hard</code> 迷宮地圖</strong>，深入剖析代理人如何跳出局部最佳陷阱，並利用多重隨機種子平行訓練建構高強健性導航策略！</p>]]></content>
+<p>然而，<strong>真實物理世界充滿著複雜的牆面與死胡同障礙</strong>。在第 3 篇中，我們將直面 <strong><code>obstacle12</code> 與 <code>obstacle_hard</code> 迷宮地圖</strong>，深入剖析代理人如何跳出局部最佳陷阱，並利用多重隨機種子平行訓練建構高強健性導航策略！</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心總結與技術要點">核心總結與技術要點<a href="https://globaldevlog.com/zh-Hant/blog/2026-05-18-rl-qlearning-2#%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E8%A6%81%E9%BB%9E" class="hash-link" aria-label="核心總結與技術要點的直接連結" title="核心總結與技術要點的直接連結" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>貝爾曼最佳方程式公式化</strong>：設定學習率 α = 0.1 與折扣因子 γ = 0.95 建立表格型 Q 值更新準則，在離散狀態空間下確保演算法收斂的數學確定性。</li>
+<li class=""><strong>多目標獎勵塑形（Reward Shaping）</strong>：精心配置逼近目標增量激勵（+10 × Δd）、目標終點獎勵（+100）、時間步消耗懲罰（-0.1）與碰撞嚴厲懲罰（-50）。</li>
+<li class=""><strong>自適應探索衰減調度（ε-Decay）</strong>：採用從 1.0 指數衰減至底線 0.05 的 ε-貪婪策略，完美平衡了前期全域試錯探索與後期確定性收益利用。</li>
+<li class=""><strong>實證收斂效率驗證</strong>：在開闊競技場基準測試中，演算法在 300 至 500 回合內迅速收斂至最短最佳路徑，為應對複雜牆體迷宮奠定了堅實演算法基石。</li>
+</ul>]]></content>
         <author>
             <name>Jaybee</name>
             <uri>https://github.com/jbjihwan</uri>
