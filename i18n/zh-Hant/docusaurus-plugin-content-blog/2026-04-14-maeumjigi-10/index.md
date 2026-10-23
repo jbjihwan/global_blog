@@ -128,3 +128,13 @@ The AI agent executed this directive flawlessly between 23:30 and 06:15 without 
 | **Checkpoint Integrity** | 100% | Flawless atomic state persistence despite 3 network blips |
 
 In Dev Log #11, we evaluate our first model checkpoint (M6) trained on this synthesized dataset and benchmark its empathetic resonance!
+
+---
+
+## 核心總結與技術要點
+
+- **攻克 API 頻控與並發瓶頸**：針對大規模多輪心理對話合成，升級 API 計費層級並精細化調配 RPM 與 TPM 資源配額。
+- **高彈性自癒狀態機架構**：針對 HTTP 429 限流與 503 服務抖動，設計融合指數退避與隨機抖動 (Full Jitter) 的自適應重試管道。
+- **原子級檢查點機制保障零損耗**：採用基於 `os.replace` 的原子化檔案替換方案，徹底杜絕意外斷電或進程中斷造成的進度檔案破壞與資料歸零。
+- **全無人值守夜間全自動合成**：賦予 AI 智能體自主看門狗權限，在無人工干預的情況下通宵高效完成 25,000 組高品質心理諮詢對話資料的合成與校驗。
+
