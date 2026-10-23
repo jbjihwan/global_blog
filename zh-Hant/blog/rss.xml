@@ -248,6 +248,101 @@
             <category>software-architecture</category>
         </item>
         <item>
+            <title><![CDATA[[GitHub Pages 獨立網域 #1] 告別免費 github.io：使用 Porkbun + Cloudflare 綁定自訂網域 (CNAME 扁平化與免費 SSL)]]></title>
+            <link>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[徹底告別免費 github.io 二級子網域，透過 Porkbun 購買頂級網域並委派至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 達成 GitHub Pages 零停機平滑遷移，解決 Docusaurus CNAME 自動重設難題的完整工程實戰。]]></description>
+            <content:encoded><![CDATA[<p>對於技術開發者而言，利用 GitHub Pages 的免費二級子網域（<code>username.github.io/project</code>）架設部落格幾乎是零成本的最佳入門選擇。只需一次 Git Push，即可透過全球 CDN 免費分發靜態頁面，完全無需維護底層伺服器。</p>
+<p>然而，一旦你計劃打造具有專業影響力的技術品牌並開啟 <strong>Google AdSense（谷歌廣告聯盟）流量變現</strong> 時，就會遭遇一道無法逾越的規則紅線：<strong>Google AdSense 嚴格禁止針對 <code>*.github.io</code> 等免費二級子網域提交網站審查</strong>。此外，搜尋引擎累積的網域權重（Domain Authority）也無法沉澱為個人數位資產。要想通過商業化審查並沉澱 SEO 資產，擁有獨立的**頂級根網域（Apex Custom Domain，例如 <code>globaldevlog.com</code>）**是必經之路。</p>
+<p>作為靜態網站工程化系列的第一篇，本文將以我們的技術部落格從 <code>jbjihwan.github.io/global_blog</code> 遷移至 <code>https://globaldevlog.com</code> 的實戰經歷為基礎，詳細拆解由 <strong>Porkbun + Cloudflare + GitHub Pages 構建的高可用三層生產架構與 DNS 深度配置要點</strong>。</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="靜態工程部落格生產級 DNS 與 CDN 路由架構圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-架構設計哲學三層專業化高可用體系">1. 架構設計哲學：三層專業化高可用體系<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#1-%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88%E5%93%B2%E5%AD%B8%E4%B8%89%E5%B1%A4%E5%B0%88%E6%A5%AD%E5%8C%96%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%94%E7%B3%BB" class="hash-link" aria-label="1. 架構設計哲學：三層專業化高可用體系的直接連結" title="1. 架構設計哲學：三層專業化高可用體系的直接連結" translate="no">​</a></h2>
+<p>初學者在為 GitHub Pages 綁定獨立網域時，最常規的做法是在網域名稱註冊商處將 <code>A 記錄</code> 直接指向 GitHub 的 4 個固定 IP（<code>185.199.108.153</code> 等）。</p>
+<p>這種傳統模式雖然簡單，但存在明顯的生產運維缺陷：</p>
+<ul>
+<li class="">缺乏邊緣層 DDoS 攻擊防護與惡意爬蟲清洗；</li>
+<li class="">遭遇故障或底層遷移時，DNS 生效速度緩慢；</li>
+<li class="">無法對靜態資源（CSS/JS/圖片）進行靈活的邊緣 CDN 快取調優。</li>
+</ul>
+<p>為此，我們將職責解耦為三個專業化的服務層級：</p>
+<table><thead><tr><th style="text-align:left">層級</th><th style="text-align:left">選用服務</th><th style="text-align:left">核心職責與入選理由</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. 網域註冊商 (Registrar)</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">頂級網域首購與每年續費價格全網極具優勢，終身免費贈送 WHOIS 隱私保護，無套路加價</td></tr><tr><td style="text-align:left"><strong>2. 邊緣 DNS 與安全層</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">全球超低延遲 Anycast DNS，<strong>根網域 CNAME 扁平化 (Flattening)</strong>，免費 Universal SSL，自動化強制 HTTPS</td></tr><tr><td style="text-align:left"><strong>3. 靜態託管源站</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">承載由 Docusaurus 編譯產生的純靜態產物，<code>gh-pages</code> 分支自動化部署，零伺服器成本</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-第一步porkbun-網域購買與-cloudflare-權威名稱伺服器委派">2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#2-%E7%AC%AC%E4%B8%80%E6%AD%A5porkbun-%E7%B6%B2%E5%9F%9F%E8%B3%BC%E8%B2%B7%E8%88%87-cloudflare-%E6%AC%8A%E5%A8%81%E5%90%8D%E7%A8%B1%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%A7%94%E6%B4%BE" class="hash-link" aria-label="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" title="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>網域選購</strong>：在 Porkbun 檢索並購買心儀的頂級根網域（如 <code>globaldevlog.com</code>）。</li>
+<li class=""><strong>接入 Cloudflare</strong>：登入 Cloudflare 控制台，點擊 <strong>[新增網站]</strong> 輸入該網域，方案選擇 <strong>Free (免費版)</strong>。</li>
+<li class=""><strong>獲取分配的名稱伺服器</strong>：Cloudflare 會自動分配一對專有的權威 Nameservers，例如：<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>修改 Porkbun DNS 委派</strong>：進入 Porkbun 的網域管理面板，找到 <code>Authoritative Nameservers</code> 設定項，刪除 Porkbun 預設地址，填入 Cloudflare 分配的 2 個伺服器地址並儲存。通常在 5 到 15 分鐘內全球生效。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-第二步cloudflare-cname-扁平化-flattening-與-full-ssl-模式">3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5cloudflare-cname-%E6%89%81%E5%B9%B3%E5%8C%96-flattening-%E8%88%87-full-ssl-%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" title="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" translate="no">​</a></h2>
+<p>按照 DNS 國際標準（RFC 1034），根網域（<code>@</code>）必須包含 SOA 和 NS 記錄，因此傳統上無法直接配置 <code>CNAME 記錄</code>。</p>
+<p>Cloudflare 的 <strong>CNAME 扁平化 (CNAME Flattening)</strong> 技術徹底解決了這一痛點：在 DNS 解析查詢時，Cloudflare 邊緣節點會在底層即時解析目標地址（<code>username.github.io</code>）對應的 IP，並以 <code>A 記錄</code> 的形式直接向客戶端應答，從而讓根網域完美享有 CNAME 的所有敏捷特性。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-配置-cloudflare-dns-解析記錄">A. 配置 Cloudflare DNS 解析記錄<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#a-%E9%85%8D%E7%BD%AE-cloudflare-dns-%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%84" class="hash-link" aria-label="A. 配置 Cloudflare DNS 解析記錄的直接連結" title="A. 配置 Cloudflare DNS 解析記錄的直接連結" translate="no">​</a></h3>
+<p>在 Cloudflare 儀表板 <strong>[DNS] &gt; [記錄]</strong> 中，新增以下兩條開啟代理的記錄：</p>
+<table><thead><tr><th style="text-align:left">類型 (Type)</th><th style="text-align:left">名稱 (Name)</th><th style="text-align:left">目標 (Target)</th><th style="text-align:left">代理狀態 (Proxy status)</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr></tbody></table>
+<blockquote>
+<p><strong>必須點亮橘色雲朵</strong>：只有處於代理模式下，造訪流量才會經由 Cloudflare 全球 Anycast 節點接入，享受自動化邊緣 SSL 終結、Brotli 極速壓縮以及抗 DDOS 保護。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-設定-ssltls-加密模式">B. 設定 SSL/TLS 加密模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#b-%E8%A8%AD%E5%AE%9A-ssltls-%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="B. 設定 SSL/TLS 加密模式的直接連結" title="B. 設定 SSL/TLS 加密模式的直接連結" translate="no">​</a></h3>
+<p>前往 Cloudflare 左側導覽列 <strong>[SSL/TLS] &gt; [概述]</strong>：</p>
+<ul>
+<li class="">將加密模式設為 <strong>Full (完全)</strong> 或 <strong>Full (Strict) (完全嚴格)</strong>；</li>
+<li class="">確保從訪客瀏覽器到 Cloudflare、以及從 Cloudflare 到 GitHub Pages 源站的端到端 HTTPS 雙向鏈路均得到高強度加密。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-第三步更新-docusaurus-核心配置-docusaurusconfigts">4. 第三步：更新 Docusaurus 核心配置 (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#4-%E7%AC%AC%E4%B8%89%E6%AD%A5%E6%9B%B4%E6%96%B0-docusaurus-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE-docusaurusconfigts" class="hash-link" aria-label="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" title="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" translate="no">​</a></h2>
+<p>當部落格從子目錄路徑（<code>/global_blog/</code>）整體遷移至獨立根網域時，必須相應修正 <code>docusaurus.config.ts</code>：</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 替換為全新的頂級自訂網域</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 從子目錄 '/global_blog/' 改為頂級根路徑 '/'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname">5. 第四步：徹底攻克 GitHub Pages 部署後網域被重設的隱蔽陷阱 (<code>static/CNAME</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#5-%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%BE%B9%E5%BA%95%E6%94%BB%E5%85%8B-github-pages-%E9%83%A8%E7%BD%B2%E5%BE%8C%E7%B6%B2%E5%9F%9F%E8%A2%AB%E9%87%8D%E8%A8%AD%E7%9A%84%E9%9A%B1%E8%94%BD%E9%99%B7%E9%98%B1-staticcname" class="hash-link" aria-label="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" title="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" translate="no">​</a></h2>
+<p>在配置 GitHub Pages 自訂網域時，幾乎所有開發者都踩過這個著名的“大坑”：</p>
+<ol>
+<li class="">在 GitHub 儲存庫頁面的 <code>Settings &gt; Pages &gt; Custom domain</code> 中手動填入 <code>globaldevlog.com</code> 並儲存生效；</li>
+<li class="">本地寫完新文章，終端執行 <code>npm run deploy</code> 重新部署；</li>
+<li class="">部署一完成，重新整理 GitHub 頁面發現自訂網域輸入框<strong>再次變成了空白</strong>，線上網站瞬間爆出 404 錯誤或 SSL 憑證失效警告！</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="陷阱根源">陷阱根源<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E9%99%B7%E9%98%B1%E6%A0%B9%E6%BA%90" class="hash-link" aria-label="陷阱根源的直接連結" title="陷阱根源的直接連結" translate="no">​</a></h3>
+<p>Docusaurus 的發布指令碼在編譯完成後，會將 <code>build/</code> 目錄強制推送到 <code>gh-pages</code> 分支（<code>git push --force</code>）。如果該打包產物的根目錄下缺少純文字 <code>CNAME</code> 檔案，GitHub 會預設判定使用者已主動取消了自訂網域綁定。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="永久解決方案">永久解決方案<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E6%B0%B8%E4%B9%85%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%A1%88" class="hash-link" aria-label="永久解決方案的直接連結" title="永久解決方案的直接連結" translate="no">​</a></h3>
+<p>在專案的 <code>static/</code> 目錄下建立一個名為 <code>CNAME</code> 的純文字檔案（無任何副檔名），內容僅寫入一行你的網域：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>由於 Docusaurus 在建構時會自動將 <code>static/</code> 目錄下的所有檔案原封不動複製到打包輸出根目錄，因此每次執行部署時，<code>CNAME</code> 檔案都會被永久提交至 <code>gh-pages</code> 分支的最頂層，網域綁定永不丟失。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-生產環境連通性驗證">6. 生產環境連通性驗證<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#6-%E7%94%9F%E7%94%A2%E7%92%B0%E5%A2%83%E9%80%A3%E9%80%9A%E6%80%A7%E9%A9%97%E8%AD%89" class="hash-link" aria-label="6. 生產環境連通性驗證的直接連結" title="6. 生產環境連通性驗證的直接連結" translate="no">​</a></h2>
+<p>在專案根目錄下執行部署指令：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
+<p>部署成功後，在終端機透過 curl 命令驗證 HTTP 狀態碼與 SSL 憑證鏈回應：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 (或 301 重新導向至根網域)</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-下篇預告">🔜 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="🔜 下篇預告的直接連結" title="🔜 下篇預告的直接連結" translate="no">​</a></h2>
+<p>獨立網域成功上線後，真正的商業化與多引擎搜尋獲客工作才剛剛拉開序幕：</p>
+<ul>
+<li class=""><strong>第二篇</strong>：<em>[靜態網站商業化 #2] Docusaurus 接入 Google AdSense 審查實戰：解決 ads.txt 404 爬取故障與非同步指令碼安全植入</em></li>
+<li class=""><strong>第三篇</strong>：<em>[全球多搜尋引擎 SEO #3] Google、Naver 與 Bing 站長平台權威配置：Sitemap 無法刪除之謎與主機層級報錯排查</em></li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>零伺服器成本的企業級全端架構</strong>：透過融合成本價網域註冊商 (Porkbun)、全球 Anycast CDN 與 DNS (Cloudflare) 以及零成本靜態代管 (GitHub Pages)，以零維運開銷打造毫秒級全球加速部落格。</li>
+<li class=""><strong>藉助 CNAME 扁平化技術突破 RFC 1034 限制</strong>：利用 Cloudflare 的 CNAME Flattening 機制，完美攻克根網域 (<code>@</code>) 無法設定別名解析的產業死結，將裸網域平滑直連 GitHub Pages。</li>
+<li class=""><strong>Full (Strict) 全鏈路 HTTPS 強加密</strong>：開啟 Cloudflare 嚴格加密模式，實現「訪客 ↔ CDN 邊緣 ↔ GitHub Pages 來源站」的全程雙向 TLS 加密防護。</li>
+<li class=""><strong>static/CNAME 實現部署配置永固</strong>：將 <code>CNAME</code> 檔案固化在 Docusaurus 的 <code>static/</code> 目錄下，徹底杜絕 CI/CD 自動發布時自訂網域被沖刷重設的產業頑疾。</li>
+</ol>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+        </item>
+        <item>
             <title><![CDATA[[網站收益化 #2] 靜態網站 Google AdSense 審核自動化：破解 ads.txt 404 抓取陷阱與 HeadTags 整合實戰]]></title>
             <link>https://globaldevlog.com/zh-Hant/blog/static-site-adsense-ads-txt-guide</link>
             <guid>https://globaldevlog.com/zh-Hant/blog/static-site-adsense-ads-txt-guide</guid>
@@ -348,101 +443,6 @@
             <category>devops</category>
             <category>cloudflare</category>
             <category>seo</category>
-        </item>
-        <item>
-            <title><![CDATA[[GitHub Pages 獨立網域 #1] 告別免費 github.io：使用 Porkbun + Cloudflare 綁定自訂網域 (CNAME 扁平化與免費 SSL)]]></title>
-            <link>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</link>
-            <guid>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</guid>
-            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[徹底告別免費 github.io 二級子網域，透過 Porkbun 購買頂級網域並委派至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 達成 GitHub Pages 零停機平滑遷移，解決 Docusaurus CNAME 自動重設難題的完整工程實戰。]]></description>
-            <content:encoded><![CDATA[<p>對於技術開發者而言，利用 GitHub Pages 的免費二級子網域（<code>username.github.io/project</code>）架設部落格幾乎是零成本的最佳入門選擇。只需一次 Git Push，即可透過全球 CDN 免費分發靜態頁面，完全無需維護底層伺服器。</p>
-<p>然而，一旦你計劃打造具有專業影響力的技術品牌並開啟 <strong>Google AdSense（谷歌廣告聯盟）流量變現</strong> 時，就會遭遇一道無法逾越的規則紅線：<strong>Google AdSense 嚴格禁止針對 <code>*.github.io</code> 等免費二級子網域提交網站審查</strong>。此外，搜尋引擎累積的網域權重（Domain Authority）也無法沉澱為個人數位資產。要想通過商業化審查並沉澱 SEO 資產，擁有獨立的**頂級根網域（Apex Custom Domain，例如 <code>globaldevlog.com</code>）**是必經之路。</p>
-<p>作為靜態網站工程化系列的第一篇，本文將以我們的技術部落格從 <code>jbjihwan.github.io/global_blog</code> 遷移至 <code>https://globaldevlog.com</code> 的實戰經歷為基礎，詳細拆解由 <strong>Porkbun + Cloudflare + GitHub Pages 構建的高可用三層生產架構與 DNS 深度配置要點</strong>。</p>
-<!-- -->
-<hr>
-<p><img decoding="async" loading="lazy" alt="靜態工程部落格生產級 DNS 與 CDN 路由架構圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_dns_routing_architecture-ea2cb0a9f6fc29f7bd63e0264ab74683.png" width="2200" height="1100" class="img_ev3q"></p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-架構設計哲學三層專業化高可用體系">1. 架構設計哲學：三層專業化高可用體系<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#1-%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88%E5%93%B2%E5%AD%B8%E4%B8%89%E5%B1%A4%E5%B0%88%E6%A5%AD%E5%8C%96%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%94%E7%B3%BB" class="hash-link" aria-label="1. 架構設計哲學：三層專業化高可用體系的直接連結" title="1. 架構設計哲學：三層專業化高可用體系的直接連結" translate="no">​</a></h2>
-<p>初學者在為 GitHub Pages 綁定獨立網域時，最常規的做法是在網域名稱註冊商處將 <code>A 記錄</code> 直接指向 GitHub 的 4 個固定 IP（<code>185.199.108.153</code> 等）。</p>
-<p>這種傳統模式雖然簡單，但存在明顯的生產運維缺陷：</p>
-<ul>
-<li class="">缺乏邊緣層 DDoS 攻擊防護與惡意爬蟲清洗；</li>
-<li class="">遭遇故障或底層遷移時，DNS 生效速度緩慢；</li>
-<li class="">無法對靜態資源（CSS/JS/圖片）進行靈活的邊緣 CDN 快取調優。</li>
-</ul>
-<p>為此，我們將職責解耦為三個專業化的服務層級：</p>
-<table><thead><tr><th style="text-align:left">層級</th><th style="text-align:left">選用服務</th><th style="text-align:left">核心職責與入選理由</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. 網域註冊商 (Registrar)</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">頂級網域首購與每年續費價格全網極具優勢，終身免費贈送 WHOIS 隱私保護，無套路加價</td></tr><tr><td style="text-align:left"><strong>2. 邊緣 DNS 與安全層</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">全球超低延遲 Anycast DNS，<strong>根網域 CNAME 扁平化 (Flattening)</strong>，免費 Universal SSL，自動化強制 HTTPS</td></tr><tr><td style="text-align:left"><strong>3. 靜態託管源站</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">承載由 Docusaurus 編譯產生的純靜態產物，<code>gh-pages</code> 分支自動化部署，零伺服器成本</td></tr></tbody></table>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-第一步porkbun-網域購買與-cloudflare-權威名稱伺服器委派">2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#2-%E7%AC%AC%E4%B8%80%E6%AD%A5porkbun-%E7%B6%B2%E5%9F%9F%E8%B3%BC%E8%B2%B7%E8%88%87-cloudflare-%E6%AC%8A%E5%A8%81%E5%90%8D%E7%A8%B1%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%A7%94%E6%B4%BE" class="hash-link" aria-label="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" title="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" translate="no">​</a></h2>
-<ol>
-<li class=""><strong>網域選購</strong>：在 Porkbun 檢索並購買心儀的頂級根網域（如 <code>globaldevlog.com</code>）。</li>
-<li class=""><strong>接入 Cloudflare</strong>：登入 Cloudflare 控制台，點擊 <strong>[新增網站]</strong> 輸入該網域，方案選擇 <strong>Free (免費版)</strong>。</li>
-<li class=""><strong>獲取分配的名稱伺服器</strong>：Cloudflare 會自動分配一對專有的權威 Nameservers，例如：<!-- -->
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
-</li>
-<li class=""><strong>修改 Porkbun DNS 委派</strong>：進入 Porkbun 的網域管理面板，找到 <code>Authoritative Nameservers</code> 設定項，刪除 Porkbun 預設地址，填入 Cloudflare 分配的 2 個伺服器地址並儲存。通常在 5 到 15 分鐘內全球生效。</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-第二步cloudflare-cname-扁平化-flattening-與-full-ssl-模式">3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5cloudflare-cname-%E6%89%81%E5%B9%B3%E5%8C%96-flattening-%E8%88%87-full-ssl-%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" title="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" translate="no">​</a></h2>
-<p>按照 DNS 國際標準（RFC 1034），根網域（<code>@</code>）必須包含 SOA 和 NS 記錄，因此傳統上無法直接配置 <code>CNAME 記錄</code>。</p>
-<p>Cloudflare 的 <strong>CNAME 扁平化 (CNAME Flattening)</strong> 技術徹底解決了這一痛點：在 DNS 解析查詢時，Cloudflare 邊緣節點會在底層即時解析目標地址（<code>username.github.io</code>）對應的 IP，並以 <code>A 記錄</code> 的形式直接向客戶端應答，從而讓根網域完美享有 CNAME 的所有敏捷特性。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-配置-cloudflare-dns-解析記錄">A. 配置 Cloudflare DNS 解析記錄<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#a-%E9%85%8D%E7%BD%AE-cloudflare-dns-%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%84" class="hash-link" aria-label="A. 配置 Cloudflare DNS 解析記錄的直接連結" title="A. 配置 Cloudflare DNS 解析記錄的直接連結" translate="no">​</a></h3>
-<p>在 Cloudflare 儀表板 <strong>[DNS] &gt; [記錄]</strong> 中，新增以下兩條開啟代理的記錄：</p>
-<table><thead><tr><th style="text-align:left">類型 (Type)</th><th style="text-align:left">名稱 (Name)</th><th style="text-align:left">目標 (Target)</th><th style="text-align:left">代理狀態 (Proxy status)</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr></tbody></table>
-<blockquote>
-<p><strong>必須點亮橘色雲朵</strong>：只有處於代理模式下，造訪流量才會經由 Cloudflare 全球 Anycast 節點接入，享受自動化邊緣 SSL 終結、Brotli 極速壓縮以及抗 DDOS 保護。</p>
-</blockquote>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-設定-ssltls-加密模式">B. 設定 SSL/TLS 加密模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#b-%E8%A8%AD%E5%AE%9A-ssltls-%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="B. 設定 SSL/TLS 加密模式的直接連結" title="B. 設定 SSL/TLS 加密模式的直接連結" translate="no">​</a></h3>
-<p>前往 Cloudflare 左側導覽列 <strong>[SSL/TLS] &gt; [概述]</strong>：</p>
-<ul>
-<li class="">將加密模式設為 <strong>Full (完全)</strong> 或 <strong>Full (Strict) (完全嚴格)</strong>；</li>
-<li class="">確保從訪客瀏覽器到 Cloudflare、以及從 Cloudflare 到 GitHub Pages 源站的端到端 HTTPS 雙向鏈路均得到高強度加密。</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-第三步更新-docusaurus-核心配置-docusaurusconfigts">4. 第三步：更新 Docusaurus 核心配置 (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#4-%E7%AC%AC%E4%B8%89%E6%AD%A5%E6%9B%B4%E6%96%B0-docusaurus-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE-docusaurusconfigts" class="hash-link" aria-label="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" title="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" translate="no">​</a></h2>
-<p>當部落格從子目錄路徑（<code>/global_blog/</code>）整體遷移至獨立根網域時，必須相應修正 <code>docusaurus.config.ts</code>：</p>
-<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 替換為全新的頂級自訂網域</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 從子目錄 '/global_blog/' 改為頂級根路徑 '/'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname">5. 第四步：徹底攻克 GitHub Pages 部署後網域被重設的隱蔽陷阱 (<code>static/CNAME</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#5-%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%BE%B9%E5%BA%95%E6%94%BB%E5%85%8B-github-pages-%E9%83%A8%E7%BD%B2%E5%BE%8C%E7%B6%B2%E5%9F%9F%E8%A2%AB%E9%87%8D%E8%A8%AD%E7%9A%84%E9%9A%B1%E8%94%BD%E9%99%B7%E9%98%B1-staticcname" class="hash-link" aria-label="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" title="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" translate="no">​</a></h2>
-<p>在配置 GitHub Pages 自訂網域時，幾乎所有開發者都踩過這個著名的“大坑”：</p>
-<ol>
-<li class="">在 GitHub 儲存庫頁面的 <code>Settings &gt; Pages &gt; Custom domain</code> 中手動填入 <code>globaldevlog.com</code> 並儲存生效；</li>
-<li class="">本地寫完新文章，終端執行 <code>npm run deploy</code> 重新部署；</li>
-<li class="">部署一完成，重新整理 GitHub 頁面發現自訂網域輸入框<strong>再次變成了空白</strong>，線上網站瞬間爆出 404 錯誤或 SSL 憑證失效警告！</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="陷阱根源">陷阱根源<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E9%99%B7%E9%98%B1%E6%A0%B9%E6%BA%90" class="hash-link" aria-label="陷阱根源的直接連結" title="陷阱根源的直接連結" translate="no">​</a></h3>
-<p>Docusaurus 的發布指令碼在編譯完成後，會將 <code>build/</code> 目錄強制推送到 <code>gh-pages</code> 分支（<code>git push --force</code>）。如果該打包產物的根目錄下缺少純文字 <code>CNAME</code> 檔案，GitHub 會預設判定使用者已主動取消了自訂網域綁定。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="永久解決方案">永久解決方案<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E6%B0%B8%E4%B9%85%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%A1%88" class="hash-link" aria-label="永久解決方案的直接連結" title="永久解決方案的直接連結" translate="no">​</a></h3>
-<p>在專案的 <code>static/</code> 目錄下建立一個名為 <code>CNAME</code> 的純文字檔案（無任何副檔名），內容僅寫入一行你的網域：</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
-<p>由於 Docusaurus 在建構時會自動將 <code>static/</code> 目錄下的所有檔案原封不動複製到打包輸出根目錄，因此每次執行部署時，<code>CNAME</code> 檔案都會被永久提交至 <code>gh-pages</code> 分支的最頂層，網域綁定永不丟失。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-生產環境連通性驗證">6. 生產環境連通性驗證<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#6-%E7%94%9F%E7%94%A2%E7%92%B0%E5%A2%83%E9%80%A3%E9%80%9A%E6%80%A7%E9%A9%97%E8%AD%89" class="hash-link" aria-label="6. 生產環境連通性驗證的直接連結" title="6. 生產環境連通性驗證的直接連結" translate="no">​</a></h2>
-<p>在專案根目錄下執行部署指令：</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
-<p>部署成功後，在終端機透過 curl 命令驗證 HTTP 狀態碼與 SSL 憑證鏈回應：</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 (或 301 重新導向至根網域)</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-下篇預告">🔜 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="🔜 下篇預告的直接連結" title="🔜 下篇預告的直接連結" translate="no">​</a></h2>
-<p>獨立網域成功上線後，真正的商業化與多引擎搜尋獲客工作才剛剛拉開序幕：</p>
-<ul>
-<li class=""><strong>第二篇</strong>：<em>[靜態網站商業化 #2] Docusaurus 接入 Google AdSense 審查實戰：解決 ads.txt 404 爬取故障與非同步指令碼安全植入</em></li>
-<li class=""><strong>第三篇</strong>：<em>[全球多搜尋引擎 SEO #3] Google、Naver 與 Bing 站長平台權威配置：Sitemap 無法刪除之謎與主機層級報錯排查</em></li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>零伺服器成本的企業級全端架構</strong>：透過融合成本價網域註冊商 (Porkbun)、全球 Anycast CDN 與 DNS (Cloudflare) 以及零成本靜態代管 (GitHub Pages)，以零維運開銷打造毫秒級全球加速部落格。</li>
-<li class=""><strong>藉助 CNAME 扁平化技術突破 RFC 1034 限制</strong>：利用 Cloudflare 的 CNAME Flattening 機制，完美攻克根網域 (<code>@</code>) 無法設定別名解析的產業死結，將裸網域平滑直連 GitHub Pages。</li>
-<li class=""><strong>Full (Strict) 全鏈路 HTTPS 強加密</strong>：開啟 Cloudflare 嚴格加密模式，實現「訪客 ↔ CDN 邊緣 ↔ GitHub Pages 來源站」的全程雙向 TLS 加密防護。</li>
-<li class=""><strong>static/CNAME 實現部署配置永固</strong>：將 <code>CNAME</code> 檔案固化在 Docusaurus 的 <code>static/</code> 目錄下，徹底杜絕 CI/CD 自動發布時自訂網域被沖刷重設的產業頑疾。</li>
-</ol>]]></content:encoded>
-            <category>github-pages</category>
-            <category>custom-domain</category>
-            <category>porkbun</category>
-            <category>cloudflare</category>
-            <category>docusaurus</category>
-            <category>devops</category>
         </item>
         <item>
             <title><![CDATA[從 GitHub Pages 到獨立頂級網域：Porkbun、Cloudflare DNS、AdSense 審核通過與多引擎 SEO 全方位指南]]></title>
