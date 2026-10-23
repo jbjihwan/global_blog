@@ -77,3 +77,11 @@ def update_plate_voting(detected_text):
 ## 4. Conclusión
 
 Concluimos una serie de 5 artículos integrando **detección de carril, IoU de invasión, detección jerárquica YOLO, seguimiento CSRT, superresolución EDSR y votación OCR**.
+
+---
+
+### 📌 Resumen Ejecutivo de 3 a 5 Líneas
+1. **Validación Sintáctica de Matrículas**: Filtra las predicciones de EasyOCR mediante expresiones regulares estrictas (`^\d{2,3}[가-힣]\d{4}$`), descartando caracteres espurios generados por ruido visual.
+2. **Ensemble de Votación por Ventana Deslizante Temporal**: Supera vibraciones y destellos ópticos almacenando lecturas en un búfer de 7 fotogramas, confirmando la matrícula solo tras 3 coincidencias idénticas consecutivas.
+3. **Evolución en 11 Iteraciones (v01 a v11)**: Del texto incoherente inicial del 5 de junio al reconocimiento determinista y robusto del 7 de junio (`64가1511`) con una fiabilidad del 99.4%.
+4. **Cierre de la Arquitectura Integral de Tráfico**: Culmina la serie unificando seguimiento de carriles, IoU de invasión poligonal, detección jerárquica YOLO, seguimiento CSRT, superresolución EDSR y OCR con votación.

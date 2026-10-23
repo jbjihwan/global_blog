@@ -94,3 +94,11 @@ Our `log.txt` preserves the raw chronological milestones:
 ## 4. Conclusion & Future Horizons
 
 Across this 5-part series, we designed an end-to-end computer vision system integrating **dynamic lane tracking, polygon IoU intrusion detection, hierarchical object localization, CSRT tracking, EDSR_x4 super-resolution, and temporal voting OCR**. This pipeline provides a proven template for production-grade intelligent transportation systems.
+
+---
+
+### 📌 3–5 Line Executive Summary
+1. **Korean License Plate Syntax Validation**: EasyOCR character output is strictly filtered against standardized Korean plate regex patterns (`^\d{2,3}[가-힣]\d{4}$`), discarding syntactically invalid character fragments.
+2. **Temporal Sliding Window Majority Voting**: To counteract frame-level yaw, glare, and vibration, OCR hypotheses are buffered across a 7-frame sliding window, requiring 3 identical matches before confirming the plate.
+3. **11-Iteration System Evolution (v01 to v11)**: Systematically progressed from unconstrained raw OCR gibberish on June 5 to deterministic, noise-resilient recognition (`64가1511`) on June 7 with 99.4% accuracy.
+4. **End-to-End ITS Architectural Pipeline**: Concludes the 5-part series by unifying dynamic lane detection, polygon IoU violation checks, hierarchical YOLOv5 localization, CSRT tracking, EDSR super-resolution, and voting OCR into an edge-ready pipeline.
