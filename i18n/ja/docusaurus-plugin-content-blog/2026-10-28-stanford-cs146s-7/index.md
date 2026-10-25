@@ -89,7 +89,7 @@ flowchart TD
 3. **第3層: 自律型LLM意味論的レビューアー (実行時間: 15秒〜60秒)**
    - **エンジン**: Claude 3.5 Sonnet, GPT-4o, ファインチューニングモデル。
    - **責務**: 高度なビジネスロジックの意図、競合状態、後方互換性、エッジケースにおける単体テストの網羅性を評価。
-   - **出力**: 開発者が1クリックで取り込める具体的なGitHubインラインコード差分提案（````suggestion`）を生成。
+   - **出力**: 開発者が1クリックで取り込める具体的なGitHubインラインコード差分提案（`suggestion`）を生成。
 
 ---
 
@@ -99,7 +99,11 @@ flowchart TD
 
 スタンフォードCS146Sでは、**有界束データフロー解析（Bounded Lattice Dataflow Analysis）**を用います:
 
-$$\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}$$
+```latex
+S --(Dataflow Edge e)--> T
+where Taint(T) = Clean   if f_sanitizer(x) in Path(S, T)
+                 Tainted otherwise
+```
 
 ```mermaid
 flowchart LR

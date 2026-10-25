@@ -91,7 +91,7 @@ flowchart TD
 3. **Tier 3: Autonomous LLM Semantic Reviewer (Execution Time: 15s – 60s)**
    - **Engines**: Claude 3.5 Sonnet, GPT-4o, fine-tuned code review LLMs.
    - **Responsibility**: Evaluating high-level semantic intent, business logic edge cases, concurrency hazards, backwards compatibility, and unit test coverage completeness.
-   - **Output**: Concrete, executable GitHub suggested diff blocks (````suggestion`) that developers can apply with a single click.
+   - **Output**: Concrete, executable GitHub suggested diff blocks (`suggestion`) that developers can apply with a single click.
 
 ---
 
@@ -101,7 +101,11 @@ In Tier 2, how does static analysis formally guarantee that user input cannot ex
 
 Stanford CS146S formalizes taint tracking using **Bounded Lattice Dataflow Analysis**:
 
-$$\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}$$
+```latex
+S --(Dataflow Edge e)--> T
+where Taint(T) = Clean   if f_sanitizer(x) in Path(S, T)
+                 Tainted otherwise
+```
 
 ```mermaid
 flowchart LR

@@ -89,7 +89,7 @@ flowchart TD
 3. **3계층: 자율 LLM 의미론적 리뷰어 (실행 시간: 15초 ~ 60초)**
    - **엔진**: Claude 3.5 Sonnet, GPT-4o, 특화 파인튜닝 모델.
    - **책임**: 고수준의 비즈니스 의도 분석, 동시성 레이스 컨디션, 하위 호환성 검증, 엣지 케이스 단위 테스트 누락 여부 검토.
-   - **출력**: 개발자가 클릭 한 번으로 반영할 수 있는 구체적인 GitHub 인라인 코드 diff 제안(````suggestion`) 블록을 생성합니다.
+   - **출력**: 개발자가 클릭 한 번으로 반영할 수 있는 구체적인 GitHub 인라인 코드 diff 제안(`suggestion`) 블록을 생성합니다.
 
 ---
 
@@ -99,7 +99,11 @@ flowchart TD
 
 스탠포드 CS146S에서는 **유계 래티스 데이터 흐름 분석(Bounded Lattice Dataflow Analysis)**을 공식화합니다:
 
-$$\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}$$
+```latex
+S --(Dataflow Edge e)--> T
+where Taint(T) = Clean   if f_sanitizer(x) in Path(S, T)
+                 Tainted otherwise
+```
 
 ```mermaid
 flowchart LR

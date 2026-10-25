@@ -91,7 +91,7 @@ flowchart TD
 3. **Nivel 3: Revisor Semántico Autónomo con LLM (Tiempo: 15s – 60s)**
    - **Motores**: Claude 3.5 Sonnet, GPT-4o, LLMs especializados.
    - **Responsabilidad**: Evaluación de la intención de negocio, condiciones de carrera, compatibilidad hacia atrás y suficiencia de pruebas unitarias para casos extremos.
-   - **Salida**: Generación de bloques de sugerencia inline ejecutables en GitHub (````suggestion`) que el desarrollador puede incorporar con un solo clic.
+   - **Salida**: Generación de bloques de sugerencia inline ejecutables en GitHub (`suggestion`) que el desarrollador puede incorporar con un solo clic.
 
 ---
 
@@ -101,7 +101,11 @@ En el Nivel 2, ¿cómo garantiza matemáticamente el analizador estático que un
 
 Stanford CS146S formaliza el rastreo de contaminación mediante el **Análisis de Flujo de Datos en Retículos Acotados**:
 
-$$\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}$$
+```latex
+S --(Dataflow Edge e)--> T
+where Taint(T) = Clean   if f_sanitizer(x) in Path(S, T)
+                 Tainted otherwise
+```
 
 ```mermaid
 flowchart LR

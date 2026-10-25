@@ -89,7 +89,7 @@ flowchart TD
 3. **第 3 层：自主大模型语义审查员（耗时：15s – 60s）**
    - **推理引擎**：Claude 3.5 Sonnet, GPT-4o, 专用微调模型。
    - **核心职责**：评估复杂的业务逻辑契约、多线程竞态条件、向后兼容性以及极端用例的测试覆盖率。
-   - **交付产物**：输出包含完整替换代码的 GitHub 行内修改建议块（````suggestion`），开发者可一键应用合并。
+   - **交付产物**：输出包含完整替换代码的 GitHub 行内修改建议块（`suggestion`），开发者可一键应用合并。
 
 ---
 
@@ -99,7 +99,11 @@ flowchart TD
 
 斯坦福 CS146S 采用**有界格数据流分析（Bounded Lattice Dataflow Analysis）**：
 
-$$\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}$$
+```latex
+S --(Dataflow Edge e)--> T
+where Taint(T) = Clean   if f_sanitizer(x) in Path(S, T)
+                 Tainted otherwise
+```
 
 ```mermaid
 flowchart LR
