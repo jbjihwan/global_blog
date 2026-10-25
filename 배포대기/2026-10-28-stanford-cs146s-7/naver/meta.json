@@ -1,0 +1,27 @@
+{
+  "slug": "2026-10-28-stanford-cs146s-7",
+  "series": "스탠포드 CS146S (The Modern Software Developer)",
+  "episode": 7,
+  "date": "2026-10-28",
+  "title_candidates": [
+    "[스탠포드 CS146S #7] 1,000줄 PR 보고 'LGTM' 누르셨나요? AST 린터, 보안 오염 분석, AI PR 리뷰어 3단계 실전",
+    "코드 리뷰로 지친 개발팀을 위한 구원투수: AST 정적 린터와 대형 언어 모델의 만남",
+    "기계가 잡을 수 있는 것에 사람이 입 열지 마라: 스탠포드가 정의한 대규모 자동화 코드 리뷰"
+  ],
+  "recommended_title": "[스탠포드 CS146S #7] 1,000줄 PR 보고 'LGTM' 누르셨나요? AST 린터, 보안 오염 분석, AI PR 리뷰어 3단계 실전",
+  "category": "IT·컴퓨터 / 인공지능",
+  "tags": [
+    "스탠포드",
+    "CS146S",
+    "코드리뷰",
+    "정적분석",
+    "AST린터",
+    "오염분석",
+    "TaintAnalysis",
+    "인공지능코딩",
+    "풀리퀘스트",
+    "소프트웨어공학"
+  ],
+  "summary": "스탠포드 CS146S 7강 요약. 인간 코드 리뷰의 Bikeshedding과 리뷰 피로를 타파하는 AST 구문 린터, 수학적 소스-싱크 보안 오염 분석(Taint Analysis), 자율 LLM PR 리뷰어 3단계 자동화 아키텍처 완벽 해설.",
+  "target_audience": "소프트웨어 엔지니어, 테크 리드, DevOps 엔지니어, 컴퓨터공학과 전공자"
+}

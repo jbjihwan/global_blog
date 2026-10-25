@@ -1,0 +1,27 @@
+{
+  "slug": "2026-05-19-rl-qlearning-3",
+  "series": "Webots 로보틱스 자율주행 Q-Learning",
+  "episode": 3,
+  "date": "2026-05-19",
+  "title_candidates": [
+    "[Webots 로보틱스 #3] 벽 앞에만 서면 바보가 되는 로봇? 지역 최적해(Local Minima) 극복과 초고속 헤드리스 학습법",
+    "강화학습 장애물 우회로(Detour) 정책 만들기: 벨만 가치 역전파와 12개 벽 극복기",
+    "학습 속도 10배 끌어올리기: Webots Headless 무인 시뮬레이션 자동화 꿀팁"
+  ],
+  "recommended_title": "[Webots 로보틱스 #3] 벽 앞에만 서면 바보가 되는 로봇? 지역 최적해(Local Minima) 극복과 초고속 헤드리스 학습법",
+  "category": "IT·컴퓨터 / 인공지능",
+  "tags": [
+    "Webots",
+    "강화학습",
+    "로컬미니마",
+    "LocalMinima",
+    "장애물회피",
+    "헤드리스시뮬레이션",
+    "자율주행",
+    "QLearning",
+    "로보틱스",
+    "벨만방정식"
+  ],
+  "summary": "12개 벽 장애물 맵에서 발생하는 지역 최적해(Local Minima) 병목 현상의 원인 분석, 3방향 헤드스캔 및 장기 가치 역전파를 통한 우회 정책 형성, 그리고 Webots Headless 가속 파이프라인 구축기.",
+  "target_audience": "강화학습 연구자, 로봇공학 엔지니어, 시뮬레이션 자동화에 관심 있는 개발자"
+}

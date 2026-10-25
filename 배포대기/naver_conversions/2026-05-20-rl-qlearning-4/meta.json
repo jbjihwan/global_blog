@@ -1,0 +1,27 @@
+{
+  "slug": "2026-05-20-rl-qlearning-4",
+  "series": "Webots 로보틱스 자율주행 Q-Learning",
+  "episode": 4,
+  "date": "2026-05-20",
+  "title_candidates": [
+    "[Webots 로보틱스 #4] 진짜 실력은 시험대에서 나온다! 탐색률 0% 결정론적 평가와 DQN vs Q-Learning 벤치마크",
+    "딥러닝 DQN이 옛날 Q-러닝보다 항상 좋을까? 실내 자율주행 로봇 맞대결 벤치마크",
+    "20KB 메모리로 93.3% 성공률 달성하기: 라즈베리파이를 위한 초경량 자율주행 강화학습"
+  ],
+  "recommended_title": "[Webots 로보틱스 #4] 진짜 실력은 시험대에서 나온다! 탐색률 0% 결정론적 평가와 DQN vs Q-Learning 벤치마크",
+  "category": "IT·컴퓨터 / 인공지능",
+  "tags": [
+    "Webots",
+    "강화학습",
+    "성능평가",
+    "벤치마크",
+    "DQN",
+    "SARSA",
+    "QLearning",
+    "결정론적추론",
+    "자율주행",
+    "임베디드AI"
+  ],
+  "summary": "탐색률 0% 결정론적 정책 평가 엔진(`evaluate_qlearning.py`) 설계 및 경로 효율성, 근접 위기(Near-miss) 지표 측정. 심층 신경망 DQN 및 온폴리시 SARSA와의 종합 비교 벤치마크 분석.",
+  "target_audience": "강화학습 실무자, 임베디드 로보틱스 개발자, 딥러닝 벤치마크 연구자"
+}

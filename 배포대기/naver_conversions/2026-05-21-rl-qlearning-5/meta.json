@@ -1,0 +1,27 @@
+{
+  "slug": "2026-05-21-rl-qlearning-5",
+  "series": "Webots 로보틱스 자율주행 Q-Learning",
+  "episode": 5,
+  "date": "2026-05-21",
+  "title_candidates": [
+    "[Webots 로보틱스 #5] 가상 시뮬레이터에서 배운 AI, 진짜 현실 아두이노 로봇에 넣었더니?! (Sim-to-Real 완결편)",
+    "2KB 아두이노 우노로 강화학습 로봇 굴리기: ArUco 비전 추적과 블루투스 분산 제어",
+    "가상에서 현실로! Tabular Q-Learning Sim-to-Real 하드웨어 배포 성공기"
+  ],
+  "recommended_title": "[Webots 로보틱스 #5] 가상 시뮬레이터에서 배운 AI, 진짜 현실 아두이노 로봇에 넣었더니?! (Sim-to-Real 완결편)",
+  "category": "IT·컴퓨터 / 인공지능",
+  "tags": [
+    "Webots",
+    "SimToReal",
+    "아두이노",
+    "ArUco마커",
+    "컴퓨터비전",
+    "강화학습",
+    "QLearning",
+    "하드웨어이식",
+    "블루투스통신",
+    "로보틱스"
+  ],
+  "summary": "가상 Webots 환경에서 학습된 Q-Learning 정책을 실제 아두이노 우노 2륜 로봇에 이식한 Sim-to-Real 하드웨어 배포기. 천장 웹캠 호모그래피 보정, ArUco 마커 실시간 포즈 추적, 블루투스 분산 제어 아키텍처 완벽 정리.",
+  "target_audience": "로보틱스 하드웨어 제작자, 아두이노 개발자, Sim-to-Real 연구자"
+}

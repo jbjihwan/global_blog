@@ -1,0 +1,30 @@
+{
+  "group": "naver_conversions",
+  "created_at": "2026-10-24T10:56:00+09:00",
+  "status": "pending_deployment",
+  "total_posts": 10,
+  "series": [
+    {
+      "name": "Webots 로보틱스 자율주행 Q-Learning",
+      "episodes": 5,
+      "items": [
+        "2026-05-17-rl-qlearning-1",
+        "2026-05-18-rl-qlearning-2",
+        "2026-05-19-rl-qlearning-3",
+        "2026-05-20-rl-qlearning-4",
+        "2026-05-21-rl-qlearning-5"
+      ]
+    },
+    {
+      "name": "임베디드 AI 블랙박스 번호판 인식",
+      "episodes": 5,
+      "items": [
+        "2026-06-25-vision-anpr-1",
+        "2026-06-26-vision-anpr-2",
+        "2026-06-27-vision-anpr-3",
+        "2026-06-28-vision-anpr-4",
+        "2026-06-29-vision-anpr-5"
+      ]
+    }
+  ]
+}

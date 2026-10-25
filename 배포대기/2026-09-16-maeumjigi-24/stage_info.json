@@ -1,0 +1,12 @@
+{
+  "slug": "2026-09-16-maeumjigi-24",
+  "series": "maeumjigi-capstone",
+  "episode": 24,
+  "title": "[Maeumjigi Capstone Dev Log #24] Fall Semester Kickoff: Longitudinal Clinical Preprocessing & Informative Missingness (MNAR) Modeling",
+  "created_at": "2026-10-24T10:47:00+09:00",
+  "target_publish_date": "2026-09-16",
+  "status": "pending_deployment",
+  "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant"],
+  "naver_blog_ready": true,
+  "image_staged": "01_cover.png"
+}

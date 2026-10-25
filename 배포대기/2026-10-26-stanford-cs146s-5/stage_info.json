@@ -1,0 +1,12 @@
+{
+  "slug": "2026-10-26-stanford-cs146s-5",
+  "series": "stanford-cs146s",
+  "episode": 5,
+  "title": "[Stanford CS146S #5] Multi-Agent Systems & Swarm Orchestration: Coordinating Autonomous Architect, Implementer, and Critic LLMs",
+  "created_at": "2026-10-24T10:51:00+09:00",
+  "target_publish_date": "2026-10-26",
+  "status": "pending_deployment",
+  "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant"],
+  "naver_blog_ready": true,
+  "image_staged": "05_cs146s_multi_agent_swarm.png"
+}

@@ -1,0 +1,27 @@
+{
+  "slug": "2026-10-27-stanford-cs146s-6",
+  "series": "스탠포드 CS146S (The Modern Software Developer)",
+  "episode": 6,
+  "date": "2026-10-27",
+  "title_candidates": [
+    "[스탠포드 CS146S #6] 새벽 3시 서버 장애, print 찍다가 망하는 이유: eBPF 커널 추적과 AI SRE 자율 디버깅 실전",
+    "하이젠버그를 잡는 유일한 방법: eBPF 무부하 관측성과 LLM 핫패치 파이프라인",
+    "로그 노이즈에 지친 엔지니어를 위한 구원투수: eBPF + AI SRE 자율 장애 복구 아키텍처"
+  ],
+  "recommended_title": "[스탠포드 CS146S #6] 새벽 3시 서버 장애, print 찍다가 망하는 이유: eBPF 커널 추적과 AI SRE 자율 디버깅 실전",
+  "category": "IT·컴퓨터 / 인공지능",
+  "tags": [
+    "스탠포드",
+    "CS146S",
+    "eBPF",
+    "동적트레이싱",
+    "SRE",
+    "장애대응",
+    "DevOps",
+    "리눅스커널",
+    "인공지능디버깅",
+    "소프트웨어공학"
+  ],
+  "summary": "스탠포드 CS146S 6강 요약. 침습적 디버깅의 하이젠버그(Heisenbug) 한계를 극복하는 eBPF 커널 레벨 제로 오버헤드 관측성과 LLM 기반 자율 SRE 장애 진단 및 실시간 핫패치 파이프라인 완벽 해설.",
+  "target_audience": "서버 개발자, DevOps 엔지니어, SRE 담당자, 시스템 소프트웨어 연구자"
+}
