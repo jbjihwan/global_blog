@@ -27,6 +27,7 @@ service_account*.json
 _old/
 extracted_ppt_images/
 tools/pptx_extracted/
+tools/*.png
 
 # Misc
 .DS_Store
