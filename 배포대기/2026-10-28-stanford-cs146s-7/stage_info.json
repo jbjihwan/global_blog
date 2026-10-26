@@ -5,7 +5,8 @@
   "title": "[Stanford CS146S #7] Automated Code Review at Scale: AST-Aware Linters, Security Taint Analysis, and Autonomous LLM PR Reviewers",
   "created_at": "2026-10-25T11:39:00+09:00",
   "target_publish_date": "2026-10-28",
-  "status": "pending_deployment",
+  "status": "deployed",
+  "deployed_at": "2026-10-25T17:55:00+09:00",
   "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant"],
   "naver_blog_ready": true,
   "image_staged": "07_cs146s_code_review_at_scale.png"

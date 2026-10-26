@@ -5,7 +5,8 @@
   "title": "[Stanford CS146S #4] Spec-Driven Code Generation & Test Harnesses: Building Self-Healing Regression Loops with Claude Code & Cursor",
   "created_at": "2026-10-24T10:43:00+09:00",
   "target_publish_date": "2026-10-25",
-  "status": "pending_deployment",
+  "status": "deployed",
+  "deployed_at": "2026-10-25T17:55:00+09:00",
   "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant"],
   "naver_blog_ready": true,
   "image_staged": "04_cs146s_spec_driven_test_harness.png"

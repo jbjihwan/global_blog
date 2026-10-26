@@ -1,0 +1,27 @@
+{
+  "slug": "2026-10-29-stanford-cs146s-8",
+  "series": "stanford-cs146s",
+  "episode": 8,
+  "title": "[Stanford CS146S #8] AI-Native Software Architecture & Refactoring: Decoupling Monoliths, Managing Semantic Debt, and Autonomous Large-Scale Migrations",
+  "created_at": "2026-10-25T20:00:00+09:00",
+  "target_publish_date": "2026-10-29",
+  "status": "deployed",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "es",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "naver_blog_ready": true,
+  "image_staged": "08_cs146s_ai_native_architecture_refactoring.png",
+  "keywords": [
+    "AI-Native Software Architecture",
+    "Automated Monolith Decoupling",
+    "Semantic Debt Mitigation",
+    "AST-Guided Large-Scale Refactoring",
+    "Autonomous Code Migration LLMs"
+  ],
+  "deployed_at": "2026-10-26T19:26:37.732463"
+}

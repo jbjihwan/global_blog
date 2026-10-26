@@ -1,0 +1,27 @@
+{
+  "slug": "2026-10-31-stanford-cs146s-10",
+  "series": "stanford-cs146s",
+  "episode": 10,
+  "title": "[Stanford CS146S #10] The Future of Software Engineering: Autonomous Agent Swarms, Zero-Human Deployment Pipelines, and Managing AI Fleets at Scale",
+  "created_at": "2026-10-26T19:15:00+09:00",
+  "target_publish_date": "2026-10-31",
+  "status": "deployed",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "es",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "naver_blog_ready": true,
+  "image_staged": "10_cs146s_future_software_engineering_ai_fleets.png",
+  "keywords": [
+    "Autonomous Software Engineering Teams",
+    "Zero-Human Deployment Pipelines",
+    "AI Software Fleet Management",
+    "Human-Agent Software Governance",
+    "Self-Evolving Codebases"
+  ],
+  "deployed_at": "2026-10-26T19:26:37.752380"
+}

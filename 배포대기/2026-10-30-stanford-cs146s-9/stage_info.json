@@ -1,0 +1,27 @@
+{
+  "slug": "2026-10-30-stanford-cs146s-9",
+  "series": "stanford-cs146s",
+  "episode": 9,
+  "title": "[Stanford CS146S #9] Autonomous TDD & Formal Verification: Z3 SMT Solvers, Property-Based Invariants, and Mathematical Proofs for AI-Generated Code",
+  "created_at": "2026-10-26T19:00:00+09:00",
+  "target_publish_date": "2026-10-30",
+  "status": "deployed",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "es",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "naver_blog_ready": true,
+  "image_staged": "09_cs146s_autonomous_tdd_formal_verification.png",
+  "keywords": [
+    "Autonomous Test-Driven Development (ATDD)",
+    "Z3 SMT Solver Formal Verification",
+    "Property-Based Testing with Hypothesis",
+    "Mathematical Proofs for LLM Code",
+    "Invariant Synthesis for AI Systems"
+  ],
+  "deployed_at": "2026-10-26T19:26:37.742159"
+}
