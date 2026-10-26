@@ -922,7 +922,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>本連載の第1回となる本記事では、既存の <code>jbjihwan.github.io/global_blog</code> から独自ドメイン <code>https://globaldevlog.com</code> へのゼロダウンタイム移行を実現した、<strong>Porkbun + Cloudflare + GitHub Pages 3層アーキテクチャとDNS構築手順</strong>を詳細に解説します。</p>
 <!-- -->
 <hr>
-<p><img decoding="async" loading="lazy" alt="静的エンジニアリングブログ向け本番DNSおよびCDNルーティングアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/01_dns_routing_architecture-62997cc41ea054b0ab1f95a8f290171e.png" width="2200" height="1100" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="静的エンジニアリングブログ向け本番DNSおよびCDNルーティングアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/01_dns_routing_architecture-5037f18c8037b1fabcb3e5f4e73520b0.png" width="2200" height="1100" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-アーキテクチャ設計思想-3層構成の導入">1. アーキテクチャ設計思想: 3層構成の導入<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-cloudflare-dns#1-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3-3%E5%B1%A4%E6%A7%8B%E6%88%90%E3%81%AE%E5%B0%8E%E5%85%A5" class="hash-link" aria-label="1. アーキテクチャ設計思想: 3層構成の導入 への直接リンク" title="1. アーキテクチャ設計思想: 3層構成の導入 への直接リンク" translate="no">​</a></h2>
 <p>独自ドメインをGitHub Pagesに接続する際、初心者が陥りがちなのが、レジストラからGitHubの4つの固定IP（<code>185.199.108.153</code> 等）へ直接 <code>Aレコード</code> を設定する手法です。</p>
@@ -1012,7 +1012,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
             <guid>https://globaldevlog.com/ja/blog/static-site-adsense-ads-txt-guide</guid>
             <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Docusaurus静的サイトでのGoogle AdSense所有権確認メタタグの注入、static/ads.txtのルート配信、Cloudflare WAFによるクローラーブロック回避の実践ガイド。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Google AdSense 審査およびクローラーパイプライン" src="https://globaldevlog.com/ja/assets/images/01_ads_txt_crawler_flow-c9409f9168f3d6e04648c56869312b07.png" width="2200" height="1100" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Google AdSense 審査およびクローラーパイプライン" src="https://globaldevlog.com/ja/assets/images/01_ads_txt_crawler_flow-f701a9aeda0f693179c80cbbe254d3cb.png" width="2200" height="1100" class="img_ev3q"></p>
 <blockquote>
 <p>📌 <strong>重要ポイント (TL;DR)</strong></p>
 <ul>
@@ -1102,7 +1102,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>本記事では、<code>jbjihwan.github.io/global_blog</code> から独自ドメイン <code>https://globaldevlog.com</code> へのゼロダウンタイム移行アーキテクチャと、Google Search Console、Naver Search Advisor、Bing Webmaster Toolsのトラブルシューティングを包括的に解説します。</p>
 <!-- -->
 <hr>
-<p><img decoding="async" loading="lazy" alt="静的エンジニアリングブログ向け本番DNSおよびCDNルーティングアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/01_dns_routing_architecture-62997cc41ea054b0ab1f95a8f290171e.png" width="2200" height="1100" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="静的エンジニアリングブログ向け本番DNSおよびCDNルーティングアーキテクチャ" src="https://globaldevlog.com/ja/assets/images/01_dns_routing_architecture-5037f18c8037b1fabcb3e5f4e73520b0.png" width="2200" height="1100" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-アーキテクチャ戦略-porkbun--cloudflare--github-pages">1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#1-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%88%A6%E7%95%A5-porkbun--cloudflare--github-pages" class="hash-link" aria-label="1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages への直接リンク" title="1. アーキテクチャ戦略: Porkbun + Cloudflare + GitHub Pages への直接リンク" translate="no">​</a></h2>
 <p>GitHub Pagesにネイキッドドメインを接続する際、GitHubのIPアドレスに対して素の <code>A</code> レコードを直接指定する従来の手法は、エッジキャッシュ、DDoS保護、自動SSL更新の観点で脆弱です。</p>
@@ -1138,7 +1138,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>本番環境で HTTP 200 が返ることを確認します:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com/ads.txt</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># content-type: text/plain; charset=utf-8</span><br></div></code></pre></div></div>
 <hr>
-<p><img decoding="async" loading="lazy" alt="グローバル検索エンジンインデックス登録およびAdSense収益化パイプライン" src="https://globaldevlog.com/ja/assets/images/02_indexing_pipeline-dcaa7ab4817bef1e1c93a4edfa7c289c.png" width="2200" height="1100" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="グローバル検索エンジンインデックス登録およびAdSense収益化パイプライン" src="https://globaldevlog.com/ja/assets/images/02_indexing_pipeline-ee5603da1c83593c73099ee49a5e4e62.png" width="2200" height="1100" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-検索エンジン別-seo--トラブルシューティング">4. 検索エンジン別 SEO &amp; トラブルシューティング<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#4-%E6%A4%9C%E7%B4%A2%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E5%88%A5-seo--%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0" class="hash-link" aria-label="4. 検索エンジン別 SEO &amp; トラブルシューティング への直接リンク" title="4. 検索エンジン別 SEO &amp; トラブルシューティング への直接リンク" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-google-search-console-サイトマップ削除uiの落とし穴">A. Google Search Console: サイトマップ削除UIの落とし穴<a href="https://globaldevlog.com/ja/blog/github-pages-custom-domain-adsense-seo-guide#a-google-search-console-%E3%82%B5%E3%82%A4%E3%83%88%E3%83%9E%E3%83%83%E3%83%97%E5%89%8A%E9%99%A4ui%E3%81%AE%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4" class="hash-link" aria-label="A. Google Search Console: サイトマップ削除UIの落とし穴 への直接リンク" title="A. Google Search Console: サイトマップ削除UIの落とし穴 への直接リンク" translate="no">​</a></h3>
@@ -1199,7 +1199,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>本記事では、<strong>静的サイトの脅威モデル (Threat Model)</strong> を明確にし、ビルドツールとランタイム脆弱性の本質的な違いを分析した上で、実際に守るべき <strong>4層のセキュリティ対策</strong> を共有します。</p>
 <!-- -->
 <hr>
-<p><img decoding="async" loading="lazy" alt="脅威モデル比較: 動的Webサーバー vs 静的サイト" src="https://globaldevlog.com/ja/assets/images/01_threat_model-e4071b26b03b454c35d8aca5ad1f1f29.png" width="2000" height="1000" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="脅威モデル比較: 動的Webサーバー vs 静的サイト" src="https://globaldevlog.com/ja/assets/images/01_threat_model-2fbf35c1cbdc955087520110020ee587.png" width="2000" height="1000" class="img_ev3q"></p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-3行まとめエンジニアリングの判断基準">1. 3行まとめ：エンジニアリングの判断基準<a href="https://globaldevlog.com/ja/blog/static-site-security-npm-audit-truth#1-3%E8%A1%8C%E3%81%BE%E3%81%A8%E3%82%81%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%AE%E5%88%A4%E6%96%AD%E5%9F%BA%E6%BA%96" class="hash-link" aria-label="1. 3行まとめ：エンジニアリングの判断基準 への直接リンク" title="1. 3行まとめ：エンジニアリングの判断基準 への直接リンク" translate="no">​</a></h2>
 <ol>
@@ -1225,7 +1225,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>結論として、SSG環境で <code>npm audit fix --force</code> を叩くことは、<strong>存在しない脅威を防ぐために正常に動作しているシステムを破壊する行為</strong>に他なりません。</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-実践的4層セキュリティブループリント">3. 実践的4層セキュリティ・ブループリント<a href="https://globaldevlog.com/ja/blog/static-site-security-npm-audit-truth#3-%E5%AE%9F%E8%B7%B5%E7%9A%844%E5%B1%A4%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88" class="hash-link" aria-label="3. 実践的4層セキュリティ・ブループリント への直接リンク" title="3. 実践的4層セキュリティ・ブループリント への直接リンク" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="4層の静的ブログ・セキュリティ強化パイプライン" src="https://globaldevlog.com/ja/assets/images/02_security_pipeline-6019c3a94044a67ce4aa653dabc2407f.png" width="2000" height="900" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="4層の静的ブログ・セキュリティ強化パイプライン" src="https://globaldevlog.com/ja/assets/images/02_security_pipeline-91d1ac6c4faedee2d0eb5ac224985aa6.png" width="2000" height="900" class="img_ev3q"></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第1層gitプリコミットシークレットスキャン自動化">第1層：Gitプリコミット・シークレットスキャン自動化<a href="https://globaldevlog.com/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC1%E5%B1%A4git%E3%83%97%E3%83%AA%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E8%87%AA%E5%8B%95%E5%8C%96" class="hash-link" aria-label="第1層：Gitプリコミット・シークレットスキャン自動化 への直接リンク" title="第1層：Gitプリコミット・シークレットスキャン自動化 への直接リンク" translate="no">​</a></h3>
 <p>最も致命的なリスクは、APIキー（OpenAI <code>sk-...</code>、GitHub PAT <code>ghp_...</code>、AWS <code>AKIA...</code>）を誤って公開コミットすることです。Gitの追跡ファイルを正規表現で一括検査する監査スクリプト（<code>tools/audit_security.py</code>）を構築し、リリース前にゼロ漏洩を保証します。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="第2層個人情報piiとデータセット保護">第2層：個人情報(PII)とデータセット保護<a href="https://globaldevlog.com/ja/blog/static-site-security-npm-audit-truth#%E7%AC%AC2%E5%B1%A4%E5%80%8B%E4%BA%BA%E6%83%85%E5%A0%B1pii%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E4%BF%9D%E8%AD%B7" class="hash-link" aria-label="第2層：個人情報(PII)とデータセット保護 への直接リンク" title="第2層：個人情報(PII)とデータセット保護 への直接リンク" translate="no">​</a></h3>
@@ -1435,7 +1435,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
             <guid>https://globaldevlog.com/ja/blog/2026-06-25-vision-anpr-1</guid>
             <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[動的車線検出、IoU侵犯判定、YOLOv5ナンバープレート検出、EDSR超解像復元、OCR投票アンサンブルを統合した6段階ビジョンシステムのアーキテクチャ設計。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="6段階ANPRパイプライン構成図" src="https://globaldevlog.com/ja/assets/images/01_pipeline_diagram-80647f9bac075d0e017c28727200c7b3.png" width="2200" height="900" class="img_ev3q"></p>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="6段階ANPRパイプライン構成図" src="https://globaldevlog.com/ja/assets/images/01_pipeline_diagram-f1a00961bd1c93335056dbac183a8c5b.png" width="2200" height="900" class="img_ev3q"></p>
 <blockquote>
 <p>📌 <strong>Key Takeaways (要約)</strong></p>
 <ul>
@@ -1508,7 +1508,7 @@ Function Callingは単なる <strong>「LLM APIの一機能」</strong> です�
 <p>To serve our validated chatbot to university students and military beta testers over the 5-month summer break, we conducted an AWS EC2 instance sizing and cost optimization study:</p>
 <table><thead><tr><th style="text-align:left">Instance Family</th><th style="text-align:center">GPU Configuration</th><th style="text-align:center">vCPU / RAM</th><th style="text-align:center">On-Demand (Hourly)</th><th style="text-align:center">5-Month Estimated Cost (On-Demand)</th><th style="text-align:center">1-Year Savings Plan (Hourly)</th><th style="text-align:center">5-Month Optimized Cost</th></tr></thead><tbody><tr><td style="text-align:left"><strong>g4dn.2xlarge</strong></td><td style="text-align:center">1x NVIDIA T4 (16GB)</td><td style="text-align:center">8 vCPU / 32GB</td><td style="text-align:center">$0.752</td><td style="text-align:center">$2,707</td><td style="text-align:center">$0.481</td><td style="text-align:center">$1,731</td></tr><tr><td style="text-align:left"><strong>g5.2xlarge (Chosen)</strong></td><td style="text-align:center"><strong>1x NVIDIA A10G (24GB)</strong></td><td style="text-align:center"><strong>8 vCPU / 32GB</strong></td><td style="text-align:center"><strong>$1.212</strong></td><td style="text-align:center"><strong>$4,363</strong></td><td style="text-align:center"><strong>$0.763</strong></td><td style="text-align:center"><strong>$2,746 (Save 37%)</strong></td></tr><tr><td style="text-align:left"><strong>g6.2xlarge</strong></td><td style="text-align:center">1x NVIDIA L4 (24GB)</td><td style="text-align:center">8 vCPU / 32GB</td><td style="text-align:center">$0.978</td><td style="text-align:center">$3,520</td><td style="text-align:center">$0.626</td><td style="text-align:center">$2,253</td></tr></tbody></table>
 <p><strong>Engineering Selection</strong>: While <code>g4dn.2xlarge</code> offered lower cost, its 16GB VRAM could not host our 9B model alongside vLLM PagedAttention KV-caches without extreme 4-bit quantization degradation. We selected <strong><code>g5.2xlarge</code> with a 1-year Savings Plan</strong>, unlocking 24GB high-speed GDDR6 VRAM, sub-50ms token latencies, and 37% budgetary savings!</p>
-<p><img decoding="async" loading="lazy" alt="Final Presentation" src="https://globaldevlog.com/ja/assets/images/02_presentation-14658e4f35d2011b85a779357d0ae51f.png" width="720" height="405" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Final Presentation" src="https://globaldevlog.com/ja/assets/images/02_presentation-d25cfcaf3738f51245053aae15f68347.png" width="720" height="405" class="img_ev3q"></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-1st-semester-capstone-retrospective--defense-highlights">4. 1st Semester Capstone Retrospective &amp; Defense Highlights<a href="https://globaldevlog.com/ja/blog/2026-06-18-maeumjigi-23#4-1st-semester-capstone-retrospective--defense-highlights" class="hash-link" aria-label="4. 1st Semester Capstone Retrospective &amp; Defense Highlights への直接リンク" title="4. 1st Semester Capstone Retrospective &amp; Defense Highlights への直接リンク" translate="no">​</a></h3>
 <p>On June 18th, our engineering team presented the completed <strong>1st Semester Final Defense Presentation (PPTX)</strong> before the university evaluation panel:</p>
