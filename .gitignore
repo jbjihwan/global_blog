@@ -26,6 +26,7 @@ service_account*.json
 # Archived template files
 _old/
 extracted_ppt_images/
+tools/pptx_extracted/
 
 # Misc
 .DS_Store
