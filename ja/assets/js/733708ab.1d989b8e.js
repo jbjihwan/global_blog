@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkglobal_blog=self.webpackChunkglobal_blog||[]).push([["4567"],{140(e){e.exports=JSON.parse('{"metadata":{"permalink":"/ja/blog","page":1,"postsPerPage":47,"totalPages":1,"totalCount":47,"blogDescription":"Production-grade AI engineering, Autonomous Systems, and Full-Stack Development Journey","blogTitle":"Global Dev Blog"}}')}}]);
