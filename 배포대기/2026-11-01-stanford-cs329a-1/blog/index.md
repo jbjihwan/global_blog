@@ -62,14 +62,18 @@ To understand where self-improving agents are heading, we must first analyze the
 
 #### Phase 1: Unsupervised Pre-Training
 A base language model is trained on trillions of tokens with the maximum likelihood estimation (MLE) objective:
-$$\mathcal{L}_{\text{MLE}}(\theta) = - \sum_{i=1}^{T} \log P_\theta(x_i \mid x_{1:i-1})$$
+```text
+L_MLE(θ) = - ∑ log P_θ(x_i | x_{1:i-1})
+```
 While this objective forces the model to encode syntax, world knowledge, and semantic associations into hundreds of billions of weights, the base model is essentially an unconstrained probabilistic mimic. If prompted with *"What is the capital of France?"*, it is just as likely to complete the string with *"What is the capital of Germany?"* as it is to answer the question, because both sequences frequently co-occur in web documents.
 
 #### Phase 2: Instruction Tuning & RLHF (The "ChatGPT Recipe")
 To transform an unconstrained completion engine into a helpful assistant, the industry developed the two-stage post-training pipeline:
-1. **Supervised Fine-Tuning (SFT):** Training on high-quality $(x_{\text{prompt}}, y_{\text{response}})$ demonstration pairs, conditioning the model to adopt a helpful conversational persona.
-2. **Reinforcement Learning from Human Feedback (RLHF) / DPO:** Optimizing an alignment objective against a learned reward model $r_\psi(x, y)$ reflecting human preference:
-$$\max_\theta \mathbb{E}_{(x, y) \sim \mathcal{D}} \left[ r_\psi(x, y) \right] - \beta \, \mathbb{D}_{\text{KL}}\left(\pi_\theta(y \mid x) \,||\, \pi_{\text{ref}}(y \mid x)\right)$$
+1. **Supervised Fine-Tuning (SFT):** Training on high-quality `(x_prompt, y_response)` demonstration pairs, conditioning the model to adopt a helpful conversational persona.
+2. **Reinforcement Learning from Human Feedback (RLHF) / DPO:** Optimizing an alignment objective against a learned reward model `r_ψ(x, y)` reflecting human preference:
+```text
+max_θ E_{(x, y) ~ D} [ r_ψ(x, y) ] - β · D_KL( π_θ(y | x) || π_ref(y | x) )
+```
 While RLHF solved conversational compliance and safety, it did not endow models with true problem-solving autonomy. An aligned chatbot still generates its answer sequentially in a single pass without deliberate verification, planning, or external tool execution.
 
 #### Phase 3: The CS329A Frontier — Autonomous Agentic Loops
@@ -79,11 +83,13 @@ Self-improving agents break free from the single forward-pass constraint. By int
 
 ### 2. The Mathematics of Scaling Laws: Train-Time vs. Inference-Time
 
-A central foundation of modern machine learning is the **Scaling Hypothesis**. In 2020, Kaplan et al. (OpenAI) and later Hoffmann et al. (DeepMind Chinchilla, 2022) established that the test cross-entropy loss $L$ of an autoregressive language model follows a power-law relationship with respect to compute budget $C$, parameter count $N$, and training dataset size $D$:
+A central foundation of modern machine learning is the **Scaling Hypothesis**. In 2020, Kaplan et al. (OpenAI) and later Hoffmann et al. (DeepMind Chinchilla, 2022) established that the test cross-entropy loss $L$ of an autoregressive language model follows a power-law relationship with respect to compute budget C, parameter count N, and training dataset size D:
 
-$$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
+```text
+L(N, D) = E + A / N^α + B / D^β
+```
 
-where $E$ represents the irreducible entropy of natural language, $A$ and $B$ are scaling coefficients, and $\alpha \approx 0.34, \beta \approx 0.28$ are empirical scaling exponents.
+where E represents the irreducible entropy of natural language, A and B are scaling coefficients, and α ≈ 0.34, β ≈ 0.28 are empirical scaling exponents.
 
 ```
 Cross-Entropy Loss L
@@ -100,7 +106,7 @@ Cross-Entropy Loss L
 
 However, pre-training scaling is encountering severe physical and economic headwinds:
 - **The Data Wall:** High-quality human-generated text on the public internet is projected to be fully exhausted within this decade.
-- **Capital & Power Density:** Training clusters exceeding $10^{26}$ FLOPs require dedicated gigawatt-scale electrical substations and hundreds of millions of dollars in capital expenditure.
+- **Capital & Power Density:** Training clusters exceeding 10²⁶ FLOPs require dedicated gigawatt-scale electrical substations and hundreds of millions of dollars in capital expenditure.
 
 #### The Second Frontier: Inference-Time (Test-Time) Scaling
 Rather than spending tens of millions of dollars updating model weights during training, **can we achieve superior reasoning by investing compute during inference?**
@@ -108,10 +114,12 @@ Rather than spending tens of millions of dollars updating model weights during t
 Consider a difficult coding or mathematical problem. A human expert does not write down the correct solution in a single burst of unbroken text; they draft hypotheses, verify intermediate lemmas, identify dead ends, and backtrack. 
 
 In **Inference-Time Compute Scaling**, we allocate test-time FLOPs across three primary axes:
-1. **Repeated Sampling (Best-of-$N$ / Large Language Monkeys):** Generating $N$ candidate trajectories from $\pi_\theta$ and selecting the optimal answer via a verifier. The probability of obtaining at least one correct solution follows the $\text{Pass@}k$ metric:
-$$\text{Pass@}k = \mathbb{E}\left[ 1 - \frac{\binom{n - c}{k}}{\binom{n}{k}} \right]$$
-where $n$ is total samples and $c$ is the count of correct trajectories.
-2. **Step-Level Verification (PRM vs. ORM):** Outcome Reward Models (ORM) evaluate only the final output $r(x, y)$, which fails to localize errors in multi-step proofs. Process-supervised Reward Models (PRM) assign a scalar reward $r_t = R(x, y_{1:t})$ to every single reasoning step, enabling fine-grained credit assignment.
+1. **Repeated Sampling (Best-of-N / Large Language Monkeys):** Generating N candidate trajectories from π_θ and selecting the optimal answer via a verifier. The probability of obtaining at least one correct solution follows the `Pass@k` metric:
+```text
+Pass@k = E[ 1 - C(n - c, k) / C(n, k) ]
+```
+where n is total samples and c is the count of correct trajectories.
+2. **Step-Level Verification (PRM vs. ORM):** Outcome Reward Models (ORM) evaluate only the final output `r(x, y)`, which fails to localize errors in multi-step proofs. Process-supervised Reward Models (PRM) assign a scalar reward `r_t = R(x, y_{1:t})` to every single reasoning step, enabling fine-grained credit assignment.
 3. **Tree Search Algorithms (MCTS, Beam Search):** Exploring the combinatorial reasoning graph using Monte Carlo Tree Search, balancing exploration of novel trajectories against exploitation of high-reward intermediate states.
 
 As demonstrated by frontier reasoning architectures (e.g., OpenAI o1, DeepSeek-R1), scaling inference-time compute by 100x to 1,000x can yield performance breakthroughs on IMO-level mathematics and SWE-bench competitions that far surpass raw pre-training parameter expansion.
@@ -157,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Prompt Chaining (Sequential Decomposition)
-Decomposes a complex monolithic task into a series of deterministic steps where the output of step $k$ becomes the structured context for step $k+1$. This architecture minimizes error amplification by inserting validation gates between stages (e.g., generating an outline $\to$ verifying coverage $\to$ writing draft $\to$ proofreading).
+Decomposes a complex monolithic task into a series of deterministic steps where the output of step `k` becomes the structured context for step `k+1`. This architecture minimizes error amplification by inserting validation gates between stages (e.g., generating an outline $\to$ verifying coverage $\to$ writing draft $\to$ proofreading).
 
 #### 2. Dynamic Routing
 Classifies the input query and dynamically dispatches execution to specialized models, fine-tuned adapters, or purpose-built tools. For example, routing an algebraic query to a SymPy/Python execution sandbox while routing a semantic search query to an embedding vector database.
@@ -177,8 +185,12 @@ A central planning agent breaks down a high-level goal into an explicit Directed
 Why is building self-improving agents so extraordinarily challenging?
 The crux of the problem lies in the **Generator-Verifier Asymmetry**:
 
-$$\text{Complexity}(\text{Verification}) \ll \text{Complexity}(\text{Generation}) \quad \text{in closed formal domains (NP-complete)}$$
-$$\text{Complexity}(\text{Verification}) \approx \text{Complexity}(\text{Generation}) \quad \text{in open-ended natural domains}$$
+```text
+Complexity(Verification) ≪ Complexity(Generation)   [Closed Formal Domains]
+```
+```text
+Complexity(Verification) ≈ Complexity(Generation)   [Open-Ended Natural Domains]
+```
 
 ```
 Verification Capability
@@ -245,7 +257,7 @@ The Stanford CS329A curriculum is structured into four progressive architectural
 
 #### Key Takeaways
 1. **The Paradigm Shift:** Modern AI has expanded beyond static, single-turn token completion into autonomous, multi-step feedback loops where execution, verification, and reflection operate continuously.
-2. **Dual Scaling Frontiers:** Pre-training parameter scaling is now augmented by inference-time compute scaling (Best-of-$N$, process reward models, Monte Carlo tree search), enabling smaller models to outperform giant models through deliberate reasoning.
+2. **Dual Scaling Frontiers:** Pre-training parameter scaling is now augmented by inference-time compute scaling (Best-of-N, process reward models, Monte Carlo tree search), enabling smaller models to outperform giant models through deliberate reasoning.
 3. **The Core Loop:** Every effective agentic system embodies the universal tri-fold cycle: **Generate $\to$ Verify $\to$ Loop**.
 4. **The Verification Bottleneck:** The rate of an agent's self-improvement is strictly throttled by the fidelity and objectivity of its verification signal.
 

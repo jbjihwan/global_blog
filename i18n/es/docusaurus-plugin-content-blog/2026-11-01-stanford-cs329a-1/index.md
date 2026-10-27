@@ -62,14 +62,18 @@ Para comprender hacia dónde se dirigen los agentes autoevolutivos, debemos exam
 
 #### Fase 1: Preentrenamiento No Supervisado (Unsupervised Pre-Training)
 Un modelo de lenguaje base se optimiza sobre billones de tokens minimizando la pérdida de Máxima Verosimilitud (MLE):
-$$\mathcal{L}_{\text{MLE}}(\theta) = - \sum_{i=1}^{T} \log P_\theta(x_i \mid x_{1:i-1})$$
+```text
+L_MLE(θ) = - ∑ log P_θ(x_i | x_{1:i-1})
+```
 Aunque este objetivo fuerza al modelo a comprimir sintaxis, conocimiento fáctico y relaciones semánticas en cientos de miles de millones de pesos, el modelo base sigue siendo un imitador probabilístico sin restricciones. Ante la pregunta *"¿Cuál es la capital de Francia?"*, tiene tantas probabilidades de responder correctamente como de continuar el texto con *"¿Cuál es la capital de Alemania?"*, dado que ambas secuencias coexisten habitualmente en internet.
 
 #### Fase 2: Ajuste por Instrucciones y RLHF (La "Receta ChatGPT")
 Para transformar un completador descontrolado en un asistente interactivo útil, la industria consolidó una canalización en dos etapas:
 1. **Ajuste Fino Supervisado (SFT):** Entrenamiento sobre demostraciones de alta calidad para dotar al modelo de una personalidad cooperativa.
-2. **Aprendizaje por Refuerzo con Retroalimentación Humana (RLHF) / DPO:** Optimización contra un modelo de recompensa $r_\psi(x, y)$ que aproxima las preferencias humanas:
-$$\max_\theta \mathbb{E}_{(x, y) \sim \mathcal{D}} \left[ r_\psi(x, y) \right] - \beta \, \mathbb{D}_{\text{KL}}\left(\pi_\theta(y \mid x) \,||\, \pi_{\text{ref}}(y \mid x)\right)$$
+2. **Aprendizaje por Refuerzo con Retroalimentación Humana (RLHF) / DPO:** Optimización contra un modelo de recompensa `r_ψ(x, y)` que aproxima las preferencias humanas:
+```text
+max_θ E_{(x, y) ~ D} [ r_ψ(x, y) ] - β · D_KL( π_θ(y | x) || π_ref(y | x) )
+```
 Si bien RLHF resolvió la docilidad conversacional y la seguridad, no dotó a los modelos de verdadera autonomía de resolución de problemas. Un chatbot alineado continúa generando su salida en una única pasada secuencial sin verificación activa ni interacción con herramientas.
 
 #### Fase 3: La Frontera CS329A — Bucles Agénticos Autónomos
@@ -79,11 +83,13 @@ Los agentes autoevolutivos rompen las cadenas del pase hacia adelante único. Al
 
 ### 2. Las Matemáticas de las Leyes de Escala: Entrenamiento vs. Inferencia
 
-La piedra angular del aprendizaje automático contemporáneo es la **Hipótesis del Escalado (Scaling Hypothesis)**. En 2020, Kaplan et al. (OpenAI) y posteriormente Hoffmann et al. (Chinchilla, 2022) demostraron que la pérdida de entropía cruzada $L$ de un modelo autorregresivo sigue una ley de potencias respecto al presupuesto de cómputo $C$, los parámetros $N$ y los tokens de entrenamiento $D$:
+La piedra angular del aprendizaje automático contemporáneo es la **Hipótesis del Escalado (Scaling Hypothesis)**. En 2020, Kaplan et al. (OpenAI) y posteriormente Hoffmann et al. (Chinchilla, 2022) demostraron que la pérdida de entropía cruzada $L$ de un modelo autorregresivo sigue una ley de potencias respecto al presupuesto de cómputo C, los parámetros N y los tokens de entrenamiento D:
 
-$$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
+```text
+L(N, D) = E + A / N^α + B / D^β
+```
 
-donde $E$ representa la entropía irreducible del lenguaje natural, $A$ y $B$ son coeficientes de escala, y $\alpha \approx 0.34, \beta \approx 0.28$ son exponentes empíricos.
+donde E representa la entropía irreducible del lenguaje natural, A y B son coeficientes de escala, y α ≈ 0.34, β ≈ 0.28 son exponentes empíricos.
 
 ```
 Pérdida de Entropía Cruzada L
@@ -100,7 +106,7 @@ Pérdida de Entropía Cruzada L
 
 No obstante, el escalado del preentrenamiento enfrenta restricciones físicas e industriales severas:
 - **Agotamiento de Datos:** Se proyecta que los textos de alta calidad redactados por humanos en internet se consumirán por completo en esta década.
-- **Costos de Capital y Densidad Eléctrica:** Clústeres que superen los $10^{26}$ FLOPs demandan subestaciones eléctricas dedicadas de escala gigavatio e inversiones de cientos de millones de dólares.
+- **Costos de Capital y Densidad Eléctrica:** Clústeres que superen los 10²⁶ FLOPs demandan subestaciones eléctricas dedicadas de escala gigavatio e inversiones de cientos de millones de dólares.
 
 #### La Segunda Frontera: Escalado de Cómputo en Tiempo de Inferencia
 En lugar de invertir millones en reentrenar parámetros estáticos, **¿podemos desbloquear una inteligencia superior asignando más cómputo en el instante de la inferencia?**
@@ -108,13 +114,15 @@ En lugar de invertir millones en reentrenar parámetros estáticos, **¿podemos 
 Cuando un experto humano aborda una demostración matemática o un desafío de ingeniería de software, no redacta la solución definitiva en un flujo continuo y perfecto; formula hipótesis, prueba lemas intermedios, identifica caminos sin salida y retrocede (backtracking).
 
 El **Escalado en Tiempo de Inferencia (Inference-Time Compute Scaling)** distribuye los FLOPs de prueba a través de tres dimensiones fundamentales:
-1. **Muestreo Repetido (Best-of-$N$ / Hipótesis de los Grandes Monos del Lenguaje):** Generar $N$ trayectorias candidatas desde la política $\pi_\theta$ y seleccionar la óptima mediante un verificador. La probabilidad de obtener al menos una respuesta correcta sigue la métrica $\text{Pass@}k$:
-$$\text{Pass@}k = \mathbb{E}\left[ 1 - \frac{\binom{n - c}{k}}{\binom{n}{k}} \right]$$
-donde $n$ es el total de muestras y $c$ es el recuento de trayectorias exitosas.
-2. **Verificación Paso a Paso (PRM vs. ORM):** Los Modelos de Recompensa por Resultado (ORM) solo califican la respuesta final $r(x, y)$, imposibilitando aislar errores intermedios. Los Modelos de Recompensa de Procesos (PRM) asignan una recompensa escalar $r_t = R(x, y_{1:t})$ a cada paso individual, permitiendo una asignación de crédito precisa.
+1. **Muestreo Repetido (Best-of-N / Hipótesis de los Grandes Monos del Lenguaje):** Generar N trayectorias candidatas desde la política π_θ y seleccionar la óptima mediante un verificador. La probabilidad de obtener al menos una respuesta correcta sigue la métrica `Pass@k`:
+```text
+Pass@k = E[ 1 - C(n - c, k) / C(n, k) ]
+```
+donde n es el total de muestras y c es el recuento de trayectorias exitosas.
+2. **Verificación Paso a Paso (PRM vs. ORM):** Los Modelos de Recompensa por Resultado (ORM) solo califican la respuesta final `r(x, y)`, imposibilitando aislar errores intermedios. Los Modelos de Recompensa de Procesos (PRM) asignan una recompensa escalar `r_t = R(x, y_{1:t})` a cada paso individual, permitiendo una asignación de crédito precisa.
 3. **Algoritmos de Búsqueda en Árbol (MCTS, Beam Search):** Explorar el grafo combinatorio de razonamiento mediante Búsqueda en Árbol de Monte Carlo, balanceando la explotación de estados intermedios prometedores y la exploración de nuevas rutas.
 
-Tal como lo demuestran modelos pioneros (OpenAI o1, DeepSeek-R1), multiplicar el cómputo de inferencia por $100\times$ o $1,000\times$ produce saltos cualitativos en competencias matemáticas (IMO) y de software (SWE-bench) que superan el simple ensanchamiento de parámetros brutos.
+Tal como lo demuestran modelos pioneros (OpenAI o1, DeepSeek-R1), multiplicar el cómputo de inferencia por 100× o 1,000× produce saltos cualitativos en competencias matemáticas (IMO) y de software (SWE-bench) que superan el simple ensanchamiento de parámetros brutos.
 
 ---
 
@@ -157,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Encadenamiento de Prompts (Prompt Chaining: Descomposición Secuencial)
-Divide una tarea monolítica en pasos deterministas donde la salida del paso $k$ se convierte en el contexto del paso $k+1$. Al intercalar compuertas de validación entre etapas (por ejemplo: generar esquema $\to$ verificar cobertura $\to$ redactar borrador $\to$ corregir), se erradica la propagación de fallos.
+Divide una tarea monolítica en pasos deterministas donde la salida del paso `k` se convierte en el contexto del paso `k+1`. Al intercalar compuertas de validación entre etapas (por ejemplo: generar esquema $\to$ verificar cobertura $\to$ redactar borrador $\to$ corregir), se erradica la propagación de fallos.
 
 #### 2. Enrutamiento Dinámico (Dynamic Routing: Especialización)
 Clasifica la naturaleza de la petición entrante y la despacha al modelo o herramienta especializada más eficiente. Consultas algebraicas se canalizan a un entorno Python, mientras que consultas de refactorización masiva se delegan a un agente SWE específico.
@@ -176,8 +184,12 @@ Un agente central descompone un objetivo de alto nivel en un Grafo Acíclico Dir
 ¿Por qué resulta tan desafiante crear agentes autoevolutivos?
 La raíz del problema radica en la **Asimetría Generador-Verificador**:
 
-$$\text{Complejidad}(\text{Verificación}) \ll \text{Complejidad}(\text{Generación}) \quad \text{en dominios formales cerrados (código, matemáticas)}$$
-$$\text{Complejidad}(\text{Verificación}) \approx \text{Complejidad}(\text{Generación}) \quad \text{en dominios abiertos en lenguaje natural}$$
+```text
+Complejidad(Verificación) ≪ Complejidad(Generación)   [Dominios Formales Cerrados]
+```
+```text
+Complejidad(Verificación) ≈ Complejidad(Generación)   [Dominios Abiertos en Lenguaje Natural]
+```
 
 ```
 Capacidad de Verificación
@@ -244,7 +256,7 @@ El programa académico de CS329A está estructurado en cuatro niveles de ingenie
 
 #### Puntos Clave
 1. **El Giro Paradigmático:** La IA se ha desplazado de la predicción estática y puntual de texto a bucles de retroalimentación autónomos donde la acción, verificación y reflexión operan de manera continua.
-2. **Fronteras Duales de Escala:** El ensanchamiento de parámetros de preentrenamiento ahora se complementa con el escalado de cómputo en inferencia (Best-of-$N$, PRMs, búsqueda en árbol), permitiendo que modelos compactos superen a gigantes mediante razonamiento deliberado.
+2. **Fronteras Duales de Escala:** El ensanchamiento de parámetros de preentrenamiento ahora se complementa con el escalado de cómputo en inferencia (Best-of-N, PRMs, búsqueda en árbol), permitiendo que modelos compactos superen a gigantes mediante razonamiento deliberado.
 3. **El Eje Universal:** Todo sistema agéntico exitoso implementa el ciclo unificado: **Generar $\to$ Verificar $\to$ Iterar**.
 4. **El Cuello de Botella de la Verificación:** La velocidad de autoevolución de un agente está estrictamente limitada por la fidelidad y objetividad de su señal de verificación.
 

@@ -62,14 +62,18 @@ Um die Stoßrichtung selbstverbessernder Agenten zu verstehen, müssen wir die d
 
 #### Phase 1: Unüberwachtes Pre-Training (Unsupervised Pre-Training)
 Ein Basis-Sprachmodell wird auf Billionen von Tokens über das Maximum-Likelihood-Schätzungs-Kriterium (MLE) optimiert:
-$$\mathcal{L}_{\text{MLE}}(\theta) = - \sum_{i=1}^{T} \log P_\theta(x_i \mid x_{1:i-1})$$
+```text
+L_MLE(θ) = - ∑ log P_θ(x_i | x_{1:i-1})
+```
 Dieses Ziel zwingt das Modell, Syntax, Weltwissen und semantische Assoziationen in hunderte Milliarden Parameter zu komprimieren. Dennoch bleibt das Basismodell ein uneingeschränkter probabilistischer Nachahmer. Auf den Prompt *"Was ist die Hauptstadt von Frankreich?"* antwortet es unter Umständen nicht mit der Lösung, sondern fährt fort mit *"Was ist die Hauptstadt von Deutschland?"*, da solche Listen im Web häufig koexistieren.
 
 #### Phase 2: Instruktionstuning und RLHF (Das "ChatGPT-Rezept")
 Um aus einem ungebändigten Textgenerator einen nützlichen Assistenten zu formen, etablierte die Industrie eine zweistufige Post-Training-Pipeline:
 1. **Supervised Fine-Tuning (SFT):** Training auf hochwertigen Demonstrationspaaren, um dem Modell eine hilfsbereite Dialogrolle einzuprägen.
-2. **Reinforcement Learning from Human Feedback (RLHF) / DPO:** Optimierung gegen ein Belohnungsmodell $r_\psi(x, y)$, welches menschliche Präferenzen abbildet:
-$$\max_\theta \mathbb{E}_{(x, y) \sim \mathcal{D}} \left[ r_\psi(x, y) \right] - \beta \, \mathbb{D}_{\text{KL}}\left(\pi_\theta(y \mid x) \,||\, \pi_{\text{ref}}(y \mid x)\right)$$
+2. **Reinforcement Learning from Human Feedback (RLHF) / DPO:** Optimierung gegen ein Belohnungsmodell `r_ψ(x, y)`, welches menschliche Präferenzen abbildet:
+```text
+max_θ E_{(x, y) ~ D} [ r_ψ(x, y) ] - β · D_KL( π_θ(y | x) || π_ref(y | x) )
+```
 Obwohl RLHF Konversationsgehorsam und Sicherheit herstellte, verlieh es den Modellen keine echte Autonomie bei der Problemlösung. Ein ausgerichteter Chatbot erzeugt seine Ausgabe nach wie vor in einem einzigen sequenziellen Durchlauf ohne deliberative Verifikation oder externe Werkzeugnutzung.
 
 #### Phase 3: Die CS329A-Grenze — Autonome Agentenschleifen
@@ -79,11 +83,13 @@ Selbstverbessernde Agenten sprengen das Korsett des einzelnen Vorwärtsdurchlauf
 
 ### 2. Die Mathematik der Skalierungsgesetze: Trainings- vs. Inferenzzeit
 
-Das Fundament des modernen Deep Learning ist die **Skalierungshypothese (Scaling Hypothesis)**. 2020 zeigten Kaplan et al. (OpenAI) und 2022 Hoffmann et al. (DeepMind Chinchilla), dass der Test-Kreuzentropie-Verlust $L$ eines autoregressiven Sprachmodells bezüglich Rechenbudget $C$, Parameteranzahl $N$ und Datensatzgröße $D$ einem Potenzgesetz folgt:
+Das Fundament des modernen Deep Learning ist die **Skalierungshypothese (Scaling Hypothesis)**. 2020 zeigten Kaplan et al. (OpenAI) und 2022 Hoffmann et al. (DeepMind Chinchilla), dass der Test-Kreuzentropie-Verlust $L$ eines autoregressiven Sprachmodells bezüglich Rechenbudget C, Parameteranzahl N und Datensatzgröße D einem Potenzgesetz folgt:
 
-$$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
+```text
+L(N, D) = E + A / N^α + B / D^β
+```
 
-wobei $E$ die irreduzible Entropie natürlicher Sprache darstellt, $A, B$ Skalierungskoeffizienten sind und $\alpha \approx 0.34, \beta \approx 0.28$ empirische Skalierungsexponenten bezeichnen.
+wobei E die irreduzible Entropie natürlicher Sprache darstellt, $A, B$ Skalierungskoeffizienten sind und α ≈ 0.34, β ≈ 0.28 empirische Skalierungsexponenten bezeichnen.
 
 ```
 Kreuzentropie-Verlust L
@@ -100,7 +106,7 @@ Kreuzentropie-Verlust L
 
 Dennoch stößt das reine Skalieren des Pre-Trainings an physische und ökonomische Grenzen:
 - **Die Datenmauer:** Hochwertige, von Menschen verfasste Texte im offenen Internet werden Schätzungen zufolge noch in diesem Jahrzehnt vollständig erschöpft sein.
-- **Kapital- und Leistungsdichte:** Trainingscluster mit mehr als $10^{26}$ FLOPs erfordern dedizierte Gigawatt-Umspannwerke und Infrastrukturinvestitionen von hunderten Millionen Dollar.
+- **Kapital- und Leistungsdichte:** Trainingscluster mit mehr als 10²⁶ FLOPs erfordern dedizierte Gigawatt-Umspannwerke und Infrastrukturinvestitionen von hunderten Millionen Dollar.
 
 #### Die zweite Front: Skalierung zur Inferenzzeit (Inference-Time Compute Scaling)
 Statt zig Millionen Dollar für das Neuerlernen von Modellgewichten aufzuwenden: **Können wir überlegene Intelligenz freisetzen, indem wir während der Inferenz (Test-Time) mehr Rechenleistung investieren?**
@@ -108,10 +114,12 @@ Statt zig Millionen Dollar für das Neuerlernen von Modellgewichten aufzuwenden:
 Ein menschlicher Experte formuliert bei komplexen mathematischen Beweisen oder Softwarearchitekturen nicht sofort die perfekte Lösung; er skizziert Hypothesen, prüft Zwischenlemmata, erkennt Sackgassen und vollzieht Backtracking.
 
 Bei der **Inferenzzeit-Skalierung** verteilen wir Test-FLOPs über drei fundamentale Achsen:
-1. **Wiederholtes Sampling (Best-of-$N$ / Large Language Monkeys):** Paralleles Erzeugen von $N$ Lösungstrajektorien aus $\pi_\theta$ und Selektion der optimalen Antwort über einen Verifizierer. Die Wahrscheinlichkeit mindestens einer korrekten Lösung folgt der $\text{Pass@}k$-Metrik:
-$$\text{Pass@}k = \mathbb{E}\left[ 1 - \frac{\binom{n - c}{k}}{\binom{n}{k}} \right]$$
-wobei $n$ die Gesamtzahl der Samples und $c$ die Anzahl korrekter Trajektorien ist.
-2. **Schrittweise Verifikation (PRM vs. ORM):** Outcome Reward Models (ORM) bewerten nur das Endergebnis $r(x, y)$, was die Lokalisierung von Zwischenfehlern unmöglich macht. Process-supervised Reward Models (PRM) weisen jedem einzelnen Gedankenschritt eine skalare Belohnung $r_t = R(x, y_{1:t})$ zu und ermöglichen so präzise Kreditzuweisung (Credit Assignment).
+1. **Wiederholtes Sampling (Best-of-N / Large Language Monkeys):** Paralleles Erzeugen von N Lösungstrajektorien aus π_θ und Selektion der optimalen Antwort über einen Verifizierer. Die Wahrscheinlichkeit mindestens einer korrekten Lösung folgt der `Pass@k`-Metrik:
+```text
+Pass@k = E[ 1 - C(n - c, k) / C(n, k) ]
+```
+wobei n die Gesamtzahl der Samples und c die Anzahl korrekter Trajektorien ist.
+2. **Schrittweise Verifikation (PRM vs. ORM):** Outcome Reward Models (ORM) bewerten nur das Endergebnis `r(x, y)`, was die Lokalisierung von Zwischenfehlern unmöglich macht. Process-supervised Reward Models (PRM) weisen jedem einzelnen Gedankenschritt eine skalare Belohnung `r_t = R(x, y_{1:t})` zu und ermöglichen so präzise Kreditzuweisung (Credit Assignment).
 3. **Baumsuchalgorithmen (MCTS, Beam Search):** Erkundung des kombinatorischen Denkbaums mittels Monte-Carlo-Baumsuche, balanciert zwischen Ausbeutung vielversprechender Zustände (Exploitation) und Erkundung neuer Pfade (Exploration).
 
 Wie Pionierarchitekturen (z. B. OpenAI o1, DeepSeek-R1) belegen, kann die Vervielfachung der Inferenzrechenzeit um den Faktor 100 bis 1.000 bei mathematischen Wettbewerben (IMO) und Programmier-Benchmarks (SWE-bench) Leistungsdimensionen eröffnen, die reines Parameterwachstum weit hinter sich lassen.
@@ -157,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Prompt-Verkettung (Prompt Chaining: Sequenzielle Zerlegung)
-Zerlegt eine monolithische Aufgabe in deterministische Schritte, bei denen die Ausgabe von Schritt $k$ zum Eingabekontext für Schritt $k+1$ wird. Durch zwischengeschaltete Validierungstore (z. B. Gliederung erstellen $\to$ Vollständigkeit prüfen $\to$ Entwurf schreiben $\to$ Korrekturlesen) wird Fehlerkaskaden vorgebeugt.
+Zerlegt eine monolithische Aufgabe in deterministische Schritte, bei denen die Ausgabe von Schritt `k` zum Eingabekontext für Schritt `k+1` wird. Durch zwischengeschaltete Validierungstore (z. B. Gliederung erstellen $\to$ Vollständigkeit prüfen $\to$ Entwurf schreiben $\to$ Korrekturlesen) wird Fehlerkaskaden vorgebeugt.
 
 #### 2. Dynamisches Routing (Dynamic Routing: Spezialisierung)
 Klassifiziert eingehende Anfragen und leitet sie an spezialisierte Modelle oder Werkzeuge weiter. Mathematische Probleme wandern in eine Python-Sandbox, großflächige Code-Refactorings an einen spezialisierten SWE-Agenten.
@@ -176,8 +184,12 @@ Ein zentraler Planungsagent bricht ein übergeordnetes Ziel in einen gerichteten
 Warum ist die Entwicklung selbstverbessernder Agenten so herausfordernd?
 Der Kern des Problems liegt in der **Asymmetrie zwischen Generierung und Verifikation**:
 
-$$\text{Komplexität}(\text{Verifikation}) \ll \text{Komplexität}(\text{Generierung}) \quad \text{in geschlossenen formalen Domänen (Code, Mathe)}$$
-$$\text{Komplexität}(\text{Verifikation}) \approx \text{Komplexität}(\text{Generierung}) \quad \text{in offenen natürlichsprachlichen Domänen}$$
+```text
+Komplexität(Verifikation) ≪ Komplexität(Generierung)   [Geschlossene Formale Domänen]
+```
+```text
+Komplexität(Verifikation) ≈ Komplexität(Generierung)   [Offene Natürlichsprachliche Domänen]
+```
 
 ```
 Verifikationsfähigkeit
@@ -244,7 +256,7 @@ Das Curriculum von CS329A gliedert sich in vier progressive Schichten:
 
 #### Wichtigste Erkenntnisse
 1. **Der Paradigmenwechsel:** KI hat sich von der statischen Textgenerierung zu autonomen Rückkopplungsschleifen weiterentwickelt, in denen Ausführung, Prüfung und Reflexion kontinuierlich ineinandergreifen.
-2. **Duale Skalierungsfronten:** Die Vergrößerung von Pre-Training-Parametern wird nun durch Inferenzzeit-Skalierung (Best-of-$N$, PRM-Verifikation, Baumsuche) ergänzt, wodurch kompakte Modelle durch überlegtes Denken Großmodelle schlagen können.
+2. **Duale Skalierungsfronten:** Die Vergrößerung von Pre-Training-Parametern wird nun durch Inferenzzeit-Skalierung (Best-of-N, PRM-Verifikation, Baumsuche) ergänzt, wodurch kompakte Modelle durch überlegtes Denken Großmodelle schlagen können.
 3. **Das universelle Rückgrat:** Jedes erfolgreiche Agentensystem implementiert den Dreiklang: **Generieren $\to$ Verifizieren $\to$ Iterieren**.
 4. **Der Verifikationsflaschenhals:** Die Evolutionsrate eines Agenten wird strikt durch die Schärfe und Objektivität seines Verifikationssignals begrenzt.
 
