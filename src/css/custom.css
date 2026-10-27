@@ -28,3 +28,77 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* ==========================================================================
+   AdSense Ad Card & Spacing Isolation (Clean Content Separation)
+   ========================================================================== */
+
+.ad-card-container {
+  margin: 3.5rem auto 2.5rem auto;
+  max-width: 100%;
+  padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  position: relative;
+}
+
+[data-theme='dark'] .ad-card-container {
+  background-color: rgba(30, 41, 59, 0.45);
+  border: 1px dashed rgba(148, 163, 184, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ad-card-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ad-card-label-text {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .ad-card-label-text {
+  color: #64748b;
+}
+
+.ad-card-label-line {
+  flex: 1;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+[data-theme='dark'] .ad-card-label-line {
+  background-color: rgba(148, 163, 184, 0.15);
+}
+
+.ad-card-slot {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* In-article Google Auto Ads spacing isolation */
+.google-auto-placed {
+  margin: 3.5rem auto !important;
+  text-align: center !important;
+  clear: both !important;
+}
+
+/* Prevent auto-ads from overflowing or sticking to headers */
+.google-auto-placed + h2,
+.google-auto-placed + h3 {
+  margin-top: 3.5rem !important;
+}
