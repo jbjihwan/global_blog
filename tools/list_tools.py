@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import os
 
-TOOLS_DIR = r"D:\ai\antigravity\global_blog\tools"
-for f in sorted(os.listdir(TOOLS_DIR)):
-    if f.endswith(".py"):
+tools_dir = r"D:\ai\antigravity\global_blog\tools"
+for f in sorted(os.listdir(tools_dir)):
+    if f.endswith('.py'):
         print(f)

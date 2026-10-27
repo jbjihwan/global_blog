@@ -37,8 +37,8 @@ def deploy_post(slug_dir_name: str, trigger_publish: bool = True):
                 shutil.copy2(s, d)
         print(f"[OK] Deployed English blog to {dst_blog}")
         
-    # 2. Copy i18n/ (ko, ja, es, zh-Hans, zh-Hant)
-    locales = ["ko", "ja", "es", "zh-Hans", "zh-Hant"]
+    # 2. Copy i18n/ (ko, ja, es, zh-Hans, zh-Hant, de, fr)
+    locales = ["ko", "ja", "es", "zh-Hans", "zh-Hant", "de", "fr", "pt-BR"]
     src_i18n = os.path.join(stage_path, "i18n")
     if os.path.exists(src_i18n):
         for loc in locales:
