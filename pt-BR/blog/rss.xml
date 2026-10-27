@@ -598,6 +598,52 @@ Function calling is simply an <strong>LLM API feature</strong>: a model emits JS
             <category>software-architecture</category>
         </item>
         <item>
+            <title><![CDATA[Domínio Customizado no GitHub Pages #1: Migração com Zero Downtime Usando Porkbun e Cloudflare DNS (CNAME Flattening & Universal SSL)]]></title>
+            <link>https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Guia passo a passo: Como migrar de subdomínios gratuitos github.io para um domínio apex próprio usando Porkbun e Cloudflare Anycast DNS sem interrupção de HTTPS.]]></description>
+            <content:encoded><![CDATA[<p>Manter um blog no GitHub Pages sob <code>usuario.github.io/projeto</code> é econômico e rápido: basta commitar markdown, dar git push e a página é entregue globalmente.</p>
+<p>Porém, ao buscar uma presença profissional e monetização com anúncios, você encontra uma barreira intransponível: <strong>o Google AdSense veta totalmente subdomínios gratuitos como <code>*.github.io</code></strong>. Além disso, toda autoridade de domínio construída fica atrelada ao GitHub em vez da sua marca pessoal.</p>
+<p>Neste primeiro episódio da nossa série de infraestrutura, demonstramos a migração exata de <code>jbjihwan.github.io/global_blog</code> para <code>https://globaldevlog.com</code> através de uma arquitetura resiliente combinando <strong>Porkbun + Cloudflare + GitHub Pages</strong>.</p>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-configuração-prática-passo-a-passo">1. Configuração Prática Passo a Passo<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#1-configura%C3%A7%C3%A3o-pr%C3%A1tica-passo-a-passo" class="hash-link" aria-label="Link direto para 1. Configuração Prática Passo a Passo" title="Link direto para 1. Configuração Prática Passo a Passo" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-1-delegação-de-nameservers-no-porkbun">Passo 1: Delegação de Nameservers no Porkbun<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-1-delega%C3%A7%C3%A3o-de-nameservers-no-porkbun" class="hash-link" aria-label="Link direto para Passo 1: Delegação de Nameservers no Porkbun" title="Link direto para Passo 1: Delegação de Nameservers no Porkbun" translate="no">​</a></h4>
+<p>No painel do Porkbun, substitua os nameservers padrão pelos servidores Anycast fornecidos pela Cloudflare:</p>
+<ul>
+<li class=""><code>curt.ns.cloudflare.com</code></li>
+<li class=""><code>roxy.ns.cloudflare.com</code></li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-2-configuração-de-registros-de-dns-na-cloudflare-cname-flattening">Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-2-configura%C3%A7%C3%A3o-de-registros-de-dns-na-cloudflare-cname-flattening" class="hash-link" aria-label="Link direto para Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)" title="Link direto para Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)" translate="no">​</a></h4>
+<p>Crie dois registros essenciais:</p>
+<ul>
+<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nome</strong>: <code>@</code> (Apex) | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Ativado (Nuvem Laranja)</li>
+<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nome</strong>: <code>www</code> | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Ativado</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-3-prevenção-do-bug-de-reset-de-cname-no-docusaurus">Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-3-preven%C3%A7%C3%A3o-do-bug-de-reset-de-cname-no-docusaurus" class="hash-link" aria-label="Link direto para Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus" title="Link direto para Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus" translate="no">​</a></h4>
+<p>O GitHub Pages precisa de um arquivo <code>CNAME</code> na raiz da branch de deploy. Ao rodar <code>npm run deploy</code>, o Docusaurus pode recriar a branch e apagar esse arquivo. Para evitar isso permanentemente, crie o arquivo em <code>static/CNAME</code>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>Assim, a cada build, o Docusaurus copia automaticamente o domínio para a raiz de publicação.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-criptografia-ssltls-o-modo-full-strict">2. Criptografia SSL/TLS: O Modo Full (Strict)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#2-criptografia-ssltls-o-modo-full-strict" class="hash-link" aria-label="Link direto para 2. Criptografia SSL/TLS: O Modo Full (Strict)" title="Link direto para 2. Criptografia SSL/TLS: O Modo Full (Strict)" translate="no">​</a></h3>
+<p>No painel SSL/TLS da Cloudflare, selecione o modo <strong>Full</strong> ou <strong>Full (Strict)</strong>. Como o GitHub Pages emite certificados Let's Encrypt automáticos para domínios customizados, a conexão entre os nós de borda da Cloudflare e os servidores de origem do GitHub Pages permanece criptografada de ponta a ponta.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumo-executivo-para-gestão-35-linhas">📌 Resumo Executivo para Gestão (3–5 Linhas)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#-resumo-executivo-para-gest%C3%A3o-35-linhas" class="hash-link" aria-label="Link direto para 📌 Resumo Executivo para Gestão (3–5 Linhas)" title="Link direto para 📌 Resumo Executivo para Gestão (3–5 Linhas)" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Separação de Responsabilidades</strong>: Porkbun gerencia o registro, Cloudflare cuida do DNS e borda, e GitHub Pages hospeda os arquivos estáticos.</li>
+<li class=""><strong>CNAME Flattening</strong>: Roteamento direto do domínio raiz sem amarras a endereços IP estáticos.</li>
+<li class=""><strong>Blindagem do CNAME no Docusaurus</strong>: Guarde o arquivo <code>CNAME</code> na pasta <code>static/</code> para prevenir deleções acidentais em novos deploys.</li>
+<li class=""><strong>HTTPS Ininterrupto</strong>: Utilize o modo Cloudflare SSL Full para segurança criptográfica contínua.</li>
+</ol>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+        </item>
+        <item>
             <title><![CDATA[[Monetização Web #2] Aprovação do Google AdSense para Sites Estáticos: Resolução da Armadilha 404 do ads.txt & Integração HeadTags]]></title>
             <link>https://globaldevlog.com/pt-BR/blog/static-site-adsense-ads-txt-guide</link>
             <guid>https://globaldevlog.com/pt-BR/blog/static-site-adsense-ads-txt-guide</guid>
@@ -653,52 +699,6 @@ Function calling is simply an <strong>LLM API feature</strong>: a model emits JS
             <category>devops</category>
             <category>cloudflare</category>
             <category>seo</category>
-        </item>
-        <item>
-            <title><![CDATA[Domínio Customizado no GitHub Pages #1: Migração com Zero Downtime Usando Porkbun e Cloudflare DNS (CNAME Flattening & Universal SSL)]]></title>
-            <link>https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns</link>
-            <guid>https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns</guid>
-            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Guia passo a passo: Como migrar de subdomínios gratuitos github.io para um domínio apex próprio usando Porkbun e Cloudflare Anycast DNS sem interrupção de HTTPS.]]></description>
-            <content:encoded><![CDATA[<p>Manter um blog no GitHub Pages sob <code>usuario.github.io/projeto</code> é econômico e rápido: basta commitar markdown, dar git push e a página é entregue globalmente.</p>
-<p>Porém, ao buscar uma presença profissional e monetização com anúncios, você encontra uma barreira intransponível: <strong>o Google AdSense veta totalmente subdomínios gratuitos como <code>*.github.io</code></strong>. Além disso, toda autoridade de domínio construída fica atrelada ao GitHub em vez da sua marca pessoal.</p>
-<p>Neste primeiro episódio da nossa série de infraestrutura, demonstramos a migração exata de <code>jbjihwan.github.io/global_blog</code> para <code>https://globaldevlog.com</code> através de uma arquitetura resiliente combinando <strong>Porkbun + Cloudflare + GitHub Pages</strong>.</p>
-<!-- -->
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-configuração-prática-passo-a-passo">1. Configuração Prática Passo a Passo<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#1-configura%C3%A7%C3%A3o-pr%C3%A1tica-passo-a-passo" class="hash-link" aria-label="Link direto para 1. Configuração Prática Passo a Passo" title="Link direto para 1. Configuração Prática Passo a Passo" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-1-delegação-de-nameservers-no-porkbun">Passo 1: Delegação de Nameservers no Porkbun<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-1-delega%C3%A7%C3%A3o-de-nameservers-no-porkbun" class="hash-link" aria-label="Link direto para Passo 1: Delegação de Nameservers no Porkbun" title="Link direto para Passo 1: Delegação de Nameservers no Porkbun" translate="no">​</a></h4>
-<p>No painel do Porkbun, substitua os nameservers padrão pelos servidores Anycast fornecidos pela Cloudflare:</p>
-<ul>
-<li class=""><code>curt.ns.cloudflare.com</code></li>
-<li class=""><code>roxy.ns.cloudflare.com</code></li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-2-configuração-de-registros-de-dns-na-cloudflare-cname-flattening">Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-2-configura%C3%A7%C3%A3o-de-registros-de-dns-na-cloudflare-cname-flattening" class="hash-link" aria-label="Link direto para Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)" title="Link direto para Passo 2: Configuração de Registros de DNS na Cloudflare (CNAME Flattening)" translate="no">​</a></h4>
-<p>Crie dois registros essenciais:</p>
-<ul>
-<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nome</strong>: <code>@</code> (Apex) | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Ativado (Nuvem Laranja)</li>
-<li class=""><strong>Tipo</strong>: <code>CNAME</code> | <strong>Nome</strong>: <code>www</code> | <strong>Destino</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Ativado</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passo-3-prevenção-do-bug-de-reset-de-cname-no-docusaurus">Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#passo-3-preven%C3%A7%C3%A3o-do-bug-de-reset-de-cname-no-docusaurus" class="hash-link" aria-label="Link direto para Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus" title="Link direto para Passo 3: Prevenção do Bug de Reset de CNAME no Docusaurus" translate="no">​</a></h4>
-<p>O GitHub Pages precisa de um arquivo <code>CNAME</code> na raiz da branch de deploy. Ao rodar <code>npm run deploy</code>, o Docusaurus pode recriar a branch e apagar esse arquivo. Para evitar isso permanentemente, crie o arquivo em <code>static/CNAME</code>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
-<p>Assim, a cada build, o Docusaurus copia automaticamente o domínio para a raiz de publicação.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-criptografia-ssltls-o-modo-full-strict">2. Criptografia SSL/TLS: O Modo Full (Strict)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#2-criptografia-ssltls-o-modo-full-strict" class="hash-link" aria-label="Link direto para 2. Criptografia SSL/TLS: O Modo Full (Strict)" title="Link direto para 2. Criptografia SSL/TLS: O Modo Full (Strict)" translate="no">​</a></h3>
-<p>No painel SSL/TLS da Cloudflare, selecione o modo <strong>Full</strong> ou <strong>Full (Strict)</strong>. Como o GitHub Pages emite certificados Let's Encrypt automáticos para domínios customizados, a conexão entre os nós de borda da Cloudflare e os servidores de origem do GitHub Pages permanece criptografada de ponta a ponta.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-resumo-executivo-para-gestão-35-linhas">📌 Resumo Executivo para Gestão (3–5 Linhas)<a href="https://globaldevlog.com/pt-BR/blog/github-pages-custom-domain-cloudflare-dns#-resumo-executivo-para-gest%C3%A3o-35-linhas" class="hash-link" aria-label="Link direto para 📌 Resumo Executivo para Gestão (3–5 Linhas)" title="Link direto para 📌 Resumo Executivo para Gestão (3–5 Linhas)" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>Separação de Responsabilidades</strong>: Porkbun gerencia o registro, Cloudflare cuida do DNS e borda, e GitHub Pages hospeda os arquivos estáticos.</li>
-<li class=""><strong>CNAME Flattening</strong>: Roteamento direto do domínio raiz sem amarras a endereços IP estáticos.</li>
-<li class=""><strong>Blindagem do CNAME no Docusaurus</strong>: Guarde o arquivo <code>CNAME</code> na pasta <code>static/</code> para prevenir deleções acidentais em novos deploys.</li>
-<li class=""><strong>HTTPS Ininterrupto</strong>: Utilize o modo Cloudflare SSL Full para segurança criptográfica contínua.</li>
-</ol>]]></content:encoded>
-            <category>github-pages</category>
-            <category>custom-domain</category>
-            <category>porkbun</category>
-            <category>cloudflare</category>
-            <category>docusaurus</category>
-            <category>devops</category>
         </item>
         <item>
             <title><![CDATA[Do GitHub Pages ao Domínio Próprio: Guia Completo para Porkbun, Cloudflare DNS, Aprovação no AdSense e SEO Multi-Mecanismos]]></title>
