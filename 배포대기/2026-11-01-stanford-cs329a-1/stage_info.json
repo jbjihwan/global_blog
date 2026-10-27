@@ -1,0 +1,30 @@
+{
+  "slug": "2026-11-01-stanford-cs329a-1",
+  "series": "stanford-cs329a",
+  "episode": 1,
+  "title": "[Stanford CS329A #1] Course Overview: From Large Language Models to Self-Improving AI Agents",
+  "created_at": "2026-10-27T18:07:00+09:00",
+  "target_publish_date": "2026-11-01",
+  "status": "deployed",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "es",
+    "zh-Hans",
+    "zh-Hant",
+    "de",
+    "fr",
+    "pt-BR"
+  ],
+  "naver_blog_ready": true,
+  "image_staged": "01_cs329a_self_improving_agents_overview.png",
+  "keywords": [
+    "Self-Improving AI Agents",
+    "Stanford CS329A",
+    "Inference-Time Scaling",
+    "Scaling Laws LLM",
+    "Autonomous AI Feedback Loops"
+  ],
+  "deployed_at": "2026-10-27T18:15:58.068496"
+}
