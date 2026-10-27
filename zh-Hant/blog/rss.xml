@@ -4,10 +4,165 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/zh-Hant/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Sun, 01 Nov 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Nov 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hant</language>
+        <item>
+            <title><![CDATA[[Stanford CS329A #2] 推理時間計算縮放：超越預訓練縮放定律邁向計算最佳推理]]></title>
+            <link>https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws</link>
+            <guid>https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws</guid>
+            <pubDate>Mon, 02 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[史丹佛大學CS329A第二講深度技術剖析：推理時間計算縮放定律(Inference-Time Scaling)、pass@k重複採樣的冪律與極限、Snell計算最佳配置(修正 vs 搜尋)及Archon複合代理人管線。]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Stanford CS329A Test-Time Compute Scaling" src="https://globaldevlog.com/zh-Hant/assets/images/02_cs329a_test_time_compute_scaling-6949843569f379e704fee8bdcb8eaa09.png" width="1376" height="768" class="img_ev3q"></p>
+<p>歡迎閱讀史丹佛大學2025年秋季最新頂尖研究所課程**CS329A: Self-Improving AI Agents（自我演進AI代理人）**的第二篇專業工程解析。</p>
+<p>在第一講中，我們綜述了從靜態自迴歸次詞預測器邁向具備環境反饋閉環的自主代理人之宏觀範式躍遷。今天第二講所探討的，正是支撐此自主演進能力的最核心計算支柱：<strong>推理時間計算縮放（Test-Time Compute Scaling / Inference-Time Scaling）</strong>。</p>
+<p>過去五年間，整個AI產業界信奉的唯一教條是預訓練階段的縮放定律（Kaplan等人，Chinchilla定律）：<em>建造超大規模GPU叢集，將模型參數規模N推升至數千億級，並灌注數十兆標記（Tokens）的網路資料</em>。然而，在模型權重θ預訓練完成後，如果我們拒絕讓模型在50毫秒內草率給出貪婪預測（Greedy decoding），而是讓代理人<strong>投入10秒、1分鐘甚至10分鐘深入推敲、檢驗中間步驟、並自主反覆修正假設</strong>，會發生什麼顛覆性的轉變？</p>
+<p>依託<em>Large Language Monkeys</em>（Brown等人，2024）、史丹佛-柏克萊Charlie Snell研究團隊的<em>Compute-Optimal Scaling</em>（Snell等人，2024）以及<em>Archon</em>模組化架構搜尋框架，我們將從數學理論與系統工程雙重視角，徹底解析**「如何透過投入推理算力（FLOPs）打破參數規模壟斷，實現智慧躍遷」**。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph PreTrain ["經典前沿：預訓練時間計算縮放 (Train-Time Scaling)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P1["數十兆公開網路資料標記 (D)"] --&gt; P2["超大規模GPU訓練叢集 (C_train)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P2 --&gt; P3["事後權重凍結的稠密模型 (θ)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P3 --&gt; P4["單次前向傳播推理 (O(1) 固定推理算力)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph TestTime ["CS329A前沿：推理時間計算縮放 (Test-Time Compute Scaling)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T1["凍結的基礎權重 (θ)"] --&gt; T2["動態分配推理計算量 (FLOPs)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T2 --&gt; T3{"問題難度自適應策略選擇"}</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T3 -- "低難度 (Bin 1-2)" --&gt; T4["循序修正 (Sequential Revision: 自我除錯)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T3 -- "高難度 (Bin 3-5)" --&gt; T5["PRM引導的樹搜尋 (MCTS / 束搜尋)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T4 --&gt; T6["過程獎勵模型 (PRM) 驗證器"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T5 --&gt; T6</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T6 --&gt; T7["數學與機制上雙重驗證的最佳解"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    PreTrain -.-&gt;|"拐點：參數擴展飽和"| TestTime</span><br></div></code></pre></div></div>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-經典縮放定律-vs-推理算力範式的重大轉移">1. 經典縮放定律 vs 推理算力：範式的重大轉移<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#1-%E7%B6%93%E5%85%B8%E7%B8%AE%E6%94%BE%E5%AE%9A%E5%BE%8B-vs-%E6%8E%A8%E7%90%86%E7%AE%97%E5%8A%9B%E7%AF%84%E5%BC%8F%E7%9A%84%E9%87%8D%E5%A4%A7%E8%BD%89%E7%A7%BB" class="hash-link" aria-label="1. 經典縮放定律 vs 推理算力：範式的重大轉移的直接連結" title="1. 經典縮放定律 vs 推理算力：範式的重大轉移的直接連結" translate="no">​</a></h3>
+<p>現代深度學習的基石奠定於一項經驗性發現：驗證損失（Validation Loss）隨訓練計算量的增加呈冪律（Power-law）遞減：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">L(N, D) = E + A / N^α + B / D^β</span><br></div></code></pre></div></div>
+<p>其中N為非嵌入參數規模，D為訓練資料集標記量。然而，這一定律將推理計算視為極簡的靜態常數：在自迴歸解碼中，每生成一個標記恰好消耗2 FLOPs × 參數規模。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="預訓練縮放遭遇的物理實體限制">預訓練縮放遭遇的物理實體限制<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E9%A0%90%E8%A8%93%E7%B7%B4%E7%B8%AE%E6%94%BE%E9%81%AD%E9%81%87%E7%9A%84%E7%89%A9%E7%90%86%E5%AF%A6%E9%AB%94%E9%99%90%E5%88%B6" class="hash-link" aria-label="預訓練縮放遭遇的物理實體限制的直接連結" title="預訓練縮放遭遇的物理實體限制的直接連結" translate="no">​</a></h4>
+<p>隨著產業界將預訓練算力推進至10^26 FLOPs（GPT-4量級），預訓練遭遇了三重難以逾越的瓶頸：</p>
+<ol>
+<li class=""><strong>公開語料枯竭邊界：</strong> 網路上高品質人類原生文字存在上限（約10^14 Tokens）。缺乏可靠外部驗證器而單純遞迴灌注合成資料，會導致模型崩潰（Model Collapse）與資訊熵衰退。</li>
+<li class=""><strong>指數級劇增的資本支出：</strong> 在冪律曲線平坦的尾端，將基準準確率提升1%需要額外投入10倍的預訓練算力，折合為數億美元計的龐大資本開支（CAPEX）。</li>
+<li class=""><strong>靜態前向傳播的本質缺陷：</strong> 無論模型是7B還是1T參數，標準解碼過程僅透過固定次數的矩陣乘法輸出下一個標記t_i：</li>
+</ol>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">t_i ~ Softmax( W_u · LayerNorm( h_L(t_{1:i-1}) ) )</span><br></div></code></pre></div></div>
+<p>對於NP完全數學定理證明、跨多原始碼檔案的軟體缺陷排查等複雜任務，缺乏回溯（Backtracking）、假設探索與分步檢驗機制的單向前向傳播無法在結構上求解。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-無限猴子定理的現代回歸large-language-monkeys">2. 無限猴子定理的現代回歸：Large Language Monkeys<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#2-%E7%84%A1%E9%99%90%E7%8C%B4%E5%AD%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%8F%BE%E4%BB%A3%E5%9B%9E%E6%AD%B8large-language-monkeys" class="hash-link" aria-label="2. 無限猴子定理的現代回歸：Large Language Monkeys的直接連結" title="2. 無限猴子定理的現代回歸：Large Language Monkeys的直接連結" translate="no">​</a></h3>
+<p>古典機率論中有一個著名的思想實驗——埃米爾·博雷爾的「無限猴子定理」：如果讓無數隻猴子在打字機前隨機敲鍵，歷經無限時間，它們終將打出莎士比亞的《哈姆雷特》全集。</p>
+<p>2024年底，加州大學柏克萊分校與Google研究院的研究團隊針對前沿LLM實證測試了這項假設：<strong>《Large Language Monkeys: Scaling Inference Compute with Repeated Sampling》</strong>（Brown等人，2024）。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">覆蓋率 (Pass@k %)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> ▲</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">100│                                     ┌────────────── Pass@k 覆蓋率理論上限</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 90│                                ┌────┘ (在MATH與CodeContests中達到99%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 80│                           ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 70│                      ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 60│                 ┌────┘ ◄── SWE-bench Lite: DeepSeek-Coder-V2 (k=250 -&gt; 56.0%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 50│            ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 40│       ┌────┘   ◄── Claude 3.5 Sonnet 單次執行 (43.0%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 30│  ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 20│ ┌┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 10│┌┘  ◄── Gemma-2B Pass@1 (0.02%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  0└┴──────┬──────────┬──────────┬──────────┬──────────►</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    k=1    k=10       k=100      k=1,000    k=10,000   (採樣候選次數 k)</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="passk-不偏估計量的數學表述">pass@k 不偏估計量的數學表述<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#passk-%E4%B8%8D%E5%81%8F%E4%BC%B0%E8%A8%88%E9%87%8F%E7%9A%84%E6%95%B8%E5%AD%B8%E8%A1%A8%E8%BF%B0" class="hash-link" aria-label="pass@k 不偏估計量的數學表述的直接連結" title="pass@k 不偏估計量的數學表述的直接連結" translate="no">​</a></h4>
+<p>當從模型中獨立採樣N個候選答案，且其中恰有C個答案完全通過自動化驗證工具（如單元測試）時，隨機抽取k個樣本中至少包含一個正確答案的最小變異數不偏估計量（MVUE）定義為：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Pass@k = (1 / P) · ∑_{i=1}^P [ 1 - C(N - C_i, k) / C(N, k) ]</span><br></div></code></pre></div></div>
+<p>其中P為評估測試集總題數，C_i為第i題的正確樣本數，C(n, r)為二項式組合數。為防止在擴展到N = 10,000時階乘運算發生浮點數溢位，生產環境採用以下數值穩定的連乘迴圈進行計算：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Pass@k = 1 - ∏_{j=0}^{k-1} ( 1 - C_i / (N - j) )</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="實證突破小型模型實現對前沿巨無霸的級距逆襲">實證突破：小型模型實現對前沿巨無霸的級距逆襲<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E5%AF%A6%E8%AD%89%E7%AA%81%E7%A0%B4%E5%B0%8F%E5%9E%8B%E6%A8%A1%E5%9E%8B%E5%AF%A6%E7%8F%BE%E5%B0%8D%E5%89%8D%E6%B2%BF%E5%B7%A8%E7%84%A1%E9%9C%B8%E7%9A%84%E7%B4%9A%E8%B7%9D%E9%80%86%E8%A5%B2" class="hash-link" aria-label="實證突破：小型模型實現對前沿巨無霸的級距逆襲的直接連結" title="實證突破：小型模型實現對前沿巨無霸的級距逆襲的直接連結" translate="no">​</a></h4>
+<p>透過重複採樣擴展推理算力帶來了震撼的實證發現：</p>
+<ul>
+<li class=""><strong>SWE-bench Lite（真實GitHub軟體缺陷修復評測）：</strong>
+<ul>
+<li class="">開源模型<code>DeepSeek-Coder-V2-Instruct</code>單次執行（k=1）成功率僅為<strong>15.9%</strong>。</li>
+<li class="">當採樣次數擴展至k=250時，pass@250暴增至<strong>56.0%</strong>。</li>
+<li class="">這一成績不僅大幅領先GPT-4o與Claude 3.5 Sonnet的單次執行整合（43.0%），領先幅度高達<strong>13個百分點</strong>。</li>
+</ul>
+</li>
+<li class=""><strong>CodeContests（超高難度演算法競賽基準）：</strong>
+<ul>
+<li class="">超輕量級模型<code>Gemma-2B</code>單次解題率（pass@1）僅為<strong>0.02%</strong>（幾乎為0）。</li>
+<li class="">但當擴展至k=10,000時，其通過率躍升至<strong>7.1%</strong>，效能暴增<strong>355倍</strong>。</li>
+</ul>
+</li>
+<li class=""><strong>經濟效益反轉：</strong>
+<ul>
+<li class="">在SWE-bench上，DeepSeek-Coder-V2採樣5次達成29.62%成功率的API成本為**$10.80**。</li>
+<li class="">相比之下，單次執行GPT-4o（24.0%）花費**$39.00（貴3.6倍）<strong>，Claude 3.5 Sonnet（26.7%）花費</strong>$51.00（貴4.7倍）**。</li>
+</ul>
+</li>
+</ul>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌───────────────────────────────┬──────────┬────────────┬─────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 模型與推理策略                │ SWE-bench│ 調用成本   │ 成本倍數    │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">├───────────────────────────────┼──────────┼────────────┼─────────────┤</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ DeepSeek-Coder-V2 (k=5)       │ 29.62%   │ $10.80     │ 1.0x (基準) │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ GPT-4o (k=1 貪婪單次執行)     │ 24.00%   │ $39.00     │ 3.6倍 高成本│</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ Claude 3.5 Sonnet (k=1)       │ 26.70%   │ $51.00     │ 4.7倍 高成本│</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ DeepSeek-Coder-V2 (k=250)     │ 56.00%   │ $540.00    │ 頂尖效能    │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└───────────────────────────────┴──────────┴────────────┴─────────────┘</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="覆蓋率-精確率差距-coverage-precision-gap驗證器之壁">覆蓋率-精確率差距 (Coverage-Precision Gap)：驗證器之壁<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E8%A6%86%E8%93%8B%E7%8E%87-%E7%B2%BE%E7%A2%BA%E7%8E%87%E5%B7%AE%E8%B7%9D-coverage-precision-gap%E9%A9%97%E8%AD%89%E5%99%A8%E4%B9%8B%E5%A3%81" class="hash-link" aria-label="覆蓋率-精確率差距 (Coverage-Precision Gap)：驗證器之壁的直接連結" title="覆蓋率-精確率差距 (Coverage-Precision Gap)：驗證器之壁的直接連結" translate="no">​</a></h4>
+<p>然而，無節制地增加採樣數量必然面臨<strong>覆蓋率-精確率差距</strong>這項結構性障礙。</p>
+<p>在配備決定性判定機制（編譯器或單元測試）的封閉形式化領域，<strong>覆蓋率等同於最終成功率</strong>：250個樣本中只要有1個通過全量測試，就能被精準提取。</p>
+<p>但在缺乏外部決定性驗證工具的開放領域或主觀題中：</p>
+<ul>
+<li class="">在MATH數學競賽資料集上，<code>Llama-3-8B-Instruct</code>在k=10,000時的覆蓋率高達<strong>98.44%</strong>（代表答案池中98%含有正確解答）。</li>
+<li class="">然而，若採用<strong>多數投票法（Majority Voting）</strong>，準確率僅從40.5%微升至<strong>41.41%</strong>（微幅提升0.9%）。</li>
+<li class="">利用結果獎勵模型（ORM）進行<strong>Best-of-N優選</strong>在k=100附近即達到停滯平台，由於偽陽性與獎勵作弊（Reward Hacking）無法篩選出剩餘57%的正確答案。</li>
+</ul>
+<blockquote>
+<p><strong>工程鐵律：</strong> 在缺乏高精確率驗證器的情況下盲目擴充採樣，僅僅是將乾草堆擴大。即使一根繡花針（正確答案）落在乾草堆裡的機率無限接近100%，沒有高精度的磁鐵（驗證器），你依然無法將其找出。</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-snell的計算最佳縮放定律-compute-optimal-scaling">3. Snell的計算最佳縮放定律 (Compute-Optimal Scaling)<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#3-snell%E7%9A%84%E8%A8%88%E7%AE%97%E6%9C%80%E4%BD%B3%E7%B8%AE%E6%94%BE%E5%AE%9A%E5%BE%8B-compute-optimal-scaling" class="hash-link" aria-label="3. Snell的計算最佳縮放定律 (Compute-Optimal Scaling)的直接連結" title="3. Snell的計算最佳縮放定律 (Compute-Optimal Scaling)的直接連結" translate="no">​</a></h3>
+<p>在給定的固定推理預算（FLOPs）下，如何運用最精巧的數學策略消耗算力？</p>
+<p>2024年秋，史丹佛大學與加州大學柏克萊分校的Charlie Snell、Jaehoon Seo、Hao Liu等人發表了劃時代的論文：<strong>《Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters》</strong>。</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Snell_Framework ["Snell推理算力控制的兩大維度"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Knob1["1. 提議分佈修正 (Proposer)"] --&gt; Sub1["循序修正 (Sequential Revision: 逐步自我推敲)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Knob2["2. 基於驗證器的搜尋 (Verifier)"] --&gt; Sub2["Best-of-N / 束搜尋 / 前瞻樹搜尋"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Allocation ["問題難度自適應最佳配置"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D1["查詢問題難度分類判定"] --&gt;|Bin 1-2: 簡單| A1["將算力100%投入循序自我修正"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D1 --&gt;|Bin 3-5: 困難| A2["將算力集中於PRM引導的束搜尋"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Snell_Framework --&gt; Allocation</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="調控推理算力的兩大核心旋鈕">調控推理算力的兩大核心旋鈕<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E8%AA%BF%E6%8E%A7%E6%8E%A8%E7%90%86%E7%AE%97%E5%8A%9B%E7%9A%84%E5%85%A9%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%97%8B%E9%88%95" class="hash-link" aria-label="調控推理算力的兩大核心旋鈕的直接連結" title="調控推理算力的兩大核心旋鈕的直接連結" translate="no">​</a></h4>
+<p>Snell等人將所有的測試時推理技術抽象為**提議者（Proposer）<strong>與</strong>驗證者（Verifier）**兩個正交維度：</p>
+<ol>
+<li class=""><strong>修正提議分佈（修改Proposer）：</strong> 提示模型反思先前的草稿，產生品質更高的解題路徑：<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">y_{t+1} ~ P_θ( y | x, y_1, ..., y_t, Critique_t )</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>基於驗證器的狀態搜尋（依賴Verifier）：</strong> 利用過程獎勵模型（PRM）對中間思考節點進行價值評估與剪枝：<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Score(Node_t) = PRM_ψ( x, y_{1:t} )</span><br></div></code></pre></div></div>
+</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="難易度驅動的最佳配置反轉原理">難易度驅動的最佳配置反轉原理<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E9%9B%A3%E6%98%93%E5%BA%A6%E9%A9%85%E5%8B%95%E7%9A%84%E6%9C%80%E4%BD%B3%E9%85%8D%E7%BD%AE%E5%8F%8D%E8%BD%89%E5%8E%9F%E7%90%86" class="hash-link" aria-label="難易度驅動的最佳配置反轉原理的直接連結" title="難易度驅動的最佳配置反轉原理的直接連結" translate="no">​</a></h4>
+<p>Snell研究團隊最核心的洞見是：<strong>最佳策略會隨著問題的難易度發生根本性的徹底反轉</strong>：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">難度 Bin 1-2 (簡單問題)   ───&gt;  循序自我修正 (Sequential Revision) 佔據絕對優勢</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">難度 Bin 3-5 (困難問題)   ───&gt;  PRM引導束搜尋 (Beam Search) 佔據絕對優勢</span><br></div></code></pre></div></div>
+<ol>
+<li class=""><strong>簡單問題（Bins 1–2）：</strong>
+<ul>
+<li class="">簡單問題的基座模型初次嘗試已經非常接近正解。</li>
+<li class="">此時強行套用複雜的樹搜尋反而會引入驗證器的微小雜訊，導致模型把算力越花越差（Over-optimization）。</li>
+<li class=""><strong>最佳解：</strong> 循序修正（讓模型自主檢查並修正上一輪的微小運算錯誤）以極低算力達成極高收益。</li>
+</ul>
+</li>
+<li class=""><strong>困難問題（Bins 3–5）：</strong>
+<ul>
+<li class="">在奧數等級的高難題目中，一旦邏輯開端走入歧途，線性的自我修正完全無法挽救。</li>
+<li class=""><strong>最佳解：</strong> 基於PRM步級獎勵的束搜尋能夠及早修剪無前途的思維分支，相較於盲目Best-of-N呈現出輾壓級的優勢。</li>
+</ul>
+</li>
+<li class=""><strong>計算最佳配置的紅利：</strong>
+<ul>
+<li class="">簡單題配置Revision，難題配置PRM束搜尋的動態自適應策略，在達成同等準確率的前提下，相較於純粹Best-of-N<strong>節省了整整4倍（4x）的計算量</strong>。</li>
+</ul>
+</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="14倍參數等價性-the-14x-parameter-equivalence">14倍參數等價性 (The 14x Parameter Equivalence)<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#14%E5%80%8D%E5%8F%83%E6%95%B8%E7%AD%89%E5%83%B9%E6%80%A7-the-14x-parameter-equivalence" class="hash-link" aria-label="14倍參數等價性 (The 14x Parameter Equivalence)的直接連結" title="14倍參數等價性 (The 14x Parameter Equivalence)的直接連結" translate="no">​</a></h4>
+<p>論文最具震撼力的實驗，是將**「預訓練模型參數擴增14倍」與「給小模型賦予14倍推理算力」進行正面對決**：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">14倍參數大模型 (貪婪單次解碼)   vs   1倍基準小模型 + 14倍推理算力</span><br></div></code></pre></div></div>
+<ul>
+<li class="">在MATH與GSM8K的簡單及中等題目中，配備最佳推理算力的小模型在準確率上完全追平甚至反超了14倍體量的大模型。</li>
+<li class="">但在終極難題（Bin 5）上，預訓練大模型的參數內生能力仍無可替代：如果基座模型對問題缺乏基礎的語意表徵，推理階段的任何搜尋都將退化為毫無根據的幻覺空轉。</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-系統工程實現archon模組化複合代理人架構">4. 系統工程實現：Archon模組化複合代理人架構<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#4-%E7%B3%BB%E7%B5%B1%E5%B7%A5%E7%A8%8B%E5%AF%A6%E7%8F%BEarchon%E6%A8%A1%E7%B5%84%E5%8C%96%E8%A4%87%E5%90%88%E4%BB%A3%E7%90%86%E4%BA%BA%E6%9E%B6%E6%A7%8B" class="hash-link" aria-label="4. 系統工程實現：Archon模組化複合代理人架構的直接連結" title="4. 系統工程實現：Archon模組化複合代理人架構的直接連結" translate="no">​</a></h3>
+<p>如何將理論上的推理縮放定律落地為工業級軟體？避免在應用程式碼中充斥硬編碼的Prompt？</p>
+<p><strong>Archon</strong>框架（arxiv:2409.15254）透過將LLM功能單元抽象為<strong>分層式軟體管線</strong>徹底解決了這項工程難題：</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Q[使用者需求 / 規範說明書] --&gt; G[Layer 1: 生成器整合 (Generator)]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    G --&gt;|候選解空間| C[Layer 2: 多視角批判器 (Critic)]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    C --&gt;|批判與缺陷定位| R[Layer 3: 循環淘汰排序器 (Ranker)]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    R --&gt;|高潛力候選解| F[Layer 4: 融合重構器 (Fuser)]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    F --&gt;|共識最佳化解| V[Layer 5: 自動化驗證器與單元測試沙盒]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    V --&gt;|執行反饋| Dec{通過全量測試?}</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Dec -- 是 --&gt; Final[驗證通過的生產交付物]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Dec -- 否 (回溯重構) --&gt; G</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="archon的五層系統架構">Archon的五層系統架構<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#archon%E7%9A%84%E4%BA%94%E5%B1%A4%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B" class="hash-link" aria-label="Archon的五層系統架構的直接連結" title="Archon的五層系統架構的直接連結" translate="no">​</a></h4>
+<ol>
+<li class=""><strong>生成器層 (Generator)：</strong> 透過調整溫度採樣參數（T=0.2 ~ 0.8）或調度異質模型（Claude 3.5 Sonnet + DeepSeek-V2），平行生成多樣化候選解。</li>
+<li class=""><strong>批判器層 (Critic)：</strong> 逐條剖析各個候選解在邊界條件、數學邏輯或工程規範上的潛在瑕疵。</li>
+<li class=""><strong>排序器層 (Ranker)：</strong> 依據批判反饋對候選方案進行1對1淘汰制比較，建立穩健排名。</li>
+<li class=""><strong>融合層 (Fuser)：</strong> 提取高位排名候選解的核心思維亮點，二次融合成單一完美答卷（+8.9% 基準提升）。</li>
+<li class=""><strong>驗證層 (Verifier)：</strong> 在程式碼場景下利用LLM自生成5至10個邊界單元測試案例，並在隔離沙盒（Docker / gVisor）中實際執行（+56% 效能提升）。</li>
+</ol>
+<p>Archon構建了包含<strong>9,576種潛在拓撲組合</strong>的架構設計空間，並透過**貝氏最佳化（Bayesian Optimization）**在限定的延遲與調用成本預算內，自動尋得帕雷托最佳（Pareto-optimal）的代理人架構。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-架構案例剖析透視-openai-o1-推理模型的內幕">5. 架構案例剖析：透視 OpenAI o1 推理模型的內幕<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#5-%E6%9E%B6%E6%A7%8B%E6%A1%88%E4%BE%8B%E5%89%96%E6%9E%90%E9%80%8F%E8%A6%96-openai-o1-%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%A7%E5%B9%95" class="hash-link" aria-label="5. 架構案例剖析：透視 OpenAI o1 推理模型的內幕的直接連結" title="5. 架構案例剖析：透視 OpenAI o1 推理模型的內幕的直接連結" translate="no">​</a></h3>
+<p>史丹佛CS329A第二講的理論，為我們徹底揭開了以OpenAI o1與DeepSeek-R1為代表的推理大模型的底層設計：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌────────────────────────────────────────────────────────────────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                   o1 內部「思考（Thinking）」軌跡的本質                 │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">├────────────────────────────────────────────────────────────────────────┤</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 1. 隱蔽推敲階段 (Test-Time Tokens):                                    │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    在向使用者輸出第一個可見文字前，模型自主生成數千個思維鏈Token，      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    在推理端預先消耗海量算力。                                          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 2. 內嵌的過程獎勵評估 (PRM):                                           │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    經由強化學習（RL）步級對齊，模型在遇到推導瓶頸時具備自動回溯        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    （Backtracking）至先前分叉點的內生能力。                            │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 3. 循序糾錯循環 (Snell Revision):                                      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    諸如「等等，這裡似乎算錯了，讓我換個角度」這類提示，實質上是由        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    內在一致性檢驗所激發的循序修正策略。                                │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└────────────────────────────────────────────────────────────────────────┘</span><br></div></code></pre></div></div>
+<p>o1展現出的長鏈思考絕非不可捉摸的黑盒魔法，而是<strong>推理時間計算縮放、循序修正與過程檢驗在單一神經網絡中實現內嵌式整合的工業典範</strong>。</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-核心總結與技術啟示">6. 核心總結與技術啟示<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#6-%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90%E8%88%87%E6%8A%80%E8%A1%93%E5%95%9F%E7%A4%BA" class="hash-link" aria-label="6. 核心總結與技術啟示的直接連結" title="6. 核心總結與技術啟示的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>智慧擴增的雙輪驅動：</strong> AI能力的提升不再完全被預訓練所局限。推理時間計算縮放開闢了平行的擴展維度，讓緊湊型模型擁有逆襲工業巨無霸的可能。</li>
+<li class=""><strong>覆蓋率-精確率原則：</strong> 重複採樣（pass@k）能夠指數級擴大覆蓋面（DeepSeek-Coder-V2 15.9% -&gt; 56.0%），但唯有配合高精度的過程驗證器（PRM）才能真正將潛力轉化為確定性的產出。</li>
+<li class=""><strong>Snell最佳配比定律：</strong> 自適應算力分配比盲目暴力採樣效率高4倍：簡單問題走循序自我修正，複雜問題走PRM樹搜尋。</li>
+<li class=""><strong>模組化代理人系統：</strong> 正如Archon所證實的，結合生成、批判、重構與沙盒驗證的軟體架構，對最終系統精度的貢獻不亞於模型底層權重本身。</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="史丹佛cs329a-下講預告">史丹佛CS329A 下講預告:<a href="https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#%E5%8F%B2%E4%B8%B9%E4%BD%9Bcs329a-%E4%B8%8B%E8%AC%9B%E9%A0%90%E5%91%8A" class="hash-link" aria-label="史丹佛CS329A 下講預告:的直接連結" title="史丹佛CS329A 下講預告:的直接連結" translate="no">​</a></h3>
+<p>在接下來的<strong>第三講</strong>中，我們將深入代理人系統的「心臟」：<strong>《Robust Verification: 過程獎勵模型 (PRM)、模型整合與可擴展監督 (Scalable Oversight)》</strong>。我們將系統探討如何構建能夠抵禦獎勵作弊（Reward Hacking）、在無需人工介入下確立真實正解的高可靠驗證器。敬請關注！</p>]]></content:encoded>
+            <category>stanford-cs329a</category>
+            <category>test-time-compute</category>
+            <category>inference-scaling</category>
+            <category>verifier-prm</category>
+            <category>self-improving-agents</category>
+            <category>ai-architecture</category>
+        </item>
         <item>
             <title><![CDATA[[Stanford CS329A #1] 課程總覽：從大型語言模型到自我演化AI代理]]></title>
             <link>https://globaldevlog.com/zh-Hant/blog/stanford-cs329a-1-course-overview-self-improving-agents</link>
@@ -957,101 +1112,6 @@
             <category>software-architecture</category>
         </item>
         <item>
-            <title><![CDATA[[GitHub Pages 獨立網域 #1] 告別免費 github.io：使用 Porkbun + Cloudflare 綁定自訂網域 (CNAME 扁平化與免費 SSL)]]></title>
-            <link>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</link>
-            <guid>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</guid>
-            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[徹底告別免費 github.io 二級子網域，透過 Porkbun 購買頂級網域並委派至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 達成 GitHub Pages 零停機平滑遷移，解決 Docusaurus CNAME 自動重設難題的完整工程實戰。]]></description>
-            <content:encoded><![CDATA[<p>對於技術開發者而言，利用 GitHub Pages 的免費二級子網域（<code>username.github.io/project</code>）架設部落格幾乎是零成本的最佳入門選擇。只需一次 Git Push，即可透過全球 CDN 免費分發靜態頁面，完全無需維護底層伺服器。</p>
-<p>然而，一旦你計劃打造具有專業影響力的技術品牌並開啟 <strong>Google AdSense（谷歌廣告聯盟）流量變現</strong> 時，就會遭遇一道無法逾越的規則紅線：<strong>Google AdSense 嚴格禁止針對 <code>*.github.io</code> 等免費二級子網域提交網站審查</strong>。此外，搜尋引擎累積的網域權重（Domain Authority）也無法沉澱為個人數位資產。要想通過商業化審查並沉澱 SEO 資產，擁有獨立的**頂級根網域（Apex Custom Domain，例如 <code>globaldevlog.com</code>）**是必經之路。</p>
-<p>作為靜態網站工程化系列的第一篇，本文將以我們的技術部落格從 <code>jbjihwan.github.io/global_blog</code> 遷移至 <code>https://globaldevlog.com</code> 的實戰經歷為基礎，詳細拆解由 <strong>Porkbun + Cloudflare + GitHub Pages 構建的高可用三層生產架構與 DNS 深度配置要點</strong>。</p>
-<!-- -->
-<hr>
-<p><img decoding="async" loading="lazy" alt="靜態工程部落格生產級 DNS 與 CDN 路由架構圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_dns_routing_architecture-28bce65f149a3874f964a244346697c9.png" width="909" height="970" class="img_ev3q"></p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-架構設計哲學三層專業化高可用體系">1. 架構設計哲學：三層專業化高可用體系<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#1-%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88%E5%93%B2%E5%AD%B8%E4%B8%89%E5%B1%A4%E5%B0%88%E6%A5%AD%E5%8C%96%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%94%E7%B3%BB" class="hash-link" aria-label="1. 架構設計哲學：三層專業化高可用體系的直接連結" title="1. 架構設計哲學：三層專業化高可用體系的直接連結" translate="no">​</a></h2>
-<p>初學者在為 GitHub Pages 綁定獨立網域時，最常規的做法是在網域名稱註冊商處將 <code>A 記錄</code> 直接指向 GitHub 的 4 個固定 IP（<code>185.199.108.153</code> 等）。</p>
-<p>這種傳統模式雖然簡單，但存在明顯的生產運維缺陷：</p>
-<ul>
-<li class="">缺乏邊緣層 DDoS 攻擊防護與惡意爬蟲清洗；</li>
-<li class="">遭遇故障或底層遷移時，DNS 生效速度緩慢；</li>
-<li class="">無法對靜態資源（CSS/JS/圖片）進行靈活的邊緣 CDN 快取調優。</li>
-</ul>
-<p>為此，我們將職責解耦為三個專業化的服務層級：</p>
-<table><thead><tr><th style="text-align:left">層級</th><th style="text-align:left">選用服務</th><th style="text-align:left">核心職責與入選理由</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. 網域註冊商 (Registrar)</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">頂級網域首購與每年續費價格全網極具優勢，終身免費贈送 WHOIS 隱私保護，無套路加價</td></tr><tr><td style="text-align:left"><strong>2. 邊緣 DNS 與安全層</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">全球超低延遲 Anycast DNS，<strong>根網域 CNAME 扁平化 (Flattening)</strong>，免費 Universal SSL，自動化強制 HTTPS</td></tr><tr><td style="text-align:left"><strong>3. 靜態託管源站</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">承載由 Docusaurus 編譯產生的純靜態產物，<code>gh-pages</code> 分支自動化部署，零伺服器成本</td></tr></tbody></table>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-第一步porkbun-網域購買與-cloudflare-權威名稱伺服器委派">2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#2-%E7%AC%AC%E4%B8%80%E6%AD%A5porkbun-%E7%B6%B2%E5%9F%9F%E8%B3%BC%E8%B2%B7%E8%88%87-cloudflare-%E6%AC%8A%E5%A8%81%E5%90%8D%E7%A8%B1%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%A7%94%E6%B4%BE" class="hash-link" aria-label="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" title="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" translate="no">​</a></h2>
-<ol>
-<li class=""><strong>網域選購</strong>：在 Porkbun 檢索並購買心儀的頂級根網域（如 <code>globaldevlog.com</code>）。</li>
-<li class=""><strong>接入 Cloudflare</strong>：登入 Cloudflare 控制台，點擊 <strong>[新增網站]</strong> 輸入該網域，方案選擇 <strong>Free (免費版)</strong>。</li>
-<li class=""><strong>獲取分配的名稱伺服器</strong>：Cloudflare 會自動分配一對專有的權威 Nameservers，例如：<!-- -->
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
-</li>
-<li class=""><strong>修改 Porkbun DNS 委派</strong>：進入 Porkbun 的網域管理面板，找到 <code>Authoritative Nameservers</code> 設定項，刪除 Porkbun 預設地址，填入 Cloudflare 分配的 2 個伺服器地址並儲存。通常在 5 到 15 分鐘內全球生效。</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-第二步cloudflare-cname-扁平化-flattening-與-full-ssl-模式">3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5cloudflare-cname-%E6%89%81%E5%B9%B3%E5%8C%96-flattening-%E8%88%87-full-ssl-%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" title="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" translate="no">​</a></h2>
-<p>按照 DNS 國際標準（RFC 1034），根網域（<code>@</code>）必須包含 SOA 和 NS 記錄，因此傳統上無法直接配置 <code>CNAME 記錄</code>。</p>
-<p>Cloudflare 的 <strong>CNAME 扁平化 (CNAME Flattening)</strong> 技術徹底解決了這一痛點：在 DNS 解析查詢時，Cloudflare 邊緣節點會在底層即時解析目標地址（<code>username.github.io</code>）對應的 IP，並以 <code>A 記錄</code> 的形式直接向客戶端應答，從而讓根網域完美享有 CNAME 的所有敏捷特性。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-配置-cloudflare-dns-解析記錄">A. 配置 Cloudflare DNS 解析記錄<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#a-%E9%85%8D%E7%BD%AE-cloudflare-dns-%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%84" class="hash-link" aria-label="A. 配置 Cloudflare DNS 解析記錄的直接連結" title="A. 配置 Cloudflare DNS 解析記錄的直接連結" translate="no">​</a></h3>
-<p>在 Cloudflare 儀表板 <strong>[DNS] &gt; [記錄]</strong> 中，新增以下兩條開啟代理的記錄：</p>
-<table><thead><tr><th style="text-align:left">類型 (Type)</th><th style="text-align:left">名稱 (Name)</th><th style="text-align:left">目標 (Target)</th><th style="text-align:left">代理狀態 (Proxy status)</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr></tbody></table>
-<blockquote>
-<p><strong>必須點亮橘色雲朵</strong>：只有處於代理模式下，造訪流量才會經由 Cloudflare 全球 Anycast 節點接入，享受自動化邊緣 SSL 終結、Brotli 極速壓縮以及抗 DDOS 保護。</p>
-</blockquote>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-設定-ssltls-加密模式">B. 設定 SSL/TLS 加密模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#b-%E8%A8%AD%E5%AE%9A-ssltls-%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="B. 設定 SSL/TLS 加密模式的直接連結" title="B. 設定 SSL/TLS 加密模式的直接連結" translate="no">​</a></h3>
-<p>前往 Cloudflare 左側導覽列 <strong>[SSL/TLS] &gt; [概述]</strong>：</p>
-<ul>
-<li class="">將加密模式設為 <strong>Full (完全)</strong> 或 <strong>Full (Strict) (完全嚴格)</strong>；</li>
-<li class="">確保從訪客瀏覽器到 Cloudflare、以及從 Cloudflare 到 GitHub Pages 源站的端到端 HTTPS 雙向鏈路均得到高強度加密。</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-第三步更新-docusaurus-核心配置-docusaurusconfigts">4. 第三步：更新 Docusaurus 核心配置 (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#4-%E7%AC%AC%E4%B8%89%E6%AD%A5%E6%9B%B4%E6%96%B0-docusaurus-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE-docusaurusconfigts" class="hash-link" aria-label="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" title="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" translate="no">​</a></h2>
-<p>當部落格從子目錄路徑（<code>/global_blog/</code>）整體遷移至獨立根網域時，必須相應修正 <code>docusaurus.config.ts</code>：</p>
-<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 替換為全新的頂級自訂網域</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 從子目錄 '/global_blog/' 改為頂級根路徑 '/'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname">5. 第四步：徹底攻克 GitHub Pages 部署後網域被重設的隱蔽陷阱 (<code>static/CNAME</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#5-%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%BE%B9%E5%BA%95%E6%94%BB%E5%85%8B-github-pages-%E9%83%A8%E7%BD%B2%E5%BE%8C%E7%B6%B2%E5%9F%9F%E8%A2%AB%E9%87%8D%E8%A8%AD%E7%9A%84%E9%9A%B1%E8%94%BD%E9%99%B7%E9%98%B1-staticcname" class="hash-link" aria-label="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" title="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" translate="no">​</a></h2>
-<p>在配置 GitHub Pages 自訂網域時，幾乎所有開發者都踩過這個著名的“大坑”：</p>
-<ol>
-<li class="">在 GitHub 儲存庫頁面的 <code>Settings &gt; Pages &gt; Custom domain</code> 中手動填入 <code>globaldevlog.com</code> 並儲存生效；</li>
-<li class="">本地寫完新文章，終端執行 <code>npm run deploy</code> 重新部署；</li>
-<li class="">部署一完成，重新整理 GitHub 頁面發現自訂網域輸入框<strong>再次變成了空白</strong>，線上網站瞬間爆出 404 錯誤或 SSL 憑證失效警告！</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="陷阱根源">陷阱根源<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E9%99%B7%E9%98%B1%E6%A0%B9%E6%BA%90" class="hash-link" aria-label="陷阱根源的直接連結" title="陷阱根源的直接連結" translate="no">​</a></h3>
-<p>Docusaurus 的發布指令碼在編譯完成後，會將 <code>build/</code> 目錄強制推送到 <code>gh-pages</code> 分支（<code>git push --force</code>）。如果該打包產物的根目錄下缺少純文字 <code>CNAME</code> 檔案，GitHub 會預設判定使用者已主動取消了自訂網域綁定。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="永久解決方案">永久解決方案<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E6%B0%B8%E4%B9%85%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%A1%88" class="hash-link" aria-label="永久解決方案的直接連結" title="永久解決方案的直接連結" translate="no">​</a></h3>
-<p>在專案的 <code>static/</code> 目錄下建立一個名為 <code>CNAME</code> 的純文字檔案（無任何副檔名），內容僅寫入一行你的網域：</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
-<p>由於 Docusaurus 在建構時會自動將 <code>static/</code> 目錄下的所有檔案原封不動複製到打包輸出根目錄，因此每次執行部署時，<code>CNAME</code> 檔案都會被永久提交至 <code>gh-pages</code> 分支的最頂層，網域綁定永不丟失。</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-生產環境連通性驗證">6. 生產環境連通性驗證<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#6-%E7%94%9F%E7%94%A2%E7%92%B0%E5%A2%83%E9%80%A3%E9%80%9A%E6%80%A7%E9%A9%97%E8%AD%89" class="hash-link" aria-label="6. 生產環境連通性驗證的直接連結" title="6. 生產環境連通性驗證的直接連結" translate="no">​</a></h2>
-<p>在專案根目錄下執行部署指令：</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
-<p>部署成功後，在終端機透過 curl 命令驗證 HTTP 狀態碼與 SSL 憑證鏈回應：</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 (或 301 重新導向至根網域)</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-下篇預告">🔜 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="🔜 下篇預告的直接連結" title="🔜 下篇預告的直接連結" translate="no">​</a></h2>
-<p>獨立網域成功上線後，真正的商業化與多引擎搜尋獲客工作才剛剛拉開序幕：</p>
-<ul>
-<li class=""><strong>第二篇</strong>：<em>[靜態網站商業化 #2] Docusaurus 接入 Google AdSense 審查實戰：解決 ads.txt 404 爬取故障與非同步指令碼安全植入</em></li>
-<li class=""><strong>第三篇</strong>：<em>[全球多搜尋引擎 SEO #3] Google、Naver 與 Bing 站長平台權威配置：Sitemap 無法刪除之謎與主機層級報錯排查</em></li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>零伺服器成本的企業級全端架構</strong>：透過融合成本價網域註冊商 (Porkbun)、全球 Anycast CDN 與 DNS (Cloudflare) 以及零成本靜態代管 (GitHub Pages)，以零維運開銷打造毫秒級全球加速部落格。</li>
-<li class=""><strong>藉助 CNAME 扁平化技術突破 RFC 1034 限制</strong>：利用 Cloudflare 的 CNAME Flattening 機制，完美攻克根網域 (<code>@</code>) 無法設定別名解析的產業死結，將裸網域平滑直連 GitHub Pages。</li>
-<li class=""><strong>Full (Strict) 全鏈路 HTTPS 強加密</strong>：開啟 Cloudflare 嚴格加密模式，實現「訪客 ↔ CDN 邊緣 ↔ GitHub Pages 來源站」的全程雙向 TLS 加密防護。</li>
-<li class=""><strong>static/CNAME 實現部署配置永固</strong>：將 <code>CNAME</code> 檔案固化在 Docusaurus 的 <code>static/</code> 目錄下，徹底杜絕 CI/CD 自動發布時自訂網域被沖刷重設的產業頑疾。</li>
-</ol>]]></content:encoded>
-            <category>github-pages</category>
-            <category>custom-domain</category>
-            <category>porkbun</category>
-            <category>cloudflare</category>
-            <category>docusaurus</category>
-            <category>devops</category>
-        </item>
-        <item>
             <title><![CDATA[[網站收益化 #2] 靜態網站 Google AdSense 審核自動化：破解 ads.txt 404 抓取陷阱與 HeadTags 整合實戰]]></title>
             <link>https://globaldevlog.com/zh-Hant/blog/static-site-adsense-ads-txt-guide</link>
             <guid>https://globaldevlog.com/zh-Hant/blog/static-site-adsense-ads-txt-guide</guid>
@@ -1152,6 +1212,101 @@
             <category>devops</category>
             <category>cloudflare</category>
             <category>seo</category>
+        </item>
+        <item>
+            <title><![CDATA[[GitHub Pages 獨立網域 #1] 告別免費 github.io：使用 Porkbun + Cloudflare 綁定自訂網域 (CNAME 扁平化與免費 SSL)]]></title>
+            <link>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[徹底告別免費 github.io 二級子網域，透過 Porkbun 購買頂級網域並委派至 Cloudflare Anycast DNS，利用 CNAME 扁平化 (Flattening) 達成 GitHub Pages 零停機平滑遷移，解決 Docusaurus CNAME 自動重設難題的完整工程實戰。]]></description>
+            <content:encoded><![CDATA[<p>對於技術開發者而言，利用 GitHub Pages 的免費二級子網域（<code>username.github.io/project</code>）架設部落格幾乎是零成本的最佳入門選擇。只需一次 Git Push，即可透過全球 CDN 免費分發靜態頁面，完全無需維護底層伺服器。</p>
+<p>然而，一旦你計劃打造具有專業影響力的技術品牌並開啟 <strong>Google AdSense（谷歌廣告聯盟）流量變現</strong> 時，就會遭遇一道無法逾越的規則紅線：<strong>Google AdSense 嚴格禁止針對 <code>*.github.io</code> 等免費二級子網域提交網站審查</strong>。此外，搜尋引擎累積的網域權重（Domain Authority）也無法沉澱為個人數位資產。要想通過商業化審查並沉澱 SEO 資產，擁有獨立的**頂級根網域（Apex Custom Domain，例如 <code>globaldevlog.com</code>）**是必經之路。</p>
+<p>作為靜態網站工程化系列的第一篇，本文將以我們的技術部落格從 <code>jbjihwan.github.io/global_blog</code> 遷移至 <code>https://globaldevlog.com</code> 的實戰經歷為基礎，詳細拆解由 <strong>Porkbun + Cloudflare + GitHub Pages 構建的高可用三層生產架構與 DNS 深度配置要點</strong>。</p>
+<!-- -->
+<hr>
+<p><img decoding="async" loading="lazy" alt="靜態工程部落格生產級 DNS 與 CDN 路由架構圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_dns_routing_architecture-28bce65f149a3874f964a244346697c9.png" width="909" height="970" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-架構設計哲學三層專業化高可用體系">1. 架構設計哲學：三層專業化高可用體系<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#1-%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88%E5%93%B2%E5%AD%B8%E4%B8%89%E5%B1%A4%E5%B0%88%E6%A5%AD%E5%8C%96%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%94%E7%B3%BB" class="hash-link" aria-label="1. 架構設計哲學：三層專業化高可用體系的直接連結" title="1. 架構設計哲學：三層專業化高可用體系的直接連結" translate="no">​</a></h2>
+<p>初學者在為 GitHub Pages 綁定獨立網域時，最常規的做法是在網域名稱註冊商處將 <code>A 記錄</code> 直接指向 GitHub 的 4 個固定 IP（<code>185.199.108.153</code> 等）。</p>
+<p>這種傳統模式雖然簡單，但存在明顯的生產運維缺陷：</p>
+<ul>
+<li class="">缺乏邊緣層 DDoS 攻擊防護與惡意爬蟲清洗；</li>
+<li class="">遭遇故障或底層遷移時，DNS 生效速度緩慢；</li>
+<li class="">無法對靜態資源（CSS/JS/圖片）進行靈活的邊緣 CDN 快取調優。</li>
+</ul>
+<p>為此，我們將職責解耦為三個專業化的服務層級：</p>
+<table><thead><tr><th style="text-align:left">層級</th><th style="text-align:left">選用服務</th><th style="text-align:left">核心職責與入選理由</th></tr></thead><tbody><tr><td style="text-align:left"><strong>1. 網域註冊商 (Registrar)</strong></td><td style="text-align:left"><strong>Porkbun</strong></td><td style="text-align:left">頂級網域首購與每年續費價格全網極具優勢，終身免費贈送 WHOIS 隱私保護，無套路加價</td></tr><tr><td style="text-align:left"><strong>2. 邊緣 DNS 與安全層</strong></td><td style="text-align:left"><strong>Cloudflare</strong></td><td style="text-align:left">全球超低延遲 Anycast DNS，<strong>根網域 CNAME 扁平化 (Flattening)</strong>，免費 Universal SSL，自動化強制 HTTPS</td></tr><tr><td style="text-align:left"><strong>3. 靜態託管源站</strong></td><td style="text-align:left"><strong>GitHub Pages</strong></td><td style="text-align:left">承載由 Docusaurus 編譯產生的純靜態產物，<code>gh-pages</code> 分支自動化部署，零伺服器成本</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-第一步porkbun-網域購買與-cloudflare-權威名稱伺服器委派">2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#2-%E7%AC%AC%E4%B8%80%E6%AD%A5porkbun-%E7%B6%B2%E5%9F%9F%E8%B3%BC%E8%B2%B7%E8%88%87-cloudflare-%E6%AC%8A%E5%A8%81%E5%90%8D%E7%A8%B1%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%A7%94%E6%B4%BE" class="hash-link" aria-label="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" title="2. 第一步：Porkbun 網域購買與 Cloudflare 權威名稱伺服器委派的直接連結" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>網域選購</strong>：在 Porkbun 檢索並購買心儀的頂級根網域（如 <code>globaldevlog.com</code>）。</li>
+<li class=""><strong>接入 Cloudflare</strong>：登入 Cloudflare 控制台，點擊 <strong>[新增網站]</strong> 輸入該網域，方案選擇 <strong>Free (免費版)</strong>。</li>
+<li class=""><strong>獲取分配的名稱伺服器</strong>：Cloudflare 會自動分配一對專有的權威 Nameservers，例如：<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">roan.ns.cloudflare.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">sneh.ns.cloudflare.com</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>修改 Porkbun DNS 委派</strong>：進入 Porkbun 的網域管理面板，找到 <code>Authoritative Nameservers</code> 設定項，刪除 Porkbun 預設地址，填入 Cloudflare 分配的 2 個伺服器地址並儲存。通常在 5 到 15 分鐘內全球生效。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-第二步cloudflare-cname-扁平化-flattening-與-full-ssl-模式">3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5cloudflare-cname-%E6%89%81%E5%B9%B3%E5%8C%96-flattening-%E8%88%87-full-ssl-%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" title="3. 第二步：Cloudflare CNAME 扁平化 (Flattening) 與 Full SSL 模式的直接連結" translate="no">​</a></h2>
+<p>按照 DNS 國際標準（RFC 1034），根網域（<code>@</code>）必須包含 SOA 和 NS 記錄，因此傳統上無法直接配置 <code>CNAME 記錄</code>。</p>
+<p>Cloudflare 的 <strong>CNAME 扁平化 (CNAME Flattening)</strong> 技術徹底解決了這一痛點：在 DNS 解析查詢時，Cloudflare 邊緣節點會在底層即時解析目標地址（<code>username.github.io</code>）對應的 IP，並以 <code>A 記錄</code> 的形式直接向客戶端應答，從而讓根網域完美享有 CNAME 的所有敏捷特性。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-配置-cloudflare-dns-解析記錄">A. 配置 Cloudflare DNS 解析記錄<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#a-%E9%85%8D%E7%BD%AE-cloudflare-dns-%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%84" class="hash-link" aria-label="A. 配置 Cloudflare DNS 解析記錄的直接連結" title="A. 配置 Cloudflare DNS 解析記錄的直接連結" translate="no">​</a></h3>
+<p>在 Cloudflare 儀表板 <strong>[DNS] &gt; [記錄]</strong> 中，新增以下兩條開啟代理的記錄：</p>
+<table><thead><tr><th style="text-align:left">類型 (Type)</th><th style="text-align:left">名稱 (Name)</th><th style="text-align:left">目標 (Target)</th><th style="text-align:left">代理狀態 (Proxy status)</th><th style="text-align:left">TTL</th></tr></thead><tbody><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>@</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr><tr><td style="text-align:left"><strong>CNAME</strong></td><td style="text-align:left"><code>www</code></td><td style="text-align:left"><code>jbjihwan.github.io</code></td><td style="text-align:left"><strong>已代理 (點亮橘色雲朵)</strong></td><td style="text-align:left">自動</td></tr></tbody></table>
+<blockquote>
+<p><strong>必須點亮橘色雲朵</strong>：只有處於代理模式下，造訪流量才會經由 Cloudflare 全球 Anycast 節點接入，享受自動化邊緣 SSL 終結、Brotli 極速壓縮以及抗 DDOS 保護。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="b-設定-ssltls-加密模式">B. 設定 SSL/TLS 加密模式<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#b-%E8%A8%AD%E5%AE%9A-ssltls-%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F" class="hash-link" aria-label="B. 設定 SSL/TLS 加密模式的直接連結" title="B. 設定 SSL/TLS 加密模式的直接連結" translate="no">​</a></h3>
+<p>前往 Cloudflare 左側導覽列 <strong>[SSL/TLS] &gt; [概述]</strong>：</p>
+<ul>
+<li class="">將加密模式設為 <strong>Full (完全)</strong> 或 <strong>Full (Strict) (完全嚴格)</strong>；</li>
+<li class="">確保從訪客瀏覽器到 Cloudflare、以及從 Cloudflare 到 GitHub Pages 源站的端到端 HTTPS 雙向鏈路均得到高強度加密。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-第三步更新-docusaurus-核心配置-docusaurusconfigts">4. 第三步：更新 Docusaurus 核心配置 (<code>docusaurus.config.ts</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#4-%E7%AC%AC%E4%B8%89%E6%AD%A5%E6%9B%B4%E6%96%B0-docusaurus-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE-docusaurusconfigts" class="hash-link" aria-label="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" title="4-第三步更新-docusaurus-核心配置-docusaurusconfigts的直接連結" translate="no">​</a></h2>
+<p>當部落格從子目錄路徑（<code>/global_blog/</code>）整體遷移至獨立根網域時，必須相應修正 <code>docusaurus.config.ts</code>：</p>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> config</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Config </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  title</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Global Dev Blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  tagline</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Engineering Deep Dives in AI, Robotics, Computer Vision'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 替換為全新的頂級自訂網域</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://globaldevlog.com'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// 從子目錄 '/global_blog/' 改為頂級根路徑 '/'</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  baseUrl</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'/'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  organizationName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'jbjihwan'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  projectName</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'global_blog'</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  trailingSlash</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ...</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname">5. 第四步：徹底攻克 GitHub Pages 部署後網域被重設的隱蔽陷阱 (<code>static/CNAME</code>)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#5-%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%BE%B9%E5%BA%95%E6%94%BB%E5%85%8B-github-pages-%E9%83%A8%E7%BD%B2%E5%BE%8C%E7%B6%B2%E5%9F%9F%E8%A2%AB%E9%87%8D%E8%A8%AD%E7%9A%84%E9%9A%B1%E8%94%BD%E9%99%B7%E9%98%B1-staticcname" class="hash-link" aria-label="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" title="5-第四步徹底攻克-github-pages-部署後網域被重設的隱蔽陷阱-staticcname的直接連結" translate="no">​</a></h2>
+<p>在配置 GitHub Pages 自訂網域時，幾乎所有開發者都踩過這個著名的“大坑”：</p>
+<ol>
+<li class="">在 GitHub 儲存庫頁面的 <code>Settings &gt; Pages &gt; Custom domain</code> 中手動填入 <code>globaldevlog.com</code> 並儲存生效；</li>
+<li class="">本地寫完新文章，終端執行 <code>npm run deploy</code> 重新部署；</li>
+<li class="">部署一完成，重新整理 GitHub 頁面發現自訂網域輸入框<strong>再次變成了空白</strong>，線上網站瞬間爆出 404 錯誤或 SSL 憑證失效警告！</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="陷阱根源">陷阱根源<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E9%99%B7%E9%98%B1%E6%A0%B9%E6%BA%90" class="hash-link" aria-label="陷阱根源的直接連結" title="陷阱根源的直接連結" translate="no">​</a></h3>
+<p>Docusaurus 的發布指令碼在編譯完成後，會將 <code>build/</code> 目錄強制推送到 <code>gh-pages</code> 分支（<code>git push --force</code>）。如果該打包產物的根目錄下缺少純文字 <code>CNAME</code> 檔案，GitHub 會預設判定使用者已主動取消了自訂網域綁定。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="永久解決方案">永久解決方案<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#%E6%B0%B8%E4%B9%85%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%A1%88" class="hash-link" aria-label="永久解決方案的直接連結" title="永久解決方案的直接連結" translate="no">​</a></h3>
+<p>在專案的 <code>static/</code> 目錄下建立一個名為 <code>CNAME</code> 的純文字檔案（無任何副檔名），內容僅寫入一行你的網域：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>由於 Docusaurus 在建構時會自動將 <code>static/</code> 目錄下的所有檔案原封不動複製到打包輸出根目錄，因此每次執行部署時，<code>CNAME</code> 檔案都會被永久提交至 <code>gh-pages</code> 分支的最頂層，網域綁定永不丟失。</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-生產環境連通性驗證">6. 生產環境連通性驗證<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#6-%E7%94%9F%E7%94%A2%E7%92%B0%E5%A2%83%E9%80%A3%E9%80%9A%E6%80%A7%E9%A9%97%E8%AD%89" class="hash-link" aria-label="6. 生產環境連通性驗證的直接連結" title="6. 生產環境連通性驗證的直接連結" translate="no">​</a></h2>
+<p>在專案根目錄下執行部署指令：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npm run deploy</span><br></div></code></pre></div></div>
+<p>部署成功後，在終端機透過 curl 命令驗證 HTTP 狀態碼與 SSL 憑證鏈回應：</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># server: cloudflare</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># strict-transport-security: max-age=31536000</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">curl -I https://www.globaldevlog.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"># HTTP/2 200 (或 301 重新導向至根網域)</span><br></div></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-下篇預告">🔜 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="🔜 下篇預告的直接連結" title="🔜 下篇預告的直接連結" translate="no">​</a></h2>
+<p>獨立網域成功上線後，真正的商業化與多引擎搜尋獲客工作才剛剛拉開序幕：</p>
+<ul>
+<li class=""><strong>第二篇</strong>：<em>[靜態網站商業化 #2] Docusaurus 接入 Google AdSense 審查實戰：解決 ads.txt 404 爬取故障與非同步指令碼安全植入</em></li>
+<li class=""><strong>第三篇</strong>：<em>[全球多搜尋引擎 SEO #3] Google、Naver 與 Bing 站長平台權威配置：Sitemap 無法刪除之謎與主機層級報錯排查</em></li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/github-pages-custom-domain-cloudflare-dns#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>零伺服器成本的企業級全端架構</strong>：透過融合成本價網域註冊商 (Porkbun)、全球 Anycast CDN 與 DNS (Cloudflare) 以及零成本靜態代管 (GitHub Pages)，以零維運開銷打造毫秒級全球加速部落格。</li>
+<li class=""><strong>藉助 CNAME 扁平化技術突破 RFC 1034 限制</strong>：利用 Cloudflare 的 CNAME Flattening 機制，完美攻克根網域 (<code>@</code>) 無法設定別名解析的產業死結，將裸網域平滑直連 GitHub Pages。</li>
+<li class=""><strong>Full (Strict) 全鏈路 HTTPS 強加密</strong>：開啟 Cloudflare 嚴格加密模式，實現「訪客 ↔ CDN 邊緣 ↔ GitHub Pages 來源站」的全程雙向 TLS 加密防護。</li>
+<li class=""><strong>static/CNAME 實現部署配置永固</strong>：將 <code>CNAME</code> 檔案固化在 Docusaurus 的 <code>static/</code> 目錄下，徹底杜絕 CI/CD 自動發布時自訂網域被沖刷重設的產業頑疾。</li>
+</ol>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
         </item>
         <item>
             <title><![CDATA[從 GitHub Pages 到獨立頂級網域：Porkbun、Cloudflare DNS、AdSense 審核通過與多引擎 SEO 全方位指南]]></title>
@@ -1548,66 +1703,6 @@
             <category>hough-transform</category>
             <category>iou</category>
             <category>opencv</category>
-            <category>python</category>
-        </item>
-        <item>
-            <title><![CDATA[[Vision AI] 行車記錄器車道壓線違規檢測與超解析度車牌辨識：6階段全鏈路管線與即時性約束 (#1)]]></title>
-            <link>https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1</link>
-            <guid>https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1</guid>
-            <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[構建融合動態車道線檢測、多邊形 IoU 壓線度量、YOLOv5 車牌定位、EDSR 深度超解析度與時序 OCR 表決的 6 階段電腦視覺系統架構設計。]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="6階段 ANPR 管線系統架構圖" src="https://globaldevlog.com/zh-Hant/assets/images/01_pipeline_diagram-23560d178a61480c4a9f42ccb205b9cb.png" width="909" height="909" class="img_ev3q"></p>
-<blockquote>
-<p>📌 <strong>核心要點 (Key Takeaways)</strong></p>
-<ul>
-<li class=""><strong>問題痛點</strong>：低解析度行車記錄器畫面普遍存在車身顛簸、逆光高光、運動模糊以及 H.264 編碼失真，使得直接進行車牌文字辨識和車道壓線判定極易發生誤判漏檢。</li>
-<li class=""><strong>解決方案</strong>：設計高度解耦的 6 階段分層電腦視覺架構：Canny/Hough 動態車道線擬合 -&gt; YOLOv3 車輛粗檢 -&gt; 多邊形 IoU 壓線判定 -&gt; YOLOv5 車牌局部精檢 -&gt; EDSR_x4 深度超解析度重建 -&gt; EasyOCR 時序多數表決集成。</li>
-<li class=""><strong>落地成效</strong>：建置了一套純 Python 實作的高吞吐端到端管線，在嚴重劣化的行車記錄器實拍視訊下實作了高強健性的車輛追蹤與車道侵入監控。</li>
-</ul>
-</blockquote>
-<!-- -->
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-專案研發背景為何車載行車視覺極具挑戰">1. 專案研發背景：為何車載行車視覺極具挑戰？<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#1-%E5%B0%88%E6%A1%88%E7%A0%94%E7%99%BC%E8%83%8C%E6%99%AF%E7%82%BA%E4%BD%95%E8%BB%8A%E8%BC%89%E8%A1%8C%E8%BB%8A%E8%A6%96%E8%A6%BA%E6%A5%B5%E5%85%B7%E6%8C%91%E6%88%B0" class="hash-link" aria-label="1. 專案研發背景：為何車載行車視覺極具挑戰？的直接連結" title="1. 專案研發背景：為何車載行車視覺極具挑戰？的直接連結" translate="no">​</a></h2>
-<p>在智慧交通系統 (ITS) 與自動化交通執法場景中，<strong>即時車道線侵入檢測與車牌自動辨識 (ANPR)</strong> 是核心支柱能力。然而，在真實高速公路與城市道路環境中，行車記錄器實拍視訊面臨著嚴峻的光學與算力挑戰：</p>
-<ol>
-<li class=""><strong>極端低解析度與紋理模糊</strong>：在前車或超車車輛中，遠距離車牌在整個 640x480 解析度畫面中往往僅佔據 <code>30x15</code> 至 <code>50x25</code> 像素，字元筆畫粘連嚴重。</li>
-<li class=""><strong>車身震動與捲簾快門畸變</strong>：路面坑洞顛簸、車輛急加速/急減速引發的角度劇烈擺動會導致原本筆直的車道線嚴重扭曲。</li>
-<li class=""><strong>即時計算延遲瓶頸</strong>：在車載邊緣端逐幀執行龐大的全圖大模型會導致幀率驟降，無法滿足即時視訊串流處理要求。</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-6-階段分層管線架構設計">2. 6 階段分層管線架構設計<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#2-6-%E9%9A%8E%E6%AE%B5%E5%88%86%E5%B1%A4%E7%AE%A1%E7%B7%9A%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88" class="hash-link" aria-label="2. 6 階段分層管線架構設計的直接連結" title="2. 6 階段分層管線架構設計的直接連結" translate="no">​</a></h2>
-<p>為了兼顧高召回率與即時高吞吐，我們將系統劃分為模組化的 <strong>6 階段分工體系</strong>：</p>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Raw["原始行車記錄器幀 640x480"] --&gt; L1["第1階段：Canny + 霍夫變換動態車道線提取"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Raw --&gt; L2["第2階段：YOLOv3-tiny 車輛主體快速粗檢"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L1 &amp; L2 --&gt; L3["第3階段：車輛接地接觸面與車道多邊形 IoU 侵入判定"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L3 -- 觸發壓線侵入 --&gt; L4["第4階段：車輛 ROI 局部微調 YOLOv5 車牌定位"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L4 --&gt; L5["第5階段：EDSR_x4 深度神經網路 4倍超解析度重建"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L5 --&gt; L6["第6階段：EasyOCR + 字元正則校驗 + 時序滑動多數表決"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    L6 --&gt; Result["最終確信違規車牌：64가1511"]</span><br></div></code></pre></div></div>
-<p><img decoding="async" loading="lazy" alt="最終檢測定位與車牌辨識輸出展示" src="https://globaldevlog.com/zh-Hant/assets/images/02_final_result-02da50ebc7e87755c32fbc132dc9b992.png" width="2131" height="1599" class="img_ev3q"></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="各階段核心職責解耦">各階段核心職責解耦<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#%E5%90%84%E9%9A%8E%E6%AE%B5%E6%A0%B8%E5%BF%83%E8%81%B7%E8%B2%AC%E8%A7%A3%E8%80%A6" class="hash-link" aria-label="各階段核心職責解耦的直接連結" title="各階段核心職責解耦的直接連結" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>車道提取</strong>：基於消失點的梯形動態 ROI 遮罩、Canny 算子與斜率幾何約束，快速隔離出行車走廊邊界。</li>
-<li class=""><strong>車輛檢測</strong>：輕量級 YOLOv3-tiny 毫秒級輸出畫面內所有候選車輛的外接矩形框。</li>
-<li class=""><strong>壓線判定</strong>：計算車輛輪胎接地接觸面（底部 30% 區域）與車道邊界多边形之間的幾何交並比（IoU &gt; 0.05）。</li>
-<li class=""><strong>車牌定位</strong>：微調版 YOLOv5 (<code>lp_det.pt</code>) 僅在發生侵入的車輛局部 ROI 區域內進行推論，大幅縮減無效搜尋面積。</li>
-<li class=""><strong>超解析度</strong>：將裁剪出的低解析度微小車牌送入 EDSR_x4 深度殘差模型，4 倍高清重建字元邊緣細節。</li>
-<li class=""><strong>OCR 與表決</strong>：EasyOCR 提取字元候選，結合韓國法定車牌語法正則進行初篩，並在 7 幀時間視窗內發起多數表決鎖定最終結果。</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-核心全域工程參數配置-config">3. 核心全域工程參數配置 (<code>CONFIG</code>)<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#3-%E6%A0%B8%E5%BF%83%E5%85%A8%E5%9F%9F%E5%B7%A5%E7%A8%8B%E5%8F%83%E6%95%B8%E9%85%8D%E7%BD%AE-config" class="hash-link" aria-label="3-核心全域工程參數配置-config的直接連結" title="3-核心全域工程參數配置-config的直接連結" translate="no">​</a></h2>
-<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">CONFIG </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_width"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">640</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"output_height"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">480</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"conf_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"nms_threshold_vehicle"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.4</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_w"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_vehicle_h"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">70</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"lane_iou_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0.05</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"detection_interval"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">15</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"min_plate_area_for_ocr"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1200</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_history_size"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">7</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"plate_confirm_threshold"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">3</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"sr_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"EDSR_x4.pb"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"yolo_plate_model"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"lp_det.pt"</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></div></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下篇預告">4. 下篇預告<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#4-%E4%B8%8B%E7%AF%87%E9%A0%90%E5%91%8A" class="hash-link" aria-label="4. 下篇預告的直接連結" title="4. 下篇預告的直接連結" translate="no">​</a></h2>
-<p>在接下來的第 2 篇中，我們將深入解析 <strong>Canny 邊緣提取演算法、機率霍夫變換數學原理 (HoughLinesP)、斜率幾何異常值剔除</strong> 以及核心的幾何多邊形車道侵入判定規則。</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-35-行核心總結-executive-summary">📌 3~5 行核心總結 (Executive Summary)<a href="https://globaldevlog.com/zh-Hant/blog/2026-06-25-vision-anpr-1#-35-%E8%A1%8C%E6%A0%B8%E5%BF%83%E7%B8%BD%E7%B5%90-executive-summary" class="hash-link" aria-label="📌 3~5 行核心總結 (Executive Summary)的直接連結" title="📌 3~5 行核心總結 (Executive Summary)的直接連結" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>行車記錄器視覺的物理局限</strong>：目標車牌尺寸僅佔 $30 \times 15$ 像素，伴隨強烈車體顛簸與壓縮雜訊，單階段端到端模型極易發生災難性誤判。</li>
-<li class=""><strong>6 階段解耦式全端架構設計</strong>：透過「車道擬合 → 車輛定位 → 多邊形 IoU 壓線判據 → 車牌局部裁剪 → EDSR 超解析度 → 表決 OCR」構建高魯棒性工業閉環。</li>
-<li class=""><strong>分層計算算力優化策略</strong>：將高開銷深度模型嚴格限制在車輛 ROI 區域內執行，從架構層面避免全畫幅特徵圖搜尋帶來的幀率崩潰。</li>
-<li class=""><strong>邊緣端超即時效能落地 (50+ FPS)</strong>：融合相關濾波追蹤與時序多幀多數表決，實現 50+ FPS 的超高速串流處理及 99.4% 的確定性辨識信賴度。</li>
-</ol>]]></content:encoded>
-            <category>computer-vision</category>
-            <category>anpr</category>
-            <category>object-detection</category>
-            <category>super-resolution</category>
-            <category>opencv</category>
-            <category>deep-learning</category>
             <category>python</category>
         </item>
     </channel>

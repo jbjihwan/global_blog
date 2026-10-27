@@ -4,10 +4,165 @@
         <title>Global Dev Blog Blog</title>
         <link>https://globaldevlog.com/de/blog</link>
         <description>Global Dev Blog Blog</description>
-        <lastBuildDate>Sun, 01 Nov 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Nov 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>de</language>
+        <item>
+            <title><![CDATA[[Stanford CS329A #2] Test-Time Compute Scaling: Jenseits klassischer Skalierungsgesetze zur rechenoptimalen Inferenz]]></title>
+            <link>https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws</link>
+            <guid>https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws</guid>
+            <pubDate>Mon, 02 Nov 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Umfassende technische Analyse der Stanford CS329A Vorlesung 2: Inferenz-Rechenzeitskalierung (Inference-Time Scaling), pass@k-Wiederholungssampling (Large Language Monkeys), Snells rechenoptimale Allokation und Archon-Agenten-Pipelines.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Stanford CS329A Test-Time Compute Scaling" src="https://globaldevlog.com/de/assets/images/02_cs329a_test_time_compute_scaling-6949843569f379e704fee8bdcb8eaa09.png" width="1376" height="768" class="img_ev3q"></p>
+<p>Willkommen zum zweiten Teil unserer fundierten ingenieurwissenschaftlichen Analyse des Hauptstudiums-Kurses der <strong>Stanford University, CS329A: Self-Improving AI Agents (Herbst 2025)</strong>.</p>
+<p>In der Einführungsvorlesung haben wir den makroökonomischen Paradigmenwechsel von statischen autoregressiven Next-Token-Prädiktoren hin zu autonomen Agentenschleifen mit Umgebungs-Feedback nachgezeichnet. Heute widmen wir uns dem rechnerischen Fundament dieser Autonomie: <strong>Test-Time Compute Scaling (Skalierung der Rechenzeit während der Inferenz)</strong>.</p>
+<p>Über ein halbes Jahrzehnt lang wurde die KI-Forschung von den Skalierungsgesetzen des Pre-Trainings beherrscht (Kaplan et al., Chinchilla): <em>massive GPU-Cluster aufbauen, die Modellparameter N in die Hunderte Milliarden treiben und zig Billionen Web-Tokens D verarbeiten</em>. Doch was geschieht, wenn wir uns nach dem Einfrieren der Modellgewichte θ weigern, eine hastige Greedy-Antwort innerhalb von 50 Millisekunden zu akzeptieren? Was passiert, wenn ein Agent stattdessen <strong>10 Sekunden, 1 Minute oder 10 Minuten investiert, um Argumentationsbäume zu explorieren, Zwischenschritte zu verifizieren und Hypothesen zu revidieren</strong>?</p>
+<p>Anhand der bahnbrechenden empirischen Resultate von <em>Large Language Monkeys</em> (Brown et al., 2024), Snell et al.s <em>Compute-Optimal Scaling</em> (Stanford/UC Berkeley, 2024) und des modularen Archon-Architektur-Frameworks formalisieren wir mathematisch und systemtechnisch, wie der Austausch von Inferenz-FLOPs gegen Parameterkapazität die moderne KI revolutioniert.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph PreTrain ["Klassische Grenze: Skalierung der Trainingsrechenzeit"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P1["Billionen Web-Tokens (D)"] --&gt; P2["Massive GPU-Cluster (C_train)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P2 --&gt; P3["Eingefrorenes dichtes Modell (θ)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        P3 --&gt; P4["Einmaliger Forward-Pass (O(1) fixe Inferenz)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph TestTime ["CS329A-Grenze: Skalierung der Test-Time-Rechenzeit"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T1["Eingefrorene Basisgewichte (θ)"] --&gt; T2["Dynamische FLOP-Allokation während der Inferenz"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T2 --&gt; T3{"Adaptive Strategiewahl nach Schwierigkeit"}</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T3 -- "Geringe Schwierigkeit (Bin 1-2)" --&gt; T4["Sequenzielle Revision (Selbstkorrektur)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T3 -- "Hohe Schwierigkeit (Bin 3-5)" --&gt; T5["PRM-geführte Baumsuche (MCTS / Beam Search)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T4 --&gt; T6["Process Reward Model (PRM) Verifizierer"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T5 --&gt; T6</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        T6 --&gt; T7["Mathematisch &amp; mechanisch verifizierte Lösung"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    PreTrain -.-&gt;|"Wendepunkt: Parametersättigung"| TestTime</span><br></div></code></pre></div></div>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-klassische-skalierung-vs-inferenzrechenzeit-der-paradigmenwechsel">1. Klassische Skalierung vs. Inferenzrechenzeit: Der Paradigmenwechsel<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#1-klassische-skalierung-vs-inferenzrechenzeit-der-paradigmenwechsel" class="hash-link" aria-label="Direkter Link zur 1. Klassische Skalierung vs. Inferenzrechenzeit: Der Paradigmenwechsel" title="Direkter Link zur 1. Klassische Skalierung vs. Inferenzrechenzeit: Der Paradigmenwechsel" translate="no">​</a></h3>
+<p>Das moderne Deep Learning basiert auf der empirischen Erkenntnis, dass der Validierungsverlust als Potenzgesetz (Power Law) der Trainingsrechenzeit abnimmt:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">L(N, D) = E + A / N^α + B / D^β</span><br></div></code></pre></div></div>
+<p>wobei N die Anzahl der Nicht-Embedding-Parameter und D die Größe des Datensatzes in Tokens darstellt. Diese klassische Formulierung behandelt die Inferenzrechenzeit jedoch als triviale, statische Konstante: exakt 2 FLOPs pro Parameter pro generiertem Token während des autoregressiven Decodings.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="die-physikalischen-grenzen-der-trainingsskalierung">Die physikalischen Grenzen der Trainingsskalierung<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#die-physikalischen-grenzen-der-trainingsskalierung" class="hash-link" aria-label="Direkter Link zur Die physikalischen Grenzen der Trainingsskalierung" title="Direkter Link zur Die physikalischen Grenzen der Trainingsskalierung" translate="no">​</a></h4>
+<p>Als die Industrie Modelle über 10^26 FLOPs (GPT-4-Klasse) hinaus skalierte, stieß das Pre-Training auf drei unüberwindbare Barrieren:</p>
+<ol>
+<li class=""><strong>Die Erschöpfungsgrenze menschlicher Web-Daten:</strong> Hochwertiger, von Menschen verfasster Text im Internet ist endlich (geschätzt auf ~10^14 Tokens). Das unkontrollierte Trainieren auf synthetischen Daten ohne deterministische Verifizierer führt zu Modellkollaps (Model Collapse) und Entropie-Degeneration.</li>
+<li class=""><strong>Exponentiell explodierende Investitionskosten:</strong> Um die Benchmark-Genauigkeit am flachen Ende einer Potenzkurve um lediglich 1 % zu steigern, muss das 10-fache an Trainings-FLOPs investiert werden – was Hunderte Millionen Dollar an CAPEX erfordert.</li>
+<li class=""><strong>Der Trugschluss des statischen Forward-Passes:</strong> Unabhängig davon, ob ein Modell 7 Milliarden oder 1 Billion Parameter besitzt, erzeugt das Standard-Decoding jeden Token t_i in einer festen Anzahl von Matrixmultiplikationen:</li>
+</ol>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">t_i ~ Softmax( W_u · LayerNorm( h_L(t_{1:i-1}) ) )</span><br></div></code></pre></div></div>
+<p>Komplexe NP-vollständige mathematische Beweise, Multi-File-Software-Bugs und formale Programmverifikationen lassen sich schlichtweg nicht in einem rein linearen Durchlauf ohne Backtracking, Hypothesenbildung und Zwischenprüfung lösen.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-die-rückkehr-des-infinite-monkey-theorems-large-language-monkeys">2. Die Rückkehr des Infinite-Monkey-Theorems: Large Language Monkeys<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#2-die-r%C3%BCckkehr-des-infinite-monkey-theorems-large-language-monkeys" class="hash-link" aria-label="Direkter Link zur 2. Die Rückkehr des Infinite-Monkey-Theorems: Large Language Monkeys" title="Direkter Link zur 2. Die Rückkehr des Infinite-Monkey-Theorems: Large Language Monkeys" translate="no">​</a></h3>
+<p>In der klassischen Wahrscheinlichkeitsrechnung besagt Émile Borels <em>Infinite-Monkey-Theorem</em>, dass ein Affe, der unendlich lange zufällig auf einer Schreibmaschine tippt, mit an Sicherheit grenzender Wahrscheinlichkeit irgendwann die gesammelten Werke von William Shakespeare verfassen wird.</p>
+<p>Ende 2024 untersuchten Forscher der UC Berkeley und von Google Research diese Hypothese an modernen Frontier-LLMs in ihrer Pionierarbeit: <strong>《Large Language Monkeys: Scaling Inference Compute with Repeated Sampling》</strong> (Brown et al., 2024).</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Coverage (Pass@k %)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> ▲</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">100│                                     ┌────────────── Theoretische Pass@k-Obergrenze</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 90│                                ┌────┘ (Erreicht 99 % bei MATH &amp; CodeContests)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 80│                           ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 70│                      ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 60│                 ┌────┘ ◄── SWE-bench Lite: DeepSeek-Coder-V2 (k=250 -&gt; 56.0%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 50│            ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 40│       ┌────┘   ◄── Claude 3.5 Sonnet Einzellauf (43.0%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 30│  ┌────┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 20│ ┌┘</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"> 10│┌┘  ◄── Gemma-2B Pass@1 (0.02%)</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">  0└┴──────┬──────────┬──────────┬──────────┬──────────►</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    k=1    k=10       k=100      k=1,000    k=10,000   (Anzahl generierter Samples k)</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="mathematische-formulierung-des-unverzerrten-passk-schätzers">Mathematische Formulierung des unverzerrten pass@k-Schätzers<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#mathematische-formulierung-des-unverzerrten-passk-sch%C3%A4tzers" class="hash-link" aria-label="Direkter Link zur Mathematische Formulierung des unverzerrten pass@k-Schätzers" title="Direkter Link zur Mathematische Formulierung des unverzerrten pass@k-Schätzers" translate="no">​</a></h4>
+<p>Werden N Lösungskandidaten unabhängig generiert, von denen exakt C Kandidaten eine automatisierte Test-Suite (z. B. Unittests) bestehen, ist der unverzerrte Schätzer mit minimaler Varianz (MVUE) für pass@k definiert als:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Pass@k = (1 / P) · ∑_{i=1}^P [ 1 - C(N - C_i, k) / C(N, k) ]</span><br></div></code></pre></div></div>
+<p>wobei P die Gesamtanzahl der Aufgaben, C_i die Anzahl erfolgreicher Lösungen für Aufgabe i und C(n, r) den Binomialkoeffizienten bezeichnen. Um bei N = 10.000 Gleitkommaüberläufe zu verhindern, verwendet die Produktions-Pipeline folgende numerisch stabile Multiplikationsschleife:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Pass@k = 1 - ∏_{j=0}^{k-1} ( 1 - C_i / (N - j) )</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="empirische-durchbrüche-kompakte-modelle-schlagen-giganten">Empirische Durchbrüche: Kompakte Modelle schlagen Giganten<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#empirische-durchbr%C3%BCche-kompakte-modelle-schlagen-giganten" class="hash-link" aria-label="Direkter Link zur Empirische Durchbrüche: Kompakte Modelle schlagen Giganten" title="Direkter Link zur Empirische Durchbrüche: Kompakte Modelle schlagen Giganten" translate="no">​</a></h4>
+<p>Die empirischen Resultate von Large Language Monkeys stellten traditionelle Evaluationsmetriken auf den Kopf:</p>
+<ul>
+<li class=""><strong>SWE-bench Lite (Reale GitHub Software-Engineering-Bugs):</strong>
+<ul>
+<li class="">Das Open-Source-Modell <code>DeepSeek-Coder-V2-Instruct</code> erzielte bei k=1 eine bescheidene Erfolgsrate von <strong>15,9 %</strong>.</li>
+<li class="">Bei einer Erhöhung auf k=250 Samples katapultierte sich pass@250 auf <strong>56,0 %</strong>.</li>
+<li class="">Dies übertraf das Ensemble aus GPT-4o und Claude 3.5 Sonnet (43,0 %) um <strong>überragende 13 Prozentpunkte</strong>.</li>
+</ul>
+</li>
+<li class=""><strong>CodeContests (Komplexe Wettbewerbsprogrammierung):</strong>
+<ul>
+<li class="">Das leichtgewichtige Modell <code>Gemma-2B</code> wies ein pass@1 von nur <strong>0,02 %</strong> auf (praktisch null).</li>
+<li class="">Bei einer Skalierung auf k=10.000 kletterte pass@10.000 auf <strong>7,1 %</strong> – eine <strong>355-fache Leistungssteigerung</strong> rein durch Inferenzrechenzeit.</li>
+</ul>
+</li>
+<li class=""><strong>Die wirtschaftliche Umkehrung:</strong>
+<ul>
+<li class="">Das Erreichen von 29,62 % auf SWE-bench mit DeepSeek-Coder-V2 (k=5) kostete <strong>10,80 $</strong>.</li>
+<li class="">Dagegen kostete ein Einzellauf von GPT-4o (24,0 %) <strong>39,00 $ (3,6-mal teurer)</strong>, und Claude 3.5 Sonnet (26,7 %) verbrauchte <strong>51,00 $ (4,7-mal teurer)</strong>.</li>
+</ul>
+</li>
+</ul>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌───────────────────────────────┬──────────┬────────────┬─────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ Modell &amp; Inferenzstrategie    │ SWE-bench│ Kosten ($) │ Multiplikator│</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">├───────────────────────────────┼──────────┼────────────┼─────────────┤</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ DeepSeek-Coder-V2 (k=5)       │ 29.62%   │ $10.80     │ 1.0x (Basis)│</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ GPT-4o (k=1 Greedy Einzellauf)│ 24.00%   │ $39.00     │ 3.6x Kosten │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ Claude 3.5 Sonnet (k=1)       │ 26.70%   │ $51.00     │ 4.7x Kosten │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ DeepSeek-Coder-V2 (k=250)     │ 56.00%   │ $540.00    │ Spitzenwert │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└───────────────────────────────┴──────────┴────────────┴─────────────┘</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="die-coverage-precision-lücke-die-wand-des-verifizierers">Die Coverage-Precision-Lücke: Die Wand des Verifizierers<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#die-coverage-precision-l%C3%BCcke-die-wand-des-verifizierers" class="hash-link" aria-label="Direkter Link zur Die Coverage-Precision-Lücke: Die Wand des Verifizierers" title="Direkter Link zur Die Coverage-Precision-Lücke: Die Wand des Verifizierers" translate="no">​</a></h4>
+<p>Wiederholtes Sampling ohne intelligente Selektion stößt jedoch unweigerlich an die <strong>Coverage-Precision-Lücke</strong>.</p>
+<p>In geschlossenen, formalen Domänen mit deterministischen Orakeln (wie Compilern oder Unittests) gilt: <strong>Coverage ist gleich Erfolgsrate</strong>. Wenn 1 von 250 Trajektorien alle Unittests besteht, wird sie mechanisch isoliert.</p>
+<p>In offenen oder informellen Domänen ohne externe Compiler verkehrt sich die Situation:</p>
+<ul>
+<li class="">Auf dem MATH-Datensatz erreichte <code>Llama-3-8B-Instruct</code> bei k=10.000 eine Coverage von <strong>98,44 %</strong> (in 98 % der Fälle war die richtige Lösung im Pool vorhanden).</li>
+<li class="">Bei Anwendung von <strong>Mehrheitsabstimmung (Majority Voting)</strong> stieg die Genauigkeit jedoch nur von 40,5 % auf magere <strong>41,41 %</strong> (+0,9 %p).</li>
+<li class="">Die <strong>Best-of-N-Auswahl</strong> mittels Outcome Reward Model (ORM) stagnierte bei ca. k=100 und scheiterte daran, die verbleibenden 57 % korrekter Lösungen aufgrund von Verifizierer-Rauschen und False Positives zu extrahieren.</li>
+</ul>
+<blockquote>
+<p><strong>Ingenieur-Grundsatz:</strong> Einfach nur mehr Samples zu ziehen, ohne über einen präzisen Verifizierer zu verfügen, vergrößert lediglich den Heuhaufen. Selbst wenn die Nadel mit 99 %iger Wahrscheinlichkeit im Heuhaufen liegt, nützt dies nichts, wenn man keinen Magneten (Verifizierer) besitzt, um sie herauszuziehen.</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-snells-rechenoptimale-skalierung-parameter-gegen-flops-tauschen">3. Snells rechenoptimale Skalierung: Parameter gegen FLOPs tauschen<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#3-snells-rechenoptimale-skalierung-parameter-gegen-flops-tauschen" class="hash-link" aria-label="Direkter Link zur 3. Snells rechenoptimale Skalierung: Parameter gegen FLOPs tauschen" title="Direkter Link zur 3. Snells rechenoptimale Skalierung: Parameter gegen FLOPs tauschen" translate="no">​</a></h3>
+<p>Wie investiert ein Systementwickler ein festgelegtes Budget an Inferenz-FLOPs am effizientesten, anstatt blind 10.000-mal zu würfeln?</p>
+<p>Ende 2024 veröffentlichten Charlie Snell, Jaehoon Seo, Hao Liu, Aviral Kumar und Sergey Levine (Stanford University &amp; UC Berkeley) die bahnbrechende Arbeit: <strong>《Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters》</strong>.</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Snell_Framework ["Snells zwei Steuerhebel für Inferenzrechenzeit"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Knob1["1. Modifikation der Proposal-Verteilung"] --&gt; Sub1["Sequenzielle Revision (Schrittweise Selbstkorrektur)"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        Knob2["2. Verifizierer-gestützte Suche"] --&gt; Sub2["Best-of-N / Beam Search / Lookahead-Baumsuche"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    subgraph Allocation ["Schwierigkeitsadaptive Allokation"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        direction TB</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D1["Klassifikation der Aufgabenschwierigkeit"] --&gt;|Bin 1-2: Leicht| A1["100 % Rechenzeit in sequenzielle Revision"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">        D1 --&gt;|Bin 3-5: Schwer| A2["Rechenzeit auf PRM-geführte Beam Search bündeln"]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    end</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Snell_Framework --&gt; Allocation</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="die-zwei-dimensionen-der-inferenzrechenzeit">Die zwei Dimensionen der Inferenzrechenzeit<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#die-zwei-dimensionen-der-inferenzrechenzeit" class="hash-link" aria-label="Direkter Link zur Die zwei Dimensionen der Inferenzrechenzeit" title="Direkter Link zur Die zwei Dimensionen der Inferenzrechenzeit" translate="no">​</a></h4>
+<p>Snell et al. fassten alle Inferenzmethoden in zwei orthogonale Achsen zusammen:</p>
+<ol>
+<li class=""><strong>Modifikation der Proposal-Verteilung (Proposer):</strong> Das Modell wird konditioniert, durch sequenzielle Revision von vornherein qualitativ bessere Gedankengänge zu erzeugen:<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">y_{t+1} ~ P_θ( y | x, y_1, ..., y_t, Critique_t )</span><br></div></code></pre></div></div>
+</li>
+<li class=""><strong>Verifizierer-gestützte Zustandssuche (Verifier):</strong> Systematische Exploration von Zwischenschritten mithilfe von Process Reward Models (PRMs):<!-- -->
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Score(Node_t) = PRM_ψ( x, y_{1:t} )</span><br></div></code></pre></div></div>
+</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="das-umkehrprinzip-der-aufgabenadaptiven-allokation">Das Umkehrprinzip der aufgabenadaptiven Allokation<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#das-umkehrprinzip-der-aufgabenadaptiven-allokation" class="hash-link" aria-label="Direkter Link zur Das Umkehrprinzip der aufgabenadaptiven Allokation" title="Direkter Link zur Das Umkehrprinzip der aufgabenadaptiven Allokation" translate="no">​</a></h4>
+<p>Die entscheidende Erkenntnis des Stanford-Berkeley-Teams war, dass <strong>die optimale Strategie je nach Schwierigkeitsgrad der Aufgabe exakt invertiert</strong>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Schwierigkeit Bin 1-2 (Leichte Aufgaben) ───&gt;  Sequenzielle Revision dominiert</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">Schwierigkeit Bin 3-5 (Schwere Aufgaben) ───&gt;  PRM-geführte Beam Search dominiert</span><br></div></code></pre></div></div>
+<ol>
+<li class=""><strong>Leichte Aufgaben (Bins 1–2):</strong>
+<ul>
+<li class="">Bei einfachen Aufgaben liegt bereits der erste Versuch des Basismodells nahe an der korrekten Lösung.</li>
+<li class="">Der Einsatz komplexer Baumsuchen fügt hier lediglich Verifizierer-Rauschen hinzu, was zu Überoptimierung (Over-optimization) und Fehlentscheidungen führt.</li>
+<li class=""><strong>Optimale Strategie:</strong> Die sequenzielle Revision (Aufforderung an das Modell, Tippfehler oder Vorzeichenfehler zu beheben) erreicht maximale Genauigkeit bei minimalem Rechenaufwand.</li>
+</ul>
+</li>
+<li class=""><strong>Schwere Aufgaben (Bins 3–5):</strong>
+<ul>
+<li class="">Bei extrem anspruchsvollen Mathematik-Wettbewerbsaufgaben scheitert lineare Selbstkorrektur, da der initiale Lösungsweg in eine irreversible Logikfalle geraten ist.</li>
+<li class=""><strong>Optimale Strategie:</strong> Beam Search, geführt von einem schrittweisen PRM, schneidet fehlerhafte Gedankengänge frühzeitig ab.</li>
+</ul>
+</li>
+<li class=""><strong>Die Recheneffizienz-Dividende:</strong>
+<ul>
+<li class="">Eine adaptive Richtlinie, die leichten Aufgaben Revision und schweren Aufgaben PRM-Beam-Search zuweist, erreicht dieselbe Genauigkeit wie Best-of-N bei einem <strong>um das 4-Fache geringeren Rechenaufwand (4x Ersparnis)</strong>.</li>
+</ul>
+</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="die-14x-parameter-äquivalenz">Die 14x-Parameter-Äquivalenz<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#die-14x-parameter-%C3%A4quivalenz" class="hash-link" aria-label="Direkter Link zur Die 14x-Parameter-Äquivalenz" title="Direkter Link zur Die 14x-Parameter-Äquivalenz" translate="no">​</a></h4>
+<p>Der spektakulärste Vergleich in Snells Untersuchung war das Duell: <strong>Pre-Training-Parameter um das 14-Fache vergrößern</strong> gegenüber <strong>einem kleinen Modell das 14-Fache an Inferenzrechenzeit bereitstellen</strong>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">Modell mit 14x Parametern (Greedy Decoding)   vs.   1x Basismodell + 14x Inferenzrechenzeit</span><br></div></code></pre></div></div>
+<ul>
+<li class="">Bei leichten bis mittelschweren Aufgaben auf MATH und GSM8K zog das kompakte Modell mit optimaler Inferenzrechenzeit mit dem 14-mal größeren dichten Riesen gleich oder übertraf diesen sogar.</li>
+<li class="">Bei extremen Aufgaben (Bin 5) blieben die vortrainierten Parameter jedoch unersetzlich: Wenn dem Basismodell die elementare semantische Repräsentation zur Formulierung einer Hypothese fehlt, verkommt jede Inferenzsuche zu unbegründeter Halluzination.</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-systemtechnik-modulare-multi-agenten-architektur-mit-archon">4. Systemtechnik: Modulare Multi-Agenten-Architektur mit Archon<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#4-systemtechnik-modulare-multi-agenten-architektur-mit-archon" class="hash-link" aria-label="Direkter Link zur 4. Systemtechnik: Modulare Multi-Agenten-Architektur mit Archon" title="Direkter Link zur 4. Systemtechnik: Modulare Multi-Agenten-Architektur mit Archon" translate="no">​</a></h3>
+<p>Wie lassen sich diese theoretischen Inferenzgesetze in robuste Produktionssoftware überführen, ohne auf fragile Prompt-Basteleien zurückzugreifen?</p>
+<p>Das <strong>Archon</strong>-Framework (arxiv:2409.15254) löst dies, indem es funktionale LLM-Bausteine in <strong>schichtweise Software-Pipelines</strong> modularisiert:</p>
+<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart TD</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Q[Nutzer-Prompt / Aufgabenstellung] --&gt; G[Schicht 1: Generator-Ensemble]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    G --&gt;|Lösungskandidaten| C[Schicht 2: Multiperspektivischer Critic]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    C --&gt;|Kritikpunkte &amp; Schwachstellen| R[Schicht 3: Turnier-Ranker]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    R --&gt;|Top-k Spitzenkandidaten| F[Schicht 4: Fusions-Synthetisierer]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    F --&gt;|Konsolidierte Antwort| V[Schicht 5: Automatischer Verifizierer &amp; Unittest-Sandbox]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    V --&gt;|Test-Ergebnisse| Dec{Alle Tests bestanden?}</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Dec -- Ja --&gt; Final[Verifiziertes Produktionsergebnis]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    Dec -- Nein (Verfeinerungsschleife) --&gt; G</span><br></div></code></pre></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="die-fünf-architekturschichten-von-archon">Die fünf Architekturschichten von Archon<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#die-f%C3%BCnf-architekturschichten-von-archon" class="hash-link" aria-label="Direkter Link zur Die fünf Architekturschichten von Archon" title="Direkter Link zur Die fünf Architekturschichten von Archon" translate="no">​</a></h4>
+<ol>
+<li class=""><strong>Generator-Schicht:</strong> Erzeugt vielfältige Lösungskandidaten durch variierte Sampling-Temperaturen (T=0,2 bis 0,8) oder den Einsatz heterogener Modelle (z. B. Claude 3.5 Sonnet + DeepSeek-V2).</li>
+<li class=""><strong>Critic-Schicht:</strong> Analysiert die erzeugten Trajektorien gezielt auf mathematische Lücken, logische Widersprüche oder Randwertprobleme.</li>
+<li class=""><strong>Ranker-Schicht:</strong> Führt paarweise Turniervergleiche zwischen den Kandidaten anhand strukturierter Bewertungsrubriken durch.</li>
+<li class=""><strong>Fuser-Schicht:</strong> Rekombiniert die stärksten logischen Argumente der bestplatzierten Kandidaten zu einer überlegenen Gesamtlösung (+8,9 % Benchmark-Zuwachs).</li>
+<li class=""><strong>Verifier-Schicht:</strong> Lässt ein LLM 5 bis 10 Unittests für Randfälle generieren und führt den Code in einer isolierten Sandbox (Docker/gVisor) aus (+56 % Genauigkeit bei Programmieraufgaben).</li>
+</ol>
+<p>Mittels <strong>Bayesscher Optimierung (Bayesian Optimization)</strong> traversiert Archon einen Architektursuchraum von <strong>9.576 Pipeline-Konfigurationen</strong> und ermittelt für jedes Latenz- und Kostenbudget die Pareto-optimale Agentenarchitektur.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-architektur-fallstudie-demystifizierung-von-openai-o1--reasoning-modellen">5. Architektur-Fallstudie: Demystifizierung von OpenAI o1 &amp; Reasoning-Modellen<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#5-architektur-fallstudie-demystifizierung-von-openai-o1--reasoning-modellen" class="hash-link" aria-label="Direkter Link zur 5. Architektur-Fallstudie: Demystifizierung von OpenAI o1 &amp; Reasoning-Modellen" title="Direkter Link zur 5. Architektur-Fallstudie: Demystifizierung von OpenAI o1 &amp; Reasoning-Modellen" translate="no">​</a></h3>
+<p>Die Vorlesung 2 der Stanford CS329A erklärt präzise die internen Abläufe moderner Reasoning-Modelle wie OpenAI o1 und DeepSeek-R1:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">┌────────────────────────────────────────────────────────────────────────┐</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                   Hinter dem "Thinking"-Trace von o1                   │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">├────────────────────────────────────────────────────────────────────────┤</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 1. Verborgene Deliberation (Test-Time Tokens):                         │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    Das Modell erzeugt Tausende verdeckte Chain-of-Thought-Tokens,      │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    bevor das erste sichtbare Zeichen ausgegeben wird.                  │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 2. Integrierte PRM-Bewertung &amp; Backtracking:                           │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    Trainiert mit Reinforcement Learning (RL) auf Prozessbelohnungen, um│</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    Sackgassen selbstständig zu erkennen und zurückzuspringen.          │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│                                                                        │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│ 3. Autonome Korrekturschleife (Snell Revision):                         │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    Formulierungen wie "Moment, das scheint falsch zu sein..." sind     │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">│    Manifestationen gelernter sequenzieller Revisionsrichtlinien.       │</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">└────────────────────────────────────────────────────────────────────────┘</span><br></div></code></pre></div></div>
+<p>Der sichtbare Denkprozess ist keine magische Blackbox: Er ist die vollständige neuronale Implementierung der <strong>Inferenzzeit-Skalierung</strong>, die sequenzielle Revision, PRM-Verifikation und adaptive Suche in einer einzigen Modellarchitektur vereint.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-zusammenfassung-und-zentrale-ingenieur-lehren">6. Zusammenfassung und zentrale Ingenieur-Lehren<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#6-zusammenfassung-und-zentrale-ingenieur-lehren" class="hash-link" aria-label="Direkter Link zur 6. Zusammenfassung und zentrale Ingenieur-Lehren" title="Direkter Link zur 6. Zusammenfassung und zentrale Ingenieur-Lehren" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Zwei orthogonale Dimensionen:</strong> Die Skalierung von KI-Systemen hängt nicht mehr allein vom Pre-Training ab. Die Inferenzrechenzeit bietet eine unabhängige Achse, mit der kompakte Modelle selbst schwerste Industriemodelle schlagen können.</li>
+<li class=""><strong>Das Coverage-Precision-Prinzip:</strong> Wiederholtes Sampling (pass@k) steigert die Lösungs-Coverage massiv (DeepSeek-Coder-V2 von 15,9 % auf 56,0 %), erfordert jedoch hochpräzise Verifizierer (PRM), um diese Erfolge auch zu bergen.</li>
+<li class=""><strong>Snells Gesetz der optimalen Allokation:</strong> Adaptive Rechenzeitverteilung spart das 4-Fache an Rechenressourcen ein: Nutzen Sie sequenzielle Revision für einfache Aufgaben und PRM-Beam-Search für komplexe Problemstellungen.</li>
+<li class=""><strong>Modulare Softwarearchitektur:</strong> Wie Archon beweist, ist die Software-Pipeline – das Zusammenspiel aus Generatoren, Kritikern, Rankern und Test-Sandboxes – für das Endergebnis mindestens genauso entscheidend wie die Parametergröße des Modells.</li>
+</ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vorschau-auf-stanford-cs329a-vorlesung-3">Vorschau auf Stanford CS329A Vorlesung 3:<a href="https://globaldevlog.com/de/blog/stanford-cs329a-2-test-time-compute-scaling-inference-laws#vorschau-auf-stanford-cs329a-vorlesung-3" class="hash-link" aria-label="Direkter Link zur Vorschau auf Stanford CS329A Vorlesung 3:" title="Direkter Link zur Vorschau auf Stanford CS329A Vorlesung 3:" translate="no">​</a></h3>
+<p>In <strong>Vorlesung 3</strong> betreten wir das Herzstück autonomer Agenten: <strong>《Robust Verification: Process Reward Models (PRM), Ensembles und skalierbare Aufsicht (Scalable Oversight)》</strong>. Wir werden im Detail untersuchen, wie Verifizierer gebaut werden, die immun gegen Reward-Hacking sind und mathematische Beweise ohne menschliche Aufsicht verifizieren. Bleiben Sie dran!</p>]]></content:encoded>
+            <category>stanford-cs329a</category>
+            <category>test-time-compute</category>
+            <category>inference-scaling</category>
+            <category>verifier-prm</category>
+            <category>self-improving-agents</category>
+            <category>ai-architecture</category>
+        </item>
         <item>
             <title><![CDATA[[Stanford CS329A #1] Kursübersicht: Von großen Sprachmodellen zu selbstverbessernden KI-Agenten]]></title>
             <link>https://globaldevlog.com/de/blog/stanford-cs329a-1-course-overview-self-improving-agents</link>
@@ -718,6 +873,52 @@ ightarrow$ Human Review) zwingend erforderlich.</li>
             <category>software-architecture</category>
         </item>
         <item>
+            <title><![CDATA[Eigene Domain auf GitHub Pages #1: Zero-Downtime-Migration mit Porkbun und Cloudflare DNS (CNAME Flattening & Universal SSL)]]></title>
+            <link>https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns</link>
+            <guid>https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Schritt-für-Schritt-Anleitung: Wechsel von kostenlosen github.io-Subdomains zu einer Apex-Domain via Porkbun und Cloudflare Anycast DNS ohne HTTPS-Ausfall.]]></description>
+            <content:encoded><![CDATA[<p>Ein Entwickler-Blog auf GitHub Pages unter <code>username.github.io/project</code> ist kostengünstig und unkompliziert: Markdown committen, Git-Push ausführen und GitHub liefert die Seite global aus.</p>
+<p>Sobald Sie jedoch professionelles Branding und Monetarisierung planen, stehen Sie vor einem Hindernis: <strong>Google AdSense verbietet kostenlose Sekundär-Subdomains wie <code>*.github.io</code> vollständig</strong>. Zudem bleibt die erarbeitete Domain Authority an GitHub gebunden anstatt Ihrer eigenen Marke zugutezukommen.</p>
+<p>In diesem ersten Teil unserer Infrastrukturserie zeigen wir die exakte Zero-Downtime-Migration von <code>jbjihwan.github.io/global_blog</code> zu <code>https://globaldevlog.com</code> über eine hochverfügbare <strong>Porkbun + Cloudflare + GitHub Pages 3-Stufen-Architektur</strong>.</p>
+<!-- -->
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-schritt-für-schritt-konfiguration">1. Schritt-für-Schritt-Konfiguration<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#1-schritt-f%C3%BCr-schritt-konfiguration" class="hash-link" aria-label="Direkter Link zur 1. Schritt-für-Schritt-Konfiguration" title="Direkter Link zur 1. Schritt-für-Schritt-Konfiguration" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-1-nameserver-delegierung-bei-porkbun">Schritt 1: Nameserver-Delegierung bei Porkbun<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-1-nameserver-delegierung-bei-porkbun" class="hash-link" aria-label="Direkter Link zur Schritt 1: Nameserver-Delegierung bei Porkbun" title="Direkter Link zur Schritt 1: Nameserver-Delegierung bei Porkbun" translate="no">​</a></h4>
+<p>Ersetzen Sie bei Porkbun die Standard-Nameserver durch die zugewiesenen Cloudflare Anycast-Nameserver:</p>
+<ul>
+<li class=""><code>curt.ns.cloudflare.com</code></li>
+<li class=""><code> रोजी.ns.cloudflare.com</code></li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-2-dns-einträge-bei-cloudflare-cname-flattening">Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-2-dns-eintr%C3%A4ge-bei-cloudflare-cname-flattening" class="hash-link" aria-label="Direkter Link zur Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)" title="Direkter Link zur Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)" translate="no">​</a></h4>
+<p>Tragen Sie zwei DNS-Records ein:</p>
+<ul>
+<li class=""><strong>Typ</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>@</code> (Apex) | <strong>Ziel</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Aktiviert (Orange Cloud)</li>
+<li class=""><strong>Typ</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>www</code> | <strong>Ziel</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Aktiviert</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-3-docusaurus-cname-reset-bug-verhindern">Schritt 3: Docusaurus CNAME-Reset-Bug verhindern<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-3-docusaurus-cname-reset-bug-verhindern" class="hash-link" aria-label="Direkter Link zur Schritt 3: Docusaurus CNAME-Reset-Bug verhindern" title="Direkter Link zur Schritt 3: Docusaurus CNAME-Reset-Bug verhindern" translate="no">​</a></h4>
+<p>GitHub Pages benötigt eine Datei namens <code>CNAME</code> im Root des Deployment-Branches. Wenn Sie <code>npm run deploy</code> ausführen, überschreibt Docusaurus den Branch. Legen Sie daher die CNAME-Datei in das Verzeichnis <code>static/CNAME</code>:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
+<p>Dadurch kopiert Docusaurus die Domain-Datei bei jedem Build automatisch in das Root-Verzeichnis.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-ssltls-verschlüsselung-der-full-strict-modus">2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#2-ssltls-verschl%C3%BCsselung-der-full-strict-modus" class="hash-link" aria-label="Direkter Link zur 2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus" title="Direkter Link zur 2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus" translate="no">​</a></h3>
+<p>In den Cloudflare SSL/TLS-Einstellungen muss der Modus <strong>Full</strong> oder <strong>Full (Strict)</strong> gewählt werden. Da GitHub Pages automatisch Let's Encrypt-Zertifikate für Custom Domains ausstellt, ist die Verbindung zwischen Cloudflare Edge und GitHub Pages durchgängig verschlüsselt.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-management-summary-35-zeilen">📌 Management Summary (3–5 Zeilen)<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#-management-summary-35-zeilen" class="hash-link" aria-label="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" title="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Strikte Trennung</strong>: Porkbun übernimmt die Domain-Verwaltung, Cloudflare sichert DNS und Edge-Routing, GitHub Pages hostet die statischen Dateien.</li>
+<li class=""><strong>CNAME Flattening</strong>: Ermöglicht das direkte Routing der Apex-Domain ohne starre IP-Adressen.</li>
+<li class=""><strong>Docusaurus CNAME-Sicherung</strong>: Platzieren Sie die <code>CNAME</code>-Datei im <code>static/</code>-Ordner, um versehentliches Überschreiben bei Re-Deployments zu verhindern.</li>
+<li class=""><strong>Durchgängige Verschlüsselung</strong>: Nutzen Sie Cloudflare SSL Full für nahtlose HTTPS-Sicherheit.</li>
+</ol>]]></content:encoded>
+            <category>github-pages</category>
+            <category>custom-domain</category>
+            <category>porkbun</category>
+            <category>cloudflare</category>
+            <category>docusaurus</category>
+            <category>devops</category>
+        </item>
+        <item>
             <title><![CDATA[[Web-Monetarisierung #2] Google AdSense-Zulassung für statische Websites: Lösung der ads.txt 404-Crawler-Falle & HeadTags-Integration]]></title>
             <link>https://globaldevlog.com/de/blog/static-site-adsense-ads-txt-guide</link>
             <guid>https://globaldevlog.com/de/blog/static-site-adsense-ads-txt-guide</guid>
@@ -773,52 +974,6 @@ ightarrow$ Human Review) zwingend erforderlich.</li>
             <category>devops</category>
             <category>cloudflare</category>
             <category>seo</category>
-        </item>
-        <item>
-            <title><![CDATA[Eigene Domain auf GitHub Pages #1: Zero-Downtime-Migration mit Porkbun und Cloudflare DNS (CNAME Flattening & Universal SSL)]]></title>
-            <link>https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns</link>
-            <guid>https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns</guid>
-            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Schritt-für-Schritt-Anleitung: Wechsel von kostenlosen github.io-Subdomains zu einer Apex-Domain via Porkbun und Cloudflare Anycast DNS ohne HTTPS-Ausfall.]]></description>
-            <content:encoded><![CDATA[<p>Ein Entwickler-Blog auf GitHub Pages unter <code>username.github.io/project</code> ist kostengünstig und unkompliziert: Markdown committen, Git-Push ausführen und GitHub liefert die Seite global aus.</p>
-<p>Sobald Sie jedoch professionelles Branding und Monetarisierung planen, stehen Sie vor einem Hindernis: <strong>Google AdSense verbietet kostenlose Sekundär-Subdomains wie <code>*.github.io</code> vollständig</strong>. Zudem bleibt die erarbeitete Domain Authority an GitHub gebunden anstatt Ihrer eigenen Marke zugutezukommen.</p>
-<p>In diesem ersten Teil unserer Infrastrukturserie zeigen wir die exakte Zero-Downtime-Migration von <code>jbjihwan.github.io/global_blog</code> zu <code>https://globaldevlog.com</code> über eine hochverfügbare <strong>Porkbun + Cloudflare + GitHub Pages 3-Stufen-Architektur</strong>.</p>
-<!-- -->
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-schritt-für-schritt-konfiguration">1. Schritt-für-Schritt-Konfiguration<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#1-schritt-f%C3%BCr-schritt-konfiguration" class="hash-link" aria-label="Direkter Link zur 1. Schritt-für-Schritt-Konfiguration" title="Direkter Link zur 1. Schritt-für-Schritt-Konfiguration" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-1-nameserver-delegierung-bei-porkbun">Schritt 1: Nameserver-Delegierung bei Porkbun<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-1-nameserver-delegierung-bei-porkbun" class="hash-link" aria-label="Direkter Link zur Schritt 1: Nameserver-Delegierung bei Porkbun" title="Direkter Link zur Schritt 1: Nameserver-Delegierung bei Porkbun" translate="no">​</a></h4>
-<p>Ersetzen Sie bei Porkbun die Standard-Nameserver durch die zugewiesenen Cloudflare Anycast-Nameserver:</p>
-<ul>
-<li class=""><code>curt.ns.cloudflare.com</code></li>
-<li class=""><code> रोजी.ns.cloudflare.com</code></li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-2-dns-einträge-bei-cloudflare-cname-flattening">Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-2-dns-eintr%C3%A4ge-bei-cloudflare-cname-flattening" class="hash-link" aria-label="Direkter Link zur Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)" title="Direkter Link zur Schritt 2: DNS-Einträge bei Cloudflare (CNAME Flattening)" translate="no">​</a></h4>
-<p>Tragen Sie zwei DNS-Records ein:</p>
-<ul>
-<li class=""><strong>Typ</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>@</code> (Apex) | <strong>Ziel</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Aktiviert (Orange Cloud)</li>
-<li class=""><strong>Typ</strong>: <code>CNAME</code> | <strong>Name</strong>: <code>www</code> | <strong>Ziel</strong>: <code>jbjihwan.github.io</code> | <strong>Proxy</strong>: Aktiviert</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="schritt-3-docusaurus-cname-reset-bug-verhindern">Schritt 3: Docusaurus CNAME-Reset-Bug verhindern<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#schritt-3-docusaurus-cname-reset-bug-verhindern" class="hash-link" aria-label="Direkter Link zur Schritt 3: Docusaurus CNAME-Reset-Bug verhindern" title="Direkter Link zur Schritt 3: Docusaurus CNAME-Reset-Bug verhindern" translate="no">​</a></h4>
-<p>GitHub Pages benötigt eine Datei namens <code>CNAME</code> im Root des Deployment-Branches. Wenn Sie <code>npm run deploy</code> ausführen, überschreibt Docusaurus den Branch. Legen Sie daher die CNAME-Datei in das Verzeichnis <code>static/CNAME</code>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">globaldevlog.com</span><br></div></code></pre></div></div>
-<p>Dadurch kopiert Docusaurus die Domain-Datei bei jedem Build automatisch in das Root-Verzeichnis.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-ssltls-verschlüsselung-der-full-strict-modus">2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#2-ssltls-verschl%C3%BCsselung-der-full-strict-modus" class="hash-link" aria-label="Direkter Link zur 2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus" title="Direkter Link zur 2. SSL/TLS-Verschlüsselung: Der Full (Strict) Modus" translate="no">​</a></h3>
-<p>In den Cloudflare SSL/TLS-Einstellungen muss der Modus <strong>Full</strong> oder <strong>Full (Strict)</strong> gewählt werden. Da GitHub Pages automatisch Let's Encrypt-Zertifikate für Custom Domains ausstellt, ist die Verbindung zwischen Cloudflare Edge und GitHub Pages durchgängig verschlüsselt.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-management-summary-35-zeilen">📌 Management Summary (3–5 Zeilen)<a href="https://globaldevlog.com/de/blog/github-pages-custom-domain-cloudflare-dns#-management-summary-35-zeilen" class="hash-link" aria-label="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" title="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>Strikte Trennung</strong>: Porkbun übernimmt die Domain-Verwaltung, Cloudflare sichert DNS und Edge-Routing, GitHub Pages hostet die statischen Dateien.</li>
-<li class=""><strong>CNAME Flattening</strong>: Ermöglicht das direkte Routing der Apex-Domain ohne starre IP-Adressen.</li>
-<li class=""><strong>Docusaurus CNAME-Sicherung</strong>: Platzieren Sie die <code>CNAME</code>-Datei im <code>static/</code>-Ordner, um versehentliches Überschreiben bei Re-Deployments zu verhindern.</li>
-<li class=""><strong>Durchgängige Verschlüsselung</strong>: Nutzen Sie Cloudflare SSL Full für nahtlose HTTPS-Sicherheit.</li>
-</ol>]]></content:encoded>
-            <category>github-pages</category>
-            <category>custom-domain</category>
-            <category>porkbun</category>
-            <category>cloudflare</category>
-            <category>docusaurus</category>
-            <category>devops</category>
         </item>
         <item>
             <title><![CDATA[Von GitHub Pages zur eigenen Domain: Vollständiger Leitfaden für Porkbun, Cloudflare DNS, AdSense-Zulassung und Multi-Engine-SEO]]></title>
@@ -1066,48 +1221,6 @@ ightarrow$ Human Review) zwingend erforderlich.</li>
             <category>hough-transform</category>
             <category>iou</category>
             <category>opencv</category>
-            <category>python</category>
-        </item>
-        <item>
-            <title><![CDATA[[Vision AI] Dashcam-Spurüberwachung & Super-Resolution ANPR: 6-Stufen-Pipeline & Echtzeit-Bedingungen (#1)]]></title>
-            <link>https://globaldevlog.com/de/blog/2026-06-25-vision-anpr-1</link>
-            <guid>https://globaldevlog.com/de/blog/2026-06-25-vision-anpr-1</guid>
-            <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Architektur einer 6-stufigen Computer-Vision-Pipeline: Dynamische Spurerkennung, geometrische IoU-Kriterien, YOLOv5-Kennzeichenlokalisierung, EDSR-Super-Resolution und OCR-Voting.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="6-Stufen ANPR-Pipeline-Diagramm" src="https://globaldevlog.com/de/assets/images/01_pipeline_diagram-7c77826848c62a78d75837d38388c071.png" width="886" height="909" class="img_ev3q"></p>
-<blockquote>
-<p>📌 <strong>Kernaussagen (TL;DR)</strong></p>
-<ul>
-<li class=""><strong>Herausforderung</strong>: Dashcam-Aufnahmen bei hoher Geschwindigkeit leiden unter Vibrationen, Gegenlicht und Bewegungsunschärfe. Eine direkte OCR scheitert an niedriger Bildauflösung.</li>
-<li class=""><strong>Lösung</strong>: Eine modulare 6-Stufen-Pipeline mit strikter 30-FPS-Grenze, die Spurerkennung, hierarchische YOLO-Detektion, EDSR-Super-Resolution und temporales OCR-Voting kombiniert.</li>
-</ul>
-</blockquote>
-<!-- -->
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-die-6-stufen-der-pipeline-im-überblick">1. Die 6 Stufen der Pipeline im Überblick<a href="https://globaldevlog.com/de/blog/2026-06-25-vision-anpr-1#1-die-6-stufen-der-pipeline-im-%C3%BCberblick" class="hash-link" aria-label="Direkter Link zur 1. Die 6 Stufen der Pipeline im Überblick" title="Direkter Link zur 1. Die 6 Stufen der Pipeline im Überblick" translate="no">​</a></h3>
-<div class="language-mermaid codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-mermaid codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">flowchart LR</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    A[1. Frame-Eingabe 30 FPS] --&gt; B[2. Dynamische Spurerkennung]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    B --&gt; C[3. Hierarchische Fahrzeug- &amp; Kennzeichenerkennung]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    C --&gt; D[4. Geometrische IoU-Spurübertrittsprüfung]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    D --&gt; E[5. EDSR Deep Super-Resolution]</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">    E --&gt; F[6. EasyOCR &amp; Temporales Majority Voting]</span><br></div></code></pre></div></div>
-<ol>
-<li class=""><strong>Video-Ingestion</strong>: Dekodierung von 1080p Dashcam-Videostreams mit OpenCV und Multithreading.</li>
-<li class=""><strong>Spurerkennung</strong>: Canny-Kantenerkennung, ROI-Maskierung und Hough-Linientransformation (<code>HoughLinesP</code>).</li>
-<li class=""><strong>Hierarchische Lokalisierung</strong>: Grobe Fahrzeugsuche via YOLOv3, gefolgt von präziser Kennzeichenerkennung via YOLOv5.</li>
-<li class=""><strong>Intrusionsmetrik</strong>: Berechnung des Schnittstellenverhältnisses (Intersection over Union, IoU) zwischen Fahrzeug-Bounding-Box und Fahrspur-Polygon.</li>
-<li class=""><strong>Super-Resolution</strong>: Hochskalierung kleiner Kennzeichen-Ausschnitte (unter 40x20 Pixel) auf das 4-fache via EDSR.</li>
-<li class=""><strong>OCR &amp; Konsens</strong>: Zeichenerkennung mit EasyOCR und temporales Glätten über 11 Frames hinweg.</li>
-</ol>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-management-summary-35-zeilen">📌 Management Summary (3–5 Zeilen)<a href="https://globaldevlog.com/de/blog/2026-06-25-vision-anpr-1#-management-summary-35-zeilen" class="hash-link" aria-label="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" title="Direkter Link zur 📌 Management Summary (3–5 Zeilen)" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>Modulare Architektur</strong>: Komplexe Vision-Aufgaben werden in 6 klar getrennte Stufen unterteilt, um Engpässe isoliert zu optimieren.</li>
-<li class=""><strong>Echtzeitfähigkeit</strong>: Das System hält strikt die 30-FPS-Latenzgrenze für zuverlässige Dashcam-Auswertungen ein.</li>
-<li class=""><strong>Robustheit bei Unschärfe</strong>: Deep Super-Resolution (EDSR) stellt unleserliche Kennzeichenfragmente wieder her.</li>
-<li class=""><strong>Fehlalarm-Reduktion</strong>: Geometrische IoU-Kriterien verhindern Fehlalarme bei Fahrbahnunebenheiten.</li>
-</ol>]]></content:encoded>
-            <category>computer-vision</category>
-            <category>anpr</category>
-            <category>object-detection</category>
-            <category>super-resolution</category>
-            <category>opencv</category>
-            <category>deep-learning</category>
             <category>python</category>
         </item>
     </channel>
