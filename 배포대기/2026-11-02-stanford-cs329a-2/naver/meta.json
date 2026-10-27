@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #2] 추론 시간 연산 확장: 사전 훈련 스케일링 법칙을 넘어 연산 최적 추론으로",
+    "더 큰 모델 대신 '더 깊이 생각하는 AI': 스탠포드와 버클리가 증명한 추론 연산의 기적",
+    "소형 모델이 GPT-4o를 이긴 비결: Large Language Monkeys와 스넬의 추론 연산 확장 법칙"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "추론시간연산확장",
+    "InferenceScalingLaws",
+    "LargeLanguageMonkeys",
+    "스넬스케일링법칙",
+    "프로세스보상모델",
+    "PRM",
+    "OpenAI_o1",
+    "SWEbench",
+    "AI에이전트"
+  ],
+  "keywords": [
+    "Test-Time Compute Scaling",
+    "Inference Scaling Laws",
+    "Large Language Monkeys",
+    "Compute-Optimal Scaling LLM",
+    "Process Reward Model PRM"
+  ]
+}
