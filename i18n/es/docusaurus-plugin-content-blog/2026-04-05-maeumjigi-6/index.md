@@ -145,4 +145,3 @@ In Dev Log #7, we explore synthetic data generation optimizations and how we bri
 - **Cierre de la Fase 1 de Preprocesamiento de Datos**: Depuramos 124,500 registros iniciales hasta obtener 92,400 pares clínicos limpios (v4) con puntuación empática y eliminación de PII.
 - **Estructura Frontend con Next.js 14 App Router**: Configuramos el cliente web con Zustand y Server-Sent Events (SSE) para renderizar respuestas de streaming en tiempo real.
 - **Protocolo de Intervención de Crisis en UI**: Implementamos una ventana modal de emergencia que se activa inmediatamente ante la detección de riesgo por el wrapper de seguridad.
-

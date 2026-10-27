@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #4] 도구 사용과 코드 실행 피드백: ReAct, RLEF, 그리고 헌법적 자가 교정",
+    "더 이상 폐쇄된 방의 수험생이 아니다: AI 에이전트의 3단계 실행 피드백 루프 완전 정복",
+    "알고리즘 대회에서 GPT-4를 제친 Llama-3.1-70B: 컴파일러 에러로 가중치를 훈련하는 RLEF의 비밀"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "도구사용",
+    "ReAct",
+    "RLEF",
+    "실행피드백",
+    "코드샌드박스",
+    "헌법적AI",
+    "ConstitutionalAI",
+    "AI에이전트",
+    "자가발전AI"
+  ],
+  "keywords": [
+    "Tool-Augmented LLM",
+    "ReAct Agent Architecture",
+    "Reinforcement Learning from Execution Feedback RLEF",
+    "Code Sandbox Execution",
+    "Constitutional AI Self-Correction"
+  ]
+}

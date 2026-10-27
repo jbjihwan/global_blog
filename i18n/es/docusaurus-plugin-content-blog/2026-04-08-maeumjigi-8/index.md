@@ -42,4 +42,3 @@ Hoy superamos una barrera realista del proyecto, pagando una tarifa de iniciaci�
 - **Guardarraíles de Costo y Monitoreo en Tiempo Real**: Implementamos el cálculo en vivo de gastos por token en consola y mecanismos de corte automático para evitar sobrecostos.
 - **Creación del Cuaderno de Colab con Unsloth**: Diseñamos `llama31_finetuning_colab.ipynb` optimizado con Unsloth para ejecutar el fine-tuning de Llama 3.1 en la nube.
 - **Estrategia de División de Datos 9:1**: Segmentamos los conjuntos de datos de diálogo en una proporción 9:1 entre entrenamiento y validación para maximizar el aprovechamiento de muestras.
-

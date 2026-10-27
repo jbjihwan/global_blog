@@ -38,7 +38,8 @@ Wenn ein KI-Programmieragent Code schreibt, um diese Tests zu bestehen, entsteht
 
 Statt einzelner Werte definiert der Entwickler universelle mathematische **Invarianten**:
 
-``orall x \in 	ext{Inputs}, \quad 	ext{Property}(f(x)) = 	ext{True}``
+``
+orall x \in 	ext{Inputs}, \quad 	ext{Property}(f(x)) = 	ext{True}``
 
 ```python
 from hypothesis import given, strategies as st

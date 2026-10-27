@@ -23,7 +23,7 @@ keywords: [OpenCV Detecção de Faixas, HoughLinesP Rastreamento Faixa, Detecç�
 
 A geometria das linhas delimitadoras da pista é modelada por equações lineares no plano da imagem:
 
-$`y = m \cdot x + b, \quad \text{onde } m = \frac{y_2 - y_1}{x_2 - x_1}`$
+$`y = m \cdot x + b, \quad onde  m = \frac{y_2 - y_1}{x_2 - x_1}`$
 
 Para descartar marcações transversais e sombras horizontais, definimos limiares estritos de inclinação angular:
 - **Faixa Esquerda**: $-0.85 < m < -0.45$
@@ -33,7 +33,7 @@ Para descartar marcações transversais e sombras horizontais, definimos limiare
 
 ### 2. Critério de Invasão de Faixa Baseado em IoU Poligonal
 
-A invasão de faixa é confirmada quando o polígono delimitador da base do veículo `P_{\text{veiculo}}` intercepta o polígono da faixa de rodagem `P_{\text{faixa}}`:
+A invasão de faixa é confirmada quando o polígono delimitador da base do veículo `P_{veiculo}` intercepta o polígono da faixa de rodagem `P_{faixa}`:
 
 ```text
 IoU_intrusion = Area(P_vehicle ∩ P_lane) / Area(P_vehicle) > θ_threshold

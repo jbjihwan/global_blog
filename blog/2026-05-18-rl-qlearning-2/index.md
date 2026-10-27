@@ -143,4 +143,3 @@ However, **real-world environments are packed with walls and obstacles**. In Epi
 - **Multi-Objective Reward Shaping**: Engineered a balanced reward function combining distance-delta incentives (+10 × Δd), goal arrival bonuses (+100), step costs (-0.1), and collision penalties (-50).
 - **Adaptive Exploration Schedule**: Applied an exponential ε-decay policy from 1.0 down to a floor of 0.05 over 1,000 episodes, effectively balancing exploration with exploitation.
 - **Empirical Convergence**: Validated rapid policy convergence within 300 to 500 episodes in open benchmark environments before scaling to obstacle-dense arenas.
-

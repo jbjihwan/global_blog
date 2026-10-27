@@ -123,4 +123,3 @@ In Dev Log #5, we dive into the financial reality of large-scale LLM data synthe
 - **Sanitización Rigurosa de PII y Paridad de Turnos**: Enmascaramos información personal sensible y eliminamos 14,500 registros con turnos rotos o respuestas incompletas del asistente.
 - **Presupuesto de Tokens y Límite de Contexto**: Aplicamos un límite estricto de menos de 2,048 tokens con el tokenizador de Llama 3.1 para prevenir fallos de OOM en GPU.
 - **Formateo Estricto de Tokens Especiales**: Integramos la sintaxis oficial (`<|begin_of_text|>`, `<|start_header_id|>`, `<|eot_id|>`), preparando 99,000 muestras de entrenamiento y 11,000 de validación.
-

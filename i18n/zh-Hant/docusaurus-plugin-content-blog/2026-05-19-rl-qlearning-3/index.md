@@ -111,4 +111,3 @@ python -m qlearning.plot_curves --log-dir logs/obstacle12/seed_0
 - **動態回合生命週期管理**：結合距離感測器碰撞閾值檢測、目標到達判定以及 Supervisor IPC 自動化重設機制，保障長週期無人值守訓練。
 - **克服局部最優解（Local Minima）**：針對死角停滯與震盪打轉現象引入負梯度懲罰與前進激勵獎勵塑形（Reward Shaping），引導智慧體果斷逃逸。
 - **無頭（Headless）加速訓練**：關閉 3D 圖形渲染並開啟 Webots 極速無頭批次處理模式，實現每小時超過 1,000 回合的高效離線訓練吞吐量。
-

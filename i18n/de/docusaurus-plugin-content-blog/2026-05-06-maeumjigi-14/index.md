@@ -48,4 +48,3 @@ Although an error occurred because VRAM was not properly released when transitio
 - **Multi-GPU Parallel Evaluation Architecture**: Engineered `run_eval_parallel.sh` to saturate dual-GPU compute capacity and eliminate single-device inference bottlenecks.
 - **Automated Metric Aggregation**: Established an automated benchmarking suite compiling perplexity metrics and sample outputs directly into analytical spreadsheets.
 - **PyTorch VRAM Leak Isolation**: Solved cross-model GPU memory fragmentation and OOM traps through isolated multi-process execution environments.
-

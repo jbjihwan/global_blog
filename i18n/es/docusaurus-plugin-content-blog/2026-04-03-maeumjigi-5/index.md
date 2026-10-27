@@ -44,4 +44,3 @@ Aunque logramos obtener datos refinados de alta calidad, fue una experiencia val
 - **Diferenciación de Costos de API vs Suscripción**: Comprendimos en la práctica que el uso automatizado de la API de Anthropic factura por token, separado de la suscripción mensual Pro.
 - **Impacto Financiero en Escala**: El procesamiento de 100,000 líneas iniciales costó $10.27, demostrando la inviabilidad de procesar un millón de registros sin optimización.
 - **Adopción de Muestreo Estratificado**: Reorientamos el pipeline hacia el filtrado inteligente de datos y la reducción de tokens en los prompts para equilibrar presupuesto y rendimiento.
-

@@ -99,7 +99,7 @@ flowchart TD
 
 スタンフォードCS146Sでは、**有界束データフロー解析（Bounded Lattice Dataflow Analysis）**を用います:
 
-``\mathcal{S} \xrightarrow{\text{Dataflow Edge } e} \mathcal{T} \quad \text{where } \text{Taint}(\mathcal{T}) = \begin{cases} \text{Clean} & \text{if } f_{\text{sanitizer}}(x) \in \text{Path}(\mathcal{S}, \mathcal{T}) \\ \text{Tainted} & \text{otherwise} \end{cases}``
+``\mathcal{S} \xrightarrow{Dataflow Edge  e} \mathcal{T} \quad where  Taint(\mathcal{T}) = \begin{cases} Clean & if  f_{sanitizer}(x) \in Path(\mathcal{S}, \mathcal{T}) \\ Tainted & otherwise \end{cases}``
 
 ```mermaid
 flowchart LR

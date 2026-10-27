@@ -42,4 +42,3 @@ Ahora, basándonos en estos gráficos, podemos decorar maravillosamente nuestros
 - **Visualizacion Automatizada con Matplotlib**: Depuradas lineas de tendencia ruidosas para exportar curvas comparativas limpias de perdida de entrenamiento y evaluacion.
 - **Perfilado de Memoria y Recursos GPU**: Documentado el consumo de VRAM (`02_gpu_memory.png`) y la descomposicion de rango LoRA segun la escala de parametros.
 - **Entorno de Analisis Local en Jupyter**: Resueltos bloqueos de kernel y rutas de modulos (`ft_utils`) para permitir prototipado y analisis rapido fuera del servidor.
-

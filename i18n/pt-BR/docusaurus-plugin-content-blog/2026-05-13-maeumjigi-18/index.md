@@ -45,4 +45,3 @@ Ultimately, models granted the correct hyperparameters and ample token length we
 - **Qualitative Empathy Breakthrough**: Verified that expanded context windows enable multi-sentence empathetic validation and de-escalation rather than dismissive, one-line medical disclaimers.
 - **LoRA Hyperparameter Benchmark**: Compared LoRA scaling factor alpha = 8 versus alpha = 16 (with fixed rank = 16), mapping empirical trade-offs between domain overfitting and conversational flexibility.
 - **Mid-Term Milestone Alignment**: Synthesized automated loss curves and qualitative evaluation matrices, confirming readiness for our university capstone mid-term presentation.
-

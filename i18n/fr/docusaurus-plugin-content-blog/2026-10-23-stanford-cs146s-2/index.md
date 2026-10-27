@@ -64,7 +64,10 @@ flowchart TD
 ### 📌 Synthèse Exécutive (3–5 lignes)
 1. **Les trois étapes de fabrication** : Le pré-entraînement apporte les bases linguistiques, le SFT enseigne le suivi d'instructions, et le RLHF assure l'alignement et la sécurité.
 2. **Chain-of-Thought (CoT)** : Permet au modèle d'allouer de la puissance de calcul logique intermédiaire avant d'écrire le code.
-3. **Le modèle du gruyère** : Pour contrer les anomalies stochastiques de l'IA, une défense en profondeur (typage $ightarrow$ tests $ightarrow$ analyse AST $ightarrow$ revue humaine) est indispensable.
+3. **Le modèle du gruyère** : Pour contrer les anomalies stochastiques de l'IA, une défense en profondeur (typage $
+ightarrow$ tests $
+ightarrow$ analyse AST $
+ightarrow$ revue humaine) est indispensable.
 4. **« Trust but Verify »** : La vitesse de l'IA n'a de valeur que si des garde-fous déterministes garantissent la robustesse du système.
 
 ### Références & Supports de cours

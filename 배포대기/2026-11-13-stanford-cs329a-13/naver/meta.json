@@ -1,0 +1,24 @@
+{
+  "title": "Stanford CS329A (Ep 13): LLM Reasoning — 언어 모델 추론의 본질과 생각의 사슬 (CoT, Self-Consistency, Emergent Abilities)",
+  "category": "인공지능 / LLM",
+  "tags": [
+    "StanfordCS329A",
+    "LLMReasoning",
+    "ChainOfThought",
+    "CoT",
+    "SelfConsistency",
+    "DennyZhou",
+    "창발성",
+    "EmergentAbilities",
+    "DeepMind",
+    "수학추론"
+  ],
+  "keywords": [
+    "LLM Reasoning Foundations",
+    "Chain of Thought CoT Prompting",
+    "Self-Consistency Decoding LLM",
+    "Emergent Cognitive Abilities AI",
+    "Denny Zhou DeepMind Reasoning"
+  ],
+  "publish_date": "2026-11-13"
+}

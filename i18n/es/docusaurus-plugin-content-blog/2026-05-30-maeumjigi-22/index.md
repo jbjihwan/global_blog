@@ -141,4 +141,3 @@ In Dev Log #23, we enter the final milestone of Semester 1: building our dual-la
 - **Identificacion del Checkpoint-4400 Dorado**: Confirmado el Checkpoint-4400 como el peso optimo, logrando la menor perdida de validacion del proyecto (2.68) y maximas puntuaciones de empatia humana.
 - **Arquitectura Full-Stack de Produccion**: Integrado un pipeline integral con frontend en Next.js, orquestacion con FastAPI, inferencia acelerada con vLLM y cache de sesiones en Redis.
 - **Validacion de Rendimiento en Tiempo Real**: Demostradas latencias de respuesta inferiores a un segundo y alta fluidez conversacional para la defensa final del semestre.
-

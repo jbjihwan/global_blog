@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #9] 사후 훈련의 대진화: 챗봇에서 자율 에이전트 함대로 (SFT, RLHF, RLVR, Agent RL)",
+    "말만 하던 앵무새 AI가 세상을 바꾸는 개발자가 되기까지: 사후 훈련 4단계 로드맵 완벽 총정리",
+    "DeepSeek-R1의 Thinking 발현부터 리눅스 샌드박스 Agent RL까지: Part 2 집대성"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "사후훈련",
+    "SFT",
+    "RLHF",
+    "RLVR",
+    "AgentRL",
+    "DeepSeekR1",
+    "InstructGPT",
+    "자율에이전트",
+    "AI진화사"
+  ],
+  "keywords": [
+    "Post-Training LLM Evolution",
+    "Supervised Fine-Tuning SFT Agent",
+    "RLHF Alignment for Agents",
+    "Tool-Grounded Post-Training",
+    "Autonomous Agent Evolution Roadmap"
+  ]
+}

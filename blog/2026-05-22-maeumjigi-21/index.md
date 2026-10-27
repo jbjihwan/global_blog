@@ -47,4 +47,3 @@ The 4th fine-tuning has now become an arena to verify which data ratio perfectly
 - **Large-Scale Synthetic Corpus Generation**: Engineered 10,000 standardized emotional dialogues (`v6.jsonl`) via Anthropic Haiku Batch API across 20 distinct personas with 500-token length constraints.
 - **Multi-Ratio Experimental Matrix**: Formulated three comparative dataset mixtures (`mixed_7_3`, `mixed_2_1`, and `mixed_5_5`) blending emotional counseling with daily banter.
 - **Initiating the 4th Fine-Tuning Sprint**: Commenced training on Qwen 3.5-9B to rigorously identify the golden dataset ratio that harmonizes professional counseling empathy with natural daily conversation.
-

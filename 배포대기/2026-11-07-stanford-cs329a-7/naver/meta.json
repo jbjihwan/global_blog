@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #7] 개방형 진화: 코드가 유전자가 되어 에이전트 스스로를 진화시키는 신세계",
+    "논문 한 편에 2만 원? Sakana AI Scientist와 56년 만에 수학 역사를 다시 쓴 AlphaEvolve",
+    "인간이 짠 에이전트 코드는 버려라: 튜링 완전 코드로 스스로 발전하는 ADAS 메타 에이전트"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "개방형진화",
+    "ADAS",
+    "AIScientist",
+    "AlphaEvolve",
+    "메타에이전트",
+    "유전프로그래밍",
+    "자가진화AI",
+    "머신러닝발견",
+    "AI아키텍처"
+  ],
+  "keywords": [
+    "Open-Ended Evolution LLM",
+    "Automated Design of Agentic Systems ADAS",
+    "The AI Scientist Sakana",
+    "Autonomous Machine Learning Discovery",
+    "Self-Referential Code Evolution"
+  ]
+}

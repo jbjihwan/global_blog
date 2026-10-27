@@ -99,7 +99,8 @@ if __name__ == "__main__":
 | 장애 지점 | 근본 기술 원인 | 최종 해결 조치 |
 | :--- | :--- | :--- |
 | **Bcrypt 솔트 규격** | 덤프 파일 내 해시가 과거 `$2a$` 규격으로 작성되어 최신 `passlib`에서 인식 실패 | `pwd_context = CryptContext(schemes=["bcrypt"], bcrypt__ident="2b", deprecated="auto")` 호환 설정 추가 |
-| **JWT 시크릿 개행문자** | `.env` 로드 시 윈도우 개행문자(`
+| **JWT 시크릿 개행문자** | `.env` 로드 시 윈도우 개행문자(`
+
 `)가 포함되어 HMAC 서명 불일치 유발 | `SECRET_KEY = os.getenv("JWT_SECRET").strip().encode('utf-8')`로 공백 및 개행 강제 제거 |
 | **CORS Preflight 차단** | 브라우저 OPTIONS 사전 요청에서 `Authorization` 헤더가 거부됨 | FastAPI에 `CORSMiddleware` 등록 및 `allow_headers=["*"]` 명시 |
 
@@ -154,4 +155,3 @@ flowchart TD
 - **401 Unauthorized 인증 장애 완벽 해결**: PostgreSQL 복구 후 발생한 연쇄 로그인 장애의 원인이었던 Bcrypt 솔트 호환성 및 JWT 시크릿 개행문자 왜곡을 규명하고 영구 수정했습니다.
 - **지식 그래프 융합 하이브리드 아키텍처 수립**: 언어 모델의 부드러운 공감 능력에 Neo4j 의학 지식 그래프의 결정론적 사실 검증을 결합하여 정신과 약물 관련 환각을 차단하는 설계를 완성했습니다.
 - **풀스택 세션 지속성 확보**: Next.js 프론트엔드와 FastAPI 백엔드 간 안전한 쿠키 및 JWT 세션 파이프라인과 CORS 헤더를 안정화했습니다.
-

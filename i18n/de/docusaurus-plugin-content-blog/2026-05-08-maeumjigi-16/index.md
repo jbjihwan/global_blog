@@ -50,4 +50,3 @@ I created the `maeum-app` project using React Native (Expo) and struggled to lau
 - **Launching 2nd Fine-Tuning Sprint**: Initiated multi-architecture parallel training across MIG GPU partitions to benchmark rank = 16 with alpha = 8 versus alpha = 16.
 - **Long-Sequence Dataset Extraction**: Curated the top 2,000 longest conversational dialogues (`Daily_train_dataset_long.jsonl`) to force the models to generate deep, multi-sentence empathetic support.
 - **React Native Mobile App Bootstrap**: Initiated client frontend engineering with Expo, configuring local bundler QR bridges and setting up initial mobile brand assets.
-

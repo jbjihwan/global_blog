@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #8] 검색과 딥 리서치: AlphaCode의 100만 개 코드 탐색과 Search-o1의 지식 혁명",
+    "코딩 테스트를 푼 AI의 비밀: 행동 시그니처 클러스터링과 생각하며 검색하는 Search-o1 완벽 분석",
+    "인간 박사를 압도한 자율 AI: GPQA Diamond를 정복한 딥 리서치 에이전트 아키텍처"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "딥리서치",
+    "AlphaCode",
+    "Search-o1",
+    "경쟁프로그래밍",
+    "Codeforces",
+    "에이전틱RAG",
+    "지식탐색",
+    "행동시그니처",
+    "AI추론"
+  ],
+  "keywords": [
+    "Deep Research Agent LLM",
+    "AlphaCode Competitive Programming",
+    "Search-o1 Autonomous Investigation",
+    "Information Synthesis Agent",
+    "Self-Reflective Search Loops"
+  ]
+}

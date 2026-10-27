@@ -92,7 +92,9 @@ Nas sessões práticas de Stanford, os estudantes implementaram microserviços c
 ### 📌 Resumo Executivo para Gestão (3–5 Linhas)
 1. **Fim do Vibe Coding**: Prompts conversacionais soltos geram entropia acelerada e regressões silenciosas no código.
 2. **Spec-Driven Development (SDD)**: Especificações formais e suítes de testes determinísticas são os alicerces indispensáveis da IA confiável.
-3. **Loops Autocicatrizantes**: Ciclos fechados (teste $ightarrow$ diagnóstico $ightarrow$ patch atômico) permitem que agentes corrijam bugs de forma autônoma.
+3. **Loops Autocicatrizantes**: Ciclos fechados (teste $
+ightarrow$ diagnóstico $
+ightarrow$ patch atômico) permitem que agentes corrijam bugs de forma autônoma.
 4. **Imutabilidade dos Testes**: O agente jamais deve ter permissão para modificar os testes a fim de forçar aprovação artificial.
 
 ### Referências

@@ -37,7 +37,8 @@ Um irrelevante horizontale Markierungen und Schatten auszuschließen, definieren
 
 Ein Spurübertritt gilt als verifiziert, wenn das Polygon der Fahrzeug-Unterkante `P_{	ext{vehicle}}` die Grenzlinie der Fahrspur `P_{	ext{lane}}` schneidet:
 
-``	ext{IoU}_{	ext{intrusion}} = rac{	ext{Area}(P_{	ext{vehicle}} \cap P_{	ext{lane}})}{	ext{Area}(P_{	ext{vehicle}})} > 	heta_{	ext{threshold}}``
+``	ext{IoU}_{	ext{intrusion}} = 
+rac{	ext{Area}(P_{	ext{vehicle}} \cap P_{	ext{lane}})}{	ext{Area}(P_{	ext{vehicle}})} > 	heta_{	ext{threshold}}``
 
 Mit einem Schwellenwert $	heta = 0.15$ werden kurzzeitige Messausreißer zuverlässig abgefangen, während ein echter Spurwechsel deterministisch registriert wird.
 

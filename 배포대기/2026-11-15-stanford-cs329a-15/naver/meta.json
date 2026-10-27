@@ -1,0 +1,24 @@
+{
+  "title": "Stanford CS329A (Ep 15): Autonomous Systems & Reliability — 자율 에이전트 신뢰성과 안전 경계 (3 Layers of Reliability, Trust Boundary, AI Control)",
+  "category": "인공지능 / 시스템신뢰성",
+  "tags": [
+    "StanfordCS329A",
+    "AutonomousAgents",
+    "AgentReliability",
+    "TrustBoundary",
+    "AIControl",
+    "MishaLaskin",
+    "MultiplicativeCollapse",
+    "Sandboxing",
+    "ScalableOversight",
+    "시스템보안"
+  ],
+  "keywords": [
+    "Autonomous AI Agent Reliability",
+    "AI Control Scalable Oversight",
+    "Agent Trust Boundary Sandboxing",
+    "Compounding Errors Long Horizon AI",
+    "Multiplicative Collapse AI Safety"
+  ],
+  "publish_date": "2026-11-15"
+}

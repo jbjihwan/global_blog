@@ -46,4 +46,3 @@ Hoy fue un día en el que todo el trabajo duro dio sus frutos. ¡La emoción de 
 - **Mejora Notoria en Empatía y Tono Clínico**: El modelo M6 exhibió una respuesta empática cálida y profesional, superando las limitaciones rígidas de los modelos anteriores.
 - **Automatización de Informes Académicos con IA**: Generamos automáticamente informes ejecutivos y detallados de la 7ª semana en formato Word (`.docx`) a partir de métricas estructuradas.
 - **Integración de Arquitectura RAG con FAISS**: Construimos una base de datos vectorial FAISS para mitigar alucinaciones y fundamentar las respuestas del chatbot en guías de salud mental validadas.
-

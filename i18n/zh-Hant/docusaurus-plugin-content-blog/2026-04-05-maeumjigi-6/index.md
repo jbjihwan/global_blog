@@ -145,4 +145,3 @@ In Dev Log #7, we explore synthetic data generation optimizations and how we bri
 - **一期資料清洗全流程收官 (v1-v4)**：將 12.4 萬條原始抓取語料歷經去重、脫敏與共情深度過濾，凝煉出 92,400 組臨床級高品質多輪對話指令集。
 - **Next.js 14 流式前端工程築基**：基於 App Router 與 Zustand 建構 Web 端架構，採用 SSE (Server-Sent Events) 實作極低延遲的打字機流式互動。
 - **危機介入強提醒彈窗機制**：建立前端緊急介入協定，在安全過濾探針捕捉到極端風險訊號時，瞬時阻斷對話並高亮呼出生命介入援助專線。
-

@@ -50,4 +50,3 @@ Fortunately, the Hugging Face `Trainer` provides a feature to resume training fr
 - **Batch Size & Hyperparameter Retuning**: Re-engineered batch sizes and learning schedules to maximize throughput and GPU utilization on 1.5B to 9B model baselines.
 - **Checkpoint Corruption Post-Mortem**: Diagnosed fatal `JSONDecodeError` failures during `resume_from_checkpoint` triggered by incomplete disk serialization and OS kernel 5.4.0 hanging states.
 - **Training Infrastructure Hardening**: Established atomic checkpoint writing protocols to ensure uninterrupted training resumption across unexpected server crashes.
-

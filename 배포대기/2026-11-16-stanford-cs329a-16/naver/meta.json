@@ -1,0 +1,24 @@
+{
+  "title": "Stanford CS329A (Ep 16): Multimodal & Embodied Agents — 물리 세계를 조작하는 로보틱스 파운데이션 모델 (VLA, RT-2, OpenVLA, π₀)",
+  "category": "인공지능 / 로보틱스",
+  "tags": [
+    "StanfordCS329A",
+    "EmbodiedAI",
+    "VLAModel",
+    "RT2",
+    "OpenVLA",
+    "DannyDriess",
+    "PhysicalIntelligence",
+    "로봇공학",
+    "행동토큰화",
+    "PiZero"
+  ],
+  "keywords": [
+    "Vision-Language-Action VLA Models",
+    "Embodied AI Robotics Agents",
+    "OpenVLA Robot Manipulation",
+    "RT-2 Action Tokenization",
+    "Physical Intelligence pi-zero"
+  ],
+  "publish_date": "2026-11-16"
+}

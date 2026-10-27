@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #3] 견고한 답변 검증: 프로세스 보상 모델(PRM), 앙상블, 그리고 확장 가능한 감독",
+    "답만 맞으면 장땡? AI의 '우연한 정답'을 걸러내는 프로세스 보상 모델(PRM)의 비밀",
+    "다수결 투표가 망하는 이유: 37%p의 지능을 되찾는 스탠포드 검증기 엔지니어링"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "프로세스보상모델",
+    "PRM",
+    "결과보상모델",
+    "ORM",
+    "MathShepherd",
+    "Weaver",
+    "OpenAI_o3mini",
+    "답변검증",
+    "AI에이전트"
+  ],
+  "keywords": [
+    "Process Reward Model PRM",
+    "Outcome Reward Model ORM",
+    "Generation-Verification Gap",
+    "Math-Shepherd MCTS",
+    "Weaver Weak Verifiers Ensemble"
+  ]
+}

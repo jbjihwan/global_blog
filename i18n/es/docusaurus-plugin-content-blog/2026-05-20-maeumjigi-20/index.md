@@ -43,4 +43,3 @@ Fue un momento emocionante cuando el modelo finalmente comenzó a servirse en un
 - **Benchmarking Paralelo Multimodelo**: Orquestado un pipeline de evaluacion en segundo plano ejecutando inferencias simultaneas sobre cuatro modelos candidatos en GPUs remotas.
 - **Persistencia de Conversaciones en Base de Datos**: Resueltos los bloqueos de autenticacion (`401 Unauthorized`) y asegurado el registro permanente de los dialogos en PostgreSQL/MySQL.
 - **Ampliacion de Funciones en App Movil**: Integradas la paginacion del foro comunitario y el filtrado avanzado del diario de animo en el cliente movil React Native.
-

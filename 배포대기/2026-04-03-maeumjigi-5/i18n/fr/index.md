@@ -44,4 +44,3 @@ Although we successfully obtained high-quality, refined data (`v4_report.md`), i
 - **API Pay-As-You-Go Economics**: Discovered firsthand that scripted automated batch ingestion incurs pay-per-token API charges independent of personal Pro subscriptions.
 - **Empirical Cost Realities**: Sustained a $10.27 expenditure for processing the first 100,000 records, exposing the fiscal impossibility of processing the full 1-million sample corpus naively.
 - **Pivoting to Stratified Sampling**: Promptly re-evaluated pipeline architecture to balance training efficiency with budget, prioritizing high-leverage samples and prompt compression.
-

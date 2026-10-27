@@ -42,4 +42,3 @@ Hoy fue un día para sentir la emoción de ajustar directamente el último model
 - **Diagnóstico y Curvas de Aprendizaje**: Depuramos los registros y extrajimos gráficos de convergencia de pérdidas para verificar la adaptación al dominio de consejería.
 - **Automatización de Presentaciones con IA**: Generamos la estructura de diapositivas y el guión de presentación de la 6ª semana a partir de capturas de la interfaz frontend.
 - **Diseño de Arquitectura ERD Centrada en el Usuario**: Reestructuramos el diagrama de entidad-relación de la base de datos colocando la tabla User en el centro visual y lógico.
-

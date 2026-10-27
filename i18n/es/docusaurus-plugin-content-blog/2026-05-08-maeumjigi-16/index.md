@@ -48,4 +48,3 @@ Creé el proyecto usando React Native (Expo) y, después de algunos errores tipo
 - **Lanzamiento del 2o Ciclo de Fine-Tuning**: Iniciado el entrenamiento paralelo dividiendo particiones GPU MIG para comparar `rank=16, alpha=16` frente a `rank=16, alpha=8`.
 - **Curacion de Dataset de Texto Largo**: Filtradas las 2,000 conversaciones mas extensas (`Daily_train_dataset_long.jsonl`) para incentivar respuestas de empatia profunda y sostenida.
 - **Inicio de la App Movil en React Native**: Creado el proyecto `maeum-app` con Expo, configurando la depuracion por codigo QR y los recursos visuales de la aplicacion.
-

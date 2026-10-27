@@ -87,4 +87,3 @@ En el episodio #3, abordaremos los escenarios con 12 obstáculos de pared (**`ob
 - **Moldeado de Recompensas Multiobjetivo**: Disenada una funcion de recompensas equilibrada con incentivos por reduccion de distancia (+10 × Δd), bonus de llegada (+100), coste de tiempo (-0.1) y penalizacion por colision (-50).
 - **Estrategia de Exploracion Adaptativa**: Aplicado un decaimiento exponencial ε de 1.0 a 0.05 a lo largo de 1,000 episodios para balancear exploracion y explotacion.
 - **Validacion de Convergencia**: Verificada la convergencia estable a politicas optimas entre 300 y 500 episodios en pistas abiertas antes de escalar a laberintos densos.
-

@@ -146,4 +146,3 @@ With Phase 1 concluded, our team enters summer deployment:
 - **Protocolo de Intervencion Inmediata en Crisis**: Disenado un bypass determinista que redirige inmediatamente expresiones suicidas de alto riesgo hacia lineas de ayuda 24/7 sin riesgo de alucinacion.
 - **Optimizacion de Costes de GPU en Cloud**: Evaluada la instancia AWS EC2 `g5.2xlarge` (NVIDIA A10G 24GB) para soportar mas de 60 sesiones concurrentes dentro del presupuesto academico.
 - **Defensa Exitosa del Capstone Semestre 1**: Concluido el primer semestre con una evaluacion sobresaliente del tribunal universitario, validando la empatia clinica y la robustez del sistema.
-

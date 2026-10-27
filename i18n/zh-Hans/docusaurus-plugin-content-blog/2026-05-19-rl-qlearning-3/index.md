@@ -111,4 +111,3 @@ python -m qlearning.plot_curves --log-dir logs/obstacle12/seed_0
 - **动态回合生命周期管理**：结合距离传感器碰撞阈值检测、目标到达判定以及 Supervisor IPC 自动化重置机制，保障长周期无人值守训练。
 - **克服局部最优解（Local Minima）**：针对死角停滞与震荡打转现象引入负梯度惩罚与前进激励奖励塑形（Reward Shaping），引导智能体果断逃逸。
 - **无头（Headless）加速训练**：关闭 3D 图形渲染并开启 Webots 极速无头批处理模式，实现每小时超过 1,000 回合的高效离线训练吞吐量。
-

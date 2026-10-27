@@ -123,4 +123,3 @@ In Dev Log #5, we dive into the financial reality of large-scale LLM data synthe
 - **Strict Turn Parity & PII Redaction**: Filtered 14,500 malformed, orphan, or PII-exposed dialogue records, ensuring zero data contamination and consistent user-assistant alternation.
 - **Token Budgeting & Context Ceiling**: Profiling with the Llama 3.1 BPE tokenizer enforced a hard limit under 2,048 tokens to eliminate out-of-memory errors during PyTorch backpropagation.
 - **Llama 3.1 Special Token Formatting**: Injected exact special tokens (`<|begin_of_text|>`, `<|start_header_id|>`, `<|eot_id|>`) to safeguard against infinite generation loops during training.
-

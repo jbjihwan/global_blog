@@ -101,7 +101,8 @@ Running this diagnostic exposed three compounding bugs:
 | Failure Vector | Technical Root Cause | Resolution Applied |
 | :--- | :--- | :--- |
 | **Bcrypt Salt Version** | Database dump contained `$2a$` hashes from older PHP/Node seeds; modern `passlib` expected `$2b$`. | Configured `pwd_context = CryptContext(schemes=["bcrypt"], bcrypt__ident="2b", deprecated="auto")`. |
-| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+
 `, breaking HMAC-SHA256 signature checks. | Sanitized key ingestion: `SECRET_KEY = os.getenv("JWT_SECRET").strip().encode('utf-8')`. |
 | **CORS Preflight** | Chrome browser blocked `Authorization: Bearer` headers during OPTIONS preflight checks. | Explicitly registered `CORSMiddleware` with `allow_headers=["*"]` and `expose_headers=["*"]`. |
 
@@ -155,4 +156,3 @@ In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the r
 - **Root-Cause Authentication Resolution**: Diagnosed and permanently fixed cascading `401 Unauthorized` errors stemming from bcrypt salt incompatibilities and JWT secret newline mismatches.
 - **Hybrid Knowledge Graph Design**: Architected a dual-engine blueprint coupling parametric LLM empathy with deterministic Neo4j graph triples to prevent clinical medication hallucinations.
 - **Full-Stack Session Reliability**: Established resilient session persistence and clean CORS handshake pipelines across Next.js, FastAPI, and PostgreSQL.
-

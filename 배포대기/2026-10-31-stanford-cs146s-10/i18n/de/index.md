@@ -49,7 +49,9 @@ flowchart LR
 1. **Spezifikations-Aufnahme**: Der menschliche Chefarchitekt definiert funktionale und ethische Rahmenbedingungen.
 2. **Autonome Implementierung**: Implementierer-Agenten erzeugen Code, Migrationen und Tests parallel.
 3. **Formale & Deterministische Gates**: Z3-Solver und Property-Tests beweisen Korrektheit vor dem Merge.
-4. **Automatisierter Canary-Rollout**: Die Pipeline deployt Software stufenweise (1% $ightarrow$ 10% $ightarrow$ 100%) und rollt bei kleinsten Anomalien autonom zurück.
+4. **Automatisierter Canary-Rollout**: Die Pipeline deployt Software stufenweise (1% $
+ightarrow$ 10% $
+ightarrow$ 100%) und rollt bei kleinsten Anomalien autonom zurück.
 
 ---
 

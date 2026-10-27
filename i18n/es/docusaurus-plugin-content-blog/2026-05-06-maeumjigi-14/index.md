@@ -38,4 +38,3 @@ Aunque ocurrió un error porque la VRAM no se liberó correctamente al pasar del
 - **Pipeline de Inferencia Paralela Multi-GPU**: Disenado `run_eval_parallel.sh` para aprovechar las GPUs duales del servidor y erradicar los cuellos de botella en evaluacion.
 - **Agregacion Automatizada de Metricas**: Configurada una suite automatica que recopila la perplejidad y las respuestas de cada modelo en hojas de calculo estructuradas.
 - **Aislamiento de Fugas de VRAM en PyTorch**: Resueltos los bloqueos por falta de memoria residual tras evaluar DSR1-70B mediante aislamiento estricto de procesos.
-

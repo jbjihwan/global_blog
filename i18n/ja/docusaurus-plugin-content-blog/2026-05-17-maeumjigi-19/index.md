@@ -101,7 +101,8 @@ Running this diagnostic exposed three compounding bugs:
 | Failure Vector | Technical Root Cause | Resolution Applied |
 | :--- | :--- | :--- |
 | **Bcrypt Salt Version** | Database dump contained `$2a$` hashes from older PHP/Node seeds; modern `passlib` expected `$2b$`. | Configured `pwd_context = CryptContext(schemes=["bcrypt"], bcrypt__ident="2b", deprecated="auto")`. |
-| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+
 `, breaking HMAC-SHA256 signature checks. | Sanitized key ingestion: `SECRET_KEY = os.getenv("JWT_SECRET").strip().encode('utf-8')`. |
 | **CORS Preflight** | Chrome browser blocked `Authorization: Bearer` headers during OPTIONS preflight checks. | Explicitly registered `CORSMiddleware` with `allow_headers=["*"]` and `expose_headers=["*"]`. |
 
@@ -155,4 +156,3 @@ In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the r
 - **401認証エラーの根本的解決**: PostgreSQL移行後に発生したログインループの原因であるBcryptソルトの不一致およびJWTシークレットの改行不具合を特定・解消しました。
 - **知識グラフ融合ハイブリッド設計**: パラメトリックLLMの柔軟な共感対話にNeo4j医学知識グラフの決定論的トリプル検証を融合し、臨床的ハルシネーションを防ぐ設計を確立しました。
 - **フルスタックセッションの安定化**: Next.js、FastAPI、PostgreSQL間のCORSハンドシェイクとセッション永続化パイプラインを強固に構築しました。
-

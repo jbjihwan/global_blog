@@ -1,0 +1,24 @@
+{
+  "title": "Stanford CS329A (Ep 12): Agent Evaluation & Long Tasks — 장기 과제 평가와 경제적 가치 벤치마크 (METR, GDPval, DeepScholar-Bench)",
+  "category": "인공지능 / LLM",
+  "tags": [
+    "StanfordCS329A",
+    "AgentEvaluation",
+    "METR",
+    "GDPval",
+    "DeepScholarBench",
+    "LongHorizonTasks",
+    "AI에이전트평가",
+    "경제적가치",
+    "AI벤치마크",
+    "스탠퍼드AI"
+  ],
+  "keywords": [
+    "Agent Evaluation Benchmarks",
+    "Long-Horizon Agent Tasks",
+    "METR Time Horizon Scaling",
+    "OpenAI GDPval Economic Value",
+    "DeepScholar-Bench Research Evaluation"
+  ],
+  "publish_date": "2026-11-12"
+}

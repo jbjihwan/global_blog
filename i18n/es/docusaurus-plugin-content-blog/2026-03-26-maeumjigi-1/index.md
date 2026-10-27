@@ -126,4 +126,3 @@ In the next devlog, we will explore our initial Android and React Native UI scaf
 - **Pivote Fundamental del Proyecto**: Reorientamos el objetivo desde una utilidad de scraping de reservas hacia 'Maeumjigi', un chatbot de salud mental y prevención del suicidio para jóvenes y militares.
 - **Factibilidad Técnica y Prioridad de Seguridad**: Comparamos la arquitectura de fine-tuning de LLMs (Llama 3.1), adaptadores LoRA y wrappers de seguridad frente al scraping tradicional.
 - **Estrategia de Curación de 100,000 Diálogos**: Trazamos la canalización para extraer, anonimizar y estructurar más de 100,000 registros de conversaciones empáticas de AI Hub.
-

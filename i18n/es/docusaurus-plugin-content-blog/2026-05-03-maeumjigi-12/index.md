@@ -42,4 +42,3 @@ Domesticar una bestia masiva como 70B no es fácil. ¿Lograremos hacer fine-tuni
 - **Saturación Inmediata de VRAM y Errores OOM**: Al cargar las matrices masivas de 70B, la memoria GPU colapsó con fallos de Out-of-Memory y bloqueos de proceso.
 - **Estrategias Rigurosas de Ahorro de Memoria**: Redujimos la longitud de secuencia (`max_seq_length`) a 512, limitamos los checkpoints guardados y afinamos el early stopping.
 - **Evaluación Empírica de Infraestructura**: Validamos los límites computacionales físicos al entrenar arquitecturas de 70B y la necesidad de optimización de software avanzada.
-

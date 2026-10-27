@@ -76,4 +76,3 @@ En el episodio #4, evaluaremos los modelos guardados (`models/*.npy`) mediante *
 - **Gestion Dinamica del Ciclo de Episodios**: Implementada deteccion automatica de colisiones mediante sensores de distancia, activacion de objetivos y reinicios por Supervisor IPC.
 - **Superacion de Minimos Locales**: Aplicado moldeado de recompensas (Reward Shaping) con penalizaciones de gradiente negativo para evitar bloqueos y oscilaciones en esquinas.
 - **Aceleracion de Entrenamiento Headless**: Logrado un rendimiento superior a 1,000 episodios por hora al desactivar la renderizacion 3D y ejecutar Webots en modo rapido.
-

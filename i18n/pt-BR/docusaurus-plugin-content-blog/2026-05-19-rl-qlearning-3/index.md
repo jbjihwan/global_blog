@@ -23,7 +23,7 @@ keywords: [Mínimos Locais Aprendizado por Reforço, Webots Simulação Headless
 
 Se a linha reta em direção ao alvo está bloqueada por um obstáculo, o contorno exige afastar-se temporariamente da meta para contornar a barreira. Recompensas de proximidade puras punem esse movimento correto, prendendo o agente.
 
-Para solucionar isso, implementamos um **campo de repulsão de emergência**: quando o sensor frontal detecta perigo crítico (`d_{\text{frente}} < 0.2\,\text{m}`), a penalidade por risco de colisão supera o incentivo de proximidade, forçando o desvio lateral.
+Para solucionar isso, implementamos um **campo de repulsão de emergência**: quando o sensor frontal detecta perigo crítico (`d_{frente} < 0.2\,m`), a penalidade por risco de colisão supera o incentivo de proximidade, forçando o desvio lateral.
 
 ---
 

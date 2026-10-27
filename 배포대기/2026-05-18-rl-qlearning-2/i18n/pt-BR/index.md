@@ -32,7 +32,7 @@ $`Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[ r_{t+1} + \gamma \max_{a} Q
 
 ### 2. Função de Recompensa Densa (Reward Shaping)
 
-$`R(s, a, s') = R_{\text{terminal}} + c_1 \cdot (d_t - d_{t+1}) + c_2 \cdot v_{\text{frente}} - c_3 \cdot \mathbb{I}_{\text{giro}}`$
+$`R(s, a, s') = R_{terminal} + c_1 \cdot (d_t - d_{t+1}) + c_2 \cdot v_{frente} - c_3 \cdot \mathbb{I}_{giro}`$
 
 Ao recompensar a aproximação contínua em relação ao alvo (`d_t - d_{t+1} > 0`), o robô descobre trajetórias ótimas em menos de 50 episódios.
 

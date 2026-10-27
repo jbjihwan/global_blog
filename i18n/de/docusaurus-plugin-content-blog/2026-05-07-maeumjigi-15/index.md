@@ -44,4 +44,3 @@ Now, based on these graphs, we can beautifully decorate our capstone design mid-
 - **Automated Matplotlib Visualization**: Filtered trendline artifacts to generate publication-grade training and validation loss curves in a unified visual dashboard.
 - **Hardware Profile & VRAM Auditing**: Benchmarked GPU memory utilization and analyzed LoRA rank decomposition dynamics across parameter scales.
 - **Local Analytical Environment Setup**: Overcame Jupyter kernel failures and module path discrepancies to establish reproducible local analysis notebooks.
-

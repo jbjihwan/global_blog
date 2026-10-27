@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #5] 다단계 계획과 트리 탐색: 체스 그랜드마스터가 된 AI 에이전트",
+    "더 이상 눈앞의 한 걸음만 보지 않는다: MCTS와 DAG 병렬화로 AI 추론 지연을 53% 줄인 비밀",
+    "알파고의 심장을 언어 모델에 이식하다: LATS, ADaPT, SPRINT 완벽 해설"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "다단계계획",
+    "MCTS",
+    "LATS",
+    "ADaPT",
+    "SPRINT",
+    "AI에이전트",
+    "트리탐색",
+    "자가발전AI",
+    "AI아키텍처"
+  ],
+  "keywords": [
+    "Multi-Step Agent Planning",
+    "Monte Carlo Tree Search LLM",
+    "Language Agent Tree Search LATS",
+    "ADaPT Decomposition",
+    "SPRINT Tree Search"
+  ]
+}

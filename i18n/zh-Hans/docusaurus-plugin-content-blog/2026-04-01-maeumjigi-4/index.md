@@ -123,4 +123,3 @@ In Dev Log #5, we dive into the financial reality of large-scale LLM data synthe
 - **严格 PII 隐私脱敏与对齐校验**：剔除敏感军事代号与私人联系方式，严格清理单轮死循环及孤立提问等 14,500 条畸形样本。
 - **2048 Token 注意力窗口严格截断**：基于 Llama 3.1 BPE 分词器实测，对超过 2,048 Token 的对话实施边界截断，彻底规避反向传播显存溢出。
 - **严密适配 Llama 3.1 官方特殊 Token**：全量注入 `<|begin_of_text|>`、`<|start_header_id|>` 及 `<|eot_id|>` 等结构控制符，构建起 99,000 组训练集与 11,000 组验证集。
-

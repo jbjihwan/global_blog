@@ -111,4 +111,3 @@ In Episode #4, we will load the saved model checkpoints (`models/*.npy`) to benc
 - **Dynamic Episode Management**: Implemented automatic collision thresholds, goal radius triggering, and programmatic episode resets via Webots Supervisor IPC.
 - **Overcoming Local Minima**: Augmented reward shaping with negative gradient penalties against entrapment and oscillatory turning behaviors near corners.
 - **Headless Training Acceleration**: Achieved over 1,000 episodes per hour by disabling 3D rendering and running the Webots physics engine in fast headless batch mode.
-

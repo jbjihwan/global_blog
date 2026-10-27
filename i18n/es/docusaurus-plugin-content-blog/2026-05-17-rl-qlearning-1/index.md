@@ -102,4 +102,3 @@ En el episodio #2, abordaremos la **implementación matemática de Tabular Q-Lea
 - **Arquitectura IPC por Sockets TCP**: Disenado un puente de comunicacion TCP de baja latencia que desacopla la simulacion fisica del motor de aprendizaje por refuerzo en Python.
 - **Discretizacion del Espacio a 648 Estados**: Reducidas las coordenadas continuas y lecturas de sensores a 648 estados discretos (3 de distancia × 12 de orientacion × 18 de obstaculos).
 - **Espacio de Acciones Cinematicas**: Definidas tres acciones discretas de velocidad (Avanzar, Girar Izquierda, Girar Derecha) para garantizar un control determinista y estable.
-

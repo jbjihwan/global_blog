@@ -43,4 +43,3 @@ El 4to fine-tuning ahora verifica qué proporción armoniza la 'casualidad diari
 - **Generacion de Corpus Sintetico a Gran Escala**: Creadas 10,000 entradas estandarizadas de dialogo emocional (`v6.jsonl`) mediante Anthropic Haiku Batch API con 20 personas distintas y limite de 500 tokens.
 - **Diseno de Matriz de Mezcla de Datos**: Formuladas tres proporciones experimentales (`mixed_7_3`, `mixed_2_1` y `mixed_5_5`) para equilibrar terapia psicologica y conversacion informal.
 - **Lanzamiento del 4o Ciclo de Fine-Tuning**: Iniciado el entrenamiento sobre Qwen 3.5-9B para determinar la proporcion dorada que garantice empatia clinica sin perder naturalidad.
-

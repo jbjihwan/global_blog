@@ -44,4 +44,3 @@ Junto con una advertencia del kernel del sistema operativo, enfrentamos un horri
 - **Reajuste de Hiperparametros y Tamano de Lote**: Aumentado el tamano de lote para optimizar el rendimiento y la utilizacion de la GPU en modelos de 1.5B a 9B.
 - **Diagnostico de Corrupcion de Checkpoints**: Analizado el fallo fatal por `JSONDecodeError` al reanudar el entrenamiento provocado por serializacion incompleta en disco y limites del kernel de Linux.
 - **Refuerzo de Resiliencia en la Infraestructura**: Establecidas politicas de guardado atomico para permitir recuperaciones seguras tras caidas inesperadas del servidor.
-

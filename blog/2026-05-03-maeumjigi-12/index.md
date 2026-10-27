@@ -43,4 +43,3 @@ Taming a massive beast like 70B is truly not easy. We are constantly throwing er
 - **Immediate GPU VRAM Saturation**: Faced recurrent Out-of-Memory (OOM) crashes and distributed process freezes as the 70B parameter matrices saturated available GPU memory.
 - **Aggressive Memory Diet Strategies**: Truncated sequence context (`max_seq_length`) down to 512, reduced checkpoint retention limits, and audited early stopping criteria.
 - **Empirical Infrastructure Evaluation**: Validated the practical computational ceilings of consumer and academic GPU clusters when fine-tuning frontier 70B LLM architectures.
-

@@ -1,0 +1,24 @@
+{
+  "title": "Stanford CS329A (Ep 11): Agent Memory — 장단기 기억과 운영체제식 계층 메모리 (MemGPT, Cartridges, CacheBlend)",
+  "category": "인공지능 / LLM",
+  "tags": [
+    "StanfordCS329A",
+    "AgentMemory",
+    "MemGPT",
+    "Cartridges",
+    "CacheBlend",
+    "KVCache",
+    "RAG",
+    "ContextManagement",
+    "AI에이전트",
+    "인공지능기억"
+  ],
+  "keywords": [
+    "Agent Memory Architecture",
+    "MemGPT Long-Term Memory",
+    "Cartridges Modular Agent Memory",
+    "CacheBlend KV Cache Merging",
+    "Hierarchical Context Management"
+  ],
+  "publish_date": "2026-11-11"
+}

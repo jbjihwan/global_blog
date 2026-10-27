@@ -101,7 +101,8 @@ Running this diagnostic exposed three compounding bugs:
 | Failure Vector | Technical Root Cause | Resolution Applied |
 | :--- | :--- | :--- |
 | **Bcrypt Salt Version** | Database dump contained `$2a$` hashes from older PHP/Node seeds; modern `passlib` expected `$2b$`. | Configured `pwd_context = CryptContext(schemes=["bcrypt"], bcrypt__ident="2b", deprecated="auto")`. |
-| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+| **JWT Secret Encoding** | Secret string was loaded via `.env` with trailing newline `
+
 `, breaking HMAC-SHA256 signature checks. | Sanitized key ingestion: `SECRET_KEY = os.getenv("JWT_SECRET").strip().encode('utf-8')`. |
 | **CORS Preflight** | Chrome browser blocked `Authorization: Bearer` headers during OPTIONS preflight checks. | Explicitly registered `CORSMiddleware` with `allow_headers=["*"]` and `expose_headers=["*"]`. |
 
@@ -155,4 +156,3 @@ In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the r
 - **徹底根除 401 Unauthorized 鑑權死結**：逆向深挖定位了 PostgreSQL 備份還原後引發登入死循環的 Bcrypt 鹽值相容性與 JWT 金鑰隱形換行符缺陷，徹底完成修復。
 - **首創知識圖譜混合防幻覺架構**：在參數化大型模型柔性同理心的基礎上，深度融合 Neo4j 確定性醫學知識圖譜三元組檢索，徹底攔截精神類藥物諮商中的虛假幻覺。
 - **全端對話持久化工程落地**：穩固打通了 Next.js 前端、FastAPI 非同步路由與 PostgreSQL 之間的高可靠 CORS 跨域通訊與對話狀態管理底座。
-

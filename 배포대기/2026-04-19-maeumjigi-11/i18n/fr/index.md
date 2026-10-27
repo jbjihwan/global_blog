@@ -46,4 +46,3 @@ Today was a day when all the hard work paid off. The thrill of confirming that t
 - **Superior Empathetic Dialogue**: Model M6, trained on synthetic dataset v5, demonstrated professional counseling tone and nuanced emotional resonance without generic platitudes.
 - **Automated Reporting Pipeline**: Prompted AI to generate comprehensive and concise 7th-week academic reports (`.docx`) with empirical comparison tables (`m0_m6_compare.json`).
 - **RAG Architecture with FAISS Vector DB**: Integrated an external FAISS vector retrieval database alongside fine-tuned weights to ground responses in verified clinical knowledge and curb hallucination.
-

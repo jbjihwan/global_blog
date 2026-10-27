@@ -132,4 +132,3 @@ In Episode #2, we will cover the **mathematical implementation of Tabular Q-Lear
 - **Low-Latency TCP Socket IPC**: Engineered an asynchronous TCP socket bridge decoupling the simulator physics loop from the external Python reinforcement learning engine.
 - **648-Bin State Space Discretization**: Mapped continuous poses and sensor readings into a compact 648-state discrete grid (3 distance bins × 12 heading bins × 18 obstacle zones).
 - **Differential Kinematic Actions**: Defined three fundamental discrete velocity actions (Straight, Turn Left, Turn Right) to ensure deterministic robot control and rapid convergence.
-

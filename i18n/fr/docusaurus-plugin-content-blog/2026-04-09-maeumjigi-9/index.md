@@ -42,4 +42,3 @@ Today was a day to feel the thrill of directly tuning the latest language model 
 - **Empirical Training Diagnostics**: Extracted empirical loss convergence graphs across dataset variants, confirming valid weight updates for specialized empathetic counseling.
 - **AI-Assisted Slide Deck Synthesis**: Leveraged LLMs to convert frontend interface screenshots into a polished 6th-week capstone presentation script and slide structure.
 - **Automated Database ERD Architecture**: Directed AI to reverse-engineer backend models into a user-centric Entity-Relationship Diagram (ERD), clarifying schema constraints.
-

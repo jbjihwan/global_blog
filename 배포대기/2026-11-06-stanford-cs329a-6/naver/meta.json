@@ -1,0 +1,26 @@
+{
+  "recommended_titles": [
+    "[스탠포드 CS329A #6] 훈련 시점 확장과 강화학습: DeepSeek이 가치 모델(Critic)을 없애고 세상을 뒤흔든 비결",
+    "더 이상 추론 꼼수는 필요 없다: 모델의 뇌 자체를 영구히 진화시키는 강화학습 GRPO와 DAPO 완벽 정리",
+    "7B 오픈소스 모델로 구글 540B를 꺾은 기적: DeepSeekMath와 자가 부트스트래핑 STaR"
+  ],
+  "tags": [
+    "스탠포드CS329A",
+    "훈련시간확장",
+    "강화학습",
+    "GRPO",
+    "DeepSeekMath",
+    "DAPO",
+    "STaR",
+    "AI추론최적화",
+    "자가발전AI",
+    "AI아키텍처"
+  ],
+  "keywords": [
+    "Group Relative Policy Optimization GRPO",
+    "Train-Time Compute Scaling",
+    "DeepSeekMath Reasoning RL",
+    "Critic-Free Reinforcement Learning",
+    "Rule-Based Verifiable Rewards"
+  ]
+}

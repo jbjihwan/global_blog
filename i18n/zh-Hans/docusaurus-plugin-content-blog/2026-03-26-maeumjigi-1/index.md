@@ -126,4 +126,3 @@ In the next devlog, we will explore our initial Android and React Native UI scaf
 - **决定性技术转向：锚定心理咨询 AI**：摒弃单一预约爬虫工具的局限，全面蜕变为服务于青年与官兵心理疏导的“心语伴侣 (Maeumjigi)”大语言模型平台。
 - **工程可行性与危机安全防御论证**：确立以 FastAPI、Llama 3.1 领域微调、LoRA 及自杀干预安全护栏为核心的全栈技术架构。
 - **规划 10 万级多轮咨询语料路线图**：基于 AI Hub 韩国语心理咨询公开数据，绘制涵盖隐私脱敏、上下文截断与模板对齐的百级数据工程施工蓝图。
-

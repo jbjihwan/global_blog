@@ -145,4 +145,3 @@ In Dev Log #7, we explore synthetic data generation optimizations and how we bri
 - **一期数据清洗全流程收官 (v1-v4)**：将 12.4 万条原始抓取语料历经去重、脱敏与共情深度过滤，凝炼出 92,400 组临床级高质量多轮对话指令集。
 - **Next.js 14 流式前端工程筑基**：基于 App Router 与 Zustand 构建 Web 端架构，采用 SSE (Server-Sent Events) 实现极低延迟的打字机流式交互。
 - **危机干预强提醒弹窗机制**：建立前端紧急干预协议，在安全过滤探针捕捉到极端风险信号时，瞬时阻断对话并高亮呼出生命干预援助热线。
-

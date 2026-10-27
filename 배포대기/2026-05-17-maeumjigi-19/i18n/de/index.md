@@ -156,4 +156,3 @@ In Dev Log #20, we explore the completion of our 3rd fine-tuning cycle and the r
 - **Root-Cause Authentication Resolution**: Diagnosed and permanently fixed cascading `401 Unauthorized` errors stemming from bcrypt salt incompatibilities and JWT secret newline mismatches.
 - **Hybrid Knowledge Graph Design**: Architected a dual-engine blueprint coupling parametric LLM empathy with deterministic Neo4j graph triples to prevent clinical medication hallucinations.
 - **Full-Stack Session Reliability**: Established resilient session persistence and clean CORS handshake pipelines across Next.js, FastAPI, and PostgreSQL.
-

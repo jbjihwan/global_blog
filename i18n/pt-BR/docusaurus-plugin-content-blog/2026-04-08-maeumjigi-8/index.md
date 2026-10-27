@@ -42,4 +42,3 @@ Today was a day of overcoming a realistic barrier of the project, paying a terri
 - **Cost Guardrails & Real-Time Monitoring**: Promptly integrated real-time token tracking, console expenditure estimation, and automatic kill-switches to prevent unbudgeted API runs.
 - **Colab Fine-Tuning Pipeline Authoring**: Engineered `llama31_finetuning_colab.ipynb` incorporating Unsloth optimization for efficient parameter-efficient fine-tuning (PEFT).
 - **Data Splitting & Preparation**: Partitioned synthesized dialogue datasets into a 9:1 train/validation split to maximize learning samples while preserving validation accuracy.
-

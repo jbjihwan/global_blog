@@ -92,7 +92,9 @@ In der Stanford-Praxisübung implementierten Studierende einen Microservice mit 
 ### 📌 Management Summary (3–5 Zeilen)
 1. **Ende des Vibe Coding**: Unstrukturierte Chat-Prompts führen unweigerlich zu Systementropie und schleichenden Regressionen.
 2. **Spec-Driven Development (SDD)**: Formale Spezifikationen und Akzeptanztests bilden die unverrückbare Grundlage erfolgreicher KI-Entwicklung.
-3. **Selbstheilende Schleifen**: Durch geschlossene Feedbackzyklen (Testlauf $ightarrow$ Fehleranalyse $ightarrow$ atomarer Patch) reparieren Agenten Code autonom.
+3. **Selbstheilende Schleifen**: Durch geschlossene Feedbackzyklen (Testlauf $
+ightarrow$ Fehleranalyse $
+ightarrow$ atomarer Patch) reparieren Agenten Code autonom.
 4. **Schutz vor Test-Manipulation**: Testdateien müssen strikt vor unberechtigten Änderungen durch das LLM geschützt werden.
 
 ### Referenzen & Kursmaterialien

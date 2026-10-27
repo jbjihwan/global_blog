@@ -126,4 +126,3 @@ In the next devlog, we will explore our initial Android and React Native UI scaf
 - **Pivotal Capstone Redirection**: Shifted project scope from an Android scraping utility to 'Maeumjigi', an empathetic conversational AI addressing youth and military mental health crises.
 - **Engineering Feasibility & Safety Benchmarking**: Formulated technical matrices evaluating FastAPI serving, open-source LLM fine-tuning, and zero-shot crisis triage versus simple scraping.
 - **Strategic Data Acquisition Roadmap**: Outlined the pipeline to source, de-identify, and format 100,000+ multi-turn empathetic Korean dialogues from AI Hub into instruction corpora.
-
