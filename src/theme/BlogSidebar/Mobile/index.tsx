@@ -16,6 +16,10 @@ interface SidebarLocaleData {
   postsHeader: string;
   allPostsName: string;
   allPostsDesc: string;
+  cs329aName: string;
+  cs329aDesc: string;
+  stanfordName: string;
+  stanfordDesc: string;
   maeumjigiName: string;
   maeumjigiDesc: string;
   anprName: string;
@@ -24,8 +28,6 @@ interface SidebarLocaleData {
   rlDesc: string;
   securityName: string;
   securityDesc: string;
-  stanfordName: string;
-  stanfordDesc: string;
 }
 
 const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
@@ -35,17 +37,19 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     projectsHeader: '프로젝트 분류',
     postsHeader: '게시글 목차',
     allPostsName: '전체 글 피드',
-    allPostsDesc: '34개 전체 개발일지',
-    maeumjigiName: '마음지기 AI 챗봇',
-    maeumjigiDesc: 'Llama 3.1 파인튜닝 (23편)',
-    anprName: '스마트 비전 ANPR',
-    anprDesc: '차선 침범 & 번호판 인식 (5편)',
-    rlName: 'RL Q-Learning 로봇',
-    rlDesc: 'Webots 자율주행 (5편)',
-    securityName: '보안 & 웹 엔지니어링',
-    securityDesc: '취약점 방어 & 하드닝 (1편)',
+    allPostsDesc: '전체 개발일지',
+    cs329aName: '스탠포드 CS329A',
+    cs329aDesc: '자가 진화 AI 에이전트',
     stanfordName: '스탠포드 CS146S',
-    stanfordDesc: '현대 소프트웨어 개발자 (3편)',
+    stanfordDesc: '현대 소프트웨어 개발자',
+    maeumjigiName: '마음지기 AI 챗봇',
+    maeumjigiDesc: 'Llama 3.1 파인튜닝',
+    anprName: '스마트 비전 ANPR',
+    anprDesc: '차선 침범 & 번호판 인식',
+    rlName: 'RL Q-Learning 로봇',
+    rlDesc: 'Webots 자율주행',
+    securityName: '보안 & 웹 엔지니어링',
+    securityDesc: '취약점 방어 & 하드닝',
   },
   en: {
     mainTitle: 'Projects & Dev Logs',
@@ -53,17 +57,19 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     projectsHeader: 'Projects Category',
     postsHeader: 'Dev Log Table of Contents',
     allPostsName: 'All Posts Feed',
-    allPostsDesc: '34 total dev logs',
-    maeumjigiName: 'Maeumjigi AI Chatbot',
-    maeumjigiDesc: 'Llama 3.1 Fine-tuning (23 Posts)',
-    anprName: 'Smart Vision ANPR',
-    anprDesc: 'Lane Intrusion & ANPR (5 Posts)',
-    rlName: 'RL Q-Learning Robot',
-    rlDesc: 'Webots Autonomous Driving (5 Posts)',
-    securityName: 'Security & Web Infra',
-    securityDesc: 'Vulnerability Defense (1 Post)',
+    allPostsDesc: 'Total Dev Logs',
+    cs329aName: 'Stanford CS329A',
+    cs329aDesc: 'Self-Improving AI Agents',
     stanfordName: 'Stanford CS146S',
-    stanfordDesc: 'Modern Software Dev (3 Posts)',
+    stanfordDesc: 'Modern Software Dev',
+    maeumjigiName: 'Maeumjigi AI Chatbot',
+    maeumjigiDesc: 'Llama 3.1 Fine-tuning',
+    anprName: 'Smart Vision ANPR',
+    anprDesc: 'Lane Intrusion & ANPR',
+    rlName: 'RL Q-Learning Robot',
+    rlDesc: 'Webots Autonomous Driving',
+    securityName: 'Security & Web Infra',
+    securityDesc: 'Vulnerability Defense',
   },
   ja: {
     mainTitle: 'プロジェクト＆開発日誌',
@@ -71,17 +77,19 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     projectsHeader: 'プロジェクト分類',
     postsHeader: '開発日誌 目次',
     allPostsName: '全記事フィード',
-    allPostsDesc: '全34編の開発日誌',
-    maeumjigiName: 'マウムジギ AIチャットボット',
-    maeumjigiDesc: 'Llama 3.1 ファインチューニング (23編)',
-    anprName: 'スマートビジョン ANPR',
-    anprDesc: '車線侵犯＆ナンバー認識 (5編)',
-    rlName: 'RL Q-Learning ロボット',
-    rlDesc: 'Webots 自律走行 (5編)',
-    securityName: 'セキュリティ＆インフラ',
-    securityDesc: '脆弱性防御＆強化 (1編)',
+    allPostsDesc: '全開発日誌',
+    cs329aName: 'スタンフォード CS329A',
+    cs329aDesc: '自己進化AIエージェント',
     stanfordName: 'スタンフォード CS146S',
-    stanfordDesc: '現代ソフトウェア開発者 (3編)',
+    stanfordDesc: '現代ソフトウェア開発者',
+    maeumjigiName: 'マウムジギ AIチャットボット',
+    maeumjigiDesc: 'Llama 3.1 ファインチューニング',
+    anprName: 'スマートビジョン ANPR',
+    anprDesc: '車線侵犯＆ナンバー認識',
+    rlName: 'RL Q-Learning ロボット',
+    rlDesc: 'Webots 自律走行',
+    securityName: 'セキュリティ＆インフラ',
+    securityDesc: '脆弱性防御＆強化',
   },
   es: {
     mainTitle: 'Proyectos y Diarios',
@@ -89,22 +97,30 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     projectsHeader: 'Categorías de Proyectos',
     postsHeader: 'Índice de Publicaciones',
     allPostsName: 'Todos los Posts',
-    allPostsDesc: '34 diarios de desarrollo',
-    maeumjigiName: 'Chatbot IA Maeumjigi',
-    maeumjigiDesc: 'Fine-tuning Llama 3.1 (23 Posts)',
-    anprName: 'Visión Inteligente ANPR',
-    anprDesc: 'Invasión de Carril y ANPR (5 Posts)',
-    rlName: 'Robot RL Q-Learning',
-    rlDesc: 'Conducción en Webots (5 Posts)',
-    securityName: 'Seguridad e Infraestructura',
-    securityDesc: 'Blindaje y Hardening (1 Post)',
+    allPostsDesc: 'Diarios de desarrollo',
+    cs329aName: 'Stanford CS329A',
+    cs329aDesc: 'Agentes de IA Autoelevados',
     stanfordName: 'Stanford CS146S',
-    stanfordDesc: 'Desarrollo Moderno (3 Posts)',
+    stanfordDesc: 'Desarrollo Moderno',
+    maeumjigiName: 'Chatbot IA Maeumjigi',
+    maeumjigiDesc: 'Fine-tuning Llama 3.1',
+    anprName: 'Visión Inteligente ANPR',
+    anprDesc: 'Invasión de Carril y ANPR',
+    rlName: 'Robot RL Q-Learning',
+    rlDesc: 'Conducción en Webots',
+    securityName: 'Seguridad e Infraestructura',
+    securityDesc: 'Blindaje y Hardening',
   },
 };
 
+function formatCount(count: number, locale: SupportedLocale): string {
+  if (locale === 'ko') return `${count}편`;
+  if (locale === 'ja') return `${count}編`;
+  return `${count} ${count === 1 ? 'Post' : 'Posts'}`;
+}
+
 function getEpisodeNumber(permalink: string): number {
-  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s)-(\d+)/);
+  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s|stanford-cs329a)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
 
@@ -123,96 +139,128 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
 
   const currentProjectId = useMemo(() => {
     const path = location.pathname.toLowerCase();
+    if (path.includes('stanford-cs329a')) return 'stanford_cs329a';
     if (path.includes('stanford-cs146s')) return 'stanford_cs146s';
     if (path.includes('maeumjigi')) return 'maeumjigi';
     if (path.includes('vision-anpr')) return 'anpr_vision';
     if (path.includes('rl-qlearning')) return 'rl_q_learning';
-    if (path.includes('security') || path.includes('static-site-security')) return 'security';
+    if (
+      path.includes('security') ||
+      path.includes('static-site') ||
+      path.includes('custom-domain') ||
+      path.includes('cloudflare') ||
+      path.includes('adsense')
+    ) return 'security';
 
     const hash = (location.hash || '').replace('#', '').toLowerCase();
-    if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s') return 'stanford_cs146s';
+    if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') return 'stanford_cs329a';
+    if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s' || hash === 'stanford-cs146s') return 'stanford_cs146s';
     if (hash === 'maeumjigi') return 'maeumjigi';
     if (hash === 'anpr_vision' || hash === 'anpr' || hash === 'cv') return 'anpr_vision';
     if (hash === 'rl_q_learning' || hash === 'rl') return 'rl_q_learning';
     if (hash === 'security' || hash === 'infra') return 'security';
     if (hash === 'all') return 'all';
 
-    return 'maeumjigi';
+    return 'stanford_cs329a';
   }, [location.pathname, location.hash]);
 
   const projects = useMemo(() => {
     const items = sidebar.items || [];
-    const findFirst = (pattern: RegExp) => {
+    const findFirst = (pattern: RegExp, defaultHash: string) => {
       const matched = items.filter((item: any) => pattern.test(item.permalink));
-      if (!matched.length) return blogHomeUrl;
+      if (!matched.length) return `${blogHomeUrl}#${defaultHash}`;
       matched.sort((a: any, b: any) => getEpisodeNumber(a.permalink) - getEpisodeNumber(b.permalink));
       return matched[0].permalink;
     };
 
+    const isSecurity = (item: any) =>
+      item.permalink.includes('security') ||
+      item.permalink.includes('static-site') ||
+      item.permalink.includes('custom-domain') ||
+      item.permalink.includes('cloudflare') ||
+      item.permalink.includes('adsense');
+
+    const cs329aCount = items.filter((item: any) => item.permalink.includes('stanford-cs329a')).length;
+    const cs146sCount = items.filter((item: any) => item.permalink.includes('stanford-cs146s')).length;
+    const maeumjigiCount = items.filter((item: any) => item.permalink.includes('maeumjigi')).length;
+    const anprCount = items.filter((item: any) => item.permalink.includes('vision-anpr')).length;
+    const rlCount = items.filter((item: any) => item.permalink.includes('rl-qlearning')).length;
+    const securityCount = items.filter(isSecurity).length;
+    const totalCount = items.length;
+
     return [
+      {
+        id: 'stanford_cs329a',
+        name: t.cs329aName,
+        desc: `${t.cs329aDesc} (${formatCount(cs329aCount, locale)})`,
+        icon: 'stanford_cs329a',
+        count: cs329aCount,
+        targetUrl: findFirst(/stanford-cs329a/, 'stanford_cs329a'),
+        filter: (item: any) => item.permalink.includes('stanford-cs329a'),
+        sortAscending: true,
+      },
       {
         id: 'stanford_cs146s',
         name: t.stanfordName,
-        desc: t.stanfordDesc,
+        desc: `${t.stanfordDesc} (${formatCount(cs146sCount, locale)})`,
         icon: 'stanford_cs146s',
-        count: items.filter((item: any) => item.permalink.includes('stanford-cs146s')).length || 1,
-        targetUrl: findFirst(/stanford-cs146s/),
+        count: cs146sCount,
+        targetUrl: findFirst(/stanford-cs146s/, 'stanford_cs146s'),
         filter: (item: any) => item.permalink.includes('stanford-cs146s'),
         sortAscending: true,
       },
       {
         id: 'maeumjigi',
         name: t.maeumjigiName,
-        desc: t.maeumjigiDesc,
+        desc: `${t.maeumjigiDesc} (${formatCount(maeumjigiCount, locale)})`,
         icon: 'maeumjigi',
-        count: 23,
-        targetUrl: findFirst(/maeumjigi/),
+        count: maeumjigiCount,
+        targetUrl: findFirst(/maeumjigi/, 'maeumjigi'),
         filter: (item: any) => item.permalink.includes('maeumjigi'),
         sortAscending: true,
       },
       {
         id: 'anpr_vision',
         name: t.anprName,
-        desc: t.anprDesc,
+        desc: `${t.anprDesc} (${formatCount(anprCount, locale)})`,
         icon: 'anpr_vision',
-        count: 5,
-        targetUrl: findFirst(/vision-anpr/),
+        count: anprCount,
+        targetUrl: findFirst(/vision-anpr/, 'anpr_vision'),
         filter: (item: any) => item.permalink.includes('vision-anpr'),
         sortAscending: true,
       },
       {
         id: 'rl_q_learning',
         name: t.rlName,
-        desc: t.rlDesc,
+        desc: `${t.rlDesc} (${formatCount(rlCount, locale)})`,
         icon: 'rl_q_learning',
-        count: 5,
-        targetUrl: findFirst(/rl-qlearning/),
+        count: rlCount,
+        targetUrl: findFirst(/rl-qlearning/, 'rl_q_learning'),
         filter: (item: any) => item.permalink.includes('rl-qlearning'),
         sortAscending: true,
       },
       {
         id: 'security',
         name: t.securityName,
-        desc: t.securityDesc,
+        desc: `${t.securityDesc} (${formatCount(securityCount, locale)})`,
         icon: 'security',
-        count: 1,
-        targetUrl: findFirst(/security|static-site-security/),
-        filter: (item: any) =>
-          item.permalink.includes('security') || item.permalink.includes('static-site-security'),
+        count: securityCount,
+        targetUrl: findFirst(/(?:security|static-site|custom-domain|cloudflare|adsense)/, 'security'),
+        filter: isSecurity,
         sortAscending: true,
       },
       {
         id: 'all',
         name: t.allPostsName,
-        desc: t.allPostsDesc,
+        desc: `${t.allPostsDesc} (${formatCount(totalCount, locale)})`,
         icon: 'all',
-        count: items.length,
+        count: totalCount,
         targetUrl: `${blogHomeUrl}#all`,
         filter: () => true,
         sortAscending: false,
       },
     ];
-  }, [sidebar.items, t, blogHomeUrl]);
+  }, [sidebar.items, t, locale, blogHomeUrl]);
 
   const activeProject = useMemo(() => {
     return projects.find((p) => p.id === currentProjectId) || projects[0];

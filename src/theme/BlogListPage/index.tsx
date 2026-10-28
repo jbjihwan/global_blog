@@ -18,37 +18,39 @@ type SupportedLocale = 'en' | 'ko' | 'ja' | 'es';
 interface ProjectInfo {
   id: string;
   name: string;
-  badge: string;
   badgeType: 'active' | 'upcoming';
   category: string;
   icon: string;
   subtitle: string;
   description: string;
   techTags: string[];
-  postCountText: string;
   hasPosts: boolean;
+  upcomingBadgeText?: string;
 }
 
 interface LocaleContent {
   hubTitle: string;
   hubSubtitle: string;
   tabHub: string;
-  tabMaeumjigi: string;
-  tabRl: string;
-  tabAnpr: string;
-  tabSecurity: string;
+  tabCs329a: string;
   tabStanford: string;
+  tabMaeumjigi: string;
+  tabAnpr: string;
+  tabRl: string;
+  tabSecurity: string;
   tabAll: string;
-  bannerMaeumjigiTitle: string;
-  bannerMaeumjigiDesc: string;
-  bannerRlTitle: string;
-  bannerRlDesc: string;
-  bannerAnprTitle: string;
-  bannerAnprDesc: string;
-  bannerSecurityTitle: string;
-  bannerSecurityDesc: string;
+  bannerCs329aTitle: string;
+  bannerCs329aDesc: string;
   bannerStanfordTitle: string;
   bannerStanfordDesc: string;
+  bannerMaeumjigiTitle: string;
+  bannerMaeumjigiDesc: string;
+  bannerAnprTitle: string;
+  bannerAnprDesc: string;
+  bannerRlTitle: string;
+  bannerRlDesc: string;
+  bannerSecurityTitle: string;
+  bannerSecurityDesc: string;
   bannerAllTitle: string;
   bannerAllDesc: string;
   sortNewest: string;
@@ -57,6 +59,8 @@ interface LocaleContent {
   btnReadLatest: string;
   btnBack: string;
   btnReadPost: string;
+  btnExploreProject: string;
+  btnUpcoming: string;
   emptyNotice: string;
   projects: ProjectInfo[];
 }
@@ -66,22 +70,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: '프로젝트 & 개발 일지',
     hubSubtitle: '관심 있는 프로젝트를 선택하여 개발 여정과 기술 기록을 확인해보세요.',
     tabHub: '프로젝트 허브',
-    tabMaeumjigi: '마음지기 (23편)',
-    tabRl: 'RL Q-Learning (5편)',
-    tabAnpr: 'ANPR & 차선침범 (5편)',
-    tabSecurity: '보안 & 엔지니어링 (1편)',
-    tabStanford: '스탠포드 CS146S (3편)',
+    tabCs329a: '스탠포드 CS329A',
+    tabStanford: '스탠포드 CS146S',
+    tabMaeumjigi: '마음지기',
+    tabAnpr: 'ANPR & 차선침범',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: '보안 & 엔지니어링',
     tabAll: '전체 글 피드',
-    bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',
-    bannerMaeumjigiDesc: 'AI 자살 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지 (총 23회차)',
-    bannerRlTitle: '프로젝트: RL Q-Learning (Webots 자율주행 로봇)',
-    bannerRlDesc: 'Webots 물리 시뮬레이션 기반 648개 상태 공간 Q-Learning 로봇 주행 개발일지 (총 5회차)',
-    bannerAnprTitle: '프로젝트: Blackbox ANPR & 차선 침범 적발 시스템',
-    bannerAnprDesc: '블랙박스 차선 침범 감지 및 딥러닝 초해상화(EDSR) 기반 한국형 번호판 인식 시스템 (총 5회차)',
-    bannerSecurityTitle: '프로젝트: 보안 & 웹 엔지니어링',
-    bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
+    bannerCs329aTitle: '프로젝트: 스탠포드 CS329A (자가 진화 AI 에이전트)',
+    bannerCs329aDesc: '자율적 자기 개선 인공지능 에이전트: 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, GRPO 강화학습, 개방형 코드 진화(ADAS/AlphaEvolve), VLA 피지컬 인텔리전스',
     bannerStanfordTitle: '프로젝트: 스탠포드 CS146S (The Modern Software Developer)',
     bannerStanfordDesc: 'AI 에이전트 시대의 현대 소프트웨어 개발론: 스펙 주도 개발(SDD), 루프 엔지니어링, MCP 표준 아키텍처',
+    bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',
+    bannerMaeumjigiDesc: 'AI 자살 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지',
+    bannerAnprTitle: '프로젝트: Blackbox ANPR & 차선 침범 적발 시스템',
+    bannerAnprDesc: '블랙박스 차선 침범 감지 및 딥러닝 초해상화(EDSR) 기반 한국형 번호판 인식 시스템',
+    bannerRlTitle: '프로젝트: RL Q-Learning (Webots 자율주행 로봇)',
+    bannerRlDesc: 'Webots 물리 시뮬레이션 기반 648개 상태 공간 Q-Learning 로봇 주행 개발일지',
+    bannerSecurityTitle: '프로젝트: 보안 & 웹 엔지니어링',
+    bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
     bannerAllTitle: '전체 개발 일지 피드',
     bannerAllDesc: '모든 프로젝트의 글이 정렬 순서대로 표시됩니다.',
     sortNewest: '최근 작성순 (최신)',
@@ -90,12 +97,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadLatest: '최신화 바로가기',
     btnBack: '← 다른 프로젝트 선택',
     btnReadPost: '게시글 읽기 →',
+    btnExploreProject: '개발일지 보러가기',
+    btnUpcoming: '작성 예정',
     emptyNotice: '해당 카테고리의 포스트가 준비 중입니다.',
     projects: [
       {
+        id: 'stanford_cs329a',
+        name: '스탠포드 CS329A',
+        badgeType: 'active',
+        category: 'AI 에이전트 / 기계학습',
+        icon: 'stanford_cs329a',
+        subtitle: '스탠포드 대학교 자가 진화 AI 에이전트 (Self-Improving AI Agents) 전 강의 시리즈',
+        description:
+          '차세대 프론티어 AI의 핵심 패러다임. 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, DeepSeek GRPO 강화학습, Sakana AI Scientist와 DeepMind AlphaEvolve 개방형 코드 진화, Lean 4 수학적 증명(AlphaProof), VLA 로보틱스까지 17개 전 강좌 완벽 분석.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
+      },
+      {
         id: 'stanford_cs146s',
         name: '스탠포드 CS146S',
-        badge: 'Active · 3편',
         badgeType: 'active',
         category: '소프트웨어 공학 / AI 에이전트',
         icon: 'stanford_cs146s',
@@ -103,13 +123,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '개발일지 보러가기 (3편) →',
         hasPosts: true,
       },
       {
         id: 'maeumjigi',
         name: '마음지기 (Maeumjigi)',
-        badge: 'Active · 23 Posts',
         badgeType: 'active',
         category: '캡스톤디자인 / AI 챗봇',
         icon: 'maeumjigi',
@@ -117,13 +135,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '우울 및 고위험 위기 발화를 실시간 감지하고 공감 상담을 수행하는 AI 챗봇. Llama 3.1 파인튜닝 (2:1 감성:일상 황금 비율), Safety Wrapper 가드레일, AWS EC2 GPU 서버 배포기.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
-        postCountText: '개발일지 보러가기 (23편) →',
         hasPosts: true,
       },
       {
         id: 'anpr_vision',
         name: 'Blackbox ANPR & Lane Intrusion',
-        badge: 'Active · 5편',
         badgeType: 'active',
         category: '컴퓨터 비전 / 지능형 교통(ITS)',
         icon: 'anpr_vision',
@@ -131,13 +147,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '블랙박스 영상에서 차선 침범 차량을 실시간 감지(IoU)하고, 저해상도 번호판을 EDSR_x4 딥러닝으로 복원하여 EasyOCR 및 Majority Voting으로 완벽하게 판독하는 비전 시스템 (v01~v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
-        postCountText: '개발일지 보러가기 (5편) →',
         hasPosts: true,
       },
       {
         id: 'rl_q_learning',
         name: 'RL Q-Learning',
-        badge: 'Active · 5편',
         badgeType: 'active',
         category: '강화학습 / 로보틱스',
         icon: 'rl_q_learning',
@@ -145,13 +159,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Webots 시뮬레이터 환경에서 에이전트의 Q-Table 최적화 및 자율주행을 탐구하는 강화학습 프로젝트. 648개 이산 상태 공간 설계, 소켓 IPC 통신, 실제 Arduino 로봇 전이 기획.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
-        postCountText: '개발일지 보러가기 (5편) →',
         hasPosts: true,
       },
       {
         id: 'security',
         name: '보안 & 웹 엔지니어링',
-        badge: 'Active · 3편',
         badgeType: 'active',
         category: '웹 보안 / DevSecOps',
         icon: 'security',
@@ -159,21 +171,19 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '45개 npm 취약점 경고의 실제 런타임 위협 모델링, Git 시크릿 스캔, 개인정보(PII) 누출 차단, Referrer Policy 및 지속적 보안 파이프라인 구축 기록.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: '개발일지 보러가기 (3편) →',
         hasPosts: true,
       },
       {
         id: 'ai_research',
         name: 'AI Research & Tools',
-        badge: 'Planned · 연구 노트',
         badgeType: 'upcoming',
+        upcomingBadgeText: 'Planned · 연구 노트',
         category: '개발 도구 / AI 에이전트',
         icon: 'ai_research',
         subtitle: '자율 코딩 에이전트 및 LLM 응용 연구',
         description:
           'Antigravity CLI 커스터마이징, 에이전트 오케스트레이션, 프롬프트 엔지니어링 및 개발 생산성 극대화 도구 제작 기록.',
         techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        postCountText: '작성 예정',
         hasPosts: false,
       },
     ],
@@ -182,23 +192,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'Projects & Dev Logs',
     hubSubtitle: 'Select a project to explore dev logs and technical milestones.',
     tabHub: 'Projects Hub',
-    tabMaeumjigi: 'Maeumjigi (23 Posts)',
-    tabRl: 'RL Q-Learning (5 Posts)',
-    tabAnpr: 'ANPR & Lane Intrusion (5 Posts)',
-    tabSecurity: 'Security & Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (3 Posts)',
+    tabCs329a: 'Stanford CS329A',
+    tabStanford: 'Stanford CS146S',
+    tabMaeumjigi: 'Maeumjigi',
+    tabAnpr: 'ANPR & Lane Intrusion',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'Security & Infra',
     tabAll: 'All Posts Feed',
-    bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',
-    bannerMaeumjigiDesc:
-      'AI Suicide Prevention Counseling Chatbot Fine-tuning & Safety Wrapper Dev Log (23 Episodes)',
-    bannerRlTitle: 'Project: RL Q-Learning (Webots Autonomous Robot)',
-    bannerRlDesc: 'Webots physics-based 648-bin state space Q-learning autonomous robot dev logs (5 Episodes)',
-    bannerAnprTitle: 'Project: Blackbox ANPR & Lane Intrusion System',
-    bannerAnprDesc: 'Real-time blackbox lane intrusion detection & deep super-resolution (EDSR) Korean ANPR system (5 Episodes)',
-    bannerSecurityTitle: 'Project: Security & Web Engineering',
-    bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
+    bannerCs329aTitle: 'Project: Stanford CS329A (Self-Improving AI Agents)',
+    bannerCs329aDesc: 'Autonomous Self-Improving AI Agents: Test-Time Compute Scaling, PRM Verification, MCTS Tree Search, GRPO Reinforcement Learning, Open-Ended Evolution, and Vision-Language-Action Robotics',
     bannerStanfordTitle: 'Project: Stanford CS146S (The Modern Software Developer)',
     bannerStanfordDesc: 'Modern software engineering in the age of AI agents: Spec-Driven Development, Loop Engineering, and Model Context Protocol (MCP)',
+    bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',
+    bannerMaeumjigiDesc: 'AI Suicide Prevention Counseling Chatbot Fine-tuning & Safety Wrapper Dev Log',
+    bannerAnprTitle: 'Project: Blackbox ANPR & Lane Intrusion System',
+    bannerAnprDesc: 'Real-time blackbox lane intrusion detection & deep super-resolution (EDSR) Korean ANPR system',
+    bannerRlTitle: 'Project: RL Q-Learning (Webots Autonomous Robot)',
+    bannerRlDesc: 'Webots physics-based 648-bin state space Q-learning autonomous robot dev logs',
+    bannerSecurityTitle: 'Project: Security & Web Engineering',
+    bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
     bannerAllTitle: 'All Dev Logs Feed',
     bannerAllDesc: 'Chronological feed of all posts across all projects.',
     sortNewest: 'Newest First',
@@ -207,12 +219,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadLatest: 'Latest Ep.',
     btnBack: '← Select Another Project',
     btnReadPost: 'Read Post →',
+    btnExploreProject: 'Explore Dev Logs',
+    btnUpcoming: 'Coming Soon',
     emptyNotice: 'Posts in this category are coming soon.',
     projects: [
       {
+        id: 'stanford_cs329a',
+        name: 'Stanford CS329A',
+        badgeType: 'active',
+        category: 'AI Agents / Machine Learning',
+        icon: 'stanford_cs329a',
+        subtitle: 'Stanford University Self-Improving AI Agents Complete Lecture Series',
+        description:
+          'The definitive frontier of autonomous AI. In-depth analysis of test-time compute scaling, Process Reward Models (PRM), MCTS tree planning, DeepSeek GRPO RL, Sakana AI Scientist, AlphaEvolve open-ended code discovery, Lean 4 formal verification (AlphaProof), and VLA multimodal robotics across all 17 lectures.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
+      },
+      {
         id: 'stanford_cs146s',
         name: 'Stanford CS146S',
-        badge: 'Active · 3 Posts',
         badgeType: 'active',
         category: 'Software Engineering / AI Agents',
         icon: 'stanford_cs146s',
@@ -220,13 +245,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: 'Explore Dev Logs (1 Post) →',
         hasPosts: true,
       },
       {
         id: 'maeumjigi',
         name: 'Maeumjigi',
-        badge: 'Active · 23 Posts',
         badgeType: 'active',
         category: 'Capstone Design / AI Chatbot',
         icon: 'maeumjigi',
@@ -234,13 +257,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Real-time crisis & depression detection with compassionate counseling. Llama 3.1 fine-tuning (2:1 emotional-to-daily ratio), Safety Wrapper guardrails, and AWS EC2 GPU deployment.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
-        postCountText: 'Explore Dev Logs (23 Posts) →',
         hasPosts: true,
       },
       {
         id: 'anpr_vision',
         name: 'Blackbox ANPR & Lane Intrusion',
-        badge: 'Active · 5 Posts',
         badgeType: 'active',
         category: 'Computer Vision / ITS',
         icon: 'anpr_vision',
@@ -248,13 +269,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Real-time lane intrusion detection with IoU, blurry license plate reconstruction via EDSR_x4 super-resolution, and temporal majority voting EasyOCR pipeline across 11 iterations (v01 to v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
-        postCountText: 'Explore Dev Logs (5 Posts) →',
         hasPosts: true,
       },
       {
         id: 'rl_q_learning',
         name: 'RL Q-Learning',
-        badge: 'Active · 5 Posts',
         badgeType: 'active',
         category: 'Reinforcement Learning / Robotics',
         icon: 'rl_q_learning',
@@ -262,13 +281,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Q-Table optimization and autonomous navigation in Webots simulation environments. Continuous state discretization (648 bins), socket IPC communication, and Sim-to-Real hardware transfer.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
-        postCountText: 'Explore Dev Logs (5 Posts) →',
         hasPosts: true,
       },
       {
         id: 'security',
         name: 'Security & Web Engineering',
-        badge: 'Active · 3 Posts',
         badgeType: 'active',
         category: 'Web Security / DevSecOps',
         icon: 'security',
@@ -276,21 +293,19 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Threat modeling 45 npm audit vulnerabilities in static sites, git secret scanning, PII protection, Referrer Policy headers, and automated security verification pipelines.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: 'Explore Dev Log (1 Post) →',
         hasPosts: true,
       },
       {
         id: 'ai_research',
         name: 'AI Research & Tools',
-        badge: 'Planned',
         badgeType: 'upcoming',
+        upcomingBadgeText: 'Planned',
         category: 'Developer Tools / AI Agents',
         icon: 'ai_research',
         subtitle: 'Agentic AI & Custom Dev Workflows',
         description:
           'Customizing Antigravity CLI, agent orchestration, prompt engineering, and building developer productivity tools.',
         techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        postCountText: 'Coming Soon',
         hasPosts: false,
       },
     ],
@@ -299,23 +314,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'プロジェクト＆開発日誌',
     hubSubtitle: '関心のあるプロジェクトを選択して、開発の歩みと技術的な記録をご覧ください。',
     tabHub: 'プロジェクトハブ',
-    tabMaeumjigi: 'マウムジギ (23編)',
-    tabRl: 'RL Q-Learning (5編)',
-    tabAnpr: 'ANPR＆車線侵犯 (5編)',
-    tabSecurity: 'セキュリティ＆インフラ (1編)',
-    tabStanford: 'スタンフォード CS146S (3編)',
+    tabCs329a: 'スタンフォード CS329A',
+    tabStanford: 'スタンフォード CS146S',
+    tabMaeumjigi: 'マウムジギ',
+    tabAnpr: 'ANPR＆車線侵犯',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'セキュリティ＆インフラ',
     tabAll: '全記事フィード',
-    bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',
-    bannerMaeumjigiDesc:
-      'AI自殺予防カウンセリングチャットボットのファインチューニングおよびガードレール開発日誌（全23回）',
-    bannerRlTitle: 'プロジェクト: RL Q-Learning (Webots自律走行ロボット)',
-    bannerRlDesc: 'Webots物理シミュレーションベースの648状態空間Q-Learning自律走行開発日誌 (全5回)',
-    bannerAnprTitle: 'プロジェクト: Blackbox ANPR＆車線侵犯検知システム',
-    bannerAnprDesc: 'ドライブレコーダー車線侵犯リアルタイム検知および深層超解像(EDSR)ベースの韓国ナンバープレート認識システム (全5回)',
-    bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',
-    bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
+    bannerCs329aTitle: 'プロジェクト: スタンフォード CS329A (自己進化AIエージェント)',
+    bannerCs329aDesc: '自律型自己改善AIエージェント：推論時計算スケーリング、プロセス報酬モデル(PRM)、MCTS探索計画、GRPO強化学習、オープンエンド進化、VLAマルチモーダルロボティクス',
     bannerStanfordTitle: 'プロジェクト: スタンフォード CS146S (現代ソフトウェア開発者)',
     bannerStanfordDesc: 'AIエージェント時代の現代ソフトウェア開発論：仕様駆動開発(SDD)、ループエンジニアリング、MCP規格',
+    bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',
+    bannerMaeumjigiDesc: 'AI自殺予防カウンセリングチャットボットのファインチューニングおよびガードレール開発日誌',
+    bannerAnprTitle: 'プロジェクト: Blackbox ANPR＆車線侵犯検知システム',
+    bannerAnprDesc: 'ドラレコ車線侵犯リアルタイム検知および深層超解像(EDSR)ベースの韓国ナンバープレート認識システム',
+    bannerRlTitle: 'プロジェクト: RL Q-Learning (Webots自律走行ロボット)',
+    bannerRlDesc: 'Webots物理シミュレーションベースの648状態空間Q-Learning自律走行開発日誌',
+    bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',
+    bannerSecurityDesc: '静的サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
     bannerAllTitle: '全開発日誌フィード',
     bannerAllDesc: 'すべてのプロジェクトの記事が指定した順序で表示されます。',
     sortNewest: '新しい順 (最新)',
@@ -324,12 +341,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadLatest: '最新話へ',
     btnBack: '← ほかのプロジェクトを選択',
     btnReadPost: '記事を読む →',
+    btnExploreProject: '開発日誌を見る',
+    btnUpcoming: '作成予定',
     emptyNotice: 'このカテゴリの投稿は準備中です。',
     projects: [
       {
+        id: 'stanford_cs329a',
+        name: 'スタンフォード CS329A',
+        badgeType: 'active',
+        category: 'AIエージェント / 機械学習',
+        icon: 'stanford_cs329a',
+        subtitle: 'スタンフォード大学 自己進化AIエージェント講義シリーズ',
+        description:
+          '次世代フロンティアAIの中核パラダイム。推論時計算スケーリング、プロセス報酬モデル（PRM）、MCTS探索計画、DeepSeek GRPO強化学習、Sakana AI ScientistおよびDeepMind AlphaEvolveオープンエンド進化、Lean 4形式検証、VLAロボティクスなど全17講義を徹底解説。',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
+      },
+      {
         id: 'stanford_cs146s',
         name: 'スタンフォード CS146S',
-        badge: 'Active · 3編',
         badgeType: 'active',
         category: 'ソフトウェア工学 / AIエージェント',
         icon: 'stanford_cs146s',
@@ -337,13 +367,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '開発日誌を見る (3編) →',
         hasPosts: true,
       },
       {
         id: 'maeumjigi',
         name: 'マウムジギ (Maeumjigi)',
-        badge: 'Active · 23編',
         badgeType: 'active',
         category: '卒業研究 / AIチャットボット',
         icon: 'maeumjigi',
@@ -351,13 +379,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'うつや高リスクの危機的発話をリアルタイムで検知し、共感型カウンセリングを行うAIチャットボット。Llama 3.1ファインチューニング（感情2:日常1の黄金比）、Safety Wrapperガードレール、AWS EC2 GPUサーバーデプロイ。',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
-        postCountText: '開発日誌を見る (23編) →',
         hasPosts: true,
       },
       {
         id: 'anpr_vision',
         name: 'Blackbox ANPR＆車線侵犯検知',
-        badge: 'Active · 5編',
         badgeType: 'active',
         category: 'コンピュータビジョン / ITS',
         icon: 'anpr_vision',
@@ -365,13 +391,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'ドラレコ映像から車線侵犯車両を検知(IoU)し、EDSR_x4深層超解像で低解像度ナンバープレートを復元、EasyOCRと多数決投票(Majority Voting)で高精度認識を行うビジョンパイプライン(v01~v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
-        postCountText: '開発日誌を見る (5編) →',
         hasPosts: true,
       },
       {
         id: 'rl_q_learning',
         name: 'RL Q-Learning',
-        badge: 'Active · 5編',
         badgeType: 'active',
         category: '強化学習 / ロボティクス',
         icon: 'rl_q_learning',
@@ -379,35 +403,31 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Webotsシミュレーション環境におけるQ-Tableの最適化と自律走行を探求する強化学習プロジェクト。648状態空間の離散化、ソケットIPC通信、実機Arduinoロボットへの移行計画。',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
-        postCountText: '開発日誌を見る (5編) →',
         hasPosts: true,
       },
       {
         id: 'security',
         name: 'セキュリティ＆ウェブ工学',
-        badge: 'Active · 3編',
         badgeType: 'active',
         category: 'Webセキュリティ / DevSecOps',
         icon: 'security',
-        subtitle: '静的サイト深層セキュリティ強化とサプライチェーン防御',
+        subtitle: '静적サイト深層セキュリティ強化とサプライチェーン防御',
         description:
           '45件のnpm脆弱性警告に対する実行時脅威モデリング、Gitシークレットスキャン、個人情報(PII)保護、Referrer Policy適用および自動セキュリティパイプライン構築。',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: '開発日誌を見る (3編) →',
         hasPosts: true,
       },
       {
         id: 'ai_research',
         name: 'AI Research & Tools',
-        badge: 'Planned · 研究ノート',
         badgeType: 'upcoming',
+        upcomingBadgeText: 'Planned · 研究ノート',
         category: '開発ツール / AIエージェント',
         icon: 'ai_research',
         subtitle: '自律型コーディングエージェント＆LLM応用研究',
         description:
           'Antigravity CLIのカスタマイズ、エージェントオーケストレーション、プロンプトエンジニアリング、開発者生産性向上ツールの構築記録。',
         techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        postCountText: '作成予定',
         hasPosts: false,
       },
     ],
@@ -416,23 +436,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'Proyectos y Diarios de Desarrollo',
     hubSubtitle: 'Selecciona un proyecto para explorar los diarios de desarrollo y los hitos técnicos.',
     tabHub: 'Panel de Proyectos',
-    tabMaeumjigi: 'Maeumjigi (23 Posts)',
-    tabRl: 'RL Q-Learning (5 Posts)',
-    tabAnpr: 'ANPR e Invasión (5 Posts)',
-    tabSecurity: 'Seguridad e Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (3 Posts)',
+    tabCs329a: 'Stanford CS329A',
+    tabStanford: 'Stanford CS146S',
+    tabMaeumjigi: 'Maeumjigi',
+    tabAnpr: 'ANPR e Invasión',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'Seguridad e Infra',
     tabAll: 'Todos los Posts',
-    bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',
-    bannerMaeumjigiDesc:
-      'Ajuste fino de chatbot de IA para prevención del suicidio y desarrollo de Safety Wrapper (23 episodios)',
-    bannerRlTitle: 'Proyecto: RL Q-Learning (Robot Autónomo en Webots)',
-    bannerRlDesc: 'Diarios de desarrollo de robot autónomo Q-Learning con espacio de 648 estados en Webots (5 episodios)',
-    bannerAnprTitle: 'Proyecto: Blackbox ANPR e Invasión de Carril',
-    bannerAnprDesc: 'Detección en tiempo real de invasión de carril y reconocimiento de matrículas con superresolución profunda (EDSR) (5 episodios)',
-    bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
-    bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
+    bannerCs329aTitle: 'Proyecto: Stanford CS329A (Agentes de IA Autoelevados)',
+    bannerCs329aDesc: 'Agentes de IA autónomos con automejora: escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), búsqueda en árbol MCTS, RL con GRPO, evolución abierta de código y robótica VLA',
     bannerStanfordTitle: 'Proyecto: Stanford CS146S (El Desarrollador de Software Moderno)',
     bannerStanfordDesc: 'Ingeniería de software en la era de los agentes de IA: Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y MCP',
+    bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',
+    bannerMaeumjigiDesc: 'Ajuste fino de chatbot de IA para prevención del suicidio y desarrollo de Safety Wrapper',
+    bannerAnprTitle: 'Proyecto: Blackbox ANPR e Invasión de Carril',
+    bannerAnprDesc: 'Detección en tiempo real de invasión de carril y reconocimiento de matrículas con superresolución profunda (EDSR)',
+    bannerRlTitle: 'Proyecto: RL Q-Learning (Robot Autónomo en Webots)',
+    bannerRlDesc: 'Diarios de desarrollo de robot autónomo Q-Learning con espacio de 648 estados en Webots',
+    bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
+    bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
     bannerAllTitle: 'Todos los Diarios de Desarrollo',
     bannerAllDesc: 'Publicaciones de todos los proyectos ordenadas según tu preferencia.',
     sortNewest: 'Más recientes primero',
@@ -441,12 +463,25 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnReadLatest: 'Último Ep.',
     btnBack: '← Seleccionar otro proyecto',
     btnReadPost: 'Leer Artículo →',
+    btnExploreProject: 'Ver Diarios de Desarrollo',
+    btnUpcoming: 'Próximamente',
     emptyNotice: 'Las publicaciones de esta categoría se están preparando.',
     projects: [
       {
+        id: 'stanford_cs329a',
+        name: 'Stanford CS329A',
+        badgeType: 'active',
+        category: 'Agentes de IA / Aprendizaje Automático',
+        icon: 'stanford_cs329a',
+        subtitle: 'Serie Completa de Conferencias de Stanford sobre Agentes de IA Autoelevados',
+        description:
+          'La frontera definitiva de la IA autónoma. Desglose exhaustivo del escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), planificación de árbol MCTS, RL con GRPO, evolución abierta de código con AI Scientist y AlphaEvolve, verificación formal en Lean 4 y robótica VLA a lo largo de las 17 conferencias.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
+      },
+      {
         id: 'stanford_cs146s',
         name: 'Stanford CS146S',
-        badge: 'Activo · 1 Post',
         badgeType: 'active',
         category: 'Ingeniería de Software / Agentes de IA',
         icon: 'stanford_cs146s',
@@ -454,13 +489,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: 'Ver Diarios de Desarrollo (1 Post) →',
         hasPosts: true,
       },
       {
         id: 'maeumjigi',
         name: 'Maeumjigi',
-        badge: 'Activo · 23 Posts',
         badgeType: 'active',
         category: 'Diseño Capstone / Chatbot de IA',
         icon: 'maeumjigi',
@@ -468,13 +501,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Detección en tiempo real de crisis y depresión con asesoramiento empático. Ajuste fino de Llama 3.1 (proporción 2:1 emocional y cotidiana), guardarraíles Safety Wrapper y despliegue en GPU de AWS EC2.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
-        postCountText: 'Ver Diarios de Desarrollo (23 Posts) →',
         hasPosts: true,
       },
       {
         id: 'anpr_vision',
         name: 'Blackbox ANPR e Invasión de Carril',
-        badge: 'Activo · 5 Posts',
         badgeType: 'active',
         category: 'Visión por Computadora / ITS',
         icon: 'anpr_vision',
@@ -482,13 +513,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Detección en tiempo real de invasión de carril (IoU) en grabaciones de caja negra, restauración de matrículas borrosas con superresolución EDSR_x4 y votación temporal mayoritaria con EasyOCR (v01 a v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
-        postCountText: 'Ver Diarios de Desarrollo (5 Posts) →',
         hasPosts: true,
       },
       {
         id: 'rl_q_learning',
         name: 'RL Q-Learning',
-        badge: 'Activo · 5 Posts',
         badgeType: 'active',
         category: 'Aprendizaje por Refuerzo / Robótica',
         icon: 'rl_q_learning',
@@ -496,13 +525,11 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Optimización de Q-Table y navegación autónoma en entornos de simulación Webots. Discretización de espacio de estados (648 bins), comunicación IPC por sockets y transferencia Sim-to-Real a hardware.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
-        postCountText: 'Ver Diarios de Desarrollo (5 Posts) →',
         hasPosts: true,
       },
       {
         id: 'security',
         name: 'Seguridad e Ingeniería Web',
-        badge: 'Activo · 1 Post',
         badgeType: 'active',
         category: 'Seguridad Web / DevSecOps',
         icon: 'security',
@@ -510,29 +537,33 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         description:
           'Modelado de amenazas de 45 vulnerabilidades en npm audit para sitios estáticos, escaneo de secretos git, protección de PII, políticas Referrer y pipeline de verificación continua.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
-        postCountText: 'Ver Diario de Desarrollo (1 Post) →',
         hasPosts: true,
       },
       {
         id: 'ai_research',
         name: 'AI Research & Tools',
-        badge: 'Planificado',
         badgeType: 'upcoming',
+        upcomingBadgeText: 'Planificado',
         category: 'Herramientas de Desarrollador / Agentes de IA',
         icon: 'ai_research',
         subtitle: 'IA Agéntica y Flujos de Desarrollo',
         description:
           'Personalización de Antigravity CLI, orquestación de agentes, ingeniería de prompts y herramientas de productividad para desarrolladores.',
         techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        postCountText: 'Próximamente',
         hasPosts: false,
       },
     ],
   },
 };
 
+function formatCount(count: number, locale: SupportedLocale): string {
+  if (locale === 'ko') return `${count}편`;
+  if (locale === 'ja') return `${count}編`;
+  return `${count} ${count === 1 ? 'Post' : 'Posts'}`;
+}
+
 function getEpisodeNumber(permalink: string): number {
-  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s)-(\d+)/);
+  const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s|stanford-cs329a)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
 
@@ -565,64 +596,84 @@ function BlogListPageMetadata(props: any) {
 
 function ProjectHubView({
   projects,
+  postCounts,
+  locale,
+  btnExploreProject,
+  btnUpcoming,
   onSelectProject,
 }: {
   projects: ProjectInfo[];
+  postCounts: Record<string, number>;
+  locale: SupportedLocale;
+  btnExploreProject: string;
+  btnUpcoming: string;
   onSelectProject: (id: string) => void;
 }) {
   return (
     <div className={styles.projectHubContainer}>
       <div className={styles.projectGrid}>
-        {projects.map((proj) => (
-          <div key={proj.id} className={styles.projectCard}>
-            <div className={styles.cardTop}>
-              <div className={styles.badgeRow}>
-                <span
-                  className={clsx(
-                    styles.badgeStatus,
-                    proj.badgeType === 'active' ? styles.badgeActive : styles.badgeUpcoming
-                  )}
-                >
-                  {proj.badge}
-                </span>
-                <span className={styles.categoryLabel}>{proj.category}</span>
-              </div>
-              <div className={styles.projectIconTitle}>
-                <span className={styles.projectIcon}>
-                  <ProjectIcon id={proj.id} size={28} />
-                </span>
-                <h3 className={styles.projectTitle}>{proj.name}</h3>
-              </div>
-              <div className={styles.projectSubtitle}>{proj.subtitle}</div>
-              <p className={styles.projectDescription}>{proj.description}</p>
-              <div className={styles.techTags}>
-                {proj.techTags.map((tag) => (
-                  <span key={tag} className={styles.techTag}>
-                    #{tag}
+        {projects.map((proj) => {
+          const count = postCounts[proj.id] || 0;
+          const countFormatted = formatCount(count, locale);
+          const badgeText = proj.hasPosts
+            ? `Active · ${countFormatted}`
+            : (proj.upcomingBadgeText || 'Planned');
+
+          const actionText = proj.hasPosts
+            ? `${btnExploreProject} (${countFormatted}) →`
+            : btnUpcoming;
+
+          return (
+            <div key={proj.id} className={styles.projectCard}>
+              <div className={styles.cardTop}>
+                <div className={styles.badgeRow}>
+                  <span
+                    className={clsx(
+                      styles.badgeStatus,
+                      proj.badgeType === 'active' ? styles.badgeActive : styles.badgeUpcoming
+                    )}
+                  >
+                    {badgeText}
                   </span>
-                ))}
+                  <span className={styles.categoryLabel}>{proj.category}</span>
+                </div>
+                <div className={styles.projectIconTitle}>
+                  <span className={styles.projectIcon}>
+                    <ProjectIcon id={proj.id} size={28} />
+                  </span>
+                  <h3 className={styles.projectTitle}>{proj.name}</h3>
+                </div>
+                <div className={styles.projectSubtitle}>{proj.subtitle}</div>
+                <p className={styles.projectDescription}>{proj.description}</p>
+                <div className={styles.techTags}>
+                  {proj.techTags.map((tag) => (
+                    <span key={tag} className={styles.techTag}>
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.cardAction}>
+                {proj.hasPosts ? (
+                  <a
+                    href={`#${proj.id}`}
+                    className={styles.btnPrimary}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelectProject(proj.id);
+                    }}
+                  >
+                    {actionText}
+                  </a>
+                ) : (
+                  <button type="button" className={styles.btnDisabled} disabled>
+                    {actionText}
+                  </button>
+                )}
               </div>
             </div>
-            <div className={styles.cardAction}>
-              {proj.hasPosts ? (
-                <a
-                  href={`#${proj.id}`}
-                  className={styles.btnPrimary}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onSelectProject(proj.id);
-                  }}
-                >
-                  {proj.postCountText}
-                </a>
-              ) : (
-                <button type="button" className={styles.btnDisabled} disabled>
-                  {proj.postCountText}
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -641,18 +692,22 @@ function BlogListPageContent(props: any) {
 
   const isFirstPage = metadata.page === 1;
 
-  // Active tab state: hub | maeumjigi | anpr_vision | rl_q_learning | security | all
+  // Active tab state
   const [activeTab, setActiveTab] = useState<
-    'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'
+    'hub' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
   >(isFirstPage ? 'hub' : 'all');
 
-  // Sort order: 'asc' (oldest first / 1화부터 정주행) | 'desc' (newest first / 최근순)
+  // Sort order: 'asc' (oldest first) | 'desc' (newest first)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash === 'maeumjigi') {
+      if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') {
+        setActiveTab('stanford_cs329a');
+      } else if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s' || hash === 'stanford-cs146s') {
+        setActiveTab('stanford_cs146s');
+      } else if (hash === 'maeumjigi') {
         setActiveTab('maeumjigi');
       } else if (hash === 'rl_q_learning' || hash === 'rl') {
         setActiveTab('rl_q_learning');
@@ -660,8 +715,6 @@ function BlogListPageContent(props: any) {
         setActiveTab('anpr_vision');
       } else if (hash === 'security' || hash === 'infra') {
         setActiveTab('security');
-      } else if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s') {
-        setActiveTab('stanford_cs146s');
       } else if (hash === 'all') {
         setActiveTab('all');
       } else if (hash === 'hub' || hash === 'projects') {
@@ -671,7 +724,7 @@ function BlogListPageContent(props: any) {
   }, []);
 
   const handleSelectTab = (
-    tab: 'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'
+    tab: 'hub' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
   ) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
@@ -679,24 +732,42 @@ function BlogListPageContent(props: any) {
     }
   };
 
-  // Extract all 34 posts from sidebar.items
   const allSidebarItems = sidebar?.items || [];
+
+  const isSecurity = (item: any) =>
+    item.permalink.includes('security') ||
+    item.permalink.includes('static-site') ||
+    item.permalink.includes('custom-domain') ||
+    item.permalink.includes('cloudflare') ||
+    item.permalink.includes('adsense');
+
+  // Compute dynamic counts for each project
+  const postCounts = useMemo(() => {
+    return {
+      stanford_cs329a: allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs329a')).length,
+      stanford_cs146s: allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s')).length,
+      maeumjigi: allSidebarItems.filter((item: any) => item.permalink.includes('maeumjigi')).length,
+      anpr_vision: allSidebarItems.filter((item: any) => item.permalink.includes('vision-anpr')).length,
+      rl_q_learning: allSidebarItems.filter((item: any) => item.permalink.includes('rl-qlearning')).length,
+      security: allSidebarItems.filter(isSecurity).length,
+    };
+  }, [allSidebarItems]);
 
   // Filter and sort posts for the active project
   const projectPosts = useMemo(() => {
     let list: any[] = [];
-    if (activeTab === 'maeumjigi') {
+    if (activeTab === 'stanford_cs329a') {
+      list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs329a'));
+    } else if (activeTab === 'stanford_cs146s') {
+      list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s'));
+    } else if (activeTab === 'maeumjigi') {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('maeumjigi'));
     } else if (activeTab === 'rl_q_learning') {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('rl-qlearning'));
     } else if (activeTab === 'anpr_vision') {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('vision-anpr'));
     } else if (activeTab === 'security') {
-      list = allSidebarItems.filter((item: any) =>
-        item.permalink.includes('security') || item.permalink.includes('static-site-security')
-      );
-    } else if (activeTab === 'stanford_cs146s') {
-      list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s'));
+      list = allSidebarItems.filter(isSecurity);
     } else if (activeTab === 'all') {
       list = allSidebarItems;
     }
@@ -735,13 +806,16 @@ function BlogListPageContent(props: any) {
     <BlogLayout sidebar={sidebar}>
       {/* Anchors for Hash Navigation & Docusaurus Link Validation */}
       <span id="projects" aria-hidden="true" />
+      <span id="stanford_cs329a" aria-hidden="true" />
+      <span id="cs329a" aria-hidden="true" />
+      <span id="stanford-cs329a" aria-hidden="true" />
+      <span id="stanford_cs146s" aria-hidden="true" />
+      <span id="stanford" aria-hidden="true" />
+      <span id="cs146s" aria-hidden="true" />
       <span id="maeumjigi" aria-hidden="true" />
       <span id="anpr_vision" aria-hidden="true" />
       <span id="rl_q_learning" aria-hidden="true" />
       <span id="security" aria-hidden="true" />
-      <span id="stanford_cs146s" aria-hidden="true" />
-      <span id="stanford" aria-hidden="true" />
-      <span id="cs146s" aria-hidden="true" />
       <span id="all" aria-hidden="true" />
 
       {/* Top Navigation & Hub Header */}
@@ -749,7 +823,7 @@ function BlogListPageContent(props: any) {
         <h1 className={styles.hubTitle}>{content.hubTitle}</h1>
         <p className={styles.hubSubtitle}>{content.hubSubtitle}</p>
 
-        {/* Tab Switcher */}
+        {/* Tab Switcher with Dynamic Counts */}
         <div className={styles.tabBar}>
           <button
             type="button"
@@ -760,10 +834,30 @@ function BlogListPageContent(props: any) {
           </button>
           <button
             type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'stanford_cs329a' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('stanford_cs329a')}
+          >
+            {`${content.tabCs329a} (${formatCount(postCounts.stanford_cs329a, locale)})`}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'stanford_cs146s' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('stanford_cs146s')}
+          >
+            {`${content.tabStanford} (${formatCount(postCounts.stanford_cs146s, locale)})`}
+          </button>
+          <button
+            type="button"
             className={clsx(styles.tabButton, activeTab === 'maeumjigi' && styles.tabButtonActive)}
             onClick={() => handleSelectTab('maeumjigi')}
           >
-            {content.tabMaeumjigi}
+            {`${content.tabMaeumjigi} (${formatCount(postCounts.maeumjigi, locale)})`}
           </button>
           <button
             type="button"
@@ -773,7 +867,7 @@ function BlogListPageContent(props: any) {
             )}
             onClick={() => handleSelectTab('anpr_vision')}
           >
-            {content.tabAnpr}
+            {`${content.tabAnpr} (${formatCount(postCounts.anpr_vision, locale)})`}
           </button>
           <button
             type="button"
@@ -783,28 +877,21 @@ function BlogListPageContent(props: any) {
             )}
             onClick={() => handleSelectTab('rl_q_learning')}
           >
-            {content.tabRl}
-          </button>
-          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'stanford_cs146s' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('stanford_cs146s')}
-          >
-            {content.tabStanford}
+            {`${content.tabRl} (${formatCount(postCounts.rl_q_learning, locale)})`}
           </button>
           <button
             type="button"
             className={clsx(styles.tabButton, activeTab === 'security' && styles.tabButtonActive)}
             onClick={() => handleSelectTab('security')}
           >
-            {content.tabSecurity}
+            {`${content.tabSecurity} (${formatCount(postCounts.security, locale)})`}
           </button>
           <button
             type="button"
             className={clsx(styles.tabButton, activeTab === 'all' && styles.tabButtonActive)}
             onClick={() => handleSelectTab('all')}
           >
-            {content.tabAll}
+            {`${content.tabAll} (${formatCount(allSidebarItems.length, locale)})`}
           </button>
         </div>
       </div>
@@ -814,17 +901,21 @@ function BlogListPageContent(props: any) {
         <>
           <ProjectHubView
             projects={content.projects}
+            postCounts={postCounts}
+            locale={locale}
+            btnExploreProject={content.btnExploreProject}
+            btnUpcoming={content.btnUpcoming}
             onSelectProject={(id) => handleSelectTab(id as any)}
           />
           <div style={{ marginTop: '2.5rem', borderTop: '1px solid var(--ifm-color-emphasis-200)', paddingTop: '1.5rem' }}>
             <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--ifm-color-emphasis-800)' }}>
               {locale === 'ko'
-                ? '전체 기술 일지 및 아티클 목차'
+                ? `전체 기술 일지 및 아티클 목차 (${allSidebarItems.length}편)`
                 : locale === 'ja'
-                ? '全開発日誌・技術記事目次'
+                ? `全開発日誌・技術記事目次 (${allSidebarItems.length}編)`
                 : locale === 'es'
-                ? 'Índice de Diarios y Artículos'
-                : 'All Engineering Logs & Articles Index'}
+                ? `Índice de Diarios y Artículos (${allSidebarItems.length} Posts)`
+                : `All Engineering Logs & Articles Index (${allSidebarItems.length} Posts)`}
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.6rem' }}>
               {allSidebarItems.map((item: any) => (
@@ -861,20 +952,26 @@ function BlogListPageContent(props: any) {
           <div className={styles.activeProjectBanner}>
             <div>
               <h3 className={styles.bannerTitle}>
-                {activeTab === 'maeumjigi'
-                  ? content.bannerMaeumjigiTitle
-                  : activeTab === 'anpr_vision'
-                  ? content.bannerAnprTitle
-                  : activeTab === 'rl_q_learning'
-                  ? content.bannerRlTitle
-                  : activeTab === 'security'
-                  ? content.bannerSecurityTitle
+                {activeTab === 'stanford_cs329a'
+                  ? `${content.bannerCs329aTitle} (${formatCount(postCounts.stanford_cs329a, locale)})`
                   : activeTab === 'stanford_cs146s'
-                  ? content.bannerStanfordTitle
-                  : content.bannerAllTitle}
+                  ? `${content.bannerStanfordTitle} (${formatCount(postCounts.stanford_cs146s, locale)})`
+                  : activeTab === 'maeumjigi'
+                  ? `${content.bannerMaeumjigiTitle} (${formatCount(postCounts.maeumjigi, locale)})`
+                  : activeTab === 'anpr_vision'
+                  ? `${content.bannerAnprTitle} (${formatCount(postCounts.anpr_vision, locale)})`
+                  : activeTab === 'rl_q_learning'
+                  ? `${content.bannerRlTitle} (${formatCount(postCounts.rl_q_learning, locale)})`
+                  : activeTab === 'security'
+                  ? `${content.bannerSecurityTitle} (${formatCount(postCounts.security, locale)})`
+                  : `${content.bannerAllTitle} (${formatCount(allSidebarItems.length, locale)})`}
               </h3>
               <p className={styles.bannerDesc}>
-                {activeTab === 'maeumjigi'
+                {activeTab === 'stanford_cs329a'
+                  ? content.bannerCs329aDesc
+                  : activeTab === 'stanford_cs146s'
+                  ? content.bannerStanfordDesc
+                  : activeTab === 'maeumjigi'
                   ? content.bannerMaeumjigiDesc
                   : activeTab === 'anpr_vision'
                   ? content.bannerAnprDesc
@@ -882,8 +979,6 @@ function BlogListPageContent(props: any) {
                   ? content.bannerRlDesc
                   : activeTab === 'security'
                   ? content.bannerSecurityDesc
-                  : activeTab === 'stanford_cs146s'
-                  ? content.bannerStanfordDesc
                   : content.bannerAllDesc}
               </p>
             </div>
