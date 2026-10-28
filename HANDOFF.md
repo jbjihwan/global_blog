@@ -27,7 +27,11 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
   4. **Google Search Console 1페이지 랭크 글 SERP 스니펫 & CTR 전면 최적화**:
      - GSC 심층 분석 기반 구글 1페이지 노출 글(Stanford CS146S #1/#2, npm audit 보안 가이드, GitHub Pages Cloudflare DNS, Sim-to-Real RL #5) 총 33개 파일 대상.
      - 검색어 일치율 극대화(Title 55~65자 단축, Meta Description 140~155자 핵심 전달 및 CTA 주입).
-     - 9개 언어 전체 Docusaurus 정적 빌드(Exit code 0) 검증 완료.
+     - 9개 언어 전체 Docusaurus 정적 빌드(Exit code 0) 검증 및 배포 완료.
+  5. **신규 킬러 아티클 스테이징 (국가 예산 감사 AI: Text-to-SQL & GraphRAG)**:
+     - `D:\ai\antigravity\national_budget_ai` 실제 개발기 기반 9개 언어 원고 및 네이버 블로그 초안 작성 완료.
+     - 사용자 지침 반영: '예상한 난제 사전 예방법'과 '실제 마주친 3대 버그 해결기' 중심 구성.
+     - 위치: `배포대기/2026-11-18-autonomous-budget-audit-agent-text-to-sql-graphrag/` (전용 일러스트, 11개 테스트 하네스 검증표 완비).
 
 ## 📋 다음 한 걸음
 1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:
