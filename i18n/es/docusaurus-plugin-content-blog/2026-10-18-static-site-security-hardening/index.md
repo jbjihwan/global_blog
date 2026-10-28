@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "[Guía 2026] Cómo Solucionar Vulnerabilidades de npm audit Sin Romper el Build: La Verdad de npm audit fix --force"
+title: "Cómo Solucionar Vulnerabilidades npm Sin Romper el Build"
 authors: [jbgih]
 tags: [seguridad-web, npm-audit, docusaurus, devops, cadena-de-suministro]
-keywords: [npm audit fix, npm audit fix --force, Seguridad en Sitios Estáticos (SSG), Vulnerabilidades npm, Alertas GHSA]
-description: "Por qué npm audit fix --force rompe tu sitio web y cómo solucionarlo de forma segura. Análisis de modelos de amenazas en sitios estáticos y guía para resolver alertas GHSA sin riesgo en producción."
+keywords: ["npm audit fix", "npm audit fix --force", "vulnerabilidades npm", "seguridad sitio estático"]
+description: "Por qué npm audit fix --force rompe tu sitio web y cómo solucionarlo de forma segura. Análisis de modelos de amenazas en sitios estáticos y alertas GHSA."
 ---
 
 Todo desarrollador web moderno ha experimentado ese sobresalto: ejecutas `npm audit` en tu repositorio y la terminal responde con un mensaje alarmante en rojo:

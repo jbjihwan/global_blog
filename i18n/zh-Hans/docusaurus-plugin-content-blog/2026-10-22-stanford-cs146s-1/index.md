@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[斯坦福 CS146S #1] 现代软件工程师: AI Agent 时代，从代码打字员到架构指挥家的历史性跃迁"
+title: "[斯坦福 CS146S #1] 现代软件工程师 (The Modern Software Developer)"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentic Workflows, Spec-Driven Development, Human-Agent Engineering, Model Context Protocol (MCP)]
-description: "斯坦福大学 CS146S 第一讲技术全解：告别逐行敲代码的手工作坊时代，深入剖析基于规范驱动开发（SDD）、循环工程及 MCP 协议驱动的自主 AI Agent 协作范式。"
+keywords: ["斯坦福 CS146S", "The Modern Software Developer", "现代软件工程师", "规范驱动开发", "AI Agent"]
+description: "斯坦福大学 CS146S 第一讲精要：The Modern Software Developer。规范驱动开发（SDD）、自主 AI Agent 与现代软件工程协作范式。"
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)

@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[スタンフォード CS146S #2] コーディングLLMの動作原理とプロンプトエンジニアリング：事前学習・RLHFからスイスチーズモデルの検証まで"
+title: "[スタンフォード CS146S #2] コーディングLLMとプロンプト工学完全解説"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [Coding LLMs, Prompt Engineering, RLHF, Chain of Thought, Swiss Cheese Model]
-description: "スタンフォード大学CS146S第2講の完全技術解説：事前学習(Pre-training)とRLHFによる3段階トレーニングパイプライン、思考の連鎖(CoT)プロンプト技術、OpenAI Codexの解剖、そしてAIコードの『スイスチーズモデル』を防ぐ防御的検証アーキテクチャを詳解。"
+keywords: ["スタンフォード CS146S", "コーディングLLM", "プロンプトエンジニアリング", "RLHF"]
+description: "スタンフォード大学CS146S第2講：コーディングLLMの仕組み、事前学習、RLHF、思考の連鎖（CoT）、スイスチーズモデルによるAIコード検証。"
 ---
 
 ![Inside Coding LLMs & Prompt Engineering](./images/02_cs146s_coding_llms_swiss_cheese.png)

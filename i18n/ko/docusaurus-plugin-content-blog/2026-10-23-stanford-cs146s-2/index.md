@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[스탠포드 CS146S #2] 코딩 LLM의 작동 원리와 프롬프트 엔지니어링: 사전학습·RLHF부터 '스위스 치즈 모델'과 검증의 미학까지"
+title: "[스탠포드 CS146S #2] 코딩 LLM 원리와 프롬프트 엔지니어링 실전"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [Coding LLMs, Prompt Engineering, RLHF, Chain of Thought, Swiss Cheese Model]
-description: "스탠포드 대학교 CS146S 2강 완벽 해설: 사전학습(Pre-training)과 RLHF로 이어지는 코딩 LLM의 3단계 학습 파이프라인, 생각의 사슬(CoT) 프롬프트 엔지니어링, OpenAI Codex 분석, 그리고 AI 코드의 '스위스 치즈 모델'을 방어하는 실전 검증 아키텍처를 심층 분석합니다."
+keywords: ["스탠포드 CS146S", "코딩 LLM", "프롬프트 엔지니어링", "RLHF", "스위스 치즈 모델", "CoT"]
+description: "스탠포드 CS146S 2강: 코딩 LLM의 작동 원리, 사전학습과 RLHF, CoT 프롬프트 기법 및 AI 코드 검증을 위한 스위스 치즈 모델 완벽 해설."
 ---
 
 ![Inside Coding LLMs & Prompt Engineering](./images/02_cs146s_coding_llms_swiss_cheese.png)

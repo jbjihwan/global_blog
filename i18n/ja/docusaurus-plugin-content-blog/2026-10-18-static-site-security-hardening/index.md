@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "[2026年最新] npm audit fix --force を実行してはいけない理由と解決策：静的サイトの脆弱性を安全にゼロにする実践ガイド"
+title: "npm 脆弱性の真実：npm audit fix --force を避けて安全に解消する法"
 authors: [jbgih]
 tags: [ウェブセキュリティ, npm-audit, Docusaurus, DevOps, サプライチェーン]
-keywords: [npm audit fix, npm audit fix --force, npm 脆弱性, 静的サイトセキュリティ (SSG), GHSA 脆弱性]
-description: "npm audit fix --force でビルドが壊れる原因と正しい対処法。GHSA脆弱性のアラートを安全に解消し、静的サイトのセキュリティをゼロリスクにする実践的なエンジニアリングガイド。"
+keywords: ["npm 脆弱性", "npm audit fix", "npm audit fix --force", "静的サイトセキュリティ", "GHSA"]
+description: "npm 脆弱性の正しい解消法：npm audit fix --force でビルドが壊れる原因と、GHSAセキュリティアラートを安全にゼロにする静的サイト実践ガイド。"
 ---
 
 モダンなフロントエンドやドキュメントサイトを運用するエンジニアであれば、一度は血の気が引くような経験をしたことがあるはずです。何気なく `npm audit` を実行した瞬間、コンソールに警告が溢れ出します：

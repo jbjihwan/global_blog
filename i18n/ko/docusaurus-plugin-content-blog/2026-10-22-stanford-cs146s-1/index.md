@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[스탠포드 CS146S #1] 현대 소프트웨어 개발자: AI 에이전트 시대, 코드 타이피스트에서 오케스트라 지휘자로의 대전환"
+title: "[스탠포드 CS146S #1] 현대 소프트웨어 개발자 (The Modern Software Developer)"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentic Workflows, Spec-Driven Development, Human-Agent Engineering, Model Context Protocol (MCP)]
-description: "스탠포드 대학교 CS146S 1강 완벽 해설: 수동 코딩의 시대에서 벗어나 AI 에이전트와 협업하는 현대 소프트웨어 엔지니어의 역할 재정의, 스펙 주도 개발(SDD), 루프 엔지니어링 및 MCP 표준 아키텍처를 심층 분석합니다."
+keywords: ["스탠포드 CS146S", "The Modern Software Developer", "현대 소프트웨어 개발자", "스펙 주도 개발", "에이전트 엔지니어링", "MCP"]
+description: "스탠포드 CS146S 1강 핵심 정리: 현대 소프트웨어 개발자(The Modern Software Developer). 스펙 주도 개발(SDD), AI 코딩 에이전트 루프 엔지니어링 완벽 해설."
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)

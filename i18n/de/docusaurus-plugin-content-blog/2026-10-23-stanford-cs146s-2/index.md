@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[Stanford CS146S #2] Im Inneren von Coding-LLMs & Prompt Engineering: Pre-training, RLHF und das 'Trust but Verify' Schweizer-Käse-Modell"
+title: "Stanford CS146S #2: Coding-LLMs & Prompt Engineering Guide"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [Coding-LLMs, Prompt Engineering, RLHF, Chain of Thought, Schweizer-Käse-Modell]
-description: "Stanford CS146S Vorlesung 2: Die interne Funktionsweise von Programmier-LLMs von Pre-training und RLHF bis hin zu Chain-of-Thought-Prompting und der Absicherung gegen das Schweizer-Käse-Modell bei KI-generiertem Code."
+keywords: ["Stanford CS146S", "Coding LLMs", "Prompt Engineering", "RLHF"]
+description: "Stanford CS146S Vorlesung 2: Funktionsweise von Coding-LLMs, Pre-Training, RLHF, Chain-of-Thought-Prompts und Verifikation im Schweizer-Käse-Modell."
 ---
 
 ![Im Inneren von Coding-LLMs & Prompt Engineering](./images/02_cs146s_coding_llms_swiss_cheese.png)

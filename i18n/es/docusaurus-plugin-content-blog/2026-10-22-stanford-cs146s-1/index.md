@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[Stanford CS146S #1] El Desarrollador de Software Moderno: De Mecanógrafo a Director de Orquesta con Agentes de IA"
+title: "Stanford CS146S #1: The Modern Software Developer Guía"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentic Workflows, Spec-Driven Development, Human-Agent Engineering, Model Context Protocol (MCP)]
-description: "Guía completa de Stanford CS146S Lección 1: El cambio de paradigma de escribir código manual a orquestar agentes autónomos con Desarrollo Guiado por Especificaciones y Loop Engineering."
+keywords: ["Stanford CS146S", "The Modern Software Developer", "Desarrollo Guiado por Especificaciones", "Agentes de IA"]
+description: "Guía de Stanford CS146S: The Modern Software Developer. Aprende Desarrollo Guiado por Especificaciones (SDD), agentes de código IA y Loop Engineering."
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)

@@ -1,10 +1,10 @@
 ---
 slug: github-pages-custom-domain-adsense-seo-guide
-title: "GitHub Pages에서 독립 도메인(Porkbun+Cloudflare) 이전, 애드센스 승인 세팅 및 4대 검색엔진(구글/네이버/빙) SEO 완벽 가이드"
+title: "GitHub Pages 애드센스 승인 가이드: 커스텀 도메인 & ads.txt 연동"
 authors: [jbjihwan]
 tags: [docusaurus, devops, cloudflare, seo, web-monetization]
-keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, Google AdSense ads.txt static site, Google Search Console sitemap delete troubleshooting, Naver Search Advisor sitemap RSS host error]
-description: "GitHub Pages에 배포된 Docusaurus 블로그를 Porkbun과 Cloudflare DNS를 통해 독립 커스텀 도메인으로 이전하고, 구글 애드센스 심사 통과 설정 및 구글·네이버·빙 3대 검색엔진의 실전 색인 오류를 완벽하게 해결한 엔지니어링 실전 기록."
+keywords: ["GitHub Pages 구글 애드센스", "ads.txt 설정", "커스텀 도메인 애드센스", "Cloudflare DNS", "검색엔진 SEO"]
+description: "GitHub Pages 정적 사이트에서 구글 애드센스(Google AdSense) 승인받는 법. 커스텀 도메인 연결, 루트 ads.txt 설정 및 서치 콘솔 색인 최적화 가이드."
 ---
 
 개발자 블로그를 GitHub Pages의 무료 서브도메인(`username.github.io/project`)에 배포하여 운영하는 것은 간편하지만, 전문적인 브랜딩과 수익화를 시작하는 순간 거대한 벽에 부딪힙니다. **구글 애드센스는 `*.github.io`와 같은 무료 서브도메인의 사이트 등록을 원천 차단**하기 때문입니다. 애드센스 게시자 심사를 통과하고 검색엔진 도메인 점수(Domain Authority)를 쌓으려면 반드시 독자적인 **독립 커스텀 도메인(Apex Domain)**이 필요합니다.

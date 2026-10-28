@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "[Guide 2026] Résoudre les vulnérabilités npm audit sans casser vos builds : La vérité sur npm audit fix --force"
+title: "Corriger les vulnérabilités npm sans casser vos builds"
 authors: [jbgih]
 tags: [web-security, npm-audit, docusaurus, devops, supply-chain]
-keywords: [Résolution vulnérabilités npm audit, Risques npm audit fix --force, Sécurité des sites statiques, Vulnérabilités de build npm, Alertes GHSA Docusaurus]
-description: "Comment corriger les vulnérabilités npm audit sans casser vos builds en production. Pourquoi 45 failles d'outils de build ne posent aucun risque à l'exécution sur sites statiques."
+keywords: ["npm audit fix", "npm audit fix --force", "vulnérabilités npm", "sécurité site statique"]
+description: "Comment corriger les vulnérabilités npm audit sans casser vos builds. Pourquoi npm audit fix --force est dangereux et comment sécuriser un site statique."
 ---
 
 Tout développeur frontend a déjà ressenti cette montée d'adrénaline : vous lancez `npm audit` sur votre dépôt de blog ou de documentation, et le terminal s'affole en lettres rouges :

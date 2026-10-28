@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[Stanford CS146S #1] O Desenvolvedor de Software Moderno: A Transição de Digitador de Código para Maestro de Sistemas na Era dos Agentes de IA Autônomos"
+title: "Stanford CS146S #1: The Modern Software Developer Guia"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentes de IA Autônomos, Spec-Driven Development, Engenharia de Software com IA, Model Context Protocol MCP]
-description: "Stanford CS146S Aula 1: A redefinição fundamental da engenharia de software moderna — da digitação manual de sintaxe para a orquestração de fluxos autônomos de agentes de IA com Spec-Driven Development e Loop Engineering."
+keywords: ["Stanford CS146S", "The Modern Software Developer", "Spec-Driven Development", "Agentes de IA"]
+description: "Guia Stanford CS146S: The Modern Software Developer. Aprenda Spec-Driven Development (SDD), agentes autônomos de IA e engenharia de loop moderno."
 ---
 
 ![Stanford CS146S Desenvolvedor de Software Moderno](./images/01_cs146s_human_agent_orchestration.png)

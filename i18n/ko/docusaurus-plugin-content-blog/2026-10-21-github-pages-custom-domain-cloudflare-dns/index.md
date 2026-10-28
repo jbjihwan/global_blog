@@ -1,10 +1,10 @@
 ---
 slug: github-pages-custom-domain-cloudflare-dns
-title: "[GitHub Pages 독립 도메인 #1] 무료 github.io 버리고 Porkbun + Cloudflare로 내 도메인 연결하기: CNAME 평탄화와 무료 SSL"
+title: "GitHub Pages 커스텀 도메인 & Cloudflare DNS 무중단 연동 가이드"
 authors: [jbjihwan]
 tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
-keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, CNAME Flattening apex domain GitHub Pages, Cloudflare Full SSL Edge Certificate, static CNAME deployment reset bug fix]
-description: "무료 github.io 서브도메인을 탈출하여 Porkbun에서 구매한 독립 도메인을 Cloudflare Anycast DNS와 CNAME 평탄화(Flattening)를 통해 GitHub Pages에 무중단 연결하고, Docusaurus CNAME 리셋 버그를 완벽히 해결하는 프로덕션 실전 가이드."
+keywords: ["GitHub Pages 커스텀 도메인", "Cloudflare DNS", "Porkbun 도메인", "CNAME Flattening", "무료 SSL 인증서"]
+description: "GitHub Pages에 Porkbun 커스텀 도메인과 Cloudflare Anycast DNS를 연결하는 완벽 가이드. CNAME Flattening 및 무료 SSL 인증서 무중단 설정법."
 
 ---
 

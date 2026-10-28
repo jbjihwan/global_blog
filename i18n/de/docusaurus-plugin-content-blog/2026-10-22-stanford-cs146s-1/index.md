@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[Stanford CS146S #1] Kursübersicht: Der moderne Softwareentwickler — Der Wandel vom Tastatur-Typisten zum System-Dirigenten im Zeitalter autonomer KI-Agenten"
+title: "Stanford CS146S #1: The Modern Software Developer Leitfaden"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Autonome KI-Agenten, Spec-Driven Development, KI-Softwareentwicklung, Model Context Protocol (MCP)]
-description: "Stanford CS146S Vorlesung 1: Die fundamentale Neudefinition der modernen Softwareentwicklung — vom manuellen Syntax-Tippen hin zur Orchestrierung autonomer KI-Agenten-Workflows mittels Spec-Driven Development und Loop Engineering."
+keywords: ["Stanford CS146S", "The Modern Software Developer", "Spec-Driven Development", "KI-Agenten"]
+description: "Stanford CS146S Vorlesung 1: The Modern Software Developer. Spec-Driven Development (SDD), autonome KI-Coding-Agenten und modernes Loop Engineering."
 ---
 
 ![Stanford CS146S Moderner Softwareentwickler](./images/01_cs146s_human_agent_orchestration.png)

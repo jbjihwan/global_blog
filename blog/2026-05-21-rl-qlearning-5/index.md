@@ -1,12 +1,12 @@
 ---
 slug: 2026-05-21-rl-qlearning-5
-title: "[Webots Robotics] Sim-to-Real: Hardware Transfer via Arduino Uno, HC-06 Bluetooth & ArUco Vision Tracking (#5)"
+title: "Sim-to-Real RL: Webots to Arduino with ArUco Vision Tracking (#5)"
 authors: [jbgih]
 tags: [reinforcement-learning, sim-to-real, arduino, robotics, computer-vision, aruco, python]
 date: 2026-05-21
 project: rl_q_learning
-description: "Deploying the simulation-trained 648-bin Q-Learning policy onto a physical 2-wheeled Arduino Uno robot using ceiling webcam homography and real-time ArUco 6-DoF marker pose tracking."
-keywords: ["Sim-to-Real Hardware Transfer", "ArUco Marker Pose Tracking", "Arduino Uno Robot Navigation", "HC-06 Bluetooth IPC", "Webcam Homography Robotics"]
+description: "Deploy simulation-trained 648-bin Q-Learning to a physical Arduino robot using overhead webcam homography and real-time ArUco 6-DoF marker pose tracking."
+keywords: ["Sim-to-Real Hardware Transfer", "ArUco Marker Pose Tracking", "Arduino Uno Robot Navigation", "Webots Q-Learning Transfer"]
 ---
 
 ![ArUco Marker Vision Tracking](./images/01_aruco_vision.png)

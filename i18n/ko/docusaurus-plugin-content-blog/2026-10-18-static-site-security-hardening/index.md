@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "[2026 실전 가이드] npm audit fix --force 함정과 해결법: 정적 사이트 보안 취약점 0개 달성 전략"
+title: "[2026] npm audit fix --force 함정과 해결법: npm 취약점 0개 만들기"
 authors: [jbgih]
 tags: [웹보안, npm-audit, Docusaurus, 데브옵스, 공급망보안]
-keywords: [npm audit fix, npm audit fix --force, 정적 사이트 보안 (SSG), Docusaurus 보안 하드닝, GHSA 공급망 취약점]
-description: "npm audit fix --force 실행 시 빌드가 깨지는 원인과 안전한 해결법. 정적 사이트 위협 모델링과 GHSA 공급망 취약점을 올바르게 진단하고 보안 위험을 0으로 만드는 4단계 엔지니어링 가이드."
+keywords: ["npm 취약점", "npm audit fix", "npm audit fix --force", "정적 사이트 보안", "GHSA 취약점", "Docusaurus 보안"]
+description: "npm audit fix --force 실행 시 빌드가 깨지는 이유와 안전한 해결법. GHSA 공급망 보안 취약점의 실제 위협 모델 분석과 정적 사이트 4단계 보안 가이드."
 ---
 
 프론트엔드나 정적 블로그를 운영하는 개발자라면 누구나 한 번쯤 등골이 서늘해지는 순간을 겪어보셨을 것입니다. 평화롭게 `npm audit`을 입력했을 때, 터미널 가득 시뻘건 경고 문구가 쏟아져 내리는 장면입니다:

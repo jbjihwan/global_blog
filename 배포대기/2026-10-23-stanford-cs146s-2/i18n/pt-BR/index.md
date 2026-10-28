@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[Stanford CS146S #2] Por Dentro dos LLMs de Código & Engenharia de Prompt: Pré-treinamento, RLHF e o Modelo do Queijo Suíço 'Trust but Verify'"
+title: "Stanford CS146S #2: LLMs de Código e Engenharia de Prompts"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [LLMs de Código, Engenharia de Prompt, RLHF, Chain of Thought, Modelo do Queijo Suíço]
-description: "Stanford CS146S Aula 2: O funcionamento interno dos modelos de linguagem para código, de pré-treinamento e RLHF a técnicas avançadas de Chain-of-Thought e blindagem contra falhas pelo Modelo do Queijo Suíço."
+keywords: ["Stanford CS146S", "LLMs de Código", "Engenharia de Prompts", "RLHF"]
+description: "Stanford CS146S Aula 2: Mecânica de LLMs de código, Pré-treinamento, RLHF, prompts Chain-of-Thought e verificação pelo Modelo do Queijo Suíço."
 ---
 
 ![Por Dentro dos LLMs de Código & Engenharia de Prompt](./images/02_cs146s_coding_llms_swiss_cheese.png)

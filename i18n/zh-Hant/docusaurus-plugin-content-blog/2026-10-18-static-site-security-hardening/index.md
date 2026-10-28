@@ -1,10 +1,10 @@
 ---
 slug: static-site-security-npm-audit-truth
-title: "從 45 個 npm 漏洞到零風險：為何不應在靜態網站上盲目執行 npm audit fix --force"
+title: "npm audit 是什麼？為何不應盲目執行 npm audit fix --force"
 authors: [jbjihwan]
 tags: [web-security, npm-audit, docusaurus, devops, supply-chain]
-keywords: [npm audit fix --force, 靜態網站安全, Docusaurus 安全加固, Git Pre-commit 金鑰掃描, 供應鏈漏洞誤報]
-description: "深度剖析靜態網站威脅模型，拆解為何打包工具中的 45 個 npm 漏洞在 GitHub Pages 上執行時風險為零，以及為何盲目執行 npm audit fix --force 會破壞生產環境。"
+keywords: ["npm audit 是什麼", "npm audit fix --force", "npm 漏洞", "靜態網站安全", "GHSA 漏洞修復"]
+description: "什麼是 npm audit？深入解析打包工具 45 個 npm 漏洞真相，為何 npm audit fix --force 會破壞構建，以及如何安全修復 GHSA 依賴漏洞。"
 ---
 
 每一位現代前端開發者都曾體驗過腎上腺素飆升的瞬間：當你在一個乾淨整潔的文件或部落格程式碼庫中執行 `npm audit` 時，終端機突然噴湧出一片觸目驚心的鮮紅警告：

@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[スタンフォード CS146S #1] 現代のソフトウェア開発者: AIエージェント時代、タイピストから指揮者へのパラダイムシフト"
+title: "[スタンフォード CS146S #1] 現代のソフトウェア開発者 (Modern Software Developer)"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentic Workflows, Spec-Driven Development, Human-Agent Engineering, Model Context Protocol (MCP)]
-description: "スタンフォード大学CS146S第1講の完全解説：手動コーディングからAIエージェントを指揮する仕様駆動開発（SDD）、ループエンジニアリング、MCP規格への大転換。"
+keywords: ["スタンフォード CS146S", "The Modern Software Developer", "現代のソフトウェア開発者", "仕様駆動開発", "AIエージェント"]
+description: "スタンフォード大学CS146S第1講：The Modern Software Developer完全解説。仕様駆動開発（SDD）、自律AIエージェント、ループエンジニアリングの実践。"
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)

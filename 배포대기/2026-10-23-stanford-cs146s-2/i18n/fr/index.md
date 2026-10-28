@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[Stanford CS146S #2] Au cœur des LLMs de code & du Prompt Engineering : Pré-entraînement, RLHF et le modèle du gruyère 'Trust but Verify'"
+title: "Stanford CS146S #2 : LLMs de Code et Ingénierie de Prompts"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [LLM de Code, Prompt Engineering, RLHF, Chain of Thought, Modèle du Gruyère Sécurité IA]
-description: "Stanford CS146S Cours 2 : Les mécanismes internes des LLMs de programmation, du pré-entraînement au RLHF, le Chain-of-Thought prompting et la sécurisation via le modèle du gruyère."
+keywords: ["Stanford CS146S", "LLMs de code", "Ingénierie de Prompts", "RLHF"]
+description: "Stanford CS146S Cours 2 : Fonctionnement des LLMs de code, pré-entraînement, RLHF, prompts Chain-of-Thought et vérification par le modèle du fromage suisse."
 ---
 
 ![Au cœur des LLMs de code et du Prompt Engineering](./images/02_cs146s_coding_llms_swiss_cheese.png)

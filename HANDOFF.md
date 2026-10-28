@@ -24,6 +24,10 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
   3. **빌드 안정성 및 앵커 검증 최적화**:
      - `docusaurus.config.ts`: `onBrokenAnchors: 'ignore'` 설정으로 무해한 SSR 앵커 경고 차단.
      - 9개 언어 전체 정적 사이트 빌드(Exit code 0) 및 GitHub Pages 배포(`npm run publish`) 완수.
+  4. **Google Search Console 1페이지 랭크 글 SERP 스니펫 & CTR 전면 최적화**:
+     - GSC 심층 분석 기반 구글 1페이지 노출 글(Stanford CS146S #1/#2, npm audit 보안 가이드, GitHub Pages Cloudflare DNS, Sim-to-Real RL #5) 총 33개 파일 대상.
+     - 검색어 일치율 극대화(Title 55~65자 단축, Meta Description 140~155자 핵심 전달 및 CTA 주입).
+     - 9개 언어 전체 Docusaurus 정적 빌드(Exit code 0) 검증 완료.
 
 ## 📋 다음 한 걸음
 1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:

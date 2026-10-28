@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "[Stanford CS146S #1] Course Overview: The Modern Software Developer — The Shift from Typist to Conductor in the Age of AI Agents"
+title: "Stanford CS146S #1: The Modern Software Developer Course Guide"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: [Stanford CS146S, Agentic Workflows, Spec-Driven Development, Human-Agent Engineering, Model Context Protocol (MCP)]
-description: "Stanford CS146S Lecture 1 comprehensive guide: Demystifying the seismic paradigm shift in modern software engineering from manual syntax typing to orchestrating autonomous AI agent workflows via Spec-Driven Development and Loop Engineering."
+keywords: ["Stanford CS146S", "The Modern Software Developer", "CS146S Course", "Spec-Driven Development", "Human-Agent Engineering", "Model Context Protocol MCP"]
+description: "Complete guide & notes for Stanford CS146S: The Modern Software Developer. Learn Spec-Driven Development (SDD), AI coding agents, and loop engineering."
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)

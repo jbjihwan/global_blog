@@ -1,12 +1,12 @@
 ---
 slug: 2026-05-21-rl-qlearning-5
-title: "[Webots 로보틱스] Sim-to-Real: Arduino Uno, HC-06 블루투스, ArUco 마커 비전 추적으로 현실 세계 전이 (#5)"
+title: "[RL Q-Learning #5] Sim-to-Real: Webots에서 아두이노 실물 로봇 이식"
 authors: [jbgih]
 tags: [강화학습, Sim-to-Real, 아두이노, 로보틱스, 컴퓨터비전, ArUco, Python]
 date: 2026-05-21
 project: rl_q_learning
-description: "Webots 시뮬레이터에서 검증된 Q-Learning 정책을 실제 2륜 Arduino Uno 로봇에 이식하고, 천장 웹캠 호모그래피 보정과 ArUco 마커 비전 추적을 통해 현실 환경 자율주행을 구현한 Sim-to-Real 완결기."
-keywords: ["Sim-to-Real 하드웨어 전이", "아루코 마커 포즈 추적", "아두이노 우노 로봇 주행", "HC-06 블루투스 통신", "웹캠 호모그래피 로보틱스"]
+description: "Webots 강화학습으로 훈련된 648개 상태 Q-Learning 모델을 아두이노 우노 실물 로봇에 무선(HC-06) 및 ArUco 비전 추적으로 Sim-to-Real 이식 성공기."
+keywords: ["Sim-to-Real", "Webots 강화학습", "아두이노 로봇", "ArUco 마커 추적", "Q-Learning 실물 이식"]
 ---
 
 ![ArUco 마커 비전 추적 화면](./images/01_aruco_vision.png)

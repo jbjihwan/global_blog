@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
-title: "[史丹佛 CS146S #2] 代码大型語言模型底层原理与提示词工程：从预训练、RLHF到“瑞士起司模型”的代码验证哲学"
+title: "[史丹佛 CS146S #2] 代碼大模型與 Prompt 工程實戰全解"
 authors: [jbgih]
 tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
 date: 2026-10-23
-keywords: [Coding LLMs, Prompt Engineering, RLHF, Chain of Thought, Swiss Cheese Model]
-description: "史丹佛大学 CS146S 第2讲深度技术解析：代码大型語言模型三阶段训练管線（预训练、SFT、RLHF）、思維鏈(CoT)提示词工程、OpenAI Codex 底层机制，以及应对 AI 代码“瑞士起司模型”隐患的“信任但必须验证”工程防御架构。"
+keywords: ["史丹佛 CS146S", "代碼大模型", "Prompt 工程", "RLHF", "瑞士奶酪模型"]
+description: "史丹佛大學 CS146S 第二講：代碼大模型預訓練、RLHF機制、思維鏈（CoT）提示工程以及 AI 代碼驗證的瑞士奶酪模型。"
 ---
 
 ![Inside Coding LLMs & Prompt Engineering](./images/02_cs146s_coding_llms_swiss_cheese.png)

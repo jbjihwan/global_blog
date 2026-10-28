@@ -1,10 +1,10 @@
 ---
 slug: github-pages-custom-domain-adsense-seo-guide
-title: "From GitHub Pages to Custom Domain: Complete Guide to Porkbun, Cloudflare DNS, AdSense Approval, and Multi-Engine SEO"
+title: "Google AdSense on GitHub Pages: Custom Domain & ads.txt Setup"
 authors: [jbjihwan]
 tags: [docusaurus, devops, cloudflare, seo, web-monetization]
-keywords: [Docusaurus GitHub Pages Custom Domain, Cloudflare DNS Porkbun CNAME setup, Google AdSense ads.txt static site, Google Search Console sitemap delete troubleshooting, Naver Search Advisor sitemap RSS host error]
-description: "A comprehensive production blueprint for migrating a static Docusaurus blog on GitHub Pages to an apex custom domain via Porkbun and Cloudflare DNS, securing Google AdSense verification, and mastering multi-search engine SEO across Google, Naver, and Bing."
+keywords: ["github pages google adsense", "Google AdSense ads.txt static site", "GitHub Pages Custom Domain AdSense", "Cloudflare DNS Porkbun CNAME"]
+description: "How to get Google AdSense approved on GitHub Pages custom domains. Step-by-step ads.txt hosting, Porkbun & Cloudflare DNS, and multi-engine SEO setup."
 ---
 
 Hosting a developer blog on GitHub Pages under `username.github.io/project` is one of the quickest ways to share technical insights. However, as your readership grows and you prepare for professional monetization, you hit a hard architectural wall: **Google AdSense strictly prohibits free subdomains like `*.github.io`**. To qualify for AdSense publisher verification, establish domain equity, and secure multi-region organic reach, you need your own apex custom domain.
