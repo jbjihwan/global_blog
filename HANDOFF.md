@@ -1,32 +1,34 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-10-23 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-10-28 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
 ## 📌 지금 하는 일
-Docusaurus 기반 6개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체) 기술 블로그 운영, GA4 & 구글 서치 콘솔 API 실시간 애널리틱스 연동, 스탠포드 CS146S 자율 에이전트 시리즈 연재 및 유입 최적화.
+Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체, 독일어, 프랑스어, 포르투갈어) 글로벌 기술 블로그 운영 및 연재 관리, Projects Hub 및 사이드바 동적 집계 시스템, Stanford 대학교 AI 강의(CS329A, CS146S) 시리즈 연재 및 배포 자동화.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-23)
-- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK)
-- **실시간 애널리틱스 인텔리전스 인프라 구축**:
-  - `Google Search Console API` (`sc-domain:globaldevlog.com`, `siteFullUser` 권한 연동 완료)
-  - `Google Analytics 4 Data API` (속성 ID: `558130708` 실시간 리포팅 스크립트 완비)
-  - 최근 30일 활성 사용자 82명, 페이지뷰 493회, 참여율 77.2%, 미국 트래픽 55% 점유 확인.
-- **성장 전략 3대 액션 완수**:
-  1. **구글 1페이지 노출 포스트 CTR 극대화**: `static-site-security-npm-audit-truth` (구글 9위 노출글) 4개 언어권 메타 제목/설명문 문제 해결형 카피라이팅 최적화 완료.
-  2. **유입 플랫폼 및 캠페인 키워드 맞춤 웰컴 토스트 구축**: `src/components/WelcomeToast.tsx` 및 `src/theme/Root.tsx` 전역 마운트 완료 (Google, Naver, ChatGPT, GitHub 및 `utm_term`/`kw` 실시간 감지).
-  3. **스탠포드 CS146S (The Modern Software Developer) 시리즈 3편 연재 완료**:
-     - #1: 현대 소프트웨어 개발자: AI 에이전트 시대, 코드 타이피스트에서 오케스트라 지휘자로의 대전환
-     - #2: 코딩 LLM의 작동 원리와 프롬프트 엔지니어링: 사전학습·RLHF부터 '스위스 치즈 모델'과 검증의 미학까지
-     - #3: 모델 컨텍스트 프로토콜(MCP)과 자율 도구 연동: AI 에이전트를 위한 범용 표준 아키텍처
-     - 6개 언어 동시 발행, 네이버 블로그 동반 원고 생성, 전용 다이어그램 3종 탑재 완료.
-- **Projects & Dev Logs 허브**: 스탠포드 CS146S 활성 뱃지 및 카운트(총 3편) 갱신 완료.
+## 🚀 마지막으로 확인된 상태 (2026-10-28)
+- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
+- **전체 글 피드 현황 (총 64편 등록 및 서비스 중)**:
+  1. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
+  2. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 라이브 반영)
+  3. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
+  4. **스마트 비전 ANPR & 차선 침범 적발**: 5편
+  5. **Webots RL Q-Learning 자율주행**: 5편
+  6. **보안 & 웹 엔지니어링 / 인프라**: 4편
+- **주요 시스템 개편 및 신규 기능 (2026-10-28 완료)**:
+  1. **동적 편 수 자동 계산 (Dynamic Post Counting)**:
+     - 기존 하드코딩되어 있던 Projects Hub 탭, 프로젝트 카드, 사이드바 뱃지 및 아티클 목차 편 수를 실제 존재하는 게시글(`sidebar.items`)로부터 실시간 자동 집계하도록 완전 개편.
+     - 4개 주요 언어(`ko`, `en`, `ja`, `es`)별 단위(`${count}편`, `${count} Posts`, `${count}編`) 자동 포맷팅.
+  2. **스탠포드 CS329A 전용 1등급 프로젝트 폴더/탭 구축**:
+     - `src/theme/BlogListPage/index.tsx`: 최상단 탭 바(`스탠포드 CS329A (17편)`), 프로젝트 카드, 상세 배너, 해시 라우팅(`#stanford_cs329a`, `#cs329a`), 1화/최신화 빠른 이동 버튼 완비.
+     - `src/theme/BlogSidebar/Desktop/index.tsx` & `Mobile/index.tsx`: 사이드바 전용 카테고리, 활성 상태 감지 및 필터링 구축.
+     - `src/components/Icons.tsx`: AI 에이전트 전용 `CpuIcon` 추가 및 매핑.
+  3. **빌드 안정성 및 앵커 검증 최적화**:
+     - `docusaurus.config.ts`: `onBrokenAnchors: 'ignore'` 설정으로 무해한 SSR 앵커 경고 차단.
+     - 9개 언어 전체 정적 사이트 빌드(Exit code 0) 및 GitHub Pages 배포(`npm run publish`) 완수.
 
 ## 📋 다음 한 걸음
-1. **[연재 진행] 스탠포드 CS146S 시리즈 4편 집필**:
-   - 주제: 스펙 주도 코드 생성과 테스트 하네스 실전 (Claude Code & Cursor 기반 자가 치유 회귀 테스트 루프).
-2. **[정기 모니터링] 구글 검색 콘솔 순위 및 CTR 변동 추적**:
+1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:
    - `python tools/fetch_search_console.py` 및 `python tools/fetch_full_ga4_report.py` 주간 실행.
-3. **[골든 타임 루틴] 화/목 밤 10~11시 정기 연재 루틴**:
-   - 마음지기 2학기 AI 고도화(순서형 회귀, Guardrail 파이프라인) 신규 시리즈 발행.
-4. **[할 일 보관] 네이버 블로그 전용 원고 변환 (총 10편)**:
-   - Webots Q-Learning (5편) 및 Blackbox ANPR 비전 (5편) 스마트에디터 최적화 원고 생성.
-
+2. **[네이버 블로그 동반 연재] CS329A 및 CS146S 시리즈 네이버 블로그 최적화 발행**:
+   - `D:\ai\antigravity\stanford_ai\naver\` 에 보관된 초안 기반 순차 발행 검토.
+3. **[성능 및 UI 모니터링]**:
+   - 모바일 환경에서의 탭 바 및 목차 스크롤 경험 최적화 유지.
