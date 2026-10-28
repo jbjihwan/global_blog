@@ -1,0 +1,12 @@
+{
+  "slug": "national-budget-ai-sector-partition-live-monitoring",
+  "series": "ai-agent-engineering",
+  "episode": 3,
+  "title": "[AI Agent Engineering #3] Public Budget AI #3: 3D Sector Partitioning & Live API Audit",
+  "created_at": "2026-10-28T14:58:00+09:00",
+  "target_publish_date": "2026-11-20",
+  "status": "pending_deployment",
+  "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant", "de", "fr", "pt-BR"],
+  "naver_blog_ready": true,
+  "image_staged": "01_national_budget_sector_live_monitor.png"
+}
