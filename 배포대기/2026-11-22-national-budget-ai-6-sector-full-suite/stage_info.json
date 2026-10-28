@@ -1,0 +1,12 @@
+{
+  "slug": "national-budget-ai-6-sector-full-suite",
+  "series": "ai-agent-engineering",
+  "episode": 5,
+  "title": "[AI Agent Engineering #5] Public Budget AI #5: 6-Sector Audit Suite & Year-End Dumps",
+  "created_at": "2026-10-28T22:11:00+09:00",
+  "target_publish_date": "2026-11-22",
+  "status": "pending_deployment",
+  "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant", "de", "fr", "pt-BR"],
+  "naver_blog_ready": true,
+  "image_staged": "01_national_budget_6_sector_suite.png"
+}
