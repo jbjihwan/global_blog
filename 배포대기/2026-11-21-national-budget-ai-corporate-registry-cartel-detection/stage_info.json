@@ -1,0 +1,12 @@
+{
+  "slug": "national-budget-ai-corporate-registry-cartel-detection",
+  "series": "ai-agent-engineering",
+  "episode": 4,
+  "title": "[AI Agent Engineering #4] Public Budget AI #4: Breaking Cartels via DART & Registries",
+  "created_at": "2026-10-28T20:19:00+09:00",
+  "target_publish_date": "2026-11-21",
+  "status": "pending_deployment",
+  "locales": ["en", "ko", "ja", "es", "zh-Hans", "zh-Hant", "de", "fr", "pt-BR"],
+  "naver_blog_ready": true,
+  "image_staged": "01_national_budget_corporate_registry.png"
+}
