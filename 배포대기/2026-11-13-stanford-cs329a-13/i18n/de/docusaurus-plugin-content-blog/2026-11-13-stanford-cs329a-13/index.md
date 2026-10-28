@@ -169,7 +169,7 @@ Warum funktionierten CoT und Self-Consistency nicht bei kleinen Modellen mit 1B 
 1977 prägte Physik-Nobelpreisträger Philip Anderson den Leitsatz *„More is Different“*. Die Eigenschaften flüssigen Wassers lassen sich nicht durch die isolierte Betrachtung eines Wasserstoffatoms vorhersagen.
 
 In **《Emergent Abilities of Large Language Models》** zeigten Jason Wei und Denny Zhou, dass neuronale Netze physikalische **Phasenübergänge (Phase Transitions)** durchlaufen:
-> **„Eine emergente Fähigkeit ist eine kognitive Fertigkeit, die bei kleineren Modellen praktisch nicht existiert (Leistung auf Zufallsniveau), aber ab einer kritischen Rechenskala (typischerweise $10^{23}$ FLOPs oder ~100B Parameter) abrupt und sprunghaft in Erscheinung tritt.“**
+> **„Eine emergente Fähigkeit ist eine kognitive Fertigkeit, die bei kleineren Modellen praktisch nicht existiert (Leistung auf Zufallsniveau), aber ab einer kritischen Rechenskala (typischerweise `10^(23)` FLOPs oder ~100B Parameter) abrupt und sprunghaft in Erscheinung tritt.“**
 
 ```mermaid
 flowchart LR
@@ -186,9 +186,9 @@ flowchart LR
 #### Die Kritik der Arora-Gruppe: Verzerrung durch nichtlineare Metriken
 Die Autoren kritisierten die weit verbreitete Metrik der **exakten Übereinstimmung (Exact Match)**:
 - Angenommen, eine $L$-stufige Deduktionskette erfordert die korrekte Vorhersage von $L$ Tokens, wobei jedes Token mit Wahrscheinlichkeit $p$ korrekt generiert wird.
-- Mit wachsender Modellgröße wächst die grundlegende Token-Genauigkeit $p$ **völlig stetig und linear** ($0.6 \to 0.7 \to 0.8 \to 0.9$).
+- Mit wachsender Modellgröße wächst die grundlegende Token-Genauigkeit $p$ **völlig stetig und linear** (`0.6 \to 0.7 \to 0.8 \to 0.9`).
 - Verlangt der Test jedoch, dass alle $L=5$ Tokens ausnahmslos korrekt sind, skaliert das Gesamtergebnis mit $p^L$:
-  $$0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)$$
+  $`0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)`$
 - **Die Trugbild-Hypothese:** Die zugrundeliegenden Fähigkeiten wachsen kontinuierlich; der scheinbar sprunghafte Phasenübergang ist lediglich ein Artefakt nichtlinearer Bewertungsmetriken!
 
 ```text
@@ -263,4 +263,4 @@ In **Lektion 14** analysieren wir: **《AlphaProof & Mathematical Reasoning: For
 ### Kern-Erkenntnisse
 - **Sprache ist das Werkzeug des Denkens:** Das Zerlegen von Problemen in natürliche Gedankenschritte steigerte die PaLM 540B-Genauigkeit um 39 Prozentpunkte ohne Retraining.
 - **Wahrheit konvergiert, Fehler streuen:** Self-Consistency nutzt mathematische Topologie, um stochastisches Rauschen zu eliminieren und die Genauigkeit auf 74.4% zu heben.
-- **Phasenübergänge sind real:** Jenseits von $10^{23}$ FLOPs transformieren kumulierte mikroskopische Wahrscheinlichkeitsgewinne statistische Modelle in logische Denkmotoren.
+- **Phasenübergänge sind real:** Jenseits von `10^(23)` FLOPs transformieren kumulierte mikroskopische Wahrscheinlichkeitsgewinne statistische Modelle in logische Denkmotoren.

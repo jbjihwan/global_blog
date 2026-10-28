@@ -70,13 +70,13 @@ Wobei:
 * `A` die Menge extern ausführbarer Aktionen im Environment darstellt (z. B. `Search[query]`, `ExecuteCode[script]`, `Click[element]`).
 * `L` den Raum freisprachlicher natürlicher Überlegungen (Thoughts) abbildet.
 
-Die entscheidende mathematische Eigenschaft: Ein Denkschritt $a_t \in L$ **verursacht keinerlei Zustandsänderung in der externen Umgebung**. Er aktualisiert ausschließlich den internen Kontextverlauf des Agenten:
+Die entscheidende mathematische Eigenschaft: Ein Denkschritt `a_t \in L` **verursacht keinerlei Zustandsänderung in der externen Umgebung**. Er aktualisiert ausschließlich den internen Kontextverlauf des Agenten:
 
 ```text
 c_{t+1} = ( c_t, a_t )   (für a_t ∈ L)
 ```
 
-Gibt der Agent hingegen eine physische Aktion $a_t \in A$ aus, führt die externe Umgebung diese aus und liefert eine deterministische Beobachtung (Observation) zurück:
+Gibt der Agent hingegen eine physische Aktion `a_t \in A` aus, führt die externe Umgebung diese aus und liefert eine deterministische Beobachtung (Observation) zurück:
 
 ```text
 c_{t+1} = ( c_t, a_t, o_t )   (für a_t ∈ A, o_t = Env(a_t))
@@ -127,7 +127,7 @@ Das Ende 2024 vorgestellte Framework **RLEF (arxiv:2410.02089)** überwindet die
 
 #### Formalisierung mehrstufiger Codegenerierung als MDP
 
-RLEF modelliert den Zyklus aus „Code schreiben $\to$ Feedback empfangen $\to$ Patch anwenden“ über bis zu $T$ Züge als zeitdiskreten Markov-Entscheidungsprozess (MDP):
+RLEF modelliert den Zyklus aus „Code schreiben `\to` Feedback empfangen `\to` Patch anwenden“ über bis zu $T$ Züge als zeitdiskreten Markov-Entscheidungsprozess (MDP):
 * **Zustandsraum ($S$):** Problemstellung, bisherige Code-Versuche und Fehlermeldungen:
   ```text
   s_t = ( Problem_Spec, Code_1, Err_1, ..., Code_{t-1}, Err_{t-1} )
@@ -168,7 +168,7 @@ Versucht das Modell, öffentliche Tests durch triviale Hardcodings zu überliste
 
 #### Zielfunktion und Belohnungsstruktur
 
-Die Policy $\pi_\theta$ wird über PPO unter Einbeziehung einer KL-Divergenz-Strafe gegenüber dem Referenzmodell $\rho$ optimiert:
+Die Policy `\pi_\theta` wird über PPO unter Einbeziehung einer KL-Divergenz-Strafe gegenüber dem Referenzmodell `\rho` optimiert:
 
 ```text
 R(s_t, a_t) = r(s_t, a_t) - β * log( π_θ(a_t | s_t) / ρ(a_t | s_t) )
@@ -233,12 +233,12 @@ flowchart LR
 
 #### Die zweistufige Verfassungs-Pipeline
 
-1. **Phase 1: Kritik und Revision (Critique $\to$ Revision $\to$ SFT)**
+1. **Phase 1: Kritik und Revision (Critique `\to` Revision `\to` SFT)**
    * Dem Modell werden komplexe oder heikle Aufgaben gestellt.
    * Nach der Generierung der Rohantwort $y_0$ wählt das System ein Prinzip aus der Verfassung aus und weist das Modell an:
      * **Kritik-Prompt:** *„Untersuche deine letzte Antwort anhand von Prinzip 3: ‚Strikte statische Typisierung erzwingen und Sicherheitslücken vermeiden‘. Identifiziere alle konkreten Verstöße.“*
      * **Revisions-Prompt:** *„Schreibe die Antwort unter Beseitigung aller Mängel neu, ohne an technischer Tiefe einzubüßen.“*
-   * Die so generierten korrigierten Daten $`{y*}`$ bilden den Datensatz für das überwachte Feintuning (SFT).
+   * Die so generierten korrigierten Daten ``(y*)`` bilden den Datensatz für das überwachte Feintuning (SFT).
 
 2. **Phase 2: RLAIF (Reinforcement Learning from AI Feedback)**
    * Das feingetunte Modell generiert Antwortpaare $(y_A, y_B)$ für einen Prompt $x$.
@@ -246,7 +246,7 @@ flowchart LR
      ```text
      P( y_A > y_B | x, Constitution )
      ```
-   * Anhand dieser Soft-Labels wird ein Präferenz-Belohnungsmodell $r_\phi(x, y)$ trainiert, welches anschließend zur PPO-Optimierung der Ziel-Policy dient.
+   * Anhand dieser Soft-Labels wird ein Präferenz-Belohnungsmodell `r_\phi(x, y)` trainiert, welches anschließend zur PPO-Optimierung der Ziel-Policy dient.
 
 #### Skalierbare Aufsicht (Scalable Oversight)
 
@@ -310,7 +310,7 @@ Der produktive Einsatz autonomer Werkzeuge und Code-Ausführung verlangt eine ro
 
 ### 6. Zusammenfassung und Kernfakten
 
-1. **Erdung durch Interaktion:** Modelle, die rein auf statischem Wissen basieren, halluzinieren zwangsläufig. ReAct verbindet Gedanken- und Aktionsraum ($\hat = A \cup L$) und senkt Faktenhalluzinationen bei Wissensabfragen auf 0 %.
+1. **Erdung durch Interaktion:** Modelle, die rein auf statischem Wissen basieren, halluzinieren zwangsläufig. ReAct verbindet Gedanken- und Aktionsraum (`\hat = A \cup L`) und senkt Faktenhalluzinationen bei Wissensabfragen auf 0 %.
 2. **Ausführungsfeedback in den Modellgewichten:** Reines Prompting bei eingefrorenen Modellen stößt an Grenzen. RLEF formuliert Debugging als MDP und lässt 70B-Modelle selbst 100-Sample-GPT-4-Konfigurationen übertreffen.
 3. **Autonome Verfassungsausrichtung:** Constitutional AI ersetzt ressourcenintensives menschliches RLHF durch prinzipienbasierte Selbstkorrektur und ermöglicht skalierbare Aufsicht (RLAIF).
 4. **Verteidigung in der Tiefe:** Produktionsreife Agenten erfordern strikte Stopp-Sequenzen, ephemere Sandboxen und die Trennung von öffentlichen und privaten Testsuiten.

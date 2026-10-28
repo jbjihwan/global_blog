@@ -60,9 +60,9 @@ flowchart TD
 
 ### 2. Desafios Previstos e Correção de Falhas
 
-1. **Fragmentação de Identificadores**: Mapeamento bidirecional $O(1)$ unificando registros fiscais e judiciais.
+1. **Fragmentação de Identificadores**: Mapeamento bidirecional `O(1)` unificando registros fiscais e judiciais.
 2. **Loops em Participações Cruzadas**: Eliminação de recursão infinita via algoritmo SCC do NetworkX.
-3. **Empresas Recentes (<180 dias)**: Cálculo de delta temporal sinalizando empresas criadas às vésperas de editais.
+3. **Empresas Recentes (&lt;180 dias)**: Cálculo de delta temporal sinalizando empresas criadas às vésperas de editais.
 4. **Artifício Conjugal 51:49**: Regras compostas rastreando cônjuges com assento de diretoria.
 
 ---

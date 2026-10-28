@@ -168,7 +168,7 @@ If an agent attempts to exploit public tests by hardcoding trivial lookup tables
 
 #### Objective Function and Reward Formulation
 
-The policy $\pi_\theta$ is trained using Proximal Policy Optimization (PPO) with a token-level Kullback-Leibler (KL) divergence penalty against the reference model $\rho$:
+The policy `\pi_\theta` is trained using Proximal Policy Optimization (PPO) with a token-level Kullback-Leibler (KL) divergence penalty against the reference model `\rho`:
 
 ```text
 R(s_t, a_t) = r(s_t, a_t) - β * log( π_θ(a_t | s_t) / ρ(a_t | s_t) )
@@ -238,7 +238,7 @@ flowchart LR
    * Upon producing an initial response $y_0$, an automated prompt selects a random principle from the Constitution and instructs the model:
      * **Critique Prompt:** *"Review your previous response against Principle X: 'Ensure the explanation contains no security vulnerabilities and adheres to strict static type definitions.' Identify all specific violations."*
      * **Revision Prompt:** *"Rewrite your response to eliminate all identified defects while preserving technical depth."*
-   * The revised outputs $`{y*}`$ are accumulated into a supervised fine-tuning dataset, effectively training the model to produce aligned, self-corrected outputs on the first turn.
+   * The revised outputs ``(y*)`` are accumulated into a supervised fine-tuning dataset, effectively training the model to produce aligned, self-corrected outputs on the first turn.
 
 2. **Phase 2: RLAIF (Reinforcement Learning from AI Feedback)**
    * The fine-tuned model generates candidate pairs $(y_A, y_B)$ for a given input $x$.
@@ -246,8 +246,8 @@ flowchart LR
      ```text
      P( y_A > y_B | x, Constitution )
      ```
-   * A preference reward model $r_\phi(x, y)$ is trained directly on these AI-generated soft labels, bypassing human raters entirely.
-   * The target model is subsequently optimized against $r_\phi$ via standard PPO.
+   * A preference reward model `r_\phi(x, y)` is trained directly on these AI-generated soft labels, bypassing human raters entirely.
+   * The target model is subsequently optimized against `r_\phi` via standard PPO.
 
 #### The Scaling Implication: Scalable Oversight
 
@@ -311,7 +311,7 @@ Integrating autonomous tool use and code feedback into production requires a mul
 
 ### 6. Summary and Core Technical Takeaways
 
-1. **Closed-Loop Grounding:** Pure parametric generation is fundamentally brittle. ReAct unifies the action space with natural language reasoning ($\hat = A \cup L$), completely eliminating factual hallucination on multi-hop benchmarks.
+1. **Closed-Loop Grounding:** Pure parametric generation is fundamentally brittle. ReAct unifies the action space with natural language reasoning (`\hat = A \cup L`), completely eliminating factual hallucination on multi-hop benchmarks.
 2. **Execution Feedback via RL:** In-context debugging of frozen models fails due to lack of diagnostic alignment. RLEF trains models inside an MDP using compiler and public/private test signals, allowing 70B models to outperform 100-rollout GPT-4 frameworks on hard coding benchmarks.
 3. **Autonomous Alignment:** Constitutional AI replaces human RLHF annotation bottlenecks with high-level declarative principles, powering self-improving critique-revision loops and scalable RLAIF oversight.
 4. **Defensive Sandbox Architecture:** Enterprise agent deployments require strict process boundaries: ephemeral microVMs, resource quotas, stop-sequence enforcement, and dual test harness separation.

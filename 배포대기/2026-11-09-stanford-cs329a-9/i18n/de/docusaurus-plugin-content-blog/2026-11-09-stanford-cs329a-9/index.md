@@ -118,7 +118,7 @@ flowchart TD
 InstructGPT nutzte eine entscheidende Asymmetrie menschlicher Kognition:
 > **„Für Menschen ist es mühsam, eine perfekte 500-Zeilen-Musterlösung aus dem Nichts zu schreiben, aber zwei KI-generierte Antworten zu vergleichen und zu entscheiden, welche präziser ist, gelingt 100-mal schneller und konsistenter.“**
 
-Durch das Training eines Reward-Modells ($r_\phi$) und anschließende PPO-Optimierung **besiegte ein 1,3 Milliarden Parameter kleines InstructGPT-Modell das 100-mal größere ungerichtete GPT-3 175B Basismodell in Blindtests**. Halluzinationen wurden halbiert, Hilfsbereitschaft und Sicherheit stiegen massiv.
+Durch das Training eines Reward-Modells (`r_\phi`) und anschließende PPO-Optimierung **besiegte ein 1,3 Milliarden Parameter kleines InstructGPT-Modell das 100-mal größere ungerichtete GPT-3 175B Basismodell in Blindtests**. Halluzinationen wurden halbiert, Hilfsbereitschaft und Sicherheit stiegen massiv.
 
 ### Goodharts Gesetz und Reward Hacking
 Ab 2024 traten die Schattenseiten neuronaler Reward-Modelle hervor:
@@ -161,7 +161,7 @@ Die Konsequenz war eine der spektakulärsten Emergenzen der KI-Forschung:
 
 RLVR meisterte geschlossene Denkaufgaben, doch reale Softwareentwicklung verlangt mehr als die Ausgabe einer einzelnen Textpassage. Ein Software-Ingenieur klont Repositories, editiert Dateien, wertet Fehlermeldungen im Terminal aus und committet Git-Patches.
 
-**Agent RL** erweitert das Trainingsziel von einer isolierten Textantwort auf eine **mehrschnittige Interaktionstrajektorie $\tau$**:
+**Agent RL** erweitert das Trainingsziel von einer isolierten Textantwort auf eine **mehrschnittige Interaktionstrajektorie `\tau`**:
 
 ```text
 Trajektorie τ = (s_0, a_0, o_0, s_1, a_1, o_1, ..., s_T, a_T, o_T)

@@ -65,7 +65,7 @@ AIエージェントと人間が恒久的に協調開発を継続できるよう
 flowchart LR
     subgraph Principles ["AIネイティブ・アーキテクチャの4大原則"]
         direction TB
-        P1["1. コンテキスト予算制 (<32kトークン/モジュール)"]
+        P1["1. コンテキスト予算制 (&lt;32kトークン/モジュール)"]
         P2["2. 機械可読な厳格スキーマ契約 (Pydantic / gRPC / Zod)"]
         P3["3. 決定論的関数型隔離 (ヘキサゴナル・アーキテクチャ)"]
         P4["4. 自己検証型ゴールデンマスター・テストハーネス"]
@@ -260,7 +260,7 @@ class CodebaseGraphAnalyzer:
         oversized = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ 適合" if tokens <= max_context_tokens else "❌ 予算超過 (セマンティック負債リスク)"
-            print(f" - {mod:<35} : ~{tokens:>5} トークン [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} トークン [{status}]")
             if tokens > max_context_tokens:
                 oversized.append((mod, tokens))
 

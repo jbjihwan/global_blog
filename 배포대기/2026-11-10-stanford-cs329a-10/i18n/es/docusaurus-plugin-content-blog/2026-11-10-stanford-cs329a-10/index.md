@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### El Impacto de la Retroalimentación con Profiler
-En esquemas de generación directa (One-shot), incluso modelos como o1 o DeepSeek-R1 presentan dificultades: **menos del 20% de sus kernels superan a PyTorch ($fast_1 < 20\%$)**, fallando a menudo por fallos de segmentación (Segfaults) o colisiones de memoria compartida.
+En esquemas de generación directa (One-shot), incluso modelos como o1 o DeepSeek-R1 presentan dificultades: **menos del 20% de sus kernels superan a PyTorch (`fast_1 < 20\%`)**, fallando a menudo por fallos de segmentación (Segfaults) o colisiones de memoria compartida.
 
 Al acoplar el bucle triple de **Generación + Ejecución (Compilador) + Profiler Nsight (E+P)**:
 - La tasa de éxito en operadores complejos (Nivel 2) con DeepSeek-R1 aumentó del 36% al **72%**.

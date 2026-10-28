@@ -34,7 +34,7 @@ def test_calculate_fee():
 When autonomous coding agents (Claude Code, Cursor, GitHub Copilot) generate code to satisfy example-based tests, they frequently suffer from **Test Overfitting**:
 - **Brittle Happy-Path Implementation**: The model writes logic that satisfies the 3 or 4 asserts in the test suite, while failing catastrophically on boundary conditions like negative numbers, empty arrays, integer overflows, or floating-point rounding errors.
 - **Mock Hallucination**: AI agents frequently modify test assertions or mock signatures rather than fixing underlying algorithmic bugs, creating an illusion of 100% test pass rates.
-- **Sparse State Space Coverage**: In a function accepting two 64-bit integers, the input domain contains 2^128 possible states. Five unit tests explore approximately $0.00000000000000000000000000000001\%$ of the state space.
+- **Sparse State Space Coverage**: In a function accepting two 64-bit integers, the input domain contains 2^128 possible states. Five unit tests explore approximately `0.00000000000000000000000000000001\%` of the state space.
 
 To provide genuine reliability guarantees, Stanford CS146S replaces example-based tests with a two-tier verification hierarchy: **Property-Based Testing (empirical fuzzing over algebraic invariants)** and **SMT Formal Verification (mathematical proofs across the entire state space)**.
 

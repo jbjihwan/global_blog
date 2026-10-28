@@ -15,7 +15,7 @@ Bienvenue dans ce sixième volet de notre analyse technique consacrée au cours 
 Tout au long des cours 1 à 5 (Partie 1 : Fondations), nous avons appris à tirer le potentiel maximal de modèles pré-entraînés figés en leur allouant du calcul lors de l'inférence (Test-time Compute) : déploiement d'arbres de recherche MCTS, intégration des erreurs de compilateur et filtrage par comités de vérificateurs.
 
 Cependant, une vérité mathématique s'impose :
-Accorder dix minutes supplémentaires à un élève de primaire lors d'un examen ne lui permettra pas d'établir une démonstration d'analyse infinitésimale. Si les connexions synaptiques figées d'un modèle (paramètres de poids, $\theta$) n'intègrent pas intrinsèquement les concepts mathématiques requis, générer 10 000 trajectoires ou recourir à des faisceaux de recherche ne relève pas de l'intelligence, mais de la pure chance stochastique.
+Accorder dix minutes supplémentaires à un élève de primaire lors d'un examen ne lui permettra pas d'établir une démonstration d'analyse infinitésimale. Si les connexions synaptiques figées d'un modèle (paramètres de poids, `\theta`) n'intègrent pas intrinsèquement les concepts mathématiques requis, générer 10 000 trajectoires ou recourir à des faisceaux de recherche ne relève pas de l'intelligence, mais de la pure chance stochastique.
 
 Aujourd'hui débute la **Partie 2 : Entraînement et Évolution (Cours 6 à 9)**, répondant à la question fondamentale suivante :
 > **« Plutôt que de gaspiller des ressources considérables à chaque inférence, comment investir un calcul massif durant l'entraînement pour réécrire définitivement les poids neuronaux du modèle et en faire un raisonneur d'élite ? »**
@@ -55,8 +55,8 @@ Pour comprendre pourquoi la recherche de pointe s'est massivement orientée vers
 Compute_Total = Compute_Train + Compute_Inference
 ```
 
-1. **Montée en échelle à l'inférence (Inference-Time Scaling) :** Le vecteur de paramètres $\theta$ demeure statique. Le calcul est mobilisé pour l'échantillonnage répété, la recherche par faisceaux et les arbres MCTS. Bien qu'efficace pour des requêtes isolées, cette méthode transfère une latence considérable et des coûts d'infrastructure permanents à chaque utilisateur final.
-2. **Montée en échelle à l'entraînement (Train-Time Scaling) :** Le calcul est investi massivement en amont pour optimiser les poids $\theta$ via l'apprentissage par renforcement :
+1. **Montée en échelle à l'inférence (Inference-Time Scaling) :** Le vecteur de paramètres `\theta` demeure statique. Le calcul est mobilisé pour l'échantillonnage répété, la recherche par faisceaux et les arbres MCTS. Bien qu'efficace pour des requêtes isolées, cette méthode transfère une latence considérable et des coûts d'infrastructure permanents à chaque utilisateur final.
+2. **Montée en échelle à l'entraînement (Train-Time Scaling) :** Le calcul est investi massivement en amont pour optimiser les poids `\theta` via l'apprentissage par renforcement :
 
 ```text
 θ* = argmax_θ E_{x ~ D, y ~ π_θ(·|x)} [ R(x, y) ]
@@ -68,7 +68,7 @@ Lorsque l'agent découvre des schémas déductifs supérieurs, la rétropropagat
 
 ### 2. Auto-Amorçage du Raisonnement : STaR (Zelikman et al., Stanford 2022)
 
-Le fine-tuning supervisé (SFT) conventionnel réclame des dizaines de milliers d'exemples détaillés (Problème $\to$ Raisonnement $\to$ Réponse). Cependant, salarier des docteurs en mathématiques ou des architectes logiciels pour rédiger des millions de résolutions pas-à-pas est financièrement intenable.
+Le fine-tuning supervisé (SFT) conventionnel réclame des dizaines de milliers d'exemples détaillés (Problème `\to` Raisonnement `\to` Réponse). Cependant, salarier des docteurs en mathématiques ou des architectes logiciels pour rédiger des millions de résolutions pas-à-pas est financièrement intenable.
 
 En 2022, l'équipe d'Eric Zelikman à Stanford a posé une hypothèse audacieuse :
 > **« Si nous pouvons vérifier de façon déterministe et automatisée l'exactitude de la réponse finale, pourquoi ne pas laisser le modèle formuler ses propres raisonnements, filtrer les chaînes ayant abouti à la solution exacte et réentraîner le modèle sur ses propres succès ? »**
@@ -100,7 +100,7 @@ STaR n'est pas un simple artifice empirique ; il s'agit d'une approximation disc
 ∇_θ J(θ) = ∑_i E_{r_hat, y_hat ~ π_θ(·|x_i)} [ 1(y_hat = y_i*) * ∇_θ log π_θ(r_hat, y_hat | x_i) ]
 ```
 
-Pour les trajectoires erronées, $\mathbb{1} = 0$, le gradient s'annule et l'échantillon est ignoré. Pour les trajectoires exactes ($\mathbb{1} = 1$), une montée de gradient classique par maximum de vraisemblance (MLE) opère, orientant continuellement la distribution du modèle vers des chaînes logiques vérifiées.
+Pour les trajectoires erronées, `\mathbb(1) = 0`, le gradient s'annule et l'échantillon est ignoré. Pour les trajectoires exactes (`\mathbb(1) = 1`), une montée de gradient classique par maximum de vraisemblance (MLE) opère, orientant continuellement la distribution du modèle vers des chaînes logiques vérifiées.
 
 #### La Rationalisation : Bâtir des Ponts Déductifs Inverses
 
@@ -130,8 +130,8 @@ Si STaR reposait sur un auto-amorçage supervisé, le véritable essor du RL en 
 #### L'Échec du PPO Conventionnel dans le Raisonnement Formel
 
 L'algorithme standard PPO (Proximal Policy Optimization), utilisé à l'origine pour ChatGPT, requiert l'hébergement simultané de deux réseaux jumeaux en mémoire GPU :
-1. Le **Réseau de Politique (Actor, $\pi_\theta$)**, émettant les tokens ;
-2. Le **Réseau de Valeur (Critic, $V_\psi$)**, prédisant le gain attendu à chaque étape.
+1. Le **Réseau de Politique (Actor, `\pi_\theta`)**, émettant les tokens ;
+2. Le **Réseau de Valeur (Critic, `V_\psi`)**, prédisant le gain attendu à chaque étape.
 
 Entraîner un modèle Actor de 70B exige ainsi un modèle Critic de 70B, doublant les besoins en mémoire VRAM.
 Plus grave encore, dans les démonstrations de plusieurs milliers de tokens où une note scalaire unique ($+1$ ou $-1$) intervient en toute fin, **ajuster un réseau de valeur précis pour chaque token intermédiaire est mathématiquement instable, provoquant des ruptures de gradient**.
@@ -139,7 +139,7 @@ Plus grave encore, dans les démonstrations de plusieurs milliers de tokens où 
 #### La Révolution GRPO : Supprimer le Réseau de Valeur
 
 L'équipe DeepSeek a adopté un parti pris radical :
-> **« Pourquoi allouer des milliards de paramètres à un modèle de valeur ? Pour une requête `q`, échantillonnons un groupe de `G` réponses distinctes $`{o_1, ..., o_G}`$ avec la politique actuelle. Calculons la moyenne et l'écart-type de leurs récompenses et normalisons par Z-score. Ce classement statistique relatif constitue l'avantage (Advantage) parfait ! »**
+> **« Pourquoi allouer des milliards de paramètres à un modèle de valeur ? Pour une requête `q`, échantillonnons un groupe de `G` réponses distinctes ``(o_1, ..., o_G)`` avec la politique actuelle. Calculons la moyenne et l'écart-type de leurs récompenses et normalisons par Z-score. Ce classement statistique relatif constitue l'avantage (Advantage) parfait ! »**
 
 ```mermaid
 flowchart LR
@@ -164,7 +164,7 @@ flowchart LR
 
 #### Fonction Objectif Mathématique de GRPO
 
-GRPO optimise la politique $\pi_\theta$ sous contrainte de divergence KL vis-à-vis d'un modèle de référence $`pi_ref`$, sans aucun modèle critique :
+GRPO optimise la politique `\pi_\theta` sous contrainte de divergence KL vis-à-vis d'un modèle de référence $`pi_ref`$, sans aucun modèle critique :
 
 ```text
 J_GRPO(θ) = E_{q, {o_i}_{i=1}^G} [ 
@@ -210,7 +210,7 @@ GRPO Naïf (30 pts)
 ```
 
 #### Secret 1 : Écrêtage Asymétrique Clip-Higher ($`eps_low` = 0,20, `eps_high` = 0,28$)
-* **Le Problème :** L'écrêtage symétrique ($\pm 0,2$) inhibe l'exploration. Lorsqu'un modèle formule un token de raisonnement rare mais innovant d'une probabilité initiale de 0,01, le plafond $1 + 0,2 = 1,2\times$ bride sa progression à 0,012, tandis qu'un token banal (0,9) progresse sans entrave.
+* **Le Problème :** L'écrêtage symétrique (`\pm 0,2`) inhibe l'exploration. Lorsqu'un modèle formule un token de raisonnement rare mais innovant d'une probabilité initiale de 0,01, le plafond `1 + 0,2 = 1,2` bride sa progression à 0,012, tandis qu'un token banal (0,9) progresse sans entrave.
 * **La Conséquence :** Le modèle renonce aux pistes audacieuses et s'enferme dans un **effondrement d'entropie (Entropy Collapse)**, produisant des réponses stéréotypées.
 * **La Solution DAPO :** Maintenir $`eps_low` = 0,20$ pour sanctionner les mauvaises pistes, mais relever le plafond à **$`eps_high` = 0,28$** (+40 %), offrant aux tokens exploratoires à haute valeur ajoutée la marge nécessaire pour s'imposer.
 
@@ -220,7 +220,7 @@ GRPO Naïf (30 pts)
 * **La Solution DAPO :** Éliminer systématiquement les lots ne satisfaisant pas `0 < Correct Rollouts < G`, garantissant que 100 % des calculs exploitent une variance informative réelle.
 
 #### Secret 3 : Normalisation de la Perte au Niveau Token
-Le moyennage par échantillon dilue les fautes graves au sein des déductions longues. DAPO normalise la fonction de perte sur la somme cumulée de tous les tokens $\sum_i |o_i|$, interdisant aux modèles d'échapper aux sanctions en produisant du remplissage textuel.
+Le moyennage par échantillon dilue les fautes graves au sein des déductions longues. DAPO normalise la fonction de perte sur la somme cumulée de tous les tokens `\sum_i |o_i|`, interdisant aux modèles d'échapper aux sanctions en produisant du remplissage textuel.
 
 #### Secret 4 : Façonnement Progressif des Réponses Trop Longues
 Lorsqu'un modèle approfondit sa réflexion, il risque d'atteindre le seuil maximal de contexte (ex. 16 384 tokens). Sanctionner ce dépassement d'une pénalité abrupte de $-1$ anéantit des raisonnements prometteurs. DAPO applique une décroissance linéaire douce sur les 4 096 derniers tokens, apprenant au modèle à conclure ses preuves dans les limites allouées.
@@ -281,7 +281,7 @@ L'industrialisation de modèles entraînés par GRPO/DAPO impose une topologie d
 ### 6. Questions Techniques Clés et Enseignements Pratiques
 
 **Q : Pourquoi la pénalité de divergence KL demeure-t-elle indispensable dans GRPO, et quand peut-on la relâcher ?**
-**A :** Le terme KL ($\beta `D_KL`(\pi_\theta \parallel `pi_ref`)$) empêche le **piratage de récompense (Reward Hacking)** et l'oubli catastrophique. Sans ce garde-fou, l'agent produit rapidement des artefacts syntaxiques visant à duper l'analyseur de code. Cependant, pour favoriser l'émergence de longs raisonnements déductifs (comme sur DeepSeek-R1-Zero), les chercheurs fixent délibérément $\beta \to 0$ au tout début de l'entraînement afin de libérer l'exploration, avant de réintroduire une régularisation KL mesurée en phase de stabilisation.
+**A :** Le terme KL (`\beta `D_KL`(\pi_\theta \parallel `pi_ref`)`) empêche le **piratage de récompense (Reward Hacking)** et l'oubli catastrophique. Sans ce garde-fou, l'agent produit rapidement des artefacts syntaxiques visant à duper l'analyseur de code. Cependant, pour favoriser l'émergence de longs raisonnements déductifs (comme sur DeepSeek-R1-Zero), les chercheurs fixent délibérément `\beta \to 0` au tout début de l'entraînement afin de libérer l'exploration, avant de réintroduire une régularisation KL mesurée en phase de stabilisation.
 
 **Q : Dans STaR, la Rationalisation n'incite-t-elle pas le modèle à tricher en se reposant sur les indices ?**
 **A :** La sécurité réside dans la **dissociation chronologique stricte entre la génération de la trace et la mise à jour des poids**. L'indice n'est fourni que pour aider le modèle à rétablir la causalité lors de la phase d'écriture. Dès que la trajectoire est retenue, l'indice est **physiquement effacé du prompt**. Durant la descente de gradient, le réseau de neurones apprend la démonstration comme si elle avait été conçue sans aide extérieure.
@@ -293,7 +293,7 @@ L'industrialisation de modèles entraînés par GRPO/DAPO impose une topologie d
 1. **La Frontière de l'Entraînement :** La recherche à l'inférence ne peut inventer ce que les synapses n'ont pas appris. La montée en échelle à l'entraînement grave les capacités de planification stratégique directement dans les poids neuronaux.
 2. **Auto-Amorçage Validé :** STaR prouve que les modèles peuvent s'auto-entraîner en filtrant leurs propres succès et en raisonnant à rebours, rivalisant avec des architectures 30 fois plus vastes.
 3. **Suppression du Critique :** GRPO de DeepSeek s'affranchit du réseau de valeur, réduisant l'empreinte mémoire de 50 % et extrayant des signaux d'avantage fiables par normalisation au sein du groupe.
-4. **Ingénierie de Haute Précision :** DAPO stabilise l'apprentissage à grande échelle grâce à l'écrêtage asymétrique Clip-Higher ($\epsilon=0,28$), au filtrage dynamique et à la normalisation par token, surpassant DeepSeek-R1-Zero en deux fois moins d'étapes.
+4. **Ingénierie de Haute Précision :** DAPO stabilise l'apprentissage à grande échelle grâce à l'écrêtage asymétrique Clip-Higher (`\epsilon=0,28`), au filtrage dynamique et à la normalisation par token, surpassant DeepSeek-R1-Zero en deux fois moins d'étapes.
 
 ---
 

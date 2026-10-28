@@ -140,8 +140,8 @@ Donde:
 ```
 
 ### El Umbral de Rentabilidad Económica
-- Cuando la calidad es baja ($w < 20\%$, ej. GPT-4o), el especialista pierde horas auditando errores sutiles para finalmente descartar el borrador y rehacerlo todo. Por consiguiente, incorporar GPT-4o produjo una **ralentización del 13% (0.87x respecto al ritmo humano)**.
-- Solo al cruzar el **umbral crítico de $w \ge 40\%$** (alcanzado por o3 y Opus 4.1) se amortiza el costo de auditoría, generando una auténtica **aceleración de productividad de 1.3x a 1.4x**.
+- Cuando la calidad es baja (`w < 20\%`, ej. GPT-4o), el especialista pierde horas auditando errores sutiles para finalmente descartar el borrador y rehacerlo todo. Por consiguiente, incorporar GPT-4o produjo una **ralentización del 13% (0.87x respecto al ritmo humano)**.
+- Solo al cruzar el **umbral crítico de `w \ge 40\%`** (alcanzado por o3 y Opus 4.1) se amortiza el costo de auditoría, generando una auténtica **aceleración de productividad de 1.3x a 1.4x**.
 
 ---
 

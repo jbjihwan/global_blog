@@ -4,7 +4,7 @@ title: "IA Budgétaire #6: Portail Web d'Audit et 20 Tests Réussis"
 authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
 date: 2026-11-23
-keywords: ["Portail Web d"Audit", "Graphes Vis.js", "Parseur HWPX", "Vérification 20 tests", "IA budgétaire finale"]
+keywords: ["Portail Web d'Audit", "Graphes Vis.js", "Parseur HWPX", "Vérification 20 tests", "IA budgétaire finale"]
 description: "Le grand final: Portail Web d'Audit v3.0 intégrant graphes Vis.js, jurisprudence de 10 ans, parseur HWPX et validation à 100% des 20 tests de vérification."
 ---
 

@@ -67,7 +67,7 @@ An AI-native architecture is not simply a system that *uses* AI; it is a system 
 flowchart LR
     subgraph Principles ["The 4 Invariants of AI-Native Architecture"]
         direction TB
-        P1["1. Context Budgeting (<32k Tokens/Module)"]
+        P1["1. Context Budgeting (&lt;32k Tokens/Module)"]
         P2["2. Strict Schema Contracts (Pydantic / gRPC / Zod)"]
         P3["3. Deterministic Functional Isolation (Hexagonal Architecture)"]
         P4["4. Self-Validating Characterization Suites"]
@@ -85,7 +85,7 @@ flowchart LR
 ```
 
 #### Invariant 1: Strict Context Budgeting
-Human working memory is limited to roughly $7 \pm 2$ concepts; an LLM’s effective attention degrades when reasoning across millions of tokens with high needle-in-haystack distraction. An AI-native architecture enforces **Strict Context Budgeting**:
+Human working memory is limited to roughly `7 \pm 2` concepts; an LLM’s effective attention degrades when reasoning across millions of tokens with high needle-in-haystack distraction. An AI-native architecture enforces **Strict Context Budgeting**:
 - Every cohesive module, service, or bounded context must be fully understandable within **32k tokens** of context, including its interfaces, models, and tests.
 - If an agent requires reading more than 32k tokens to reliably implement a feature or fix a bug in a component, that component violates architectural boundaries and must be decomposed.
 
@@ -279,7 +279,7 @@ class CodebaseGraphAnalyzer:
         oversized_modules = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ PASS" if tokens <= max_context_tokens else "❌ OVERBUDGET (Semantic Debt Risk)"
-            print(f" - {mod:<35} : ~{tokens:>5} tokens [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} tokens [{status}]")
             if tokens > max_context_tokens:
                 oversized_modules.append((mod, tokens))
 

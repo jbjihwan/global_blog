@@ -165,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Encadenamiento de Prompts (Prompt Chaining: Descomposición Secuencial)
-Divide una tarea monolítica en pasos deterministas donde la salida del paso `k` se convierte en el contexto del paso `k+1`. Al intercalar compuertas de validación entre etapas (por ejemplo: generar esquema $\to$ verificar cobertura $\to$ redactar borrador $\to$ corregir), se erradica la propagación de fallos.
+Divide una tarea monolítica en pasos deterministas donde la salida del paso `k` se convierte en el contexto del paso `k+1`. Al intercalar compuertas de validación entre etapas (por ejemplo: generar esquema `\to` verificar cobertura `\to` redactar borrador `\to` corregir), se erradica la propagación de fallos.
 
 #### 2. Enrutamiento Dinámico (Dynamic Routing: Especialización)
 Clasifica la naturaleza de la petición entrante y la despacha al modelo o herramienta especializada más eficiente. Consultas algebraicas se canalizan a un entorno Python, mientras que consultas de refactorización masiva se delegan a un agente SWE específico.
@@ -257,7 +257,7 @@ El programa académico de CS329A está estructurado en cuatro niveles de ingenie
 #### Puntos Clave
 1. **El Giro Paradigmático:** La IA se ha desplazado de la predicción estática y puntual de texto a bucles de retroalimentación autónomos donde la acción, verificación y reflexión operan de manera continua.
 2. **Fronteras Duales de Escala:** El ensanchamiento de parámetros de preentrenamiento ahora se complementa con el escalado de cómputo en inferencia (Best-of-N, PRMs, búsqueda en árbol), permitiendo que modelos compactos superen a gigantes mediante razonamiento deliberado.
-3. **El Eje Universal:** Todo sistema agéntico exitoso implementa el ciclo unificado: **Generar $\to$ Verificar $\to$ Iterar**.
+3. **El Eje Universal:** Todo sistema agéntico exitoso implementa el ciclo unificado: **Generar `\to` Verificar `\to` Iterar**.
 4. **El Cuello de Botella de la Verificación:** La velocidad de autoevolución de un agente está estrictamente limitada por la fidelidad y objetividad de su señal de verificación.
 
 ---

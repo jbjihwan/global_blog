@@ -64,6 +64,12 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
      - 20개 전수 검증: run_all_tests.py 실행 결과 20/20 PASS (SQL 생성, 파이프라인, GraphRAG, 실시간 스트림, 판례 매칭, 소명서 생성, e나라도움 보조금, 담합 네트워크, 국회 삭감 분석 등 전수 무결점).
      - 위치: 배포대기/2026-11-23-national-budget-ai-inspector-portal-verification-system/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터 및 다크모드 커버 인포그래픽, 20/20 테스트 PASS 구비).
 
+  11. **국가 예산 AI 감사 6부작 전편 공식 프로덕션 배포 완료 (Full Production Deployment)**:
+     - 에피소드 #1부터 완결편 #6까지 6개 전편 아티클을 Docusaurus log/ 및 8개 i18n/ 운영 경로로 정식 배치 완료.
+     - 블로그 사이드바(BlogSidebar/Desktop & Mobile)에 '국가 예산 AI 감사(Public Budget AI)' 전용 카테고리 뷰 및 에피소드 순차 정렬 알고리즘 구축.
+     - MDX 수식/JSX 특수기호(&lt;, 인라인 수식 정규화) 무결점 처리 후 9개 언어 Docusaurus 전체 정적 사이트 빌드(Exit code 0) 통과.
+     - publish.ps1 파이프라인 가동으로 GitHub Pages(gh-pages) 및 글로벌 라이브 배포(https://globaldevlog.com/) 완료.
+
 ## 📋 다음 한 걸음
 1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:
    - `python tools/fetch_search_console.py` 및 `python tools/fetch_full_ga4_report.py` 주간 실행.

@@ -209,7 +209,7 @@ Pour éviter la convergence prématurée, il conjugue **MAP-Elites** et modèle 
 - **Survie par Niche :** Un programme survit s'il excelle dans sa niche comportementale spécifique, garantissant un pool génétique d'une extrême richesse pour les futurs croisements.
 
 ### Réalisations Historiques
-1. **Bataille de Strassen Résolue après 56 Ans :** En 1969, Volker Strassen prouva qu'on pouvait multiplier des matrices complexes $4 \times 4$ en 49 multiplications au lieu de 64. Durant 56 ans, aucun mathématicien n'avait pu descendre à 48. En seulement **15 générations de mutations**, AlphaEvolve a découvert un algorithme inédit opérant en **48 multiplications**.
+1. **Bataille de Strassen Résolue après 56 Ans :** En 1969, Volker Strassen prouva qu'on pouvait multiplier des matrices complexes `4 4` en 49 multiplications au lieu de 64. Durant 56 ans, aucun mathématicien n'avait pu descendre à 48. En seulement **15 générations de mutations**, AlphaEvolve a découvert un algorithme inédit opérant en **48 multiplications**.
 2. **Optimisation du Planificateur Borg de Google :** AlphaEvolve a réécrit les algorithmes heuristiques du planificateur de calcul des centres de données mondiaux de Google, générant une **économie permanente de 0,7 % sur l'ensemble des ressources de calcul**.
 3. **Accélération Matérielle Récursive :** En réécrivant les noyaux d'attention XLA utilisés pour entraîner Gemini, AlphaEvolve a **accéléré le débit d'apprentissage de 23 %**. L'IA a ainsi programmé le code qui a accéléré sa propre descendance.
 

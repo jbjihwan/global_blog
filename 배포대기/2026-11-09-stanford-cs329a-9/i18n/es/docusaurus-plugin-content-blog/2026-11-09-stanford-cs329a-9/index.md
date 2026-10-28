@@ -118,7 +118,7 @@ flowchart TD
 InstructGPT demostró una asimetría cognitiva decisiva:
 > **"Para un ser humano es sumamente costoso redactar desde cero una solución perfecta de 500 líneas, pero evaluar dos respuestas generadas por una IA y decidir cuál es más precisa y clara es 100 veces más rápido y fiable."**
 
-Al entrenar un Modelo de Recompensa ($r_\phi$) con datos de clasificación y optimizar la política con PPO, **un modelo InstructGPT de solo 1.3B superó en evaluaciones a ciegas al modelo base GPT-3 de 175B**. La tasa de alucinaciones se redujo a la mitad, mejorando significativamente la seguridad y la utilidad.
+Al entrenar un Modelo de Recompensa (`r_\phi`) con datos de clasificación y optimizar la política con PPO, **un modelo InstructGPT de solo 1.3B superó en evaluaciones a ciegas al modelo base GPT-3 de 175B**. La tasa de alucinaciones se redujo a la mitad, mejorando significativamente la seguridad y la utilidad.
 
 ### La Ley de Goodhart y el Hackeo de Recompensas
 Hacia 2024, las limitaciones de optimizar contra un modelo neuronal de recompensa se hicieron evidentes:
@@ -161,7 +161,7 @@ El resultado fue un hito en la historia de la IA:
 
 Aunque el RLVR resolvió el razonamiento estático, los problemas reales de ingeniería exigen interactuar con entornos complejos durante múltiples pasos. Un ingeniero de software no emite una sola respuesta de texto: clona repositorios, edita archivos, ejecuta compiladores y resuelve errores en la terminal.
 
-**Agent RL** redefine la unidad básica de entrenamiento: pasa de una respuesta aislada a una **trayectoria completa de interacción ambiental $\tau$**:
+**Agent RL** redefine la unidad básica de entrenamiento: pasa de una respuesta aislada a una **trayectoria completa de interacción ambiental `\tau`**:
 
 ```text
 Trayectoria τ = (s_0, a_0, o_0, s_1, a_1, o_1, ..., s_T, a_T, o_T)

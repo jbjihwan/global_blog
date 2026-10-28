@@ -15,7 +15,7 @@ Before charting the future, consider the intellectual pyramid erected across thi
 - **Part 3 · Agent Engineering (Lectures 10–12):** Industrial software engineering agents (SWE-bench), Agent-System Interfaces (ASI), OS-style hierarchical virtual memory paging (MemGPT, Cartridges), and macroeconomic valuation (GDPval, METR 7-month doubling laws).
 - **Part 4 · Frontiers (Lectures 13–16):** Cognitive foundations of Chain-of-Thought reasoning, formal IMO mathematical theorem proving (AlphaProof, Lean 4), the 3-layer trust boundary and AI Control, and physically embodied Vision-Language-Action (VLA) robotics.
 
-Throughout every breakthrough, one fundamental spine governed intelligence: **Generation -> Verification -> Closed-Loop Feedback**. Yet, if we scale this loop by $1,000\times$ across thousands of autonomous hours in unconstrained reality, where does the feedback loop fracture first?
+Throughout every breakthrough, one fundamental spine governed intelligence: **Generation -> Verification -> Closed-Loop Feedback**. Yet, if we scale this loop by `1,000` across thousands of autonomous hours in unconstrained reality, where does the feedback loop fracture first?
 
 {/* truncate */}
 
@@ -52,9 +52,9 @@ To construct the **Safe Superintelligence Roadmap**, we must dismantle conventio
 
 ### 2.1. The 80% Horizon Mirage: Why `T_80% << T_50%`
 In Lecture 12, we evaluated METR's time horizon metric tracking tasks where autonomous agents achieve a 50% success probability. Historically, this capability has doubled every 7 months:
-- **GPT-4 (Spring 2023):** $\approx 4$ minute time horizon
-- **Claude 3.7 Sonnet (Early 2025):** $\approx 59$ minute time horizon
-- **Claude Opus 4.5 (Summer 2025):** $\approx 4$ hours 49 minutes
+- **GPT-4 (Spring 2023):** `\approx 4` minute time horizon
+- **Claude 3.7 Sonnet (Early 2025):** `\approx 59` minute time horizon
+- **Claude Opus 4.5 (Summer 2025):** `\approx 4` hours 49 minutes
 
 However, a deceptive asymmetry emerges when demanding an **80% production-grade reliability horizon** (`T_80%`): the usable horizon collapses precipitously to **barely 27 minutes**:
 
@@ -74,7 +74,7 @@ The underlying mathematical catastrophe stems from compounding Markov step degra
 ```text
 P_total = \prod_{t=1}^N (1 - \epsilon_t)
 ```
-Even with a single-step fidelity of $99.5\%$ ($\epsilon = 0.005$), a 500-step trajectory suffers an aggregate failure probability exceeding $91.8\%$. Without continuous checkpointed milestone verification and hierarchical episodic memory distillation, long-horizon autonomy dissolves into compounding hallucination.
+Even with a single-step fidelity of `99.5\%` (`\epsilon = 0.005`), a 500-step trajectory suffers an aggregate failure probability exceeding `91.8\%`. Without continuous checkpointed milestone verification and hierarchical episodic memory distillation, long-horizon autonomy dissolves into compounding hallucination.
 
 ### 2.2. Inverse Scaling in Test-Time Compute
 Conventional scaling laws posited that dedicating exponentially greater test-time compute monotonically improves reasoning fidelity. In mid-2025, empirical investigations into *Inverse Scaling in Test-Time Compute* disproved this assumption. On deeply nested open-ended reasoning tasks, extended inference tokens induce five distinct pathology modes:
@@ -124,7 +124,7 @@ A foundational epistemological circularity plagues pure LLM-as-a-judge pipelines
 
 In mission-critical infrastructure, 95% verification accuracy provides zero mathematical warranty. The **FormalJudge** architecture resolves this impasse via neuro-symbolic decomposition:
 1. **The LLM as Auto-Formalizer:** Translates natural language requirements into machine-checkable formal specifications (Lean 4, Dafny, or Z3 SMT constraints).
-2. **The Deterministic Solver as Sovereign Verifier:** Z3 or Lean 4 compiles and verifies the generated code invariants mathematically ($0\%$ false positive rate).
+2. **The Deterministic Solver as Sovereign Verifier:** Z3 or Lean 4 compiles and verifies the generated code invariants mathematically (`0\%` false positive rate).
 3. **Atomic Execution Gate:** System actions execute if and only if a formal SAT proof certificate is emitted by the SMT solver.
 
 ---
@@ -160,7 +160,7 @@ Synthesizing all seventeen lectures of Stanford CS329A, the global research road
 | Dimension | Critical Open Challenge | Relevant Lectures | 2026+ Breakthrough Frontiers |
 |---|---|---|---|
 | **Capability** | 80% Long-Horizon Reliability Gap | L11, L12, L15 | Hierarchical Episodic Memory (MemVerse) + Milestone Checkpoint Provers |
-| **Capability** | Multi-Modal Robotics Sim-to-Real Gap | L13, L16 | Cross-Embodiment Co-Training ($\pi_{0.5}$) + Continuous Flow Matching |
+| **Capability** | Multi-Modal Robotics Sim-to-Real Gap | L13, L16 | Cross-Embodiment Co-Training (`\pi_(0.5)`) + Continuous Flow Matching |
 | **Capability** | Test-Time Compute Inverse Scaling | L2, L5, L13 | Budget-Aware Tree Search (BATS) + Trajectory Satiation Classifiers |
 | **Reliability** | Probabilistic Verifier Circularity | L3, L4, L14 | Neuro-Symbolic Formal Oversight (FormalJudge, Lean 4 / Z3 SMT) |
 | **Reliability** | 1,000x Compute Exhaustion & Context Rot | L2, L8, L11 | Compute-Optimal Dynamic Token Allocation + KV Selective Eviction |

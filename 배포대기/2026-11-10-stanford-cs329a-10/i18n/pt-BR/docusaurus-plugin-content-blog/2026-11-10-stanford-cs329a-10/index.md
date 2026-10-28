@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### A Revolução do Feedback por Profiler
-Em geração direta e isolada (*single-shot*), mesmo modelos topo de linha como OpenAI o1 ou DeepSeek-R1 falham gravemente: **menos de 20% dos kernels CUDA criados alcançam qualquer aceleração frente ao PyTorch padrão ($fast_1 < 20\%$)**, quebrando frequentemente por acessos inválidos de memória ou conflitos de bancos de memória compartilhada.
+Em geração direta e isolada (*single-shot*), mesmo modelos topo de linha como OpenAI o1 ou DeepSeek-R1 falham gravemente: **menos de 20% dos kernels CUDA criados alcançam qualquer aceleração frente ao PyTorch padrão (`fast_1 < 20\%`)**, quebrando frequentemente por acessos inválidos de memória ou conflitos de bancos de memória compartilhada.
 
 Contudo, quando o KernelBench conecta o agente a um loop fechado de 3 níveis:
 1. **Geração:** Criação da implementação em Triton ou CUDA.

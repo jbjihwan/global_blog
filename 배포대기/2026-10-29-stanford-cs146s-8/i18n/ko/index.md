@@ -67,7 +67,7 @@ AI 네이티브 아키텍처는 단순히 AI API를 호출하는 서비스가 �
 flowchart LR
     subgraph Principles ["AI 네이티브 아키텍처의 4대 원칙"]
         direction TB
-        P1["1. 컨텍스트 예산제 (<32k 토큰/모듈)"]
+        P1["1. 컨텍스트 예산제 (&lt;32k 토큰/모듈)"]
         P2["2. 기계 판독형 엄격 스키마 계약 (Pydantic / gRPC / Zod)"]
         P3["3. 결정론적 함수형 격리 (헥사고날 아키텍처)"]
         P4["4. 자가 검증형 골든 마스터 테스트 하네스"]
@@ -85,7 +85,7 @@ flowchart LR
 ```
 
 #### 원칙 1: 엄격한 컨텍스트 예산제 (Strict Context Budgeting)
-인간의 작업 기억이 약 $7 \pm 2$개의 개념에 국한되는 것처럼, LLM 역시 백만 토큰 프롬프트 내에서 바늘 찾기(Needle In A Haystack) 집중력 저하가 일어납니다. AI 네이티브 아키텍처는 모듈당 엄격한 컨텍스트 예산을 강제합니다:
+인간의 작업 기억이 약 `7 \pm 2`개의 개념에 국한되는 것처럼, LLM 역시 백만 토큰 프롬프트 내에서 바늘 찾기(Needle In A Haystack) 집중력 저하가 일어납니다. AI 네이티브 아키텍처는 모듈당 엄격한 컨텍스트 예산을 강제합니다:
 - 하나의 완결된 모듈, 서비스, 도메인 경계는 인터페이스, 비즈니스 로직, 단위 테스트를 모두 포함하여 **32k 토큰 이내**로 완벽히 이해 가능해야 합니다.
 - 만약 특정 컴포넌트의 버그를 고치기 위해 에이전트가 32k 토큰을 초과하는 외부 코드를 읽어야 한다면, 해당 컴포넌트는 아키텍처 경계를 위반한 것이며 즉시 분해 대상이 됩니다.
 
@@ -278,7 +278,7 @@ class CodebaseGraphAnalyzer:
         oversized_modules = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ 적합" if tokens <= max_context_tokens else "❌ 초과 (시맨틱 부채 위험)"
-            print(f" - {mod:<35} : ~{tokens:>5} 토큰 [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} 토큰 [{status}]")
             if tokens > max_context_tokens:
                 oversized_modules.append((mod, tokens))
 

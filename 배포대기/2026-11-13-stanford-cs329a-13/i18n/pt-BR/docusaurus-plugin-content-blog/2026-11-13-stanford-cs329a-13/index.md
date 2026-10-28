@@ -169,7 +169,7 @@ Por que o CoT e o Self-Consistency não funcionavam em modelos pequenos de 1B ou
 Em 1977, o físico Nobel Philip Anderson publicou *"More is Different"*, postulando que sistemas complexos não podem ser explicados apenas pela soma de suas partes. É inviável deduzir a dinâmica de fluidos a partir do estudo isolado de um átomo de hidrogênio.
 
 Em **《Emergent Abilities of Large Language Models》**, Jason Wei e Denny Zhou demonstraram que as redes neurais vivenciam **transições de fase (Phase Transitions)** equivalentes:
-> **"Uma habilidade emergente é uma competência cognitiva praticamente ausente em modelos menores (com desempenho próximo ao acaso), mas que eclode de forma súbita e vertical quando a escala computacional ultrapassa um limiar crítico (tipicamente $10^{23}$ FLOPs ou ~100B parâmetros)."**
+> **"Uma habilidade emergente é uma competência cognitiva praticamente ausente em modelos menores (com desempenho próximo ao acaso), mas que eclode de forma súbita e vertical quando a escala computacional ultrapassa um limiar crítico (tipicamente `10^(23)` FLOPs ou ~100B parâmetros)."**
 
 ```mermaid
 flowchart LR
@@ -186,9 +186,9 @@ Em 2024, um grupo da Universidade de Stanford liderado por Sanjeev Arora publico
 #### A Crítica de Arora: A distorção por métricas não lineares
 O grupo de Arora analisou o uso da métrica de **correspondência exata (Exact Match)**:
 - Considere uma dedução de $L$ passos em que cada token tem probabilidade $p$ de acerto.
-- Conforme o modelo cresce, a precisão elementar $p$ progride de forma **completamente suave e linear** ($0,6 \to 0,7 \to 0,8 \to 0,9$).
+- Conforme o modelo cresce, a precisão elementar $p$ progride de forma **completamente suave e linear** (`0,6 \to 0,7 \to 0,8 \to 0,9`).
 - Contudo, se a avaliação exigir acerto absoluto em todos os $L=5$ tokens, a métrica final escala como $p^L$:
-  $$0,6^5 = 0,07 \; (7\%) \quad \longrightarrow \quad 0,9^5 = 0,59 \; (59\%)$$
+  $`0,6^5 = 0,07 \; (7\%) \quad \longrightarrow \quad 0,9^5 = 0,59 \; (59\%)`$
 - **A Tese da Miragem:** A habilidade subjacente cresce de maneira contínua; o suposto salto abrupto é um efeito colateral matemático gerado por métricas não lineares.
 
 ```text
@@ -263,4 +263,4 @@ Na **Aula 14**, examinaremos: **《AlphaProof & Mathematical Reasoning: Lean 4, 
 ### Principais Lições
 - **A Linguagem é o Veículo do Raciocínio:** Estruturar problemas em etapas em linguagem natural elevou a acurácia do PaLM 540B em 39 pontos sem modificar seus pesos.
 - **A Verdade Converge, o Erro Diverge:** O voto por maioria no Self-Consistency explora a topologia lógica para impulsionar a acurácia a 74,4%.
-- **Transições de Fase Reais:** Ao superar $10^{23}$ FLOPs, a acumulação de probabilidades pontuais desencadeia saltos qualitativos na inteligência dedutiva global.
+- **Transições de Fase Reais:** Ao superar `10^(23)` FLOPs, a acumulação de probabilidades pontuais desencadeia saltos qualitativos na inteligência dedutiva global.

@@ -165,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Prompt Chaining (Sequential Decomposition)
-Decomposes a complex monolithic task into a series of deterministic steps where the output of step `k` becomes the structured context for step `k+1`. This architecture minimizes error amplification by inserting validation gates between stages (e.g., generating an outline $\to$ verifying coverage $\to$ writing draft $\to$ proofreading).
+Decomposes a complex monolithic task into a series of deterministic steps where the output of step `k` becomes the structured context for step `k+1`. This architecture minimizes error amplification by inserting validation gates between stages (e.g., generating an outline `\to` verifying coverage `\to` writing draft `\to` proofreading).
 
 #### 2. Dynamic Routing
 Classifies the input query and dynamically dispatches execution to specialized models, fine-tuned adapters, or purpose-built tools. For example, routing an algebraic query to a SymPy/Python execution sandbox while routing a semantic search query to an embedding vector database.
@@ -258,7 +258,7 @@ The Stanford CS329A curriculum is structured into four progressive architectural
 #### Key Takeaways
 1. **The Paradigm Shift:** Modern AI has expanded beyond static, single-turn token completion into autonomous, multi-step feedback loops where execution, verification, and reflection operate continuously.
 2. **Dual Scaling Frontiers:** Pre-training parameter scaling is now augmented by inference-time compute scaling (Best-of-N, process reward models, Monte Carlo tree search), enabling smaller models to outperform giant models through deliberate reasoning.
-3. **The Core Loop:** Every effective agentic system embodies the universal tri-fold cycle: **Generate $\to$ Verify $\to$ Loop**.
+3. **The Core Loop:** Every effective agentic system embodies the universal tri-fold cycle: **Generate `\to` Verify `\to` Loop**.
 4. **The Verification Bottleneck:** The rate of an agent's self-improvement is strictly throttled by the fidelity and objectivity of its verification signal.
 
 ---

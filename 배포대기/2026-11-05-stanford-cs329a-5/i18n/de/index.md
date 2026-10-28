@@ -174,7 +174,7 @@ flowchart TD
 #### Die rekursive AND/OR-Ausführungs-Engine
 
 ADaPT strukturiert Aufgaben über logische Operatoren:
-* **AND-Knoten:** Sequentielle Teilaufgaben, die ausnahmslos erfolgreich sein müssen (z. B. `Daten abrufen` $\to$ `Transformieren` $\to$ `In DB schreiben`).
+* **AND-Knoten:** Sequentielle Teilaufgaben, die ausnahmslos erfolgreich sein müssen (z. B. `Daten abrufen` `\to` `Transformieren` `\to` `In DB schreiben`).
 * **OR-Knoten:** Alternative Hypothesen, bei denen der Erfolg eines beliebigen Zweigs genügt (z. B. `Lokalen Cache prüfen` OR `Remote-API abfragen`).
 
 #### Empirische Effizienz
@@ -214,7 +214,7 @@ flowchart LR
 
 #### Der topologische Packing-Algorithmus
 
-SPRINT modelliert Denkschritte als gerichteten azyklischen Graphen (DAG). Anhand der Kausalabhängigkeiten $D$ weist der Algorithmus jedem Schritt $S_i$ eine topologische Stufennummer $\sigma(S_i)$ zu:
+SPRINT modelliert Denkschritte als gerichteten azyklischen Graphen (DAG). Anhand der Kausalabhängigkeiten $D$ weist der Algorithmus jedem Schritt $S_i$ eine topologische Stufennummer `\sigma(S_i)` zu:
 
 ```text
 σ(S_i) = {
@@ -223,7 +223,7 @@ SPRINT modelliert Denkschritte als gerichteten azyklischen Graphen (DAG). Anhand
 }
 ```
 
-Alle Schritte mit identischer Stufennummer $\sigma$ werden parallel auf verteilte GPU-Knoten verteilt und **zeitgleich berechnet**. Nach Abschluss aller parallelen Threads führt eine Synchronisationsbarriere die Ergebnisse zusammen, woraufhin die nächste Planungsstufe berechnet wird:
+Alle Schritte mit identischer Stufennummer `\sigma` werden parallel auf verteilte GPU-Knoten verteilt und **zeitgleich berechnet**. Nach Abschluss aller parallelen Threads führt eine Synchronisationsbarriere die Ergebnisse zusammen, woraufhin die nächste Planungsstufe berechnet wird:
 
 ```text
 Planung  ──►  Paralleler Dispatch  ──►  Topologische Synchronisation  ──►  Re-Planung
@@ -290,7 +290,7 @@ Der sichere und wirtschaftliche Einsatz von MCTS-Planungs-Engines in Produktions
 #### Drei unverzichtbare Leitplanken für die Produktion
 1. **Early-Stopping-Schutzschalter:** Sobald ein einziger Pfad alle formalen Kriterien (z. B. 100 % bestandene Unit-Tests) erfüllt, wird die gesamte MCTS-Suche augenblicklich abgebrochen und das Ergebnis ausgeliefert.
 2. **Hierarchisches Serving:** Aufwändige 70B+-Modelle dürfen nicht für triviales Blatt-Sampling verwendet werden; diese Aufgaben übernehmen kompakte 7B/8B-Modelle, während Spitzenmodelle der Wertermittlung vorbehalten bleiben.
-3. **Budgetkontingente:** Feste Schranken für maximale Tiefe ($`d_max` \le 6$) und Iterationsanzahl ($N \le 30$) verhindern unkontrollierte Inferenzkosten.
+3. **Budgetkontingente:** Feste Schranken für maximale Tiefe (``d_max` \le 6`) und Iterationsanzahl (`N \le 30`) verhindern unkontrollierte Inferenzkosten.
 
 ---
 

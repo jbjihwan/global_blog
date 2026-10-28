@@ -174,7 +174,7 @@ flowchart TD
 #### Mecanismo Recursivo AND / OR
 
 O ADaPT esquematiza os subplanos por meio de nós lógicos:
-* **Nós AND:** Subtarefas sequenciais interdependentes em que todas devem ter êxito (ex.: `Coleta` $\to$ `Transformação` $\to$ `Persistência em BD`).
+* **Nós AND:** Subtarefas sequenciais interdependentes em que todas devem ter êxito (ex.: `Coleta` `\to` `Transformação` `\to` `Persistência em BD`).
 * **Nós OR:** Hipóteses exploratórias alternativas em que o sucesso de um único ramo satisfaz a meta (ex.: `Checar Cache Local` OR `Consultar API Remota`).
 
 #### Eficiência Prática
@@ -214,7 +214,7 @@ flowchart LR
 
 #### O Algoritmo de Empacotamento Topológico
 
-O SPRINT formaliza o processo de dedução como um Grafo Acíclico Dirigido (DAG). Avaliando as dependências causais $D$, o algoritmo calcula o nível topológico $\sigma(S_i)$ de cada etapa:
+O SPRINT formaliza o processo de dedução como um Grafo Acíclico Dirigido (DAG). Avaliando as dependências causais $D$, o algoritmo calcula o nível topológico `\sigma(S_i)` de cada etapa:
 
 ```text
 σ(S_i) = {
@@ -223,7 +223,7 @@ O SPRINT formaliza o processo de dedução como um Grafo Acíclico Dirigido (DAG
 }
 ```
 
-Todas as etapas que partilham o mesmo nível $\sigma$ são atribuídas simultaneamente a diferentes nós de GPU e **processadas em paralelo**. Ao final dos cálculos simultâneos, uma barreira de sincronização sintetiza os achados antes de despachar o ciclo seguinte:
+Todas as etapas que partilham o mesmo nível `\sigma` são atribuídas simultaneamente a diferentes nós de GPU e **processadas em paralelo**. Ao final dos cálculos simultâneos, uma barreira de sincronização sintetiza os achados antes de despachar o ciclo seguinte:
 
 ```text
 Planejamento  ──►  Despacho Paralelo  ──►  Sincronização  ──►  Replanejamento
@@ -290,7 +290,7 @@ A estruturação segura e econômica de motores de planejamento MCTS em ambiente
 #### Três Salvaguardas Essenciais de Operação
 1. **Disjuntor de Parada Precoce (Early-Stopping):** Se qualquer ramo de busca atender plenamente às validações formais (ex.: 100% de acerto em testes unitários), interrompe-se de imediato toda a busca MCTS para retornar o resultado sem ônus adicional.
 2. **Distribuição Hierárquica de Modelos:** Evitar modelos de grande porte (70B+) para amostragem repetitiva de nós folha; direcionar essa tarefa para modelos ágeis (7B/8B) e reservar os modelos de ponta apenas para a pontuação de nós estratégicos.
-3. **Limites de Recursos:** Fixar tetos rígidos para a profundidade da árvore ($`d_max` \le 6$) e para o total de iterações ($N \le 30$) para blindar o orçamento de nuvem.
+3. **Limites de Recursos:** Fixar tetos rígidos para a profundidade da árvore (``d_max` \le 6`) e para o total de iterações (`N \le 30`) para blindar o orçamento de nuvem.
 
 ---
 

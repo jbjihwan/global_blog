@@ -141,8 +141,8 @@ Where:
 
 ### The Economic Threshold: Deficit vs Surplus
 The mathematical implications of this equation are striking:
-- When agent win rate is low ($w < 20\%$, e.g., GPT-4o), human experts spend hours reviewing flawed drafts, get frustrated by subtle hallucinations, and ultimately discard the work to restart from scratch. Consequently, deploying GPT-4o yielded an **overall net slowdown (0.87x human baseline speed)**.
-- Only when win rate crosses the **critical threshold of $w \ge 40\%$** (achieved by o3 and Opus 4.1) does the human review penalty become economically viable, yielding an authentic **1.3x to 1.4x net productivity acceleration**.
+- When agent win rate is low (`w < 20\%`, e.g., GPT-4o), human experts spend hours reviewing flawed drafts, get frustrated by subtle hallucinations, and ultimately discard the work to restart from scratch. Consequently, deploying GPT-4o yielded an **overall net slowdown (0.87x human baseline speed)**.
+- Only when win rate crosses the **critical threshold of `w \ge 40\%`** (achieved by o3 and Opus 4.1) does the human review penalty become economically viable, yielding an authentic **1.3x to 1.4x net productivity acceleration**.
 
 ---
 

@@ -52,7 +52,7 @@ Pourquoi les mathématiques sont-elles universellement considérées comme le ba
 
 1. **Vérifiabilité mécanique objective (Objective Mechanical Verifiability) :** Contrairement aux dissertations littéraires ou aux analyses juridiques dont l'évaluation est subjective, les mathématiques formelles sont vérifiées avec une certitude absolue par un compilateur déterministe (tel que le vérificateur de types de Lean 4).
 2. **Rareté extrême de la récompense (Extreme Reward Sparsity) :** Dans une démonstration de niveau olympique comportant des centaines d'étapes déductives, l'agent ne perçoit aucune récompense intermédiaire jusqu'à la résolution complète (`Goal Solved`). Une preuve exacte à 99% mais erronée sur la dernière ligne reçoit une récompense nulle.
-3. **Espace de recherche combinatoire massif (Massive Combinatorial Search Space) :** Contrairement aux échecs (facteur de branchement $\approx 35$) ou au jeu de Go ($\approx 250$), l'espace des lemmes mathématiques, des définitions et des constructions auxiliaires est illimité ($b \to \infty$).
+3. **Espace de recherche combinatoire massif (Massive Combinatorial Search Space) :** Contrairement aux échecs (facteur de branchement `\approx 35`) ou au jeu de Go (`\approx 250`), l'espace des lemmes mathématiques, des définitions et des constructions auxiliaires est illimité (`b \to \infty`).
 
 ---
 

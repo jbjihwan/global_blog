@@ -12,7 +12,7 @@ keywords: [Avaliação Determinística de Política, Métrica Near-Miss Obstácu
 ![Benchmark de Sucesso e Passos](./images/01_eval_success_steps.png)
 
 > 📌 **Resumo dos Pontos Principais (TL;DR)**
-> - **Objetivo**: Medir a capacidade pura da política gulosa aprendida (Greedy Policy, $\epsilon = 0$) sem exploração estocástica, validando a viabilidade de implantação no mundo real.
+> - **Objetivo**: Medir a capacidade pura da política gulosa aprendida (Greedy Policy, `\epsilon = 0`) sem exploração estocástica, validando a viabilidade de implantação no mundo real.
 > - **Resultado**: O Q-Learning tabular atingiu 92% de taxa de sucesso com demanda computacional 15 vezes menor em comparação com Deep Q-Networks (DQN).
 
 {/* truncate */}
@@ -32,7 +32,7 @@ O Q-Learning tabular demonstrou-se extraordinariamente eficiente em termos de co
 ---
 
 ### 📌 Resumo Executivo para Gestão (3–5 Linhas)
-1. **Teste Determinístico ($\epsilon=0$)**: Confirma a solidez da política sem depender de ações aleatórias de sorte.
+1. **Teste Determinístico (`\epsilon=0`)**: Confirma a solidez da política sem depender de ações aleatórias de sorte.
 2. **Eficiência Extrema**: Ocupando menos de 15 KB, a abordagem é ideal para computação embarcada de ultra-baixo custo.
 3. **Latência Mínima**: Respostas em frações de milissegundo evitam acidentes em velocidades de tráfego mais altas.
 4. **Pronto para Hardware**: A política atende a todos os critérios para transferência direta para robôs reais.

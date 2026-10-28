@@ -69,7 +69,7 @@ flowchart TD
 ### 3. 基於 AST 的單體系統自動化解耦
 
 面對龐大的遺留企業單體系統，史丹佛 CS146S 推薦**基於 AST 的自主解耦流水線**：
-1. **AST 調用圖構建與強連通分量（SCC）解環**：利用 Tarjan 演算法分析依賴圖中的循環依賴（$A \to B \to A$），優先解開耦合。
+1. **AST 調用圖構建與強連通分量（SCC）解環**：利用 Tarjan 演算法分析依賴圖中的循環依賴（`A \to B \to A`），優先解開耦合。
 2. **自動生成介面外觀層 (Interface Facade)**：AI Agent 自動提取外觀介面，重寫外部調用路徑。
 3. **影子雙軌運行驗證 (Shadow Dual-Run)**：複製真實唯讀流量並發路由至舊單體與新解耦模組，經 10 萬次嚴格比對後實現零停機無縫切換。
 
@@ -201,7 +201,7 @@ class CodebaseGraphAnalyzer:
         oversized = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ 合格" if tokens <= max_context_tokens else "❌ 超標 (語意債務風險)"
-            print(f" - {mod:<35} : ~{tokens:>5} tokens [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} tokens [{status}]")
             if tokens > max_context_tokens:
                 oversized.append((mod, tokens))
 

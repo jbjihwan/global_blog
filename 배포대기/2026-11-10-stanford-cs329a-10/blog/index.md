@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### The Profiler Feedback Revolution
-In naive single-shot generation, even elite models like OpenAI o1 or DeepSeek-R1 fail dramatically: **less than 20% of generated CUDA kernels achieve any speedup over standard PyTorch ($fast_1 < 20\%$)**, frequently crashing with out-of-bounds memory accesses or shared memory bank conflicts.
+In naive single-shot generation, even elite models like OpenAI o1 or DeepSeek-R1 fail dramatically: **less than 20% of generated CUDA kernels achieve any speedup over standard PyTorch (`fast_1 < 20\%`)**, frequently crashing with out-of-bounds memory accesses or shared memory bank conflicts.
 
 However, when KernelBench connects the agent to a three-tier closed loop:
 1. **Generation:** Generates initial Triton/CUDA implementation.

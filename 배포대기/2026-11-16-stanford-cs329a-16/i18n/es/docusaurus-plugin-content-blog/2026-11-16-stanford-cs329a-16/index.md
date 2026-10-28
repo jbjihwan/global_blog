@@ -21,7 +21,7 @@ En la lección previa sobre Sistemas Autónomos y Confiabilidad, analizamos cóm
 Bienvenidos a la **Clase 16** de **Stanford CS329A: Self-Improving AI Agents**, el cuarto capítulo de la **Parte 4: Fronteras (Frontiers in Reasoning & Autonomy)**. De la mano de las investigaciones pioneras del **Dr. Danny Driess** (Investigador fundador en Physical Intelligence, exinvestigador principal en Google DeepMind Robotics), diseccionamos la arquitectura de los **modelos de Visión-Lenguaje-Acción (VLA, Vision-Language-Action)**:
 - **Las acciones como tokens lingüísticos (RT-2, DeepMind 2023):** La transformación de señales cinemáticas continuas de 7DoF en 256 tokens discretos integrados en el vocabulario de un VLM de 55B parámetros.
 - **La vanguardia del código abierto (OpenVLA, 2024):** Superar a modelos cerrados de 55B con una arquitectura de 7B gracias a la fusión de visión dual SigLIP + DINOv2, discretización por cuantiles y ajuste fino LoRA en GPUs comerciales.
-- **Control continuo y políticas de difusión ($\pi_0$):** Superar las microvibraciones de la discretización para dominar la manipulación de materiales deformables como doblar ropa o ensamblar cajas de cartón.
+- **Control continuo y políticas de difusión (`\pi_0`):** Superar las microvibraciones de la discretización para dominar la manipulación de materiales deformables como doblar ropa o ensamblar cajas de cartón.
 - **Arquitectura de seguridad corporizada:** Blindaje dual que combina el recorte de velocidad por software con bucles de reflejo por sensores de fuerza-par por hardware.
 
 {/* truncate */}
@@ -85,8 +85,8 @@ En julio de 2023, Google DeepMind presentó **Robotic Transformer 2 (RT-2)**, tr
 
 ### El espacio de acción de 7DoF y la discretización uniforme en 256 bins
 Los brazos robóticos manipulan objetos en un espacio continuo de 7 grados de libertad (7DoF):
-1. **Desplazamiento traslacional ($\Delta x, \Delta y, \Delta z$):** Movimiento del efector final en el espacio 3D.
-2. **Desplazamiento rotacional ($\Delta roll, \Delta pitch, \Delta yaw$):** Cambio de orientación de la muñeca.
+1. **Desplazamiento traslacional (`\Delta x, \Delta y, \Delta z`):** Movimiento del efector final en el espacio 3D.
+2. **Desplazamiento rotacional (`\Delta roll, \Delta pitch, \Delta yaw`):** Cambio de orientación de la muñeca.
 3. **Estado de la pinza ($gripper$):** Acción de apertura o cierre del actuador final.
 
 Para transformar estos vectores de punto flotante en tokens discretos asimilables por el transformador, RT-2 empleó la **discretización uniforme**:
@@ -172,13 +172,13 @@ El reparto uniforme de RT-2 presentaba un defecto: en tareas reales, **el 90% de
 
 ---
 
-## 4. Control continuo y políticas de difusión: Physical Intelligence $\pi_0$ (2024)
+## 4. Control continuo y políticas de difusión: Physical Intelligence `\pi_0` (2024)
 
 A pesar de sus logros, la tokenización discreta presenta limitaciones físicas:
 - La cuantización en 256 niveles genera microvibraciones (**jittering**) indeseadas en frecuencias superiores a 50Hz.
 - Operaciones con objetos deformables —como doblar ropa, manipular cables o armar cajas de cartón— requieren trayectorias continuas y suaves.
 
-El Dr. Danny Driess y el equipo de Physical Intelligence desarrollaron **$\pi_0$ (pi-zero)** mediante **Flow Matching**:
+El Dr. Danny Driess y el equipo de Physical Intelligence desarrollaron **`\pi_0` (pi-zero)** mediante **Flow Matching**:
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -201,7 +201,7 @@ El Dr. Danny Driess y el equipo de Physical Intelligence desarrollaron **$\pi_0$
                                                (Dobla ropa y ensambla cajas)
 ```
 
-$\pi_0$ emplea el VLM para fijar metas semánticas, mientras que el módulo de control genera **trayectorias continuas mediante eliminación de ruido en tiempo real**, logrando ejecutar con un único modelo tareas tan complejas como sacar prendas de un cesto de ropa sucia y doblarlas con delicadeza.
+`\pi_0` emplea el VLM para fijar metas semánticas, mientras que el módulo de control genera **trayectorias continuas mediante eliminación de ruido en tiempo real**, logrando ejecutar con un único modelo tareas tan complejas como sacar prendas de un cesto de ropa sucia y doblarlas con delicadeza.
 
 ---
 
@@ -250,6 +250,6 @@ Los robots físicos ejercen fuerzas mecánicas reales que pueden dañar el entor
 1. **La acción física es una modalidad del lenguaje:** Tratar el movimiento continuo como tokens discretos permite transferir el sentido común adquirido en internet al control de motores.
 2. **La visión dual es indispensable en robótica:** Acoplar la semántica de SigLIP con la geometría densa 3D de DINOv2 es el factor decisivo para lograr precisión submilimétrica.
 3. **Los cuantiles resuelven el desequilibrio motor:** Concentrar la resolución de los tokens en los movimientos finos reduce de forma drástica los fallos de agarre.
-4. **La difusión continua es el futuro de la manipulación:** Técnicas de Flow Matching como $\pi_0$ eliminan vibraciones y abren las puertas al manejo de materiales deformables.
+4. **La difusión continua es el futuro de la manipulación:** Técnicas de Flow Matching como `\pi_0` eliminan vibraciones y abren las puertas al manejo de materiales deformables.
 
 En nuestra última sesión, **Clase 17 (GRAND FINALE): Direcciones Futuras de Investigación**, resumiremos las 17 lecciones de Stanford CS329A y analizaremos las grandes preguntas abiertas hacia la verdadera inteligencia artificial autorregenerativa y los enjambres de agentes. ¡Nos vemos en la gran final!

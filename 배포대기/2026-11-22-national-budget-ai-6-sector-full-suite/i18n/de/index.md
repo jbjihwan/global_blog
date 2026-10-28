@@ -35,7 +35,7 @@ description: "Abschluss der 6-Sektor-Prüfsuite: Aufdeckung von Stückelungsvert
 flowchart TD
     Raw[4 Millionen Vergabeaufträge/Jahr] --> Filter{3D-Sektorpartitions-Manager}
     Filter -->|85% Routineaufwand| Drop[Niedrigrisiko-Archiv]
-    Filter --> S1["Sektor 1: ICT-Stückelungen <20T $"]
+    Filter --> S1["Sektor 1: ICT-Stückelungen &lt;20T $"]
     Filter --> S2["Sektor 2: Kommunale Event-Kartelle"]
     Filter --> S3["Sektor 3: Fördergeldabfluss DEI"]
     Filter --> S4["Sektor 4: Großausschreibungs-Monopole"]

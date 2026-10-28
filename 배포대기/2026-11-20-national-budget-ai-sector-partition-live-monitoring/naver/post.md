@@ -33,7 +33,7 @@
   - 여기에 LLM과 지식그래프를 무차별 적용하면 막대한 API 비용이 나가고, 단가가 조금만 튀어도 감사관에게 알림을 쏟아내어 결국 시스템을 외면하게 만듭니다.
 * **사전 예방 설계**:
   - 우리는 데이터를 3개의 축으로 교차 분석하는 **3차원 표적 분할 매니저(SectorPartitionManager)**를 사전 설계했습니다.
-    $$\text{Target Sector} = \text{기관 특성} \times \text{비목 유형} \times \text{계약 방식}$$
+    `Target Sector = Agency Type × Budget Item × Contract Method`
   - **기관 특성**: 중앙부처 vs 공공기관 vs 지자체
   - **비목 유형**: 단순 물품 vs 시설 공사 vs SW 용역/행사 대행
   - **계약 방식**: 일반경쟁 vs 제한경쟁 vs 2천만 원 이하 수의계약

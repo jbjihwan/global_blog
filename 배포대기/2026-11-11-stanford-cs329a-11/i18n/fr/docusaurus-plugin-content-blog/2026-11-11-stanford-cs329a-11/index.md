@@ -52,7 +52,7 @@ Pour garantir une réelle autonomie, les architectures avancées découplent le 
 │ • Contexte principal(RAM)│  │ • Plongements KV continus│  │ • Recalcul sélectif (15%)│
 │ • Base vectorielle (Disk)│  │ • Empreinte VRAM / 38.6 │  │ • Matrice de rotation RoPE│
 │ • Éviction et résumé rec.│  │ • Débit d'inférence x26.4│  │ • Latence TTFT divisée 3.3│
-│ • Rappel profond (DMR)92%│  │ • Composabilité type Lego│  │ • Écart de précision <0.01│
+│ • Rappel profond (DMR)92%│  │ • Composabilité type Lego│  │ • Écart de précision &lt;0.01│
 └──────────────────────────┘  └──────────────────────────┘  └──────────────────────────┘
 ```
 

@@ -209,7 +209,7 @@ Zur Verhinderung verfrühter Konvergenz kombiniert das System **MAP-Elites** mit
 - **Nischenüberleben:** Ein Programm überlebt, wenn es innerhalb seiner Verhaltensnische das beste ist, was eine enorme genetische Vielfalt garantiert.
 
 ### Historische Erfolge
-1. **Bruch von Strassens 56 Jahre altem Rekord:** 1969 bewies Volker Strassen, dass die Multiplikation komplexer $4 \times 4$-Matrizen mit 49 statt 64 Multiplikationen möglich ist. 56 Jahre lang gelang es niemandem, auf 48 zu reduzieren. Nach nur **15 Mutationsgenerationen** entdeckte AlphaEvolve einen Algorithmus, der mit **genau 48 Multiplikationen** auskommt.
+1. **Bruch von Strassens 56 Jahre altem Rekord:** 1969 bewies Volker Strassen, dass die Multiplikation komplexer `4 4`-Matrizen mit 49 statt 64 Multiplikationen möglich ist. 56 Jahre lang gelang es niemandem, auf 48 zu reduzieren. Nach nur **15 Mutationsgenerationen** entdeckte AlphaEvolve einen Algorithmus, der mit **genau 48 Multiplikationen** auskommt.
 2. **Google Borg Scheduler Optimierung:** AlphaEvolve optimierte die Kern-Scheduling-Heuristiken der weltweiten Google-Rechenzentren und erzielte eine **dauerhafte Reduktion der Rechenlast um 0,7 %**.
 3. **Selbstbeschleunigende Kernel-Synthese:** Durch die Neugestaltung der XLA FlashAttention-Kernel für das Training von Gemini steigerte AlphaEvolve den Durchsatz um **23 %**. Die KI schrieb somit den Code, der ihr eigenes zukünftiges Training beschleunigt.
 

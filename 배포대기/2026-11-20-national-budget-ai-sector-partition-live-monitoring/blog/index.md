@@ -86,7 +86,7 @@ flowchart TD
   - Unstructured procurement logs are flooded with trivial expenditures. Applying deep graph embeddings and LLM reasoning indiscriminately across all records causes astronomical API bills and inundates investigators with useless alerts.
 * **Preemptive Architecture**:
   - We engineered a **3-Dimensional Sector Partition Matrix**:
-    $$\text{Target Sector} = \text{Agency Type} \times \text{Budget Item} \times \text{Contract Method}$$
+    `Target Sector = Agency Type × Budget Item × Contract Method`
   - **Dimension 1 (Agency)**: Central Ministries vs. Public Corporations vs. Local Governments.
   - **Dimension 2 (Budget Item)**: Commodity Supplies vs. Civil Construction vs. SW Services / Event Operations.
   - **Dimension 3 (Procurement Method)**: Open Competition vs. Restricted Bids vs. De Minimis Sole-Source.

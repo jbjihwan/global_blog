@@ -56,7 +56,7 @@ El desafío central en ambos dominios radica en el **Compromiso entre Precisión
 
 ## 2. Búsqueda en el Espacio de Programas: AlphaCode (Science, 2022)
 
-Las competencias de algoritmos en plataformas como Codeforces constituyen un desafío cognitivo monumental. Exigen interpretar especificaciones complejas, derivar invariantes matemáticos y escribir código en C++ que respete límites estrictos de tiempo ($O(N \log N)$) y memoria ($256\text 256 MB$) ante casos de prueba ocultos y adversarios.
+Las competencias de algoritmos en plataformas como Codeforces constituyen un desafío cognitivo monumental. Exigen interpretar especificaciones complejas, derivar invariantes matemáticos y escribir código en C++ que respete límites estrictos de tiempo (`O(N \log N)`) y memoria (`256 256 MB`) ante casos de prueba ocultos y adversarios.
 
 **AlphaCode** de Google DeepMind superó esta barrera demostrando que un cómputo masivo de inferencia complementado con agrupamiento semántico podía situar a una IA en el 54% superior de los programadores humanos.
 

@@ -16,6 +16,8 @@ interface SidebarLocaleData {
   postsHeader: string;
   allPostsName: string;
   allPostsDesc: string;
+  nationalBudgetName: string;
+  nationalBudgetDesc: string;
   cs329aName: string;
   cs329aDesc: string;
   stanfordName: string;
@@ -38,6 +40,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: '게시글 목차',
     allPostsName: '전체 글 피드',
     allPostsDesc: '전체 개발일지',
+    nationalBudgetName: '국가 예산 AI 감사',
+    nationalBudgetDesc: '공공조달 & 비리 탐지',
     cs329aName: '스탠포드 CS329A',
     cs329aDesc: '자가 진화 AI 에이전트',
     stanfordName: '스탠포드 CS146S',
@@ -58,6 +62,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: 'Dev Log Table of Contents',
     allPostsName: 'All Posts Feed',
     allPostsDesc: 'Total Dev Logs',
+    nationalBudgetName: 'Public Budget AI',
+    nationalBudgetDesc: 'Procurement Fraud Audit',
     cs329aName: 'Stanford CS329A',
     cs329aDesc: 'Self-Improving AI Agents',
     stanfordName: 'Stanford CS146S',
@@ -78,6 +84,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: '開発日誌 目次',
     allPostsName: '全記事フィード',
     allPostsDesc: '全開発日誌',
+    nationalBudgetName: '国家予算AI監査',
+    nationalBudgetDesc: '公共調達＆不正検知',
     cs329aName: 'スタンフォード CS329A',
     cs329aDesc: '自己進化AIエージェント',
     stanfordName: 'スタンフォード CS146S',
@@ -98,6 +106,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: 'Índice de Publicaciones',
     allPostsName: 'Todos los Posts',
     allPostsDesc: 'Diarios de desarrollo',
+    nationalBudgetName: 'Auditoría Presupuesto IA',
+    nationalBudgetDesc: 'Fraude en Compras Públicas',
     cs329aName: 'Stanford CS329A',
     cs329aDesc: 'Agentes de IA Autoelevados',
     stanfordName: 'Stanford CS146S',
@@ -120,6 +130,12 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 function getEpisodeNumber(permalink: string): number {
+  if (permalink.includes('autonomous-budget-audit-agent-text-to-sql-graphrag')) return 1;
+  if (permalink.includes('national-budget-ai-audit-findings-performance-evaluation')) return 2;
+  if (permalink.includes('national-budget-ai-sector-partition-live-monitoring')) return 3;
+  if (permalink.includes('national-budget-ai-corporate-registry-cartel-detection')) return 4;
+  if (permalink.includes('national-budget-ai-6-sector-full-suite')) return 5;
+  if (permalink.includes('national-budget-ai-inspector-portal-verification-system')) return 6;
   const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s|stanford-cs329a)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
@@ -139,6 +155,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
 
   const currentProjectId = useMemo(() => {
     const path = location.pathname.toLowerCase();
+    if (path.includes('national-budget') || path.includes('autonomous-budget-audit')) return 'national_budget';
     if (path.includes('stanford-cs329a')) return 'stanford_cs329a';
     if (path.includes('stanford-cs146s')) return 'stanford_cs146s';
     if (path.includes('maeumjigi')) return 'maeumjigi';
@@ -153,6 +170,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     ) return 'security';
 
     const hash = (location.hash || '').replace('#', '').toLowerCase();
+    if (hash === 'national_budget' || hash === 'budget' || hash === 'national-budget') return 'national_budget';
     if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') return 'stanford_cs329a';
     if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s' || hash === 'stanford-cs146s') return 'stanford_cs146s';
     if (hash === 'maeumjigi') return 'maeumjigi';
@@ -161,7 +179,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     if (hash === 'security' || hash === 'infra') return 'security';
     if (hash === 'all') return 'all';
 
-    return 'stanford_cs329a';
+    return 'national_budget';
   }, [location.pathname, location.hash]);
 
   const projects = useMemo(() => {
@@ -173,6 +191,10 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       return matched[0].permalink;
     };
 
+    const isNationalBudget = (item: any) =>
+      item.permalink.includes('national-budget') ||
+      item.permalink.includes('autonomous-budget-audit');
+
     const isSecurity = (item: any) =>
       item.permalink.includes('security') ||
       item.permalink.includes('static-site') ||
@@ -180,6 +202,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       item.permalink.includes('cloudflare') ||
       item.permalink.includes('adsense');
 
+    const budgetCount = items.filter(isNationalBudget).length;
     const cs329aCount = items.filter((item: any) => item.permalink.includes('stanford-cs329a')).length;
     const cs146sCount = items.filter((item: any) => item.permalink.includes('stanford-cs146s')).length;
     const maeumjigiCount = items.filter((item: any) => item.permalink.includes('maeumjigi')).length;
@@ -189,6 +212,16 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     const totalCount = items.length;
 
     return [
+      {
+        id: 'national_budget',
+        name: t.nationalBudgetName,
+        desc: `${t.nationalBudgetDesc} (${formatCount(budgetCount, locale)})`,
+        icon: 'national_budget',
+        count: budgetCount,
+        targetUrl: findFirst(/(?:national-budget|autonomous-budget-audit)/, 'national_budget'),
+        filter: isNationalBudget,
+        sortAscending: true,
+      },
       {
         id: 'stanford_cs329a',
         name: t.cs329aName,

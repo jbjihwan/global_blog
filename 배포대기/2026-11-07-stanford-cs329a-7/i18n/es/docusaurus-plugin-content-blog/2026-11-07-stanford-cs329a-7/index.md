@@ -209,7 +209,7 @@ Para evitar la convergencia prematura, combina **MAP-Elites** con un modelo de i
 - **Supervivencia por Nicho:** Un programa sobrevive si es el mejor dentro de su casilla específica, asegurando una alta diversidad genética para los cruces.
 
 ### Hitos Históricos de AlphaEvolve
-1. **Superando el Récord de Strassen de 1969:** En 1969, Volker Strassen demostró que multiplicar matrices complejas $4 \times 4$ requería 49 multiplicaciones en vez de 64. Durante 56 años nadie logró bajar a 48. En solo **15 generaciones de mutación de código**, AlphaEvolve descubrió un algoritmo que opera con **48 multiplicaciones**.
+1. **Superando el Récord de Strassen de 1969:** En 1969, Volker Strassen demostró que multiplicar matrices complejas `4 4` requería 49 multiplicaciones en vez de 64. Durante 56 años nadie logró bajar a 48. En solo **15 generaciones de mutación de código**, AlphaEvolve descubrió un algoritmo que opera con **48 multiplicaciones**.
 2. **Optimización del Programador Borg de Google:** AlphaEvolve rediseñó las heurísticas del planificador en los centros de datos globales de Google, logrando una **reducción permanente del 0.7% en el cómputo total**.
 3. **Autocompilación Acelerada:** Optimizó los kernels de atención XLA utilizados para entrenar los modelos Gemini, acelerando el rendimiento en un **23%**. En esencia, la IA programó el código que aceleró su propio entrenamiento posterior.
 

@@ -60,9 +60,9 @@ flowchart TD
 
 ### 2. Retos Previstos y Corrección de Fallos
 
-1. **Fragmentación de Claves**: Creación de tabla hash que reconcilia los identificadores fiscales y mercantiles en $O(1)$.
+1. **Fragmentación de Claves**: Creación de tabla hash que reconcilia los identificadores fiscales y mercantiles en `O(1)`.
 2. **Bucle por Participación Cruzada**: Bloqueado mediante condensación de ciclos con algoritmos de NetworkX.
-3. **Empresas Recientes (<180 días)**: Detección automática de adjudicatarios recién constituidos.
+3. **Empresas Recientes (&lt;180 días)**: Detección automática de adjudicatarios recién constituidos.
 4. **Artimaña Conyugal 51:49**: Extensión de GraphRAG con aristas familiares para desenmascarar el control efectivo.
 
 ---

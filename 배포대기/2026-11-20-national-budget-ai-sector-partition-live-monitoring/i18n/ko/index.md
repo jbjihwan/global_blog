@@ -87,7 +87,7 @@ flowchart TD
   - 여기에 대규모 LLM이나 복잡한 그래프 임베딩을 무차별 적용하면 엄청난 API 비용과 토큰 낭비가 발생하며, 조금만 단가가 튀어도 감사관에게 무의미한 알림을 남발하게 됩니다.
 * **사전 예방 설계**:
   - 우리는 데이터를 3개의 축으로 교차 검증하는 **3차원 표적 분할 매니저(SectorPartitionManager)**를 사전 구축했습니다:
-    $$\text{Target Sector} = \text{Agency Type} \times \text{Budget Item} \times \text{Contract Method}$$
+    `Target Sector = Agency Type × Budget Item × Contract Method`
   - **차원 1 (기관 특성)**: 중앙부처 vs 공공기관 vs 지자체
   - **차원 2 (비목 유형)**: 물품 구매 vs 시설 공사 vs SW 용역/행사 대행
   - **차원 3 (계약 방식)**: 일반경쟁 vs 제한경쟁 vs 소액 수의계약

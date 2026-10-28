@@ -21,7 +21,7 @@ Que se passe-t-il lorsque nous dotons un modèle fondation d'une incarnation phy
 Bienvenue dans le **Cours 16** de **Stanford CS329A: Self-Improving AI Agents**, quatrième volet de la **Partie 4 : Frontières (Frontiers in Reasoning & Autonomy)**. Inspirés des recherches pionnières du **Dr Danny Driess** (Chercheur fondateur chez Physical Intelligence, ex-responsable chez Google DeepMind Robotics), nous décortiquons l'architecture des **modèles Vision-Langage-Action (VLA, Vision-Language-Action)** :
 - **L'action comme modalité du langage (RT-2, DeepMind 2023) :** La conversion des commandes cinématiques continues à 7DoF en 256 tokens discrets intégrés au vocabulaire d'un VLM de 55 milliards de paramètres.
 - **La percée de l'open source (OpenVLA, 2024) :** Comment un modèle de 7B surpasse les modèles fermés de 55B grâce à la fusion visuelle duale SigLIP + DINOv2, au binning par quantiles et à l'adaptation LoRA sur GPU grand public.
-- **Contrôle continu et politiques de diffusion ($\pi_0$) :** Dépasser les micro-vibrations de la discrétisation pour maîtriser les objets déformables comme le pliage du linge et l'assemblage de cartons.
+- **Contrôle continu et politiques de diffusion (`\pi_0`) :** Dépasser les micro-vibrations de la discrétisation pour maîtriser les objets déformables comme le pliage du linge et l'assemblage de cartons.
 - **Architecture de sécurité incarnée :** La double barrière logicielle de bridage de vitesse et matérielle par boucle réflexe d'effort-couple.
 
 {/* truncate */}
@@ -85,8 +85,8 @@ En juillet 2023, Google DeepMind a dévoilé **Robotic Transformer 2 (RT-2)**, t
 
 ### L'espace d'action 7DoF et la discrétisation uniforme à 256 niveaux
 Les manipulateurs opèrent dans un espace continu à 7 degrés de liberté (7DoF) :
-1. **Translation 3D ($\Delta x, \Delta y, \Delta z$) :** Déplacement de la pince dans l'espace.
-2. **Rotation 3D ($\Delta roll, \Delta pitch, \Delta yaw$) :** Orientation du poignet.
+1. **Translation 3D (`\Delta x, \Delta y, \Delta z`) :** Déplacement de la pince dans l'espace.
+2. **Rotation 3D (`\Delta roll, \Delta pitch, \Delta yaw`) :** Orientation du poignet.
 3. **Ouverture de la pince ($gripper$) :** État d'actionnement de l'effecteur.
 
 Pour convertir ces vecteurs réels en tokens discrets compatibles avec le Transformer, RT-2 a mis en œuvre la **discrétisation uniforme** :
@@ -170,13 +170,13 @@ La répartition uniforme de RT-2 présentait une faiblesse : **90% des mouvement
 
 ---
 
-## 4. Le contrôle continu : Physical Intelligence $\pi_0$ (2024)
+## 4. Le contrôle continu : Physical Intelligence `\pi_0` (2024)
 
 Bien que performante, la tokenisation discrète rencontre des écueils physiques :
 - L'erreur de discrétisation induit des micro-vibrations (**jittering**) indésirables à haute fréquence (>50 Hz).
 - Manipuler des corps souples — plier du linge, monter des boîtes en carton — exige des profils de vitesse continus.
 
-Le Dr Danny Driess et l'équipe de Physical Intelligence ont conçu **$\pi_0$ (pi-zero)** via le **Flow Matching** :
+Le Dr Danny Driess et l'équipe de Physical Intelligence ont conçu **`\pi_0` (pi-zero)** via le **Flow Matching** :
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -199,7 +199,7 @@ Le Dr Danny Driess et l'équipe de Physical Intelligence ont conçu **$\pi_0$ (p
                                                (Plie le linge et les boîtes)
 ```
 
-$\pi_0$ utilise le VLM pour désigner les intentions globales, tandis que la politique continue génère des **trajectoires fluides par débruitage en temps réel**, réalisant pour la première fois des manipulations complexes d'objets souples avec une politique unifiée.
+`\pi_0` utilise le VLM pour désigner les intentions globales, tandis que la politique continue génère des **trajectoires fluides par débruitage en temps réel**, réalisant pour la première fois des manipulations complexes d'objets souples avec une politique unifiée.
 
 ---
 
@@ -248,6 +248,6 @@ Les robots déployés dans le monde réel exercent des forces physiques suscepti
 1. **L'action physique est une modalité du langage :** Traiter le mouvement comme des tokens de vocabulaire permet de transposer l'immense savoir du web vers les moteurs physiques.
 2. **La double vision est cruciale :** Allier la sémantique de SigLIP à la géométrie dense 3D de DINOv2 conditionne la précision des prises complexes.
 3. **Le binning par quantiles élimine les imprécisions :** Aligner les niveaux discrets sur les mouvements réels résout le manque de précision aux abords des objets.
-4. **La diffusion continue préfigure l'avenir :** Les approches Flow Matching comme $\pi_0$ effacent les à-coups et permettent enfin d'aborder la manipulation de matières souples.
+4. **La diffusion continue préfigure l'avenir :** Les approches Flow Matching comme `\pi_0` effacent les à-coups et permettent enfin d'aborder la manipulation de matières souples.
 
 Lors de notre ultime rendez-vous, **Cours 17 (GRAND FINALE) : Perspectives de Recherche Futures**, nous réunirons les fils conducteurs des 17 cours de Stanford CS329A pour dresser la feuille de route vers l'intelligence artificielle générale. Rendez-vous au grand final !

@@ -165,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Enchaînement de Prompts (Prompt Chaining : Décomposition Séquentielle)
-Scinde une tâche complexe en phases déterministes où le résultat de l'étape `k` devient le contexte structuré de l'étape `k+1`. Des portes de validation intermédiaires (ex. : élaboration du plan $\to$ vérification de complétude $\to$ rédaction $\to$ révision) endiguent la propagation des erreurs.
+Scinde une tâche complexe en phases déterministes où le résultat de l'étape `k` devient le contexte structuré de l'étape `k+1`. Des portes de validation intermédiaires (ex. : élaboration du plan `\to` vérification de complétude `\to` rédaction `\to` révision) endiguent la propagation des erreurs.
 
 #### 2. Routage Dynamique (Dynamic Routing : Spécialisation)
 Classifie la requête initiale pour la déléguer au modèle spécialisé ou à l'outil le plus efficient. Les requêtes algébriques sont transmises à un bac à sable Python, tandis que les refactorisations logicielles massives sont déléguées à un agent SWE dédié.
@@ -257,7 +257,7 @@ Le cursus académique de CS329A se déploie selon quatre paliers d'ingénierie p
 #### Points Clés
 1. **Rupture de Paradigme :** L'intelligence artificielle passe d'une prédiction textuelle statique et passive à des boucles de rétroaction autonomes où action, vérification et réflexion s'articulent continuellement.
 2. **Double Frontière d'Échelle :** L'accroissement des paramètres de pré-entraînement se conjugue désormais avec la mise à l'échelle du calcul d'inférence (Best-of-N, PRM, recherche arborescente), permettant à des modèles compacts de surpasser des géants par un raisonnement approfondi.
-3. **L'Armature Universelle :** Tout système agentique performant repose sur le triptyque : **Générer $\to$ Vérifier $\to$ Boucler**.
+3. **L'Armature Universelle :** Tout système agentique performant repose sur le triptyque : **Générer `\to` Vérifier `\to` Boucler**.
 4. **L'Obstacle de la Vérification :** La cadence d'auto-amélioration d'un agent est strictement bridée par l'objectivité et l'intégrité de son signal de validation.
 
 ---

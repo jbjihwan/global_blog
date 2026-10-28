@@ -199,7 +199,7 @@ class CodebaseGraphAnalyzer:
         oversized = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ VÁLIDO" if tokens <= max_context_tokens else "❌ EXCEDIDO (Riesgo de Deuda Semántica)"
-            print(f" - {mod:<35} : ~{tokens:>5} tokens [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} tokens [{status}]")
             if tokens > max_context_tokens:
                 oversized.append((mod, tokens))
 

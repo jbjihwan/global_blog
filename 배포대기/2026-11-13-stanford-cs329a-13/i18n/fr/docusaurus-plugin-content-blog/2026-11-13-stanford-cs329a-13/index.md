@@ -169,7 +169,7 @@ Pourquoi CoT et Self-Consistency échouaient-ils sur les petits modèles de 1B o
 En 1977, le lauréat du prix Nobel de physique Philip Anderson affirmait dans *« More is Different »* que les systèmes complexes ne se résument pas à la somme de leurs parties. On ne peut déduire la fluidité de l'eau en observant un atome d'hydrogène isolé.
 
 Dans **《Emergent Abilities of Large Language Models》**, Jason Wei et Denny Zhou ont établi que les réseaux de neurones traversent de véritables **transitions de phase** :
-> **« Une capacité émergente est une compétence cognitive quasi inexistante sur les petits modèles (au niveau du hasard), mais qui jaillit brutalement et verticalement dès lors que l'échelle de calcul franchit un seuil critique (typiquement $10^{23}$ FLOPs ou ~100B paramètres). »**
+> **« Une capacité émergente est une compétence cognitive quasi inexistante sur les petits modèles (au niveau du hasard), mais qui jaillit brutalement et verticalement dès lors que l'échelle de calcul franchit un seuil critique (typiquement `10^(23)` FLOPs ou ~100B paramètres). »**
 
 ```mermaid
 flowchart LR
@@ -186,9 +186,9 @@ En 2024, une équipe de l'Université de Stanford emmenée par Sanjeev Arora a p
 #### L'objection d'Arora : l'effet trompeur des métriques non linéaires
 L'équipe d'Arora s'est attaquée à la métrique de **correspondance exacte (Exact Match)** :
 - Soit une déduction à $L$ étapes où chaque token a une probabilité $p$ d'être correctement prédit.
-- À mesure que le modèle grandit, la précision élémentaire $p$ croît de manière **rigoureusement linéaire et continue** ($0,6 \to 0,7 \to 0,8 \to 0,9$).
+- À mesure que le modèle grandit, la précision élémentaire $p$ croît de manière **rigoureusement linéaire et continue** (`0,6 \to 0,7 \to 0,8 \to 0,9`).
 - Mais si l'évaluation exige que l'ensemble des $L=5$ tokens consécutifs soient rigoureusement exacts, la note globale évolue comme $p^L$ :
-  $$0,6^5 = 0,07 \; (7 \%) \quad \longrightarrow \quad 0,9^5 = 0,59 \; (59 \%)$$
+  $`0,6^5 = 0,07 \; (7 \%) \quad \longrightarrow \quad 0,9^5 = 0,59 \; (59 \%)`$
 - **La thèse du mirage :** La compétence sous-jacente progresse de façon continue ; la prétendue discontinuité n'est qu'une illusion mathématique produite par des critères d'évaluation en échelon.
 
 ```text
@@ -263,4 +263,4 @@ Lors de la **Leçon 14**, nous explorerons : **《AlphaProof & Mathematical Reas
 ### Points Clés
 - **Le Langage comme Véhicule de la Pensée :** Décomposer les problèmes en étapes naturelles (CoT) a fait bondir l'exactitude de PaLM 540B de 39 points sans modifier ses poids.
 - **La Vérité Converge, l'Erreur Diverge :** Le vote majoritaire de Self-Consistency exploite la topologie logique pour porter la précision à 74,4 %.
-- **La Réalité des Transitions de Phase :** Au-delà de $10^{23}$ FLOPs, l'accumulation de probabilités locales débloque une véritable faculté de déduction macroscopique.
+- **La Réalité des Transitions de Phase :** Au-delà de `10^(23)` FLOPs, l'accumulation de probabilités locales débloque une véritable faculté de déduction macroscopique.

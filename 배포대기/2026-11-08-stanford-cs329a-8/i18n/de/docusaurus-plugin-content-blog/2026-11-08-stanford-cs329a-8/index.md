@@ -56,7 +56,7 @@ Die gemeinsame Kernherausforderung beider Domänen ist der **Precision-Recall-Tr
 
 ## 2. Suche im Programmraum: AlphaCode (Science Titelthema, 2022)
 
-Wettbewerbsplattformen wie Codeforces verlangen selbst von erfahrenen Programmierern Höchstleistungen. Man muss komplexe Aufgabenbeschreibungen mathematisch formalisieren und performanten C++-Code verfassen, der strenge Laufzeit- ($O(N \log N)$) und Speichergrenzen ($256\text 256 MB$) gegenüber verdeckten Testfällen einhält. Ein einziger Indexfehler führt unweigerlich zu `Wrong Answer`.
+Wettbewerbsplattformen wie Codeforces verlangen selbst von erfahrenen Programmierern Höchstleistungen. Man muss komplexe Aufgabenbeschreibungen mathematisch formalisieren und performanten C++-Code verfassen, der strenge Laufzeit- (`O(N \log N)`) und Speichergrenzen (`256 256 MB`) gegenüber verdeckten Testfällen einhält. Ein einziger Indexfehler führt unweigerlich zu `Wrong Answer`.
 
 Google DeepMinds **AlphaCode** bewies, dass massive Inferenzrechenleistung in Verbindung mit semantischer Clusterung eine KI unter die besten 54 % menschlicher Programmierer heben kann.
 

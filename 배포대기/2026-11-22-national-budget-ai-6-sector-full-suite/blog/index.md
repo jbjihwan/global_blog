@@ -74,7 +74,7 @@ flowchart TD
 * **Problem**: Under state contracting laws, minority and social enterprises qualify for sole-source awards up to $40,000 (50M KRW). An indiscriminate check on $20K–$40K contracts flags thousands of legitimate social programs, creating false positives.
 * **Preemptive Architecture**:
   - We engineered a **Sweet Spot Proximity Engine**:
-    $$\text{Threshold Proximity} = \frac{\text{Contract Amount}}{50,000,000\,\text{KRW}} \times 100$$
+    `Threshold Proximity = (Contract Amount / 50,000,000 KRW) * 100`
   - The system triggers high-risk alerts only when contract amounts cluster at **96.0%–99.8% ($38,500–$39,900)** AND the same buyer-seller pair executes multiple related awards within 30 days.
 
 #### 🎯 Challenge 2: Normal December Settling vs. Rushed Fiscal Dumps

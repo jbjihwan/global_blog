@@ -22,11 +22,11 @@ keywords: [Webots Robô Autônomo, Q-Learning Tabular Robótica, Discretização
 ### 1. Discretização do Espaço de Estados: 648 Bins Compactos
 
 Leituras sensoriais contínuas não podem ser indexadas diretamente em uma tabela Q discreta. Para contornar essa limitação, realizamos uma discretização geométrica:
-- **3 Setores de Sensores** (Esquerda, Centro, Direita): Cada setor é dividido em 3 faixas discretas de distância (Perto, Médio, Longe) $\rightarrow 3^3 = 27$ combinações.
-- **Ângulo Relativo para o Alvo (`\theta_{alvo}`)**: 4 quadrantes direcionais (Frente-Esquerda, Frente-Direita, Trás-Esquerda, Trás-Direita) $\rightarrow 4$ estados.
-- **Distância Euclidianana até a Meta**: 6 zonas de proximidade radial $\rightarrow 6$ estados.
+- **3 Setores de Sensores** (Esquerda, Centro, Direita): Cada setor é dividido em 3 faixas discretas de distância (Perto, Médio, Longe) `\rightarrow 3^3 = 27` combinações.
+- **Ângulo Relativo para o Alvo (`\theta_{alvo}`)**: 4 quadrantes direcionais (Frente-Esquerda, Frente-Direita, Trás-Esquerda, Trás-Direita) `\rightarrow 4` estados.
+- **Distância Euclidianana até a Meta**: 6 zonas de proximidade radial `\rightarrow 6` estados.
 
-$`Total de Estados = 27 \times 4 \times 6 = 648  estados discretos`$
+``Total de Estados = 27 4 6 = 648 estados discretos``
 
 Essa formulação permite que a Q-Table inteira ocupe menos de 15 Kilobytes de memória RAM e convirja de forma estável em poucas centenas de episódios.
 

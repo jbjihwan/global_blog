@@ -15,7 +15,7 @@ Antes de proyectar el futuro, contemplemos la pirámide de conocimiento erigida 
 - **Part 3 · Agent Engineering (Ingeniería de Software y Sistemas, L10–L12):** Agentes industriales de ingeniería de software (SWE-bench), interfaces agente-sistema (ASI), memoria jerárquica inspirada en la paginación de sistemas operativos (MemGPT, Cartridges) y valoración macroeconómica (GDPval, leyes de duplicación METR de 7 meses).
 - **Part 4 · Frontiers (Fronteras de la Inteligencia, L13–L16):** Fundamentos cognitivos del razonamiento Chain-of-Thought, demostración matemática formal en olimpiadas (AlphaProof, Lean 4), los 3 niveles de fiabilidad con protocolos de seguridad AI Control y robótica encarnada Visión-Lenguaje-Acción (VLA).
 
-A través de cada hito, una columna vertebral unificó el sistema: **Generación -> Verificación -> Bucle de Retroalimentación Cerrado**. Pero si escalamos este bucle $1,000\times$ durante miles de horas en la realidad no estructurada, ¿dónde se fractura primero?
+A través de cada hito, una columna vertebral unificó el sistema: **Generación -> Verificación -> Bucle de Retroalimentación Cerrado**. Pero si escalamos este bucle `1,000` durante miles de horas en la realidad no estructurada, ¿dónde se fractura primero?
 
 {/* truncate */}
 
@@ -52,9 +52,9 @@ Para construir un **Safe Superintelligence Roadmap** riguroso, debemos desmantel
 
 ### 2.1. El Espejismo del Horizonte al 80%: Por qué `T_80% << T_50%`
 En la Clase 12 analizamos la métrica de horizonte temporal de METR, donde los agentes alcanzan un 50% de probabilidad de éxito. Históricamente, esta capacidad se duplicó cada 7 meses:
-- **GPT-4 (Primavera 2023):** horizonte de $\approx 4$ minutos
-- **Claude 3.7 Sonnet (Inicios 2025):** horizonte de $\approx 59$ minutos
-- **Claude Opus 4.5 (Verano 2025):** horizonte de $\approx 4$ horas y 49 minutos
+- **GPT-4 (Primavera 2023):** horizonte de `\approx 4` minutos
+- **Claude 3.7 Sonnet (Inicios 2025):** horizonte de `\approx 59` minutos
+- **Claude Opus 4.5 (Verano 2025):** horizonte de `\approx 4` horas y 49 minutos
 
 Sin embargo, emerge una asimetría alarmante al exigir un **umbral industrial de fiabilidad del 80% (`T_80%`)**: el horizonte operativo cae en picado a **escasos 27 minutos**:
 
@@ -74,7 +74,7 @@ La catástrofe matemática subyacente proviene de la acumulación de errores de 
 ```text
 P_total = \prod_{t=1}^N (1 - \epsilon_t)
 ```
-Incluso con una precisión por paso de $99.5\%$ ($\epsilon = 0.005$), una trayectoria de 500 pasos sufre una probabilidad agregada de fracaso superior al $91.8\%$. Sin verificación intermedia de invariantes y destilación de memoria episódica, la autonomía a largo plazo sucumbe ante alucinaciones acumulativas.
+Incluso con una precisión por paso de `99.5\%` (`\epsilon = 0.005`), una trayectoria de 500 pasos sufre una probabilidad agregada de fracaso superior al `91.8\%`. Sin verificación intermedia de invariantes y destilación de memoria episódica, la autonomía a largo plazo sucumbe ante alucinaciones acumulativas.
 
 ### 2.2. Escalamiento Inverso en Cómputo de Inferencia (Inverse Scaling)
 La hipótesis clásica afirmaba que dedicar más tokens de razonamiento en inferencia incrementaba monótonamente la precisión. En 2025, investigaciones empíricas sobre el *Escalamiento Inverso en Cómputo de Test-Time* desmintieron esta premisa. En tareas complejas y abiertas, tokens excesivos desencadenan cinco patologías críticas:
@@ -160,7 +160,7 @@ Sintetizando las diecisiete clases de Stanford CS329A, el mapa global de investi
 | Dimensión | Reto Crítico Abierto | Clases Relevantes | Fronteras Clave 2026+ |
 |---|---|---|---|
 | **Capacidad** | Brecha del 80% en Largo Horizonte | L11, L12, L15 | Memoria Episódica Jerárquica (MemVerse) + Verificadores de Checkpoint |
-| **Capacidad** | Brecha Sim-to-Real en Robótica | L13, L16 | Coentrenamiento Inter-Cuerpos ($\pi_{0.5}$) + Flow Matching Continuo |
+| **Capacidad** | Brecha Sim-to-Real en Robótica | L13, L16 | Coentrenamiento Inter-Cuerpos (`\pi_(0.5)`) + Flow Matching Continuo |
 | **Capacidad** | Escalamiento Inverso en Inferencia | L2, L5, L13 | Búsqueda Consciente del Presupuesto (BATS) + Parada Temprana |
 | **Fiabilidad** | Circularidad de Verificadores Neuronales | L3, L4, L14 | Supervisión Formal Neurosimbólica (FormalJudge, Lean 4 / Z3 SMT) |
 | **Fiabilidad** | Explosión de Cómputo 1,000x y Deterioro KV | L2, L8, L11 | Asignación Dinámica de Tokens Óptima + Evicción Selectiva KV |

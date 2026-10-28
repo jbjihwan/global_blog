@@ -209,7 +209,7 @@ To avoid premature convergence on local optima, AlphaEvolve employs **MAP-Elites
 - **Archive Insertion:** A new program only needs to be the best within its specific behavioral niche to survive, guaranteeing an exceptionally diverse gene pool for crossover operations.
 
 ### Groundbreaking Achievements
-1. **Breaking Strassen’s 56-Year Record:** In 1969, Volker Strassen proved that $4 \times 4$ complex matrix multiplication could be performed in 49 multiplications instead of the standard 64. For 56 years, the mathematical community could not lower this bound. Within 15 generations, AlphaEvolve discovered a novel tensor factorization requiring only **48 multiplications**.
+1. **Breaking Strassen’s 56-Year Record:** In 1969, Volker Strassen proved that `4 4` complex matrix multiplication could be performed in 49 multiplications instead of the standard 64. For 56 years, the mathematical community could not lower this bound. Within 15 generations, AlphaEvolve discovered a novel tensor factorization requiring only **48 multiplications**.
 2. **Google Borg Cluster Scheduling:** AlphaEvolve evolved the core heuristic scheduling routines in Google's worldwide datacenter orchestrator, achieving a permanent **0.7% reduction in global fleet compute overhead**.
 3. **Self-Referential Compilation:** AlphaEvolve optimized the XLA flash attention kernels used to train Google's next-generation Gemini models, accelerating training throughput by **23%**. In effect, the AI synthesized the very code used to accelerate its own future evolution.
 

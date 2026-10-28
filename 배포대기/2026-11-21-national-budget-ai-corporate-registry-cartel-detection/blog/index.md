@@ -17,7 +17,7 @@ description: "Overcoming borrowed-name blind spots by integrating DART corporate
 >   2. Prevented knowledge graph explosion by enforcing **governance significance thresholds (executive seats + 50%+ equity)**.
 > - **3 Real Production Bugs Resolved**:
 >   1. **Circular Cross-Shareholding**: Fixed `RecursionError` crashes during recursive ownership traversals using NetworkX **Strongly Connected Components (SCC) cycle condensation**.
->   2. **Newly Minted Shell Blind Spots**: Added **delta-day calculations (<180 days)** to flag entities incorporated immediately prior to high-value bids.
+>   2. **Newly Minted Shell Blind Spots**: Added **delta-day calculations (```&lt;180 days```)** to flag entities incorporated immediately prior to high-value bids.
 >   3. **51:49 Spousal Equity Disguise**: Unmasked dummy sole-source privilege fronts via compound family relation graph rules.
 > - **Shipped Verification**: Unmasked a $130,000 tender where a single hidden individual owned 80% and held board seats across two seemingly competing bidders; 17/17 test suites passed.
 
@@ -68,7 +68,7 @@ flowchart TD
         G -->|OWNS_SHARE_OF| I
         I --> J{Ownership Traversal}
         J -->|Single Individual >50% Equity & Director Seat| K[🔴 Hidden Controlling Cartel Flag]
-        J -->|Incorporated <180 Days Before Bid| L[🟠 Dummy Paper Company Alert]
+        J -->|Incorporated &lt;180 Days Before Bid| L[🟠 Dummy Paper Company Alert]
     end
 
     style ProcurementData fill:#eff6ff,stroke:#3b82f6,stroke-width:2px
@@ -82,13 +82,13 @@ flowchart TD
 
 #### 🎯 Challenge 1: Identifier Fragmentation ➔ 3-Way Hash Index Bridge
 * **Problem**: Public procurement tracks 10-digit Tax IDs (`101-81-XXXXX`), commercial courts track 13-digit Corporate Registration IDs (`110111-XXXXXXX`), and financial disclosures track 8-digit DART entity codes (`00123456`). Standard relational joins immediately failed across disparate key domains.
-* **Preemptive Fix**: Built a resident `CorporateEntityBridge` hash mapping table within `CorporateRegistryClient`, resolving cross-domain identity lookups in $O(1)$ time.
+* **Preemptive Fix**: Built a resident `CorporateEntityBridge` hash mapping table within `CorporateRegistryClient`, resolving cross-domain identity lookups in `O(1)` time.
 
 #### 🎯 Challenge 2: Combinatorial Graph Explosion ➔ Significance Thresholds
 * **Problem**: Corporate filings list dozens of non-executive directors, statutory auditors, and retail shareholders. Inserting all connections blindly into NetworkX caused edge counts to balloon by orders of magnitude, causing query timeouts.
 * **Preemptive Fix**: Enforced **Governance Significance Thresholds**:
   1. Only ingest **Executive/Inside Directors** with statutory governance rights.
-  2. Only ingest **Shareholders owning $\ge 50.0\%$ equity** (or $\ge 30.0\%$ combined with a board seat).
+  2. Only ingest **Shareholders owning `\ge 50.0\%` equity** (or `\ge 30.0\%` combined with a board seat).
 
 ---
 

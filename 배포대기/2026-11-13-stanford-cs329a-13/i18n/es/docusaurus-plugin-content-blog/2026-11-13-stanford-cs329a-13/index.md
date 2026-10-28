@@ -169,7 +169,7 @@ Donde:
 En 1977, el premio Nobel Philip Anderson publicó *"More is Different"*, argumentando que los sistemas complejos no pueden entenderse extrapolando propiedades aisladas. No es posible predecir la dinámica de fluidos estudiando un átomo de hidrógeno solitario.
 
 En **《Emergent Abilities of Large Language Models》**, Jason Wei y Denny Zhou demostraron que las redes neuronales experimentan **transiciones de fase (Phase Transitions)** equivalentes:
-> **"Una habilidad emergente es una capacidad cognitiva que permanece latente y cercana al azar en modelos pequeños, pero que brota de forma abrupta y no lineal al cruzar un umbral crítico de cómputo (típicamente $10^{23}$ FLOPs o ~100B parámetros)."**
+> **"Una habilidad emergente es una capacidad cognitiva que permanece latente y cercana al azar en modelos pequeños, pero que brota de forma abrupta y no lineal al cruzar un umbral crítico de cómputo (típicamente `10^(23)` FLOPs o ~100B parámetros)."**
 
 ```mermaid
 flowchart LR
@@ -186,9 +186,9 @@ En 2024, un equipo de la Universidad de Stanford liderado por Sanjeev Arora publ
 #### La Hipótesis de la Distorsión Métrica No Lineal
 Arora y sus colaboradores señalaron el uso de métricas escalonadas y discontinuas como la **Exactitud de Coincidencia Exacta (Exact Match)**:
 - Supongamos una deducción de $L$ pasos donde cada token tiene una probabilidad $p$ de acierto.
-- Al aumentar la escala, la probabilidad básica $p$ crece de manera **completamente suave y lineal** ($0.6 \to 0.7 \to 0.8 \to 0.9$).
+- Al aumentar la escala, la probabilidad básica $p$ crece de manera **completamente suave y lineal** (`0.6 \to 0.7 \to 0.8 \to 0.9`).
 - Sin embargo, al exigir un acierto del 100% en los $L=5$ tokens consecutivos, la métrica reportada escala como $p^L$:
-  $$0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)$$
+  $`0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)`$
 - **La Tesis del Espejismo:** La competencia interna evoluciona de forma lineal y predecible; la aparente discontinuidad es una distorsión generada por métricas no lineales.
 
 ```text
@@ -263,4 +263,4 @@ En la **Clase 14**, exploraremos: **《AlphaProof & Mathematical Reasoning: Lean
 ### Puntos Clave
 - **El Lenguaje como Motor Deductivo:** Desglosar problemas en etapas intermedias en lenguaje natural (CoT) aumentó la precisión en 39 puntos en PaLM 540B sin tocar sus pesos.
 - **La Verdad Converge, el Error Diverge:** El voto mayoritario en Self-Consistency aprovecha la topología del razonamiento para elevar la precisión al 74.4%.
-- **Transición de Fase Real:** Al superar $10^{23}$ FLOPs, las mejoras locales en probabilidad sináptica detonan saltos cualitativos en la capacidad deductiva global.
+- **Transición de Fase Real:** Al superar `10^(23)` FLOPs, las mejoras locales en probabilidad sináptica detonan saltos cualitativos en la capacidad deductiva global.

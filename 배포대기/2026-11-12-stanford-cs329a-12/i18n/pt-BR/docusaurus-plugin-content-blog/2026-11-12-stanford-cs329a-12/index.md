@@ -140,8 +140,8 @@ Onde:
 ```
 
 ### O Ponto de Equilíbrio Econômico
-- Se a qualidade $w$ for insuficiente (ex.: GPT-4o, $w=12,5\%$), o auditor humano perde horas procurando erros sutis e, no fim, refaz tudo manualmente. Assim, o uso do GPT-4o causou uma **lentidão líquida de 13% (0,87x da velocidade humana)**!
-- Apenas ao ultrapassar o **limiar crítico de $w \ge 40\%$** (alcançado por o3 e Opus 4.1) o tempo de revisão é compensado, proporcionando um **ganho produtivo real de 1,3x a 1,4x**.
+- Se a qualidade $w$ for insuficiente (ex.: GPT-4o, `w=12,5\%`), o auditor humano perde horas procurando erros sutis e, no fim, refaz tudo manualmente. Assim, o uso do GPT-4o causou uma **lentidão líquida de 13% (0,87x da velocidade humana)**!
+- Apenas ao ultrapassar o **limiar crítico de `w \ge 40\%`** (alcançado por o3 e Opus 4.1) o tempo de revisão é compensado, proporcionando um **ganho produtivo real de 1,3x a 1,4x**.
 
 ---
 

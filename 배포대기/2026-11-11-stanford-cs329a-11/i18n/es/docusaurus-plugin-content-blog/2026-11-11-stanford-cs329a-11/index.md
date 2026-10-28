@@ -52,7 +52,7 @@ Para garantizar autonomía continua, los sistemas avanzados desacoplan el **Cont
 │ • Contexto central (RAM) │  │ • Embeddings KV continuos│  │ • Recálculo selectivo 15%│
 │ • DB vectorial (Disco)   │  │ • Reducción memoria 38.6x│  │ • Matriz rotacional RoPE │
 │ • Desalojo y resumen rec.│  │ • Aumento débit 26.4x    │  │ • Caída 3.3x latencia TTFT│
-│ • Recuerdo profundo 92%  │  │ • Modularidad tipo Lego  │  │ • Error de precisión <0.01│
+│ • Recuerdo profundo 92%  │  │ • Modularidad tipo Lego  │  │ • Error de precisión &lt;0.01│
 └──────────────────────────┘  └──────────────────────────┘  └──────────────────────────┘
 ```
 

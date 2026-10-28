@@ -174,7 +174,7 @@ flowchart TD
 #### Moteur d'Exécution Récursive AND / OR
 
 ADaPT modélise le plan via des opérateurs logiques :
-* **Nœuds AND :** Sous-tâches séquentielles qui doivent toutes réussir (ex. `Collecte` $\to$ `Transformation` $\to$ `Écriture DB`).
+* **Nœuds AND :** Sous-tâches séquentielles qui doivent toutes réussir (ex. `Collecte` `\to` `Transformation` `\to` `Écriture DB`).
 * **Nœuds OR :** Hypothèses exploratoires alternatives où le succès d'une seule branche valide la mission (ex. `Vérifier Cache Local` OR `Interroger API Distante`).
 
 #### Efficacité Opérationnelle
@@ -214,7 +214,7 @@ flowchart LR
 
 #### L'Algorithme d'Empaquetage Topologique
 
-SPRINT modélise le raisonnement sous la forme d'un Graphe Aciclique Dirigé (DAG). En analysant les dépendances causales $D$, l'algorithme attribue à chaque sous-étape $S_i$ un niveau topologique $\sigma(S_i)$ :
+SPRINT modélise le raisonnement sous la forme d'un Graphe Aciclique Dirigé (DAG). En analysant les dépendances causales $D$, l'algorithme attribue à chaque sous-étape $S_i$ un niveau topologique `\sigma(S_i)` :
 
 ```text
 σ(S_i) = {
@@ -223,7 +223,7 @@ SPRINT modélise le raisonnement sous la forme d'un Graphe Aciclique Dirigé (DA
 }
 ```
 
-Toutes les étapes partageant le même rang topologique $\sigma$ sont distribuées simultanément sur plusieurs nœuds GPU et **exécutées en parallèle**. Une barrière de synchronisation agrège les retours avant d'activer l'étape de planification suivante :
+Toutes les étapes partageant le même rang topologique `\sigma` sont distribuées simultanément sur plusieurs nœuds GPU et **exécutées en parallèle**. Une barrière de synchronisation agrège les retours avant d'activer l'étape de planification suivante :
 
 ```text
 Planification  ──►  Distribution Parallèle  ──►  Synchronisation  ──►  Re-Planification
@@ -290,7 +290,7 @@ Déployer un moteur de planification MCTS en production requiert une architectur
 #### Trois Règles d'Exploitation Indispensables
 1. **Disjoncteur d'Arrêt Anticipé (Early-Stopping) :** Dès qu'une branche valide l'intégralité des tests déterministes (ex. 100 % de tests unitaires réussis), la recherche MCTS est immédiatement interrompue et la solution est délivrée.
 2. **Distribution Hiérarchique des Modèles :** Confier l'échantillonnage volumineux des feuilles à des modèles légers (7B/8B) et réserver les modèles de pointe (70B+) exclusivement à la cotation des nœuds clés pour économiser plus de 80 % des coûts.
-3. **Plafonds de Ressources :** Borner strictement la profondeur maximale ($`d_max` \le 6$) et le volume maximal d'itérations ($N \le 30$) pour prévenir tout emballement de facturation cloud.
+3. **Plafonds de Ressources :** Borner strictement la profondeur maximale (``d_max` \le 6`) et le volume maximal d'itérations (`N \le 30`) pour prévenir tout emballement de facturation cloud.
 
 ---
 

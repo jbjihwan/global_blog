@@ -15,7 +15,7 @@ Willkommen zur sechsten Ausgabe unserer technischen Analyse der Graduierten-Vorl
 In den Vorlesungen 1 bis 5 (Part 1: Grundlagen) haben wir untersucht, wie autonome Agenten die Leistungsfähigkeit eingefrorener Sprachmodelle maximieren, indem sie Inferenz-Rechenzeit (Test-Time Compute) allozieren: durch MCTS-Suchbäume, Compiler-Fehleranalysen und Verifikator-Ensembles.
 
 Dennoch müssen wir eine fundamentale mathematische Grenze anerkennen:
-Erhält ein Grundschüler bei einer Klausur zehn Minuten zusätzliche Bedenkzeit, wird er dennoch keinen Beweis der Infinitesimalrechnung erbringen. Wenn ein Sprachmodell in seinen eingefrorenen synaptischen Gewichten ($\theta$) die zugrundeliegenden mathematischen Konzepte nicht repräsentiert, führt auch das Generieren von 10.000 Rollouts oder Beam-Search nicht zu wahrer Intelligenz, sondern zu statistischem Zufall.
+Erhält ein Grundschüler bei einer Klausur zehn Minuten zusätzliche Bedenkzeit, wird er dennoch keinen Beweis der Infinitesimalrechnung erbringen. Wenn ein Sprachmodell in seinen eingefrorenen synaptischen Gewichten (`\theta`) die zugrundeliegenden mathematischen Konzepte nicht repräsentiert, führt auch das Generieren von 10.000 Rollouts oder Beam-Search nicht zu wahrer Intelligenz, sondern zu statistischem Zufall.
 
 Mit dem heutigen Tag eröffnen wir **Part 2: Training & Evolution (Vorlesungen 6 bis 9)** und wenden uns der entscheidenden Frage zu:
 > **„Wie können wir, statt bei jeder Inferenz kostspielige Suchbäume zu durchlaufen, massive Rechenleistung während des Trainings investieren, um die Gewichte des Modells permanent in einen Spitzen-Denker zu transformieren?“**
@@ -55,8 +55,8 @@ Um zu verstehen, warum die Spitzenforschung auf Post-Training Reinforcement Lear
 Compute_Total = Compute_Train + Compute_Inference
 ```
 
-1. **Inferenzzeit-Skalierung (Inference-Time Scaling):** Der Parametervektor $\theta$ bleibt fixiert. Rechenleistung fließt in wiederholtes Sampling, Beam-Search und MCTS. Dies ist zwar bei Einzelfragen effektiv, belastet jedoch jede Interaktion in Produktionssystemen mit prohibitiven Latenzen und Serverkosten.
-2. **Trainingszeit-Skalierung (Train-Time Scaling):** Rechenleistung wird im Vorfeld massiv investiert, um die Gewichte $\theta$ über Reinforcement Learning zu optimieren:
+1. **Inferenzzeit-Skalierung (Inference-Time Scaling):** Der Parametervektor `\theta` bleibt fixiert. Rechenleistung fließt in wiederholtes Sampling, Beam-Search und MCTS. Dies ist zwar bei Einzelfragen effektiv, belastet jedoch jede Interaktion in Produktionssystemen mit prohibitiven Latenzen und Serverkosten.
+2. **Trainingszeit-Skalierung (Train-Time Scaling):** Rechenleistung wird im Vorfeld massiv investiert, um die Gewichte `\theta` über Reinforcement Learning zu optimieren:
 
 ```text
 θ* = argmax_θ E_{x ~ D, y ~ π_θ(·|x)} [ R(x, y) ]
@@ -68,7 +68,7 @@ Wenn der Agent durch RL eigenständig überlegene Deduktionsschemata entdeckt, v
 
 ### 2. Autonomes Reasoning-Bootstrapping: STaR (Zelikman et al., Stanford 2022)
 
-Supervised Fine-Tuning (SFT) erfordert Zehntausende von Experten verfasste Datensätze (Problem $\to$ Rationale $\to$ Lösung). Es ist wirtschaftlich unmöglich, promovierte Mathematiker oder Software-Architekten Millionen komplexer Lösungswege manuell formulieren zu lassen.
+Supervised Fine-Tuning (SFT) erfordert Zehntausende von Experten verfasste Datensätze (Problem `\to` Rationale `\to` Lösung). Es ist wirtschaftlich unmöglich, promovierte Mathematiker oder Software-Architekten Millionen komplexer Lösungswege manuell formulieren zu lassen.
 
 2022 formulierte Eric Zelikman an der Stanford University eine kühne Hypothese:
 > **„Wenn wir automatisiert und deterministisch prüfen können, ob eine finale Antwort korrekt ist: Warum lassen wir das Sprachmodell seine Lösungswege nicht selbst generieren, filtern jene Pfade heraus, die zur richtigen Lösung geführt haben, und trainieren das Modell auf seinen eigenen Erfolgen?“**
@@ -100,7 +100,7 @@ STaR ist kein bloßer Daten-Trick; es entspricht mathematisch einer diskreten An
 ∇_θ J(θ) = ∑_i E_{r_hat, y_hat ~ π_θ(·|x_i)} [ 1(y_hat = y_i*) * ∇_θ log π_θ(r_hat, y_hat | x_i) ]
 ```
 
-Bei fehlerhaften Antworten gilt $\mathbb{1} = 0$; der Gradient verschwindet und der Pfad wird verworfen. Nur bei korrekten Antworten ($\mathbb{1} = 1$) erfolgt ein Gradientenaufstieg (MLE), wodurch sich die Wahrscheinlichkeitsverteilung des Modells stetig auf verifizierte Lösungswege konzentriert.
+Bei fehlerhaften Antworten gilt `\mathbb(1) = 0`; der Gradient verschwindet und der Pfad wird verworfen. Nur bei korrekten Antworten (`\mathbb(1) = 1`) erfolgt ein Gradientenaufstieg (MLE), wodurch sich die Wahrscheinlichkeitsverteilung des Modells stetig auf verifizierte Lösungswege konzentriert.
 
 #### Die Raffinesse der Rationalisierung (Rationalization)
 
@@ -130,8 +130,8 @@ Während STaR auf iterativem SFT basierte, leitete das DeepSeek-Team im Frühjah
 #### Das Versagen traditioneller PPO-Architekturen
 
 Klassisches PPO erfordert das gleichzeitige Vorhalten zweier riesiger Netze im GPU-Speicher:
-1. Das **Policy-Netzwerk (Actor, $\pi_\theta$)**, das Tokens ausgibt;
-2. Das **Value-Netzwerk (Critic, $V_\psi$)**, das den Erwartungswert jedes Zustands schätzt.
+1. Das **Policy-Netzwerk (Actor, `\pi_\theta`)**, das Tokens ausgibt;
+2. Das **Value-Netzwerk (Critic, `V_\psi`)**, das den Erwartungswert jedes Zustands schätzt.
 
 Für ein 70B-Modell benötigt man somit ein zweites 70B-Critic-Modell, was den VRAM-Bedarf verdoppelt.
 Schwerer wog das Problem der **Kreditzuweisung**: Bei mathematischen Aufgaben, bei denen erst nach 3.000 Tokens ein einziges $+1$ oder $-1$ vergeben wird, ist das präzise Training eines tokenweisen Critics mathematisch hochgradig instabil.
@@ -139,7 +139,7 @@ Schwerer wog das Problem der **Kreditzuweisung**: Bei mathematischen Aufgaben, b
 #### Die GRPO-Innovation: Verzicht auf das Value-Netzwerk
 
 Die Idee von DeepSeek war radikal einfach:
-> **„Warum Milliarden Parameter für ein Critic-Modell verschwenden? Wir sampeln für jeden Prompt `q` eine Gruppe von `G` Antworten $`{o_1, ..., o_G}`$ aus der aktuellen Policy. Wir berechnen Mittelwert und Standardabweichung der Belohnungen innerhalb der Gruppe und normalisieren via Z-Score. Diese relative Rangfolge ist der perfekte Advantage!“**
+> **„Warum Milliarden Parameter für ein Critic-Modell verschwenden? Wir sampeln für jeden Prompt `q` eine Gruppe von `G` Antworten ``(o_1, ..., o_G)`` aus der aktuellen Policy. Wir berechnen Mittelwert und Standardabweichung der Belohnungen innerhalb der Gruppe und normalisieren via Z-Score. Diese relative Rangfolge ist der perfekte Advantage!“**
 
 ```mermaid
 flowchart LR
@@ -164,7 +164,7 @@ flowchart LR
 
 #### Die mathematische Zielfunktion von GRPO
 
-GRPO optimiert die Policy $\pi_\theta$ ohne separates Value-Netzwerk unter Verwendung einer KL-Divergenz-Schranke zur Referenz-Policy $`pi_ref`$:
+GRPO optimiert die Policy `\pi_\theta` ohne separates Value-Netzwerk unter Verwendung einer KL-Divergenz-Schranke zur Referenz-Policy $`pi_ref`$:
 
 ```text
 J_GRPO(θ) = E_{q, {o_i}_{i=1}^G} [ 
@@ -210,7 +210,7 @@ Natives GRPO (30 Punkte)
 ```
 
 #### Geheimnis 1: Asymmetrisches Clip-Higher ($`eps_low` = 0,20, `eps_high` = 0,28$)
-* **Das Problem:** Symmetrisches PPO-Clipping ($\pm 0,2$) unterdrückt Exploration. Entdeckt das Modell ein seltenes, innovatives Token mit Ausgangswahrscheinlichkeit 0,01, wird es bei $1 + 0,2 = 1,2\times$ auf maximal 0,012 gedeckelt, während triviale Tokens (0,9) leicht steigen.
+* **Das Problem:** Symmetrisches PPO-Clipping (`\pm 0,2`) unterdrückt Exploration. Entdeckt das Modell ein seltenes, innovatives Token mit Ausgangswahrscheinlichkeit 0,01, wird es bei `1 + 0,2 = 1,2` auf maximal 0,012 gedeckelt, während triviale Tokens (0,9) leicht steigen.
 * **Die Folge:** Das Modell vermeidet kreative Pfade und verfällt in den **Entropiekollaps (Entropy Collapse)**, indem es nur noch monotone Kurzschlüsse reproduziert.
 * **Die DAPO-Lösung:** Die untere Grenze bleibt bei $`eps_low` = 0,20$, aber die obere Grenze wird auf **$`eps_high` = 0,28$** (+40 %) angehoben, damit innovative Tokens signifikant an Wahrscheinlichkeit gewinnen können.
 
@@ -220,7 +220,7 @@ Natives GRPO (30 Punkte)
 * **Die DAPO-Lösung:** Batches werden gefiltert und nur beibehalten, wenn `0 < Correct Rollouts < G` gilt. So wird sichergestellt, dass jeder Trainingsschritt zu 100 % aus informativer Varianz lernt.
 
 #### Geheimnis 3: Token-Level-Verlustnormalisierung
-Standard-GRPO mittelt über Stichproben. Dadurch wird ein gravierender Fehler in einer 2.000-Token-Herleitung im Vergleich zu einer 50-Token-Antwort unverhältnismäßig verwässert. DAPO normalisiert den Verlust streng über die Gesamtsumme aller Tokens $\sum_i |o_i|$, was das künstliche Aufblähen von Antworten unterbindet.
+Standard-GRPO mittelt über Stichproben. Dadurch wird ein gravierender Fehler in einer 2.000-Token-Herleitung im Vergleich zu einer 50-Token-Antwort unverhältnismäßig verwässert. DAPO normalisiert den Verlust streng über die Gesamtsumme aller Tokens `\sum_i |o_i|`, was das künstliche Aufblähen von Antworten unterbindet.
 
 #### Geheimnis 4: Soft-Penalisierung überlanger Texte
 Überschreitet ein Modell bei tiefen Überlegungen das Kontextlimit (z. B. 16.384 Tokens), führt ein harter Abbruch mit $-1$ Belohnung zur Zerstörung vielversprechender Argumentationen. DAPO führt auf den letzten 4.096 Tokens einen **linearen Soft-Abzug** ein, der das Modell behutsam dazu erzieht, Herleitungen rechtzeitig zu schließen.
@@ -281,7 +281,7 @@ Für den industriellen Einsatz auf GPU-Clustern erfordert Reasoning-RL eine stri
 ### 6. Technische Vertiefung: Praktische Engineering-Q&A
 
 **F: Warum ist der KL-Divergenz-Term in GRPO trotz allem unverzichtbar?**
-**A:** Der KL-Term ($\beta `D_KL`(\pi_\theta \parallel `pi_ref`)$) schützt vor **Reward Hacking** und katastrophalem Vergessen. Ohne ihn generiert das Modell rasch absurde Sonderzeichenketten, die Regelsysteme austricksen. Beim Auslösen emergenter langer Denkprozesse (wie bei DeepSeek-R1-Zero) wird $\beta$ in der Frühphase jedoch bewusst nahe 0 gesetzt, um unkonventionelle Pfade zu ermöglichen, bevor später wieder reguliert wird.
+**A:** Der KL-Term (`\beta `D_KL`(\pi_\theta \parallel `pi_ref`)`) schützt vor **Reward Hacking** und katastrophalem Vergessen. Ohne ihn generiert das Modell rasch absurde Sonderzeichenketten, die Regelsysteme austricksen. Beim Auslösen emergenter langer Denkprozesse (wie bei DeepSeek-R1-Zero) wird `\beta` in der Frühphase jedoch bewusst nahe 0 gesetzt, um unkonventionelle Pfade zu ermöglichen, bevor später wieder reguliert wird.
 
 **F: Verleitet die Rationalisierung in STaR das Modell nicht dazu, sich auf Schummel-Tipps zu verlassen?**
 **A:** Das verhindert die strikte Trennung zwischen Datengenerierung und Gradienten-Update. Der Hinweis dient ausschließlich dazu, bei der Generierung die Kausalität rückwärts aufzubauen. Vor dem Einfügen in den Trainingsdatensatz wird der Hinweis **vollständig getilgt**. Für die Backpropagation sieht es so aus, als hätte das Modell die Herleitung aus eigener Kraft gefunden.
@@ -293,7 +293,7 @@ Für den industriellen Einsatz auf GPU-Clustern erfordert Reasoning-RL eine stri
 1. **Notwendigkeit der Trainingszeit-Skalierung:** Reine Laufzeitsuche kann fehlendes Wissen nicht kompensieren. Trainingszeit-Skalierung verankert strategisches Denken dauerhaft in den Gewichten.
 2. **Autonomes Bootstrapping:** STaR beweist, dass Modelle durch das Filtern eigener Erfolge und rückwärtige Rationalisierung mit 30-fach größeren Systemen gleichziehen können.
 3. **Durchbruch ohne Critic:** GRPO von DeepSeek spart 50 % Speicher durch Wegfall des Value-Netzwerks und errechnet präzise Vorteile aus relativen Gruppenstatistiken.
-4. **Industrielle Stabilisierung:** DAPO verhindert den Entropiekollaps mittels asymmetrischem Clip-Higher ($\epsilon=0,28$), dynamischem Sampling und Token-Level Loss und überflügelte DeepSeek-R1-Zero in der halben Schrittzahl.
+4. **Industrielle Stabilisierung:** DAPO verhindert den Entropiekollaps mittels asymmetrischem Clip-Higher (`\epsilon=0,28`), dynamischem Sampling und Token-Level Loss und überflügelte DeepSeek-R1-Zero in der halben Schrittzahl.
 
 ---
 

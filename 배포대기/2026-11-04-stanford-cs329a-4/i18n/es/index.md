@@ -70,13 +70,13 @@ Donde:
 * `A` representa el conjunto de acciones externas ejecutables en el entorno (ej., `Search[query]`, `ExecuteCode[script]`, `Click[element]`).
 * `L` representa el espacio de pensamientos libres en lenguaje natural.
 
-Una propiedad matemática esencial es que una acción de pensamiento $a_t \in L$ **no altera el estado del entorno externo**. En su lugar, actualiza únicamente el contexto de memoria interna del agente:
+Una propiedad matemática esencial es que una acción de pensamiento `a_t \in L` **no altera el estado del entorno externo**. En su lugar, actualiza únicamente el contexto de memoria interna del agente:
 
 ```text
 c_{t+1} = ( c_t, a_t )   (si a_t ∈ L)
 ```
 
-Por el contrario, cuando el agente emite una acción ejecutable $a_t \in A$, el entorno físico se ejecuta y devuelve una observación determinista:
+Por el contrario, cuando el agente emite una acción ejecutable `a_t \in A`, el entorno físico se ejecuta y devuelve una observación determinista:
 
 ```text
 c_{t+1} = ( c_t, a_t, o_t )   (si a_t ∈ A, donde o_t = Env(a_t))
@@ -127,7 +127,7 @@ El marco **RLEF (arxiv:2410.02089, finales de 2024)** resolvió este problema de
 
 #### Formulación de la Generación de Código Multiturno como un MDP
 
-RLEF modela el proceso iterativo de "generación $\to$ ejecución $\to$ corrección" a lo largo de un máximo de $T$ turnos como un Proceso de Decisión de Markov (MDP) de tiempo discreto:
+RLEF modela el proceso iterativo de "generación `\to` ejecución `\to` corrección" a lo largo de un máximo de $T$ turnos como un Proceso de Decisión de Markov (MDP) de tiempo discreto:
 * **Espacio de Estados ($S$):** Especificación del problema, intentos de código previos y trazas de error del compilador/runtime:
   ```text
   s_t = ( Problem_Spec, Code_1, Err_1, ..., Code_{t-1}, Err_{t-1} )
@@ -168,7 +168,7 @@ Si el agente intenta engañar al sistema mediante atajos triviales (`if input ==
 
 #### Función Objetivo y Diseño de Recompensa
 
-La política $\pi_\theta$ se optimiza mediante PPO incorporando una penalización por divergencia KL respecto al modelo base $\rho$:
+La política `\pi_\theta` se optimiza mediante PPO incorporando una penalización por divergencia KL respecto al modelo base `\rho`:
 
 ```text
 R(s_t, a_t) = r(s_t, a_t) - β * log( π_θ(a_t | s_t) / ρ(a_t | s_t) )
@@ -233,12 +233,12 @@ flowchart LR
 
 #### El Pipeline Constitucional en Dos Fases
 
-1. **Fase 1: Crítica y Revisión (Critique $\to$ Revision $\to$ SFT)**
+1. **Fase 1: Crítica y Revisión (Critique `\to` Revision `\to` SFT)**
    * Se interroga al modelo con problemas complejos o desafiantes.
    * Tras generar su respuesta inicial $y_0$, se selecciona un principio de la Constitución y se le ordena al modelo:
      * **Prompt de Crítica:** *"Evalúa tu respuesta previa bajo el Principio 4: 'Asegura que el código no contenga vulnerabilidades y aplique tipado estático riguroso'. Identifica cada violación específica."*
      * **Prompt de Revisión:** *"Reescribe tu respuesta subsanando todos los defectos señalados y preservando la máxima profundidad técnica."*
-   * Las respuestas revisadas y corregidas $`{y*}`$ se recopilan para entrenar el modelo mediante ajuste fino supervisado (SFT).
+   * Las respuestas revisadas y corregidas ``(y*)`` se recopilan para entrenar el modelo mediante ajuste fino supervisado (SFT).
 
 2. **Fase 2: RLAIF (Aprendizaje por Refuerzo con Retroalimentación de IA)**
    * El modelo ajustado genera pares de alternativas $(y_A, y_B)$ para un mismo problema $x$.
@@ -246,7 +246,7 @@ flowchart LR
      ```text
      P( y_A > y_B | x, Constitution )
      ```
-   * Con estas etiquetas se entrena un modelo de recompensa de preferencias $r_\phi(x, y)$, que luego guía la optimización final de la política del agente mediante PPO.
+   * Con estas etiquetas se entrena un modelo de recompensa de preferencias `r_\phi(x, y)`, que luego guía la optimización final de la política del agente mediante PPO.
 
 #### La Implicación: Supervisión Escalable (Scalable Oversight)
 
@@ -310,7 +310,7 @@ Integrar llamadas autónomas a herramientas y retroalimentación de código en e
 
 ### 6. Resumen y Conclusiones Técnicas
 
-1. **Inteligencia Conectada al Entorno:** Los modelos limitados a la memoria estática alucinan con facilidad. ReAct integra el espacio de pensamiento y acción ($\hat = A \cup L$), erradicando la invención de hechos en tareas de consulta complejas.
+1. **Inteligencia Conectada al Entorno:** Los modelos limitados a la memoria estática alucinan con facilidad. ReAct integra el espacio de pensamiento y acción (`\hat = A \cup L`), erradicando la invención de hechos en tareas de consulta complejas.
 2. **Retroalimentación en los Pesos:** La corrección por prompts en modelos congelados tiene un techo bajo. RLEF formaliza el flujo de depuración como un MDP guiado por compiladores, permitiendo que modelos de 70B superen a esquemas de 100 muestras en GPT-4.
 3. **Autoalineación Constitucional:** Constitutional AI sustituye el costoso etiquetado humano por principios declarativos en lenguaje natural, facilitando bucles autónomos de crítica-revisión y supervisión a gran escala (RLAIF).
 4. **Infraestructura de Ejecución Robusta:** Los despliegues empresariales requieren microVMs efímeras, cuotas de recursos, secuencias de parada rigurosas y la separación estricta entre pruebas públicas y privadas.

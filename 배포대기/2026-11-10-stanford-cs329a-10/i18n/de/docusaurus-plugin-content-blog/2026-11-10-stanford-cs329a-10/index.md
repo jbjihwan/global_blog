@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### Die Profiler-Feedback-Revolution
-Bei naiver Single-Shot-Generierung scheitern selbst Spitzenmodelle wie OpenAI o1 oder DeepSeek-R1 dramatisch: **Weniger als 20 % der generierten CUDA-Kernel erzielen überhaupt einen Geschwindigkeitsvorteil gegenüber Standard-PyTorch ($fast_1 < 20\%$)**, und stürzen häufig durch ungültige Speicherzugriffe oder Shared-Memory-Bankkonflikte ab.
+Bei naiver Single-Shot-Generierung scheitern selbst Spitzenmodelle wie OpenAI o1 oder DeepSeek-R1 dramatisch: **Weniger als 20 % der generierten CUDA-Kernel erzielen überhaupt einen Geschwindigkeitsvorteil gegenüber Standard-PyTorch (`fast_1 < 20\%`)**, und stürzen häufig durch ungültige Speicherzugriffe oder Shared-Memory-Bankkonflikte ab.
 
 Wird der Agent jedoch in eine dreistufige geschlossene Schleife eingebunden:
 1. **Generierung:** Erstellt die initiale Triton/CUDA-Implementierung.

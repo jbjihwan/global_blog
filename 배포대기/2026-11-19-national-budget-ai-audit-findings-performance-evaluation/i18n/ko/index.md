@@ -127,8 +127,10 @@ flowchart LR
   - 나머지 **70억 원(70.0%)**은 중간 위탁 운영기관의 일반 관리비, 자문 수수료, 홍보 대행비, 내부 전산 시스템 임차료 명목으로 소진되었습니다.
 * **AI의 평가 지표**:
   우리가 자체 수식화한 **사업 전달 효율 지수(Delivery Efficiency Index, DEI)**:
-  $$DEI = \frac{\text{Direct Beneficiary Disbursement}}{\text{Total Allocated Budget}} \times 100$$
-  공공 복지 사업의 권고 기준치(DEI $\ge$ 65%)에 한참 못 미치는 30.0%를 기록함에 따라 구조적 예산 누수 경보를 발행했습니다.
+
+`DEI = (Direct Beneficiary Disbursement / Total Allocated Budget) * 100`
+
+공공 복지 사업의 권고 기준치(DEI `\ge` 65%)에 한참 못 미치는 30.0%를 기록함에 따라 구조적 예산 누수 경보를 발행했습니다.
 
 ---
 

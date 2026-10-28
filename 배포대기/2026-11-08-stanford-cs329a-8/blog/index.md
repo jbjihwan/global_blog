@@ -56,7 +56,7 @@ The fundamental bottleneck in both domains is the **Precision-Recall Tradeoff un
 
 ## 2. Program Space Search: AlphaCode (DeepMind, Science 2022)
 
-Competitive programming platforms like Codeforces represent the pinnacle of algorithmic reasoning. A problem requires reading complex natural language specifications, deriving mathematical invariants, choosing optimal data structures, and generating code that satisfies strict time ($O(N \log N)$) and memory ($256\text 256 MB$) bounds under adversarial hidden test suites.
+Competitive programming platforms like Codeforces represent the pinnacle of algorithmic reasoning. A problem requires reading complex natural language specifications, deriving mathematical invariants, choosing optimal data structures, and generating code that satisfies strict time (`O(N \log N)`) and memory (`256 256 MB`) bounds under adversarial hidden test suites.
 
 Google DeepMind's **AlphaCode** conquered this problem by demonstrating that massive inference compute coupled with semantic clustering could elevate an AI system into the top 54% of human competitive programmers.
 

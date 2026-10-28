@@ -52,7 +52,7 @@ Warum gilt die Mathematik unangefochten als der „ultimative Lackmustest (Litmu
 
 1. **Objektive mechanische Verifizierbarkeit (Objective Mechanical Verifiability):** Anders als bei Literaturaufsätzen oder juristischen Gutachten, deren Bewertung subjektiv ist, wird formale Mathematik von einem deterministischen Compiler-Programm (wie dem Lean 4 Typchecker) mit 100%iger mathematischer Gewissheit überprüft.
 2. **Extreme Belohnungsspärlichkeit (Extreme Reward Sparsity):** In einem mehrstufigen Beweis über hunderte Schritte erhält ein Agent keinerlei positive Belohnung, bis das Endziel (`Goal Solved`) vollständig erreicht ist. Ein Beweis, der zu 99% korrekt ist, aber im letzten Schritt scheitert, erhält den Reward 0.
-3. **Gigantischer kombinatorischer Suchraum (Massive Combinatorial Search Space):** Im Gegensatz zu Schach (Verzweigungsfaktor $\approx 35$) oder Go ($\approx 250$) ist der Raum möglicher mathematischer Lemmata, Definitionen und Konstruktionen unbegrenzt ($b \to \infty$).
+3. **Gigantischer kombinatorischer Suchraum (Massive Combinatorial Search Space):** Im Gegensatz zu Schach (Verzweigungsfaktor `\approx 35`) oder Go (`\approx 250`) ist der Raum möglicher mathematischer Lemmata, Definitionen und Konstruktionen unbegrenzt (`b \to \infty`).
 
 ---
 

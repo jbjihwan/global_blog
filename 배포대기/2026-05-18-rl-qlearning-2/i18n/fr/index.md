@@ -13,7 +13,7 @@ keywords: [Reward Shaping Q-Learning, Exploration Epsilon Greedy, Récompenses �
 
 > 📌 **Points clés (TL;DR)**
 > - **Le problème** : Des récompenses trop éparses (+1 à la cible, -1 en collision) provoquent une errance stérile du robot pendant des milliers d'épisodes.
-> - **La solution** : Façonnement de récompense dense par variation de distance géométrique ($\Delta d$) et pénalisation des rotations sur place.
+> - **La solution** : Façonnement de récompense dense par variation de distance géométrique (`\Delta d`) et pénalisation des rotations sur place.
 
 {/* truncate */}
 

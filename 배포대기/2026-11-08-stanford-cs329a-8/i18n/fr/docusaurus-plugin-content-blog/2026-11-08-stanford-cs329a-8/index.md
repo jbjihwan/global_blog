@@ -56,7 +56,7 @@ Le défi commun réside dans le **Compromis Précision-Rappel (Precision-Recall 
 
 ## 2. Recherche dans l'Espace des Programmes : AlphaCode (Science, 2022)
 
-Les concours de programmation sur Codeforces mettent à l'épreuve l'élite des ingénieurs. Les épreuves exigent de formaliser mathématiquement des énoncés en langage naturel et de coder en C++ des algorithmes respectant des limites strictes de temps ($O(N \log N)$) et de mémoire ($256\text 256 MB$) face à des jeux de tests masqués. Une simple erreur d'indice entraîne un verdict impitoyable de `Wrong Answer`.
+Les concours de programmation sur Codeforces mettent à l'épreuve l'élite des ingénieurs. Les épreuves exigent de formaliser mathématiquement des énoncés en langage naturel et de coder en C++ des algorithmes respectant des limites strictes de temps (`O(N \log N)`) et de mémoire (`256 256 MB`) face à des jeux de tests masqués. Une simple erreur d'indice entraîne un verdict impitoyable de `Wrong Answer`.
 
 **AlphaCode** de Google DeepMind a surmonté cet obstacle en démontrant qu'un calcul massif d'inférence combiné à un clustering comportemental permettait à une IA d'intégrer le top 54 % des compétiteurs humains.
 

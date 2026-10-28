@@ -15,7 +15,7 @@ Bevor wir den Blick nach vorne richten, rekapitulieren wir die gewaltige Wissens
 - **Part 3 · Agent Engineering (System- und Software-Engineering, L10–L12):** Industrielle Software-Engineering-Agenten (SWE-bench), Agent-System-Schnittstellen (ASI), OS-inspirierte hierarchische virtuelle Speicherverwaltung (MemGPT, Cartridges) sowie makroökonomische Nutzwertanalysen (GDPval, METR 7-Monate-Verdopplungsgesetz).
 - **Part 4 · Frontiers (Grenzen der Autonomie, L13–L16):** Kognitive Grundlagen des Chain-of-Thought-Schlussfolgerns, formale mathematische Beweisführung bei der IMO (AlphaProof, Lean 4), dreistufige Zuverlässigkeit mit AI-Control-Sicherheitsgrenzen und physisch verkörperte Vision-Language-Action (VLA) Robotik.
 
-Das alles verbindende Rückgrat jedes Durchbruchs war: **《Generierung $\to$ Verifikation $\to$ Regelkreis-Feedback》**. Doch wenn wir diesen Regelkreis mit $1.000\times$ höherem Rechenaufwand über tausende Stunden unstrukturierter Realität skalieren: An welcher Bruchstelle kollabiert das System zuerst?
+Das alles verbindende Rückgrat jedes Durchbruchs war: **《Generierung `\to` Verifikation `\to` Regelkreis-Feedback》**. Doch wenn wir diesen Regelkreis mit `1.000` höherem Rechenaufwand über tausende Stunden unstrukturierter Realität skalieren: An welcher Bruchstelle kollabiert das System zuerst?
 
 {/* truncate */}
 
@@ -52,9 +52,9 @@ Um eine belastbare **Safe Superintelligence Roadmap** zu entwerfen, müssen wir 
 
 ### 2.1. Das 80%-Horizont-Trugbild: Warum `T_80% << T_50%`
 In Vorlesung 12 analysierten wir die METR-Zeithorizont-Metrik, die Aufgaben erfasst, bei denen Agenten eine 50%-Erfolgswahrscheinlichkeit erreichen. Historisch verdoppelte sich dieser Horizont alle 7 Monate:
-- **GPT-4 (Frühjahr 2023):** $\approx 4$ Minuten Aufgabenhorizont
-- **Claude 3.7 Sonnet (Anfang 2025):** $\approx 59$ Minuten Aufgabenhorizont
-- **Claude Opus 4.5 (Sommer 2025):** $\approx 4$ Stunden 49 Minuten Langzeitaufgaben
+- **GPT-4 (Frühjahr 2023):** `\approx 4` Minuten Aufgabenhorizont
+- **Claude 3.7 Sonnet (Anfang 2025):** `\approx 59` Minuten Aufgabenhorizont
+- **Claude Opus 4.5 (Sommer 2025):** `\approx 4` Stunden 49 Minuten Langzeitaufgaben
 
 Verlangt man jedoch die für industrielle Produktionssysteme unverzichtbare **80%-Zuverlässigkeitsschwelle (`T_80%`)**, bricht der Horizont von Opus 4.5 auf **erschütternde 27 Minuten** ein:
 
@@ -74,7 +74,7 @@ Die mathematische Ursache liegt in der Zinseszins-artigen Fehlerakkumulation von
 ```text
 P_total = \prod_{t=1}^N (1 - \epsilon_t)
 ```
-Selbst bei einer Einzelschritt-Genauigkeit von 99,5 % ($\epsilon = 0,005$) führt eine 500-Schritt-Trajektorie zu einer kumulierten Ausfallwahrscheinlichkeit von über 91,8 %. Ohne zwischenzeitliche Invarianten-Prüfungen an Meilenstein-Checkpoints und hierarchische Gedächtnisdestillation versinkt Langzeitautonomie in kumulativen Halluzinationen.
+Selbst bei einer Einzelschritt-Genauigkeit von 99,5 % (`\epsilon = 0,005`) führt eine 500-Schritt-Trajektorie zu einer kumulierten Ausfallwahrscheinlichkeit von über 91,8 %. Ohne zwischenzeitliche Invarianten-Prüfungen an Meilenstein-Checkpoints und hierarchische Gedächtnisdestillation versinkt Langzeitautonomie in kumulativen Halluzinationen.
 
 ### 2.2. Inverse Skalierung der Inferenzzeit-Berechnung (Inverse Scaling)
 Die Annahme, dass mehr Inferenz-Tokens die Intelligenz monoton steigern, wurde im Sommer 2025 durch rigorose Experimente von Anthropic widerlegt. Bei komplexen Aufgaben führen übermäßig lange Denkprozesse zu fünf pathologischen Fehlermodi:
@@ -160,7 +160,7 @@ Zusammenfassend über alle siebzehn Vorlesungen von Stanford CS329A gliedert sic
 | Dimension | Ungelöstes Kernproblem | Relevante Vorlesungen | Durchbruchsfronten 2026+ |
 |---|---|---|---|
 | **Fähigkeiten** | 80%-Langzeit-Zuverlässigkeitslücke | L11, L12, L15 | Hierarchisches episodisches Gedächtnis (MemVerse) + Checkpoint-Prover |
-| **Fähigkeiten** | Sim-to-Real-Lücke in der Robotik | L13, L16 | Körperübergreifendes Co-Training ($\pi_{0.5}$) + Kontinuierliches Flow Matching |
+| **Fähigkeiten** | Sim-to-Real-Lücke in der Robotik | L13, L16 | Körperübergreifendes Co-Training (`\pi_(0.5)`) + Kontinuierliches Flow Matching |
 | **Fähigkeiten** | Inverse Skalierung bei Inferenzzeit | L2, L5, L13 | Budget-Aware Tree Search (BATS) + Frühzeitige Abbruch-Klassifikatoren |
 | **Zuverlässigkeit** | Zirkularität neuronaler Verifizierer | L3, L4, L14 | Neuro-symbolische formale Aufsicht (FormalJudge, Lean 4 / Z3 SMT) |
 | **Zuverlässigkeit** | 1.000x Rechenexplosion & KV-Cache-Fäulnis | L2, L8, L11 | Lebenszyklus-optimierte Tokenallokation + Selektive KV-Auslagerung |

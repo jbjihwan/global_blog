@@ -169,7 +169,7 @@ Why did Chain-of-Thought and Self-Consistency work exclusively on giant models w
 In 1977, Nobel laureate physicist Philip Anderson penned his seminal essay *"More is Different"*, arguing that complex systems cannot be understood by merely extrapolating the properties of microscopic constituents. One cannot understand liquid water turbulence by examining isolated hydrogen atoms.
 
 In **《Emergent Abilities of Large Language Models》**, Jason Wei and Denny Zhou demonstrated that deep neural networks undergo identical macroscopic **Phase Transitions**:
-> **"An emergent ability is an intellectual capability that is completely absent in smaller models (performing near random guess), but abruptly leaps into existence once computational scale crosses a sharp threshold (typically $10^{23}$ FLOPs or ~100B parameters)."**
+> **"An emergent ability is an intellectual capability that is completely absent in smaller models (performing near random guess), but abruptly leaps into existence once computational scale crosses a sharp threshold (typically `10^(23)` FLOPs or ~100B parameters)."**
 
 ```mermaid
 flowchart LR
@@ -186,9 +186,9 @@ In 2024, researchers from Stanford University (Schaeffer, Miranda, and Sanjeev A
 #### The Counter-Argument: The Metric Distortion Hypothesis
 Arora's team pointed out that common evaluation benchmarks employ discontinuous, non-linear **Exact Match (Accuracy)** metrics:
 - Suppose a multi-step reasoning task requires generating $L$ tokens correctly, where each token has probability $p$ of being predicted.
-- As model parameter scale grows, the underlying token-level prediction probability $p$ increases **smoothly and linearly** (e.g., $0.6 \to 0.7 \to 0.8 \to 0.9$).
+- As model parameter scale grows, the underlying token-level prediction probability $p$ increases **smoothly and linearly** (e.g., `0.6 \to 0.7 \to 0.8 \to 0.9`).
 - However, if the benchmark demands 100% exact match across all $L=5$ consecutive tokens, the reported metric scales as $p^L$:
-  $$0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)$$
+  $`0.6^5 = 0.07 \; (7\%) \quad \longrightarrow \quad 0.9^5 = 0.59 \; (59\%)`$
 - **The Mirage Claim:** The underlying capabilities grow smoothly and predictably; the apparent "sudden phase transition" is merely a mathematical artifact produced by non-linear, step-function evaluation metrics.
 
 ```text
@@ -246,7 +246,7 @@ However, modern algorithmic post-training has dramatically lowered the emergence
 Empirical scaling curves show that accuracy climbs log-linearly with sample size $m$, but exhibits diminishing returns:
 - Sampling **5 to 10 trajectories** captures over **80% of the total potential accuracy gain**.
 - Increasing $m$ from 10 to 40 yields only marginal gains (1-2%) while quadrupling inference API costs.
-- **Engineering Recommendation:** For real-world production agents, **$m = 5 \sim 8$ diverse samples at temperature $T = 0.7$** represents the optimal Pareto sweet spot between accuracy and operational cost.
+- **Engineering Recommendation:** For real-world production agents, **`m = 5 \sim 8` diverse samples at temperature $T = 0.7$** represents the optimal Pareto sweet spot between accuracy and operational cost.
 
 ---
 

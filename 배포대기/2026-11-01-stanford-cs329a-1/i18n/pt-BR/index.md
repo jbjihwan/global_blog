@@ -165,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Encadeamento de Prompts (Prompt Chaining: Decomposição Sequencial)
-Fraciona uma tarefa densa em etapas determinísticas em que a saída do passo `k` atua como o contexto de entrada do passo `k+1`. Ao posicionar portões de validação entre os estágios (ex.: gerar sumário $\to$ checar abrangência $\to$ rascunhar $\to$ revisar), neutraliza-se o efeito cascata de erros.
+Fraciona uma tarefa densa em etapas determinísticas em que a saída do passo `k` atua como o contexto de entrada do passo `k+1`. Ao posicionar portões de validação entre os estágios (ex.: gerar sumário `\to` checar abrangência `\to` rascunhar `\to` revisar), neutraliza-se o efeito cascata de erros.
 
 #### 2. Roteamento Dinâmico (Dynamic Routing: Atribuição por Especialidade)
 Classifica a intenção da solicitação para despachá-la à ferramenta ou ao modelo especializado mais veloz e econômico. Consultas algébricas são dirigidas a um ambiente Python, ao passo que refatorações profundas seguem para um agente SWE específico.
@@ -257,7 +257,7 @@ A grade programática de CS329A articula-se em quatro níveis progressivos de en
 #### Síntese dos Conceitos
 1. **Virada de Paradigma:** A IA avança da predição pontual e passiva de texto para ciclos autônomos de retroalimentação em que execução, verificação e autoanálise agem continuamente.
 2. **Dupla Fronteira de Escala:** A expansão de parâmetros no pré-treinamento caminha lado a lado com a computação na inferência (Best-of-N, PRMs, busca em árvore), habilitando modelos compactos a superar gigantes por deliberação aprofundada.
-3. **O Eixo Universal:** Todo sistema agêntico eficaz manifesta o ciclo basilar: **Gerar $\to$ Verificar $\to$ Repetir**.
+3. **O Eixo Universal:** Todo sistema agêntico eficaz manifesta o ciclo basilar: **Gerar `\to` Verificar `\to` Repetir**.
 4. **O Gargalo da Validação:** A taxa de autoaperfeiçoamento de um agente é estritamente delimitada pela fidelidade e pela firmeza do seu sinal de verificação.
 
 ---

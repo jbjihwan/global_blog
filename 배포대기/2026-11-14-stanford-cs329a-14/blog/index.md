@@ -49,7 +49,7 @@ Why is mathematics widely recognized as the supreme proving ground for artificia
 
 1. **Objective Mechanical Verifiability:** Unlike literary essays or legal briefs where evaluation is subjective, formal mathematics can be verified by a deterministic computer program (such as the Lean 4 type checker) with 100% mathematical certainty.
 2. **Extreme Reward Sparsity:** In an olympiad-level proof spanning hundreds of intermediate tactical inferences, a system receives zero positive reward until the terminal objective (`Goal Solved`) is reached. A proof that is 99% complete but fails at the final equality receives a reward of zero.
-3. **Massive Combinatorial Search Space:** Unlike chess (average branching factor $\approx 35$) or Go ($\approx 250$), the space of possible mathematical lemmas, definitions, and geometric constructions is unbounded ($b \to \infty$).
+3. **Massive Combinatorial Search Space:** Unlike chess (average branching factor `\approx 35`) or Go (`\approx 250`), the space of possible mathematical lemmas, definitions, and geometric constructions is unbounded (`b \to \infty`).
 
 ---
 

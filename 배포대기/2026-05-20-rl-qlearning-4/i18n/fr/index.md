@@ -12,7 +12,7 @@ keywords: [Évaluation Déterministe Politique, Métrique Frôlement Obstacle, Q
 ![Benchmark succès et nombre de pas](./images/01_eval_success_steps.png)
 
 > 📌 **Points clés (TL;DR)**
-> - **L'objectif** : Mesurer les performances réelles de la politique optimale ($\epsilon=0$) sans bruit stochastique afin de valider son déploiement en conditions réelles.
+> - **L'objectif** : Mesurer les performances réelles de la politique optimale (`\epsilon=0`) sans bruit stochastique afin de valider son déploiement en conditions réelles.
 > - **Le résultat** : Le Q-learning tabulaire atteint 92 % de succès tout en étant 15 fois plus léger en calcul que Deep Q-Networks (DQN).
 
 {/* truncate */}

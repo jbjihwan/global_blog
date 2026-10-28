@@ -13,7 +13,7 @@ keywords: [Q-Learning Reward Shaping, Epsilon Greedy Exploration, Sparse Rewards
 
 > 📌 **Kernaussagen (TL;DR)**
 > - **Herausforderung**: Spärliche Belohnungen (+1,0 bei Zielerreichung, -1,0 bei Kollision) führen zu massiver Explorationsträgheit; der Roboter dreht sich ziellos im Kreis.
-> - **Lösung**: Dichtes Reward-Shaping mit Distanz-Delta ($\Delta d$) und Geschwindigkeitsanreizen sowie exponentieller $\epsilon$-Zerfall ($0.95 
+> - **Lösung**: Dichtes Reward-Shaping mit Distanz-Delta (`\Delta d`) und Geschwindigkeitsanreizen sowie exponentieller `\epsilon`-Zerfall ($0.95 
 ightarrow 0.05$).
 
 {/* truncate */}
@@ -29,7 +29,7 @@ Q(s_t, a_t) ← Q(s_t, a_t) + α [ r_{t+1} + γ max Q(s_{t+1}, a) - Q(s_t, a_t) 
 ```
 
 - **Lernrate ($lpha = 0.15$)**: Steuert die Anpassungsgeschwindigkeit an neue Erfahrungen.
-- **Diskontierungsfaktor ($\gamma = 0.95$)**: Gewichtet zukünftige Belohnungen gegenüber sofortigen Gewinnen.
+- **Diskontierungsfaktor (`\gamma = 0.95`)**: Gewichtet zukünftige Belohnungen gegenüber sofortigen Gewinnen.
 
 ---
 

@@ -21,7 +21,7 @@ What happens when we bestow a foundation model with physical embodiment — prov
 Welcome to **Lecture 16** of **Stanford CS329A: Self-Improving AI Agents**, the penultimate lecture of **Part 4: Frontiers (Frontiers in Reasoning & Autonomy)**. Grounded in the pioneering research of **Dr. Danny Driess** (Founding Research Scientist at Physical Intelligence, former Lead at Google DeepMind Robotics), we investigate the architectural revolution of **Vision-Language-Action (VLA) Models**:
 - **Actions as Language Tokens (RT-2, DeepMind 2023):** Treating continuous 7DoF robot arm kinematics as foreign language tokens within a 55B parameter vision-language model.
 - **The Open-Source Vanguard (OpenVLA, 2024):** Defeating 55B closed models with a 7B parameter architecture via SigLIP + DINOv2 dual-vision fusion, quantile binning, and LoRA adaptation running on consumer gaming GPUs.
-- **Continuous Flow Matching & Diffusion Policies ($\pi_0$):** Overcoming discrete token jitter to master high-frequency deformable object manipulation, such as folding laundry and assembling boxes.
+- **Continuous Flow Matching & Diffusion Policies (`\pi_0`):** Overcoming discrete token jitter to master high-frequency deformable object manipulation, such as folding laundry and assembling boxes.
 - **Embodied Safety Architectures:** Multi-tier software action clipping coupled with hardware force-torque sensor reflex loops.
 
 {/* truncate */}
@@ -34,7 +34,7 @@ Welcome to **Lecture 16** of **Stanford CS329A: Self-Improving AI Agents**, the 
 
 For decades, robotics research was crippled by a severe **data famine**. While language models flourished on trillions of web tokens, real-world robotic interaction data was excruciatingly scarce:
 - Collecting physical trajectories requires operating expensive hardware in physical facilities.
-- A fleet of 13 Google robots operating continuously for 17 months yielded only $\approx 130,000$ demonstrations.
+- A fleet of 13 Google robots operating continuously for 17 months yielded only `\approx 130,000` demonstrations.
 - Consequently, traditional robot policies suffered from extreme brittleness: altering laboratory lighting by 10% or shifting a can by 5 centimeters caused the robot arm to flail helplessly in empty space.
 
 The revolutionary insight articulated by Dr. Danny Driess and the DeepMind team was to bridge web-scale internet intelligence directly into physical actuators:
@@ -85,9 +85,9 @@ In July 2023, Google DeepMind unveiled **Robotic Transformer 2 (RT-2)**, transfo
 
 ### The 7DoF Action Space & 256-Bin Discretization
 Industrial manipulators operate across a 7-Degree-of-Freedom (7DoF) continuous action space:
-1. **Translational Displacements ($\Delta x, \Delta y, \Delta z$):** Hand position shift in 3D Euclidean space.
-2. **Rotational Displacements ($\Delta roll, \Delta pitch, \Delta yaw$):** Wrist orientation change.
-3. **Gripper State ($gripper$):** Binary or continuous aperture state ($0 = \textopen, 1 = \textclosed$).
+1. **Translational Displacements (`\Delta x, \Delta y, \Delta z`):** Hand position shift in 3D Euclidean space.
+2. **Rotational Displacements (`\Delta roll, \Delta pitch, \Delta yaw`):** Wrist orientation change.
+3. **Gripper State ($gripper$):** Binary or continuous aperture state (`0 = open, 1 = closed`).
 
 To convert continuous floating-point motor signals into discrete tokens compatible with transformer vocabulary heads, RT-2 engineered **Uniform Action Discretization**:
 - Each continuous action dimension is bounded within an operating interval `[a_min, a_max]` (e.g., `[-30cm, +30cm]`).
@@ -172,13 +172,13 @@ RT-2 used uniform linear binning, which allocates equal resolution across the en
 
 ---
 
-## 4. The Continuous Horizon: Physical Intelligence $\pi_0$ (2024)
+## 4. The Continuous Horizon: Physical Intelligence `\pi_0` (2024)
 
 Despite the success of RT-2 and OpenVLA, discrete action tokenization suffers from intrinsic limitations:
-- Partitioning continuous space into 256 bins causes discretization quantization noise, leading to micro-vibrations (**jittering**) in high-frequency control ($>50\textHz$).
+- Partitioning continuous space into 256 bins causes discretization quantization noise, leading to micro-vibrations (**jittering**) in high-frequency control (`>50Hz`).
 - Complex multi-modal manipulation of deformable materials — such as folding laundry, manipulating flexible cables, or packing cardboard boxes — requires modeling continuous probability distributions.
 
-To transcend these limitations, Dr. Danny Driess and the Physical Intelligence team developed **$\pi_0$ (pi-zero)**:
+To transcend these limitations, Dr. Danny Driess and the Physical Intelligence team developed **`\pi_0` (pi-zero)**:
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -201,7 +201,7 @@ To transcend these limitations, Dr. Danny Driess and the Physical Intelligence t
                                                (Handles Folding Cloth & Boxes)
 ```
 
-Instead of autoregressively emitting discrete tokens, $\pi_0$ utilizes **Flow Matching**:
+Instead of autoregressively emitting discrete tokens, `\pi_0` utilizes **Flow Matching**:
 - The high-level VLM conditions a continuous diffusion vector field.
 - The action policy integrates velocity vectors over continuous time, generating smooth, multi-step motor trajectories without discretization artifacts.
 - This enabled the world's first autonomous system capable of executing seven diverse complex household chores (including folding laundry out of a hamper and clearing dining tables) on a single unified policy.
@@ -253,6 +253,6 @@ Physical robots exert real mechanical force capable of damaging property or inju
 1. **Physical Action is a Modality of Language:** Discretizing 7DoF continuous motion into vocabulary bins enables foundation models to transfer internet-scale common-sense knowledge into physical manipulation.
 2. **Dual Vision Fusion is Essential for Robotics:** Combining high-level semantic encoders (SigLIP) with dense 3D spatial representations (DINOv2) dramatically improves sub-millimeter precision.
 3. **Quantile Binning Solves Action Imbalance:** Aligning token resolution with the empirical distribution of fine-motor movements eliminates dead zones in robot dexterity.
-4. **Diffusion & Flow Matching are the Future of Continuous Control:** Systems like $\pi_0$ resolve discrete token jitter, mastering complex deformable tasks that challenge human dexterity.
+4. **Diffusion & Flow Matching are the Future of Continuous Control:** Systems like `\pi_0` resolve discrete token jitter, mastering complex deformable tasks that challenge human dexterity.
 
 In our grand finale, **Lecture 17: Future Research Directions**, we synthesize all 17 lectures of Stanford CS329A, analyzing the grand open challenges in self-improving artificial intelligence, autonomous agent swarms, and the path to artificial general intelligence. See you at the finish line!

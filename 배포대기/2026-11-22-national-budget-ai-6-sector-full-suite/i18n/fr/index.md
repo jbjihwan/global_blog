@@ -35,7 +35,7 @@ description: "Déploiement de la suite d'audit à 6 secteurs : Détection du fra
 flowchart TD
     Raw[4 Millions de Marchés Publics/An] --> Filter{Gestionnaire de Partition 3D}
     Filter -->|85% Fournitures| Drop[Archive Faible Risque]
-    Filter --> S1["Secteur 1: TIC <20k $"]
+    Filter --> S1["Secteur 1: TIC &lt;20k $"]
     Filter --> S2["Secteur 2: Événements Municipaux"]
     Filter --> S3["Secteur 3: Fuite Subventions DEI"]
     Filter --> S4["Secteur 4: Grands Marchés Monopoles"]

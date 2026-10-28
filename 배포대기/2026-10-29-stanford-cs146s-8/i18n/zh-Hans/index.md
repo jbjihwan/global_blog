@@ -65,7 +65,7 @@ flowchart TD
 flowchart LR
     subgraph Principles ["AI 原生架构四大原则"]
         direction TB
-        P1["1. 严格上下文预算制 (<32k Tokens/模块)"]
+        P1["1. 严格上下文预算制 (&lt;32k Tokens/模块)"]
         P2["2. 机器可读的严谨模式契约 (Pydantic / gRPC / Zod)"]
         P3["3. 确定性函数式隔离 (六边形架构)"]
         P4["4. 自我验证型金标准特征测试 Harness"]
@@ -92,7 +92,7 @@ flowchart LR
 ### 3. 基于 AST 的单体系统自动化解耦
 
 面对上百万行的遗留企业单体系统，斯坦福 CS146S 明确反对高风险的人工重写，推崇**基于 AST（抽象语法树）的自主解耦流水线**：
-1. **AST 调用图构建与强连通分量（SCC）解环**：利用 Tarjan 算法分析依赖图中的环形依赖（$A \to B \to A$），优先注入事件驱动或依赖注入解开耦合。
+1. **AST 调用图构建与强连通分量（SCC）解环**：利用 Tarjan 算法分析依赖图中的环形依赖（`A \to B \to A`），优先注入事件驱动或依赖注入解开耦合。
 2. **自动生成接口外观层 (Interface Facade)**：AI Agent 自动提取目标服务的外观接口，重写外部调用路径。
 3. **影子双轨运行验证 (Shadow Dual-Run)**：复制真实只读流量并发路由至旧单体与新解耦模块，经 10 万次严格比对后实现零停机无缝切换。
 
@@ -224,7 +224,7 @@ class CodebaseGraphAnalyzer:
         oversized = []
         for mod, tokens in sorted(self.module_token_estimates.items(), key=lambda x: x[1], reverse=True):
             status = "✅ 合格" if tokens <= max_context_tokens else "❌ 超标 (语义债务风险)"
-            print(f" - {mod:<35} : ~{tokens:>5} tokens [{status}]")
+            print(f" - {mod:&lt;35} : ~{tokens:>5} tokens [{status}]")
             if tokens > max_context_tokens:
                 oversized.append((mod, tokens))
 

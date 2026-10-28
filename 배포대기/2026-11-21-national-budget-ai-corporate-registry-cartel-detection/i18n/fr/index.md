@@ -60,9 +60,9 @@ flowchart TD
 
 ### 2. Défis Anticipés et Correction des Défaillances
 
-1. **Fragmentation des Identifiants** : Table de correspondance $O(1)$ unifiant les identifiants fiscaux et judiciaires.
+1. **Fragmentation des Identifiants** : Table de correspondance `O(1)` unifiant les identifiants fiscaux et judiciaires.
 2. **Boucles de Participations Croisées** : Élimination des récursions infinies par l'algorithme SCC de NetworkX.
-3. **Sociétés Récentes (<180 jours)** : Alerte automatique sur les entreprises créées juste avant l'appel d'offres.
+3. **Sociétés Récentes (&lt;180 jours)** : Alerte automatique sur les entreprises créées juste avant l'appel d'offres.
 4. **Combinaison Conjugale 51:49** : Analyse conjointe des liens familiaux et des mandats d'administrateurs.
 
 ---

@@ -140,8 +140,8 @@ Où :
 ```
 
 ### Le seuil de rentabilité économique
-- Quand la qualité $w$ est médiocre (ex. GPT-4o, $w=12,5\%$), l'auditeur humain passe des heures à déceler des erreurs subtiles pour finalement tout refaire lui-même. Déployer GPT-4o s'est donc traduit par un **ralentissement net de 13 % (0,87x la vitesse humaine)** !
-- Seul le franchissement du **seuil critique de $w \ge 40\%$** (atteint par o3 et Opus 4.1) permet d'amortir le temps d'audit, dégageant une **accélération réelle de productivité de 1,3x à 1,4x**.
+- Quand la qualité $w$ est médiocre (ex. GPT-4o, `w=12,5\%`), l'auditeur humain passe des heures à déceler des erreurs subtiles pour finalement tout refaire lui-même. Déployer GPT-4o s'est donc traduit par un **ralentissement net de 13 % (0,87x la vitesse humaine)** !
+- Seul le franchissement du **seuil critique de `w \ge 40\%`** (atteint par o3 et Opus 4.1) permet d'amortir le temps d'audit, dégageant une **accélération réelle de productivité de 1,3x à 1,4x**.
 
 ---
 

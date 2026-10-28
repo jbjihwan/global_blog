@@ -118,7 +118,7 @@ flowchart TD
 O InstructGPT evidenciou uma assimetria funcional no discernimento humano:
 > **"Construir manualmente do zero uma resposta perfeita de 500 linhas impõe alto custo cognitivo, mas contrastar duas soluções e apontar a mais coerente é 100 vezes mais rápido e reprodutível."**
 
-Ao treinar um Modelo de Recompensa ($r_\phi$) a partir de preferências relativas e otimizar a política via PPO, **um modelo InstructGPT compacto de 1,3 bilhão de parâmetros superou amplamente o modelo base original GPT-3 de 175 bilhões em avaliações duplo-cegas**. As respostas delirantes caíram pela metade, e a confiabilidade geral aumentou substancialmente.
+Ao treinar um Modelo de Recompensa (`r_\phi`) a partir de preferências relativas e otimizar a política via PPO, **um modelo InstructGPT compacto de 1,3 bilhão de parâmetros superou amplamente o modelo base original GPT-3 de 175 bilhões em avaliações duplo-cegas**. As respostas delirantes caíram pela metade, e a confiabilidade geral aumentou substancialmente.
 
 ### A Lei de Goodhart e o Hackeamento de Recompensas
 Em 2024, as fragilidades do alinhamento puramente neural tornaram-se patentes:
@@ -161,7 +161,7 @@ A consequência representou um salto conceitual para a inteligência computacion
 
 Embora o RLVR tenha solucionado desafios de dedução fechada, a engenharia de software na prática depende de operações contínuas no mundo real. Um desenvolvedor não se limita a emitir um parecer textual: clona repositórios, examina arquivos, depura erros de compilação e valida testes de regressão.
 
-O **Agent RL** redefine o objeto da otimização: em vez de uma resposta isolada, focaliza uma **trajetória interativa completa de relacionamento com o ambiente $\tau$**:
+O **Agent RL** redefine o objeto da otimização: em vez de uma resposta isolada, focaliza uma **trajetória interativa completa de relacionamento com o ambiente `\tau`**:
 
 ```text
 Trajetória τ = (s_0, a_0, o_0, s_1, a_1, o_1, ..., s_T, a_T, o_T)

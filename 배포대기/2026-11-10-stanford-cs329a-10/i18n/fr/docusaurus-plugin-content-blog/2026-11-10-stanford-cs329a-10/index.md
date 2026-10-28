@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### La révolution de la rétroaction par profiler
-En génération directe sans retour (*single-shot*), même les modèles les plus performants comme OpenAI o1 ou DeepSeek-R1 échouent lourdement : **moins de 20 % des kernels CUDA générés obtiennent une quelconque accélération par rapport à PyTorch ($fast_1 < 20\%$)**, et provoquent de fréquents plantages par accès mémoire hors limites ou conflits de banques de mémoire partagée.
+En génération directe sans retour (*single-shot*), même les modèles les plus performants comme OpenAI o1 ou DeepSeek-R1 échouent lourdement : **moins de 20 % des kernels CUDA générés obtiennent une quelconque accélération par rapport à PyTorch (`fast_1 < 20\%`)**, et provoquent de fréquents plantages par accès mémoire hors limites ou conflits de banques de mémoire partagée.
 
 Toutefois, lorsque l'agent est connecté à une boucle fermée à trois niveaux :
 1. **Génération :** Synthèse initiale du code Triton/CUDA.

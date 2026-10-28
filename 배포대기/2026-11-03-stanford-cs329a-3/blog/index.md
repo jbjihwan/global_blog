@@ -247,7 +247,7 @@ Weaver models verification as a **Latent Variable Naive Bayes Problem**:
   ```text
   P(S_i = 1, S_j = 1) = π · w_{i,1} · w_{j,1} + (1 - π) · (1 - w_{i,0}) · (1 - w_{j,0})
   ```
-  where $\pi = P(Y=1)$ is the unknown base rate.
+  where `\pi = P(Y=1)` is the unknown base rate.
 
 By formulating a system of second- and third-order observable moment equations, Weaver uses the **Method of Moments** to analytically invert this covariance tensor, recovering the exact individual accuracies ``(`w_{k,1}`, `w_{k,0}`)`` of all 33 verifiers **without requiring a single ground-truth label**.
 

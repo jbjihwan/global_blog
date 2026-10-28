@@ -55,8 +55,8 @@ To understand why modern AI research shifted toward post-training reinforcement 
 Compute_Total = Compute_Train + Compute_Inference
 ```
 
-1. **Test-Time Scaling (Inference-Time Search):** The model parameter vector $\theta$ is fixed. Compute is allocated to exploring candidate paths (Best-of-N, MCTS, PRM search). While effective for isolated queries, it imposes severe latency and operational compute costs on every downstream user interaction.
-2. **Train-Time Scaling (Synaptic Gradient Updates):** Compute is expended during training to permanently adjust $\theta$ via reinforcement learning:
+1. **Test-Time Scaling (Inference-Time Search):** The model parameter vector `\theta` is fixed. Compute is allocated to exploring candidate paths (Best-of-N, MCTS, PRM search). While effective for isolated queries, it imposes severe latency and operational compute costs on every downstream user interaction.
+2. **Train-Time Scaling (Synaptic Gradient Updates):** Compute is expended during training to permanently adjust `\theta` via reinforcement learning:
 
 ```text
 θ* = argmax_θ E_{x ~ D, y ~ π_θ(·|x)} [ R(x, y) ]
@@ -68,7 +68,7 @@ When an agent discovers a superior multi-step deduction pattern during RL, gradi
 
 ### 2. Autonomous Reasoning Bootstrapping: STaR (Zelikman et al., Stanford 2022)
 
-Supervised Fine-Tuning (SFT) requires tens of thousands of expert-crafted step-by-step solutions (Problem $\to$ Rationale $\to$ Answer). However, hiring PhD mathematicians or software architects to write granular reasoning traces for millions of edge cases is economically infeasible.
+Supervised Fine-Tuning (SFT) requires tens of thousands of expert-crafted step-by-step solutions (Problem `\to` Rationale `\to` Answer). However, hiring PhD mathematicians or software architects to write granular reasoning traces for millions of edge cases is economically infeasible.
 
 In 2022, Eric Zelikman and his Stanford collaborators proposed an audacious hypothesis:
 > **"If a system can deterministically verify whether a final answer is correct, why not let the language model draft its own rationales, filter out the paths that stumbled upon the correct answer, and fine-tune itself on its own successful thoughts?"**
@@ -100,7 +100,7 @@ STaR is not merely an empirical data trick; it is mathematically grounded as a d
 ∇_θ J(θ) = ∑_i E_{r_hat, y_hat ~ π_θ(·|x_i)} [ 1(y_hat = y_i*) * ∇_θ log π_θ(r_hat, y_hat | x_i) ]
 ```
 
-For incorrect completions where $`1(y_hat = y*)` = 0$, the gradient evaluates to zero and the rollout is discarded. For correct completions where $\mathbb{1} = 1$, the gradient performs standard maximum likelihood estimation (MLE), pulling the policy distribution toward verified reasoning paths.
+For incorrect completions where $`1(y_hat = y*)` = 0$, the gradient evaluates to zero and the rollout is discarded. For correct completions where `\mathbb(1) = 1`, the gradient performs standard maximum likelihood estimation (MLE), pulling the policy distribution toward verified reasoning paths.
 
 #### The Magic of Rationalization
 
@@ -130,18 +130,18 @@ While STaR demonstrated self-bootstrapping via iterative SFT, open-ended mathema
 #### The Collapse of Standard PPO in Mathematical Reasoning
 
 When OpenAI developed ChatGPT, they relied on standard **Proximal Policy Optimization (PPO)**. PPO requires deploying two co-equal neural networks concurrently:
-1. **Policy Network (Actor, $\pi_\theta$):** Generates output tokens.
-2. **Value Network (Critic, $V_\psi$):** Evaluates expected scalar rewards from intermediate token states.
+1. **Policy Network (Actor, `\pi_\theta`):** Generates output tokens.
+2. **Value Network (Critic, `V_\psi`):** Evaluates expected scalar rewards from intermediate token states.
 
 This architecture creates severe bottlenecks:
 * **Memory Explosion:** Training a 70B Actor requires hosting a 70B Critic model, doubling GPU VRAM requirements.
-* **Credit Assignment Failure:** In complex mathematical reasoning where a scalar reward ($+1$ or $-1$) arrives only after 4,000 tokens of deduction, training an accurate per-token Value Critic $V_\psi(s_t)$ is mathematically intractable, causing policy gradient variance to destabilize training.
+* **Credit Assignment Failure:** In complex mathematical reasoning where a scalar reward ($+1$ or $-1$) arrives only after 4,000 tokens of deduction, training an accurate per-token Value Critic `V_\psi(s_t)` is mathematically intractable, causing policy gradient variance to destabilize training.
 
 #### The GRPO Formulation: Eliminating the Value Network
 
 In early 2024, the DeepSeek research team published **DeepSeekMath**, introducing **Group Relative Policy Optimization (GRPO)**:
 
-> **"Why train a costly multi-billion-parameter Critic model? For any given query `q`, sample a group of `G` distinct completions $`{o_1, ..., o_G}`$ from the current policy. Compute the mean and standard deviation of their scalar rewards across the group, and normalize via z-score. That relative statistical rank is your exact advantage!"**
+> **"Why train a costly multi-billion-parameter Critic model? For any given query `q`, sample a group of `G` distinct completions ``(o_1, ..., o_G)`` from the current policy. Compute the mean and standard deviation of their scalar rewards across the group, and normalize via z-score. That relative statistical rank is your exact advantage!"**
 
 ```mermaid
 flowchart LR
@@ -166,7 +166,7 @@ flowchart LR
 
 #### The Mathematical Objective of GRPO
 
-The GRPO objective optimizes the policy $\pi_\theta$ against a reference policy $`pi_ref`$ without maintaining an explicit value baseline:
+The GRPO objective optimizes the policy `\pi_\theta` against a reference policy $`pi_ref`$ without maintaining an explicit value baseline:
 
 ```text
 J_GRPO(θ) = E_{q, {o_i}_{i=1}^G} [ 
@@ -186,7 +186,7 @@ A_hat_{i,t} = r_tilde_i = ( r_i - mean({r_1, ..., r_G}) ) / ( std({r_1, ..., r_G
 ```
 
 #### Credit Assignment: Outcome vs. Process Supervision
-1. **Outcome-Supervised GRPO:** If the final answer inside completion $o_i$ matches ground truth, $r_i = +1$; otherwise, $r_i = -1$. The resulting standardized advantage `r_tilde_i` is copied uniformly across all tokens $t \in [1, |o_i|]$.
+1. **Outcome-Supervised GRPO:** If the final answer inside completion $o_i$ matches ground truth, $r_i = +1$; otherwise, $r_i = -1$. The resulting standardized advantage `r_tilde_i` is copied uniformly across all tokens `t \in [1, |o_i|]`.
 2. **Process-Supervised GRPO:** Intermediate derivation steps are assigned partial rewards, and the cumulative discounted future reward sum from token $t$ onward is normalized across the group.
 
 #### Benchmark Triumphs: 7B Surpasses 540B
@@ -212,17 +212,17 @@ Naive GRPO (30 pts)
 ```
 
 #### Secret 1: Asymmetric Clip-Higher ($`eps_low = 0.20, eps_high = 0.28`$)
-* **The Failure:** Symmetric PPO clipping ($\pm 0.2$) penalizes positive probability shifts equally. When a model discovers an innovative, rare reasoning token with an initial probability of $p = 0.01$, a standard upper bound of $1 + 0.2 = 1.2\times$ caps its update at $p = 0.012$. Meanwhile, predictable tokens with $p = 0.90$ easily scale to $1.08$.
+* **The Failure:** Symmetric PPO clipping (`\pm 0.2`) penalizes positive probability shifts equally. When a model discovers an innovative, rare reasoning token with an initial probability of $p = 0.01$, a standard upper bound of `1 + 0.2 = 1.2` caps its update at $p = 0.012$. Meanwhile, predictable tokens with $p = 0.90$ easily scale to $1.08$.
 * **The Consequence:** The model abandons exploratory thoughts, causing **Entropy Collapse** into brief, repetitive patterns.
 * **The DAPO Fix:** Maintain $`eps_low = 0.20`$ to penalize bad trajectories, but raise the upper bound by 40% to **$`eps_high = 0.28`$**, allowing high-value exploratory tokens to surge in likelihood.
 
 #### Secret 2: Dynamic Sampling (Filtering Degenerate Batches)
-* **The Failure:** If a math problem is too easy, all $G$ completions succeed ($r_i = 1 \ \forall i$). If a problem is too hard, all $G$ completions fail ($r_i = 0 \ \forall i$).
+* **The Failure:** If a math problem is too easy, all $G$ completions succeed (`r_i = 1 \ \forall i`). If a problem is too hard, all $G$ completions fail (`r_i = 0 \ \forall i`).
 * In both cases, `std({r_1, ..., r_G}) = 0`. The advantage evaluates to `0`, and **thousands of GPUs waste petaFLOPs calculating zero gradients**.
 * **The DAPO Fix:** Dynamically discard batches unless `0 < Correct Rollouts < G`, ensuring that 100% of compute generates high-purity gradients from meaningful variance.
 
 #### Secret 3: Token-Level Loss Normalization
-Standard GRPO computes sample-averaged losses, which dilutes a toxic token inside a 2,000-token derivation compared to a concise 50-token response. DAPO normalizes loss strictly across the aggregate token count $\sum_i |o_i|$, preventing models from gaming rewards via redundant token stuffing.
+Standard GRPO computes sample-averaged losses, which dilutes a toxic token inside a 2,000-token derivation compared to a concise 50-token response. DAPO normalizes loss strictly across the aggregate token count `\sum_i |o_i|`, preventing models from gaming rewards via redundant token stuffing.
 
 #### Secret 4: Overlong Reward Shaping
 When models expand their depth of thought, rollouts occasionally clip against hard context windows (e.g., 16,384 tokens). Naive RL penalizes clipped sequences with a harsh $-1$ reward, killing promising long-horizon derivations. DAPO applies a smooth, linear soft penalty across the final 4,096 tokens, gently training the model to conclude proofs within the allotted context.
@@ -283,7 +283,7 @@ Scaling post-training reasoning RL to enterprise production environments require
 ### 6. Technical Deep Dive: Practical Engineering Q&A
 
 **Q: Why is the KL divergence penalty still necessary in GRPO, and when should it be relaxed?**
-**A:** The KL divergence penalty ($\beta `D_KL`(\pi_\theta \parallel `pi_ref`)$) acts as an essential safety constraint against **Reward Hacking**. Without it, an RL agent will quickly discover degenerate patterns—such as repeating identical punctuation or producing unreadable pseudo-code that happens to trick the parser. However, when inducing emergent long-horizon reasoning (as observed in DeepSeek-R1-Zero), researchers deliberately dial $\beta \to 0$ in initial training phases, allowing the model to explore radical, non-standard linguistic trajectories before re-introducing mild KL regularization during final alignment.
+**A:** The KL divergence penalty (`\beta `D_KL`(\pi_\theta \parallel `pi_ref`)`) acts as an essential safety constraint against **Reward Hacking**. Without it, an RL agent will quickly discover degenerate patterns—such as repeating identical punctuation or producing unreadable pseudo-code that happens to trick the parser. However, when inducing emergent long-horizon reasoning (as observed in DeepSeek-R1-Zero), researchers deliberately dial `\beta \to 0` in initial training phases, allowing the model to explore radical, non-standard linguistic trajectories before re-introducing mild KL regularization during final alignment.
 
 **Q: In STaR, how does Rationalization prevent the model from learning to cheat using hints?**
 **A:** The protection lies in the strict temporal separation between data synthesis and weight updates. The hint is provided **exclusively to facilitate backward causal deduction during generation**. Before that trace is committed to the training corpus, the input prompt is sanitized, stripping the hint entirely. From the perspective of the policy network during gradient descent, it appears as though the model formulated the comprehensive deductive bridge unprompted.
@@ -295,7 +295,7 @@ Scaling post-training reasoning RL to enterprise production environments require
 1. **The Train-Time Frontier:** Test-time search cannot extract knowledge that does not exist in synaptic weights. Train-time scaling uses reinforcement learning to bake strategic reasoning directly into the neural network.
 2. **Autonomous Bootstrapping:** STaR proves that models can self-train by filtering their own valid rationales and bridging gaps via backward rationalization, matching models 30 times their size.
 3. **Critic-Free Scalability:** DeepSeekMath's GRPO eliminated the multi-billion-parameter Critic model, cutting memory overhead by 50% and computing advantages from intra-group statistical variance.
-4. **Industrial Stabilization:** DAPO demonstrated that scaling GRPO to frontier performance requires asymmetric Clip-Higher ($\epsilon=0.28$), dynamic batch filtering, and token-level loss attribution, surpassing DeepSeek-R1-Zero in half the compute steps.
+4. **Industrial Stabilization:** DAPO demonstrated that scaling GRPO to frontier performance requires asymmetric Clip-Higher (`\epsilon=0.28`), dynamic batch filtering, and token-level loss attribution, surpassing DeepSeek-R1-Zero in half the compute steps.
 
 ---
 

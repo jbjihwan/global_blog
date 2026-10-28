@@ -49,7 +49,7 @@ date: 2026-11-14T10:00:00.000Z
 
 1. **客觀機械可驗證性（Objective Mechanical Verifiability）：** 與主觀評判的文學或法律不同，形式化數學由確定性型別檢查程式（如 Lean 4 編譯器）進行 100% 嚴謹驗證，不容任何僥倖。
 2. **極致的獎勵稀疏性（Extreme Reward Sparsity）：** 在長達數十甚至數百步的推演中，代理人在閉合最終證明目標（`Goal Solved`）前得不到任何正向獎勵。即使 99% 的推導完全正確，若最後一步出錯，整體獎勵依然為 0。
-3. **浩瀚的組合搜尋空間（Massive Combinatorial Search Space）：** 西洋棋平均分支因子約為 35，圍棋約為 250，而形式化數學中的引理與戰術選擇空間在理論上是無界的（$b \to \infty$）。
+3. **浩瀚的組合搜尋空間（Massive Combinatorial Search Space）：** 西洋棋平均分支因子約為 35，圍棋約為 250，而形式化數學中的引理與戰術選擇空間在理論上是無界的（`b \to \infty`）。
 
 ---
 

@@ -12,7 +12,7 @@ keywords: [Deterministische Policy Evaluation, Near-Miss Hindernismetrik, Q-Lear
 ![Erfolgs- und Schritt-Benchmark](./images/01_eval_success_steps.png)
 
 > 📌 **Kernaussagen (TL;DR)**
-> - **Ziel**: Messung der reinen, deterministischen Leistungsfähigkeit der gelernten Greedy-Policy ($\epsilon = 0$) ohne stochastisches Rauschen zur Validierung der Praxistauglichkeit.
+> - **Ziel**: Messung der reinen, deterministischen Leistungsfähigkeit der gelernten Greedy-Policy (`\epsilon = 0`) ohne stochastisches Rauschen zur Validierung der Praxistauglichkeit.
 > - **Ergebnis**: Tabellarisches Q-Learning erreicht 92 % Erfolgsquote bei 15-fach geringerem Rechenaufwand im Vergleich zu Deep Q-Networks (DQN).
 
 {/* truncate */}
@@ -32,7 +32,7 @@ Tabellarisches Q-Learning erweist sich für strukturierte Navigationsaufgaben al
 ---
 
 ### 📌 Management Summary (3–5 Zeilen)
-1. **Deterministischer Test ($\epsilon=0$)**: Belegt die Stabilität der Policy ohne Zufallsentscheidungen.
+1. **Deterministischer Test (`\epsilon=0`)**: Belegt die Stabilität der Policy ohne Zufallsentscheidungen.
 2. **Kompaktheit gewinnt**: < 15 KB Speicherbedarf macht tabellarisches Q-Learning ideal für Mikrocontroller.
 3. **Geringe Latenz**: Sub-Millisekunden-Reaktionszeiten verhindern Kollisionen bei höheren Fahrgeschwindigkeiten.
 4. **Bereit für Hardware**: Die deterministische Policy erfüllt alle Kriterien für den physischen Transfer.

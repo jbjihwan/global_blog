@@ -49,7 +49,7 @@ date: 2026-11-14T10:00:00.000Z
 
 1. **客观机械可验证性（Objective Mechanical Verifiability）：** 与主观评判的文学或法律不同，形式化数学由确定性类型检查程序（如 Lean 4 编译器）进行 100% 严谨验证，不容任何侥幸。
 2. **极致的奖励稀疏性（Extreme Reward Sparsity）：** 在长达数十甚至数百步的推演中，智能体在闭合最终证明目标（`Goal Solved`）前得不到任何正向奖励。即使 99% 的推导完全正确，若最后一步出错，整体奖励依然为 0。
-3. **浩瀚的组合搜索空间（Massive Combinatorial Search Space）：** 国际象棋平均分支因子约为 35，围棋约为 250，而形式化数学中的引理与战术选择空间在理论上是无界的（$b \to \infty$）。
+3. **浩瀚的组合搜索空间（Massive Combinatorial Search Space）：** 国际象棋平均分支因子约为 35，围棋约为 250，而形式化数学中的引理与战术选择空间在理论上是无界的（`b \to \infty`）。
 
 ---
 

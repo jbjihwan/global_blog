@@ -52,7 +52,7 @@ Por que a matemática é amplamente reconhecida como o verdadeiro teste decisivo
 
 1. **Verificabilidade mecânica objetiva (Objective Mechanical Verifiability):** Ao contrário de redações literárias ou pareceres jurídicos, cuja avaliação é subjetiva, a matemática formal é verificada com 100% de certeza por um programa compilador determinístico (como o verificador de tipos do Lean 4).
 2. **Recompensa extremamente esparsa (Extreme Reward Sparsity):** Em uma demonstração de nível olímpico com centenas de passos táticos, o agente recebe zero de recompensa positiva até o objetivo final (`Goal Solved`) ser fechado. Uma tentativa 99% correta que falha na última linha recebe recompensa zero.
-3. **Espaço de busca combinatório colossal (Massive Combinatorial Search Space):** Diferente do xadrez (fator de ramificação $\approx 35$) ou do Go ($\approx 250$), o espaço de lemas, definições e construções auxiliares é matematicamente infinito ($b \to \infty$).
+3. **Espaço de busca combinatório colossal (Massive Combinatorial Search Space):** Diferente do xadrez (fator de ramificação `\approx 35`) ou do Go (`\approx 250`), o espaço de lemas, definições e construções auxiliares é matematicamente infinito (`b \to \infty`).
 
 ---
 

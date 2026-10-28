@@ -15,7 +15,7 @@ Avant d'esquisser l'avenir, contemplons la pyramide conceptuelle bâtie ce semes
 - **Part 3 · Agent Engineering (Ingénierie des Systèmes, L10–L12) :** Les agents de génie logiciel industriel (SWE-bench), les interfaces agent-système (ASI), la mémoire hiérarchique inspirée de la pagination d'OS (MemGPT, Cartridges), ainsi que l'évaluation macroéconomique (GDPval, loi de doublement METR tous les 7 mois).
 - **Part 4 · Frontiers (Frontières de l'Intelligence, L13–L16) :** Les fondements cognitifs du raisonnement Chain-of-Thought, la démonstration formelle aux olympiades de mathématiques (AlphaProof, Lean 4), la fiabilité à trois couches avec AI Control et la robotique incarnée Vision-Langage-Action (VLA).
 
-À travers chaque avancée, une colonne vertébrale unique a structuré l'intelligence : **《Génération $\to$ Vérification $\to$ Boucle de Rétroaction Fermée》**. Mais si nous déployons cette boucle à une échelle $1\,000\times$ supérieure durant des milliers d'heures dans la réalité non structurée : où le système se brisera-t-il en premier ?
+À travers chaque avancée, une colonne vertébrale unique a structuré l'intelligence : **《Génération `\to` Vérification `\to` Boucle de Rétroaction Fermée》**. Mais si nous déployons cette boucle à une échelle `1000` supérieure durant des milliers d'heures dans la réalité non structurée : où le système se brisera-t-il en premier ?
 
 {/* truncate */}
 
@@ -74,7 +74,7 @@ La catastrophe mathématique sous-jacente provient de la dégradation exponentie
 ```text
 P_total = \prod_{t=1}^N (1 - \epsilon_t)
 ```
-Même avec une précision élémentaire par étape de 99,5 % ($\epsilon = 0,005$), une trajectoire de 500 étapes subit un taux d'échec global supérieur à 91,8 %. Sans points de contrôle intermédiaires vérifiant des invariants et sans distillation de mémoire épisodique, l'autonomie à long terme s'abîme dans des hallucinations cumulatives.
+Même avec une précision élémentaire par étape de 99,5 % (`\epsilon = 0,005`), une trajectoire de 500 étapes subit un taux d'échec global supérieur à 91,8 %. Sans points de contrôle intermédiaires vérifiant des invariants et sans distillation de mémoire épisodique, l'autonomie à long terme s'abîme dans des hallucinations cumulatives.
 
 ### 2.2. Mise à l'Échelle Inverse en Inférence (Inverse Scaling)
 L'axiome selon lequel allonger la réflexion (CoT) accroît mécaniquement l'intelligence a été réfuté à l'été 2025 par Anthropic. Sur des tâches complexes et ouvertes, un nombre excessif de tokens de réflexion déclenche cinq pathologies :
@@ -160,7 +160,7 @@ En synthèse des dix-sept cours de Stanford CS329A, la feuille de route globale 
 | Dimension | Défi Ouvert Majeur | Cours Clés | Frontières de Rupture 2026+ |
 |---|---|---|---|
 | **Capacités** | Écart de Fiabilité à 80% Long Horizon | L11, L12, L15 | Mémoire Épisodique Hiérarchique (MemVerse) + Vérificateurs de Jalons |
-| **Capacités** | Écart Sim-to-Real en Robotique | L13, L16 | Co-entraînement Multi-Corps ($\pi_{0.5}$) + Flow Matching Continu |
+| **Capacités** | Écart Sim-to-Real en Robotique | L13, L16 | Co-entraînement Multi-Corps (`\pi_(0.5)`) + Flow Matching Continu |
 | **Capacités** | Inversion d'Échelle en Inférence | L2, L5, L13 | Recherche Arborescente Adaptée au Budget (BATS) + Arrêt Anticipé |
 | **Fiabilité** | Circularité des Vérificateurs Neuronaux | L3, L4, L14 | Supervision Formelle Neuro-Symbolique (FormalJudge, Lean 4 / Z3 SMT) |
 | **Fiabilité** | Explosion de Calcul 1 000x & Corruption KV | L2, L8, L11 | Allocation Dynamique Optimale de Tokens + Éviction Sélective KV |

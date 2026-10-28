@@ -52,7 +52,7 @@ Bienvenidos a la **Lección 14** de **Stanford CS329A: Self-Improving AI Agents*
 
 1. **Verificabilidad mecánica objetiva (Objective Mechanical Verifiability):** A diferencia de ensayos literarios o dictámenes legales, las matemáticas formales son verificadas con un 100% de rigor determinista por un programa compilador (como el comprobador de tipos de Lean 4).
 2. **Recompensa extremadamente dispersa (Extreme Reward Sparsity):** En una demostración de nivel olímpico con cientos de inferencias tácticas, el agente recibe cero recompensa positiva hasta cerrar el objetivo final (`Goal Solved`). Un intento correcto al 99% que falla en la última igualdad recibe recompensa cero.
-3. **Espacio de búsqueda combinatorio colosal (Massive Combinatorial Search Space):** A diferencia del ajedrez (factor de ramificación $\approx 35$) o el Go ($\approx 250$), el espacio de lemas matemáticos, definiciones y construcciones auxiliares es infinito ($b \to \infty$).
+3. **Espacio de búsqueda combinatorio colosal (Massive Combinatorial Search Space):** A diferencia del ajedrez (factor de ramificación `\approx 35`) o el Go (`\approx 250`), el espacio de lemas matemáticos, definiciones y construcciones auxiliares es infinito (`b \to \infty`).
 
 ---
 

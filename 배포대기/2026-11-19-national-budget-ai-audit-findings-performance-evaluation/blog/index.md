@@ -125,8 +125,10 @@ flowchart LR
   - The remaining **$5.25M (70.0%)** was consumed by administrative fees, subcontractor agency cuts, and advisory fees.
 * **AI Metric**:
   We formalized the **Delivery Efficiency Index (DEI)**:
-  $$DEI = \frac{\text{Direct Beneficiary Disbursement}}{\text{Total Allocated Budget}} \times 100$$
-  A DEI score of 30.0% falls well below the statutory recommendation of 65.0%, flagging structural fiscal leakage.
+
+`DEI = (Direct Beneficiary Disbursement / Total Allocated Budget) * 100`
+
+A DEI score of 30.0% falls well below the statutory recommendation of 65.0%, flagging structural fiscal leakage.
 
 ---
 

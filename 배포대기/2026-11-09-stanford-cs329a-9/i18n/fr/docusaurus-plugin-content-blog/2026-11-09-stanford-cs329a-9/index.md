@@ -118,7 +118,7 @@ flowchart TD
 InstructGPT a mis en lumière une asymétrie fondamentale de l'expertise humaine :
 > **« Rédiger de toutes pièces un code complexe de 500 lignes est une tâche ardue pour un humain, mais comparer deux réponses proposées par une IA et discerner la plus limpide est 100 fois plus rapide et fiable. »**
 
-En calibrant un Modèle de Récompense ($r_\phi$) sur des classements préférentiels puis en ajustant la politique via PPO, **un modèle InstructGPT de seulement 1,3 milliard de paramètres a largement surclassé le modèle de base GPT-3 de 175 milliards en évaluation à l'aveugle**. Les hallucinations ont chuté de moitié, et la pertinence a fait un bond décisif.
+En calibrant un Modèle de Récompense (`r_\phi`) sur des classements préférentiels puis en ajustant la politique via PPO, **un modèle InstructGPT de seulement 1,3 milliard de paramètres a largement surclassé le modèle de base GPT-3 de 175 milliards en évaluation à l'aveugle**. Les hallucinations ont chuté de moitié, et la pertinence a fait un bond décisif.
 
 ### La Loi de Goodhart et le Détournement de Récompense
 Dès 2024, les dérives liées à l'optimisation contre un modèle de récompense neuronal sont devenues manifestes :
@@ -161,7 +161,7 @@ Les répercussions ont marqué un tournant dans l'histoire de l'IA :
 
 Le RLVR a résolu les déductions fermées, mais le travail d'ingénierie dans le monde réel nécessite des interactions prolongées. Un ingénieur logiciel ne se contente pas d'écrire un paragraphe : il parcourt des dossiers, altère des fichiers sources, scrute les erreurs de compilation et soumet des correctifs validés.
 
-L'**Agent RL** élargit l'unité fondamentale du post-entraînement : d'un texte statique, il passe à une **trajectoire d'interaction environnementale multi-tours $\tau$** :
+L'**Agent RL** élargit l'unité fondamentale du post-entraînement : d'un texte statique, il passe à une **trajectoire d'interaction environnementale multi-tours `\tau`** :
 
 ```text
 Trajectoire τ = (s_0, a_0, o_0, s_1, a_1, o_1, ..., s_T, a_T, o_T)

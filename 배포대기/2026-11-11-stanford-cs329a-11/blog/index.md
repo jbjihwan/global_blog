@@ -96,7 +96,7 @@ Unlike standard RAG architectures where hardcoded Python scripts prepend search 
 On the **Deep Memory Recall (DMR)** benchmark spanning dozens of extended conversational sessions:
 - Standard GPT-4 with a static context window plummeted to **32.1% accuracy**.
 - MemGPT achieved **92.5% accuracy**, maintaining zero performance degradation regardless of how many sessions elapsed.
-- In **Nested Key-Value Retrieval**, where agents must follow multi-hop associative chains ($K_1 \to V_1 / K_2 \to V_2$), baseline models collapsed to 0% beyond 3 hops, while MemGPT sustained 100% precision.
+- In **Nested Key-Value Retrieval**, where agents must follow multi-hop associative chains (`K_1 \to V_1 / K_2 \to V_2`), baseline models collapsed to 0% beyond 3 hops, while MemGPT sustained 100% precision.
 
 ---
 

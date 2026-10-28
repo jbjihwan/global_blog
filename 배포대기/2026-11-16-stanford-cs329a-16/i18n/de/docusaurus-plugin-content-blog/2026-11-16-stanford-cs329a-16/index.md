@@ -21,7 +21,7 @@ Was geschieht, wenn wir ein multimodales Basismodell mit einem physischen Körpe
 Willkommen zu **Vorlesung 16** von **Stanford CS329A: Self-Improving AI Agents**, dem vierten Teil von **Part 4: Frontiers (Frontiers in Reasoning & Autonomy)**. Basierend auf den wegweisenden Arbeiten von **Dr. Danny Driess** (Founding Research Scientist bei Physical Intelligence, ehemals Google DeepMind Robotics) sezieren wir die Architektur von **Vision-Language-Action (VLA) Modellen**:
 - **Aktionen als Sprachtoken (RT-2, DeepMind 2023):** Die Überführung kontinuierlicher 7DoF-Motorsteuerungssignale in 256 diskrete Vokabulartoken eines 55B-VLM.
 - **Der Triumph von Open Source (OpenVLA, 2024):** Wie eine 7B-Architektur geschlossene 55B-Giganten übertrifft – dank dualer Bildfusion (SigLIP + DINOv2), Quantil-Binning und LoRA-Anpassung auf Consumer-Gaming-GPUs.
-- **Kontinuierliche Steuerung und Diffusion ($\pi_0$):** Wie Flow Matching die Mikrovibrationen diskreter Quantisierung überwindet und komplexe Aufgaben wie das Falten von Wäsche meistert.
+- **Kontinuierliche Steuerung und Diffusion (`\pi_0`):** Wie Flow Matching die Mikrovibrationen diskreter Quantisierung überwindet und komplexe Aufgaben wie das Falten von Wäsche meistert.
 - **Verkörperte Sicherheitsarchitektur:** Zweistufige Schutzsysteme aus softwareseitiger Geschwindigkeitskappung und hardwarenahen Kraft-Momenten-Reflexschleifen.
 
 {/* truncate */}
@@ -85,8 +85,8 @@ Im Juli 2023 stellte Google DeepMind den **Robotic Transformer 2 (RT-2)** vor, d
 
 ### 7DoF-Aktionsraum und 256-Bin-Gleichverteilung
 Industrielle Roboterarme agieren in einem kontinuierlichen Raum mit 7 Freiheitsgraden (7DoF):
-1. **3D-Translation ($\Delta x, \Delta y, \Delta z$):** Raumverschiebung des Endeffektors.
-2. **3D-Rotation ($\Delta roll, \Delta pitch, \Delta yaw$):** Lageänderung des Handgelenks.
+1. **3D-Translation (`\Delta x, \Delta y, \Delta z`):** Raumverschiebung des Endeffektors.
+2. **3D-Rotation (`\Delta roll, \Delta pitch, \Delta yaw`):** Lageänderung des Handgelenks.
 3. **Greiferzustand ($gripper$):** Öffnen und Schließen der Finger.
 
 Um kontinuierliche Fließkommazahlen in diskrete Token für den Transformer zu überführen, nutzt RT-2 eine **gleichmäßige Diskretisierung**:
@@ -170,13 +170,13 @@ Das lineare Binning von RT-2 war ineffizient: In der Praxis sind **90% der Beweg
 
 ---
 
-## 4. Kontinuierliche Steuerung: Physical Intelligence $\pi_0$ (2024)
+## 4. Kontinuierliche Steuerung: Physical Intelligence `\pi_0` (2024)
 
 Trotz aller Erfolge stößt diskrete Tokenisierung an Grenzen:
 - Quantisierungsrauschen führt bei Frequenzen über 50Hz zu mechanischem Zittern (**Jittering**).
 - Verformbare Objekte — wie das Falten von Wäsche oder das Montieren von Kartons — verlangen nach kontinuierlichen Bewegungsprofilen.
 
-Dr. Danny Driess und das Team von Physical Intelligence entwickelten mit **$\pi_0$ (pi-zero)** eine **Flow-Matching-Diffusions-Policy**:
+Dr. Danny Driess und das Team von Physical Intelligence entwickelten mit **`\pi_0` (pi-zero)** eine **Flow-Matching-Diffusions-Policy**:
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -199,7 +199,7 @@ Dr. Danny Driess und das Team von Physical Intelligence entwickelten mit **$\pi_
                                                (Faltet Wäsche & Kartonagen)
 ```
 
-$\pi_0$ generiert über Denoising kontinuierliche Trajektorien in Echtzeit und meistert als erstes einheitliches System komplexe Haushaltstätigkeiten an biegeschlaffen Objekten.
+`\pi_0` generiert über Denoising kontinuierliche Trajektorien in Echtzeit und meistert als erstes einheitliches System komplexe Haushaltstätigkeiten an biegeschlaffen Objekten.
 
 ---
 
@@ -248,6 +248,6 @@ Physische Roboter üben reale Kräfte aus. Produktionssysteme erfordern daher zw
 1. **Physische Aktionen sind eine Modalität der Sprache:** Das Diskretisieren von Motorbewegungen erlaubt die Nutzung von Internet-Wissen für reale Manipulationen.
 2. **Duale Bildfusion ist entscheidend:** Die Kombination aus Semantik (SigLIP) und räumlicher Tiefe (DINOv2) sichert Millimeterpräzision.
 3. **Quantil-Binning schließt Genauigkeitslücken:** Die Verteilung der Token nach empirischen Bewegungsdaten verhindert Greiffehler.
-4. **Diffusion führt zur stufenlosen Steuerung:** Systeme wie $\pi_0$ eliminieren Diskretisierungszittern und eröffnen die Handhabung verformbarer Materialien.
+4. **Diffusion führt zur stufenlosen Steuerung:** Systeme wie `\pi_0` eliminieren Diskretisierungszittern und eröffnen die Handhabung verformbarer Materialien.
 
 In unserer letzten Vorlesung, **Vorlesung 17 (GRAND FINALE): Future Research Directions**, ziehen wir das Fazit aus allen 17 Vorlesungen und skizzieren die großen ungelösten Rätsel auf dem Weg zur echten AGI. Wir sehen uns im Finale!

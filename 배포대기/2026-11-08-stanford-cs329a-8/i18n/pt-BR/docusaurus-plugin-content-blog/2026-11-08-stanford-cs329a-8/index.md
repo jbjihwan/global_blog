@@ -56,7 +56,7 @@ O desafio compartilhado entre essas vertentes é o **Compromisso Precisão-Abran
 
 ## 2. Busca no Espaço de Programas: AlphaCode (Capa da Science, 2022)
 
-Torneios de algoritmos como os da plataforma Codeforces desafiam a capacidade intelectual de engenheiros seniores. As questões exigem deduzir propriedades matemáticas a partir de textos extensos e programar rotinas em C++ que respeitem limites severos de processamento ($O(N \log N)$) e memória ($256\text 256 MB$) contra milhares de testes ocultos. Qualquer falha sutil de índice resulta em `Wrong Answer`.
+Torneios de algoritmos como os da plataforma Codeforces desafiam a capacidade intelectual de engenheiros seniores. As questões exigem deduzir propriedades matemáticas a partir de textos extensos e programar rotinas em C++ que respeitem limites severos de processamento (`O(N \log N)`) e memória (`256 256 MB`) contra milhares de testes ocultos. Qualquer falha sutil de índice resulta em `Wrong Answer`.
 
 O **AlphaCode** do Google DeepMind rompeu esse paradigma ao comprovar que computação massiva de inferência associada a agrupamento semântico pode posicionar uma IA entre os 54% melhores competidores humanos.
 

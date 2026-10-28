@@ -235,6 +235,8 @@ export function ProjectIcon({
       return <CodeIcon size={size} className={className} />;
     case 'stanford_cs329a':
       return <CpuIcon size={size} className={className} />;
+    case 'national_budget':
+      return <ShieldIcon size={size} className={className} />;
     case 'home':
       return <HomeIcon size={size} className={className} />;
     case 'folder':

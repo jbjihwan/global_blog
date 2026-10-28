@@ -35,7 +35,7 @@ description: "Finalización de la suite de auditoría en 6 sectores: Detección 
 flowchart TD
     Raw[4 Millones de Contratos Públicos] --> Filter{Gestor de Partición 3D}
     Filter -->|85% Consumibles| Drop[Archivo Bajo Riesgo]
-    Filter --> S1["Sector 1: TIC <20k $"]
+    Filter --> S1["Sector 1: TIC &lt;20k $"]
     Filter --> S2["Sector 2: Eventos Municipales"]
     Filter --> S3["Sector 3: Fuga de Subsidios DEI"]
     Filter --> S4["Sector 4: Grandes Licitaciones Monopolio"]

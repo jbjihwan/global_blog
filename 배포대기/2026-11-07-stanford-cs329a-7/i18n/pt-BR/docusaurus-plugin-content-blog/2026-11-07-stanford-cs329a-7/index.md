@@ -209,7 +209,7 @@ Para impedir convergência precoce, utiliza **MAP-Elites** com modelo de ilhas:
 - **Sobrevivência por Nicho:** Um código sobrevive se for o mais eficiente dentro de seu nicho funcional, garantindo ampla diversidade para futuros cruzamentos.
 
 ### Conquistas Históricas do AlphaEvolve
-1. **Quebra do Recorde de Strassen Após 56 Anos:** Em 1969, Volker Strassen provou que matrizes complexas $4 \times 4$ podiam ser multiplicadas com 49 operações em vez de 64. Durante 56 anos, ninguém reduziu para 48. Com apenas **15 gerações de mutação de código**, o AlphaEvolve descobriu um algoritmo inédito que opera com **exatamente 48 multiplicações**.
+1. **Quebra do Recorde de Strassen Após 56 Anos:** Em 1969, Volker Strassen provou que matrizes complexas `4 4` podiam ser multiplicadas com 49 operações em vez de 64. Durante 56 anos, ninguém reduziu para 48. Com apenas **15 gerações de mutação de código**, o AlphaEvolve descobriu um algoritmo inédito que opera com **exatamente 48 multiplicações**.
 2. **Otimização do Escalonador Google Borg:** Redesenhou as rotinas heurísticas que gerenciam os datacenters globais do Google, proporcionando uma **redução permanente de 0,7% no consumo total de computação**.
 3. **Autocompilação Acelerada:** Otimizou os kernels de atenção XLA utilizados para treinar os modelos Gemini, gerando um **ganho de taxa de transferência de 23%**. Em essência, a IA escreveu o código que acelerou a sua própria evolução subsequente.
 

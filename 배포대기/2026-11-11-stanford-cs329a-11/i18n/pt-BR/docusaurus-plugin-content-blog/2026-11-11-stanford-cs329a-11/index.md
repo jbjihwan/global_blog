@@ -52,7 +52,7 @@ Para alcançar autonomia duradoura, as arquiteturas modernas separam o **Context
 │ • Contexto principal(RAM)│  │ • Embeddings KV contínuos│  │ • Recálculo seletivo 15% │
 │ • Banco vetorial (Disco) │  │ • Redução de memória 38x │  │ • Matriz rotacional RoPE │
 │ • Despejo e resumo rec.  │  │ • Ganho de vazão de 26,4x│  │ • Queda de 3,3x no TTFT  │
-│ • Recordação profunda 92%│  │ • Modularidade tipo Lego │  │ • Desvio de acurácia <0,01│
+│ • Recordação profunda 92%│  │ • Modularidade tipo Lego │  │ • Desvio de acurácia &lt;0,01│
 └──────────────────────────┘  └──────────────────────────┘  └──────────────────────────┘
 ```
 

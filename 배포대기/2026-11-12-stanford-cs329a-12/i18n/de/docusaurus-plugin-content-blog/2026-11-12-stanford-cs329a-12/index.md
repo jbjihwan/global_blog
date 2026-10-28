@@ -140,8 +140,8 @@ Wobei:
 ```
 
 ### Die Gewinnschwelle: Vom Bremsklotz zum Produktivitätsgewinn
-- Ist die Modellqualität gering ($w < 20\%$, z. B. GPT-4o), verbringt der Prüfer Stunden mit der Fehlersuche und verwirft den Entwurf letztlich. Die Folge: Der Einsatz von GPT-4o führte zu einer **Netto-Verlangsamung um 13% (0,87x Arbeitsgeschwindigkeit)**!
-- Erst bei Überschreiten der **kritischen Schwelle von $w \ge 40\%$** (erreicht durch o3 und Opus 4.1) amortisiert sich die Prüfzeit, was in einer realen **Produktivitätssteigerung um 1,3x bis 1,4x** resultiert.
+- Ist die Modellqualität gering (`w < 20\%`, z. B. GPT-4o), verbringt der Prüfer Stunden mit der Fehlersuche und verwirft den Entwurf letztlich. Die Folge: Der Einsatz von GPT-4o führte zu einer **Netto-Verlangsamung um 13% (0,87x Arbeitsgeschwindigkeit)**!
+- Erst bei Überschreiten der **kritischen Schwelle von `w \ge 40\%`** (erreicht durch o3 und Opus 4.1) amortisiert sich die Prüfzeit, was in einer realen **Produktivitätssteigerung um 1,3x bis 1,4x** resultiert.
 
 ---
 

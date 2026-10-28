@@ -70,13 +70,13 @@ Où :
 * `A` représente l'ensemble des actions physiques exécutables dans l'environnement externe (ex. `Search[query]`, `ExecuteCode[script]`, `Click[element]`).
 * `L` représente l'espace des réflexions libres en langage naturel (Thoughts).
 
-La propriété mathématique cruciale réside dans le fait qu'une action de pensée $a_t \in L$ **ne provoque aucune transition d'état dans l'environnement physique**. Elle actualise uniquement le contexte de mémoire interne de l'agent :
+La propriété mathématique cruciale réside dans le fait qu'une action de pensée `a_t \in L` **ne provoque aucune transition d'état dans l'environnement physique**. Elle actualise uniquement le contexte de mémoire interne de l'agent :
 
 ```text
 c_{t+1} = ( c_t, a_t )   (lorsque a_t ∈ L)
 ```
 
-En revanche, lorsque l'agent sélectionne une action physique $a_t \in A$, l'environnement extérieur s'exécute et retourne une observation déterministe :
+En revanche, lorsque l'agent sélectionne une action physique `a_t \in A`, l'environnement extérieur s'exécute et retourne une observation déterministe :
 
 ```text
 c_{t+1} = ( c_t, a_t, o_t )   (lorsque a_t ∈ A, où o_t = Env(a_t))
@@ -127,7 +127,7 @@ Le cadre **RLEF (arxiv:2410.02089, fin 2024)** a résolu ce verrou fondamental n
 
 #### Modélisation de la Génération de Code Multitour en Processus MDP
 
-RLEF formalise le cycle « génération $\to$ feedback d'exécution $\to$ patch correctif » sur $T$ tours au maximum comme un Processus de Décision Markovien (MDP) en temps discret :
+RLEF formalise le cycle « génération `\to` feedback d'exécution `\to` patch correctif » sur $T$ tours au maximum comme un Processus de Décision Markovien (MDP) en temps discret :
 * **Espace d'États ($S$) :** Énoncé du problème, tentatives de code antérieures et diagnostics d'erreurs :
   ```text
   s_t = ( Problem_Spec, Code_1, Err_1, ..., Code_{t-1}, Err_{t-1} )
@@ -168,7 +168,7 @@ Si le modèle tente de tricher en programmant des tables de correspondance ad ho
 
 #### Fonction Objectif et Conception de la Récompense
 
-La politique $\pi_\theta$ est optimisée via l'algorithme PPO avec une pénalité de divergence KL par rapport au modèle de référence $\rho$ :
+La politique `\pi_\theta` est optimisée via l'algorithme PPO avec une pénalité de divergence KL par rapport au modèle de référence `\rho` :
 
 ```text
 R(s_t, a_t) = r(s_t, a_t) - β * log( π_θ(a_t | s_t) / ρ(a_t | s_t) )
@@ -233,12 +233,12 @@ flowchart LR
 
 #### Le Pipeline Constitutionnel en Deux Phases
 
-1. **Phase 1 : Critique et Révision (Critique $\to$ Revision $\to$ SFT)**
+1. **Phase 1 : Critique et Révision (Critique `\to` Revision `\to` SFT)**
    * Le modèle de base est confronté à des requêtes complexes ou provocatrices.
    * Dès qu'il produit une réponse initiale $y_0$, le système extrait un principe constitutionnel et lui ordonne :
      * **Prompt de Critique :** *« Évalue ta réponse précédente selon le Principe 3 : "Garantir l'absence de vulnérabilités et imposer un typage statique strict". Identifie chaque violation spécifique. »*
      * **Prompt de Révision :** *« Réécris intégralement la réponse pour corriger tous les défauts relevés tout en préservant une haute technicité. »*
-   * Ces données autocorrigées $`{y*}`$ forment le corpus d'un premier apprentissage supervisé (SFT).
+   * Ces données autocorrigées ``(y*)`` forment le corpus d'un premier apprentissage supervisé (SFT).
 
 2. **Phase 2 : RLAIF (Apprentissage par Renforcement avec Rétroaction d'IA)**
    * Le modèle affiné génère des paires d'alternatives $(y_A, y_B)$ pour une entrée $x$.
@@ -246,7 +246,7 @@ flowchart LR
      ```text
      P( y_A > y_B | x, Constitution )
      ```
-   * Un modèle de récompense de préférences $r_\phi(x, y)$ est entraîné à partir de ces étiquettes, puis la politique de l'agent est optimisée via PPO.
+   * Un modèle de récompense de préférences `r_\phi(x, y)` est entraîné à partir de ces étiquettes, puis la politique de l'agent est optimisée via PPO.
 
 #### L'Enjeu : Une Supervision Extensible (Scalable Oversight)
 
@@ -310,7 +310,7 @@ Le déploiement en production d'agents autonomes dotés d'outils et de boucles d
 
 ### 6. Synthèse et Enseignements Majeurs
 
-1. **Ancrage par l'Interaction :** Les modèles limités à leur mémoire interne dérivent inévitablement vers l'hallucination. ReAct associe réflexion et action ($\hat = A \cup L$), éradiquant la fabrication de faits lors de recherches documentaires complexes.
+1. **Ancrage par l'Interaction :** Les modèles limités à leur mémoire interne dérivent inévitablement vers l'hallucination. ReAct associe réflexion et action (`\hat = A \cup L`), éradiquant la fabrication de faits lors de recherches documentaires complexes.
 2. **Rétroaction Encodée dans les Poids :** Le prompt sur modèles figés montre vite ses limites. RLEF formalise le débogage comme un MDP piloté par des compilateurs, permettant à des modèles 70B de surpasser des configurations GPT-4 à 100 échantillons.
 3. **Alignement Constitutionnel Autonome :** Constitutional AI remplace l'annotation humaine laborieuse par des principes déclaratifs, ouvrant la voie à des cycles d'autocorrection et à une supervision hautement scalable (RLAIF).
 4. **Infrastructure d'Exécution Sécurisée :** L'industrialisation des agents exige des gardes-fous stricts : arrêts sur balises, microVMs jetables et séparation rigoureuse des suites de tests publiques et privées.

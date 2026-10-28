@@ -165,7 +165,7 @@ flowchart TD
 ```
 
 #### 1. Prompt-Verkettung (Prompt Chaining: Sequenzielle Zerlegung)
-Zerlegt eine monolithische Aufgabe in deterministische Schritte, bei denen die Ausgabe von Schritt `k` zum Eingabekontext für Schritt `k+1` wird. Durch zwischengeschaltete Validierungstore (z. B. Gliederung erstellen $\to$ Vollständigkeit prüfen $\to$ Entwurf schreiben $\to$ Korrekturlesen) wird Fehlerkaskaden vorgebeugt.
+Zerlegt eine monolithische Aufgabe in deterministische Schritte, bei denen die Ausgabe von Schritt `k` zum Eingabekontext für Schritt `k+1` wird. Durch zwischengeschaltete Validierungstore (z. B. Gliederung erstellen `\to` Vollständigkeit prüfen `\to` Entwurf schreiben `\to` Korrekturlesen) wird Fehlerkaskaden vorgebeugt.
 
 #### 2. Dynamisches Routing (Dynamic Routing: Spezialisierung)
 Klassifiziert eingehende Anfragen und leitet sie an spezialisierte Modelle oder Werkzeuge weiter. Mathematische Probleme wandern in eine Python-Sandbox, großflächige Code-Refactorings an einen spezialisierten SWE-Agenten.
@@ -257,7 +257,7 @@ Das Curriculum von CS329A gliedert sich in vier progressive Schichten:
 #### Wichtigste Erkenntnisse
 1. **Der Paradigmenwechsel:** KI hat sich von der statischen Textgenerierung zu autonomen Rückkopplungsschleifen weiterentwickelt, in denen Ausführung, Prüfung und Reflexion kontinuierlich ineinandergreifen.
 2. **Duale Skalierungsfronten:** Die Vergrößerung von Pre-Training-Parametern wird nun durch Inferenzzeit-Skalierung (Best-of-N, PRM-Verifikation, Baumsuche) ergänzt, wodurch kompakte Modelle durch überlegtes Denken Großmodelle schlagen können.
-3. **Das universelle Rückgrat:** Jedes erfolgreiche Agentensystem implementiert den Dreiklang: **Generieren $\to$ Verifizieren $\to$ Iterieren**.
+3. **Das universelle Rückgrat:** Jedes erfolgreiche Agentensystem implementiert den Dreiklang: **Generieren `\to` Verifizieren `\to` Iterieren**.
 4. **Der Verifikationsflaschenhals:** Die Evolutionsrate eines Agenten wird strikt durch die Schärfe und Objektivität seines Verifikationssignals begrenzt.
 
 ---

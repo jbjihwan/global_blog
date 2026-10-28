@@ -190,7 +190,7 @@ class SchemaContractGate(VerificationGate):
             print(f" ❌ Failed: Missing machine-readable contract (Pydantic/Protobuf).")
             return False
         if tokens > 32000:
-            print(f" ❌ Failed: Context tokens ({tokens}) exceed module budget (<32k).")
+            print(f" ❌ Failed: Context tokens ({tokens}) exceed module budget (&lt;32k).")
             return False
         print(f" ✅ Passed: Explicit schema verified. Context budget: {tokens} tokens.")
         return True

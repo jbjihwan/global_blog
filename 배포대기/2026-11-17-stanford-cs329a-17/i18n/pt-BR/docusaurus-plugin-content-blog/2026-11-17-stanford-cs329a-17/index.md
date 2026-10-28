@@ -15,7 +15,7 @@ Antes de vislumbrar o futuro, recapitulemos a pirâmide de conhecimento erguida 
 - **Part 3 · Agent Engineering (Engenharia de Sistemas, L10–L12):** Agentes industriais de engenharia de software (SWE-bench), interfaces agente-sistema (ASI), memória hierárquica baseada em paginação de sistemas operacionais (MemGPT, Cartridges), avaliação macroeconômica (GDPval) e leis de duplicação do METR a cada 7 meses.
 - **Part 4 · Frontiers (Fronteiras da Autonomia, L13–L16):** Fundamentos cognitivos do raciocínio Chain-of-Thought, demonstração matemática formal nas olimpíadas (AlphaProof, Lean 4), os 3 níveis de confiabilidade com AI Control e robótica incorporada Visão-Linguagem-Ação (VLA).
 
-O fio condutor que sustentou cada avanço foi: **《Geração $\to$ Verificação $\to$ Feedback em Malha Fechada》**. Mas se escalarmos este ciclo por $1.000\times$ ao longo de milhares de horas em ambientes não estruturados: onde o sistema se romperá primeiro?
+O fio condutor que sustentou cada avanço foi: **《Geração `\to` Verificação `\to` Feedback em Malha Fechada》**. Mas se escalarmos este ciclo por `1.000` ao longo de milhares de horas em ambientes não estruturados: onde o sistema se romperá primeiro?
 
 {/* truncate */}
 
@@ -52,9 +52,9 @@ Para consolidar um **Safe Superintelligence Roadmap** autêntico, precisamos sup
 
 ### 2.1. A Ilusão do Horizonte de 80%: Por que `T_80% << T_50%`
 Na Aula 12, analisamos a métrica de horizonte temporal do METR, na qual agentes alcançam 50% de sucesso. Historicamente, essa capacidade dobrou a cada 7 meses:
-- **GPT-4 (Primeiro semestre 2023):** horizonte de $\approx 4$ minutos
-- **Claude 3.7 Sonnet (Início 2025):** horizonte de $\approx 59$ minutos
-- **Claude Opus 4.5 (Meio de 2025):** horizonte de $\approx 4$ horas e 49 minutos
+- **GPT-4 (Primeiro semestre 2023):** horizonte de `\approx 4` minutos
+- **Claude 3.7 Sonnet (Início 2025):** horizonte de `\approx 59` minutos
+- **Claude Opus 4.5 (Meio de 2025):** horizonte de `\approx 4` horas e 49 minutos
 
 No entanto, ao exigir uma **taxa de confiabilidade de 80% (`T_80%`)**, indispensável para implantação industrial real, o horizonte do Opus 4.5 despenca para **apenas 27 minutos**:
 
@@ -74,7 +74,7 @@ A explicação matemática reside no acúmulo de erros compostos em cadeias de M
 ```text
 P_total = \prod_{t=1}^N (1 - \epsilon_t)
 ```
-Mesmo com uma precisão individual por passo de 99,5% ($\epsilon = 0,005$), uma trajetória de 500 passos enfrenta uma probabilidade de falha agregada superior a 91,8%. Sem pontos de controle periódicos que comprovem invariantes e sem destilação de memória episódica, a autonomia de longo prazo colapsa sob alucinações cumulativas.
+Mesmo com uma precisão individual por passo de 99,5% (`\epsilon = 0,005`), uma trajetória de 500 passos enfrenta uma probabilidade de falha agregada superior a 91,8%. Sem pontos de controle periódicos que comprovem invariantes e sem destilação de memória episódica, a autonomia de longo prazo colapsa sob alucinações cumulativas.
 
 ### 2.2. Escalonamento Inverso na Inferência (Inverse Scaling)
 A suposição de que alocar mais tokens de reflexão (CoT) amplia monotonicamente a acurácia foi refutada em 2025 pela Anthropic. Em tarefas complexas e abertas, o excesso de deliberação deflagra cinco patologias severas:
@@ -160,7 +160,7 @@ Sintetizando todas as dezessete aulas de Stanford CS329A, o mapa global de pesqu
 | Dimensão | Desafio Aberto Crucial | Aulas Pertinentes | Fronteiras de Ruptura 2026+ |
 |---|---|---|---|
 | **Capacidade** | Brecha de 80% no Longo Horizonte | L11, L12, L15 | Memória Episódica Hierárquica (MemVerse) + Provadores de Checkpoint |
-| **Capacidade** | Brecha Sim-to-Real na Robótica | L13, L16 | Co-treinamento Inter-Corpos ($\pi_{0.5}$) + Flow Matching Contínuo |
+| **Capacidade** | Brecha Sim-to-Real na Robótica | L13, L16 | Co-treinamento Inter-Corpos (`\pi_(0.5)`) + Flow Matching Contínuo |
 | **Capacidade** | Escalonamento Inverso na Inferência | L2, L5, L13 | Busca em Árvore com Orçamento (BATS) + Parada Precoce |
 | **Confiabilidade** | Circularidade de Verificadores Neurais | L3, L4, L14 | Supervisão Formal Neurossimbólica (FormalJudge, Lean 4 / Z3 SMT) |
 | **Confiabilidade** | Explosão de Custo 1.000x & Deterioração KV | L2, L8, L11 | Alocação Dinâmica Ótima de Tokens + Evicção Seletiva KV |

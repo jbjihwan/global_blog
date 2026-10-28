@@ -174,7 +174,7 @@ flowchart TD
 #### Motor de Ejecución Recursiva AND / OR
 
 ADaPT estructura los planes mediante nodos lógicos:
-* **Nodos AND:** Subtareas secuenciales que deben completarse en su totalidad (ej.: `Extracción` $\to$ `Transformación` $\to$ `Carga en DB`).
+* **Nodos AND:** Subtareas secuenciales que deben completarse en su totalidad (ej.: `Extracción` `\to` `Transformación` `\to` `Carga en DB`).
 * **Nodos OR:** Hipótesis alternativas donde basta con que una rama tenga éxito (ej.: `Consultar Caché Local` OR `Llamar a API Externa`).
 
 #### Eficiencia Operativa
@@ -214,7 +214,7 @@ flowchart LR
 
 #### Algoritmo de Empaquetado Topológico
 
-SPRINT modela el flujo de razonamiento como un Grafo Acíclico Dirigido (DAG). Con base en el conjunto de dependencias $D$, se calcula el nivel topológico $\sigma(S_i)$ de cada paso:
+SPRINT modela el flujo de razonamiento como un Grafo Acíclico Dirigido (DAG). Con base en el conjunto de dependencias $D$, se calcula el nivel topológico `\sigma(S_i)` de cada paso:
 
 ```text
 σ(S_i) = {
@@ -223,7 +223,7 @@ SPRINT modela el flujo de razonamiento como un Grafo Acíclico Dirigido (DAG). C
 }
 ```
 
-Todos los pasos que comparten el mismo nivel topológico $\sigma$ se distribuyen simultáneamente entre múltiples nodos de cálculo GPU. Al finalizar la ejecución paralela, una barrera de sincronización consolida los hallazgos antes de planificar la siguiente etapa:
+Todos los pasos que comparten el mismo nivel topológico `\sigma` se distribuyen simultáneamente entre múltiples nodos de cálculo GPU. Al finalizar la ejecución paralela, una barrera de sincronización consolida los hallazgos antes de planificar la siguiente etapa:
 
 ```text
 Planificación  ──►  Despacho Paralelo  ──►  Sincronización  ──►  Re-Planificación
@@ -290,7 +290,7 @@ La implementación segura y rentable de motores de planificación MCTS en produc
 #### Reglas Esenciales de Salvaguarda
 1. **Parada Temprana (Early-Stopping):** En cuanto una sola rama supere la totalidad de los criterios de validación deterministas (ej.: suite de pruebas al 100%), se interrumpe de inmediato la exploración y se devuelve la solución para evitar gastos superfluos.
 2. **Servicio Jerárquico de Modelos:** Asignar la generación masiva de acciones candidatas a modelos compactos y veloces (7B/8B), reservando los modelos avanzados (70B+) exclusivamente para la evaluación de valor en bifurcaciones críticas.
-3. **Límites de Presupuesto:** Fijar topes rígidos a la profundidad del árbol ($`d_max` \le 6$) y al número máximo de iteraciones ($N \le 30$) para blindar los costes operativos.
+3. **Límites de Presupuesto:** Fijar topes rígidos a la profundidad del árbol (``d_max` \le 6`) y al número máximo de iteraciones (`N \le 30`) para blindar los costes operativos.
 
 ---
 

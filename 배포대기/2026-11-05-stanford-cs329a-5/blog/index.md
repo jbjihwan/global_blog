@@ -174,7 +174,7 @@ flowchart TD
 #### The AND / OR Recursive Execution Engine
 
 ADaPT formulates task breakdown using logical AND/OR nodes:
-* **AND Nodes:** Represent sequential sub-tasks that must all succeed in order (e.g., `Fetch Data` $\to$ `Transform Schema` $\to$ `Write DB`).
+* **AND Nodes:** Represent sequential sub-tasks that must all succeed in order (e.g., `Fetch Data` `\to` `Transform Schema` `\to` `Write DB`).
 * **OR Nodes:** Represent alternative exploratory hypotheses where succeeding in any branch fulfills the parent requirement (e.g., `Search Local Cache` OR `Query Remote API`).
 
 #### Empirical Efficiency
@@ -214,7 +214,7 @@ flowchart LR
 
 #### The Topological Packing Algorithm
 
-SPRINT models reasoning as a Directed Acyclic Graph (DAG) where each step $S_i$ consists of a planning token block $P_i$ and execution block $E_i$. Given causal dependencies $D$, SPRINT assigns each step a topological stage number $\sigma(S_i)$:
+SPRINT models reasoning as a Directed Acyclic Graph (DAG) where each step $S_i$ consists of a planning token block $P_i$ and execution block $E_i$. Given causal dependencies $D$, SPRINT assigns each step a topological stage number `\sigma(S_i)`:
 
 ```text
 σ(S_i) = {
@@ -223,7 +223,7 @@ SPRINT models reasoning as a Directed Acyclic Graph (DAG) where each step $S_i$ 
 }
 ```
 
-All reasoning steps sharing the identical topological level $\sigma$ are dispatched concurrently across distributed GPU worker nodes. Once all parallel threads complete, an aggregation synchronization barrier fuses the intermediate findings, and the planner computes the subsequent parallel horizon:
+All reasoning steps sharing the identical topological level `\sigma` are dispatched concurrently across distributed GPU worker nodes. Once all parallel threads complete, an aggregation synchronization barrier fuses the intermediate findings, and the planner computes the subsequent parallel horizon:
 
 ```text
 Plan  ──►  Parallel Dispatch  ──►  Topological Sync  ──►  Re-Plan
@@ -292,7 +292,7 @@ Building an enterprise-ready planning engine requires strict cost governance, pr
 #### Production Safeguard Rules
 1. **Early-Stopping Circuit Breakers:** The instant any single search branch passes all deterministic validation criteria (e.g., unit test suite passes 100%), immediately terminate all active MCTS exploration threads and return the winning candidate.
 2. **Hierarchical Model Serving:** Never use frontier 70B+ models for trivial leaf rollouts. Deploy sub-8B models to sample candidate actions and reserve frontier models exclusively for high-stakes node value evaluations.
-3. **Budget Quotas:** Enforce hard constraints on tree depth ($`d_max` \le 6$) and maximum rollout iterations ($`N_rollouts` \le 30$) to prevent runaway cloud inference costs.
+3. **Budget Quotas:** Enforce hard constraints on tree depth (``d_max` \le 6`) and maximum rollout iterations (``N_rollouts` \le 30`) to prevent runaway cloud inference costs.
 
 ---
 

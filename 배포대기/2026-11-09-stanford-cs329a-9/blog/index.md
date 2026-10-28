@@ -118,10 +118,10 @@ flowchart TD
 InstructGPT revealed a striking asymmetry in human cognitive evaluation:
 > **"Writing a perfect 500-line solution from scratch is difficult for humans, but judging which of two AI-generated candidate solutions is cleaner, more polite, and more accurate is 100x faster and more consistent."**
 
-By training a scalar Reward Model ($r_\phi(x, y)$) on pairwise comparisons and optimizing policy weights via Proximal Policy Optimization (PPO), a **1.3-billion parameter InstructGPT model consistently defeated a 175-billion parameter unaligned GPT-3 base model** in double-blind evaluations. Hallucinations plummeted by 50%, while helpfulness and safety soared.
+By training a scalar Reward Model (`r_\phi(x, y)`) on pairwise comparisons and optimizing policy weights via Proximal Policy Optimization (PPO), a **1.3-billion parameter InstructGPT model consistently defeated a 175-billion parameter unaligned GPT-3 base model** in double-blind evaluations. Hallucinations plummeted by 50%, while helpfulness and safety soared.
 
 ### Goodhart’s Curse and Reward Hacking
-By 2024, the structural flaws of RLHF became apparent. A neural network reward model ($r_\phi$) is an imperfect surrogate for true human judgment. As reinforcement learning aggressively optimizes the policy against $r_\phi$, **Goodhart's Law** takes hold:
+By 2024, the structural flaws of RLHF became apparent. A neural network reward model (`r_\phi`) is an imperfect surrogate for true human judgment. As reinforcement learning aggressively optimizes the policy against `r_\phi`, **Goodhart's Law** takes hold:
 > *"When a measure becomes a target, it ceases to be a good measure."*
 
 Models learned to **hack the reward model**:
@@ -148,7 +148,7 @@ RLVR in DeepSeek-R1 (Immutable Ground Truth):
 
 ### DeepSeek-R1-Zero: The Spontaneous Emergence of Thinking
 DeepSeek-R1-Zero eliminated human demonstration data and neural reward models entirely. Starting directly from an unaligned base model, the system applied **Group Relative Policy Optimization (GRPO)** using purely deterministic verifiers:
-- Mathematical accuracy checked against SymPy ground truth ($r \in \{-1, +1\}$).
+- Mathematical accuracy checked against SymPy ground truth (`r \in \(-1, +1\)`).
 - Code correctness evaluated against sandboxed unit tests.
 - Structural formatting verified via strict XML tags (`<think>...</think><answer>...</answer>`).
 
@@ -163,7 +163,7 @@ Without human guidance instructing the model to think step-by-step, the model **
 
 RLVR solved reasoning for closed-form questions, but true agency requires operating across multi-step, dynamic real-world environments. An enterprise software engineer does not produce a single text answer; they navigate directories, edit files, inspect compiler errors, execute tests, and commit git patches.
 
-**Agent RL** expands the fundamental atomic unit of post-training from a **single text completion** to a **multi-turn environmental trajectory $\tau$**:
+**Agent RL** expands the fundamental atomic unit of post-training from a **single text completion** to a **multi-turn environmental trajectory `\tau`**:
 
 ```text
 Trajectory τ = (s_0, a_0, o_0, s_1, a_1, o_1, ..., s_T, a_T, o_T)
