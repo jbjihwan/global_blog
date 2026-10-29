@@ -1,0 +1,25 @@
+{
+  "slug": "mental-crisis-nlp-suicide-risk-detection-fnr-zero",
+  "created_at": "2026-10-29T15:20:00+09:00",
+  "target_publish_date": "2026-11-24",
+  "status": "published",
+  "published_at": "2026-10-29T15:52:00+09:00",
+  "episode": 1,
+  "series": "mental-crisis-ai-detection",
+  "title_ko": "[위기감지 AI #1] 위기 NLP 분류기의 FNR 0% 도전과 베이즈 경계 왜곡 해결",
+  "title_en": "[Crisis AI #1] Minimizing FNR in Suicide NLP & Bayes Distortion",
+  "images": [
+    "01_cover.png"
+  ],
+  "locales": [
+    "ko",
+    "en",
+    "ja",
+    "zh-Hans",
+    "zh-Hant",
+    "es",
+    "de",
+    "fr",
+    "pt-BR"
+  ]
+}

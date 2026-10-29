@@ -6,13 +6,15 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
 
 ## 🚀 마지막으로 확인된 상태 (2026-10-28)
 - **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
-- **전체 글 피드 현황 (총 64편 등록 및 서비스 중)**:
-  1. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
-  2. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 라이브 반영)
-  3. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
-  4. **스마트 비전 ANPR & 차선 침범 적발**: 5편
-  5. **Webots RL Q-Learning 자율주행**: 5편
-  6. **보안 & 웹 엔지니어링 / 인프라**: 4편
+- **전체 글 피드 현황 (총 65편 등록 및 서비스 중)**:
+  1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 1편 (에피소드 #1 공식 라이브 배포)
+  2. **국가 예산 AI 감사 6부작 (Autonomous Budget Audit)**: 6편 (전편 완결 및 라이브 반영)
+  3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
+  4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 라이브 반영)
+  5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
+  6. **스마트 비전 ANPR & 차선 침범 적발**: 5편
+  7. **Webots RL Q-Learning 자율주행**: 5편
+  8. **보안 & 웹 엔지니어링 / 인프라**: 4편
 - **주요 시스템 개편 및 신규 기능 (2026-10-28 완료)**:
   1. **동적 편 수 자동 계산 (Dynamic Post Counting)**:
      - 기존 하드코딩되어 있던 Projects Hub 탭, 프로젝트 카드, 사이드바 뱃지 및 아티클 목차 편 수를 실제 존재하는 게시글(`sidebar.items`)로부터 실시간 자동 집계하도록 완전 개편.
