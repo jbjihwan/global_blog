@@ -16,6 +16,8 @@ interface SidebarLocaleData {
   postsHeader: string;
   allPostsName: string;
   allPostsDesc: string;
+  crisisDetectionName: string;
+  crisisDetectionDesc: string;
   nationalBudgetName: string;
   nationalBudgetDesc: string;
   cs329aName: string;
@@ -40,6 +42,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: '게시글 목차',
     allPostsName: '전체 글 피드',
     allPostsDesc: '전체 개발일지',
+    crisisDetectionName: '[고위험 AI] 위기 텍스트 정밀 감지',
+    crisisDetectionDesc: '자살/위기 AI & FNR 제로화',
     nationalBudgetName: '국가 예산 AI 감사',
     nationalBudgetDesc: '공공조달 & 비리 탐지',
     cs329aName: '스탠포드 CS329A',
@@ -62,6 +66,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: 'Dev Log Table of Contents',
     allPostsName: 'All Posts Feed',
     allPostsDesc: 'Total Dev Logs',
+    crisisDetectionName: '[Crisis AI] Suicide Risk NLP',
+    crisisDetectionDesc: 'Crisis Detection & FNR Zero',
     nationalBudgetName: 'Public Budget AI',
     nationalBudgetDesc: 'Procurement Fraud Audit',
     cs329aName: 'Stanford CS329A',
@@ -84,6 +90,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: '開発日誌 目次',
     allPostsName: '全記事フィード',
     allPostsDesc: '全開発日誌',
+    crisisDetectionName: '【高リスクAI】危機検知NLP',
+    crisisDetectionDesc: '自殺・心理的危機＆FNRゼロ化',
     nationalBudgetName: '国家予算AI監査',
     nationalBudgetDesc: '公共調達＆不正検知',
     cs329aName: 'スタンフォード CS329A',
@@ -106,6 +114,8 @@ const SIDEBAR_I18N: Record<SupportedLocale, SidebarLocaleData> = {
     postsHeader: 'Índice de Publicaciones',
     allPostsName: 'Todos los Posts',
     allPostsDesc: 'Diarios de desarrollo',
+    crisisDetectionName: '[IA Crisis] Detección Suicida NLP',
+    crisisDetectionDesc: 'Detección de Crisis y FNR Cero',
     nationalBudgetName: 'Auditoría Presupuesto IA',
     nationalBudgetDesc: 'Fraude en Compras Públicas',
     cs329aName: 'Stanford CS329A',
@@ -130,6 +140,9 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 function getEpisodeNumber(permalink: string): number {
+  if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
+  const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
+  if (mc) return parseInt(mc[1], 10);
   if (permalink.includes('autonomous-budget-audit-agent-text-to-sql-graphrag')) return 1;
   if (permalink.includes('national-budget-ai-audit-findings-performance-evaluation')) return 2;
   if (permalink.includes('national-budget-ai-sector-partition-live-monitoring')) return 3;
@@ -155,6 +168,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
 
   const currentProjectId = useMemo(() => {
     const path = location.pathname.toLowerCase();
+    if (path.includes('mental-crisis') || path.includes('crisis-detection')) return 'crisis_detection';
     if (path.includes('national-budget') || path.includes('autonomous-budget-audit')) return 'national_budget';
     if (path.includes('stanford-cs329a')) return 'stanford_cs329a';
     if (path.includes('stanford-cs146s')) return 'stanford_cs146s';
@@ -170,6 +184,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     ) return 'security';
 
     const hash = (location.hash || '').replace('#', '').toLowerCase();
+    if (hash === 'crisis_detection' || hash === 'crisis' || hash === 'mental-crisis') return 'crisis_detection';
     if (hash === 'national_budget' || hash === 'budget' || hash === 'national-budget') return 'national_budget';
     if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') return 'stanford_cs329a';
     if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s' || hash === 'stanford-cs146s') return 'stanford_cs146s';
@@ -179,7 +194,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     if (hash === 'security' || hash === 'infra') return 'security';
     if (hash === 'all') return 'all';
 
-    return 'national_budget';
+    return 'crisis_detection';
   }, [location.pathname, location.hash]);
 
   const projects = useMemo(() => {
@@ -190,6 +205,10 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       matched.sort((a: any, b: any) => getEpisodeNumber(a.permalink) - getEpisodeNumber(b.permalink));
       return matched[0].permalink;
     };
+
+    const isCrisis = (item: any) =>
+      item.permalink.includes('mental-crisis') ||
+      item.permalink.includes('crisis-detection');
 
     const isNationalBudget = (item: any) =>
       item.permalink.includes('national-budget') ||
@@ -202,6 +221,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
       item.permalink.includes('cloudflare') ||
       item.permalink.includes('adsense');
 
+    const crisisCount = items.filter(isCrisis).length;
     const budgetCount = items.filter(isNationalBudget).length;
     const cs329aCount = items.filter((item: any) => item.permalink.includes('stanford-cs329a')).length;
     const cs146sCount = items.filter((item: any) => item.permalink.includes('stanford-cs146s')).length;
@@ -212,6 +232,16 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     const totalCount = items.length;
 
     return [
+      {
+        id: 'crisis_detection',
+        name: t.crisisDetectionName,
+        desc: `${t.crisisDetectionDesc} (${formatCount(crisisCount, locale)})`,
+        icon: 'crisis_detection',
+        count: crisisCount,
+        targetUrl: findFirst(/(?:mental-crisis|crisis-detection)/, 'crisis_detection'),
+        filter: isCrisis,
+        sortAscending: true,
+      },
       {
         id: 'national_budget',
         name: t.nationalBudgetName,

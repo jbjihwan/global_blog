@@ -209,6 +209,24 @@ export function FileTextIcon({ size = 18, className }: IconProps) {
   );
 }
 
+export function PulseIcon({ size = 18, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+  );
+}
+
 export function ProjectIcon({
   id,
   size = 18,
@@ -219,6 +237,8 @@ export function ProjectIcon({
   className?: string;
 }) {
   switch (id) {
+    case 'crisis_detection':
+      return <PulseIcon size={size} className={className} />;
     case 'maeumjigi':
       return <ChatIcon size={size} className={className} />;
     case 'anpr_vision':

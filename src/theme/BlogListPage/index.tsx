@@ -32,6 +32,8 @@ interface LocaleContent {
   hubTitle: string;
   hubSubtitle: string;
   tabHub: string;
+  tabCrisis: string;
+  tabBudget: string;
   tabCs329a: string;
   tabStanford: string;
   tabMaeumjigi: string;
@@ -39,6 +41,10 @@ interface LocaleContent {
   tabRl: string;
   tabSecurity: string;
   tabAll: string;
+  bannerCrisisTitle: string;
+  bannerCrisisDesc: string;
+  bannerBudgetTitle: string;
+  bannerBudgetDesc: string;
   bannerCs329aTitle: string;
   bannerCs329aDesc: string;
   bannerStanfordTitle: string;
@@ -70,6 +76,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: '프로젝트 & 개발 일지',
     hubSubtitle: '관심 있는 프로젝트를 선택하여 개발 여정과 기술 기록을 확인해보세요.',
     tabHub: '프로젝트 허브',
+    tabCrisis: '[고위험 AI] 위기 감지',
+    tabBudget: '국가 예산 AI 감사',
     tabCs329a: '스탠포드 CS329A',
     tabStanford: '스탠포드 CS146S',
     tabMaeumjigi: '마음지기',
@@ -77,6 +85,10 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning',
     tabSecurity: '보안 & 엔지니어링',
     tabAll: '전체 글 피드',
+    bannerCrisisTitle: '프로젝트: [고위험 특화 AI] 자살/위기 텍스트 정밀 감지 파이프라인',
+    bannerCrisisDesc: '자살 및 고위험 심리 위기 발화의 미탐(FNR) 원천 차단을 위한 임상 특화 NLP 파이프라인: 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지(누적 관문+Argmax), 순서형 트리 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
+    bannerBudgetTitle: '프로젝트: 국가 예산 AI 감사 (Autonomous Budget Audit)',
+    bannerBudgetDesc: '공공 조달 및 재정 데이터셋 부정 수급 추적: Text-to-SQL 금융 산출, 3차원 표적 분할, GraphRAG 바지사장 카르텔 격파 및 20개 테스트 하네스 전수 검증 종합 포털.',
     bannerCs329aTitle: '프로젝트: 스탠포드 CS329A (자가 진화 AI 에이전트)',
     bannerCs329aDesc: '자율적 자기 개선 인공지능 에이전트: 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, GRPO 강화학습, 개방형 코드 진화(ADAS/AlphaEvolve), VLA 피지컬 인텔리전스',
     bannerStanfordTitle: '프로젝트: 스탠포드 CS146S (The Modern Software Developer)',
@@ -101,6 +113,30 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnUpcoming: '작성 예정',
     emptyNotice: '해당 카테고리의 포스트가 준비 중입니다.',
     projects: [
+      {
+        id: 'crisis_detection',
+        name: '[고위험 AI] 위기 텍스트 정밀 감지',
+        badgeType: 'active',
+        category: '고위험 특화 AI / 임상 NLP',
+        icon: 'crisis_detection',
+        subtitle: '자살 및 심리적 위기 발화 미탐(FNR) 제로화 파이프라인 개발일지',
+        description:
+          '자살 및 고위험 심리 위기 발화의 미탐(FNR)을 원천 차단하기 위한 임상 특화 NLP 파이프라인. 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지, 순서형 트리 확률 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
+        techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
+        hasPosts: true,
+      },
+      {
+        id: 'national_budget',
+        name: '국가 예산 AI 감사',
+        badgeType: 'active',
+        category: '공공 재정 / 이상 탐지 AI',
+        icon: 'national_budget',
+        subtitle: '공공 조달 및 국가 예산 비리 자율 감사 에이전트 시스템',
+        description:
+          'Text-to-SQL 정밀 금융 산출, 3차원 표적 분할, GraphRAG 지배구조 네트워크, 바지사장 및 페이퍼컴퍼니 담합 추적, 20개 테스트 하네스 전수 검증 종합 포털 개발일지.',
+        techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
+        hasPosts: true,
+      },
       {
         id: 'stanford_cs329a',
         name: '스탠포드 CS329A',
@@ -192,6 +228,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'Projects & Dev Logs',
     hubSubtitle: 'Select a project to explore dev logs and technical milestones.',
     tabHub: 'Projects Hub',
+    tabCrisis: 'Mental Crisis NLP',
+    tabBudget: 'Public Budget AI',
     tabCs329a: 'Stanford CS329A',
     tabStanford: 'Stanford CS146S',
     tabMaeumjigi: 'Maeumjigi',
@@ -199,6 +237,10 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning',
     tabSecurity: 'Security & Infra',
     tabAll: 'All Posts Feed',
+    bannerCrisisTitle: 'Project: [Crisis AI] Mental Crisis & Suicide NLP Detection Pipeline',
+    bannerCrisisDesc: 'Clinical-grade NLP pipeline engineered to eliminate False Negatives (FNR ~0%) in high-stakes suicide crisis text: Defeating the 524x Bayes prior likelihood barrier, 2-stage hybrid triage, LightGBM ordinal monotonicity stabilization, and defense against 86.7% extreme value bias in 14-day sliding windows.',
+    bannerBudgetTitle: 'Project: Autonomous Public Budget Audit Agent',
+    bannerBudgetDesc: 'Public procurement and fiscal fraud detection system: Text-to-SQL precision analytics, 3D target partitioning, GraphRAG corporate registry cartel mapping, and 20-test inspector portal.',
     bannerCs329aTitle: 'Project: Stanford CS329A (Self-Improving AI Agents)',
     bannerCs329aDesc: 'Autonomous Self-Improving AI Agents: Test-Time Compute Scaling, PRM Verification, MCTS Tree Search, GRPO Reinforcement Learning, Open-Ended Evolution, and Vision-Language-Action Robotics',
     bannerStanfordTitle: 'Project: Stanford CS146S (The Modern Software Developer)',
@@ -223,6 +265,30 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnUpcoming: 'Coming Soon',
     emptyNotice: 'Posts in this category are coming soon.',
     projects: [
+      {
+        id: 'crisis_detection',
+        name: '[Crisis AI] Suicide Risk NLP',
+        badgeType: 'active',
+        category: 'High-Stakes AI / Clinical NLP',
+        icon: 'crisis_detection',
+        subtitle: 'Suicide Crisis Text Detection & FNR Zero Pipeline Dev Log',
+        description:
+          'Clinical NLP pipeline eliminating False Negatives in crisis detection. Overcoming 524x Bayes barrier, 2-stage hybrid triage, ordinal tree stabilization, and 14-day 86.7% extreme value bias defense.',
+        techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
+        hasPosts: true,
+      },
+      {
+        id: 'national_budget',
+        name: 'Public Budget AI',
+        badgeType: 'active',
+        category: 'Public Finance / Anomaly Detection',
+        icon: 'national_budget',
+        subtitle: 'Autonomous Procurement Fraud & Public Budget Audit System',
+        description:
+          'Text-to-SQL financial precision, 3D target partitioning, GraphRAG corporate registry cartel tracing, and 20-test inspector web portal.',
+        techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
+        hasPosts: true,
+      },
       {
         id: 'stanford_cs329a',
         name: 'Stanford CS329A',
@@ -314,6 +380,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'プロジェクト＆開発日誌',
     hubSubtitle: '関心のあるプロジェクトを選択して、開発の歩みと技術的な記録をご覧ください。',
     tabHub: 'プロジェクトハブ',
+    tabCrisis: '危機検知NLP AI',
+    tabBudget: '国家予算AI監査',
     tabCs329a: 'スタンフォード CS329A',
     tabStanford: 'スタンフォード CS146S',
     tabMaeumjigi: 'マウムジギ',
@@ -321,6 +389,10 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning',
     tabSecurity: 'セキュリティ＆インフラ',
     tabAll: '全記事フィード',
+    bannerCrisisTitle: 'プロジェクト: 【高リスク特化AI】自殺・心理的危機テキスト精密検知パイプライン',
+    bannerCrisisDesc: '自殺および高リスク心理的危機の見逃し(FNR)をゼロにする臨床特化型NLPパイプライン: 524倍ベイズ事前確率障壁の克服、2段階ハイブリッドトリアージ、順序型LightGBMの単調性崩壊防御、14日間スライディングウィンドウの極端値バイアス(86.7%)克服実録。',
+    bannerBudgetTitle: 'プロジェクト: 国家予算AI監査 (Autonomous Budget Audit)',
+    bannerBudgetDesc: '公共調達・財政データの不正受給追跡: Text-to-SQL高精度分析、3次元標的分割、GraphRAGダミー社長カルテル分析、20項目検証ポータル。',
     bannerCs329aTitle: 'プロジェクト: スタンフォード CS329A (自己進化AIエージェント)',
     bannerCs329aDesc: '自律型自己改善AIエージェント：推論時計算スケーリング、プロセス報酬モデル(PRM)、MCTS探索計画、GRPO強化学習、オープンエンド進化、VLAマルチモーダルロボティクス',
     bannerStanfordTitle: 'プロジェクト: スタンフォード CS146S (現代ソフトウェア開発者)',
@@ -345,6 +417,30 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnUpcoming: '作成予定',
     emptyNotice: 'このカテゴリの投稿は準備中です。',
     projects: [
+      {
+        id: 'crisis_detection',
+        name: '【高リスクAI】危機検知NLP',
+        badgeType: 'active',
+        category: '高リスク特化AI / 臨床NLP',
+        icon: 'crisis_detection',
+        subtitle: '自殺・心理的危機発話の見逃し(FNR)ゼロ化パイプライン開発日誌',
+        description:
+          '自殺および高リスク危機の見逃しを根絶する臨床特化NLP。524倍ベイズ事前確率障壁の克服、2段階ハイブリッドトリアージ、順序型モデル単調性保証、14日間86.7%極端値バイアス防衛実録。',
+        techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
+        hasPosts: true,
+      },
+      {
+        id: 'national_budget',
+        name: '国家予算AI監査',
+        badgeType: 'active',
+        category: '公共財政 / 異常検知AI',
+        icon: 'national_budget',
+        subtitle: '公共調達＆国家予算不正の自律型監査エージェントシステム',
+        description:
+          'Text-to-SQL高精度金融分析、3次元標的分割、GraphRAGダミー社長カルテル分析、20項目全数検証ポータル開発記録。',
+        techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
+        hasPosts: true,
+      },
       {
         id: 'stanford_cs329a',
         name: 'スタンフォード CS329A',
@@ -436,6 +532,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     hubTitle: 'Proyectos y Diarios de Desarrollo',
     hubSubtitle: 'Selecciona un proyecto para explorar los diarios de desarrollo y los hitos técnicos.',
     tabHub: 'Panel de Proyectos',
+    tabCrisis: 'IA Crisis NLP',
+    tabBudget: 'Auditoría Presupuesto IA',
     tabCs329a: 'Stanford CS329A',
     tabStanford: 'Stanford CS146S',
     tabMaeumjigi: 'Maeumjigi',
@@ -443,6 +541,10 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabRl: 'RL Q-Learning',
     tabSecurity: 'Seguridad e Infra',
     tabAll: 'Todos los Posts',
+    bannerCrisisTitle: 'Proyecto: [IA de Alto Riesgo] Pipeline de Detección Precisa de Crisis y Suicidio',
+    bannerCrisisDesc: 'Pipeline de NLP clínico diseñado para eliminar falsos negativos (FNR ~0%) en textos de crisis suicida: Superación de la barrera bayesiana de 524x, triaje híbrido en 2 etapas, estabilización de monotonicidad ordinal en LightGBM y defensa contra el sesgo de valor extremo del 86.7% en ventanas de 14 días.',
+    bannerBudgetTitle: 'Proyecto: Auditoría Autónoma del Presupuesto Público con IA',
+    bannerBudgetDesc: 'Sistema de detección de fraude en compras públicas: Text-to-SQL, partición 3D de objetivos, mapeo de carteles con GraphRAG y portal del inspector con 20 pruebas completas.',
     bannerCs329aTitle: 'Proyecto: Stanford CS329A (Agentes de IA Autoelevados)',
     bannerCs329aDesc: 'Agentes de IA autónomos con automejora: escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), búsqueda en árbol MCTS, RL con GRPO, evolución abierta de código y robótica VLA',
     bannerStanfordTitle: 'Proyecto: Stanford CS146S (El Desarrollador de Software Moderno)',
@@ -467,6 +569,30 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     btnUpcoming: 'Próximamente',
     emptyNotice: 'Las publicaciones de esta categoría se están preparando.',
     projects: [
+      {
+        id: 'crisis_detection',
+        name: '[IA Crisis] Detección Suicida NLP',
+        badgeType: 'active',
+        category: 'IA de Alto Riesgo / NLP Clínico',
+        icon: 'crisis_detection',
+        subtitle: 'Pipeline de Detección de Crisis y FNR Cero',
+        description:
+          'Pipeline clínico de NLP para eliminar falsos negativos. Superación de barrera de 524x, triaje en 2 etapas, monotonicidad ordinal y defensa contra el sesgo de 86.7% en 14 días.',
+        techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
+        hasPosts: true,
+      },
+      {
+        id: 'national_budget',
+        name: 'Auditoría Presupuesto IA',
+        badgeType: 'active',
+        category: 'Finanzas Públicas / Detección de Anomalías',
+        icon: 'national_budget',
+        subtitle: 'Sistema Autónomo de Auditoría de Compras Públicas con IA',
+        description:
+          'Text-to-SQL financiero, partición 3D de objetivos, mapeo de carteles con GraphRAG y portal de pruebas de 20 suites.',
+        techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
+        hasPosts: true,
+      },
       {
         id: 'stanford_cs329a',
         name: 'Stanford CS329A',
@@ -563,6 +689,15 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 function getEpisodeNumber(permalink: string): number {
+  if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
+  const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
+  if (mc) return parseInt(mc[1], 10);
+  if (permalink.includes('autonomous-budget-audit-agent-text-to-sql-graphrag')) return 1;
+  if (permalink.includes('national-budget-ai-audit-findings-performance-evaluation')) return 2;
+  if (permalink.includes('national-budget-ai-sector-partition-live-monitoring')) return 3;
+  if (permalink.includes('national-budget-ai-corporate-registry-cartel-detection')) return 4;
+  if (permalink.includes('national-budget-ai-6-sector-full-suite')) return 5;
+  if (permalink.includes('national-budget-ai-inspector-portal-verification-system')) return 6;
   const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s|stanford-cs329a)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
@@ -694,7 +829,7 @@ function BlogListPageContent(props: any) {
 
   // Active tab state
   const [activeTab, setActiveTab] = useState<
-    'hub' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
   >(isFirstPage ? 'hub' : 'all');
 
   // Sort order: 'asc' (oldest first) | 'desc' (newest first)
@@ -703,7 +838,11 @@ function BlogListPageContent(props: any) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') {
+      if (hash === 'crisis_detection' || hash === 'crisis' || hash === 'mental-crisis') {
+        setActiveTab('crisis_detection');
+      } else if (hash === 'national_budget' || hash === 'budget' || hash === 'national-budget') {
+        setActiveTab('national_budget');
+      } else if (hash === 'stanford_cs329a' || hash === 'cs329a' || hash === 'stanford-cs329a') {
         setActiveTab('stanford_cs329a');
       } else if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s' || hash === 'stanford-cs146s') {
         setActiveTab('stanford_cs146s');
@@ -724,7 +863,7 @@ function BlogListPageContent(props: any) {
   }, []);
 
   const handleSelectTab = (
-    tab: 'hub' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    tab: 'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
   ) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
@@ -742,8 +881,18 @@ function BlogListPageContent(props: any) {
     item.permalink.includes('adsense');
 
   // Compute dynamic counts for each project
+  const isCrisis = (item: any) =>
+    item.permalink.includes('mental-crisis') ||
+    item.permalink.includes('crisis-detection');
+
+  const isNationalBudget = (item: any) =>
+    item.permalink.includes('national-budget') ||
+    item.permalink.includes('autonomous-budget-audit');
+
   const postCounts = useMemo(() => {
     return {
+      crisis_detection: allSidebarItems.filter(isCrisis).length,
+      national_budget: allSidebarItems.filter(isNationalBudget).length,
       stanford_cs329a: allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs329a')).length,
       stanford_cs146s: allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s')).length,
       maeumjigi: allSidebarItems.filter((item: any) => item.permalink.includes('maeumjigi')).length,
@@ -756,7 +905,11 @@ function BlogListPageContent(props: any) {
   // Filter and sort posts for the active project
   const projectPosts = useMemo(() => {
     let list: any[] = [];
-    if (activeTab === 'stanford_cs329a') {
+    if (activeTab === 'crisis_detection') {
+      list = allSidebarItems.filter(isCrisis);
+    } else if (activeTab === 'national_budget') {
+      list = allSidebarItems.filter(isNationalBudget);
+    } else if (activeTab === 'stanford_cs329a') {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs329a'));
     } else if (activeTab === 'stanford_cs146s') {
       list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s'));
@@ -831,6 +984,26 @@ function BlogListPageContent(props: any) {
             onClick={() => handleSelectTab('hub')}
           >
             {content.tabHub}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'crisis_detection' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('crisis_detection')}
+          >
+            {`${content.tabCrisis} (${formatCount(postCounts.crisis_detection, locale)})`}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'national_budget' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('national_budget')}
+          >
+            {`${content.tabBudget} (${formatCount(postCounts.national_budget, locale)})`}
           </button>
           <button
             type="button"
@@ -952,7 +1125,11 @@ function BlogListPageContent(props: any) {
           <div className={styles.activeProjectBanner}>
             <div>
               <h3 className={styles.bannerTitle}>
-                {activeTab === 'stanford_cs329a'
+                {activeTab === 'crisis_detection'
+                  ? `${content.bannerCrisisTitle} (${formatCount(postCounts.crisis_detection, locale)})`
+                  : activeTab === 'national_budget'
+                  ? `${content.bannerBudgetTitle} (${formatCount(postCounts.national_budget, locale)})`
+                  : activeTab === 'stanford_cs329a'
                   ? `${content.bannerCs329aTitle} (${formatCount(postCounts.stanford_cs329a, locale)})`
                   : activeTab === 'stanford_cs146s'
                   ? `${content.bannerStanfordTitle} (${formatCount(postCounts.stanford_cs146s, locale)})`
@@ -967,7 +1144,11 @@ function BlogListPageContent(props: any) {
                   : `${content.bannerAllTitle} (${formatCount(allSidebarItems.length, locale)})`}
               </h3>
               <p className={styles.bannerDesc}>
-                {activeTab === 'stanford_cs329a'
+                {activeTab === 'crisis_detection'
+                  ? content.bannerCrisisDesc
+                  : activeTab === 'national_budget'
+                  ? content.bannerBudgetDesc
+                  : activeTab === 'stanford_cs329a'
                   ? content.bannerCs329aDesc
                   : activeTab === 'stanford_cs146s'
                   ? content.bannerStanfordDesc
