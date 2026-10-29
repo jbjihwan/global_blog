@@ -71,6 +71,8 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
      - 블로그 사이드바(BlogSidebar/Desktop & Mobile)에 '국가 예산 AI 감사(Public Budget AI)' 전용 카테고리 뷰 및 에피소드 순차 정렬 알고리즘 구축.
      - MDX 수식/JSX 특수기호(&lt;, 인라인 수식 정규화) 무결점 처리 후 9개 언어 Docusaurus 전체 정적 사이트 빌드(Exit code 0) 통과.
      - publish.ps1 파이프라인 가동으로 GitHub Pages(gh-pages) 및 글로벌 라이브 배포(https://globaldevlog.com/) 완료.
+      - 블로그 사이드바(BlogSidebar Desktop & Mobile) 및 Projects Hub(BlogListPage)에 '[고위험 AI] 위기 텍스트 정밀 감지' 전용 프로젝트 폴더/탭/카드/PulseIcon 신설 및 라우팅(#crisis_detection) 바인딩 완료.
+      - 사이드바 '프로젝트 분류' 최상단에 위기 감지 AI 프로젝트 등록 및 해당 글 조회 시 활성화(Active) 연동 완료.
 
 ## 📋 다음 한 걸음
 1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:
