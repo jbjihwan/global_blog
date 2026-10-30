@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-30-stanford-cs146s-9
-title: "[Stanford CS146S #9] Autonomous TDD & Formal Verification: Z3 SMT Solvers, Property-Based Invariants, and Mathematical Proofs for AI-Generated Code"
+title: "Stanford CS146S: Autonomous TDD & Formal Proofs (Notes #9)"
 authors: [jbgih]
 tags: [stanford-cs146s, autonomous-tdd, formal-verification, z3-smt-solver, property-based-testing, software-correctness, symbolic-execution]
 date: 2026-10-30
 keywords: [Autonomous Test-Driven Development (ATDD), Z3 SMT Solver Formal Verification, Property-Based Testing with Hypothesis, Mathematical Proofs for LLM Code, Invariant Synthesis for AI Systems]
-description: "Stanford CS146S Lecture 9 in-depth guide: Transcending empirical unit testing with autonomous property-based testing (PBT), symbolic execution, and Z3 SMT solvers to mathematically prove the correctness of AI-generated code."
+description: "Master Stanford CS146S Lecture 9: Autonomous TDD, property-based testing, symbolic execution, and Z3 SMT solvers to formally verify AI-generated code."
 ---
 
 ![Autonomous TDD and Formal Verification with Z3 SMT Solver](./images/09_cs146s_autonomous_tdd_formal_verification.png)

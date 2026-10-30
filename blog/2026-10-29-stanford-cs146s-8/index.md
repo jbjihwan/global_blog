@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-29-stanford-cs146s-8
-title: "[Stanford CS146S #8] AI-Native Software Architecture & Refactoring: Decoupling Monoliths, Managing Semantic Debt, and Autonomous Large-Scale Migrations"
+title: "Stanford CS146S: AI Software Architecture (Notes #8)"
 authors: [jbgih]
 tags: [stanford-cs146s, ai-native-architecture, software-refactoring, semantic-debt, monolith-decoupling, autonomous-migration, code-modernization]
 date: 2026-10-29
 keywords: [AI-Native Software Architecture, Automated Monolith Decoupling, Semantic Debt Mitigation, AST-Guided Large-Scale Refactoring, Autonomous Code Migration LLMs]
-description: "Stanford CS146S Lecture 8 in-depth breakdown: Architecting systems for autonomous AI agents, eliminating semantic debt, decomposing legacy monoliths via AST dependency graphs, and orchestrating zero-downtime automated code migrations."
+description: "Master Stanford CS146S Lecture 8: AI-native software architecture, decoupling monoliths with AST dependency graphs, and managing semantic technical debt."
 ---
 
 ![AI-Native Software Architecture and Large-Scale Refactoring](./images/08_cs146s_ai_native_architecture_refactoring.png)

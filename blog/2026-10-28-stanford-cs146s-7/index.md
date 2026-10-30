@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-28-stanford-cs146s-7
-title: "[Stanford CS146S #7] Automated Code Review at Scale: AST-Aware Linters, Security Taint Analysis, and Autonomous LLM PR Reviewers"
+title: "Stanford CS146S: Automated Code Review at Scale (Notes #7)"
 authors: [jbgih]
 tags: [stanford, cs146s, code-review, static-analysis, ast, taint-analysis, llm-pr-review, devops, security]
 date: 2026-10-28
 keywords: [Automated Code Review at Scale, AST-Aware Static Analysis, Security Taint Analysis LLM, Autonomous Pull Request Reviewer, Continuous Integration AI Guardrails]
-description: "In Lecture 7 of Stanford CS146S (The Modern Software Developer), explore how to scale engineering quality through automated code review. Discover how to combine Abstract Syntax Tree (AST) linters, static taint analysis, and semantic LLM PR reviewers to eliminate nitpicks and catch critical architectural regressions."
+description: "Master Stanford CS146S Lecture 7: Automated code review at scale, combining AST linters, static taint analysis, and semantic LLM pull-request reviewers."
 ---
 
 ![Automated Code Review at Scale Architecture](./images/07_cs146s_code_review_at_scale.png)

@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-31-stanford-cs146s-10
-title: "[Stanford CS146S #10] The Future of Software Engineering: Autonomous Agent Swarms, Zero-Human Deployment Pipelines, and Managing AI Fleets at Scale"
+title: "Stanford CS146S: Future of Software Engineering (Notes #10)"
 authors: [jbgih]
 tags: [stanford-cs146s, autonomous-engineering, zero-human-deployments, ai-fleets, software-future, agent-swarms, system-governance]
 date: 2026-10-31
 keywords: [Autonomous Software Engineering Teams, Zero-Human Deployment Pipelines, AI Software Fleet Management, Human-Agent Software Governance, Self-Evolving Codebases]
-description: "The Grand Finale of Stanford CS146S: Synthesizing the 10-week curriculum into the autonomous software factory, zero-human deployment highways, AI fleet orchestration, and the redefined destiny of the human engineer as a system conductor."
+description: "The Grand Finale of Stanford CS146S: Autonomous software factories, zero-human deployment pipelines, AI fleet management, and the system conductor role."
 ---
 
 ![The Future of Software Engineering and AI Fleets](./images/10_cs146s_future_software_engineering_ai_fleets.png)

@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-27-stanford-cs146s-6
-title: "[Stanford CS146S #6] AI-Assisted Debugging & Runtime Profiling: Leveraging eBPF, Dynamic Tracing, and LLMs for Incident Mitigation"
+title: "Stanford CS146S: AI Debugging & eBPF Profiling (Notes #6)"
 authors: [jbgih]
 tags: [stanford, cs146s, ebpf, dynamic-tracing, ai-debugging, incident-response, site-reliability-engineering, linux-kernel]
 date: 2026-10-27
 keywords: [AI-Assisted Runtime Debugging, eBPF Dynamic Tracing LLM, Autonomous Incident Mitigation, Kernel Observability AI SRE, Production Performance Profiling]
-description: "In Lecture 6 of Stanford CS146S (The Modern Software Developer), explore how combining extended Berkeley Packet Filters (eBPF) with LLM diagnostic agents transforms runtime debugging. Learn how non-intrusive kernel tracing feeds real-time telemetry to AI SREs for automated root-cause analysis and live incident mitigation."
+description: "Master Stanford CS146S Lecture 6: AI-assisted debugging, eBPF kernel tracing, dynamic profiling, and LLM diagnostic agents for rapid incident mitigation."
 ---
 
 ![AI-Assisted Debugging and eBPF Dynamic Tracing Architecture](./images/06_cs146s_ai_debugging_ebpf.png)

@@ -1,0 +1,25 @@
+{
+  "series": "High-Stakes Crisis AI Detection Pipeline",
+  "episode": 4,
+  "slug": "mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias",
+  "date": "2026-11-27",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "zh-Hans",
+    "zh-Hant",
+    "es",
+    "de",
+    "fr",
+    "pt-BR"
+  ],
+  "naver_blog": true,
+  "troubleshooting_ref": "ERR-004",
+  "benchmark": {
+    "mean_recall": "0.912",
+    "recall_variance": "0.082 -> 0.009 (-89.0%)",
+    "worst_case_recall": "0.908",
+    "permutation_auroc": "0.501 (Zero Leakage)"
+  }
+}
