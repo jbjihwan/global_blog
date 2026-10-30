@@ -193,6 +193,24 @@ The faculty answer is profound and decisive: **Computer science fundamentals are
 
 ---
 
+---
+
+### 6.5 Production Gotchas: 3 Real-World Pitfalls Omitted in the Syllabus
+
+While Stanford's academic syllabus presents agentic loops as an elegant, friction-free paradigm, deploying autonomous coding agents in enterprise engineering pipelines reveals three critical failure modes that textbooks rarely discuss:
+
+#### Gotcha 1: Unbounded Loop Token Cost Explosion (The $50 Typo)
+Academic demos show agents converging in 2–3 clean iterations. In real-world codebases with deep inheritance or cyclic TypeScript dependencies, an agent attempting to fix a failing test frequently enters an infinite semantic oscillation: changing file A breaks file B, and fixing file B breaks file A. Without strict safeguards, an agent can churn through 40 iterations in 3 minutes, consuming 1.2M tokens ($20–$50 in API costs) while poisoning the context window.
+- **Production Defense**: Enforce strict **Circuit Breakers** at the runner level: hard limits of `max_iterations = 5` and a per-task token budget cap with automatic rollback to the initial Git commit.
+
+#### Gotcha 2: Context Window Poisoning via Stack Trace Floods
+When a test fails in complex environments (e.g., Docker, Next.js, or PyTorch), the error output often contains 300+ lines of framework internals and dependency stack traces. Dumping raw stderr into the LLM context triggers **Context Saturation**: the signal-to-noise ratio collapses, causing the agent to forget the original `SPEC.md` boundary constraints and hallucinate non-existent files.
+- **Production Defense**: Implement an **AST-Aware Error Sanitizer** in your MCP runner that strips framework internal frames and passes only repository-local file diffs and the final assertion failure line.
+
+#### Gotcha 3: The "Tautological Test" Trap (The Illusion of 100% Green)
+If an agent is instructed to write both the implementation and its unit tests simultaneously, it naturally writes tests that mirror its own flawed mental model rather than the true business invariant. The test suite passes 100% green, yet the feature fails completely in production.
+- **Production Defense**: **Separation of Concierge**: The test suite must be generated deterministically from `SPEC.md` and *frozen* (committed to Git in read-only mode) before the coding agent is allowed to write a single line of implementation code.
+
 ### 7. Lecture 1 Takeaways & Series Roadmap
 
 1. **Redefine Your Identity**: Stop thinking of yourself as a code author. You are an architect, a spec designer, and an agent manager.

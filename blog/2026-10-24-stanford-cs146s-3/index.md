@@ -126,6 +126,24 @@ flowchart LR
 
 ---
 
+---
+
+### 5.5 Production Gotchas: Real-World MCP Engineering Traps
+
+While the Model Context Protocol (MCP) provides a clean JSON-RPC architecture, deploying MCP servers in multi-agent production fleets introduces three subtle systems engineering hurdles:
+
+#### Gotcha 1: OS Pipe Deadlocks on Stdio Transports (The 64KB Buffer Stall)
+In Stdio transport mode, if an MCP server emits debug logging via `stdout` instead of `stderr`, or if a tool response (such as a massive git diff or directory tree) exceeds the standard operating system pipe buffer (typically 64KB on Linux/Windows), the sub-process blocks permanently on `write()` while the parent process waits for a closing newline, freezing the entire IDE.
+- **Production Defense**: Enforce strict separation: `stdout` is reserved exclusively for framed JSON-RPC packets; all diagnostics must flow through `stderr`. For payload sizes exceeding 32KB, chunk the response or return a file-pointer reference.
+
+#### Gotcha 2: SSE Stream Desynchronization on Network Hiccups
+For remote MCP servers operating over Server-Sent Events (SSE), transient WiFi drops or proxy timeouts terminate the HTTP connection. If the server does not support idempotent replay tokens (`Last-Event-ID`), an in-flight tool call execution will complete on the server while the agent believes it failed, resulting in duplicate side-effects (e.g., duplicated git commits or double database inserts).
+- **Production Defense**: Implement idempotency keys for all mutating tools and maintain an in-memory ring buffer of recent event IDs for seamless stream reconnection.
+
+#### Gotcha 3: Dynamic Tool Schema Mutation Security Leaks
+If an MCP server exposes dynamically mutating tool definitions based on user prompts or repository contents, prompt injection attacks can inject malicious tool descriptions that trick the agent into executing arbitrary system commands.
+- **Production Defense**: Tool schemas must be declared statically at server initialization. Never dynamically evaluate tool definitions based on untrusted repository contents.
+
 ### 5. The Tool-Calling Loop in Action: Inside Claude Code
 
 How does the MCP tool execution loop work under the hood? The sequence diagram below maps the complete round-trip lifecycle:

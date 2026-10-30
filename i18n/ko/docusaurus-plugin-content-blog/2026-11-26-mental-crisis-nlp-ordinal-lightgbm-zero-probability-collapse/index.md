@@ -164,7 +164,7 @@ flowchart TD
         D --> F["Epsilon Floor Clamping<br/>eps = 1e-6"]
         F --> G["L1 Simplex Renormalization<br/>proba / sum(proba, axis=1)"]
         G --> H["Isotonic Quantile Calibration<br/>신뢰도 ECE 0.184 -> 0.021"]
-        H --> I["최종 임상 의사결정 점수<br/>Zero Crash & 완전 무결"]
+        H --> I["최종 임상 의사결정 점수<br/>Zero Crash & 무오류 검증"]
     end
 
     style E fill:#f87171,stroke:#dc2626,stroke-width:2px,color:#fff
@@ -249,7 +249,7 @@ xychart-beta
 
 | 평가지표 | 기존 사후 단조화 | 단순 클리핑 (`1e-15`) | **제안된 심플렉스 + 캘리브레이션** |
 | :--- | :--- | :--- | :--- |
-| **로그 손실 발산율 (Inf/NaN Rate)** | **4.12% (훈련 중단)** | 0.00% (수치 통과) | **0.00% (완전 무결점)** |
+| **로그 손실 발산율 (Inf/NaN Rate)** | **4.12% (훈련 중단)** | 0.00% (수치 통과) | **0.00% (검증 완료)** |
 | **기대 보정 오차 (ECE, %)** | 0.245 | 0.184 | **0.021 (-88.6% 개선)** |
 | **브라이어 다중 클래스 스코어** | N/A (발산) | 0.142 | **0.038 (안정성 극대화)** |
 | **켄달 타우 순위 상관계수 ($\tau$)** | 0.682 | 0.741 | **0.892 (+20.4% 향상)** |
