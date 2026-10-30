@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-4-spec-driven-code-generation-test-harnesses
-title: "[Stanford CS146S #4] Spec-Driven Code Generation & Test Harnesses: Building Self-Healing Regression Loops with Claude Code & Cursor"
+title: "Stanford CS146S: Spec-Driven Code Generation (Notes #4)"
 authors: [jbgih]
 tags: [stanford-cs146s, spec-driven-development, test-harness, self-healing-code, claude-code, cursor, software-engineering, regression-testing]
 date: 2026-10-25
 keywords: [Spec-Driven Development, Test Harness for AI Coding, Self-Healing Code Generation, Claude Code Automated Testing, LLM Regression Verification]
-description: "Stanford CS146S Lecture 4 engineering breakdown: Escaping the 'vibe coding' trap with Spec-Driven Development (SDD), building closed-loop test harnesses, and automating self-healing Red-Green-Refactor cycles with Claude Code and Cursor."
+description: "Master Stanford CS146S Lecture 4: Spec-Driven Development (SDD), closed-loop test harnesses, and self-healing regression loops with AI coding agents."
 ---
 
 ![Spec-Driven Code Generation and Self-Healing Test Harness](./images/04_cs146s_spec_driven_test_harness.png)

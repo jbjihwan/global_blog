@@ -1,11 +1,11 @@
 ---
 slug: static-site-adsense-ads-txt-guide
-title: "[웹 수익화 #2] 정적 웹사이트 구글 애드센스 승인 자동화: ads.txt 404 크롤링 트랩 해결과 HeadTags 연동"
+title: "[2026] 깃허브 블로그 구글 애드센스 승인: ads.txt 404 해결법"
 authors: [jbgih]
 tags: [구글애드센스, docusaurus, github-pages, 블로그수익화, devops, cloudflare, seo]
 date: 2026-10-21
 project: devops
-description: "Docusaurus 정적 블로그에서 구글 애드센스 소유권 인증 메타태그를 주입하고, static/ads.txt 루트 배포를 통해 404 크롤링 누락 에러와 Cloudflare WAF 차단을 방지하는 실전 가이드입니다."
+description: "GitHub Pages 및 Docusaurus 정적 블로그에서 구글 애드센스 승인을 받는 완벽 가이드. ads.txt 404 크롤링 오류 해결과 인증 태그 주입법."
 keywords: ["구글 애드센스 ads.txt 오류 해결", "Docusaurus 구글 애드센스 연동", "정적 사이트 애드센스 승인", "GitHub Pages ads.txt 배포", "클라우드플레어 WAF 크롤러 허용"]
 ---
 

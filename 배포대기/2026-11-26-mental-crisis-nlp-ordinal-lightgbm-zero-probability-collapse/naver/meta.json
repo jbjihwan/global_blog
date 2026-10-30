@@ -1,0 +1,13 @@
+{
+  "title": "[고위험 AI 개발기 #3] LightGBM 순서형 트리와 영확률 붕괴(-log(0)=inf) 해결기",
+  "category": "인공지능 / 머신러닝 개발기",
+  "tags": [
+    "LightGBM",
+    "순서형분류",
+    "인공지능",
+    "트러블슈팅",
+    "머신러닝",
+    "위기감지AI"
+  ],
+  "cover_image": "01_cover.png"
+}

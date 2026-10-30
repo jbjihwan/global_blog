@@ -1,11 +1,11 @@
 ---
 slug: static-site-adsense-ads-txt-guide
-title: "[Web Monetization #2] Automating Google AdSense Approval on Static Sites: Fixing the ads.txt 404 Crawl Trap & HeadTags Integration"
+title: "Google AdSense on GitHub Pages: ads.txt 404 Fix & Setup Guide"
 authors: [jbgih]
 tags: [google-adsense, docusaurus, github-pages, web-monetization, devops, cloudflare, seo]
 date: 2026-10-21
 project: devops
-description: "A comprehensive developer guide to configuring Google AdSense ownership verification on Docusaurus, deploying static ads.txt to root, and preventing Cloudflare WAF crawl dropouts."
+description: "How to set up Google AdSense on GitHub Pages and Docusaurus. Fix ads.txt 404 crawl errors, inject verification tags, and pass site review without drops."
 keywords: ["Google AdSense ads.txt Error Fix", "Docusaurus Google AdSense Integration", "Static Site AdSense Approval", "GitHub Pages ads.txt Deployment", "Cloudflare WAF Googlebot Crawler"]
 ---
 

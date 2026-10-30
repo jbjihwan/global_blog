@@ -1,11 +1,11 @@
 ---
 slug: 2026-10-26-stanford-cs146s-5
-title: "[Stanford CS146S #5] Multi-Agent Systems & Swarm Orchestration: Coordinating Autonomous Architect, Implementer, and Critic LLMs"
+title: "Stanford CS146S: Multi-Agent Systems & Swarms (Notes #5)"
 authors: [jbgih]
 tags: [stanford, cs146s, multi-agent-systems, swarm-orchestration, llm-agents, software-engineering, distributed-systems]
 date: 2026-10-26
 keywords: [Multi-Agent LLM Orchestration, Architect Implementer Critic Pattern, Autonomous Swarm Code Generation, Directed Acyclic Graph DAG Agents, Inter-Agent Communication Protocol]
-description: "In Lecture 5 of Stanford CS146S (The Modern Software Developer), we examine multi-agent swarm architectures. Discover why single-context LLMs fail on massive codebases, how to coordinate specialized Architect, Implementer, and Critic agents, and how to orchestrate asynchronous DAG workflows with structured schemas."
+description: "Master Stanford CS146S Lecture 5: Multi-agent swarm orchestration, coordinating Architect, Implementer, and Critic LLMs with asynchronous DAGs."
 ---
 
 ![Multi-Agent Swarm Orchestration Architecture](./images/05_cs146s_multi_agent_swarm.png)

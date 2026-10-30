@@ -1,0 +1,25 @@
+{
+  "series": "High-Stakes Crisis AI Detection Pipeline",
+  "episode": 3,
+  "slug": "mental-crisis-nlp-ordinal-lightgbm-zero-probability-collapse",
+  "date": "2026-11-26",
+  "locales": [
+    "en",
+    "ko",
+    "ja",
+    "zh-Hans",
+    "zh-Hant",
+    "es",
+    "de",
+    "fr",
+    "pt-BR"
+  ],
+  "naver_blog": true,
+  "troubleshooting_ref": "ERR-003",
+  "benchmark": {
+    "inf_loss_rate": "0.00%",
+    "ece_reduction": "0.184 -> 0.021 (-88.6%)",
+    "kendalls_tau": "0.892",
+    "level4_recall": "95.8%"
+  }
+}
