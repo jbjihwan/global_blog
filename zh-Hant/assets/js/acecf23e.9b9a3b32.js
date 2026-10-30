@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkglobal_blog=self.webpackChunkglobal_blog||[]).push([["3220"],{1912(l){l.exports=JSON.parse('{"blogBasePath":"/zh-Hant/blog","blogTitle":"Global Dev Blog","authorsListPath":"/zh-Hant/blog/authors"}')}}]);
