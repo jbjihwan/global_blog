@@ -1,11 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
-title: "Stanford CS146S #1: The Modern Software Developer Course Guide"
+title: "Stanford CS146S: The Modern Software Developer Complete Notes"
 authors: [jbgih]
 tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
 date: 2026-10-22
-keywords: ["Stanford CS146S", "The Modern Software Developer", "CS146S Course", "Spec-Driven Development", "Human-Agent Engineering", "Model Context Protocol MCP"]
-description: "Complete guide & notes for Stanford CS146S: The Modern Software Developer. Learn Spec-Driven Development (SDD), AI coding agents, and loop engineering."
+keywords: ["Stanford CS146S", "The Modern Software Developer", "CS146S Stanford", "Modern Software Dev", "Spec-Driven Development", "Human-Agent Engineering"]
+description: "Master Stanford CS146S: The Modern Software Developer. Complete lecture notes on Spec-Driven Development (SDD), AI coding agents, and human-agent loops."
 ---
 
 ![Stanford CS146S Modern Software Developer](./images/01_cs146s_human_agent_orchestration.png)
