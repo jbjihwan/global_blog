@@ -4,7 +4,24 @@
 ## 📌 지금 하는 일
 Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체, 독일어, 프랑스어, 포르투갈어) 글로벌 기술 블로그 운영 및 연재 관리, Projects Hub 및 사이드바 동적 집계 시스템, Stanford 대학교 AI 강의(CS329A, CS146S) 시리즈 연재 및 배포 자동화.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-30)
+## 🚀 마지막으로 확인된 상태 (2026-10-31)
+- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
+- **전체 글 피드 현황 (총 69편 등록 및 서비스 중)**:
+  1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 4편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)
+  2. **국가 예산 AI 감사 6부작 (Autonomous Budget Audit)**: 6편 (전편 완결 및 라이브 반영)
+  3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
+  4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 실전 Gotchas 주입 반영)
+  5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
+  6. **스마트 비전 ANPR & 차선 침범 적발**: 5편
+  7. **Webots RL Q-Learning 자율주행**: 5편
+  8. **보안 & 웹 엔지니어링 / 인프라**: 5편 (전이 의존성 npm overrides 신규 추가)
+- **주요 시스템 개편 및 신규 기능 (2026-10-31 완료)**:
+  0. **Google AdSense '가치가 별로 없는 콘텐츠' 해결 및 코드 레벨 이중 가드 완비**:
+     - **비주력 언어 noindex 처리**: 6개 비주력 언어(de, fr, pt-BR, es, zh-Hans, ja)에 noindex 주입(Root.tsx), 621개 URL을 138개 고품질 핵심 URL(en, ko, zh-Hant)로 압축하여 Scaled/Thin Content 오판 원천 차단.
+     - **독창적 자체 개발 6대 R&D 프로젝트(44편) 전면 재배치**: Projects Hub 탭 및 사이드바에서 고유 연구 프로젝트(위기 감지 AI, 국가 예산 감사 AI, 마음지기, ANPR, Webots RL, 공급망 보안)를 최우선 순위로 재배치.
+     - **저자 E-E-A-T 및 Editorial Policy(자체 검증 편집 원칙) 수립**: about.md에 100% 실험 재현 원칙, 제로 환각 원칙, 하드웨어 랩 사양 및 오픈소스 책임성 명시.
+     - **위기 감지 AI 페이지 애드센스 스크립트 코드 레벨 원천 차단**: Root.tsx 및 BlogPostItem에서 mental-crisis 경로에 대해 AdSense script 및 AdCard 컴포넌트를 완전히 배제하고 pauseAdRequests=1 주입.
+
 - **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
 - **전체 글 피드 현황 (총 68편 등록 및 서비스 중)**:
   1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 2편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)

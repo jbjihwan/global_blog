@@ -8,7 +8,7 @@ import AdCard from '@site/src/components/AdCard';
 
 export default function BlogPostItemWrapper(props: any) {
   const { colorMode } = useColorMode();
-  const { isBlogPostPage } = useBlogPost();
+  const { isBlogPostPage, metadata } = useBlogPost();
   const {
     i18n: { currentLocale },
   } = useDocusaurusContext();
@@ -17,12 +17,15 @@ export default function BlogPostItemWrapper(props: any) {
     ? currentLocale
     : 'en';
 
+  // AdSense Safety Guard: Strictly exclude AdCard on suicide/mental crisis research articles
+  const isMentalCrisisPost = Boolean(metadata?.permalink && metadata.permalink.includes('mental-crisis'));
+
   return (
     <>
       <BlogPostItem {...props} />
       {isBlogPostPage && (
         <>
-          <AdCard />
+          {!isMentalCrisisPost && <AdCard />}
           <div style={{ marginTop: '2.5rem' }}>
             <Giscus
               id="comments"

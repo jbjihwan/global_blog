@@ -138,30 +138,6 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'stanford_cs329a',
-        name: '스탠포드 CS329A',
-        badgeType: 'active',
-        category: 'AI 에이전트 / 기계학습',
-        icon: 'stanford_cs329a',
-        subtitle: '스탠포드 대학교 자가 진화 AI 에이전트 (Self-Improving AI Agents) 전 강의 시리즈',
-        description:
-          '차세대 프론티어 AI의 핵심 패러다임. 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, DeepSeek GRPO 강화학습, Sakana AI Scientist와 DeepMind AlphaEvolve 개방형 코드 진화, Lean 4 수학적 증명(AlphaProof), VLA 로보틱스까지 17개 전 강좌 완벽 분석.',
-        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
-        hasPosts: true,
-      },
-      {
-        id: 'stanford_cs146s',
-        name: '스탠포드 CS146S',
-        badgeType: 'active',
-        category: '소프트웨어 공학 / AI 에이전트',
-        icon: 'stanford_cs146s',
-        subtitle: '스탠포드 대학교 현대 소프트웨어 개발자 강의 시리즈',
-        description:
-          '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        hasPosts: true,
-      },
-      {
         id: 'maeumjigi',
         name: '마음지기 (Maeumjigi)',
         badgeType: 'active',
@@ -210,18 +186,29 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'ai_research',
-        name: 'AI Research & Tools',
-        badgeType: 'upcoming',
-        upcomingBadgeText: 'Planned · 연구 노트',
-        category: '개발 도구 / AI 에이전트',
-        icon: 'ai_research',
-        subtitle: '자율 코딩 에이전트 및 LLM 응용 연구',
+        id: 'stanford_cs329a',
+        name: '스탠포드 CS329A',
+        badgeType: 'active',
+        category: 'AI 에이전트 / 기계학습',
+        icon: 'stanford_cs329a',
+        subtitle: '스탠포드 대학교 자가 진화 AI 에이전트 (Self-Improving AI Agents) 전 강의 시리즈',
         description:
-          'Antigravity CLI 커스터마이징, 에이전트 오케스트레이션, 프롬프트 엔지니어링 및 개발 생산성 극대화 도구 제작 기록.',
-        techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        hasPosts: false,
+          '차세대 프론티어 AI의 핵심 패러다임. 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, DeepSeek GRPO 강화학습, Sakana AI Scientist와 DeepMind AlphaEvolve 개방형 코드 진화, Lean 4 수학적 증명(AlphaProof), VLA 로보틱스까지 17개 전 강좌 완벽 분석.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
       },
+      {
+        id: 'stanford_cs146s',
+        name: '스탠포드 CS146S',
+        badgeType: 'active',
+        category: '소프트웨어 공학 / AI 에이전트',
+        icon: 'stanford_cs146s',
+        subtitle: '스탠포드 대학교 현대 소프트웨어 개발자 강의 시리즈',
+        description:
+          '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        hasPosts: true,
+      }
     ],
   },
   en: {
@@ -290,30 +277,6 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'stanford_cs329a',
-        name: 'Stanford CS329A',
-        badgeType: 'active',
-        category: 'AI Agents / Machine Learning',
-        icon: 'stanford_cs329a',
-        subtitle: 'Stanford University Self-Improving AI Agents Complete Lecture Series',
-        description:
-          'The definitive frontier of autonomous AI. In-depth analysis of test-time compute scaling, Process Reward Models (PRM), MCTS tree planning, DeepSeek GRPO RL, Sakana AI Scientist, AlphaEvolve open-ended code discovery, Lean 4 formal verification (AlphaProof), and VLA multimodal robotics across all 17 lectures.',
-        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
-        hasPosts: true,
-      },
-      {
-        id: 'stanford_cs146s',
-        name: 'Stanford CS146S',
-        badgeType: 'active',
-        category: 'Software Engineering / AI Agents',
-        icon: 'stanford_cs146s',
-        subtitle: 'Stanford University Modern Software Developer Series',
-        description:
-          'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        hasPosts: true,
-      },
-      {
         id: 'maeumjigi',
         name: 'Maeumjigi',
         badgeType: 'active',
@@ -362,18 +325,29 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'ai_research',
-        name: 'AI Research & Tools',
-        badgeType: 'upcoming',
-        upcomingBadgeText: 'Planned',
-        category: 'Developer Tools / AI Agents',
-        icon: 'ai_research',
-        subtitle: 'Agentic AI & Custom Dev Workflows',
+        id: 'stanford_cs329a',
+        name: 'Stanford CS329A',
+        badgeType: 'active',
+        category: 'AI Agents / Machine Learning',
+        icon: 'stanford_cs329a',
+        subtitle: 'Stanford University Self-Improving AI Agents Complete Lecture Series',
         description:
-          'Customizing Antigravity CLI, agent orchestration, prompt engineering, and building developer productivity tools.',
-        techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        hasPosts: false,
+          'The definitive frontier of autonomous AI. In-depth analysis of test-time compute scaling, Process Reward Models (PRM), MCTS tree planning, DeepSeek GRPO RL, Sakana AI Scientist, AlphaEvolve open-ended code discovery, Lean 4 formal verification (AlphaProof), and VLA multimodal robotics across all 17 lectures.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
       },
+      {
+        id: 'stanford_cs146s',
+        name: 'Stanford CS146S',
+        badgeType: 'active',
+        category: 'Software Engineering / AI Agents',
+        icon: 'stanford_cs146s',
+        subtitle: 'Stanford University Modern Software Developer Series',
+        description:
+          'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        hasPosts: true,
+      }
     ],
   },
   ja: {
@@ -442,30 +416,6 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'stanford_cs329a',
-        name: 'スタンフォード CS329A',
-        badgeType: 'active',
-        category: 'AIエージェント / 機械学習',
-        icon: 'stanford_cs329a',
-        subtitle: 'スタンフォード大学 自己進化AIエージェント講義シリーズ',
-        description:
-          '次世代フロンティアAIの中核パラダイム。推論時計算スケーリング、プロセス報酬モデル（PRM）、MCTS探索計画、DeepSeek GRPO強化学習、Sakana AI ScientistおよびDeepMind AlphaEvolveオープンエンド進化、Lean 4形式検証、VLAロボティクスなど全17講義を徹底解説。',
-        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
-        hasPosts: true,
-      },
-      {
-        id: 'stanford_cs146s',
-        name: 'スタンフォード CS146S',
-        badgeType: 'active',
-        category: 'ソフトウェア工学 / AIエージェント',
-        icon: 'stanford_cs146s',
-        subtitle: 'スタンフォード大学 現代ソフトウェア開発者講義シリーズ',
-        description:
-          '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        hasPosts: true,
-      },
-      {
         id: 'maeumjigi',
         name: 'マウムジギ (Maeumjigi)',
         badgeType: 'active',
@@ -514,18 +464,29 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'ai_research',
-        name: 'AI Research & Tools',
-        badgeType: 'upcoming',
-        upcomingBadgeText: 'Planned · 研究ノート',
-        category: '開発ツール / AIエージェント',
-        icon: 'ai_research',
-        subtitle: '自律型コーディングエージェント＆LLM応用研究',
+        id: 'stanford_cs329a',
+        name: 'スタンフォード CS329A',
+        badgeType: 'active',
+        category: 'AIエージェント / 機械学習',
+        icon: 'stanford_cs329a',
+        subtitle: 'スタンフォード大学 自己進化AIエージェント講義シリーズ',
         description:
-          'Antigravity CLIのカスタマイズ、エージェントオーケストレーション、プロンプトエンジニアリング、開発者生産性向上ツールの構築記録。',
-        techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        hasPosts: false,
+          '次世代フロンティアAIの中核パラダイム。推論時計算スケーリング、プロセス報酬モデル（PRM）、MCTS探索計画、DeepSeek GRPO強化学習、Sakana AI ScientistおよびDeepMind AlphaEvolveオープンエンド進化、Lean 4形式検証、VLAロボティクスなど全17講義を徹底解説。',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
       },
+      {
+        id: 'stanford_cs146s',
+        name: 'スタンフォード CS146S',
+        badgeType: 'active',
+        category: 'ソフトウェア工学 / AIエージェント',
+        icon: 'stanford_cs146s',
+        subtitle: 'スタンフォード大学 現代ソフトウェア開発者講義シリーズ',
+        description:
+          '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        hasPosts: true,
+      }
     ],
   },
   es: {
@@ -594,30 +555,6 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'stanford_cs329a',
-        name: 'Stanford CS329A',
-        badgeType: 'active',
-        category: 'Agentes de IA / Aprendizaje Automático',
-        icon: 'stanford_cs329a',
-        subtitle: 'Serie Completa de Conferencias de Stanford sobre Agentes de IA Autoelevados',
-        description:
-          'La frontera definitiva de la IA autónoma. Desglose exhaustivo del escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), planificación de árbol MCTS, RL con GRPO, evolución abierta de código con AI Scientist y AlphaEvolve, verificación formal en Lean 4 y robótica VLA a lo largo de las 17 conferencias.',
-        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
-        hasPosts: true,
-      },
-      {
-        id: 'stanford_cs146s',
-        name: 'Stanford CS146S',
-        badgeType: 'active',
-        category: 'Ingeniería de Software / Agentes de IA',
-        icon: 'stanford_cs146s',
-        subtitle: 'Serie El Desarrollador de Software Moderno de Stanford',
-        description:
-          'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        hasPosts: true,
-      },
-      {
         id: 'maeumjigi',
         name: 'Maeumjigi',
         badgeType: 'active',
@@ -666,18 +603,29 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
         hasPosts: true,
       },
       {
-        id: 'ai_research',
-        name: 'AI Research & Tools',
-        badgeType: 'upcoming',
-        upcomingBadgeText: 'Planificado',
-        category: 'Herramientas de Desarrollador / Agentes de IA',
-        icon: 'ai_research',
-        subtitle: 'IA Agéntica y Flujos de Desarrollo',
+        id: 'stanford_cs329a',
+        name: 'Stanford CS329A',
+        badgeType: 'active',
+        category: 'Agentes de IA / Aprendizaje Automático',
+        icon: 'stanford_cs329a',
+        subtitle: 'Serie Completa de Conferencias de Stanford sobre Agentes de IA Autoelevados',
         description:
-          'Personalización de Antigravity CLI, orquestación de agentes, ingeniería de prompts y herramientas de productividad para desarrolladores.',
-        techTags: ['Antigravity', 'Agentic AI', 'Prompt Engineering', 'TypeScript'],
-        hasPosts: false,
+          'La frontera definitiva de la IA autónoma. Desglose exhaustivo del escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), planificación de árbol MCTS, RL con GRPO, evolución abierta de código con AI Scientist y AlphaEvolve, verificación formal en Lean 4 y robótica VLA a lo largo de las 17 conferencias.',
+        techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
+        hasPosts: true,
       },
+      {
+        id: 'stanford_cs146s',
+        name: 'Stanford CS146S',
+        badgeType: 'active',
+        category: 'Ingeniería de Software / Agentes de IA',
+        icon: 'stanford_cs146s',
+        subtitle: 'Serie El Desarrollador de Software Moderno de Stanford',
+        description:
+          'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
+        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
+        hasPosts: true,
+      }
     ],
   },
 };
@@ -1007,26 +955,6 @@ function BlogListPageContent(props: any) {
           </button>
           <button
             type="button"
-            className={clsx(
-              styles.tabButton,
-              activeTab === 'stanford_cs329a' && styles.tabButtonActive
-            )}
-            onClick={() => handleSelectTab('stanford_cs329a')}
-          >
-            {`${content.tabCs329a} (${formatCount(postCounts.stanford_cs329a, locale)})`}
-          </button>
-          <button
-            type="button"
-            className={clsx(
-              styles.tabButton,
-              activeTab === 'stanford_cs146s' && styles.tabButtonActive
-            )}
-            onClick={() => handleSelectTab('stanford_cs146s')}
-          >
-            {`${content.tabStanford} (${formatCount(postCounts.stanford_cs146s, locale)})`}
-          </button>
-          <button
-            type="button"
             className={clsx(styles.tabButton, activeTab === 'maeumjigi' && styles.tabButtonActive)}
             onClick={() => handleSelectTab('maeumjigi')}
           >
@@ -1058,6 +986,26 @@ function BlogListPageContent(props: any) {
             onClick={() => handleSelectTab('security')}
           >
             {`${content.tabSecurity} (${formatCount(postCounts.security, locale)})`}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'stanford_cs329a' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('stanford_cs329a')}
+          >
+            {`${content.tabCs329a} (${formatCount(postCounts.stanford_cs329a, locale)})`}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'stanford_cs146s' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('stanford_cs146s')}
+          >
+            {`${content.tabStanford} (${formatCount(postCounts.stanford_cs146s, locale)})`}
           </button>
           <button
             type="button"

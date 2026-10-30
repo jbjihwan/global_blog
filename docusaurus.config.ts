@@ -22,13 +22,6 @@ const config: Config = {
   projectName: 'global_blog', // Usually your repo name.
   trailingSlash: false,
 
-  scripts: [
-    {
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617',
-      async: true,
-      crossorigin: 'anonymous',
-    },
-  ],
 
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'ignore',
