@@ -225,7 +225,9 @@ function BlogSidebarDesktop({ sidebar }: { sidebar: any }) {
       item.permalink.includes('static-site') ||
       item.permalink.includes('custom-domain') ||
       item.permalink.includes('cloudflare') ||
-      item.permalink.includes('adsense');
+      item.permalink.includes('adsense') ||
+      item.permalink.includes('npm-overrides') ||
+      item.permalink.includes('vulnerability');
 
     const crisisCount = items.filter(isCrisis).length;
     const budgetCount = items.filter(isNationalBudget).length;

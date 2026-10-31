@@ -826,7 +826,9 @@ function BlogListPageContent(props: any) {
     item.permalink.includes('static-site') ||
     item.permalink.includes('custom-domain') ||
     item.permalink.includes('cloudflare') ||
-    item.permalink.includes('adsense');
+    item.permalink.includes('adsense') ||
+    item.permalink.includes('npm-overrides') ||
+    item.permalink.includes('vulnerability');
 
   // Compute dynamic counts for each project
   const isCrisis = (item: any) =>
