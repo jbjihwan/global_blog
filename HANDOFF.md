@@ -1,14 +1,14 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-10-30 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-11-01 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
 ## 📌 지금 하는 일
 Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체, 독일어, 프랑스어, 포르투갈어) 글로벌 기술 블로그 운영 및 연재 관리, Projects Hub 및 사이드바 동적 집계 시스템, Stanford 대학교 AI 강의(CS329A, CS146S) 시리즈 연재 및 배포 자동화.
 
 ## 🚀 마지막으로 확인된 상태 (2026-10-31)
 - **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
-- **전체 글 피드 현황 (총 69편 등록 및 서비스 중)**:
+- **전체 글 피드 현황 (총 76편 등록 및 서비스 중)**:
   1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 4편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)
-  2. **국가 예산 AI 감사 6부작 (Autonomous Budget Audit)**: 6편 (전편 완결 및 라이브 반영)
+  2. **국가 예산 AI 감사 (Autonomous Budget Audit)**: 7편 (7편: 전국 243개 지자체 e호조+ 보조금 감사 신규 배포)
   3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
   4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 실전 Gotchas 주입 반영)
   5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
@@ -25,7 +25,7 @@ Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국
 - **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
 - **전체 글 피드 현황 (총 68편 등록 및 서비스 중)**:
   1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 2편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)
-  2. **국가 예산 AI 감사 6부작 (Autonomous Budget Audit)**: 6편 (전편 완결 및 라이브 반영)
+  2. **국가 예산 AI 감사 (Autonomous Budget Audit)**: 7편 (7편: 전국 243개 지자체 e호조+ 보조금 감사 신규 배포)
   3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
   4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 라이브 반영)
   5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
