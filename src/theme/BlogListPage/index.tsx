@@ -838,7 +838,8 @@ function BlogListPageContent(props: any) {
   const isNationalBudget = (item: any) =>
     item.permalink.includes('national-budget') ||
     item.permalink.includes('autonomous-budget-audit') ||
-    item.permalink.includes('local-subsidy');
+    item.permalink.includes('local-subsidy') ||
+    item.permalink.includes('education-grant');
 
   const postCounts = useMemo(() => {
     return {

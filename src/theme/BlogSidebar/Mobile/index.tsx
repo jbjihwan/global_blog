@@ -213,7 +213,8 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
     const isNationalBudget = (item: any) =>
       item.permalink.includes('national-budget') ||
       item.permalink.includes('autonomous-budget-audit') ||
-    item.permalink.includes('local-subsidy');
+    item.permalink.includes('local-subsidy') ||
+    item.permalink.includes('education-grant');
 
     const isSecurity = (item: any) =>
       item.permalink.includes('security') ||
@@ -251,7 +252,7 @@ function BlogSidebarMobileSecondaryMenu({ sidebar }: { sidebar: any }) {
         desc: `${t.nationalBudgetDesc} (${formatCount(budgetCount, locale)})`,
         icon: 'national_budget',
         count: budgetCount,
-        targetUrl: findFirst(/(?:national-budget|autonomous-budget-audit|local-subsidy)/, 'national_budget'),
+        targetUrl: findFirst(/(?:national-budget|autonomous-budget-audit|local-subsidy|education-grant)/, 'national_budget'),
         filter: isNationalBudget,
         sortAscending: true,
       },
