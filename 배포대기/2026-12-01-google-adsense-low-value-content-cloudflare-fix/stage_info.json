@@ -1,0 +1,10 @@
+{
+  "title": "Fix Google AdSense Low Value Content & Cloudflare WAF Blocks",
+  "slug": "google-adsense-low-value-content-cloudflare-fix",
+  "date": "2026-12-01",
+  "cluster": "Security & Web Engineering",
+  "locales": [
+    "en",
+    "ko"
+  ]
+}
