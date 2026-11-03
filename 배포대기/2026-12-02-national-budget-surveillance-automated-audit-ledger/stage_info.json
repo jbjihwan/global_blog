@@ -1,0 +1,16 @@
+{
+  "slug": "national-budget-surveillance-automated-audit-ledger",
+  "series": "national-budget",
+  "episode": 9,
+  "title": "Public Budget AI #9: 23,825 Anomaly Sub-items Automated Surveillance & 5-Option Decision Engine",
+  "created_at": "2026-12-02T10:00:00+09:00",
+  "target_publish_date": "2026-12-02",
+  "status": "deployed",
+  "locales": [
+    "en",
+    "ko"
+  ],
+  "naver_blog_ready": true,
+  "image_staged": "01_cover.png",
+  "deployed_at": "2026-11-03T14:25:00+09:00"
+}

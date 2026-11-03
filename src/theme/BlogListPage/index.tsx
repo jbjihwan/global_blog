@@ -636,6 +636,28 @@ function formatCount(count: number, locale: SupportedLocale): string {
   return `${count} ${count === 1 ? 'Post' : 'Posts'}`;
 }
 
+const KNOWN_SLUG_DATES: Record<string, string> = {
+  'national-budget-surveillance-automated-audit-ledger': '2026-12-02',
+  'google-adsense-low-value-content-cloudflare-fix': '2026-12-01',
+  'national-budget-education-grant-audit': '2026-11-30',
+  'national-budget-local-subsidy-ehojo-audit': '2026-11-29',
+  'npm-overrides-transitive-vulnerability-fix': '2026-11-28',
+  'mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias': '2026-11-27',
+  'mental-crisis-nlp-ordinal-lightgbm-zero-probability-collapse': '2026-11-26',
+  'mental-crisis-nlp-longitudinal-fusion-extreme-value-bias': '2026-11-25',
+  'mental-crisis-nlp-suicide-risk-detection-fnr-zero': '2026-11-24',
+  'national-budget-ai-inspector-portal-verification-system': '2026-11-23',
+  'national-budget-ai-6-sector-full-suite': '2026-11-22',
+  'national-budget-ai-corporate-registry-cartel-detection': '2026-11-21',
+  'national-budget-ai-sector-partition-live-monitoring': '2026-11-20',
+  'national-budget-ai-audit-findings-performance-evaluation': '2026-11-19',
+  'autonomous-budget-audit-ai-agent-text-to-sql-graphrag': '2026-11-18',
+  'static-site-adsense-ads-txt-guide': '2026-10-21',
+  'github-pages-custom-domain-cloudflare-dns': '2026-10-21',
+  'github-pages-custom-domain-adsense-seo-guide': '2026-10-20',
+  'static-site-security-npm-audit-truth': '2026-10-18',
+};
+
 function getEpisodeNumber(permalink: string): number {
   if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
   const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
@@ -646,6 +668,9 @@ function getEpisodeNumber(permalink: string): number {
   if (permalink.includes('national-budget-ai-corporate-registry-cartel-detection')) return 4;
   if (permalink.includes('national-budget-ai-6-sector-full-suite')) return 5;
   if (permalink.includes('national-budget-ai-inspector-portal-verification-system')) return 6;
+  if (permalink.includes('local-subsidy-ehojo')) return 7;
+  if (permalink.includes('education-grant')) return 8;
+  if (permalink.includes('surveillance-automated-audit-ledger')) return 9;
   const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s|stanford-cs329a)-(\d+)/);
   return m ? parseInt(m[1], 10) : 999;
 }
@@ -657,8 +682,14 @@ function getItemDate(item: any): string {
     if (m) return m[1];
     return str.split('T')[0];
   }
-  const m = item.permalink ? item.permalink.match(/(\d{4}-\d{2}-\d{2})/) : null;
-  return m ? m[1] : '';
+  if (item.permalink) {
+    for (const [slug, dt] of Object.entries(KNOWN_SLUG_DATES)) {
+      if (item.permalink.includes(slug)) return dt;
+    }
+    const m = item.permalink.match(/(\d{4}-\d{2}-\d{2})/);
+    if (m) return m[1];
+  }
+  return '';
 }
 
 function BlogListPageMetadata(props: any) {
