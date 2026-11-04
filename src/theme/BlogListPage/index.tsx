@@ -637,6 +637,7 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 const KNOWN_SLUG_DATES: Record<string, string> = {
+  'sdc-01-architecture-klm-model': '2026-12-03',
   'national-budget-surveillance-automated-audit-ledger': '2026-12-02',
   'google-adsense-low-value-content-cloudflare-fix': '2026-12-01',
   'national-budget-education-grant-audit': '2026-11-30',
