@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
 date: 2026-11-22
 keywords: ["六大靶向分區審計", "女性企業5千萬特例拆分", "年底突擊花錢傾銷", "政府採購異常AI", "公共財政審計"]
-description: "在400萬條政府採購記錄中深挖死角的六大靶向分區審計系統。精準打擊5000萬韓元特例拆分單一來源與12月底突擊花錢傾銷的技術實錄。"
+description: "[模擬] 在400萬條政府採購記錄中深挖死角的六大靶向分區審計系統。精準打擊5000萬韓元特例拆分單一來源與12月底突擊花錢傾銷的技術實錄。"
 ---
+> **模擬說明 — 合成資料**
+> - 本文介紹的是**以合成(生成)資料建構的模擬**。文中的「查處」、處分、追繳金額與案件數量並非真實的審計結果。
+> - 文中出現的機關、企業、地區、金額與文號均已**匿名化或替換為虛構值**,與真實對象相似並非有意為之。
+> - 錯誤日誌、程式碼片段與效能數字是**為說明設計而重構的範例**,可能與程式庫的執行紀錄或目前實作不一致。
+> - 除對政府採購(KONEPS)與開放財政資料(Open Fiscal Data)API 的有限呼叫外,文中提到的資料來源(DART、法人登記簿、e-Hojo+、K-EduFine、ALIO、NTIS 等)**並未接入**。以公開資料為基礎的重建正在進行,結果只會以「統計異常指標」公開,不會作為對特定對象的指控。
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 

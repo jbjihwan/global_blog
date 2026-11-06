@@ -3,13 +3,18 @@ slug: national-budget-education-grant-audit
 category_l1: practice
 category_l2: ai
 category_l3: project-budget
-title: "교육청 교부금 감사 AI: 전국 17개 교육청 K-에듀파인 4대 비위 적발"
+title: "교육청 교부금 감사 AI 시뮬레이션: 17개 교육청 4대 비위 유형 탐지 실험"
 authors: [jbgih]
 tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx, practice, ai]
 date: 2026-11-30
 keywords: ["K-에듀파인", "교육재정교부금", "전국 17개 교육청", "스마트기기 담합", "HWPX 시정명령서", "지방교육재정교부금법"]
-description: "전국 17개 시·도 교육청 9.08조 원 K-에듀파인 교부금을 전수 추적하여 스마트기기 담합과 2천만 원 쪼개기를 적발하고 2.41조 원 환수 처분한 AI 구축기."
+description: "[시뮬레이션] 17개 교육청 교부금 감사를 합성 데이터로 모의한 결과: 스마트기기 담합·쪼개기 계약, 견본 문서."
 ---
+> **시뮬레이션 안내 — 가상(합성) 데이터**
+> - 이 글은 **가상(합성) 데이터로 만든 시뮬레이션**을 다룹니다. 글에 나오는 «적발»·처분·환수액·건수는 실제 감사 결과가 아닙니다.
+> - 글에 나오는 기관·기업·지역·금액·문서번호는 모두 **익명화하거나 가상의 값으로 바꾼 것**이며, 실존 대상과 같더라도 의도한 것이 아닙니다.
+> - 오류 로그·코드 조각·성능 수치는 **설계를 설명하려고 재구성한 예시**이고, 저장소의 실행 기록이나 현재 구현과 일치하지 않을 수 있습니다.
+> - 조달청 계약정보와 열린재정 API를 제한적으로 호출한 것을 제외하면, 글에 나오는 데이터 출처(DART, 법인 등기부, e호조+, K-에듀파인, ALIO, NTIS 등)는 **연결하지 않았습니다**. 공개 데이터 기반 재구축을 진행 중이며, 결과는 «통계적 이상 징후 지표»로만 공개하고 특정 대상에 대한 단정으로 쓰지 않습니다.
 
 ![공공 예산 감사 AI #8: 전국 17개 시·도 교육청 지방교육재정교부금 심화 감사 파이프라인](./images/01_cover.png)
 
@@ -29,7 +34,7 @@ description: "전국 17개 시·도 교육청 9.08조 원 K-에듀파인 교부�
 ### ⚖️ 법적 고지 및 익명화 처리 원칙
 
 > **[안내] 본 게시물에 수록된 세부 데이터는 분쟁 방지를 위해 엄격히 가명·익명화 처리되었습니다.**  
-> 본 아티클은 공공 재정 감사 AI 시스템의 설계 및 엔지니어링 문제 해결 과정을 공유하는 기술 문서입니다. 대상 학교명(`A초등학교`, `B고등학교`), 조달 납품업체 상호(`(주)알파테크`, `(주)베타정보`), 취급 시중은행 지점명 및 계약 관리번호는 모두 **비식별화(Pseudonymization)** 조치되었습니다. 재정 지표 및 처분 기준은 대한민국 지방교육재정교부금법 및 국가계약법령을 준용합니다.
+> 본 아티클은 공공 재정 감사 AI 시스템의 설계 및 엔지니어링 문제 해결 과정을 공유하는 기술 문서입니다. 대상 학교명(`A초등학교`, `B고등학교`), 조달 납품업체 상호(`(주)알파테크`, `(주)베타정보`), 취급 시중은행 지점명 및 계약 관리번호는 모두 **비식별화(Pseudonymization)** 조치되었습니다. 재정 지표와 처분액은 시뮬레이션 값이며, 인용한 법률은 예시이고 법률 검토를 거치지 않았습니다.
 
 ---
 
@@ -95,7 +100,7 @@ flowchart TD
 전국 17개 교육청 K-에듀파인 지출 명세를 파이프라인에 연결하는 과정에서 발생한 핵심 런타임 오류는 다음과 같습니다:
 
 #### 오류 1: K-에듀파인 교육청별 스키마 파편화로 인한 PK 충돌 크래시
-각 시·도 교육청 서버별로 관리되는 학교 기관 코드 표기가 상이했습니다. 서울·경기는 `NEIS_INST_CD`를 사용하는 반면, 충청·호남권은 `EDUSYS_SCH_CD`를 사용하여 단일 식별자 생성기에서 유니크 제약조건 위반이 발생했습니다:
+각 시·도 교육청 서버별로 관리되는 학교 기관 코드 표기가 상이했습니다. 일부 교육청(S·G)은 `NEIS_INST_CD`를, 나머지 교육청은 `EDUSYS_SCH_CD`를 사용하여 단일 식별자 생성기에서 유니크 제약조건 위반이 발생했습니다:
 
 ```log
 [ERROR] 2026-11-30 02:18:41,204 - edufine_importer - Office: DAEJEON (OfficeCode: EDU-DAEJEON)
@@ -107,7 +112,7 @@ Traceback (most recent call last):
     cursor.execute(sql, params)
 sqlite3.IntegrityError: UNIQUE constraint failed: edufine_grants.grant_tx_hash
 
-During secondary parsing of Seoul Office:
+During secondary parsing of Office S:
 KeyError: 'EDUSYS_SCH_CD' (Found 'NEIS_INST_CD' in metadata payload)
 ```
 - **원인 분석**: 단순 학교 식별자와 계약 금액만으로 해시 키(`school_id + amount`)를 생성한 결과, 서로 다른 시·도 교육청 산하 학교의 동일 금액(예: 1,980만 원) 계약이 동일한 해시값(`48a1c9ef00b`)을 생성하여 데이터베이스 적재가 중단되었습니다.
@@ -135,7 +140,7 @@ Process finished with exit code 139 (SIGSEGV - Memory: 3,842MB allocated)
 [ERROR] 2026-11-30 02:49:05,312 - education_sanction_hwpx_builder - Validation Error on HWPX XML
 xml.etree.ElementTree.ParseError: mismatched tag in Contents/section0.xml: line 184, column 22
 (Found </hp:tc>, expected </hp:cellSpan>)
-Failed generating sanction notice for: Chungbuk Office of Education
+Failed generating sanction notice for: Office C of Education
 ```
 - **원인 분석**: 안건별 위법 항목 개수가 10건에서 26건으로 유동적인 상황에서, 수동 문자열 템플릿으로 XML 표를 조립하다 보니 `colSpan` 속성과 마침 태그(`</hp:tc>`)의 짝이 맞지 않아 한글 뷰어에서 문서가 열리지 않는 파싱 오류가 발생했습니다.
 
@@ -234,7 +239,7 @@ Failed generating sanction notice for: Chungbuk Office of Education
 
 ### 4. 전수 검증 성과 및 감사 결과 (Verification & Audit Findings)
 
-전국 17개 시·도 교육청 검증 하네스 [`verify_education_grant_audit.py`](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/tools/verify_education_grant_audit.py)를 구동하여 5대 검증 전 항목 100% 정상 작동을 확인했습니다:
+전국 17개 시·도 교육청 검증 하네스 `verify_education_grant_audit.py`를 구동하여 5대 검증 전 항목 100% 정상 작동을 확인했습니다:
 
 ```bash
 $ python -X utf8 D:\ai\antigravity\national_budget_ai\education_grant_audit\tools\verify_education_grant_audit.py
@@ -258,7 +263,7 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\education_grant_audit\tool
 ```
 
 #### 전국 지방교육재정교부금 감사 총괄 지표
-[`EDUCATION_GRANT_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/EDUCATION_GRANT_AUDIT_LEDGER.md) 편철 지표:
+`EDUCATION_GRANT_AUDIT_LEDGER.md` 편철 지표:
 
 | 지표 항목 | 전수 분석 수치 | 비고 |
 | :--- | :--- | :--- |
@@ -271,11 +276,11 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\education_grant_audit\tool
 | **교육감 앞 공식 시정명령서 발부** | **17 개 교육청 전수** | KS X 6101 HWPX 및 MD 공식 발부 |
 
 #### 상위 5대 교육청 환수·감액 처분 순위
-1. **대전광역시교육청**: 점검 예산 0.76조 원 중 26건 적발, **처분액 0.24조 원** ([시정명령 HWPX](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/대전광역시교육청_교부금_시정명령서.hwpx)).
-2. **충청북도교육청**: 점검 예산 0.55조 원 중 23건 적발, **처분액 0.23조 원** ([시정명령 HWPX](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/충청북도교육청_교부금_시정명령서.hwpx)).
-3. **인천광역시교육청**: 점검 예산 0.73조 원 중 20건 적발, **처분액 0.19조 원** ([시정명령 HWPX](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/인천광역시교육청_교부금_시정명령서.hwpx)).
-4. **경상남도교육청**: 점검 예산 0.72조 원 중 20건 적발, **처분액 0.17조 원** ([시정명령 HWPX](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/경상남도교육청_교부금_시정명령서.hwpx)).
-5. **충청남도교육청**: 점검 예산 0.49조 원 중 16건 적발, **처분액 0.15조 원** ([시정명령 HWPX](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/충청남도교육청_교부금_시정명령서.hwpx)).
+1. **교육청 A**: 점검 예산 0.76조 원 중 26건 적발, **처분액 0.24조 원**.
+2. **교육청 B**: 점검 예산 0.55조 원 중 23건 적발, **처분액 0.23조 원**.
+3. **교육청 C**: 점검 예산 0.73조 원 중 20건 적발, **처분액 0.19조 원**.
+4. **교육청 D**: 점검 예산 0.72조 원 중 20건 적발, **처분액 0.17조 원**.
+5. **교육청 E**: 점검 예산 0.49조 원 중 16건 적발, **처분액 0.15조 원**.
 
 ---
 

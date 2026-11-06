@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops]
 date: 2026-11-20
 keywords: ["三维靶向分区", "政府采购API对接", "审计员Web门户", "AI异常检测", "噪音过滤"]
-description: "通过三维靶向分区过滤85%日常耗材噪音，打通政府采购实时API并构建Vis.js交互式审计员门户v2.0的实战经验与踩坑排错记录。"
+description: "[模拟] 通过三维靶向分区过滤85%日常耗材噪音，打通政府采购实时API并构建Vis.js交互式审计员门户v2.0的实战经验与踩坑排错记录。"
 ---
+> **模拟说明 — 合成数据**
+> - 本文介绍的是**基于合成(生成)数据构建的模拟**。文中的“查处”、处分、追缴金额和案件数量不是真实的审计结果。
+> - 文中出现的机构、企业、地区、金额和文号均已**匿名化或替换为虚构值**,与真实对象相似并非有意为之。
+> - 错误日志、代码片段和性能数字是**为说明设计而重构的示例**,可能与代码仓库的运行记录或当前实现不一致。
+> - 除对政府采购(KONEPS)和开放财政数据(Open Fiscal Data)API 的有限调用外,文中提到的数据来源(DART、法人登记簿、e-Hojo+、K-EduFine、ALIO、NTIS 等)**并未接入**。基于公开数据的重建正在进行,结果只会作为“统计异常指标”发布,不会作为对特定对象的指控。
 
 ![3D Sector Partitioning & Live Audit Web Portal](./images/01_national_budget_sector_live_monitor.png)
 

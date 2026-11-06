@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
 date: 2026-11-19
 keywords: ["Audit Budgétaire IA", "Détection Fraude Marchés", "Évaluation Text-to-SQL", "Précision GraphRAG", "Agent d'Audit Autonome"]
-description: "Résultats intermédiaires d'audit budgétaire par IA : Cas anonymisés d'ententes, contrats fractionnés et surfacturations 10x, avec évaluation du système."
+description: "[Simulation] Résultats intermédiaires d'audit budgétaire par IA : Cas anonymisés d'ententes, contrats fractionnés et surfacturations 10x…"
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![National Budget AI Audit Findings](./images/01_national_budget_audit_findings.png)
 
 > 📌 **Points Clés (Key Takeaways)**
-> - **Déploiement d'Étape**: Notre agent d'audit autonome ([`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai)) a réalisé un audit exhaustif sur des jeux de données réels (5 programmes budgétaires et 6 marchés publics).
+> - **Déploiement d'Étape**: Notre agent d'audit autonome a réalisé un audit exhaustif sur des jeux de données simulés (synthétiques) (5 programmes budgétaires et 6 marchés publics).
 > - **4 Fraudes Majeures Détectées (Totalement Anonymisées)** :
 >   1. **Contrats Fractionnés (Saucissonnage)** : 3 contrats sous le seuil de 20 000 $ en 12 jours pour éviter la mise en concurrence (43 000 $ au total).
 >   2. **Cartel à Adresse Partagée** : 3 sociétés écrans partageant la même pièce pour simuler une fausse concurrence.

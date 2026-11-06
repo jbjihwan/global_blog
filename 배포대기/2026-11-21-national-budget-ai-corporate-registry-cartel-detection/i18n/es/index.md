@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["Cárteles de Testaferros", "Registro Corporativo DART", "Beneficiario Real", "GraphRAG Corporativo", "Fraude en Licitaciones"]
-description: "Integración del registro corporativo DART en GraphRAG para desenmascarar testaferros y cárteles controlados por una sola persona en compras públicas."
+description: "[Simulación] Integración del registro corporativo DART en GraphRAG para desenmascarar testaferros y cárteles controlados por una sola persona en compras…"
 ---
+> **Aviso de simulación — datos sintéticos**
+> - Esta entrada describe una **simulación construida con datos sintéticos (generados)**. Los «hallazgos», sanciones, importes de recuperación y recuentos no son resultados de auditoría reales.
+> - Todos los organismos, empresas, regiones, importes y números de documento están **anonimizados o sustituidos por valores ficticios**; cualquier parecido con entidades reales no es intencionado.
+> - Los registros de error, fragmentos de código y cifras de rendimiento fueron **reconstruidos para explicar el diseño** y pueden no coincidir con los registros de ejecución ni con la implementación actual del repositorio.
+> - Salvo llamadas limitadas a las API de contratación pública (KONEPS) y de Open Fiscal Data, las fuentes de datos mencionadas (DART, registros mercantiles, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) **no estaban conectadas**. Se está reconstruyendo el sistema con datos abiertos públicos; los resultados se publicarán solo como «indicadores estadísticos de anomalía», nunca como acusaciones.
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **Puntos Clave (Key Takeaways)**
-> - **Superación de Límites Previos**: Superando la limitación de la Parte 2 sobre testaferros, creamos el cliente [`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py) que cruza el registro mercantil y la base de datos bursátil DART.
+> - **Superación de Límites Previos**: Superando la limitación de la Parte 2 sobre testaferros, creamos el cliente `CorporateRegistryClient` que cruza el registro mercantil y la base de datos bursátil DART.
 > - **Prevención Arquitectural**:
 >   1. Puente tripartito para unificar NIF de empresa, registro judicial y código DART.
 >   2. Umbral de relevancia en el grafo de conocimiento (directores ejecutivos + >50% de acciones).

@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops]
 date: 2026-11-20
 keywords: ["Partition 3D par Secteur", "API Marchés Publics Direct", "Portail Web d'Audit", "Détection Fraude IA", "Filtrage Bruit"]
-description: "Filtrage de 85% du bruit des marchés publics par partition 3D et connexion aux API en temps réel pour le portail web d'audit interactif v2.0."
+description: "[Simulation] Filtrage de 85% du bruit des marchés publics par partition 3D et connexion aux API en temps réel pour le portail web d'audit interactif v2.0."
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![3D Sector Partitioning & Live Audit Web Portal](./images/01_national_budget_sector_live_monitor.png)
 

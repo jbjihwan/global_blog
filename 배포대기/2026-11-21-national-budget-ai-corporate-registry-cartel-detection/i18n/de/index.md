@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["Strohmann-Kartelle", "DART-Unternehmensregister", "Wirtschaftlich Berechtigter", "GraphRAG-Governance", "Ausschreibungsabsprachen"]
-description: "Aufdeckung von Strohmann-Kartellen durch Integration von DART-Unternehmensdaten und Handelsregistern zur Ermittlung wirtschaftlich Berechtigter."
+description: "[Simulation] Aufdeckung von Strohmann-Kartellen durch Integration von DART-Unternehmensdaten und Handelsregistern zur Ermittlung wirtschaftlich Berechtigter."
 ---
+> **Hinweis zur Simulation — synthetische Daten**
+> - Dieser Beitrag beschreibt eine **Simulation auf Basis synthetischer (erzeugter) Daten**. Die genannten „Befunde“, Sanktionen, Rückforderungsbeträge und Fallzahlen sind keine realen Prüfergebnisse.
+> - Alle Behörden, Unternehmen, Regionen, Beträge und Aktenzeichen sind **anonymisiert oder durch fiktive Werte ersetzt**; Ähnlichkeiten mit realen Stellen sind nicht beabsichtigt.
+> - Fehlerprotokolle, Codeausschnitte und Benchmark-Zahlen wurden **zur Erläuterung des Entwurfs rekonstruiert** und stimmen möglicherweise nicht mit den Laufprotokollen oder der aktuellen Implementierung des Repositorys überein.
+> - Abgesehen von begrenzten Abrufen der APIs für öffentliche Beschaffung (KONEPS) und Open Fiscal Data waren die genannten Datenquellen (DART, Handelsregister, e-Hojo+, K-EduFine, ALIO, NTIS usw.) **nicht angebunden**. Ein Neuaufbau auf öffentlichen Open Data läuft; Ergebnisse werden nur als „statistische Anomalie-Indikatoren“ veröffentlicht, nie als Anschuldigungen.
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **Kernaussagen (Key Takeaways)**
-> - **Überwindung früherer Grenzen**: Als Lösung für die in Teil 2 erwähnten Strohmann-Konstrukte wurde der [`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py) geschaffen, der DART-Daten und Handelsregister abgleicht.
+> - **Überwindung früherer Grenzen**: Als Lösung für die in Teil 2 erwähnten Strohmann-Konstrukte wurde der `CorporateRegistryClient` geschaffen, der DART-Daten und Handelsregister abgleicht.
 > - **Präventive Architektur**:
 >   1. Dreiseitige Hash-Brücke zur Auflösung heterogener Unternehmens-IDs.
 >   2. Relevanz-Schwellenwerte im Wissensgraphen (Vorstände + Anteile >50%).

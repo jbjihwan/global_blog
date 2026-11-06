@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
 date: 2026-11-23
 keywords: ["Inspector Web Portal", "Vis.js knowledge graph", "HWPX parser", "20 test verification", "national budget AI finale"]
-description: "The finale: Building Inspector Web Portal v3.0 integrating Vis.js knowledge graphs, 10-year case law search, and passing 20/20 end-to-end test harnesses."
+description: "[Simulation] The finale: an inspector web portal prototype with graph visualization, precedent search and an end-to-end test harness."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![National Budget Inspector Web Portal v3.0 & 20/20 Verification](./images/01_national_budget_inspector_portal.png)
 

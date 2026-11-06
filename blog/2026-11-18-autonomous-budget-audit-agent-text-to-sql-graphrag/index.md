@@ -8,8 +8,13 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops, practice, ai, budget-audit]
 date: 2026-11-18
 keywords: ["Autonomous AI Agent Architecture", "Text-to-SQL Production", "GraphRAG for Fraud Detection", "Spec-Driven Development in Practice", "Multi-Agent Orchestration Python"]
-description: "How we built an autonomous AI agent to audit $500B public budgets. 3 anticipated challenges prevented, and 3 unexpected real-world bugs solved in production."
+description: "[Simulation] How we prototyped an autonomous audit agent (Text-to-SQL + GraphRAG) on sample and synthetic procurement data: design challenges and lessons."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![Autonomous Public Budget Audit Agent](./images/01_autonomous_budget_audit_agent.png)
 
@@ -109,7 +114,7 @@ class TextToSQLEngine:
 
 ### Part 2: Unexpected Real-World Errors & How We Resolved Them
 
-Even with clean initial architectures, pumping real-world public procurement records into the pipeline surfaced unexpected edge cases.
+Even with clean initial architectures, pumping a small sample of public procurement records and synthetic data into the pipeline surfaced unexpected edge cases.
 
 #### 🚨 Real Error 1: Entity Fragmentation Causing Cartel Detection Collapse
 - **The Error Symptom**:
@@ -209,7 +214,7 @@ STATUTE_MAPPING = {
 
 ### Part 3: Test Harness Verification & Production Results
 
-To guarantee production reliability, we executed an automated regression test harness ([`tools/run_all_tests.py`](file:///D:/ai/antigravity/national_budget_ai/tools/run_all_tests.py)) covering all 11 sub-modules:
+To guarantee production reliability, we executed an automated regression test harness covering all 11 sub-modules:
 
 | Test Harness Suite | Target Subsystem | Input Scenario & Target Assertion | Result |
 | :--- | :--- | :--- | :---: |

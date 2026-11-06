@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["Ententes Prête-Noms", "Registre DART Entreprises", "Bénéficiaire Effectif", "GraphRAG Gouvernance", "Fraude aux Enchères"]
-description: "Intégration du registre des entreprises DART pour démasquer les prête-noms et les ententes contrôlées par une seule personne dans les marchés publics."
+description: "[Simulation] Intégration du registre des entreprises DART pour démasquer les prête-noms et les ententes contrôlées par une seule personne dans les marchés…"
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **Points Clés (Key Takeaways)**
-> - **Dépassement de la Limite de l'Épisode 2** : Pour identifier les prête-noms introuvables via les seuls registres de commande publique, création du client [`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py) reliant le greffe du tribunal et la base DART.
+> - **Dépassement de la Limite de l'Épisode 2** : Pour identifier les prête-noms introuvables via les seuls registres de commande publique, création du client `CorporateRegistryClient` reliant le greffe du tribunal et la base DART.
 > - **Anticipation Architecturale** :
 >   1. Table de hachage tripartite unifiant numéros fiscaux, d'immatriculation et codes DART.
 >   2. Seuils de significativité dans le graphe (dirigeants effectifs + détentions >50%).

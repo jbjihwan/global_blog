@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
 date: 2026-11-18
 keywords: ["Architecture d'Agents IA", "Text-to-SQL", "GraphRAG", "Spec-Driven Development", "Détection de Fraude"]
-description: "Comment nous avons développé un agent IA autonome pour auditer 500 milliards $ de budgets publics. 3 défis anticipés et 3 bugs réels résolus en production."
+description: "[Simulation] Comment nous avons développé un agent IA autonome pour auditer 500 milliards $ de budgets publics. 3 défis anticipés et 3 bugs réels résolus en…"
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![Autonomous Public Budget Audit Agent](./images/01_autonomous_budget_audit_agent.png)
 

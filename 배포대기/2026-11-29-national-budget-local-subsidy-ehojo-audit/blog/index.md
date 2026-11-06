@@ -1,12 +1,17 @@
 ---
 slug: national-budget-local-subsidy-ehojo-audit
-title: "Public Budget AI #7: 243 Municipalities Local Subsidy Audit"
+title: "Public Budget AI #7: Local Subsidy Audit Simulation"
 authors: [jbgih]
 tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx]
 date: 2026-11-29
 keywords: ["eHojo+", "Local Subsidy Audit", "243 Municipalities", "Matching Deficit", "HWPX Generator", "Public Finance Recovery Act"]
-description: "Auditing 40.2T KRW across 243 municipalities via eHojo+ to detect 4 subsidy fraud patterns, solve concurrency & schema pitfalls, and issue HWPX orders."
+description: "[Simulation] A synthetic-data simulation of auditing 243 municipalities' subsidies: four fraud patterns, pitfalls, and generated sample notices."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![Public Budget AI #7: 243 Municipalities Local Subsidy eHojo+ Audit AI Pipeline](./images/01_cover.png)
 
@@ -26,7 +31,7 @@ description: "Auditing 40.2T KRW across 243 municipalities via eHojo+ to detect 
 ### ⚖️ Legal Notice & Anonymization
 
 > **[Notice] All data contained herein has been rigorously pseudonymized to prevent legal disputes.**  
-> This publication shares architecture and engineering problem-solving insights from our autonomous public budget audit agent project. To protect institutional confidentiality, **all local government identifiers (`Municipality A`, `District B`, `Province C`), beneficiary NGO names (`Consortium Alpha`, `Foundation Beta`, `Institute Gamma`), corporate registration codes, and individual project numbers have been strictly pseudonymized**. Financial figures and statutory frameworks reflect real-world national auditing criteria.
+> This publication shares architecture and engineering problem-solving insights from our autonomous public budget audit agent project. To protect institutional confidentiality, **all local government identifiers (`Municipality A`, `District B`, `Province C`), beneficiary NGO names (`Consortium Alpha`, `Foundation Beta`, `Institute Gamma`), corporate registration codes, and individual project numbers have been strictly pseudonymized**. Financial figures are simulated values, and statutory references are illustrative and have not been legally reviewed.
 
 ---
 
@@ -97,7 +102,7 @@ Executing an autonomous audit across 243 heterogeneous public endpoints revealed
 During our initial run, we launched 243 unconstrained asynchronous HTTP client tasks (`asyncio.gather(*[scrape(m) for m in municipalities])`) to maximize throughput. Within 12 seconds, central government gateway proxies began dropping connections:
 
 ```log
-[ERROR] 2026-11-29 03:14:22,109 - ehojo_client - Task 142 (Municipality: Gyeonggi-41110)
+[ERROR] 2026-11-29 03:14:22,109 - ehojo_client - Task 142 (Municipality: Region-99003)
 aiohttp.client_exceptions.ClientHttpProxyError: 504, message='Gateway Time-out', 
 url=URL('https://api.ehojo.go.kr/openapi/service/subsidy/expenditure?muniCd=41110')
 Traceback (most recent call last):
@@ -119,7 +124,7 @@ asyncio.exceptions.TimeoutError: Connection pool exhausted (243 active connectio
 Metropolitan regional governments and basic local governments run different legacy iterations of the eHojo backend. When parsing expenditure line items, basic municipal endpoints returned flat element sequences, while metropolitan endpoints returned deep hierarchical trees:
 
 ```log
-[ERROR] 2026-11-29 03:22:05,481 - subsidy_parser - Schema validation failed for MuniCode: 11000 (Seoul Metropolitan)
+[ERROR] 2026-11-29 03:22:05,481 - subsidy_parser - Schema validation failed for MuniCode: 99001 (Metropolitan A)
 Traceback (most recent call last):
   File "D:\ai\antigravity\national_budget_ai\local_subsidy_audit\src\ehojo_subsidy_scanner.py", line 92, in parse_expenditures
     exp_code = item['EXP_BG_CD']
@@ -140,13 +145,13 @@ xml.etree.ElementTree.ParseError: mismatched tag: line 44, column 12 (Found </EX
 To fulfill statutory compliance, the pipeline compiles comprehensive recovery notices in KS X 6101 HWPX format (the South Korean official XML-in-ZIP word processor standard). During batch export of the top 37 high-risk local government notices:
 
 ```log
-[ERROR] 2026-11-29 03:38:11,902 - recovery_hwpx_builder - Failed generating notice for MuniCode: 43000 (Chungbuk)
+[ERROR] 2026-11-29 03:38:11,902 - recovery_hwpx_builder - Failed generating notice for MuniCode: 99002 (Province B)
 Traceback (most recent call last):
   File "D:\ai\antigravity\national_budget_ai\local_subsidy_audit\src\recovery_hwpx_builder.py", line 124, in build_recovery_hwpx
     zf = zipfile.ZipFile(output_path, mode='w', compression=zipfile.ZIP_DEFLATED)
   File "zipfile\__init__.py", line 1283, in __init__
     self.fp = io.open(file, filemode)
-OSError: [Errno 24] Too many open files: 'reports/recovery_notices/충청북도_환수처분명령서.hwpx'
+OSError: [Errno 24] Too many open files: 'reports/recovery_notices/province_b_recovery_order.hwpx'
 ```
 - **The Pitfall**: The initial builder opened internal XML component streams (`Contents/section0.xml`, `header.xml`, `mimetype`, `META-INF/manifest.xml`) into in-memory file objects without guaranteeing closure in failure states. Over hundreds of iterations, unclosed file descriptors accumulated, exceeding the Windows process handle ceiling and corrupting generated ZIP archives.
 
@@ -257,7 +262,7 @@ OSError: [Errno 24] Too many open files: 'reports/recovery_notices/충청북도_
 
 ### 4. Nationwide Verification & Audit Findings (전수 검증 성과)
 
-Running the integrated verification harness [`verify_local_subsidy_audit.py`](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/tools/verify_local_subsidy_audit.py) verified 100% system integrity across all 5 verification dimensions:
+Running the integrated verification harness `verify_local_subsidy_audit.py` verified 100% system integrity across all 5 verification dimensions:
 
 ```bash
 $ python -X utf8 D:\ai\antigravity\national_budget_ai\local_subsidy_audit\tools\verify_local_subsidy_audit.py
@@ -281,7 +286,7 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\local_subsidy_audit\tools\
 ```
 
 #### National Audit Master Ledger Summary
-Compiled from [`LOCAL_SUBSIDY_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/LOCAL_SUBSIDY_AUDIT_LEDGER.md):
+Compiled from `LOCAL_SUBSIDY_AUDIT_LEDGER.md`:
 
 | Core Audit Metric | Full Audit Value | Verification Note |
 | :--- | :--- | :--- |
@@ -294,11 +299,11 @@ Compiled from [`LOCAL_SUBSIDY_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/nation
 | **Official Mayoral HWPX Orders**| **37 Jurisdictions** | KS X 6101 HWPX official legal documents dispatched |
 
 #### Top 5 Jurisdictions by Recovery Volume
-1. **Chungbuk (충청북도)**: 383.1B KRW audited, 27 flagged cases, **156.1B KRW recovery order** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/충청북도_환수처분명령서.hwpx)).
-2. **Jeonbuk (전북특별자치도)**: 481.2B KRW audited, 29 flagged cases, **155.4B KRW recovery order** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/전북특별자치도_환수처분명령서.hwpx)).
-3. **Incheon (인천광역시)**: 438.6B KRW audited, 34 flagged cases, **153.6B KRW recovery order** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/인천광역시_환수처분명령서.hwpx)).
-4. **Jeonnam (전라남도)**: 508.8B KRW audited, 28 flagged cases, **148.9B KRW recovery order** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/전라남도_환수처분명령서.hwpx)).
-5. **Daegu (대구광역시)**: 536.7B KRW audited, 25 flagged cases, **142.6B KRW recovery order** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/대구광역시_환수처분명령서.hwpx)).
+1. **Region A**: 383.1B KRW audited, 27 flagged cases, **156.1B KRW recovery order**.
+2. **Region B**: 481.2B KRW audited, 29 flagged cases, **155.4B KRW recovery order**.
+3. **Region C**: 438.6B KRW audited, 34 flagged cases, **153.6B KRW recovery order**.
+4. **Region D**: 508.8B KRW audited, 28 flagged cases, **148.9B KRW recovery order**.
+5. **Region E**: 536.7B KRW audited, 25 flagged cases, **142.6B KRW recovery order**.
 
 ---
 

@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["白手套围标查处", "DART企业治理联动", "工商登记AI分析", "实控人股权穿透", "GraphRAG围标检测"]
-description: "为攻克政府采购仅凭公开台账无法穿透借名代持白手套的盲区，融合DART公司治理与工商登记底册查处一人实际控制围标团伙的技术实战。"
+description: "[模拟] 为攻克政府采购仅凭公开台账无法穿透借名代持白手套的盲区，融合DART公司治理与工商登记底册查处一人实际控制围标团伙的技术实战。"
 ---
+> **模拟说明 — 合成数据**
+> - 本文介绍的是**基于合成(生成)数据构建的模拟**。文中的“查处”、处分、追缴金额和案件数量不是真实的审计结果。
+> - 文中出现的机构、企业、地区、金额和文号均已**匿名化或替换为虚构值**,与真实对象相似并非有意为之。
+> - 错误日志、代码片段和性能数字是**为说明设计而重构的示例**,可能与代码仓库的运行记录或当前实现不一致。
+> - 除对政府采购(KONEPS)和开放财政数据(Open Fiscal Data)API 的有限调用外,文中提到的数据来源(DART、法人登记簿、e-Hojo+、K-EduFine、ALIO、NTIS 等)**并未接入**。基于公开数据的重建正在进行,结果只会作为“统计异常指标”发布,不会作为对特定对象的指控。
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **核心摘要 (Key Takeaways)**
-> - **技术攻克第2篇行业盲区**: 针对“仅凭采购台账无法查出借名代持傀儡法人（白手套）”的痛点，全新构建了融合工商登记与DART监管披露的**股权穿透分析引擎([`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py))**。
+> - **技术攻克第2篇行业盲区**: 针对“仅凭采购台账无法查出借名代持傀儡法人（白手套）”的痛点，全新构建了融合工商登记与DART监管披露的**股权穿透分析引擎**。
 > - **架构预判并解决2大难点**:
 >   1. 建立**三角哈希索引桥**，化解税号、企业登记号与DART代码间的格式割裂。
 >   2. 设定**控制力显著性阈值（高管任职 + 50%以上持股）**，杜绝海量无意义人际关系引发图爆炸。

@@ -3,13 +3,18 @@ slug: national-budget-local-subsidy-ehojo-audit
 category_l1: practice
 category_l2: ai
 category_l3: project-budget
-title: "지자체 보조금 감사 AI: 전국 243개 지자체 e호조+ 4대 부정 적발"
+title: "지자체 보조금 감사 AI 시뮬레이션: 243개 지자체 4대 부정 유형 탐지 실험"
 authors: [jbgih]
 tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx, practice, ai]
 date: 2026-11-29
 keywords: ["e호조+", "지방보조금 감사", "전국 243개 지자체", "매칭결손", "HWPX 공문서 생성기", "공공재정환수법"]
-description: "전국 243개 지자체 40.2조 원 e호조+ 보조금을 전수 추적하여 4대 부정수급을 탐지하고, 분산 수집 및 스키마 장애를 격파한 감사 AI 구축기."
+description: "[시뮬레이션] 243개 지자체 보조금 감사를 합성 데이터로 모의한 결과: 4대 부정 유형, 구현상 함정, 생성한 견본 문서."
 ---
+> **시뮬레이션 안내 — 가상(합성) 데이터**
+> - 이 글은 **가상(합성) 데이터로 만든 시뮬레이션**을 다룹니다. 글에 나오는 «적발»·처분·환수액·건수는 실제 감사 결과가 아닙니다.
+> - 글에 나오는 기관·기업·지역·금액·문서번호는 모두 **익명화하거나 가상의 값으로 바꾼 것**이며, 실존 대상과 같더라도 의도한 것이 아닙니다.
+> - 오류 로그·코드 조각·성능 수치는 **설계를 설명하려고 재구성한 예시**이고, 저장소의 실행 기록이나 현재 구현과 일치하지 않을 수 있습니다.
+> - 조달청 계약정보와 열린재정 API를 제한적으로 호출한 것을 제외하면, 글에 나오는 데이터 출처(DART, 법인 등기부, e호조+, K-에듀파인, ALIO, NTIS 등)는 **연결하지 않았습니다**. 공개 데이터 기반 재구축을 진행 중이며, 결과는 «통계적 이상 징후 지표»로만 공개하고 특정 대상에 대한 단정으로 쓰지 않습니다.
 
 ![공공 예산 감사 AI #7: 전국 243개 지자체 e호조+ 지방보조금 부당집행 전수 감사 파이프라인](./images/01_cover.png)
 
@@ -29,7 +34,7 @@ description: "전국 243개 지자체 40.2조 원 e호조+ 보조금을 전수 �
 ### ⚖️ 법적 고지 및 익명화 처리 원칙
 
 > **[안내] 본 게시물에 수록된 세부 데이터는 분쟁 방지를 위해 엄격히 가명·익명화 처리되었습니다.**  
-> 본 아티클은 공공 예산 감사 AI 시스템의 설계 및 엔지니어링 문제 해결 과정을 공유하는 기술 문서입니다. 대상 지방자치단체 식별자(`A시`, `B구`, `C도`), 수탁 보조사업자 법인명(`컨소시엄 알파`, `재단법인 베타`), 고유 사업자등록번호 및 사업 코드는 모두 **비식별화(Pseudonymization)** 조치되었습니다. 재정 규모 산정 및 처분 법률은 실제 대한민국 지방보조금법 및 공공재정환수법 기준을 준용합니다.
+> 본 아티클은 공공 예산 감사 AI 시스템의 설계 및 엔지니어링 문제 해결 과정을 공유하는 기술 문서입니다. 대상 지방자치단체 식별자(`A시`, `B구`, `C도`), 수탁 보조사업자 법인명(`컨소시엄 알파`, `재단법인 베타`), 고유 사업자등록번호 및 사업 코드는 모두 **비식별화(Pseudonymization)** 조치되었습니다. 재정 규모와 처분액은 시뮬레이션 값이며, 인용한 법률은 예시이고 법률 검토를 거치지 않았습니다.
 
 ---
 
@@ -100,7 +105,7 @@ flowchart TD
 전국 엔드포인트를 빠르게 수집하기 위해 `asyncio.gather(*[fetch(m) for m in municipalities])` 형태로 비동기 풀을 비제한으로 실행하자, 12초 만에 공공 게이트웨이에서 대규모 504 타임아웃이 발생했습니다:
 
 ```log
-[ERROR] 2026-11-29 03:14:22,109 - ehojo_client - Task 142 (Municipality: Gyeonggi-41110)
+[ERROR] 2026-11-29 03:14:22,109 - ehojo_client - Task 142 (Municipality: Region-99003)
 aiohttp.client_exceptions.ClientHttpProxyError: 504, message='Gateway Time-out', 
 url=URL('https://api.ehojo.go.kr/openapi/service/subsidy/expenditure?muniCd=41110')
 Traceback (most recent call last):
@@ -122,7 +127,7 @@ asyncio.exceptions.TimeoutError: Connection pool exhausted (243 active connectio
 광역 시·도와 기초 시·군·구가 사용 중인 e호조+ 백엔드 버전이 달라 동일한 지출내역 API 응답 구조가 상이했습니다. 광역은 중첩 계층형 XML을, 기초는 속성 중심 플랫 XML을 반환하여 단일 파서에서 크래시가 발생했습니다:
 
 ```log
-[ERROR] 2026-11-29 03:22:05,481 - subsidy_parser - Schema validation failed for MuniCode: 11000 (Seoul Metropolitan)
+[ERROR] 2026-11-29 03:22:05,481 - subsidy_parser - Schema validation failed for MuniCode: 99001 (Metropolitan A)
 Traceback (most recent call last):
   File "D:\ai\antigravity\national_budget_ai\local_subsidy_audit\src\ehojo_subsidy_scanner.py", line 92, in parse_expenditures
     exp_code = item['EXP_BG_CD']
@@ -143,13 +148,13 @@ xml.etree.ElementTree.ParseError: mismatched tag: line 44, column 12 (Found </EX
 KS X 6101 표준 HWPX 문서는 XML 조각들을 ZIP 아카이브로 패키징하는 복합 규격입니다. 상위 37개 고위험 지자체 대상 환수명령서를 일괄 조판하는 도중 OS 파일 핸들이 누수되어 파이프라인이 중단되었습니다:
 
 ```log
-[ERROR] 2026-11-29 03:38:11,902 - recovery_hwpx_builder - Failed generating notice for MuniCode: 43000 (Chungbuk)
+[ERROR] 2026-11-29 03:38:11,902 - recovery_hwpx_builder - Failed generating notice for MuniCode: 99002 (Province B)
 Traceback (most recent call last):
   File "D:\ai\antigravity\national_budget_ai\local_subsidy_audit\src\recovery_hwpx_builder.py", line 124, in build_recovery_hwpx
     zf = zipfile.ZipFile(output_path, mode='w', compression=zipfile.ZIP_DEFLATED)
   File "zipfile\__init__.py", line 1283, in __init__
     self.fp = io.open(file, filemode)
-OSError: [Errno 24] Too many open files: 'reports/recovery_notices/충청북도_환수처분명령서.hwpx'
+OSError: [Errno 24] Too many open files: 'reports/recovery_notices/province_b_recovery_order.hwpx'
 ```
 - **원인 분석**: HWPX 빌더 내부에서 `Contents/section0.xml`, `header.xml`, `META-INF/manifest.xml`을 압축 파일에 주입하는 과정에서 `ZipFile` 핸들이 예외 상황 발생 시 닫히지 않고 프로세스 메모리에 잔존하여 Windows 파일 핸들 상한에 도달했습니다.
 
@@ -260,7 +265,7 @@ OSError: [Errno 24] Too many open files: 'reports/recovery_notices/충청북도_
 
 ### 4. 전수 검증 성과 및 감사 결과 (Verification & Audit Findings)
 
-전국 단위 무결성 검증기 [`verify_local_subsidy_audit.py`](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/tools/verify_local_subsidy_audit.py)를 구동하여 5대 핵심 영역의 100% 정상 작동을 확인했습니다:
+전국 단위 무결성 검증기 `verify_local_subsidy_audit.py`를 구동하여 5대 핵심 영역의 100% 정상 작동을 확인했습니다:
 
 ```bash
 $ python -X utf8 D:\ai\antigravity\national_budget_ai\local_subsidy_audit\tools\verify_local_subsidy_audit.py
@@ -284,7 +289,7 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\local_subsidy_audit\tools\
 ```
 
 #### 전국 지방보조금 환수 총괄 지표 요약
-[`LOCAL_SUBSIDY_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/LOCAL_SUBSIDY_AUDIT_LEDGER.md)에서 집계된 감사 종합 수치:
+`LOCAL_SUBSIDY_AUDIT_LEDGER.md`에서 집계된 감사 종합 수치:
 
 | 감사 지표 항목 | 전수 분석 수치 | 비고 |
 | :--- | :--- | :--- |
@@ -297,11 +302,11 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\local_subsidy_audit\tools\
 | **지자체장 앞 환수명령서 발부** | **37 개 핵심 지자체** | KS X 6101 HWPX 및 MD 공식 발부 |
 
 #### 상위 5대 고위험 지자체 환수 처분 현황
-1. **충청북도**: 점검 예산 3,831.0억 원 중 27건 적발, **환수명령 1,560.9억 원** ([공식 HWPX](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/충청북도_환수처분명령서.hwpx)).
-2. **전북특별자치도**: 점검 예산 4,812.0억 원 중 29건 적발, **환수명령 1,554.2억 원** ([공식 HWPX](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/전북특별자치도_환수처분명령서.hwpx)).
-3. **인천광역시**: 점검 예산 4,386.0억 원 중 34건 적발, **환수명령 1,535.7억 원** ([공식 HWPX](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/인천광역시_환수처분명령서.hwpx)).
-4. **전라남도**: 점검 예산 5,088.0억 원 중 28건 적발, **환수명령 1,489.0억 원** ([공식 HWPX](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/전라남도_환수처분명령서.hwpx)).
-5. **대구광역시**: 점검 예산 5,367.0억 원 중 25건 적발, **환수명령 1,425.6억 원** ([공식 HWPX](file:///D:/ai/antigravity/national_budget_ai/local_subsidy_audit/reports/recovery_notices/대구광역시_환수처분명령서.hwpx)).
+1. **지역 A**: 점검 예산 3,831.0억 원 중 27건 적발, **환수명령 1,560.9억 원**.
+2. **지역 B**: 점검 예산 4,812.0억 원 중 29건 적발, **환수명령 1,554.2억 원**.
+3. **지역 C**: 점검 예산 4,386.0억 원 중 34건 적발, **환수명령 1,535.7억 원**.
+4. **지역 D**: 점검 예산 5,088.0억 원 중 28건 적발, **환수명령 1,489.0억 원**.
+5. **지역 E**: 점검 예산 5,367.0억 원 중 25건 적발, **환수명령 1,425.6억 원**.
 
 ---
 

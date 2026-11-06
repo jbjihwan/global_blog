@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops]
 date: 2026-11-20
 keywords: ["Partición 3D por Sectores", "API Compras Públicas", "Portal Web Auditoría", "Detección Fraude IA", "Filtro de Ruido"]
-description: "Filtrado del 85% del ruido mediante partición 3D por sectores y conexión en vivo con APIs públicas para el portal de auditoría v2.0 con Vis.js."
+description: "[Simulación] Filtrado del 85% del ruido mediante partición 3D por sectores y conexión en vivo con APIs públicas para el portal de auditoría v2.0 con Vis.js."
 ---
+> **Aviso de simulación — datos sintéticos**
+> - Esta entrada describe una **simulación construida con datos sintéticos (generados)**. Los «hallazgos», sanciones, importes de recuperación y recuentos no son resultados de auditoría reales.
+> - Todos los organismos, empresas, regiones, importes y números de documento están **anonimizados o sustituidos por valores ficticios**; cualquier parecido con entidades reales no es intencionado.
+> - Los registros de error, fragmentos de código y cifras de rendimiento fueron **reconstruidos para explicar el diseño** y pueden no coincidir con los registros de ejecución ni con la implementación actual del repositorio.
+> - Salvo llamadas limitadas a las API de contratación pública (KONEPS) y de Open Fiscal Data, las fuentes de datos mencionadas (DART, registros mercantiles, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) **no estaban conectadas**. Se está reconstruyendo el sistema con datos abiertos públicos; los resultados se publicarán solo como «indicadores estadísticos de anomalía», nunca como acusaciones.
 
 ![3D Sector Partitioning & Live Audit Web Portal](./images/01_national_budget_sector_live_monitor.png)
 

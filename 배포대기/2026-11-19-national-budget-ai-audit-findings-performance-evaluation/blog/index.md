@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
 date: 2026-11-19
 keywords: ["Public Budget AI Audit", "Procurement Fraud Detection", "Text-to-SQL Evaluation", "GraphRAG Precision", "Autonomous Audit Agent"]
-description: "Interim audit results on public budgets using our AI auditor: Anonymized fraud cases (cartels, split contracts, 10x markups) and system evaluation."
+description: "[Simulation] Interim results of an AI audit prototype on synthetic procurement data: 4 anonymized case types, plus system evaluation and limits."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![National Budget AI Audit Findings](./images/01_national_budget_audit_findings.png)
 
 > 📌 **Key Takeaways**
-> - **Interim Audit Deployment**: Using our production-grade autonomous audit agent ([`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai)), we completed a full audit screening across representative public procurement datasets (5 major budget programs and 6 procurement contracts).
+> - **Interim Audit Deployment**: Using our production-grade autonomous audit agent, we completed a full audit screening across representative public procurement datasets (5 major budget programs and 6 procurement contracts).
 > - **4 Core Fraud Findings (Strictly Anonymized)**:
 >   1. **Split Private Contracts**: Smurfing contracts under the $20,000 threshold across 12 days to evade competitive bidding ($43,000 total, 94.5% similarity to Supreme Audit rulings).
 >   2. **Shared Address Shell Cartels**: 3 dummy vendors sharing the exact same room and building winning exclusive tenders ($158,000 total).
@@ -29,7 +34,7 @@ description: "Interim audit results on public budgets using our AI auditor: Anon
 ### ⚠️ Legal Notice & Anonymization
 
 > **[Notice] All entities, contract identifiers, and locations in this report are strictly anonymized.**  
-> This post shares engineering evaluation results from a live autonomous AI audit system. To prevent legal disputes and protect organizational reputations, all contracting authorities (e.g., `Agency A`, `Ministry B`), corporate contractors (e.g., `Company A`, `Company B`), contract serial numbers (e.g., `CNTR-2026-0001`), and physical office addresses have been completely masked and pseudonymized.
+> This post shares engineering evaluation results from a simulated autonomous AI audit system built on synthetic data. To prevent legal disputes and protect organizational reputations, all contracting authorities (e.g., `Agency A`, `Ministry B`), corporate contractors (e.g., `Company A`, `Company B`), contract serial numbers (e.g., `CNTR-2026-0001`), and physical office addresses have been completely masked and pseudonymized.
 
 ---
 

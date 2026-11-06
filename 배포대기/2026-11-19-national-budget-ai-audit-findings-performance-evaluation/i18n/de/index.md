@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
 date: 2026-11-19
 keywords: ["KI-Haushaltsprüfung", "Vergabebetrugserkennung", "Text-to-SQL-Bewertung", "GraphRAG-Präzision", "Autonomer Prüfagent"]
-description: "Zwischenergebnisse der KI-Haushaltsprüfung: Anonymisierte Fälle von Kartellen, Stückelungsverträgen und 10-fachen Aufschlägen sowie Systembewertung."
+description: "[Simulation] Zwischenergebnisse der KI-Haushaltsprüfung: Anonymisierte Fälle von Kartellen…"
 ---
+> **Hinweis zur Simulation — synthetische Daten**
+> - Dieser Beitrag beschreibt eine **Simulation auf Basis synthetischer (erzeugter) Daten**. Die genannten „Befunde“, Sanktionen, Rückforderungsbeträge und Fallzahlen sind keine realen Prüfergebnisse.
+> - Alle Behörden, Unternehmen, Regionen, Beträge und Aktenzeichen sind **anonymisiert oder durch fiktive Werte ersetzt**; Ähnlichkeiten mit realen Stellen sind nicht beabsichtigt.
+> - Fehlerprotokolle, Codeausschnitte und Benchmark-Zahlen wurden **zur Erläuterung des Entwurfs rekonstruiert** und stimmen möglicherweise nicht mit den Laufprotokollen oder der aktuellen Implementierung des Repositorys überein.
+> - Abgesehen von begrenzten Abrufen der APIs für öffentliche Beschaffung (KONEPS) und Open Fiscal Data waren die genannten Datenquellen (DART, Handelsregister, e-Hojo+, K-EduFine, ALIO, NTIS usw.) **nicht angebunden**. Ein Neuaufbau auf öffentlichen Open Data läuft; Ergebnisse werden nur als „statistische Anomalie-Indikatoren“ veröffentlicht, nie als Anschuldigungen.
 
 ![National Budget AI Audit Findings](./images/01_national_budget_audit_findings.png)
 
 > 📌 **Kernaussagen (Key Takeaways)**
-> - **Zwischenprüfung**: Unser autonomer KI-Prüfungsagent ([`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai)) wurde auf repräsentative öffentliche Beschaffungsdaten angewendet (5 Haushaltsprogramme, 6 Verträge).
+> - **Zwischenprüfung**: Unser autonomer KI-Prüfungsagent wurde auf simulierte (synthetische) Beschaffungsdaten angewendet (5 Haushaltsprogramme, 6 Verträge).
 > - **4 Aufgedeckte Kernverstöße (Vollständig Anonymisiert)**:
 >   1. **Gestückelte Freihändige Vergaben**: Umgehung offener Ausschreibungen durch 3 Teilverträge unter 20.000 $ innerhalb von 12 Tagen (Gesamt: 43.000 $).
 >   2. **Scheinfirmenkartelle mit Identischer Adresse**: 3 Scheinfirmen im selben Büro manipulierten Ausschreibungen.

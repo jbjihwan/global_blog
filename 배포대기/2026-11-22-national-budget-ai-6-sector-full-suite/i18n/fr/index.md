@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
 date: 2026-11-22
 keywords: ["Suite Audit 6 Secteurs", "Fractionnement Marchés", "Dépenses Fin d'Année", "Détection Fraude IA", "Audit Marchés Publics"]
-description: "Déploiement de la suite d'audit à 6 secteurs : Détection du fractionnement sous dérogation de 40 000 $ et du dumping budgétaire de fin d'année."
+description: "[Simulation] Déploiement de la suite d'audit à 6 secteurs : Détection du fractionnement sous dérogation de 40 000 $ et du dumping budgétaire de fin d'année."
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 

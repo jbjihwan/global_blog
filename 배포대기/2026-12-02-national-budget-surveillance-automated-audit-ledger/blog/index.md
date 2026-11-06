@@ -1,12 +1,17 @@
 ---
 slug: national-budget-surveillance-automated-audit-ledger
-title: "Public Budget AI #9: 23,825 Budget Anomaly Automated Audit Engine"
+title: "Public Budget AI #9: Budget Anomaly Audit Engine Simulation"
 authors: [jbgih]
 tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance]
 date: 2026-12-02
 keywords: ["Public Budget AI Surveillance", "23825 Anomaly Sub-items Audit", "5-Option Decision Engine", "SQLite WAL High Throughput", "Cumulative Audit Ledger", "Fiscal Sanction Automation"]
-description: "Automating full-scale audit of 23,825 budget anomalies across 677.4T KRW: 5-option decision matrix, SQLite WAL batch pipeline, and 121.7T KRW cut ledger."
+description: "[Simulation] Automating review of 23,825 synthetic budget anomalies: a 5-option decision matrix, SQLite WAL batch pipeline and ledger."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![Public Budget AI #9 Cover](./images/01_cover.png)
 
@@ -19,7 +24,7 @@ description: "Automating full-scale audit of 23,825 budget anomalies across 677.
 > - **Clean Production Fixes**:
 >   1. Switched SQLite to `WAL` mode with `PRAGMA synchronous = NORMAL`, batching commits into 1,000-case transaction chunks, boosting throughput to 95,000 inferences/sec (total playback in 0.25 seconds).
 >   2. Built a deterministic `PriorityDecisionArbiter` with criminal law priority overrides and hard invariant clamping (`clamp(cut, 0, budget * 0.70)`).
->   3. Implemented a robust legal-clause cross-referencing normalizer and safe markdown serializer for the permanent ledger ([`CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/reports/CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md)), locking in 121.72 trillion KRW in provisional savings across 23,911 verified cases.
+>   3. Implemented a robust legal-clause cross-referencing normalizer and safe markdown serializer for the permanent ledger, locking in 121.72 trillion KRW in provisional savings across 23,911 verified cases.
 
 {/* truncate */}
 
@@ -89,7 +94,7 @@ sqlite3.OperationalError: database is locked
 
 #### Pitfall 2: Compound Risk Conflicts & Budget Exceedance (`Double-Dipping`)
 
-A significant number of sub-items suffered from compound pathologies. For example, Case `#1316576` (Ministry of SMEs and Startups, Smart Store Technology Supply) exhibited both **Q4 Dumping Risk (Score: 98)** and **Private Consignment Overhead Leakage (Score: 84)**.
+A significant number of sub-items suffered from compound pathologies. For example, Case `#1316576` (Ministry A, Smart Store Technology Supply) exhibited both **Q4 Dumping Risk (Score: 98)** and **Private Consignment Overhead Leakage (Score: 84)**.
 
 ```text
 [ASSERTION FAILURE] Case #1316576:

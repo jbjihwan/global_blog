@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
 date: 2026-11-18
 keywords: ["AI Agent 架構", "Text-to-SQL", "GraphRAG", "规范驱动开发", "舞弊偵測"]
-description: "审计 5,000 亿美元国家财政预算的自主 AI Agent 开发实录。深入剖析設計階段預防的 3 大難題及實裝中排除的 3 大致命 Bug。"
+description: "[模拟] 审计 5,000 亿美元国家财政预算的自主 AI Agent 开发实录。深入剖析設計階段預防的 3 大難題及實裝中排除的 3 大致命 Bug。"
 ---
+> **模拟说明 — 合成数据**
+> - 本文介绍的是**基于合成(生成)数据构建的模拟**。文中的“查处”、处分、追缴金额和案件数量不是真实的审计结果。
+> - 文中出现的机构、企业、地区、金额和文号均已**匿名化或替换为虚构值**,与真实对象相似并非有意为之。
+> - 错误日志、代码片段和性能数字是**为说明设计而重构的示例**,可能与代码仓库的运行记录或当前实现不一致。
+> - 除对政府采购(KONEPS)和开放财政数据(Open Fiscal Data)API 的有限调用外,文中提到的数据来源(DART、法人登记簿、e-Hojo+、K-EduFine、ALIO、NTIS 等)**并未接入**。基于公开数据的重建正在进行,结果只会作为“统计异常指标”发布,不会作为对特定对象的指控。
 
 ![Autonomous Public Budget Audit Agent](./images/01_autonomous_budget_audit_agent.png)
 

@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
 date: 2026-11-22
 keywords: ["Suíte de Auditoria 6 Setores", "Fracionamento de Contratos", "Gastos de Fim de Ano", "Detecção de Fraude IA", "Auditoria de Compras Públicas"]
-description: "Finalização da suíte de auditoria em 6 setores: Detecção de contratos fracionados sob isenção de US$ 40 mil e despejo orçamentário de fim de ano."
+description: "[Simulação] Finalização da suíte de auditoria em 6 setores: Detecção de contratos fracionados sob isenção de US$ 40 mil e despejo orçamentário de fim de ano."
 ---
+> **Aviso de simulação — dados sintéticos**
+> - Este artigo descreve uma **simulação construída com dados sintéticos (gerados)**. Os «achados», sanções, valores de recuperação e contagens não são resultados de auditoria reais.
+> - Todos os órgãos, empresas, regiões, valores e números de documento estão **anonimizados ou substituídos por valores fictícios**; qualquer semelhança com entidades reais não é intencional.
+> - Registros de erro, trechos de código e números de desempenho foram **reconstruídos para explicar o projeto** e podem não corresponder aos registros de execução nem à implementação atual do repositório.
+> - Exceto por chamadas limitadas às APIs de compras públicas (KONEPS) e do Open Fiscal Data, as fontes de dados citadas (DART, registros empresariais, e-Hojo+, K-EduFine, ALIO, NTIS etc.) **não estavam conectadas**. Uma reconstrução com dados públicos abertos está em andamento; os resultados serão publicados apenas como «indicadores estatísticos de anomalia», nunca como acusações.
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 

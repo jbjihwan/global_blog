@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
 date: 2026-11-22
 keywords: ["6대 표적 분할 감사", "여성기업 5천만원 특례 쪼개기", "연말 예산 불용 덤핑", "조달청 AI 이상탐지", "공공재정 감사"]
-description: "400만 건의 공공 조달에서 비리 사각지대를 타격하는 6대 표적 분할 감사 체계. 5천만원 특례 턱걸이 쪼개기와 12월 연말 예산 불용 덤핑 적발 및 트러블슈팅."
+description: "[시뮬레이션] 합성 계약으로 만들고 시험한, 수의계약 쪼개기와 12월 연말 몰아쓰기 6섹터 감사 스위트 프로토타입."
 ---
+> **시뮬레이션 안내 — 가상(합성) 데이터**
+> - 이 글은 **가상(합성) 데이터로 만든 시뮬레이션**을 다룹니다. 글에 나오는 «적발»·처분·환수액·건수는 실제 감사 결과가 아닙니다.
+> - 글에 나오는 기관·기업·지역·금액·문서번호는 모두 **익명화하거나 가상의 값으로 바꾼 것**이며, 실존 대상과 같더라도 의도한 것이 아닙니다.
+> - 오류 로그·코드 조각·성능 수치는 **설계를 설명하려고 재구성한 예시**이고, 저장소의 실행 기록이나 현재 구현과 일치하지 않을 수 있습니다.
+> - 조달청 계약정보와 열린재정 API를 제한적으로 호출한 것을 제외하면, 글에 나오는 데이터 출처(DART, 법인 등기부, e호조+, K-에듀파인, ALIO, NTIS 등)는 **연결하지 않았습니다**. 공개 데이터 기반 재구축을 진행 중이며, 결과는 «통계적 이상 징후 지표»로만 공개하고 특정 대상에 대한 단정으로 쓰지 않습니다.
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 
@@ -162,7 +167,7 @@ def normalize_estimated_price(contract_amount: int, is_vat_included: bool = True
 
 ### 5. 6대 섹터 마스터 러너 및 17개 전수 검증 통과
 
-우리는 `tools/run_all_sectors_audit.py`를 통해 6개 섹터를 원스톱 일괄 감사하고, 마스터 보고서([`ALL_SECTORS_COMPREHENSIVE_AUDIT_2026.md`](file:///D:/ai/antigravity/national_budget_ai/reports/ALL_SECTORS_COMPREHENSIVE_AUDIT_2026.md))를 자동으로 생성하는 엔드투엔드 파이프라인을 구축했습니다:
+우리는 `tools/run_all_sectors_audit.py`를 통해 6개 섹터를 원스톱 일괄 감사하고, 마스터 보고서를 자동으로 생성하는 엔드투엔드 파이프라인을 구축했습니다:
 
 ```bash
 ▶ [Sector 1 (공공기관 ICT 수의계약)] 타격 개시 -> SUCCESS!

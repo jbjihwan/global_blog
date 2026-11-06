@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["人頭圍標查處", "DART企業治理聯動", "工商登記AI分析", "實控人股權穿透", "GraphRAG圍標檢測"]
-description: "為攻克政府採購僅憑公開台賬無法穿透借名代持人頭的盲區，融合DART公司治理與工商登記底冊查處一人實際控制圍標團夥的技術實戰。"
+description: "[模擬] 為攻克政府採購僅憑公開台賬無法穿透借名代持人頭的盲區，融合DART公司治理與工商登記底冊查處一人實際控制圍標團夥的技術實戰。"
 ---
+> **模擬說明 — 合成資料**
+> - 本文介紹的是**以合成(生成)資料建構的模擬**。文中的「查處」、處分、追繳金額與案件數量並非真實的審計結果。
+> - 文中出現的機關、企業、地區、金額與文號均已**匿名化或替換為虛構值**,與真實對象相似並非有意為之。
+> - 錯誤日誌、程式碼片段與效能數字是**為說明設計而重構的範例**,可能與程式庫的執行紀錄或目前實作不一致。
+> - 除對政府採購(KONEPS)與開放財政資料(Open Fiscal Data)API 的有限呼叫外,文中提到的資料來源(DART、法人登記簿、e-Hojo+、K-EduFine、ALIO、NTIS 等)**並未接入**。以公開資料為基礎的重建正在進行,結果只會以「統計異常指標」公開,不會作為對特定對象的指控。
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **核心摘要 (Key Takeaways)**
-> - **技術攻克第2篇行業盲區**: 針對「僅憑採購台賬無法查出借名代持傀儡法人（人頭公司）」的痛點，全新構建了融合工商登記與DART監管披露的**股權穿透分析引擎([`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py))**。
+> - **技術攻克第2篇行業盲區**: 針對「僅憑採購台賬無法查出借名代持傀儡法人（人頭公司）」的痛點，全新構建了融合工商登記與DART監管披露的**股權穿透分析引擎**。
 > - **架構預判並解決2大難點**:
 >   1. 建立**三角雜湊索引橋**，化解稅號、企業登記號與DART代碼間的格式割裂。
 >   2. 設定**控制力顯著性閾值（高管任職 + 50%以上持股）**，杜絕海量無意義人際關係引發圖爆炸。

@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
 date: 2026-11-23
 keywords: ["Portail Web d'Audit", "Graphes Vis.js", "Parseur HWPX", "Vérification 20 tests", "IA budgétaire finale"]
-description: "Le grand final: Portail Web d'Audit v3.0 intégrant graphes Vis.js, jurisprudence de 10 ans, parseur HWPX et validation à 100% des 20 tests de vérification."
+description: "[Simulation] Le grand final: Portail Web d'Audit v3.0 intégrant graphes Vis.js, jurisprudence de 10 ans…"
 ---
+> **Avis de simulation — données synthétiques**
+> - Cet article décrit une **simulation construite sur des données synthétiques (générées)**. Les « constats », sanctions, montants de recouvrement et nombres de cas ne sont pas des résultats d'audit réels.
+> - Tous les organismes, entreprises, régions, montants et numéros de document sont **anonymisés ou remplacés par des valeurs fictives** ; toute ressemblance avec des entités réelles est involontaire.
+> - Les journaux d'erreurs, extraits de code et chiffres de performance ont été **reconstitués pour expliquer la conception** et peuvent ne pas correspondre aux journaux d'exécution ni à l'implémentation actuelle du dépôt.
+> - Hormis des appels limités aux API des marchés publics (KONEPS) et d'Open Fiscal Data, les sources de données citées (DART, registres du commerce, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) n'étaient **pas connectées**. Une reconstruction sur des données ouvertes publiques est en cours ; ses résultats ne seront publiés que sous forme d'« indicateurs statistiques d'anomalie », jamais comme des accusations.
 
 ![National Budget Inspector Web Portal v3.0 & 20/20 Verification](./images/01_national_budget_inspector_portal.png)
 

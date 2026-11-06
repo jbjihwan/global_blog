@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
 date: 2026-11-23
 keywords: ["監査官ウェブポータル", "Vis.js知識グラフ", "HWPX文書パーサー", "20全テスト検証", "国家予算AI監査完結"]
-description: "国家予算AI監査シリーズ完結編。Vis.js知識グラフ、10カ年判例DB、HWPX即時パーサーを統合した監査官ウェブポータルv3.0の構築と20の検証テスト通過記。"
+description: "[シミュレーション] 国家予算AI監査シリーズ完結編。Vis.js知識グラフ、10カ年判例DB、HWPX即時パーサーを統合した監査官ウェブポータルv3.0の構築と20の検証テスト通過記。"
 ---
+> **シミュレーションに関するお知らせ — 合成データ**
+> - この記事は**合成(生成)データで構築したシミュレーション**を扱っています。記事中の「摘発」、処分、回収額、件数は実際の監査結果ではありません。
+> - 記事に登場する機関・企業・地域・金額・文書番号はすべて**匿名化または架空の値に置き換えたもの**で、実在の対象との一致は意図したものではありません。
+> - エラーログ、コード断片、性能数値は**設計を説明するために再構成した例**であり、リポジトリの実行記録や現在の実装と一致しない場合があります。
+> - 調達庁(KONEPS)とOpen Fiscal DataのAPIを限定的に呼び出した点を除き、記事中のデータ源(DART、法人登記簿、e-Hojo+、K-EduFine、ALIO、NTISなど)には**接続していません**。公開データによる再構築を進めており、結果は「統計的異常指標」としてのみ公開し、特定対象への断定には用いません。
 
 ![National Budget Inspector Web Portal v3.0 & 20/20 Verification](./images/01_national_budget_inspector_portal.png)
 

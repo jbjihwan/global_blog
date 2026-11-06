@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["Cartel de Laranjas", "Registro Societário DART", "Beneficiário Efetivo", "GraphRAG Governança", "Fraude em Licitações"]
-description: "Integração do registro societário DART no GraphRAG para desmascarar laranjas e cartéis controlados por uma única pessoa em compras governamentais."
+description: "[Simulação] Integração do registro societário DART no GraphRAG para desmascarar laranjas e cartéis controlados por uma única pessoa em compras governamentais."
 ---
+> **Aviso de simulação — dados sintéticos**
+> - Este artigo descreve uma **simulação construída com dados sintéticos (gerados)**. Os «achados», sanções, valores de recuperação e contagens não são resultados de auditoria reais.
+> - Todos os órgãos, empresas, regiões, valores e números de documento estão **anonimizados ou substituídos por valores fictícios**; qualquer semelhança com entidades reais não é intencional.
+> - Registros de erro, trechos de código e números de desempenho foram **reconstruídos para explicar o projeto** e podem não corresponder aos registros de execução nem à implementação atual do repositório.
+> - Exceto por chamadas limitadas às APIs de compras públicas (KONEPS) e do Open Fiscal Data, as fontes de dados citadas (DART, registros empresariais, e-Hojo+, K-EduFine, ALIO, NTIS etc.) **não estavam conectadas**. Uma reconstrução com dados públicos abertos está em andamento; os resultados serão publicados apenas como «indicadores estatísticos de anomalia», nunca como acusações.
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **Principais Conclusões (Key Takeaways)**
-> - **Superação da Limitação Anterior**: Para desmantelar laranjas invisíveis nos portais de licitação, criamos o cliente [`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py) que cruza registros civis e demonstrações DART.
+> - **Superação da Limitação Anterior**: Para desmantelar laranjas invisíveis nos portais de licitação, criamos o cliente `CorporateRegistryClient` que cruza registros civis e demonstrações DART.
 > - **Prevenção Arquitetural**:
 >   1. Tabela hash tripla para resolver disparidades entre CNPJ, registro civil e códigos DART.
 >   2. Filtros de significância no grafo de conhecimento (diretores estatutários + cotas >50%).

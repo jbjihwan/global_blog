@@ -8,8 +8,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops, practice, ai, budget-audit]
 date: 2026-11-22
 keywords: ["6-Sector Targeted Audit", "Preferential Sole-Source Smurfing", "Fiscal Year-End Dumping", "Procurement Anomaly AI", "Public Budget Fraud"]
-description: "Completing the 6-sector targeted audit suite: Catching $40K preferential sole-source smurfing and December fiscal dumping across public procurement feeds."
+description: "[Simulation] A 6-sector audit suite prototype for sole-source splitting and December fiscal dumping, built and tested on synthetic contracts."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 

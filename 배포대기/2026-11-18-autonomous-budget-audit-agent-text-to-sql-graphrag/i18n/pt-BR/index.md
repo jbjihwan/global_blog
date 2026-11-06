@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
 date: 2026-11-18
 keywords: ["Arquitetura de Agentes de IA", "Text-to-SQL", "GraphRAG", "Spec-Driven Development", "Detecção de Fraude"]
-description: "Como construímos um agente de IA autônomo para auditar $500B em orçamentos públicos. 3 desafios prevenidos e 3 bugs críticos resolvidos em produção."
+description: "[Simulação] Como construímos um agente de IA autônomo para auditar $500B em orçamentos públicos. 3 desafios prevenidos e 3 bugs críticos resolvidos em produção."
 ---
+> **Aviso de simulação — dados sintéticos**
+> - Este artigo descreve uma **simulação construída com dados sintéticos (gerados)**. Os «achados», sanções, valores de recuperação e contagens não são resultados de auditoria reais.
+> - Todos os órgãos, empresas, regiões, valores e números de documento estão **anonimizados ou substituídos por valores fictícios**; qualquer semelhança com entidades reais não é intencional.
+> - Registros de erro, trechos de código e números de desempenho foram **reconstruídos para explicar o projeto** e podem não corresponder aos registros de execução nem à implementação atual do repositório.
+> - Exceto por chamadas limitadas às APIs de compras públicas (KONEPS) e do Open Fiscal Data, as fontes de dados citadas (DART, registros empresariais, e-Hojo+, K-EduFine, ALIO, NTIS etc.) **não estavam conectadas**. Uma reconstrução com dados públicos abertos está em andamento; os resultados serão publicados apenas como «indicadores estatísticos de anomalia», nunca como acusações.
 
 ![Autonomous Public Budget Audit Agent](./images/01_autonomous_budget_audit_agent.png)
 

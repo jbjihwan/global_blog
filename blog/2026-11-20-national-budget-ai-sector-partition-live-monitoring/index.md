@@ -8,8 +8,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops, practice, ai, budget-audit]
 date: 2026-11-20
 keywords: ["Public Budget AI", "3D Sector Partitioning", "KONEPS Live API", "Procurement Noise Filter", "Auditor Web Portal"]
-description: "Filtering 85% procurement noise via 3D sector partitioning and building an interactive auditor web portal v2.0 connected live to public procurement APIs."
+description: "[Simulation] Sector partitioning to cut procurement noise, plus an auditor web portal prototype with limited calls to public procurement APIs."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![3D Sector Partitioning & Live Audit Web Portal](./images/01_national_budget_sector_live_monitor.png)
 
@@ -29,7 +34,7 @@ description: "Filtering 85% procurement noise via 3D sector partitioning and bui
 ### ⚠️ Legal Notice & Anonymization
 
 > **[Notice] All entities, contract identifiers, and locations in this report are strictly anonymized.**  
-> This post shares engineering evaluation results from a live autonomous AI audit system. To prevent legal disputes and protect organizational reputations, all contracting authorities (e.g., `Agency A`, `Corporation B`), corporate contractors (e.g., `Company A`, `Company B`), contract serial numbers (e.g., `CNTR-2026-0001`), and physical office addresses have been completely masked and pseudonymized.
+> This post shares engineering evaluation results from a simulated autonomous AI audit system built on synthetic data. To prevent legal disputes and protect organizational reputations, all contracting authorities (e.g., `Agency A`, `Corporation B`), corporate contractors (e.g., `Company A`, `Company B`), contract serial numbers (e.g., `CNTR-2026-0001`), and physical office addresses have been completely masked and pseudonymized.
 
 ---
 
@@ -41,7 +46,7 @@ However, moving from isolated test benches to **connecting directly to live publ
 
 Every single day, public sector agencies process tens of thousands of purchase orders. Over 85% of them are routine, benign transactions: office paper, cleaning contracts, and printer cartridges. **If an AI agent naively inspects every single line item and raises flags on minor statistical variances, human auditors quickly suffer from alert fatigue and abandon the tool.**
 
-In this third installment of our Spec-Driven Development (SDD) case study on [`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai), we detail **(1) how we preempted data noise through 3D sector partitioning**, and **(2) how we overcame 3 unexpected production bugs while streaming live procurement records into Inspector Web Portal v2.0**.
+In this third installment of our Spec-Driven Development (SDD) case study on `national_budget_ai`, we detail **(1) how we preempted data noise through 3D sector partitioning**, and **(2) how we overcame 3 unexpected production bugs while streaming live procurement records into Inspector Web Portal v2.0**.
 
 ---
 

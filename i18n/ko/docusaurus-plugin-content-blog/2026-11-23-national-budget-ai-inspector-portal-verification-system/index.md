@@ -8,8 +8,13 @@ authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops, practice, ai, budget-audit]
 date: 2026-11-23
 keywords: ["감사관 종합 웹 포털", "Vis.js 지식그래프", "HWPX 공문서 파서", "20개 테스트 전수 검증", "국가예산 AI 감사 완결"]
-description: "국가 예산 AI 감사 시리즈 완결편. Vis.js 지식그래프, 10개년 판례 DB, HWPX 파서를 결합한 감사관 웹 포털 v3.0 구축과 20개 테스트 하네스 전수 통과기."
+description: "[시뮬레이션] 지식 그래프 시각화·선례 검색·종단 간 테스트 하네스를 갖춘 감사관 웹 포털 프로토타입."
 ---
+> **시뮬레이션 안내 — 가상(합성) 데이터**
+> - 이 글은 **가상(합성) 데이터로 만든 시뮬레이션**을 다룹니다. 글에 나오는 «적발»·처분·환수액·건수는 실제 감사 결과가 아닙니다.
+> - 글에 나오는 기관·기업·지역·금액·문서번호는 모두 **익명화하거나 가상의 값으로 바꾼 것**이며, 실존 대상과 같더라도 의도한 것이 아닙니다.
+> - 오류 로그·코드 조각·성능 수치는 **설계를 설명하려고 재구성한 예시**이고, 저장소의 실행 기록이나 현재 구현과 일치하지 않을 수 있습니다.
+> - 조달청 계약정보와 열린재정 API를 제한적으로 호출한 것을 제외하면, 글에 나오는 데이터 출처(DART, 법인 등기부, e호조+, K-에듀파인, ALIO, NTIS 등)는 **연결하지 않았습니다**. 공개 데이터 기반 재구축을 진행 중이며, 결과는 «통계적 이상 징후 지표»로만 공개하고 특정 대상에 대한 단정으로 쓰지 않습니다.
 
 ![National Budget Inspector Web Portal v3.0 & 20/20 Verification](./images/01_national_budget_inspector_portal.png)
 

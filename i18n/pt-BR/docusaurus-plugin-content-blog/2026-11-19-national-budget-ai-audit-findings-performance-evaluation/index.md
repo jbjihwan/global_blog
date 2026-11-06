@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
 date: 2026-11-19
 keywords: ["Auditoria Orçamento IA", "Fraude em Licitações", "Avaliação Text-to-SQL", "Precisão GraphRAG", "Agente Autônomo de Auditoria"]
-description: "Resultados preliminares da auditoria de orçamento público com IA: Casos anonimizados de cartéis, contratos fracionados e superfaturamento de 10x."
+description: "[Simulação] Resultados preliminares da auditoria de orçamento público com IA: Casos anonimizados de cartéis, contratos fracionados e superfaturamento de 10x."
 ---
+> **Aviso de simulação — dados sintéticos**
+> - Este artigo descreve uma **simulação construída com dados sintéticos (gerados)**. Os «achados», sanções, valores de recuperação e contagens não são resultados de auditoria reais.
+> - Todos os órgãos, empresas, regiões, valores e números de documento estão **anonimizados ou substituídos por valores fictícios**; qualquer semelhança com entidades reais não é intencional.
+> - Registros de erro, trechos de código e números de desempenho foram **reconstruídos para explicar o projeto** e podem não corresponder aos registros de execução nem à implementação atual do repositório.
+> - Exceto por chamadas limitadas às APIs de compras públicas (KONEPS) e do Open Fiscal Data, as fontes de dados citadas (DART, registros empresariais, e-Hojo+, K-EduFine, ALIO, NTIS etc.) **não estavam conectadas**. Uma reconstrução com dados públicos abertos está em andamento; os resultados serão publicados apenas como «indicadores estatísticos de anomalia», nunca como acusações.
 
 ![National Budget AI Audit Findings](./images/01_national_budget_audit_findings.png)
 
 > 📌 **Principais Conclusões (Key Takeaways)**
-> - **Execução Intermediária**: Nosso agente autônomo de auditoria ([`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai)) realizou uma varredura completa sobre dados reais de compras públicas (5 programas e 6 contratos chave).
+> - **Execução Intermediária**: Nosso agente autônomo de auditoria realizou uma varredura completa sobre dados simulados (sintéticos) de compras públicas (5 programas e 6 contratos chave).
 > - **4 Fraudes Críticas Detectadas (Totalmente Anonimizadas)**:
 >   1. **Fracionamento de Licitação**: Divisão de contratos abaixo do teto de dispensa ($20.000) em 12 dias para fugir da concorrência aberta ($43.000 no total).
 >   2. **Cartel de Empresas Fantasma com Mesmo Endereço**: 3 empresas registradas na mesma sala simulando concorrência pública.

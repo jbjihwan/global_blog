@@ -1,12 +1,17 @@
 ---
 slug: national-budget-education-grant-audit
-title: "Public Budget AI #8: 17 Education Offices Grant Audit"
+title: "Public Budget AI #8: Education Grant Audit Simulation"
 authors: [jbgih]
 tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx]
 date: 2026-11-30
 keywords: ["K-EduFine", "Education Grant Audit", "17 Education Offices", "Bidding Collusion", "HWPX Sanctions", "Local Education Grant Act"]
-description: "Auditing 9.08T KRW across 17 education offices via K-EduFine to detect smart device collusion, split contracts, and issue 2.41T KRW HWPX sanctions."
+description: "[Simulation] A synthetic-data simulation of auditing 17 education offices' grants: smart-device collusion, split contracts, and sample notices."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![Public Budget AI #8: 17 Education Offices Local Education Grant Audit AI Pipeline](./images/01_cover.png)
 
@@ -26,7 +31,7 @@ description: "Auditing 9.08T KRW across 17 education offices via K-EduFine to de
 ### ⚖️ Legal Notice & Anonymization
 
 > **[Notice] All data contained herein has been rigorously pseudonymized to prevent legal disputes.**  
-> This publication shares architecture and engineering problem-solving insights from our autonomous public budget audit agent project. To protect institutional integrity, **all individual school identifiers (`Elementary School A`, `High School B`), vendor consortia (`Supplier Alpha`, `Tech Corp Beta`), bank branches, and contract codes (`EDUTR-2026-○○○○`) have been 100% pseudonymized**. Financial figures and statutory frameworks reflect real-world national auditing criteria.
+> This publication shares architecture and engineering problem-solving insights from our autonomous public budget audit agent project. To protect institutional integrity, **all individual school identifiers (`Elementary School A`, `High School B`), vendor consortia (`Supplier Alpha`, `Tech Corp Beta`), bank branches, and contract codes (`EDUTR-2026-○○○○`) have been 100% pseudonymized**. Financial figures are simulated values, and statutory references are illustrative and have not been legally reviewed.
 
 ---
 
@@ -105,10 +110,10 @@ Traceback (most recent call last):
     cursor.execute(sql, params)
 sqlite3.IntegrityError: UNIQUE constraint failed: edufine_grants.grant_tx_hash
 
-During secondary parsing of Seoul Office:
+During secondary parsing of Office S:
 KeyError: 'EDUSYS_SCH_CD' (Found 'NEIS_INST_CD' in metadata payload)
 ```
-- **The Pitfall**: In Seoul and Gyeonggi, school entities were keyed under `NEIS_INST_CD`, while smaller provincial offices used `EDUSYS_SCH_CD`. A naive hash generator using only school ID and transaction amount resulted in identical hash strings (`48a1c9ef00b`) colliding across different provinces, terminating the ingestion worker.
+- **The Pitfall**: In Offices S and G, school entities were keyed under `NEIS_INST_CD`, while smaller provincial offices used `EDUSYS_SCH_CD`. A naive hash generator using only school ID and transaction amount resulted in identical hash strings (`48a1c9ef00b`) colliding across different provinces, terminating the ingestion worker.
 
 #### Error 2: Memory Exhaustion and Graph Recursion Crash on School Splitting Transaction Trees
 When tracking year-end facility split contracts under 20 million KRW, our initial bipartite graph algorithm recursively traced subcontracting loops:
@@ -133,7 +138,7 @@ When producing the 17 official mayoral/superintendent sanction documents in KS X
 [ERROR] 2026-11-30 02:49:05,312 - education_sanction_hwpx_builder - Validation Error on HWPX XML
 xml.etree.ElementTree.ParseError: mismatched tag in Contents/section0.xml: line 184, column 22
 (Found </hp:tc>, expected </hp:cellSpan>)
-Failed generating sanction notice for: Chungbuk Office of Education
+Failed generating sanction notice for: Office C of Education
 ```
 - **The Pitfall**: The HWPX XML specification requires explicit column-span (`colSpan`) and row-span declarations with balanced closing tags (`</hp:tc>`). Unvalidated dynamic string formatting generated mismatched column indices when violation counts varied between 10 and 26 cases per office, breaking document parser validation.
 
@@ -232,7 +237,7 @@ Failed generating sanction notice for: Chungbuk Office of Education
 
 ### 4. Nationwide Verification & Audit Findings (전수 검증 성과)
 
-Running the automated test harness [`verify_education_grant_audit.py`](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/tools/verify_education_grant_audit.py) verified 100% integrity across all 5 verification dimensions:
+Running the automated test harness `verify_education_grant_audit.py` verified 100% integrity across all 5 verification dimensions:
 
 ```bash
 $ python -X utf8 D:\ai\antigravity\national_budget_ai\education_grant_audit\tools\verify_education_grant_audit.py
@@ -256,7 +261,7 @@ $ python -X utf8 D:\ai\antigravity\national_budget_ai\education_grant_audit\tool
 ```
 
 #### National Education Grant Master Ledger Summary
-Compiled from [`EDUCATION_GRANT_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/EDUCATION_GRANT_AUDIT_LEDGER.md):
+Compiled from `EDUCATION_GRANT_AUDIT_LEDGER.md`:
 
 | Core Audit Metric | Full Audit Value | Verification Note |
 | :--- | :--- | :--- |
@@ -269,11 +274,11 @@ Compiled from [`EDUCATION_GRANT_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/nati
 | **Official Superintendent Sanctions**| **17 Legal Notices** | KS X 6101 HWPX & MD official government orders dispatched |
 
 #### Top 5 Education Offices by Sanction & Clawback Volume
-1. **Daejeon (대전광역시교육청)**: 0.76T KRW audited, 26 flagged cases, **0.24T KRW sanction ordered** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/대전광역시교육청_교부금_시정명령서.hwpx)).
-2. **Chungbuk (충청북도교육청)**: 0.55T KRW audited, 23 flagged cases, **0.23T KRW sanction ordered** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/충청북도교육청_교부금_시정명령서.hwpx)).
-3. **Incheon (인천광역시교육청)**: 0.73T KRW audited, 20 flagged cases, **0.19T KRW sanction ordered** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/인천광역시교육청_교부금_시정명령서.hwpx)).
-4. **Gyeongnam (경상남도교육청)**: 0.72T KRW audited, 20 flagged cases, **0.17T KRW sanction ordered** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/경상남도교육청_교부금_시정명령서.hwpx)).
-5. **Chungnam (충청남도교육청)**: 0.49T KRW audited, 16 flagged cases, **0.15T KRW sanction ordered** ([HWPX Notice](file:///D:/ai/antigravity/national_budget_ai/education_grant_audit/reports/sanctions/충청남도교육청_교부금_시정명령서.hwpx)).
+1. **Office A**: 0.76T KRW audited, 26 flagged cases, **0.24T KRW sanction ordered**.
+2. **Office B**: 0.55T KRW audited, 23 flagged cases, **0.23T KRW sanction ordered**.
+3. **Office C**: 0.73T KRW audited, 20 flagged cases, **0.19T KRW sanction ordered**.
+4. **Office D**: 0.72T KRW audited, 20 flagged cases, **0.17T KRW sanction ordered**.
+5. **Office E**: 0.49T KRW audited, 16 flagged cases, **0.15T KRW sanction ordered**.
 
 ---
 

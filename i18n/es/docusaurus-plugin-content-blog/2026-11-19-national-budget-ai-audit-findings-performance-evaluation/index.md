@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
 date: 2026-11-19
 keywords: ["Auditoría Presupuesto IA", "Fraude en Compras Públicas", "Evaluación Text-to-SQL", "Precisión GraphRAG", "Agente Autónomo"]
-description: "Resultados provisionales de auditoría de presupuestos públicos con IA: Casos anonimizados de cárteles, contratos divididos y sobreprecios de 10x."
+description: "[Simulación] Resultados provisionales de auditoría de presupuestos públicos con IA: Casos anonimizados de cárteles, contratos divididos y sobreprecios de 10x."
 ---
+> **Aviso de simulación — datos sintéticos**
+> - Esta entrada describe una **simulación construida con datos sintéticos (generados)**. Los «hallazgos», sanciones, importes de recuperación y recuentos no son resultados de auditoría reales.
+> - Todos los organismos, empresas, regiones, importes y números de documento están **anonimizados o sustituidos por valores ficticios**; cualquier parecido con entidades reales no es intencionado.
+> - Los registros de error, fragmentos de código y cifras de rendimiento fueron **reconstruidos para explicar el diseño** y pueden no coincidir con los registros de ejecución ni con la implementación actual del repositorio.
+> - Salvo llamadas limitadas a las API de contratación pública (KONEPS) y de Open Fiscal Data, las fuentes de datos mencionadas (DART, registros mercantiles, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) **no estaban conectadas**. Se está reconstruyendo el sistema con datos abiertos públicos; los resultados se publicarán solo como «indicadores estadísticos de anomalía», nunca como acusaciones.
 
 ![National Budget AI Audit Findings](./images/01_national_budget_audit_findings.png)
 
 > 📌 **Puntos Clave (Key Takeaways)**
-> - **Despliegue Provisional**: Ejecutamos nuestro agente de auditoría autónomo ([`national_budget_ai`](file:///D:/ai/antigravity/national_budget_ai)) sobre registros reales de contratación pública (5 programas y 6 contratos clave).
+> - **Despliegue Provisional**: Ejecutamos nuestro agente de auditoría autónomo sobre datos de contratación pública simulados (sintéticos) (5 programas y 6 contratos clave).
 > - **4 Fraudes Detectados (Completamente Anonimizados)**:
 >   1. **Contratos Divididos (Smurfing)**: Fraccionamiento de proyectos bajo el umbral de $20,000 durante 12 días para eludir licitaciones abiertas ($43,000 en total).
 >   2. **Cártel con Dirección Compartida**: 3 empresas fantasma registradas en la misma sala ganando licitaciones públicas.

@@ -3,13 +3,18 @@ slug: national-budget-surveillance-automated-audit-ledger
 category_l1: practice
 category_l2: ai
 category_l3: project-budget
-title: "국가 예산 AI 감사 #9: 23,825건 이상징후 전수 감시와 5대 판정 자동 의결 시스템"
+title: "국가 예산 AI 감사 #9: 합성 이상징후 23,825건 자동 판정 시뮬레이션"
 authors: [jbgih]
 tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance, practice, ai, budget-audit]
 date: 2026-12-02
 keywords: ["국가 예산 AI 전수 감시", "23825건 예산 이상징후 감사", "5대 판정 자동 의결 엔진", "SQLite WAL 고속 감사", "누적 감사 대장 편철", "재정 삭감 자동화"]
-description: "677.4조 국가 예산 23,825건 이상징후 세목 전수 감시: 5대 표준 판정 엔진, SQLite WAL 기반 121.7조 감액 의결 대장 구축기."
+description: "[시뮬레이션] 합성 예산 이상 징후 23,825건 검토 자동화: 5지선다 판정 매트릭스, SQLite WAL 배치 파이프라인, 대장."
 ---
+> **시뮬레이션 안내 — 가상(합성) 데이터**
+> - 이 글은 **가상(합성) 데이터로 만든 시뮬레이션**을 다룹니다. 글에 나오는 «적발»·처분·환수액·건수는 실제 감사 결과가 아닙니다.
+> - 글에 나오는 기관·기업·지역·금액·문서번호는 모두 **익명화하거나 가상의 값으로 바꾼 것**이며, 실존 대상과 같더라도 의도한 것이 아닙니다.
+> - 오류 로그·코드 조각·성능 수치는 **설계를 설명하려고 재구성한 예시**이고, 저장소의 실행 기록이나 현재 구현과 일치하지 않을 수 있습니다.
+> - 조달청 계약정보와 열린재정 API를 제한적으로 호출한 것을 제외하면, 글에 나오는 데이터 출처(DART, 법인 등기부, e호조+, K-에듀파인, ALIO, NTIS 등)는 **연결하지 않았습니다**. 공개 데이터 기반 재구축을 진행 중이며, 결과는 «통계적 이상 징후 지표»로만 공개하고 특정 대상에 대한 단정으로 쓰지 않습니다.
 
 ![국가 예산 AI 감사 #9 커버](./images/01_cover.png)
 
@@ -22,7 +27,7 @@ description: "677.4조 국가 예산 23,825건 이상징후 세목 전수 감시
 > - **프로덕션 해결책**:
 >   1. SQLite를 `WAL(Write-Ahead Logging)` 모드로 전환하고 `PRAGMA synchronous = NORMAL` 및 1,000건 청크 트랜잭션을 적용하여 처리 속도를 초당 95,000건(전체 0.25초)으로 82배 가속.
 >   2. 형법/특경가법 우선순위 오버라이드 룰과 감액 상한 통제(`clamp(cut, 0, budget * 0.70)`)를 갖춘 `PriorityDecisionArbiter` 설계.
->   3. HTML 엔티티 치환 기반 테이블 정규화기를 도입하여 누적 감사 대장([`CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/reports/CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md))에 총 23,911건, **121조 7,184억 원**의 감액 의결을 단일 결함 없이 완벽 편철.
+>   3. HTML 엔티티 치환 기반 테이블 정규화기를 도입하여 누적 감사 대장에 총 23,911건, **121조 7,184억 원**의 감액 의결을 단일 결함 없이 완벽 편철.
 
 {/* truncate */}
 
@@ -107,7 +112,7 @@ ValueError: Proposed reduction (55.0B KRW) exceeds total project appropriation (
 
 #### 오류 3: 마크다운 파이프(`|`) 기호로 인한 테이블 파손 및 렌더링 중단
 
-국회 예결위에 제출할 누적 감사 대장 파일([`CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md`](file:///D:/ai/antigravity/national_budget_ai/reports/CUMULATIVE_SURVEILLANCE_AUDIT_LEDGER.md))을 마크다운 표로 렌더링할 때, 공공 조달 사업명에 포함된 `|`(파이프) 문자나 줄바꿈이 파싱을 깨뜨렸습니다.
+국회 예결위에 제출할 누적 감사 대장 파일을 마크다운 표로 렌더링할 때, 공공 조달 사업명에 포함된 `|`(파이프) 문자나 줄바꿈이 파싱을 깨뜨렸습니다.
 
 ```text
 | 1316576 | 스마트상점 기술보급 | 민간위탁 | 500억 | 선택지 1 | 원안 감액 |

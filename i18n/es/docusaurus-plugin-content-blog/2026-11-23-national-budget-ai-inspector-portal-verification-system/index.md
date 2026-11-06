@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
 date: 2026-11-23
 keywords: ["Portal Web de Auditoría", "Grafos Vis.js", "Parser HWPX", "Verificación 20 tests", "IA presupuestaria final"]
-description: "Episodio final: Portal Web de Auditoría v3.0 con grafos Vis.js, búsqueda de precedentes de 10 años, analizador HWPX y superación de 20 tests de verificación."
+description: "[Simulación] Episodio final: Portal Web de Auditoría v3.0 con grafos Vis.js, búsqueda de precedentes de 10 años…"
 ---
+> **Aviso de simulación — datos sintéticos**
+> - Esta entrada describe una **simulación construida con datos sintéticos (generados)**. Los «hallazgos», sanciones, importes de recuperación y recuentos no son resultados de auditoría reales.
+> - Todos los organismos, empresas, regiones, importes y números de documento están **anonimizados o sustituidos por valores ficticios**; cualquier parecido con entidades reales no es intencionado.
+> - Los registros de error, fragmentos de código y cifras de rendimiento fueron **reconstruidos para explicar el diseño** y pueden no coincidir con los registros de ejecución ni con la implementación actual del repositorio.
+> - Salvo llamadas limitadas a las API de contratación pública (KONEPS) y de Open Fiscal Data, las fuentes de datos mencionadas (DART, registros mercantiles, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) **no estaban conectadas**. Se está reconstruyendo el sistema con datos abiertos públicos; los resultados se publicarán solo como «indicadores estadísticos de anomalía», nunca como acusaciones.
 
 ![National Budget Inspector Web Portal v3.0 & 20/20 Verification](./images/01_national_budget_inspector_portal.png)
 

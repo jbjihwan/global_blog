@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
 date: 2026-11-22
 keywords: ["6-Sektor-Prüfsuite", "Stückelungsverträge", "Jahresend-Etatausgaben", "Vergabebetrug KI", "Haushaltsprüfung"]
-description: "Abschluss der 6-Sektor-Prüfsuite: Aufdeckung von Stückelungsverträgen unter Ausnutzung von 40.000-$-Sonderregeln und Jahresend-Etatsausgaben."
+description: "[Simulation] Abschluss der 6-Sektor-Prüfsuite: Aufdeckung von Stückelungsverträgen unter Ausnutzung von 40.000-$-Sonderregeln und Jahresend-Etatsausgaben."
 ---
+> **Hinweis zur Simulation — synthetische Daten**
+> - Dieser Beitrag beschreibt eine **Simulation auf Basis synthetischer (erzeugter) Daten**. Die genannten „Befunde“, Sanktionen, Rückforderungsbeträge und Fallzahlen sind keine realen Prüfergebnisse.
+> - Alle Behörden, Unternehmen, Regionen, Beträge und Aktenzeichen sind **anonymisiert oder durch fiktive Werte ersetzt**; Ähnlichkeiten mit realen Stellen sind nicht beabsichtigt.
+> - Fehlerprotokolle, Codeausschnitte und Benchmark-Zahlen wurden **zur Erläuterung des Entwurfs rekonstruiert** und stimmen möglicherweise nicht mit den Laufprotokollen oder der aktuellen Implementierung des Repositorys überein.
+> - Abgesehen von begrenzten Abrufen der APIs für öffentliche Beschaffung (KONEPS) und Open Fiscal Data waren die genannten Datenquellen (DART, Handelsregister, e-Hojo+, K-EduFine, ALIO, NTIS usw.) **nicht angebunden**. Ein Neuaufbau auf öffentlichen Open Data läuft; Ergebnisse werden nur als „statistische Anomalie-Indikatoren“ veröffentlicht, nie als Anschuldigungen.
 
 ![6-Sector Targeted Audit: Divide & Conquer Suite](./images/01_national_budget_6_sector_suite.png)
 

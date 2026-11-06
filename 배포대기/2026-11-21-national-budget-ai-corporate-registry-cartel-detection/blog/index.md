@@ -5,13 +5,18 @@ authors: [jbgih]
 tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
 date: 2026-11-21
 keywords: ["Public Budget AI", "Corporate Registry DART", "Borrowed-Name Cartel", "GraphRAG Governance", "Beneficial Ownership"]
-description: "Overcoming borrowed-name blind spots by integrating DART corporate governance and company registries to detect 1-person controlled bidding cartels."
+description: "[Simulation] A prototype that links governance data to expose borrowed-name bidding cartels, using a fictional company registry."
 ---
+> **Simulation notice — synthetic data**
+> - This post describes a **simulation built on synthetic (generated) data**. The "findings", sanctions, recovery amounts and counts are not real audit results.
+> - Every agency, company, region, amount and document number is **anonymized or replaced with a fictional value**; any resemblance to real entities is unintended.
+> - Error logs, code excerpts and benchmark figures were **reconstructed to explain the design** and may not match the repository's run records or current implementation.
+> - Apart from limited calls to the public procurement (KONEPS) and Open Fiscal Data APIs, the data sources named here (DART, corporate registries, e-Hojo+, K-EduFine, ALIO, NTIS, etc.) were **not connected**. A rebuild on public open data is in progress; its results will be published only as "statistical anomaly indicators", never as accusations.
 
 ![Breaking Cartels: Corporate Registry & DART Integration](./images/01_national_budget_corporate_registry.png)
 
 > 📌 **Key Takeaways**
-> - **Overcoming the Field Limitation**: Addressing our honest admission from Part 2 that *"procurement logs alone cannot identify borrowed-name dummy CEOs and decentralized shells"*, we built a real-time corporate governance ingestion client ([`CorporateRegistryClient`](file:///D:/ai/antigravity/national_budget_ai/src/pipeline/corporate_registry_client.py)) integrating DART filings and supreme court corporate registries.
+> - **Overcoming the Field Limitation**: Addressing our honest admission from Part 2 that *"procurement logs alone cannot identify borrowed-name dummy CEOs and decentralized shells"*, we built a real-time corporate governance ingestion client integrating DART filings and supreme court corporate registries.
 > - **2 Preempted Architectural Hurdles**:
 >   1. Resolved identifier fragmentation across Tax IDs (10-digits), Court IDs (13-digits), and DART codes (8-digits) via a **3-way hash index bridge**.
 >   2. Prevented knowledge graph explosion by enforcing **governance significance thresholds (executive seats + 50%+ equity)**.

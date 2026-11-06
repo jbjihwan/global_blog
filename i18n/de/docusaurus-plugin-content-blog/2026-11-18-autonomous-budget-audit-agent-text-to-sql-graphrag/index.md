@@ -5,8 +5,13 @@ authors: [jbgih]
 tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
 date: 2026-11-18
 keywords: ["KI-Agenten-Architektur", "Text-to-SQL", "GraphRAG", "Spec-Driven Development", "Betrugserkennung"]
-description: "Wie wir einen autonomen KI-Agenten zur Prüfung von 500 Mrd. $ Haushaltsausgaben bauten. 3 verhinderte Hürden und 3 gelöste Produktionsfehler im Detail."
+description: "[Simulation] Wie wir einen autonomen KI-Agenten zur Prüfung von 500 Mrd. $ Haushaltsausgaben bauten. 3 verhinderte Hürden und 3 gelöste Produktionsfehler im…"
 ---
+> **Hinweis zur Simulation — synthetische Daten**
+> - Dieser Beitrag beschreibt eine **Simulation auf Basis synthetischer (erzeugter) Daten**. Die genannten „Befunde“, Sanktionen, Rückforderungsbeträge und Fallzahlen sind keine realen Prüfergebnisse.
+> - Alle Behörden, Unternehmen, Regionen, Beträge und Aktenzeichen sind **anonymisiert oder durch fiktive Werte ersetzt**; Ähnlichkeiten mit realen Stellen sind nicht beabsichtigt.
+> - Fehlerprotokolle, Codeausschnitte und Benchmark-Zahlen wurden **zur Erläuterung des Entwurfs rekonstruiert** und stimmen möglicherweise nicht mit den Laufprotokollen oder der aktuellen Implementierung des Repositorys überein.
+> - Abgesehen von begrenzten Abrufen der APIs für öffentliche Beschaffung (KONEPS) und Open Fiscal Data waren die genannten Datenquellen (DART, Handelsregister, e-Hojo+, K-EduFine, ALIO, NTIS usw.) **nicht angebunden**. Ein Neuaufbau auf öffentlichen Open Data läuft; Ergebnisse werden nur als „statistische Anomalie-Indikatoren“ veröffentlicht, nie als Anschuldigungen.
 
 ![Autonomous Public Budget Audit Agent](./images/01_autonomous_budget_audit_agent.png)
 
