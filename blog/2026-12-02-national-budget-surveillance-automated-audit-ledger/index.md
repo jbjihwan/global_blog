@@ -1,8 +1,11 @@
 ---
 slug: national-budget-surveillance-automated-audit-ledger
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #9: 23,825 Budget Anomaly Automated Audit Engine"
 authors: [jbgih]
-tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance]
+tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance, practice, ai, budget-audit]
 date: 2026-12-02
 keywords: ["Public Budget AI Surveillance", "23825 Anomaly Sub-items Audit", "5-Option Decision Engine", "SQLite WAL High Throughput", "Cumulative Audit Ledger", "Fiscal Sanction Automation"]
 description: "Automating full-scale audit of 23,825 budget anomalies across 677.4T KRW: 5-option decision matrix, SQLite WAL batch pipeline, and 121.7T KRW cut ledger."

@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-7-open-ended-evolution-adas-ai-scientist-alphaevolve
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "스탠포드 CS329A (7강): 개방형 진화 — ADAS, The AI Scientist, AlphaEvolve: 코드가 유전자가 될 때"
 authors: [jbgih]
-tags: [스탠포드 CS329A, 개방형 진화, ADAS, AI Scientist, AlphaEvolve, 메타 에이전트, 유전 프로그래밍, LLM 자가 진화]
+tags: [스탠포드 CS329A, 개방형 진화, ADAS, AI Scientist, AlphaEvolve, 메타 에이전트, 유전 프로그래밍, LLM 자가 진화, theory, ai, lecture, stanford-cs329a]
 keywords: [Open-Ended Evolution LLM, Automated Design of Agentic Systems ADAS, The AI Scientist Sakana, Autonomous Machine Learning Discovery, Self-Referential Code Evolution]
 description: "스탠포드 CS329A 7강 해설: 튜링 완전한 파이썬 코드로 새 에이전트 아키텍처를 발명하는 ADAS, 전자동 과학 연구 시스템 The AI Scientist, 그리고 56년 묵은 수학 난제를 해결한 AlphaEvolve의 원리를 파헤칩니다."
 date: 2026-11-07T10:00:00.000Z

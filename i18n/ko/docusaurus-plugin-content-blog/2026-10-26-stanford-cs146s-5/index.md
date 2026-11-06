@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-26-stanford-cs146s-5
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #5] 멀티 에이전트 시스템과 스웜 오케스트레이션: 아키텍트, 구현자, 비평가 LLM의 자율 협업 아키텍처"
 authors: [jbgih]
-tags: [stanford, cs146s, multi-agent-systems, swarm-orchestration, llm-agents, software-engineering, distributed-systems]
+tags: [stanford, cs146s, multi-agent-systems, swarm-orchestration, llm-agents, software-engineering, distributed-systems, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-26
 keywords: [멀티 에이전트 LLM 오케스트레이션, 아키텍트 구현자 비평가 패턴, 자율 스웜 코드 생성, 방향성 비순환 그래프 DAG 에이전트, 에이전트 간 통신 프로토콜]
 description: "스탠포드 CS146S 5강에서는 단일 컨텍스트 LLM의 스케일링 한계를 극복하는 멀티 에이전트 스웜(Swarm) 아키텍처를 다룹니다. 아키텍트(설계), 구현자(코딩), 비평가(검증)의 전문 에이전트 분리와 정형화된 JSON 및 DAG 기반 비동기 오케스트레이션 기법을 심층 분석합니다."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-28-vision-anpr-4
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] 저화질 블랙박스 뭉개짐 극복: EDSR 딥러닝 초해상화와 다중 프레임 스태킹 노이즈 제거 (#4)"
 authors: [jbgih]
-tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learning, python]
+tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learning, python, practice, ai, cv]
 date: 2026-06-28
 project: anpr_vision
 description: "크롭된 저해상도 번호판 패치를 4배 복원하는 EDSR 딥러닝 초해상화와 연속 프레임 평균화(Image Stacking)를 통한 센서 노이즈 제거 기법."

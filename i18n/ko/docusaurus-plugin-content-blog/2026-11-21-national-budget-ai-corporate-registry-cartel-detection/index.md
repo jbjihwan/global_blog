@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-corporate-registry-cartel-detection
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #4] 바지사장 카르텔 격파: DART 지배구조 연계와 실소유주 추적"
 authors: [jbgih]
-tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
+tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops, practice, ai, budget-audit]
 date: 2026-11-21
 keywords: ["바지사장 카르텔 적발", "DART 기업 지배구조 연계", "법인등기부 AI 분석", "실소유주 추적", "GraphRAG 카르텔"]
 description: "2편에서 고백한 차명 대표자(바지사장) 한계를 극복하기 위해 DART 공시와 법인등기부를 연계하여 1인 지배 페이퍼컴퍼니 카르텔을 적발한 AI 엔진 개발기."

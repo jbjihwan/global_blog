@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-2-test-time-compute-scaling-inference-laws
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #2] Test-Time Compute Scaling: Beyond Train-Time Scaling Laws to Compute-Optimal Inference"
 authors: [jbgih]
-tags: [stanford-cs329a, test-time-compute, inference-scaling, verifier-prm, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, test-time-compute, inference-scaling, verifier-prm, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-02
 keywords: [Test-Time Compute Scaling, Inference Scaling Laws, Large Language Monkeys, Compute-Optimal Scaling LLM, Process Reward Model PRM]
 description: "Comprehensive engineering breakdown of Stanford CS329A Lecture 2: Test-time compute scaling laws, pass@k repeated sampling dynamics, Snell's compute-optimal revision vs. PRM search, and Archon multi-agent pipelines."

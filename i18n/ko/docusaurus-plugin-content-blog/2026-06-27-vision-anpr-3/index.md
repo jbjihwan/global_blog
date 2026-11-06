@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-27-vision-anpr-3
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] 계층적 객체 탐지: YOLOv3 차량 ROI, YOLOv5 번호판 전용 탐지기 및 CSRT 실시간 추적 (#3)"
 authors: [jbgih]
-tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, python]
+tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, python, practice, ai, cv]
 date: 2026-06-27
 project: anpr_vision
 description: "광역 차량 검출(YOLOv3)과 ROI 내부 고정밀 번호판 탐지(YOLOv5)의 2단계 계층적 구조 및 CSRT 상관 필터 추적기를 결합한 연산 최적화 기법."

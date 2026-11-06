@@ -1,8 +1,11 @@
 ---
 slug: static-site-adsense-ads-txt-guide
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "[2026] 깃허브 블로그 구글 애드센스 승인: ads.txt 404 해결법"
 authors: [jbgih]
-tags: [구글애드센스, docusaurus, github-pages, 블로그수익화, devops, cloudflare, seo]
+tags: [구글애드센스, docusaurus, github-pages, 블로그수익화, devops, cloudflare, seo, practice, security, infra]
 date: 2026-10-21
 project: devops
 description: "GitHub Pages 및 Docusaurus 정적 블로그에서 구글 애드센스 승인을 받는 완벽 가이드. ads.txt 404 크롤링 오류 해결과 인증 태그 주입법."

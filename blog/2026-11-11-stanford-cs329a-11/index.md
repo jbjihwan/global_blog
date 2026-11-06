@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-11-agent-memory-memgpt-cartridges-cacheblend
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 11): Agent Memory — MemGPT, Cartridges, CacheBlend, and Long-Horizon Context Architecture"
 authors: [jbgih]
-tags: [Stanford CS329A, Agent Memory, MemGPT, Cartridges, CacheBlend, KV Cache, Context Management, RoPE, RAG, Self-Study]
+tags: [Stanford CS329A, Agent Memory, MemGPT, Cartridges, CacheBlend, KV Cache, Context Management, RoPE, RAG, Self-Study, theory, ai, lecture, stanford-cs329a]
 keywords: [Agent Memory Architecture, MemGPT Long-Term Memory, Cartridges Modular Agent Memory, CacheBlend KV Cache Merging, Hierarchical Context Management]
 description: "Master Stanford CS329A Lecture 11: How MemGPT implements OS-style virtual memory paging, Cartridges compresses 500-page documents into modular continuous KV vectors, and CacheBlend merges RAG KV caches with 3.3x lower TTFT."
 date: 2026-11-11T10:00:00.000Z

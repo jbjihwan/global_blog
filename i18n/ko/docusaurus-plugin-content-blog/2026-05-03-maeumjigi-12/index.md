@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-03-maeumjigi-12
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #12] 70B 초대형 모델 파인튜닝과 GPU 메모리(OOM) 사투"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, Llama3.3-70B, DeepSeek-R1-70B, OOM, 트러블슈팅, GPU]
+tags: [개발일지, 파인튜닝, Llama3.3-70B, DeepSeek-R1-70B, OOM, 트러블슈팅, GPU, practice, ai, maeumjigi]
 date: 2026-05-03
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "DSR1 70B 초대형 모델의 파인튜닝과 4비트 양자화 서빙에 도전하며 마주한 GPU VRAM OOM 에러와 메모리 오프로딩 트러블슈팅 경험입니다."

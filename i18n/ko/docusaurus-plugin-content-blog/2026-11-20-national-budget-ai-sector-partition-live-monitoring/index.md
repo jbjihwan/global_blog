@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-sector-partition-live-monitoring
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #3] 85% 노이즈 제거: 3차원 표적 분할과 라이브 감사 포털"
 authors: [jbgih]
-tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops]
+tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops, practice, ai, budget-audit]
 date: 2026-11-20
 keywords: ["3차원 표적 분할", "조달청 API 연동", "감사관 웹 포털", "AI 이상 탐지", "노이즈 필터링"]
 description: "수십만 건의 조달 데이터에서 85% 노이즈를 필터링하는 3차원 표적 분할과 조달청 라이브 연동, Vis.js 기반 감사관 웹 포털 v2.0 구축 과정 및 트러블슈팅."

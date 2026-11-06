@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: The Modern Software Developer Complete Notes"
 authors: [jbgih]
-tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
+tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture, theory, ai, lecture]
 date: 2026-10-22
 keywords: ["Stanford CS146S", "The Modern Software Developer", "CS146S Stanford", "Modern Software Dev", "Spec-Driven Development", "Human-Agent Engineering"]
 description: "Master Stanford CS146S: The Modern Software Developer. Complete lecture notes on Spec-Driven Development (SDD), AI coding agents, and human-agent loops."

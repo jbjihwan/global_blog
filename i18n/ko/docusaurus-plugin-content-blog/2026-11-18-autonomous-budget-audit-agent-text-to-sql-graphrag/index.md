@@ -1,8 +1,11 @@
 ---
 slug: autonomous-budget-audit-ai-agent-text-to-sql-graphrag
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #1] 650조 국가 예산 감사 AI: Text-to-SQL과 GraphRAG 결합 아키텍처"
 authors: [jbgih]
-tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
+tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops, practice, ai, budget-audit]
 date: 2026-11-18
 keywords: ["AI 에이전트 아키텍처", "Text-to-SQL", "GraphRAG", "스펙 주도 개발", "이상 거래 탐지"]
 description: "국가 예산 650조 원을 감사하는 자율 AI 에이전트 구축기. 설계 단계에서 예상한 3대 난제 예방법과 구현 중 겪은 3대 실제 오류 해결 과정을 상세히 공유합니다."

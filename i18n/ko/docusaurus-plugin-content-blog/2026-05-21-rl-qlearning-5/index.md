@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-21-rl-qlearning-5
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[RL Q-Learning #5] Sim-to-Real: Webots에서 아두이노 실물 로봇 이식"
 authors: [jbgih]
-tags: [강화학습, Sim-to-Real, 아두이노, 로보틱스, 컴퓨터비전, ArUco, Python]
+tags: [강화학습, Sim-to-Real, 아두이노, 로보틱스, 컴퓨터비전, ArUco, Python, practice, ai, reinforcement-learning]
 date: 2026-05-21
 project: rl_q_learning
 description: "Webots 강화학습으로 훈련된 648개 상태 Q-Learning 모델을 아두이노 우노 실물 로봇에 무선(HC-06) 및 ArUco 비전 추적으로 Sim-to-Real 이식 성공기."

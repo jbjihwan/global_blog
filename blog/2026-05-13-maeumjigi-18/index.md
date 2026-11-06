@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-13-maeumjigi-18
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #18] Expanding Inference Tokens and Comparing 2nd Fine-Tuning Results"
 authors: [jbgih]
-tags: [devlog, fine-tuning, inference, max_new_tokens, empathy, capstone]
+tags: [devlog, fine-tuning, inference, max_new_tokens, empathy, capstone, practice, ai, maeumjigi]
 date: 2026-05-13
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Expanding inference max_new_tokens to 384 to eliminate stiff, clipped answers and analyzing the impact of LoRA alpha (8 vs 16) on empathetic depth."

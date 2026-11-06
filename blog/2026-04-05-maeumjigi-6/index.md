@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-05-maeumjigi-6
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #6] Automated Report Pipeline: python-docx Visualization & Next.js 14 Frontend Kickoff"
 authors: [jbgih]
-tags: [devlog, automated-reporting, python-docx, matplotlib, nextjs-14, frontend-architecture, capstone]
+tags: [devlog, automated-reporting, python-docx, matplotlib, nextjs-14, frontend-architecture, capstone, practice, ai, maeumjigi]
 date: 2026-04-05
 keywords: [Automated Report Generation, python-docx Matplotlib Pipeline, Next.js 14 Chatbot UI, Data Preprocessing Distribution, Full-Stack AI Architecture]
 description: "Wrapping up Phase 1 data preprocessing: building an autonomous python-docx and matplotlib report compiler while scaffolding our real-time Next.js 14 streaming chatbot frontend."

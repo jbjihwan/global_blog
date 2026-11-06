@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-inspector-portal-verification-system
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #6: Inspector Web Portal & Full Verification"
 authors: [jbgih]
-tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
+tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops, practice, ai, budget-audit]
 date: 2026-11-23
 keywords: ["Inspector Web Portal", "Vis.js knowledge graph", "HWPX parser", "20 test verification", "national budget AI finale"]
 description: "The finale: Building Inspector Web Portal v3.0 integrating Vis.js knowledge graphs, 10-year case law search, and passing 20/20 end-to-end test harnesses."

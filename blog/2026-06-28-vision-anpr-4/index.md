@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-28-vision-anpr-4
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] Overcoming Blurry Blackbox Artifacts: Deep Super-Resolution (EDSR vs FSRCNN) & Multi-Frame Image Stacking (#4)"
 authors: [jbgih]
-tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learning, python]
+tags: [computer-vision, super-resolution, edsr, image-stacking, anpr, deep-learning, python, practice, ai, cv]
 date: 2026-06-28
 project: anpr_vision
 description: "Reconstructing cropped low-resolution license plate patches via EDSR 4x deep super-resolution and temporal multi-frame image stacking."

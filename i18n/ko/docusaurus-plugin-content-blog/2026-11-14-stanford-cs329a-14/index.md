@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-14-alphaproof-mathematical-reasoning-lean4-alphageometry-deep-think
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 14): AlphaProof & Mathematical Reasoning — 정형 검증, Lean 4, AlphaGeometry 및 Gemini Deep Think"
 authors: [jbgih]
-tags: [Stanford CS329A, AlphaProof, AlphaGeometry, Lean 4, 정형 검증, 수학적 추론, Thang Luong, Gemini Deep Think, IMO Gold, TTRL]
+tags: [Stanford CS329A, AlphaProof, AlphaGeometry, Lean 4, 정형 검증, 수학적 추론, Thang Luong, Gemini Deep Think, IMO Gold, TTRL, theory, ai, lecture, stanford-cs329a]
 keywords: [AlphaProof IMO Gold, Formal Mathematical Reasoning, Lean 4 Interactive Theorem Proving, AlphaGeometry Synthetic Data, LLM Formal Verification]
 description: "Stanford CS329A 14강 완벽 해설: 구글 딥마인드가 AlphaGeometry의 신경-기호 보조선 생성, AlphaProof의 Lean 4 강화학습 게임 및 Gemini Deep Think의 평행 사고를 통해 국제수학올림피아드(IMO)를 정복한 원리를 분석합니다."
 date: 2026-11-14T10:00:00.000Z

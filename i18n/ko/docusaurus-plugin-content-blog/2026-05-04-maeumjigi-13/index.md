@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-04-maeumjigi-13
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #13] 70B 학습의 한계와 중소형 모델(HCX, Qwen) 우회 전략"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 체크포인트, 하이퍼파라미터, AI]
+tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 체크포인트, 하이퍼파라미터, AI, practice, ai, maeumjigi]
 date: 2026-05-04
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "100% 합성 데이터의 맹점을 깨닫고 실제 인간 상담 말뭉치를 2:1 비율로 재결합하여 균형 잡힌 감정 라벨링 데이터셋을 재구성한 과정입니다."

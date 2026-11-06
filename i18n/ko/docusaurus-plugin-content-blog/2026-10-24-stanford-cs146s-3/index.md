@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-3-mcp-tool-use-architecture
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #3] 모델 컨텍스트 프로토콜(MCP)과 자율 도구 연동: AI 에이전트를 위한 범용 표준 아키텍처"
 authors: [jbgih]
-tags: [stanford-cs146s, mcp, model-context-protocol, tool-use, claude-code, json-rpc, software-architecture]
+tags: [stanford-cs146s, mcp, model-context-protocol, tool-use, claude-code, json-rpc, software-architecture, theory, ai, lecture]
 date: 2026-10-24
 keywords: [Model Context Protocol, MCP Architecture, Claude Tool Use, JSON-RPC 2.0, Autonomous AI Agents]
 description: "스탠포드 대학교 CS146S 3강 완벽 해설: 'AI를 위한 언어 서버 프로토콜(LSP)'로 불리는 모델 컨텍스트 프로토콜(MCP)의 클라이언트-서버 구조, Stdio 및 HTTP/SSE 전송 계층, 자율 에이전트의 도구 호출 루프와 보안 아키텍처를 심층 분석합니다."

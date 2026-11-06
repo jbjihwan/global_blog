@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-6-train-time-scaling-rl-grpo-dapo
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #6] 훈련 시점 확장과 강화학습: DeepSeekMath, GRPO, 그리고 대규모 추론 최적화"
 authors: [jbgih]
-tags: [stanford-cs329a, train-time-scaling, grpo, deepseekmath, dapo, reinforcement-learning, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, train-time-scaling, grpo, deepseekmath, dapo, reinforcement-learning, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-06
 keywords: [Group Relative Policy Optimization GRPO, Train-Time Compute Scaling, DeepSeekMath Reasoning RL, Critic-Free Reinforcement Learning, Rule-Based Verifiable Rewards]
 description: "스탠포드 대학교 CS329A 제6강 심층 기술 분석: 훈련 시간 연산 확장(Train-Time Scaling)의 수학적 패러다임, STaR 자가 부트스트래핑, 크리틱(Critic)을 없앤 DeepSeekMath의 GRPO 알고리즘, 그리고 천 개 GPU 환경에서 엔트로피 붕괴를 막는 DAPO 엔지니어링 완벽 정리."

@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-5-multi-step-planning-tree-search-mcts
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #5] Multi-Step Planning & Tree Search: ADaPT, LATS, SPRINT, and Language Agent MCTS"
 authors: [jbgih]
-tags: [stanford-cs329a, multi-step-planning, mcts, language-agent-tree-search, adapt, sprint, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, multi-step-planning, mcts, language-agent-tree-search, adapt, sprint, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-05
 keywords: [Multi-Step Agent Planning, Monte Carlo Tree Search LLM, Language Agent Tree Search LATS, ADaPT Decomposition, SPRINT Tree Search]
 description: "In-depth engineering breakdown of Stanford CS329A Lecture 5: Language Agent Tree Search (LATS), as-needed recursive task decomposition with ADaPT, parallel dependency DAG packing via SPRINT, and internalizing planning instincts with Step-Wise RL."

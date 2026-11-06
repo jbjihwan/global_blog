@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-sector-partition-live-monitoring
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #3: 3D Sector Partitioning & Live API Audit"
 authors: [jbgih]
-tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops]
+tags: [ai-agents, sector-partitioning, live-streaming, koneps-api, web-dashboard, devops, practice, ai, budget-audit]
 date: 2026-11-20
 keywords: ["Public Budget AI", "3D Sector Partitioning", "KONEPS Live API", "Procurement Noise Filter", "Auditor Web Portal"]
 description: "Filtering 85% procurement noise via 3D sector partitioning and building an interactive auditor web portal v2.0 connected live to public procurement APIs."

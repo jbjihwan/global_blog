@@ -1,8 +1,11 @@
 ---
 slug: 2026-09-16-maeumjigi-24
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #24] 2학기 킥오프: 종단적 임상 데이터 전처리 및 정보성 결측(MNAR) 모델링"
 authors: [jbgih]
-tags: [devlog, capstone, clinical-preprocessing, longitudinal-modeling, missing-not-at-random, suicide-prevention, data-engineering]
+tags: [devlog, capstone, clinical-preprocessing, longitudinal-modeling, missing-not-at-random, suicide-prevention, data-engineering, practice, ai, maeumjigi]
 date: 2026-09-16
 keywords: [임상 데이터 전처리, 정보성 결측 MNAR, 14일 LOCF 대체, AI 자살 위기 감지, 정신건강 시계열 모델링]
 description: "마음지기(Maeumjigi) 캡스톤 2학기 킥오프: 4가지 이종 심리 척도(PHQ-9, GAD-7, PSS, ISI)에 대한 임상 데이터 전처리 파이프라인 설계, 14일 LOCF 및 정보성 결측(MNAR) 지표 모델링, 그리고 대화형 LLM과의 멀티모달 융합 아키텍처."

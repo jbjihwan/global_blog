@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-19-maeumjigi-11
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #11] 합성 데이터(v5) 훈련 결과 M6 모델 평가"
 authors: [jbgih]
-tags: [개발일지, 합성데이터, 모델평가, M6, FAISS, 주간보고서]
+tags: [개발일지, 합성데이터, 모델평가, M6, FAISS, 주간보고서, practice, ai, maeumjigi]
 date: 2026-04-19
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "합성 데이터셋(v5)으로 학습한 모델(M6)의 정량 평가 결과, 일상 대화 능력이 붕괴되고 과도한 위기 반응만 유발되는 과적합 한계를 분석합니다."

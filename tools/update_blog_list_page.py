@@ -1,394 +1,360 @@
-# -*- coding: utf-8 -*-
 import re
+from pathlib import Path
 
-target_file = r"D:\ai\antigravity\global_blog\src\theme\BlogListPage\index.tsx"
-with open(target_file, 'r', encoding='utf-8') as f:
-    code = f.read()
+FILE_PATH = Path(r"D:\ai\antigravity\global_blog\src\theme\BlogListPage\index.tsx")
+content = FILE_PATH.read_text(encoding="utf-8")
 
-# 1. Update LocaleContent interface
-old_interface = """  tabSecurity: string;
-  tabAll: string;
-  bannerMaeumjigiTitle: string;
-  bannerMaeumjigiDesc: string;
-  bannerRlTitle: string;
-  bannerRlDesc: string;
-  bannerAnprTitle: string;
-  bannerAnprDesc: string;
-  bannerSecurityTitle: string;
-  bannerSecurityDesc: string;
-  bannerAllTitle: string;"""
+# 1. Update ProjectInfo interface
+old_proj_info = """interface ProjectInfo {
+  id: string;
+  name: string;
+  badgeType: 'active' | 'upcoming';
+  category: string;
+  icon: string;
+  subtitle: string;
+  description: string;
+  techTags: string[];
+  hasPosts: boolean;
+  upcomingBadgeText?: string;
+}"""
 
-new_interface = """  tabSecurity: string;
+new_proj_info = """interface ProjectInfo {
+  id: string;
+  name: string;
+  badgeType: 'active' | 'upcoming';
+  category: string;
+  icon: string;
+  subtitle: string;
+  description: string;
+  techTags: string[];
+  hasPosts: boolean;
+  upcomingBadgeText?: string;
+  taxonomyL1?: 'theory' | 'practice' | 'error';
+  taxonomyL2?: 'ai' | 'security';
+  taxonomyL3?: string;
+}"""
+
+if old_proj_info in content:
+    content = content.replace(old_proj_info, new_proj_info)
+
+# 2. Update LocaleContent interface
+old_loc_content = """interface LocaleContent {
+  hubTitle: string;
+  hubSubtitle: string;
+  tabHub: string;
+  tabCrisis: string;
+  tabBudget: string;
+  tabCs329a: string;
   tabStanford: string;
+  tabMaeumjigi: string;
+  tabAnpr: string;
+  tabRl: string;
+  tabSecurity: string;
   tabAll: string;
-  bannerMaeumjigiTitle: string;
-  bannerMaeumjigiDesc: string;
-  bannerRlTitle: string;
-  bannerRlDesc: string;
-  bannerAnprTitle: string;
-  bannerAnprDesc: string;
-  bannerSecurityTitle: string;
-  bannerSecurityDesc: string;
+  bannerCrisisTitle: string;
+  bannerCrisisDesc: string;
+  bannerBudgetTitle: string;
+  bannerBudgetDesc: string;
+  bannerCs329aTitle: string;
+  bannerCs329aDesc: string;
   bannerStanfordTitle: string;
   bannerStanfordDesc: string;
-  bannerAllTitle: string;"""
+  bannerMaeumjigiTitle: string;
+  bannerMaeumjigiDesc: string;
+  bannerAnprTitle: string;
+  bannerAnprDesc: string;
+  bannerRlTitle: string;
+  bannerRlDesc: string;
+  bannerSecurityTitle: string;
+  bannerSecurityDesc: string;
+  bannerAllTitle: string;
+  bannerAllDesc: string;"""
 
-assert old_interface in code, "old_interface not found"
-code = code.replace(old_interface, new_interface, 1)
+new_loc_content = """interface LocaleContent {
+  hubTitle: string;
+  hubSubtitle: string;
+  tabHub: string;
+  tabCrisis: string;
+  tabBudget: string;
+  tabCs329a: string;
+  tabStanford: string;
+  tabMaeumjigi: string;
+  tabAnpr: string;
+  tabRl: string;
+  tabSecurity: string;
+  tabSdc: string;
+  tabAll: string;
+  // Taxonomy L1
+  taxAll: string;
+  taxTheory: string;
+  taxPractice: string;
+  taxError: string;
+  // Taxonomy L2
+  taxDomainLabel: string;
+  taxDomainAll: string;
+  taxDomainAi: string;
+  taxDomainSecurity: string;
+  // Taxonomy L3
+  taxTypeLabel: string;
+  taxTypeAll: string;
+  taxTypeLecture: string;
+  taxTypeDef: string;
+  taxTypeHistory: string;
+  taxProjectLabel: string;
+  taxErrorTitle: string;
+  taxErrorDesc: string;
+  // Banners
+  bannerCrisisTitle: string;
+  bannerCrisisDesc: string;
+  bannerBudgetTitle: string;
+  bannerBudgetDesc: string;
+  bannerCs329aTitle: string;
+  bannerCs329aDesc: string;
+  bannerStanfordTitle: string;
+  bannerStanfordDesc: string;
+  bannerMaeumjigiTitle: string;
+  bannerMaeumjigiDesc: string;
+  bannerAnprTitle: string;
+  bannerAnprDesc: string;
+  bannerRlTitle: string;
+  bannerRlDesc: string;
+  bannerSecurityTitle: string;
+  bannerSecurityDesc: string;
+  bannerSdcTitle: string;
+  bannerSdcDesc: string;
+  bannerAllTitle: string;
+  bannerAllDesc: string;"""
 
-# 2. Update KO I18N
-old_ko_tabs = """    tabSecurity: '보안 & 엔지니어링 (1편)',
+if old_loc_content in content:
+    content = content.replace(old_loc_content, new_loc_content)
+
+# 3. Add SDC project and taxonomy fields to ko
+ko_tax_fields = """  ko: {
+    hubTitle: '프로젝트 & 개발 일지',
+    hubSubtitle: '관심 있는 프로젝트를 선택하여 개발 여정과 기술 기록을 확인해보세요.',
+    tabHub: '프로젝트 허브',
+    tabCrisis: '[고위험 AI] 위기 감지',
+    tabBudget: '국가 예산 AI 감사',
+    tabCs329a: '스탠포드 CS329A',
+    tabStanford: '스탠포드 CS146S',
+    tabMaeumjigi: '마음지기',
+    tabAnpr: 'ANPR & 차선침범',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: '보안 & 엔지니어링',
+    tabSdc: 'SDC 공중전 임무계획',
     tabAll: '전체 글 피드',
-    bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',"""
+    taxAll: '전체 분류',
+    taxTheory: '1. 이론 (Theory)',
+    taxPractice: '2. 실습 (Practice)',
+    taxError: '3. 오류 (Errors)',
+    taxDomainLabel: '도메인',
+    taxDomainAll: '전체 도메인',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: '보안 (Security)',
+    taxTypeLabel: '소분류 유형',
+    taxTypeAll: '전체 유형',
+    taxTypeLecture: '강의 (Lecture)',
+    taxTypeDef: '정의 (Definition)',
+    taxTypeHistory: '역사 (History)',
+    taxProjectLabel: '프로젝트별',
+    taxErrorTitle: '오류 및 트러블슈팅 아카이브 (Errors & Troubleshooting)',
+    taxErrorDesc: '오류의 하위 분류는 추후 분류 예정입니다 (Pending Sub-classification). 각 프로젝트에서 발생한 날것의 런타임/설계 결함(A-xx, B-xx, D-xx)과 근본 원인 분석(Deep Root Cause), 해결 코드 Diff를 다룬 실전 포스트들을 집대성하여 제공합니다.',"""
 
-new_ko_tabs = """    tabSecurity: '보안 & 엔지니어링 (1편)',
-    tabStanford: '스탠포드 CS146S (1편)',
-    tabAll: '전체 글 피드',
-    bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',"""
+content = re.sub(
+    r"  ko:\s*\{\s*hubTitle:\s*'프로젝트 & 개발 일지',.*?tabAll:\s*'전체 글 피드',",
+    ko_tax_fields,
+    content,
+    flags=re.DOTALL
+)
 
-assert old_ko_tabs in code, "old_ko_tabs not found"
-code = code.replace(old_ko_tabs, new_ko_tabs, 1)
-
-old_ko_banners = """    bannerSecurityTitle: '프로젝트: 보안 & 웹 엔지니어링',
-    bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
-    bannerAllTitle: '전체 개발 일지 피드',"""
-
-new_ko_banners = """    bannerSecurityTitle: '프로젝트: 보안 & 웹 엔지니어링',
-    bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
-    bannerStanfordTitle: '프로젝트: 스탠포드 CS146S (The Modern Software Developer)',
-    bannerStanfordDesc: 'AI 에이전트 시대의 현대 소프트웨어 개발론: 스펙 주도 개발(SDD), 루프 엔지니어링, MCP 표준 아키텍처',
-    bannerAllTitle: '전체 개발 일지 피드',"""
-
-assert old_ko_banners in code, "old_ko_banners not found"
-code = code.replace(old_ko_banners, new_ko_banners, 1)
-
-old_ko_proj = """    projects: [
-      {
-        id: 'maeumjigi',"""
-
-new_ko_proj = """    projects: [
-      {
-        id: 'stanford_cs146s',
-        name: '스탠포드 CS146S',
-        badge: 'Active · 1편',
-        badgeType: 'active',
-        category: '소프트웨어 공학 / AI 에이전트',
-        icon: 'stanford_cs146s',
-        subtitle: '스탠포드 대학교 현대 소프트웨어 개발자 강의 시리즈',
-        description:
-          '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '개발일지 보러가기 (1편) →',
-        hasPosts: true,
-      },
-      {
-        id: 'maeumjigi',"""
-
-assert old_ko_proj in code, "old_ko_proj not found"
-code = code.replace(old_ko_proj, new_ko_proj, 1)
-
-# 3. Update EN I18N
-old_en_tabs = """    tabSecurity: 'Security & Infra (1 Post)',
-    tabAll: 'All Posts Feed',
-    bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',"""
-
-new_en_tabs = """    tabSecurity: 'Security & Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (1 Post)',
-    tabAll: 'All Posts Feed',
-    bannerMaeumjigiTitle: 'Project: Maeumjigi (Capstone Dev Log)',"""
-
-assert old_en_tabs in code, "old_en_tabs not found"
-code = code.replace(old_en_tabs, new_en_tabs, 1)
-
-old_en_banners = """    bannerSecurityTitle: 'Project: Security & Web Engineering',
-    bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
-    bannerAllTitle: 'All Dev Logs Feed',"""
-
-new_en_banners = """    bannerSecurityTitle: 'Project: Security & Web Engineering',
-    bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
-    bannerStanfordTitle: 'Project: Stanford CS146S (The Modern Software Developer)',
-    bannerStanfordDesc: 'Modern software engineering in the age of AI agents: Spec-Driven Development, Loop Engineering, and Model Context Protocol (MCP)',
-    bannerAllTitle: 'All Dev Logs Feed',"""
-
-assert old_en_banners in code, "old_en_banners not found"
-code = code.replace(old_en_banners, new_en_banners, 1)
-
-old_en_proj = """    projects: [
-      {
-        id: 'maeumjigi',
-        name: 'Maeumjigi',
-        badge: 'Active · 23 Posts',"""
-
-new_en_proj = """    projects: [
-      {
-        id: 'stanford_cs146s',
-        name: 'Stanford CS146S',
-        badge: 'Active · 1 Post',
-        badgeType: 'active',
-        category: 'Software Engineering / AI Agents',
-        icon: 'stanford_cs146s',
-        subtitle: 'Stanford University Modern Software Developer Series',
-        description:
-          'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: 'Explore Dev Logs (1 Post) →',
-        hasPosts: true,
-      },
-      {
-        id: 'maeumjigi',
-        name: 'Maeumjigi',
-        badge: 'Active · 23 Posts',"""
-
-assert old_en_proj in code, "old_en_proj not found"
-code = code.replace(old_en_proj, new_en_proj, 1)
-
-# 4. Update JA I18N
-old_ja_tabs = """    tabSecurity: 'セキュリティ＆インフラ (1編)',
-    tabAll: '全記事フィード',
-    bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',"""
-
-new_ja_tabs = """    tabSecurity: 'セキュリティ＆インフラ (1編)',
-    tabStanford: 'スタンフォード CS146S (1編)',
-    tabAll: '全記事フィード',
-    bannerMaeumjigiTitle: 'プロジェクト: マウムジギ (卒業研究 開発日誌)',"""
-
-assert old_ja_tabs in code, "old_ja_tabs not found"
-code = code.replace(old_ja_tabs, new_ja_tabs, 1)
-
-old_ja_banners = """    bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',
-    bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
-    bannerAllTitle: '全開発日誌フィード',"""
-
-new_ja_banners = """    bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',
-    bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
-    bannerStanfordTitle: 'プロジェクト: スタンフォード CS146S (現代ソフトウェア開発者)',
-    bannerStanfordDesc: 'AIエージェント時代の現代ソフトウェア開発論：仕様駆動開発(SDD)、ループエンジニアリング、MCP規格',
-    bannerAllTitle: '全開発日誌フィード',"""
-
-# In JA source, let's check exact text
-if "bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学'" in code:
-    code = re.sub(
-        r"(bannerSecurityTitle:\s*'プロジェクト:\s*セキュリティ＆ウェブ工学',\s*bannerSecurityDesc:\s*'.*?',\s*bannerAllTitle:\s*'全開発日誌フィード',)",
-        r"bannerSecurityTitle: 'プロジェクト: セキュリティ＆ウェブ工学',\n    bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',\n    bannerStanfordTitle: 'プロジェクト: スタンフォード CS146S (現代ソフトウェア開発者)',\n    bannerStanfordDesc: 'AIエージェント時代の現代ソフトウェア開発論：仕様駆動開発(SDD)、ループエンジニアリング、MCP規格',\n    bannerAllTitle: '全開発日誌フィード',",
-        code
+if "bannerSdcTitle" not in content:
+    content = content.replace(
+        "bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',",
+        """bannerSecurityDesc: '정적 사이트 심층 보안 강화, 위협 모델링 및 npm 공급망 취약점 방어',
+    bannerSdcTitle: '프로젝트: SDC 공중전 동적 임무계획 (Dynamic Mission Replanning)',
+    bannerSdcDesc: '비행 중 조종석-지상 간 델타 분산 아키텍처: RFC 8785 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 가속 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',"""
     )
 
-old_ja_proj = """    projects: [
-      {
-        id: 'maeumjigi',
-        name: 'マウムジギ (Maeumjigi)',
-        badge: 'Active · 23編',"""
+# 4. Add SDC project and taxonomy fields to en
+en_tax_fields = """  en: {
+    hubTitle: 'Projects & Dev Logs',
+    hubSubtitle: 'Select a project to explore dev logs and technical milestones.',
+    tabHub: 'Projects Hub',
+    tabCrisis: 'Mental Crisis NLP',
+    tabBudget: 'Public Budget AI',
+    tabCs329a: 'Stanford CS329A',
+    tabStanford: 'Stanford CS146S',
+    tabMaeumjigi: 'Maeumjigi',
+    tabAnpr: 'ANPR & Lane Intrusion',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'Security & Infra',
+    tabSdc: 'SDC Air Combat',
+    tabAll: 'All Posts Feed',
+    taxAll: 'All Categories',
+    taxTheory: '1. Theory',
+    taxPractice: '2. Practice',
+    taxError: '3. Errors & Pitfalls',
+    taxDomainLabel: 'Domain',
+    taxDomainAll: 'All Domains',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: 'Security',
+    taxTypeLabel: 'Sub-type',
+    taxTypeAll: 'All Types',
+    taxTypeLecture: 'Lecture',
+    taxTypeDef: 'Definition',
+    taxTypeHistory: 'History',
+    taxProjectLabel: 'By Project',
+    taxErrorTitle: 'Errors & Troubleshooting Archive',
+    taxErrorDesc: 'Sub-classification of errors is pending future definition. This archive aggregates all real-world runtime/design defect postmortems (A-xx, B-xx, D-xx), deep root causes, and clean fix code diffs across projects.',"""
 
-new_ja_proj = """    projects: [
-      {
-        id: 'stanford_cs146s',
-        name: 'スタンフォード CS146S',
-        badge: 'Active · 1編',
-        badgeType: 'active',
-        category: 'ソフトウェア工学 / AIエージェント',
-        icon: 'stanford_cs146s',
-        subtitle: 'スタンフォード大学 現代ソフトウェア開発者講義シリーズ',
-        description:
-          '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: '開発日誌を見る (1編) →',
-        hasPosts: true,
-      },
-      {
-        id: 'maeumjigi',
-        name: 'マウムジギ (Maeumjigi)',
-        badge: 'Active · 23編',"""
+content = re.sub(
+    r"  en:\s*\{\s*hubTitle:\s*'Projects & Dev Logs',.*?tabAll:\s*'All Posts Feed',",
+    en_tax_fields,
+    content,
+    flags=re.DOTALL
+)
 
-assert old_ja_proj in code, "old_ja_proj not found"
-code = code.replace(old_ja_proj, new_ja_proj, 1)
+if "Project: SDC In-Flight" not in content:
+    content = content.replace(
+        "bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',",
+        """bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
+    bannerSdcTitle: 'Project: SDC In-Flight Dynamic Mission Replanning Engine',
+    bannerSdcDesc: 'In-flight cockpit-ground distributed delta architecture: RFC 8785 JCS, Ed25519 signatures, MapLibre WebGL UI, CPython 14.5s->0.25s A* search acceleration, and ROK MND 2022 Threat Matrix T1~T12 replanning series.',"""
+    )
 
-# 5. Update ES I18N
-old_es_tabs = """    tabSecurity: 'Seguridad e Infra (1 Post)',
+# 5. Add ja
+ja_tax_fields = """  ja: {
+    hubTitle: 'プロジェクト＆開発日誌',
+    hubSubtitle: '関心のあるプロジェクトを選択して、開発の歩みと技術的な記録をご覧ください。',
+    tabHub: 'プロジェクトハブ',
+    tabCrisis: '危機検知NLP AI',
+    tabBudget: '国家予算AI監査',
+    tabCs329a: 'スタンフォード CS329A',
+    tabStanford: 'スタンフォード CS146S',
+    tabMaeumjigi: 'マウムジギ',
+    tabAnpr: 'ANPR＆車線侵犯',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'セキュリティ＆インフラ',
+    tabSdc: 'SDC 空中戦任務計画',
+    tabAll: '全記事フィード',
+    taxAll: '全分類',
+    taxTheory: '1. 理論 (Theory)',
+    taxPractice: '2. 実習 (Practice)',
+    taxError: '3. エラー (Errors)',
+    taxDomainLabel: 'ドメイン',
+    taxDomainAll: '全ドメイン',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: 'セキュリティ',
+    taxTypeLabel: 'サブ分類',
+    taxTypeAll: '全タイプ',
+    taxTypeLecture: '講義 (Lecture)',
+    taxTypeDef: '定義 (Definition)',
+    taxTypeHistory: '歴史 (History)',
+    taxProjectLabel: 'プロジェクト別',
+    taxErrorTitle: 'エラー＆トラブルシューティング アーカイブ',
+    taxErrorDesc: 'エラーのサブ分類は今後分類予定です。各プロジェクトで発生したランタイム・設計の欠陥（A-xx、B-xx、D-xx）と根本原因分析、修正コードDiffを収録した実戦記事をまとめて提供します。',"""
+
+content = re.sub(
+    r"  ja:\s*\{\s*hubTitle:\s*'プロジェクト＆開発日誌',.*?tabAll:\s*'全記事フィード',",
+    ja_tax_fields,
+    content,
+    flags=re.DOTALL
+)
+
+if "SDC 空中戦動的任務計画" not in content:
+    content = content.replace(
+        "bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',",
+        """bannerSecurityDesc: '静적サイト深層セキュリティ強化、脅威モデリングおよびnpmサプライチェーン防御',
+    bannerSdcTitle: 'プロジェクト: SDC 空中戦動的任務計画 (Dynamic Mission Replanning)',
+    bannerSdcDesc: '飛行中の操縦席-地上間分散デルタアーキテクチャ: RFC 8785 JCS、Ed25519電子署名、MapLibre WebGL UI、CPython 14.5秒->0.25秒 A*探索加速および2022韓国国防白書ベースT1~T12脅威対応実録。',"""
+    )
+
+# 6. Add es
+es_tax_fields = """  es: {
+    hubTitle: 'Proyectos y Diarios de Desarrollo',
+    hubSubtitle: 'Selecciona un proyecto para explorar los diarios de desarrollo y los hitos técnicos.',
+    tabHub: 'Panel de Proyectos',
+    tabCrisis: 'IA Crisis NLP',
+    tabBudget: 'Auditoría Presupuesto IA',
+    tabCs329a: 'Stanford CS329A',
+    tabStanford: 'Stanford CS146S',
+    tabMaeumjigi: 'Maeumjigi',
+    tabAnpr: 'ANPR e Invasión',
+    tabRl: 'RL Q-Learning',
+    tabSecurity: 'Seguridad e Infra',
+    tabSdc: 'SDC Combate Aéreo',
     tabAll: 'Todos los Posts',
-    bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',"""
+    taxAll: 'Todas las Categorías',
+    taxTheory: '1. Teoría',
+    taxPractice: '2. Práctica',
+    taxError: '3. Errores y Fallos',
+    taxDomainLabel: 'Dominio',
+    taxDomainAll: 'Todos los Dominios',
+    taxDomainAi: 'IA',
+    taxDomainSecurity: 'Seguridad',
+    taxTypeLabel: 'Subtipo',
+    taxTypeAll: 'Todos los Tipos',
+    taxTypeLecture: 'Clase (Lecture)',
+    taxTypeDef: 'Definición',
+    taxTypeHistory: 'Historia',
+    taxProjectLabel: 'Por Proyecto',
+    taxErrorTitle: 'Archivo de Errores y Depuración',
+    taxErrorDesc: 'La subclasificación de errores está pendiente de definición futura. Este archivo reúne todos los análisis de fallos en tiempo de ejecución/diseño (A-xx, B-xx, D-xx), causas raíz y diffs de código correctivo.',"""
 
-new_es_tabs = """    tabSecurity: 'Seguridad e Infra (1 Post)',
-    tabStanford: 'Stanford CS146S (1 Post)',
-    tabAll: 'Todos los Posts',
-    bannerMaeumjigiTitle: 'Proyecto: Maeumjigi (Diario de Desarrollo Capstone)',"""
+content = re.sub(
+    r"  es:\s*\{\s*hubTitle:\s*'Proyectos y Diarios de Desarrollo',.*?tabAll:\s*'Todos los Posts',",
+    es_tax_fields,
+    content,
+    flags=re.DOTALL
+)
 
-assert old_es_tabs in code, "old_es_tabs not found"
-code = code.replace(old_es_tabs, new_es_tabs, 1)
+if "Motor de Replanificación Dinámica" not in content:
+    content = content.replace(
+        "bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',",
+        """bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
+    bannerSdcTitle: 'Proyecto: Motor de Replanificación Dinámica de Combate Aéreo (SDC)',
+    bannerSdcDesc: 'Arquitectura distribuida de delta cabina-tierra en vuelo: RFC 8785 JCS, firmas Ed25519, MapLibre WebGL UI, aceleración de búsqueda A* de 14.5s a 0.25s y matriz de amenazas T1~T12 del Libro Blanco de Defensa 2022.',"""
+    )
 
-old_es_banners = """    bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
-    bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
-    bannerAllTitle: 'Todos los Diarios de Desarrollo',"""
+# 7. Add taxonomyL1, taxonomyL2, taxonomyL3 to project objects
+proj_mappings = {
+    "'crisis_detection'": "taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-crisis'",
+    "'national_budget'": "taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-budget'",
+    "'maeumjigi'": "taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-maeumjigi'",
+    "'anpr_vision'": "taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-anpr'",
+    "'rl_q_learning'": "taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-rl'",
+    "'security'": "taxonomyL1: 'practice', taxonomyL2: 'security', taxonomyL3: 'project-security-infra'",
+    "'stanford_cs329a'": "taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture'",
+    "'stanford_cs146s'": "taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture'",
+}
 
-new_es_banners = """    bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
-    bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
-    bannerStanfordTitle: 'Proyecto: Stanford CS146S (El Desarrollador de Software Moderno)',
-    bannerStanfordDesc: 'Ingeniería de software en la era de los agentes de IA: Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y MCP',
-    bannerAllTitle: 'Todos los Diarios de Desarrollo',"""
+for pid, tax_str in proj_mappings.items():
+    pattern = rf"(id:\s*{pid},.*?hasPosts:\s*true,)"
+    def repl(m):
+        if "taxonomyL1:" in m.group(1):
+            return m.group(1)
+        return m.group(1) + f"\n        {tax_str},"
+    content = re.sub(pattern, repl, content, flags=re.DOTALL)
 
-assert old_es_banners in code, "old_es_banners not found"
-code = code.replace(old_es_banners, new_es_banners, 1)
-
-old_es_proj = """    projects: [
-      {
-        id: 'maeumjigi',
-        name: 'Maeumjigi',
-        badge: 'Activo · 23 Posts',"""
-
-new_es_proj = """    projects: [
-      {
-        id: 'stanford_cs146s',
-        name: 'Stanford CS146S',
-        badge: 'Activo · 1 Post',
+# Add SDC project card to ko.projects
+sdc_card_ko = """      {
+        id: 'sdc_replanning',
+        name: 'SDC 공중전 동적 임무계획',
         badgeType: 'active',
-        category: 'Ingeniería de Software / Agentes de IA',
-        icon: 'stanford_cs146s',
-        subtitle: 'Serie El Desarrollador de Software Moderno de Stanford',
+        category: '실습 / AI / 항공전자',
+        icon: 'sdc_replanning',
+        subtitle: '비행 중 임무 재계획 및 델타 분산 아키텍처 실전 연구',
         description:
-          'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
-        techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
-        postCountText: 'Ver Diarios de Desarrollo (1 Post) →',
+          '전술 데이터링크 교란 환경에서의 RFC 8785 결정론적 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 최적화 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',
+        techTags: ['Mission Replanning', 'Ed25519', 'MapLibre WebGL', 'RK4 Fuel', 'Simplex AI', 'A* Search'],
         hasPosts: true,
-      },
-      {
-        id: 'maeumjigi',
-        name: 'Maeumjigi',
-        badge: 'Activo · 23 Posts',"""
+        taxonomyL1: 'practice',
+        taxonomyL2: 'ai',
+        taxonomyL3: 'project-sdc',
+      },"""
 
-assert old_es_proj in code, "old_es_proj not found"
-code = code.replace(old_es_proj, new_es_proj, 1)
+if "id: 'sdc_replanning'" not in content:
+    content = content.replace("projects: [\n      {\n        id: 'crisis_detection'", "projects: [\n" + sdc_card_ko + "\n      {\n        id: 'crisis_detection'")
 
-# 6. Update getEpisodeNumber
-old_ep = "const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning)-(\\d+)/);"
-new_ep = "const m = permalink.match(/(?:maeumjigi|vision-anpr|rl-qlearning|stanford-cs146s)-(\\d+)/);"
-assert old_ep in code, "old_ep not found"
-code = code.replace(old_ep, new_ep, 1)
-
-# 7. Update activeTab state type
-old_tab_state = "  const [activeTab, setActiveTab] = useState<\n    'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'\n  >(isFirstPage ? 'hub' : 'all');"
-new_tab_state = "  const [activeTab, setActiveTab] = useState<\n    'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'\n  >(isFirstPage ? 'hub' : 'all');"
-assert old_tab_state in code, "old_tab_state not found"
-code = code.replace(old_tab_state, new_tab_state, 1)
-
-# 8. Update useEffect hash parsing
-old_hash = """      } else if (hash === 'security' || hash === 'infra') {
-        setActiveTab('security');
-      } else if (hash === 'all') {"""
-
-new_hash = """      } else if (hash === 'security' || hash === 'infra') {
-        setActiveTab('security');
-      } else if (hash === 'stanford_cs146s' || hash === 'stanford' || hash === 'cs146s') {
-        setActiveTab('stanford_cs146s');
-      } else if (hash === 'all') {"""
-
-assert old_hash in code, "old_hash not found"
-code = code.replace(old_hash, new_hash, 1)
-
-# 9. Update handleSelectTab signature
-old_handler = "  const handleSelectTab = (\n    tab: 'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'\n  ) => {"
-new_handler = "  const handleSelectTab = (\n    tab: 'hub' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'stanford_cs146s' | 'all'\n  ) => {"
-assert old_handler in code, "old_handler not found"
-code = code.replace(old_handler, new_handler, 1)
-
-# 10. Update projectPosts filter
-old_filter = """    } else if (activeTab === 'security') {
-      list = allSidebarItems.filter((item: any) =>
-        item.permalink.includes('security') || item.permalink.includes('static-site-security')
-      );
-    } else if (activeTab === 'all') {"""
-
-new_filter = """    } else if (activeTab === 'security') {
-      list = allSidebarItems.filter((item: any) =>
-        item.permalink.includes('security') || item.permalink.includes('static-site-security')
-      );
-    } else if (activeTab === 'stanford_cs146s') {
-      list = allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs146s'));
-    } else if (activeTab === 'all') {"""
-
-assert old_filter in code, "old_filter not found"
-code = code.replace(old_filter, new_filter, 1)
-
-# 11. Update anchors
-old_anchors = """      <span id="security" aria-hidden="true" />
-      <span id="all" aria-hidden="true" />"""
-
-new_anchors = """      <span id="security" aria-hidden="true" />
-      <span id="stanford_cs146s" aria-hidden="true" />
-      <span id="stanford" aria-hidden="true" />
-      <span id="cs146s" aria-hidden="true" />
-      <span id="all" aria-hidden="true" />"""
-
-assert old_anchors in code, "old_anchors not found"
-code = code.replace(old_anchors, new_anchors, 1)
-
-# 12. Update Tab Buttons
-old_tab_buttons = """          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'security' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('security')}
-          >
-            {content.tabSecurity}
-          </button>
-          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'all' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('all')}
-          >
-            {content.tabAll}
-          </button>"""
-
-new_tab_buttons = """          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'stanford_cs146s' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('stanford_cs146s')}
-          >
-            {content.tabStanford}
-          </button>
-          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'security' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('security')}
-          >
-            {content.tabSecurity}
-          </button>
-          <button
-            type="button"
-            className={clsx(styles.tabButton, activeTab === 'all' && styles.tabButtonActive)}
-            onClick={() => handleSelectTab('all')}
-          >
-            {content.tabAll}
-          </button>"""
-
-assert old_tab_buttons in code, "old_tab_buttons not found"
-code = code.replace(old_tab_buttons, new_tab_buttons, 1)
-
-# 13. Update Ternary Title and Desc in banner
-old_title_ternary = """                  : activeTab === 'security'
-                  ? content.bannerSecurityTitle
-                  : content.bannerAllTitle}"""
-
-new_title_ternary = """                  : activeTab === 'security'
-                  ? content.bannerSecurityTitle
-                  : activeTab === 'stanford_cs146s'
-                  ? content.bannerStanfordTitle
-                  : content.bannerAllTitle}"""
-
-assert old_title_ternary in code, "old_title_ternary not found"
-code = code.replace(old_title_ternary, new_title_ternary, 1)
-
-old_desc_ternary = """                  : activeTab === 'security'
-                  ? content.bannerSecurityDesc
-                  : content.bannerAllDesc}"""
-
-new_desc_ternary = """                  : activeTab === 'security'
-                  ? content.bannerSecurityDesc
-                  : activeTab === 'stanford_cs146s'
-                  ? content.bannerStanfordDesc
-                  : content.bannerAllDesc}"""
-
-assert old_desc_ternary in code, "old_desc_ternary not found"
-code = code.replace(old_desc_ternary, new_desc_ternary, 1)
-
-with open(target_file, 'w', encoding='utf-8') as f:
-    f.write(code)
-
-print("BlogListPage/index.tsx successfully updated with Stanford CS146S!")
+FILE_PATH.write_text(content, encoding="utf-8")
+print("[+] Updated index.tsx data structures successfully.")

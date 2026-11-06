@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-30-maeumjigi-22
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #22] 4th Fine-Tuning Triumph: Checkpoint-4400, Data Mix Ratios & Full System Architecture"
 authors: [jbgih]
-tags: [devlog, fine-tuning, qwen, checkpoint-analysis, architecture, over-counseling, capstone]
+tags: [devlog, fine-tuning, qwen, checkpoint-analysis, architecture, over-counseling, capstone, practice, ai, maeumjigi]
 date: 2026-05-30
 keywords: [Qwen 3.5 9B Fine-Tuning, Data Mix Ratio Optimization, LLM Overfitting Prevention, Checkpoint 4400 Evaluation, Mental Health Chatbot Architecture]
 description: "Concluding Phase 1 fine-tuning: discovering the optimal 2:1 emotional-to-daily data mix ratio, validating Checkpoint-4400, and publishing our end-to-end full system architecture."

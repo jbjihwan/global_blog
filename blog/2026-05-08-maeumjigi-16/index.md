@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-08-maeumjigi-16
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #16] Fatal Mistake, 2nd Fine-Tuning, and React Native App Launch"
 authors: [jbgih]
-tags: [devlog, fine-tuning, LoRA, hyperparameters, ReactNative, app-development, frontend]
+tags: [devlog, fine-tuning, LoRA, hyperparameters, ReactNative, app-development, frontend, practice, ai, maeumjigi]
 date: 2026-05-08
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Diagnosing prompt template pollution hardcoded into training dialogues and performing rapid debugging to restore dataset formatting integrity."

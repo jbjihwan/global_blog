@@ -1,8 +1,11 @@
 ---
 slug: maeumjigi-1
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #1] The First Steps: Claude Code AI Workflow & Capstone Architecture Planning"
 authors: [jbgih]
-tags: [devlog, ai-agent, claude-code, capstone, project-planning, architecture]
+tags: [devlog, ai-agent, claude-code, capstone, project-planning, architecture, practice, ai, maeumjigi]
 date: 2026-03-26
 keywords: [Claude Code AI Workflow, AI Mental Health Chatbot, Capstone Project Architecture, LLM Fine-Tuning Roadmap, Autonomous AI Agent Rules]
 description: "Day 1 of our capstone engineering journey: Setting up Claude Code AI agent workflows, establishing coding conventions, and executing the critical pivot from a convention alarm app to an AI mental health counseling system."

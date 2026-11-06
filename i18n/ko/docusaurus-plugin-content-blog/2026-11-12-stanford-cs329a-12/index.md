@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-12-agent-evaluation-long-tasks-metr-gdpval
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 12): Agent Evaluation & Long Tasks — METR 시간 지평, OpenAI GDPval, DeepScholar-Bench"
 authors: [jbgih]
-tags: [Stanford CS329A, Agent Evaluation, Long Tasks, METR, GDPval, DeepScholar-Bench, SWE-bench, Time Horizon, Economic Value, LLM Judge]
+tags: [Stanford CS329A, Agent Evaluation, Long Tasks, METR, GDPval, DeepScholar-Bench, SWE-bench, Time Horizon, Economic Value, LLM Judge, theory, ai, lecture, stanford-cs329a]
 keywords: [Agent Evaluation Benchmarks, Long-Horizon Agent Tasks, METR Time Horizon Scaling, OpenAI GDPval Economic Value, DeepScholar-Bench Research Evaluation]
 description: "스탠퍼드 CS329A 12강 완벽 정리: 인간 시간으로 지능을 측정하는 METR 7개월 배가 법칙, 44개 전문직 경제적 가치를 평가한 OpenAI GDPval, 오염 없는 학술 평가 DeepScholar-Bench를 해부합니다."
 date: 2026-11-12T10:00:00.000Z

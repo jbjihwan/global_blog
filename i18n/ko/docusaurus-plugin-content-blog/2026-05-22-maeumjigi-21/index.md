@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-22-maeumjigi-21
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #21] 데이터 혼합 비율 최적화와 4차 파인튜닝 돌입"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 데이터셋, 프롬프트, 캡스톤디자인]
+tags: [개발일지, 파인튜닝, 데이터셋, 프롬프트, 캡스톤디자인, practice, ai, maeumjigi]
 date: 2026-05-22
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "감정 대화 대 일상 대화의 2:1 황금 비율 학습을 통해 모델이 일상 질문에는 명쾌하게 답하고 위기 신호에는 깊게 공감하는 최적 성능을 달성합니다."

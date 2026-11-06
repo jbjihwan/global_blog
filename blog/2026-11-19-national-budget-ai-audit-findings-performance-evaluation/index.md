@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-audit-findings-performance-evaluation
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI Audit: 5 Fraud Findings & System Evaluation"
 authors: [jbgih]
-tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
+tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai, practice, ai, budget-audit]
 date: 2026-11-19
 keywords: ["Public Budget AI Audit", "Procurement Fraud Detection", "Text-to-SQL Evaluation", "GraphRAG Precision", "Autonomous Audit Agent"]
 description: "Interim audit results on public budgets using our AI auditor: Anonymized fraud cases (cartels, split contracts, 10x markups) and system evaluation."

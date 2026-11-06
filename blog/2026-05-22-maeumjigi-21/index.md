@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-22-maeumjigi-21
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #21] Optimizing Data Mix Ratios and Starting the 4th Fine-Tuning"
 authors: [jbgih]
-tags: [devlog, fine-tuning, dataset, prompt, capstone]
+tags: [devlog, fine-tuning, dataset, prompt, capstone, practice, ai, maeumjigi]
 date: 2026-05-22
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Achieving peak model performance by training on the 2:1 emotional-to-daily dialogue ratio, balancing lucid conversational answers with empathetic care."

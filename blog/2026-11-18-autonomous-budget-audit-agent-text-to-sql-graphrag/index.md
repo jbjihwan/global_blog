@@ -1,8 +1,11 @@
 ---
 slug: autonomous-budget-audit-ai-agent-text-to-sql-graphrag
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Autonomous Budget Audit Agent: Text-to-SQL & GraphRAG"
 authors: [jbgih]
-tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops]
+tags: [ai-agents, text-to-sql, graphrag, spec-driven-development, enterprise-ai, devops, practice, ai, budget-audit]
 date: 2026-11-18
 keywords: ["Autonomous AI Agent Architecture", "Text-to-SQL Production", "GraphRAG for Fraud Detection", "Spec-Driven Development in Practice", "Multi-Agent Orchestration Python"]
 description: "How we built an autonomous AI agent to audit $500B public budgets. 3 anticipated challenges prevented, and 3 unexpected real-world bugs solved in production."

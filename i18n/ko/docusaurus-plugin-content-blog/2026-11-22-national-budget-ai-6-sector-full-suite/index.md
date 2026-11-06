@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-6-sector-full-suite
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #5] 6대 표적 분할 감사 완성: 5천만원 특례 쪼개기와 연말 덤핑 적발"
 authors: [jbgih]
-tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
+tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops, practice, ai, budget-audit]
 date: 2026-11-22
 keywords: ["6대 표적 분할 감사", "여성기업 5천만원 특례 쪼개기", "연말 예산 불용 덤핑", "조달청 AI 이상탐지", "공공재정 감사"]
 description: "400만 건의 공공 조달에서 비리 사각지대를 타격하는 6대 표적 분할 감사 체계. 5천만원 특례 턱걸이 쪼개기와 12월 연말 예산 불용 덤핑 적발 및 트러블슈팅."

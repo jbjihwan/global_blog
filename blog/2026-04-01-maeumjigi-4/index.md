@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-01-maeumjigi-4
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #4] Full-Scale Data Preprocessing: Llama 3.1 Chat Template & Autonomous JSONL Pipeline"
 authors: [jbgih]
-tags: [devlog, llama-3-1, data-preprocessing, jsonl, fine-tuning, ai-hub, nlp]
+tags: [devlog, llama-3-1, data-preprocessing, jsonl, fine-tuning, ai-hub, nlp, practice, ai, maeumjigi]
 date: 2026-04-01
 keywords: [Llama 3.1 Chat Template, AI Hub Preprocessing Pipeline, JSONL Multi-turn Formatting, LLM Instruction Fine-Tuning, Empathetic Dialogue Dataset]
 description: "Executing autonomous data engineering for Maeumjigi: transforming 120,000 raw Korean empathetic dialogue records into strict Llama 3.1 special token JSONL datasets."

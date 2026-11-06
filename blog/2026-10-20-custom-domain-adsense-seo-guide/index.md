@@ -1,8 +1,11 @@
 ---
 slug: github-pages-custom-domain-adsense-seo-guide
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "Google AdSense on GitHub Pages: Custom Domain & ads.txt Setup"
 authors: [jbjihwan]
-tags: [docusaurus, devops, cloudflare, seo, web-monetization]
+tags: [docusaurus, devops, cloudflare, seo, web-monetization, practice, security, infra]
 keywords: ["github pages google adsense", "Google AdSense ads.txt static site", "GitHub Pages Custom Domain AdSense", "Cloudflare DNS Porkbun CNAME"]
 description: "How to get Google AdSense approved on GitHub Pages custom domains. Step-by-step ads.txt hosting, Porkbun & Cloudflare DNS, and multi-engine SEO setup."
 ---

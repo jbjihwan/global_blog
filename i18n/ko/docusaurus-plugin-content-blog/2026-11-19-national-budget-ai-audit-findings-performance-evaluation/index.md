@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-audit-findings-performance-evaluation
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #2] 국가 예산 AI 감사 중간 결과와 시스템 종합 평가"
 authors: [jbgih]
-tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai]
+tags: [ai-agents, text-to-sql, graphrag, enterprise-ai, public-budget, audit-ai, practice, ai, budget-audit]
 date: 2026-11-19
 keywords: ["국가 예산 감사 결과", "AI 감사 시스템", "공공조달 담합 적발", "Text-to-SQL 성능", "GraphRAG 평가"]
 description: "국가 예산 AI 감사 시스템의 중간 가동 결과: 쪼개기 수의계약, 페이퍼컴퍼니 담합, 단가 10배 부풀리기 적발 사례(익명화)와 AI 감사관의 정밀도·성능·한계점 심층 평가."

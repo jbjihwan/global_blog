@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-inspector-portal-verification-system
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "[AI 에이전트 실전 #6] 감사관 종합 웹 포털과 20개 테스트 전수 통과기"
 authors: [jbgih]
-tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops]
+tags: [ai-agents, web-portal, test-automation, full-verification, audit-intelligence, devops, practice, ai, budget-audit]
 date: 2026-11-23
 keywords: ["감사관 종합 웹 포털", "Vis.js 지식그래프", "HWPX 공문서 파서", "20개 테스트 전수 검증", "국가예산 AI 감사 완결"]
 description: "국가 예산 AI 감사 시리즈 완결편. Vis.js 지식그래프, 10개년 판례 DB, HWPX 파서를 결합한 감사관 웹 포털 v3.0 구축과 20개 테스트 하네스 전수 통과기."

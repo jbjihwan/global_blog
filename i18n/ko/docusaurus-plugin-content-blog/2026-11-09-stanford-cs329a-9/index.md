@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-9-post-training-evolution-sft-rlhf-rlvr-agent-rl
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "스탠포드 CS329A (9강): 사후 훈련의 대진화 — 챗봇에서 자율 에이전트 함대로 (SFT, RLHF, RLVR, Agent RL)"
 authors: [jbgih]
-tags: [스탠포드 CS329A, 사후 훈련, SFT, RLHF, RLVR, Agent RL, DeepSeek-R1, InstructGPT, WebRL, 자율 에이전트]
+tags: [스탠포드 CS329A, 사후 훈련, SFT, RLHF, RLVR, Agent RL, DeepSeek-R1, InstructGPT, WebRL, 자율 에이전트, theory, ai, lecture, stanford-cs329a]
 keywords: [Post-Training LLM Evolution, Supervised Fine-Tuning SFT Agent, RLHF Alignment for Agents, Tool-Grounded Post-Training, Autonomous Agent Evolution Roadmap]
 description: "스탠포드 CS329A 9강 해설: 원시 언어 모델이 SFT, RLHF, RLVR, 그리고 에이전트 강화학습(Agent RL)을 거쳐 자율 문제 해결자로 진화해 온 사후 훈련 4단계 로드맵을 총정리합니다."
 date: 2026-11-09T10:00:00.000Z

@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-30-stanford-cs146s-9
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS146S #9] 자율 TDD와 형식 검증: Z3 SMT 솔버, 속성 기반 불변식, AI 생성 코드의 수학적 증명"
 authors: [jbgih]
-tags: [stanford-cs146s, autonomous-tdd, formal-verification, z3-smt-solver, property-based-testing, software-correctness, symbolic-execution]
+tags: [stanford-cs146s, autonomous-tdd, formal-verification, z3-smt-solver, property-based-testing, software-correctness, symbolic-execution, theory, ai, lecture]
 date: 2026-10-30
 keywords: [자율 테스트 주도 개발 ATDD, Z3 SMT 솔버 형식 검증, Hypothesis 속성 기반 테스트, LLM 코드 수학적 증명, AI 시스템 불변식 합성]
 description: "스탠포드 CS146S 9강 심층 가이드: 예제 기반 단위 테스트의 한계를 넘어 자율 속성 기반 테스트(PBT), 기호 실행(Symbolic Execution), Z3 SMT 솔버를 결합하여 AI 생성 코드의 무결성을 수학적으로 증명하는 엔지니어링 완벽 가이드."

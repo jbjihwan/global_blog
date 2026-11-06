@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-suicide-risk-detection-fnr-zero
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "[위기감지 AI #1] 위기 NLP 분류기의 FNR 0% 도전과 베이즈 경계 왜곡 해결"
 authors: [jbgih]
-tags: [crisis-detection, nlp, machine-learning, bayesian-inference, suicide-prevention, lightgbm, devlog]
+tags: [crisis-detection, nlp, machine-learning, bayesian-inference, suicide-prevention, lightgbm, devlog, practice, ai, crisis-nlp]
 date: 2026-11-24
 keywords: [위기 감지 AI, 자살위기 NLP 분류기, 위기 미감지율 최소화, FNR 극소화, 베이즈 최소위험 결정 경계, LightGBM 순서형 분류]
 description: "자살·정신건강 위기 감지 AI 파이프라인 개발기: 베이즈 경계 왜곡 해결로 FNR을 극소화하고, 지표 구성 타당도 오류와 순서형 LightGBM 발산 버그를 해결한 엔지니어링 실전 기록."

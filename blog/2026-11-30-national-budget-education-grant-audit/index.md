@@ -1,8 +1,11 @@
 ---
 slug: national-budget-education-grant-audit
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #8: 17 Education Offices Grant Audit"
 authors: [jbgih]
-tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx]
+tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx, practice, ai]
 date: 2026-11-30
 keywords: ["K-EduFine", "Education Grant Audit", "17 Education Offices", "Bidding Collusion", "HWPX Sanctions", "Local Education Grant Act"]
 description: "Auditing 9.08T KRW across 17 education offices via K-EduFine to detect smart device collusion, split contracts, and issue 2.41T KRW HWPX sanctions."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-18-rl-qlearning-2
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots Robotics] Tabular Q-Learning Implementation & Reward Shaping Tuning (#2)"
 authors: [jbgih]
-tags: [reinforcement-learning, q-learning, reward-shaping, webots, robotics, machine-learning, python]
+tags: [reinforcement-learning, q-learning, reward-shaping, webots, robotics, machine-learning, python, practice, ai]
 date: 2026-05-18
 project: rl_q_learning
 description: "In-depth breakdown of Tabular Q-Learning TD(0) update formulas, exponential epsilon-decay exploration, and dense reward shaping to overcome sparse rewards in mobile robot navigation."

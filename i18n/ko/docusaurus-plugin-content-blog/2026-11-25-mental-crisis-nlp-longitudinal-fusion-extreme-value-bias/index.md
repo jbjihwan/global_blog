@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-longitudinal-fusion-extreme-value-bias
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "[위기감지 AI #2] 14일 시계열 융합과 86.7% 극단값 편향 극복"
 authors: [jbgih]
-tags: [Crisis AI, Multimodal Fusion, Extreme Value Theory, Time-Series NLP, Alert Fatigue, Troubleshooting]
+tags: [Crisis AI, Multimodal Fusion, Extreme Value Theory, Time-Series NLP, Alert Fatigue, Troubleshooting, practice, ai, crisis-nlp]
 date: 2026-11-25
 description: "14일 슬라이딩 윈도우에서 문장당 2% 오탐이 86.7% 허위 경보로 폭증하는 극단값 편향(ERR-005)의 수학적 증명과 상위-k 절삭 감쇠 융합기, 무지연 비상 트리거 실전 해결기."
 ---

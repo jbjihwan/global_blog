@@ -26,6 +26,9 @@ interface ProjectInfo {
   techTags: string[];
   hasPosts: boolean;
   upcomingBadgeText?: string;
+  taxonomyL1?: 'theory' | 'practice' | 'error';
+  taxonomyL2?: 'ai' | 'security';
+  taxonomyL3?: string;
 }
 
 interface LocaleContent {
@@ -40,7 +43,28 @@ interface LocaleContent {
   tabAnpr: string;
   tabRl: string;
   tabSecurity: string;
+  tabSdc: string;
   tabAll: string;
+  // Taxonomy L1
+  taxAll: string;
+  taxTheory: string;
+  taxPractice: string;
+  taxError: string;
+  // Taxonomy L2
+  taxDomainLabel: string;
+  taxDomainAll: string;
+  taxDomainAi: string;
+  taxDomainSecurity: string;
+  // Taxonomy L3
+  taxTypeLabel: string;
+  taxTypeAll: string;
+  taxTypeLecture: string;
+  taxTypeDef: string;
+  taxTypeHistory: string;
+  taxProjectLabel: string;
+  taxErrorTitle: string;
+  taxErrorDesc: string;
+  // Banners
   bannerCrisisTitle: string;
   bannerCrisisDesc: string;
   bannerBudgetTitle: string;
@@ -57,6 +81,8 @@ interface LocaleContent {
   bannerRlDesc: string;
   bannerSecurityTitle: string;
   bannerSecurityDesc: string;
+  bannerSdcTitle: string;
+  bannerSdcDesc: string;
   bannerAllTitle: string;
   bannerAllDesc: string;
   sortNewest: string;
@@ -84,7 +110,24 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabAnpr: 'ANPR & 차선침범',
     tabRl: 'RL Q-Learning',
     tabSecurity: '보안 & 엔지니어링',
+    tabSdc: 'SDC 공중전 임무계획',
     tabAll: '전체 글 피드',
+    taxAll: '전체 분류',
+    taxTheory: '1. 이론 (Theory)',
+    taxPractice: '2. 실습 (Practice)',
+    taxError: '3. 오류 (Errors)',
+    taxDomainLabel: '도메인',
+    taxDomainAll: '전체 도메인',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: '보안 (Security)',
+    taxTypeLabel: '소분류 유형',
+    taxTypeAll: '전체 유형',
+    taxTypeLecture: '강의 (Lecture)',
+    taxTypeDef: '정의 (Definition)',
+    taxTypeHistory: '역사 (History)',
+    taxProjectLabel: '프로젝트별',
+    taxErrorTitle: '오류 및 트러블슈팅 아카이브 (Errors & Troubleshooting)',
+    taxErrorDesc: '오류의 하위 분류는 추후 분류 예정입니다 (Pending Sub-classification). 각 프로젝트에서 발생한 날것의 런타임/설계 결함(A-xx, B-xx, D-xx)과 근본 원인 분석(Deep Root Cause), 해결 코드 Diff를 다룬 실전 포스트들을 집대성하여 제공합니다.',
     bannerCrisisTitle: '프로젝트: [고위험 특화 AI] 자살/위기 텍스트 정밀 감지 파이프라인',
     bannerCrisisDesc: '자살 및 고위험 심리 위기 발화의 미탐(FNR) 원천 차단을 위한 임상 특화 NLP 파이프라인: 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지(누적 관문+Argmax), 순서형 트리 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
     bannerBudgetTitle: '프로젝트: 국가 예산 AI 감사 (Autonomous Budget Audit)',
@@ -114,6 +157,21 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     emptyNotice: '해당 카테고리의 포스트가 준비 중입니다.',
     projects: [
       {
+        id: 'sdc_replanning',
+        name: 'SDC 공중전 동적 임무계획',
+        badgeType: 'active',
+        category: '실습 / AI / 항공전자',
+        icon: 'sdc_replanning',
+        subtitle: '비행 중 임무 재계획 및 델타 분산 아키텍처 실전 연구',
+        description:
+          '전술 데이터링크 교란 환경에서의 RFC 8785 결정론적 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 최적화 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',
+        techTags: ['Mission Replanning', 'Ed25519', 'MapLibre WebGL', 'RK4 Fuel', 'Simplex AI', 'A* Search'],
+        hasPosts: true,
+        taxonomyL1: 'practice',
+        taxonomyL2: 'ai',
+        taxonomyL3: 'project-sdc',
+      },
+      {
         id: 'crisis_detection',
         name: '[고위험 AI] 위기 텍스트 정밀 감지',
         badgeType: 'active',
@@ -124,6 +182,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '자살 및 고위험 심리 위기 발화의 미탐(FNR)을 원천 차단하기 위한 임상 특화 NLP 파이프라인. 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지, 순서형 트리 확률 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
         techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-crisis',
       },
       {
         id: 'national_budget',
@@ -136,6 +195,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Text-to-SQL 정밀 금융 산출, 3차원 표적 분할, GraphRAG 지배구조 네트워크, 바지사장 및 페이퍼컴퍼니 담합 추적, 20개 테스트 하네스 전수 검증 종합 포털 개발일지.',
         techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-budget',
       },
       {
         id: 'maeumjigi',
@@ -148,6 +208,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '우울 및 고위험 위기 발화를 실시간 감지하고 공감 상담을 수행하는 AI 챗봇. Llama 3.1 파인튜닝 (2:1 감성:일상 황금 비율), Safety Wrapper 가드레일, AWS EC2 GPU 서버 배포기.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-maeumjigi',
       },
       {
         id: 'anpr_vision',
@@ -160,6 +221,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '블랙박스 영상에서 차선 침범 차량을 실시간 감지(IoU)하고, 저해상도 번호판을 EDSR_x4 딥러닝으로 복원하여 EasyOCR 및 Majority Voting으로 완벽하게 판독하는 비전 시스템 (v01~v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-anpr',
       },
       {
         id: 'rl_q_learning',
@@ -172,6 +234,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Webots 시뮬레이터 환경에서 에이전트의 Q-Table 최적화 및 자율주행을 탐구하는 강화학습 프로젝트. 648개 이산 상태 공간 설계, 소켓 IPC 통신, 실제 Arduino 로봇 전이 기획.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-rl',
       },
       {
         id: 'security',
@@ -184,6 +247,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '45개 npm 취약점 경고의 실제 런타임 위협 모델링, Git 시크릿 스캔, 개인정보(PII) 누출 차단, Referrer Policy 및 지속적 보안 파이프라인 구축 기록.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'security', taxonomyL3: 'project-security-infra',
       },
       {
         id: 'stanford_cs329a',
@@ -196,6 +260,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '차세대 프론티어 AI의 핵심 패러다임. 추론 연산 스케일링, 프로세스 보상 모델(PRM), MCTS 계획 탐색, DeepSeek GRPO 강화학습, Sakana AI Scientist와 DeepMind AlphaEvolve 개방형 코드 진화, Lean 4 수학적 증명(AlphaProof), VLA 로보틱스까지 17개 전 강좌 완벽 분석.',
         techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       },
       {
         id: 'stanford_cs146s',
@@ -208,6 +273,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '수동 코딩에서 AI 에이전트 지휘자로의 대전환. 스펙 주도 개발(SDD), 루프 엔지니어링, 모델 컨텍스트 프로토콜(MCP)과 현대 풀스택 개발 방법론 완벽 해설.',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       }
     ],
   },
@@ -223,7 +289,24 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabAnpr: 'ANPR & Lane Intrusion',
     tabRl: 'RL Q-Learning',
     tabSecurity: 'Security & Infra',
+    tabSdc: 'SDC Air Combat',
     tabAll: 'All Posts Feed',
+    taxAll: 'All Categories',
+    taxTheory: '1. Theory',
+    taxPractice: '2. Practice',
+    taxError: '3. Errors & Pitfalls',
+    taxDomainLabel: 'Domain',
+    taxDomainAll: 'All Domains',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: 'Security',
+    taxTypeLabel: 'Sub-type',
+    taxTypeAll: 'All Types',
+    taxTypeLecture: 'Lecture',
+    taxTypeDef: 'Definition',
+    taxTypeHistory: 'History',
+    taxProjectLabel: 'By Project',
+    taxErrorTitle: 'Errors & Troubleshooting Archive',
+    taxErrorDesc: 'Sub-classification of errors is pending future definition. This archive aggregates all real-world runtime/design defect postmortems (A-xx, B-xx, D-xx), deep root causes, and clean fix code diffs across projects.',
     bannerCrisisTitle: 'Project: [Crisis AI] Mental Crisis & Suicide NLP Detection Pipeline',
     bannerCrisisDesc: 'Clinical-grade NLP pipeline engineered to eliminate False Negatives (FNR ~0%) in high-stakes suicide crisis text: Defeating the 524x Bayes prior likelihood barrier, 2-stage hybrid triage, LightGBM ordinal monotonicity stabilization, and defense against 86.7% extreme value bias in 14-day sliding windows.',
     bannerBudgetTitle: 'Project: Autonomous Public Budget Audit Agent',
@@ -240,6 +323,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerRlDesc: 'Webots physics-based 648-bin state space Q-learning autonomous robot dev logs',
     bannerSecurityTitle: 'Project: Security & Web Engineering',
     bannerSecurityDesc: 'Static site security hardening, threat modeling, and npm supply chain defense',
+    bannerSdcTitle: 'Project: SDC In-Flight Dynamic Mission Replanning Engine',
+    bannerSdcDesc: 'In-flight cockpit-ground distributed delta architecture: RFC 8785 JCS, Ed25519 signatures, MapLibre WebGL UI, CPython 14.5s->0.25s A* search acceleration, and ROK MND 2022 Threat Matrix T1~T12 replanning series.',
     bannerAllTitle: 'All Dev Logs Feed',
     bannerAllDesc: 'Chronological feed of all posts across all projects.',
     sortNewest: 'Newest First',
@@ -253,6 +338,21 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     emptyNotice: 'Posts in this category are coming soon.',
     projects: [
       {
+        id: 'sdc_replanning',
+        name: 'SDC 공중전 동적 임무계획',
+        badgeType: 'active',
+        category: '실습 / AI / 항공전자',
+        icon: 'sdc_replanning',
+        subtitle: '비행 중 임무 재계획 및 델타 분산 아키텍처 실전 연구',
+        description:
+          '전술 데이터링크 교란 환경에서의 RFC 8785 결정론적 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 최적화 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',
+        techTags: ['Mission Replanning', 'Ed25519', 'MapLibre WebGL', 'RK4 Fuel', 'Simplex AI', 'A* Search'],
+        hasPosts: true,
+        taxonomyL1: 'practice',
+        taxonomyL2: 'ai',
+        taxonomyL3: 'project-sdc',
+      },
+      {
         id: 'crisis_detection',
         name: '[Crisis AI] Suicide Risk NLP',
         badgeType: 'active',
@@ -263,6 +363,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Clinical NLP pipeline eliminating False Negatives in crisis detection. Overcoming 524x Bayes barrier, 2-stage hybrid triage, ordinal tree stabilization, and 14-day 86.7% extreme value bias defense.',
         techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-crisis',
       },
       {
         id: 'national_budget',
@@ -275,6 +376,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Text-to-SQL financial precision, 3D target partitioning, GraphRAG corporate registry cartel tracing, and 20-test inspector web portal.',
         techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-budget',
       },
       {
         id: 'maeumjigi',
@@ -287,6 +389,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Real-time crisis & depression detection with compassionate counseling. Llama 3.1 fine-tuning (2:1 emotional-to-daily ratio), Safety Wrapper guardrails, and AWS EC2 GPU deployment.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-maeumjigi',
       },
       {
         id: 'anpr_vision',
@@ -299,6 +402,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Real-time lane intrusion detection with IoU, blurry license plate reconstruction via EDSR_x4 super-resolution, and temporal majority voting EasyOCR pipeline across 11 iterations (v01 to v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-anpr',
       },
       {
         id: 'rl_q_learning',
@@ -311,6 +415,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Q-Table optimization and autonomous navigation in Webots simulation environments. Continuous state discretization (648 bins), socket IPC communication, and Sim-to-Real hardware transfer.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-rl',
       },
       {
         id: 'security',
@@ -323,6 +428,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Threat modeling 45 npm audit vulnerabilities in static sites, git secret scanning, PII protection, Referrer Policy headers, and automated security verification pipelines.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'security', taxonomyL3: 'project-security-infra',
       },
       {
         id: 'stanford_cs329a',
@@ -335,6 +441,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'The definitive frontier of autonomous AI. In-depth analysis of test-time compute scaling, Process Reward Models (PRM), MCTS tree planning, DeepSeek GRPO RL, Sakana AI Scientist, AlphaEvolve open-ended code discovery, Lean 4 formal verification (AlphaProof), and VLA multimodal robotics across all 17 lectures.',
         techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       },
       {
         id: 'stanford_cs146s',
@@ -347,6 +454,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'The paradigm shift from syntax typing to AI agent orchestration. Comprehensive breakdowns of Spec-Driven Development (SDD), Loop Engineering, and Model Context Protocol (MCP).',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       }
     ],
   },
@@ -362,7 +470,24 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabAnpr: 'ANPR＆車線侵犯',
     tabRl: 'RL Q-Learning',
     tabSecurity: 'セキュリティ＆インフラ',
+    tabSdc: 'SDC 空中戦任務計画',
     tabAll: '全記事フィード',
+    taxAll: '全分類',
+    taxTheory: '1. 理論 (Theory)',
+    taxPractice: '2. 実習 (Practice)',
+    taxError: '3. エラー (Errors)',
+    taxDomainLabel: 'ドメイン',
+    taxDomainAll: '全ドメイン',
+    taxDomainAi: 'AI',
+    taxDomainSecurity: 'セキュリティ',
+    taxTypeLabel: 'サブ分類',
+    taxTypeAll: '全タイプ',
+    taxTypeLecture: '講義 (Lecture)',
+    taxTypeDef: '定義 (Definition)',
+    taxTypeHistory: '歴史 (History)',
+    taxProjectLabel: 'プロジェクト別',
+    taxErrorTitle: 'エラー＆トラブルシューティング アーカイブ',
+    taxErrorDesc: 'エラーのサブ分類は今後分類予定です。各プロジェクトで発生したランタイム・設計の欠陥（A-xx、B-xx、D-xx）と根本原因分析、修正コードDiffを収録した実戦記事をまとめて提供します。',
     bannerCrisisTitle: 'プロジェクト: 【高リスク特化AI】自殺・心理的危機テキスト精密検知パイプライン',
     bannerCrisisDesc: '自殺および高リスク心理的危機の見逃し(FNR)をゼロにする臨床特化型NLPパイプライン: 524倍ベイズ事前確率障壁の克服、2段階ハイブリッドトリアージ、順序型LightGBMの単調性崩壊防御、14日間スライディングウィンドウの極端値バイアス(86.7%)克服実録。',
     bannerBudgetTitle: 'プロジェクト: 国家予算AI監査 (Autonomous Budget Audit)',
@@ -392,6 +517,21 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     emptyNotice: 'このカテゴリの投稿は準備中です。',
     projects: [
       {
+        id: 'sdc_replanning',
+        name: 'SDC 공중전 동적 임무계획',
+        badgeType: 'active',
+        category: '실습 / AI / 항공전자',
+        icon: 'sdc_replanning',
+        subtitle: '비행 중 임무 재계획 및 델타 분산 아키텍처 실전 연구',
+        description:
+          '전술 데이터링크 교란 환경에서의 RFC 8785 결정론적 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 최적화 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',
+        techTags: ['Mission Replanning', 'Ed25519', 'MapLibre WebGL', 'RK4 Fuel', 'Simplex AI', 'A* Search'],
+        hasPosts: true,
+        taxonomyL1: 'practice',
+        taxonomyL2: 'ai',
+        taxonomyL3: 'project-sdc',
+      },
+      {
         id: 'crisis_detection',
         name: '【高リスクAI】危機検知NLP',
         badgeType: 'active',
@@ -402,6 +542,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '自殺および高リスク危機の見逃しを根絶する臨床特化NLP。524倍ベイズ事前確率障壁の克服、2段階ハイブリッドトリアージ、順序型モデル単調性保証、14日間86.7%極端値バイアス防衛実録。',
         techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-crisis',
       },
       {
         id: 'national_budget',
@@ -414,6 +555,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Text-to-SQL高精度金融分析、3次元標的分割、GraphRAGダミー社長カルテル分析、20項目全数検証ポータル開発記録。',
         techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-budget',
       },
       {
         id: 'maeumjigi',
@@ -426,6 +568,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'うつや高リスクの危機的発話をリアルタイムで検知し、共感型カウンセリングを行うAIチャットボット。Llama 3.1ファインチューニング（感情2:日常1の黄金比）、Safety Wrapperガードレール、AWS EC2 GPUサーバーデプロイ。',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-maeumjigi',
       },
       {
         id: 'anpr_vision',
@@ -438,6 +581,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'ドラレコ映像から車線侵犯車両を検知(IoU)し、EDSR_x4深層超解像で低解像度ナンバープレートを復元、EasyOCRと多数決投票(Majority Voting)で高精度認識を行うビジョンパイプライン(v01~v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-anpr',
       },
       {
         id: 'rl_q_learning',
@@ -450,6 +594,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Webotsシミュレーション環境におけるQ-Tableの最適化と自律走行を探求する強化学習プロジェクト。648状態空間の離散化、ソケットIPC通信、実機Arduinoロボットへの移行計画。',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-rl',
       },
       {
         id: 'security',
@@ -462,6 +607,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '45件のnpm脆弱性警告に対する実行時脅威モデリング、Gitシークレットスキャン、個人情報(PII)保護、Referrer Policy適用および自動セキュリティパイプライン構築。',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'security', taxonomyL3: 'project-security-infra',
       },
       {
         id: 'stanford_cs329a',
@@ -474,6 +620,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '次世代フロンティアAIの中核パラダイム。推論時計算スケーリング、プロセス報酬モデル（PRM）、MCTS探索計画、DeepSeek GRPO強化学習、Sakana AI ScientistおよびDeepMind AlphaEvolveオープンエンド進化、Lean 4形式検証、VLAロボティクスなど全17講義を徹底解説。',
         techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       },
       {
         id: 'stanford_cs146s',
@@ -486,6 +633,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           '手動コーディングからAIエージェント指揮者への大転換。仕様駆動開発（SDD）、ループエンジニアリング、モデルコンテキストプロトコル（MCP）の完全解説。',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       }
     ],
   },
@@ -501,7 +649,24 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     tabAnpr: 'ANPR e Invasión',
     tabRl: 'RL Q-Learning',
     tabSecurity: 'Seguridad e Infra',
+    tabSdc: 'SDC Combate Aéreo',
     tabAll: 'Todos los Posts',
+    taxAll: 'Todas las Categorías',
+    taxTheory: '1. Teoría',
+    taxPractice: '2. Práctica',
+    taxError: '3. Errores y Fallos',
+    taxDomainLabel: 'Dominio',
+    taxDomainAll: 'Todos los Dominios',
+    taxDomainAi: 'IA',
+    taxDomainSecurity: 'Seguridad',
+    taxTypeLabel: 'Subtipo',
+    taxTypeAll: 'Todos los Tipos',
+    taxTypeLecture: 'Clase (Lecture)',
+    taxTypeDef: 'Definición',
+    taxTypeHistory: 'Historia',
+    taxProjectLabel: 'Por Proyecto',
+    taxErrorTitle: 'Archivo de Errores y Depuración',
+    taxErrorDesc: 'La subclasificación de errores está pendiente de definición futura. Este archivo reúne todos los análisis de fallos en tiempo de ejecución/diseño (A-xx, B-xx, D-xx), causas raíz y diffs de código correctivo.',
     bannerCrisisTitle: 'Proyecto: [IA de Alto Riesgo] Pipeline de Detección Precisa de Crisis y Suicidio',
     bannerCrisisDesc: 'Pipeline de NLP clínico diseñado para eliminar falsos negativos (FNR ~0%) en textos de crisis suicida: Superación de la barrera bayesiana de 524x, triaje híbrido en 2 etapas, estabilización de monotonicidad ordinal en LightGBM y defensa contra el sesgo de valor extremo del 86.7% en ventanas de 14 días.',
     bannerBudgetTitle: 'Proyecto: Auditoría Autónoma del Presupuesto Público con IA',
@@ -518,6 +683,8 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     bannerRlDesc: 'Diarios de desarrollo de robot autónomo Q-Learning con espacio de 648 estados en Webots',
     bannerSecurityTitle: 'Proyecto: Seguridad e Ingeniería Web',
     bannerSecurityDesc: 'Blindaje de seguridad en sitios estáticos, modelado de amenazas y defensa de la cadena npm',
+    bannerSdcTitle: 'Proyecto: Motor de Replanificación Dinámica de Combate Aéreo (SDC)',
+    bannerSdcDesc: 'Arquitectura distribuida de delta cabina-tierra en vuelo: RFC 8785 JCS, firmas Ed25519, MapLibre WebGL UI, aceleración de búsqueda A* de 14.5s a 0.25s y matriz de amenazas T1~T12 del Libro Blanco de Defensa 2022.',
     bannerAllTitle: 'Todos los Diarios de Desarrollo',
     bannerAllDesc: 'Publicaciones de todos los proyectos ordenadas según tu preferencia.',
     sortNewest: 'Más recientes primero',
@@ -531,6 +698,21 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
     emptyNotice: 'Las publicaciones de esta categoría se están preparando.',
     projects: [
       {
+        id: 'sdc_replanning',
+        name: 'SDC 공중전 동적 임무계획',
+        badgeType: 'active',
+        category: '실습 / AI / 항공전자',
+        icon: 'sdc_replanning',
+        subtitle: '비행 중 임무 재계획 및 델타 분산 아키텍처 실전 연구',
+        description:
+          '전술 데이터링크 교란 환경에서의 RFC 8785 결정론적 JCS, Ed25519 전자서명, MapLibre WebGL UI, CPython 14.5s->0.25s A* 탐색 최적화 및 2022 국방백서 기반 T1~T12 위협 대응 실전 개발일지.',
+        techTags: ['Mission Replanning', 'Ed25519', 'MapLibre WebGL', 'RK4 Fuel', 'Simplex AI', 'A* Search'],
+        hasPosts: true,
+        taxonomyL1: 'practice',
+        taxonomyL2: 'ai',
+        taxonomyL3: 'project-sdc',
+      },
+      {
         id: 'crisis_detection',
         name: '[IA Crisis] Detección Suicida NLP',
         badgeType: 'active',
@@ -541,6 +723,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Pipeline clínico de NLP para eliminar falsos negativos. Superación de barrera de 524x, triaje en 2 etapas, monotonicidad ordinal y defensa contra el sesgo de 86.7% en 14 días.',
         techTags: ['Crisis NLP', 'FNR Zero', 'Bayes Barrier', 'LightGBM', 'RoBERTa', 'Clinical AI'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-crisis',
       },
       {
         id: 'national_budget',
@@ -553,6 +736,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Text-to-SQL financiero, partición 3D de objetivos, mapeo de carteles con GraphRAG y portal de pruebas de 20 suites.',
         techTags: ['Budget AI', 'GraphRAG', 'Text-to-SQL', 'Procurement Audit', 'FastAPI', 'NetworkX'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-budget',
       },
       {
         id: 'maeumjigi',
@@ -565,6 +749,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Detección en tiempo real de crisis y depresión con asesoramiento empático. Ajuste fino de Llama 3.1 (proporción 2:1 emocional y cotidiana), guardarraíles Safety Wrapper y despliegue en GPU de AWS EC2.',
         techTags: ['PyTorch', 'Llama 3.1', 'Safety Wrapper', 'FastAPI', 'AWS EC2', 'CapDe'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-maeumjigi',
       },
       {
         id: 'anpr_vision',
@@ -577,6 +762,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Detección en tiempo real de invasión de carril (IoU) en grabaciones de caja negra, restauración de matrículas borrosas con superresolución EDSR_x4 y votación temporal mayoritaria con EasyOCR (v01 a v11).',
         techTags: ['OpenCV', 'YOLOv5', 'EDSR (SR)', 'CSRT Tracker', 'EasyOCR', 'PyTorch'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-anpr',
       },
       {
         id: 'rl_q_learning',
@@ -589,6 +775,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Optimización de Q-Table y navegación autónoma en entornos de simulación Webots. Discretización de espacio de estados (648 bins), comunicación IPC por sockets y transferencia Sim-to-Real a hardware.',
         techTags: ['Python', 'Webots', 'Q-Learning', 'NumPy', 'Socket IPC', 'Arduino'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'ai', taxonomyL3: 'project-rl',
       },
       {
         id: 'security',
@@ -601,6 +788,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'Modelado de amenazas de 45 vulnerabilidades en npm audit para sitios estáticos, escaneo de secretos git, protección de PII, políticas Referrer y pipeline de verificación continua.',
         techTags: ['npm audit', 'SSG Hardening', 'DevSecOps', 'Threat Modeling', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'practice', taxonomyL2: 'security', taxonomyL3: 'project-security-infra',
       },
       {
         id: 'stanford_cs329a',
@@ -613,6 +801,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'La frontera definitiva de la IA autónoma. Desglose exhaustivo del escalado de cómputo en inferencia, modelos de recompensa de procesos (PRM), planificación de árbol MCTS, RL con GRPO, evolución abierta de código con AI Scientist y AlphaEvolve, verificación formal en Lean 4 y robótica VLA a lo largo de las 17 conferencias.',
         techTags: ['Stanford CS329A', 'Self-Improving AI', 'MCTS', 'GRPO', 'PRM', 'VLA'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       },
       {
         id: 'stanford_cs146s',
@@ -625,6 +814,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
           'El cambio de paradigma de escribir código a orquestar agentes. Desgloses de Desarrollo Guiado por Especificaciones (SDD), Loop Engineering y Model Context Protocol (MCP).',
         techTags: ['Stanford CS146S', 'Agentic Workflows', 'Spec-Driven', 'MCP', 'CI/CD'],
         hasPosts: true,
+        taxonomyL1: 'theory', taxonomyL2: 'ai', taxonomyL3: 'lecture',
       }
     ],
   },
@@ -637,6 +827,7 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 const KNOWN_SLUG_DATES: Record<string, string> = {
+  'sdc-02-stack-spike-doctrine-hypotheses': '2026-12-04',
   'sdc-01-architecture-klm-model': '2026-12-03',
   'national-budget-surveillance-automated-audit-ledger': '2026-12-02',
   'google-adsense-low-value-content-cloudflare-fix': '2026-12-01',
@@ -660,6 +851,10 @@ const KNOWN_SLUG_DATES: Record<string, string> = {
 };
 
 function getEpisodeNumber(permalink: string): number {
+  if (permalink.includes('sdc-01-architecture-klm-model')) return 1;
+  if (permalink.includes('sdc-02-stack-spike-doctrine-hypotheses')) return 2;
+  const sdcM = permalink.match(/sdc-(\d+)/);
+  if (sdcM) return parseInt(sdcM[1], 10);
   if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
   const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
   if (mc) return parseInt(mc[1], 10);
@@ -716,6 +911,7 @@ function ProjectHubView({
   btnExploreProject,
   btnUpcoming,
   onSelectProject,
+  emptyNotice,
 }: {
   projects: ProjectInfo[];
   postCounts: Record<string, number>;
@@ -723,9 +919,15 @@ function ProjectHubView({
   btnExploreProject: string;
   btnUpcoming: string;
   onSelectProject: (id: string) => void;
+  emptyNotice?: string;
 }) {
   return (
     <div className={styles.projectHubContainer}>
+      {projects.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--ifm-color-emphasis-600)' }}>
+          <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>{emptyNotice || '포스트가 준비 중입니다.'}</p>
+        </div>
+      ) : (
       <div className={styles.projectGrid}>
         {projects.map((proj) => {
           const count = postCounts[proj.id] || 0;
@@ -790,6 +992,7 @@ function ProjectHubView({
           );
         })}
       </div>
+      )}
     </div>
   );
 }
@@ -807,9 +1010,14 @@ function BlogListPageContent(props: any) {
 
   const isFirstPage = metadata.page === 1;
 
+  // Taxonomy Filter states
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'theory' | 'practice' | 'error'>('all');
+  const [domainFilter, setDomainFilter] = useState<'all' | 'ai' | 'security'>('all');
+  const [subTypeFilter, setSubTypeFilter] = useState<'all' | 'lecture' | 'definition' | 'history'>('all');
+
   // Active tab state
   const [activeTab, setActiveTab] = useState<
-    'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'sdc_replanning' | 'all'
   >(isFirstPage ? 'hub' : 'all');
 
   // Sort order: 'asc' (oldest first) | 'desc' (newest first)
@@ -818,7 +1026,18 @@ function BlogListPageContent(props: any) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash === 'crisis_detection' || hash === 'crisis' || hash === 'mental-crisis') {
+      if (hash === 'theory') {
+        setCategoryFilter('theory');
+        setActiveTab('hub');
+      } else if (hash === 'practice') {
+        setCategoryFilter('practice');
+        setActiveTab('hub');
+      } else if (hash === 'error' || hash === 'errors') {
+        setCategoryFilter('error');
+        setActiveTab('hub');
+      } else if (hash === 'sdc' || hash === 'sdc_replanning' || hash === 'sdc-replanning') {
+        setActiveTab('sdc_replanning');
+      } else if (hash === 'crisis_detection' || hash === 'crisis' || hash === 'mental-crisis') {
         setActiveTab('crisis_detection');
       } else if (hash === 'national_budget' || hash === 'budget' || hash === 'national-budget') {
         setActiveTab('national_budget');
@@ -843,13 +1062,39 @@ function BlogListPageContent(props: any) {
   }, []);
 
   const handleSelectTab = (
-    tab: 'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'all'
+    tab: 'hub' | 'crisis_detection' | 'national_budget' | 'stanford_cs329a' | 'stanford_cs146s' | 'maeumjigi' | 'rl_q_learning' | 'anpr_vision' | 'security' | 'sdc_replanning' | 'all'
   ) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
       window.location.hash = tab === 'hub' ? 'projects' : tab;
     }
   };
+
+  const handleSelectCategory = (cat: 'all' | 'theory' | 'practice' | 'error') => {
+    setCategoryFilter(cat);
+    setActiveTab('hub');
+    setDomainFilter('all');
+    setSubTypeFilter('all');
+    if (typeof window !== 'undefined') {
+      window.location.hash = cat === 'all' ? 'projects' : cat;
+    }
+  };
+
+  // Filter projects in Hub according to Taxonomy Filter
+  const filteredProjects = useMemo(() => {
+    return content.projects.filter((proj) => {
+      if (categoryFilter === 'theory') {
+        if (proj.taxonomyL1 !== 'theory') return false;
+        if (domainFilter === 'security') return false;
+        if (subTypeFilter !== 'all' && subTypeFilter !== 'lecture') return false;
+      } else if (categoryFilter === 'practice') {
+        if (proj.taxonomyL1 !== 'practice') return false;
+        if (domainFilter === 'ai' && proj.taxonomyL2 !== 'ai') return false;
+        if (domainFilter === 'security' && proj.taxonomyL2 !== 'security') return false;
+      }
+      return true;
+    });
+  }, [content.projects, categoryFilter, domainFilter, subTypeFilter]);
 
   const allSidebarItems = sidebar?.items || [];
 
@@ -873,8 +1118,26 @@ function BlogListPageContent(props: any) {
     item.permalink.includes('local-subsidy') ||
     item.permalink.includes('education-grant');
 
+  const isSdc = (item: any) => item.permalink.includes('sdc-');
+  const isTheory = (item: any) =>
+    item.permalink.includes('stanford-cs329a') || item.permalink.includes('stanford-cs146s');
+  const isPractice = (item: any) => !isTheory(item);
+  const isErrorPost = (item: any) =>
+    item.permalink.includes('vulnerability') ||
+    item.permalink.includes('npm-overrides') ||
+    item.permalink.includes('cloudflare-fix') ||
+    item.permalink.includes('adsense') ||
+    item.permalink.includes('sdc-01') ||
+    item.permalink.includes('sdc-02') ||
+    item.permalink.includes('nested-cv') ||
+    item.permalink.includes('zero-probability-collapse') ||
+    item.permalink.includes('extreme-value-bias') ||
+    item.permalink.includes('inspector-portal') ||
+    item.permalink.includes('security-hardening');
+
   const postCounts = useMemo(() => {
     return {
+      sdc_replanning: allSidebarItems.filter(isSdc).length,
       crisis_detection: allSidebarItems.filter(isCrisis).length,
       national_budget: allSidebarItems.filter(isNationalBudget).length,
       stanford_cs329a: allSidebarItems.filter((item: any) => item.permalink.includes('stanford-cs329a')).length,
@@ -883,13 +1146,21 @@ function BlogListPageContent(props: any) {
       anpr_vision: allSidebarItems.filter((item: any) => item.permalink.includes('vision-anpr')).length,
       rl_q_learning: allSidebarItems.filter((item: any) => item.permalink.includes('rl-qlearning')).length,
       security: allSidebarItems.filter(isSecurity).length,
+      theory: allSidebarItems.filter(isTheory).length,
+      practice: allSidebarItems.filter(isPractice).length,
+      error: allSidebarItems.filter(isErrorPost).length,
+      theory_ai: allSidebarItems.filter(isTheory).length,
+      practice_ai: allSidebarItems.filter((i: any) => isPractice(i) && !isSecurity(i)).length,
+      practice_security: allSidebarItems.filter(isSecurity).length,
     };
   }, [allSidebarItems]);
 
   // Filter and sort posts for the active project
   const projectPosts = useMemo(() => {
     let list: any[] = [];
-    if (activeTab === 'crisis_detection') {
+    if (activeTab === 'sdc_replanning') {
+      list = allSidebarItems.filter(isSdc);
+    } else if (activeTab === 'crisis_detection') {
       list = allSidebarItems.filter(isCrisis);
     } else if (activeTab === 'national_budget') {
       list = allSidebarItems.filter(isNationalBudget);
@@ -943,6 +1214,12 @@ function BlogListPageContent(props: any) {
     <BlogLayout sidebar={sidebar}>
       {/* Anchors for Hash Navigation & Docusaurus Link Validation */}
       <span id="projects" aria-hidden="true" />
+      <span id="theory" aria-hidden="true" />
+      <span id="practice" aria-hidden="true" />
+      <span id="error" aria-hidden="true" />
+      <span id="errors" aria-hidden="true" />
+      <span id="sdc" aria-hidden="true" />
+      <span id="sdc_replanning" aria-hidden="true" />
       <span id="stanford_cs329a" aria-hidden="true" />
       <span id="cs329a" aria-hidden="true" />
       <span id="stanford-cs329a" aria-hidden="true" />
@@ -960,6 +1237,144 @@ function BlogListPageContent(props: any) {
         <h1 className={styles.hubTitle}>{content.hubTitle}</h1>
         <p className={styles.hubSubtitle}>{content.hubSubtitle}</p>
 
+        {/* 3-Tier Taxonomy Navigation Bar */}
+        <div className={styles.taxonomyNavContainer}>
+          {/* Level 1: Major Classification (전체, 1. 이론, 2. 실습, 3. 오류) */}
+          <div className={styles.taxonomyTier1Row}>
+            <button
+              type="button"
+              className={clsx(styles.taxonomyMainButton, categoryFilter === 'all' && styles.taxonomyMainButtonActive)}
+              onClick={() => handleSelectCategory('all')}
+            >
+              <span>🌐</span> {content.taxAll} ({formatCount(allSidebarItems.length, locale)})
+            </button>
+            <button
+              type="button"
+              className={clsx(styles.taxonomyMainButton, categoryFilter === 'theory' && styles.taxonomyMainButtonActive)}
+              onClick={() => handleSelectCategory('theory')}
+            >
+              <span>📘</span> {content.taxTheory} ({formatCount(postCounts.theory, locale)})
+            </button>
+            <button
+              type="button"
+              className={clsx(styles.taxonomyMainButton, categoryFilter === 'practice' && styles.taxonomyMainButtonActive)}
+              onClick={() => handleSelectCategory('practice')}
+            >
+              <span>🛠️</span> {content.taxPractice} ({formatCount(postCounts.practice, locale)})
+            </button>
+            <button
+              type="button"
+              className={clsx(styles.taxonomyMainButton, categoryFilter === 'error' && styles.taxonomyMainButtonActive)}
+              onClick={() => handleSelectCategory('error')}
+            >
+              <span>⚠️</span> {content.taxError} ({formatCount(postCounts.error, locale)})
+            </button>
+          </div>
+
+          {/* Sub-Filters: shown when 'theory' is active */}
+          {categoryFilter === 'theory' && (
+            <div className={styles.taxonomySubFilterPanel}>
+              <div className={styles.filterRow}>
+                <span className={styles.filterLabel}>{content.taxDomainLabel}:</span>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'all' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('all')}
+                >
+                  {content.taxDomainAll}
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'ai' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('ai')}
+                >
+                  {content.taxDomainAi} ({formatCount(postCounts.theory_ai, locale)})
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'security' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('security')}
+                >
+                  {content.taxDomainSecurity} (0)
+                </button>
+              </div>
+              <div className={styles.filterRow}>
+                <span className={styles.filterLabel}>{content.taxTypeLabel}:</span>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, subTypeFilter === 'all' && styles.filterPillActive)}
+                  onClick={() => setSubTypeFilter('all')}
+                >
+                  {content.taxTypeAll}
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, subTypeFilter === 'lecture' && styles.filterPillActive)}
+                  onClick={() => setSubTypeFilter('lecture')}
+                >
+                  {content.taxTypeLecture} ({formatCount(postCounts.theory, locale)})
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, subTypeFilter === 'definition' && styles.filterPillActive)}
+                  onClick={() => setSubTypeFilter('definition')}
+                >
+                  {content.taxTypeDef} (0)
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, subTypeFilter === 'history' && styles.filterPillActive)}
+                  onClick={() => setSubTypeFilter('history')}
+                >
+                  {content.taxTypeHistory} (0)
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Sub-Filters: shown when 'practice' is active */}
+          {categoryFilter === 'practice' && (
+            <div className={styles.taxonomySubFilterPanel}>
+              <div className={styles.filterRow}>
+                <span className={styles.filterLabel}>{content.taxDomainLabel}:</span>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'all' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('all')}
+                >
+                  {content.taxDomainAll}
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'ai' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('ai')}
+                >
+                  {content.taxDomainAi} ({formatCount(postCounts.practice_ai, locale)})
+                </button>
+                <button
+                  type="button"
+                  className={clsx(styles.filterPill, domainFilter === 'security' && styles.filterPillActive)}
+                  onClick={() => setDomainFilter('security')}
+                >
+                  {content.taxDomainSecurity} ({formatCount(postCounts.practice_security, locale)})
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Error Notice: shown when 'error' is active */}
+          {categoryFilter === 'error' && (
+            <div className={styles.errorArchiveNotice}>
+              <h4 className={styles.errorArchiveTitle}>
+                <span>⚠️</span> {content.taxErrorTitle}
+              </h4>
+              <p className={styles.errorArchiveDesc}>
+                {content.taxErrorDesc}
+              </p>
+            </div>
+          )}
+        </div>
+
         {/* Tab Switcher with Dynamic Counts */}
         <div className={styles.tabBar}>
           <button
@@ -968,6 +1383,16 @@ function BlogListPageContent(props: any) {
             onClick={() => handleSelectTab('hub')}
           >
             {content.tabHub}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              styles.tabButton,
+              activeTab === 'sdc_replanning' && styles.tabButtonActive
+            )}
+            onClick={() => handleSelectTab('sdc_replanning')}
+          >
+            {`${content.tabSdc} (${formatCount(postCounts.sdc_replanning, locale)})`}
           </button>
           <button
             type="button"
@@ -1057,11 +1482,12 @@ function BlogListPageContent(props: any) {
       {activeTab === 'hub' && (
         <>
           <ProjectHubView
-            projects={content.projects}
+            projects={filteredProjects}
             postCounts={postCounts}
             locale={locale}
             btnExploreProject={content.btnExploreProject}
             btnUpcoming={content.btnUpcoming}
+            emptyNotice={content.emptyNotice}
             onSelectProject={(id) => handleSelectTab(id as any)}
           />
           <div style={{ marginTop: '2.5rem', borderTop: '1px solid var(--ifm-color-emphasis-200)', paddingTop: '1.5rem' }}>
@@ -1109,7 +1535,9 @@ function BlogListPageContent(props: any) {
           <div className={styles.activeProjectBanner}>
             <div>
               <h3 className={styles.bannerTitle}>
-                {activeTab === 'crisis_detection'
+                {activeTab === 'sdc_replanning'
+                  ? `${content.bannerSdcTitle} (${formatCount(postCounts.sdc_replanning, locale)})`
+                  : activeTab === 'crisis_detection'
                   ? `${content.bannerCrisisTitle} (${formatCount(postCounts.crisis_detection, locale)})`
                   : activeTab === 'national_budget'
                   ? `${content.bannerBudgetTitle} (${formatCount(postCounts.national_budget, locale)})`
@@ -1128,7 +1556,9 @@ function BlogListPageContent(props: any) {
                   : `${content.bannerAllTitle} (${formatCount(allSidebarItems.length, locale)})`}
               </h3>
               <p className={styles.bannerDesc}>
-                {activeTab === 'crisis_detection'
+                {activeTab === 'sdc_replanning'
+                  ? content.bannerSdcDesc
+                  : activeTab === 'crisis_detection'
                   ? content.bannerCrisisDesc
                   : activeTab === 'national_budget'
                   ? content.bannerBudgetDesc

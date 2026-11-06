@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-16-multimodal-embodied-agents-vla-rt2-openvla-pi-zero
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 16): Multimodal & Embodied Agents — 물리 세계를 조작하는 로보틱스 파운데이션 모델 (VLA, RT-2, OpenVLA, π₀)"
 authors: [jbgih]
-tags: [Stanford CS329A, Embodied AI, VLA Models, RT-2, OpenVLA, Danny Driess, Robotics, Action Tokenization, Physical Intelligence, Pi-Zero]
+tags: [Stanford CS329A, Embodied AI, VLA Models, RT-2, OpenVLA, Danny Driess, Robotics, Action Tokenization, Physical Intelligence, Pi-Zero, theory, ai, lecture, stanford-cs329a]
 keywords: [Vision-Language-Action VLA Models, Embodied AI Robotics Agents, OpenVLA Robot Manipulation, RT-2 Action Tokenization, Physical Intelligence pi-zero]
 description: "Stanford CS329A 16강 완벽 해설: 대니 드리스(DeepMind & Physical Intelligence)가 해부하는 비전-언어-행동(VLA) 모델, RT-2의 7자유도 행동 토큰화, 소비자용 GPU에서 구동되는 OpenVLA의 SigLIP+DINOv2 이중 비전 융합, 그리고 π₀ 연속 확산 정책."
 date: 2026-11-16T10:00:00.000Z

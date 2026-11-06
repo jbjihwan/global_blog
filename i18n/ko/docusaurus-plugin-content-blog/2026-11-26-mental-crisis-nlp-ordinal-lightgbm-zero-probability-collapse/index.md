@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-ordinal-lightgbm-zero-probability-collapse
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "[고위험 AI] LightGBM 순서형 트리와 영확률 붕괴(-log(0)=inf) 해결법"
 authors: [jbgih]
-tags: [crisis-ai, ordinal-classification, lightgbm, probability-calibration, machine-learning, devlog]
+tags: [crisis-ai, ordinal-classification, lightgbm, probability-calibration, machine-learning, devlog, practice, ai, crisis-nlp]
 date: 2026-11-26
 keywords: ["LightGBM 순서형 분류", "Frank and Hall 2001", "영확률 붕괴", "단조 누적 보정", "분위수 캘리브레이션", "고위험 AI 위기 감지"]
 description: "LightGBM 순서형 분류에서 Frank & Hall 단조성 제약 적용 시 발생하는 영확률 붕괴(-log(0)=inf) 원인 분석과 심플렉스 재정규화 및 분위수 캘리브레이션 실전 해설."

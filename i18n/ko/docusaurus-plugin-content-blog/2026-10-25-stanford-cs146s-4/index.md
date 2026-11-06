@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-4-spec-driven-code-generation-test-harnesses
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS146S #4] 스펙 주도 코드 생성과 테스트 하네스: Claude Code와 Cursor 기반 자가 치유 회귀 테스트 루프 실전"
 authors: [jbgih]
-tags: [스탠포드CS146S, 스펙주도개발, 테스트하네스, 자가치유코드, 클로드코드, 커서, 소프트웨어공학, 회귀테스트]
+tags: [스탠포드CS146S, 스펙주도개발, 테스트하네스, 자가치유코드, 클로드코드, 커서, 소프트웨어공학, 회귀테스트, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-25
 keywords: [스펙 주도 개발, AI 코딩 테스트 하네스, 자가 치유 코드 생성 루프, 클로드 코드 자동 테스트, LLM 회귀 검증 파이프라인]
 description: "스탠포드 CS146S 4강 엔지니어링 심층 분석: '바이브 코딩'의 함정을 벗어나는 스펙 주도 개발(SDD) 방법론, 폐루프 테스트 하네스 구축, Claude Code와 Cursor를 활용한 자가 치유 Red-Green-Refactor 루프 자동화."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-19-rl-qlearning-3
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots Robotics] Conquering Local Minima in 12-Wall Obstacles: Multi-Seed Headless Simulation (#3)"
 authors: [jbgih]
-tags: [reinforcement-learning, q-learning, webots, obstacle-avoidance, local-minima, headless, python]
+tags: [reinforcement-learning, q-learning, webots, obstacle-avoidance, local-minima, headless, python, practice, ai]
 date: 2026-05-19
 project: rl_q_learning
 description: "Overcoming the Local Minima dilemma in complex 12-wall obstacle environments (obstacle12) and orchestrating high-speed automated multi-seed Webots simulations."

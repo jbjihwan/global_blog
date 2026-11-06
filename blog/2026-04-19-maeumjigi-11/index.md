@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-19-maeumjigi-11
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #11] Evaluating M6 Model Trained on Synthetic Data (v5)"
 authors: [jbgih]
-tags: [devlog, synthetic-data, model-evaluation, M6, FAISS, weekly-report]
+tags: [devlog, synthetic-data, model-evaluation, M6, FAISS, weekly-report, practice, ai, maeumjigi]
 date: 2026-04-19
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Quantitative evaluation of model M6 trained on synthetic dataset v5, uncovering catastrophic forgetting of normal dialogue and empathy collapse."

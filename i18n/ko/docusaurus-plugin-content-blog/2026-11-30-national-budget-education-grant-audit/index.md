@@ -1,8 +1,11 @@
 ---
 slug: national-budget-education-grant-audit
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "교육청 교부금 감사 AI: 전국 17개 교육청 K-에듀파인 4대 비위 적발"
 authors: [jbgih]
-tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx]
+tags: [ai-agents, education-grant, budget-audit, edufine, graphrag, hwpx, practice, ai]
 date: 2026-11-30
 keywords: ["K-에듀파인", "교육재정교부금", "전국 17개 교육청", "스마트기기 담합", "HWPX 시정명령서", "지방교육재정교부금법"]
 description: "전국 17개 시·도 교육청 9.08조 원 K-에듀파인 교부금을 전수 추적하여 스마트기기 담합과 2천만 원 쪼개기를 적발하고 2.41조 원 환수 처분한 AI 구축기."

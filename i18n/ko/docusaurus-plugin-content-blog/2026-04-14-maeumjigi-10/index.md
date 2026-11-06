@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-14-maeumjigi-10
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #10] API 요금 한도 해제와 무인 자동화: 견고한 데이터 합성 파이프라인 복구기"
 authors: [jbgih]
-tags: [devlog, api-rate-limits, synthetic-data, data-generation, fault-tolerance, state-machine, capstone]
+tags: [devlog, api-rate-limits, synthetic-data, data-generation, fault-tolerance, state-machine, capstone, practice, ai, maeumjigi]
 date: 2026-04-14
 keywords: [Anthropic API 요청 제한, 합성 데이터 생성 파이프라인, 무인 자율 자동화 스크립트, 지수 백오프 지터, 원자적 JSON 체크포인트]
 description: "API 요금 폭탄 사태 이후 티어 한도 해제와 함께 닥쳐온 429 레이트 리밋을 극복하고, 원자적 체크포인트와 무인 복구 아키텍처로 v5 합성 데이터 생성을 완수한 과정을 기록합니다."

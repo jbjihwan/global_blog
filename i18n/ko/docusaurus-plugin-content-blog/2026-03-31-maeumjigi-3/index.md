@@ -1,8 +1,11 @@
 ---
 slug: maeumjigi-3
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #3] 알람 앱 빌드 테스트와 파인튜닝 전처리 돌입"
 authors: [jbgih]
-tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 안드로이드, 빌드테스트, Llama3.1]
+tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 안드로이드, 빌드테스트, Llama3.1, practice, ai, maeumjigi]
 date: 2026-03-31
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "알람 앱 개발 완성 직후 팀 브레인스토밍을 거쳐 사회적 가치를 창출하는 자살예방 AI 챗봇 '마음지기' 프로젝트로 전격 피봇팅한 배경과 결정 과정입니다."

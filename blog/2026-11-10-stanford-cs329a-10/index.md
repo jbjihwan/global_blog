@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-10-swe-agents-codemonkeys-kernelbench-asi
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 10): SWE-Agents — Autonomous Software Engineering, CodeMonkeys, KernelBench, and Agent-System Interface"
 authors: [jbgih]
-tags: [Stanford CS329A, SWE-Agent, CodeMonkeys, KernelBench, SWE-bench, GPU Kernel, CUDA, Triton, ASI, Software Engineering]
+tags: [Stanford CS329A, SWE-Agent, CodeMonkeys, KernelBench, SWE-bench, GPU Kernel, CUDA, Triton, ASI, Software Engineering, theory, ai, lecture, stanford-cs329a]
 keywords: [SWE-Agent Autonomous Coding, Agent-Computer Interface ACI, SWE-bench Benchmark GitHub, CodeMonkeys Automated Refactoring, KernelBench GPU Performance Tuning]
 description: "Master Stanford CS329A Lecture 10: How CodeMonkeys solves real GitHub issues on SWE-bench Verified, KernelBench optimizes custom GPU kernels via profiler loops, and ASI bridges agent intent to parallel systems."
 date: 2026-11-10T10:00:00.000Z

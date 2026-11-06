@@ -1,8 +1,11 @@
 ---
 slug: maeumjigi-2
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #2] 초기 알람 앱 기획 구체화와 테스트"
 authors: [jbgih]
-tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 프로젝트기획, 테스트코드]
+tags: [개발일지, AI코딩, ClaudeCode, 캡스톤디자인, 프로젝트기획, 테스트코드, practice, ai, maeumjigi]
 date: 2026-03-30
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "JSoup 백그라운드 웹 크롤링 서비스와 룸 데이터베이스를 연동하여 특정 사이트 잔여석 감지 알람 앱의 기본 기능을 구현한 과정입니다."

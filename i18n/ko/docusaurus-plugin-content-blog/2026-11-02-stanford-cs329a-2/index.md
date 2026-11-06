@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-2-test-time-compute-scaling-inference-laws
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #2] 추론 시간 연산 확장: 사전 훈련 스케일링 법칙을 넘어 연산 최적 추론으로"
 authors: [jbgih]
-tags: [stanford-cs329a, test-time-compute, inference-scaling, verifier-prm, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, test-time-compute, inference-scaling, verifier-prm, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-02
 keywords: [Test-Time Compute Scaling, Inference Scaling Laws, Large Language Monkeys, Compute-Optimal Scaling LLM, Process Reward Model PRM]
 description: "스탠포드 CS329A 2강 완벽 엔지니어링 해설: 추론 시간 연산 확장 법칙(Inference-Time Scaling), pass@k 반복 샘플링의 커버리지 멱법칙, 스넬(Snell)의 연산 최적 확장(수정 vs 검색), 그리고 Archon 복합 에이전트 파이프라인 심층 분석."

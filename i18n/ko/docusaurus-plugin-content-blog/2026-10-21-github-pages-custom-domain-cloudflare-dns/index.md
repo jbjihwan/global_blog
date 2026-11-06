@@ -1,8 +1,11 @@
 ---
 slug: github-pages-custom-domain-cloudflare-dns
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "GitHub Pages 커스텀 도메인 & Cloudflare DNS 무중단 연동 가이드"
 authors: [jbjihwan]
-tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
+tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops, practice, security, infra]
 keywords: ["GitHub Pages 커스텀 도메인", "Cloudflare DNS", "Porkbun 도메인", "CNAME Flattening", "무료 SSL 인증서"]
 description: "GitHub Pages에 Porkbun 커스텀 도메인과 Cloudflare Anycast DNS를 연결하는 완벽 가이드. CNAME Flattening 및 무료 SSL 인증서 무중단 설정법."
 

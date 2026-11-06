@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-1-modern-software-developer
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #1] 현대 소프트웨어 개발자 (The Modern Software Developer)"
 authors: [jbgih]
-tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture]
+tags: [stanford-cs146s, agentic-workflows, spec-driven-development, human-agent-engineering, mcp, software-architecture, theory, ai, lecture]
 date: 2026-10-22
 keywords: ["스탠포드 CS146S", "The Modern Software Developer", "현대 소프트웨어 개발자", "스펙 주도 개발", "에이전트 엔지니어링", "MCP"]
 description: "스탠포드 CS146S 1강 핵심 정리: 현대 소프트웨어 개발자(The Modern Software Developer). 스펙 주도 개발(SDD), AI 코딩 에이전트 루프 엔지니어링 완벽 해설."

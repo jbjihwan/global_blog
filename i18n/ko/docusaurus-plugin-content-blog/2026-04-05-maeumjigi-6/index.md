@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-05-maeumjigi-6
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #6] 전처리 최종 보고서 자동화: python-docx 차트 생성과 Next.js 14 프론트엔드 킥오프"
 authors: [jbgih]
-tags: [devlog, automated-reporting, python-docx, matplotlib, nextjs-14, frontend-architecture, capstone]
+tags: [devlog, automated-reporting, python-docx, matplotlib, nextjs-14, frontend-architecture, capstone, practice, ai, maeumjigi]
 date: 2026-04-05
 keywords: [자동 보고서 생성 파이프라인, python-docx Matplotlib 연동, Next.js 14 챗봇 UI, 데이터 전처리 분포 분석, 풀스택 AI 아키텍처]
 description: "마음지기 데이터 전처리 1~4단계 완성: 방대한 전처리 통계를 시각화하여 docx 보고서로 전자동 생성하고, 실시간 스트리밍 대화가 가능한 Next.js 14 프론트엔드 구축을 공식 시작합니다."

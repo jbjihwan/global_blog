@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-07-maeumjigi-15
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #15] 5개 모델 파인튜닝 결과 시각화 및 로컬 환경 세팅"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 결과분석, 시각화, Jupyter, 캡스톤디자인, AI]
+tags: [개발일지, 파인튜닝, 결과분석, 시각화, Jupyter, 캡스톤디자인, AI, practice, ai, maeumjigi]
 date: 2026-05-07
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "파인튜닝된 각 모델의 Perplexity와 벤치마크 지표를 분석하고, matplotlib을 활용해 모델별 성능 격차를 한눈에 파악하는 시각화 파이프라인을 구축합니다."

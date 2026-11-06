@@ -257,6 +257,8 @@ export function ProjectIcon({
       return <CpuIcon size={size} className={className} />;
     case 'national_budget':
       return <ShieldIcon size={size} className={className} />;
+    case 'sdc_replanning':
+      return <CpuIcon size={size} className={className} />;
     case 'home':
       return <HomeIcon size={size} className={className} />;
     case 'folder':

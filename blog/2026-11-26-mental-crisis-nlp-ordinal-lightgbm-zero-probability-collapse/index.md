@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-ordinal-lightgbm-zero-probability-collapse
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "LightGBM Ordinal Trees: Defeating -log(0)=inf Collapse"
 authors: [jbgih]
-tags: [crisis-ai, ordinal-classification, lightgbm, probability-calibration, machine-learning, devlog]
+tags: [crisis-ai, ordinal-classification, lightgbm, probability-calibration, machine-learning, devlog, practice, ai, crisis-nlp]
 date: 2026-11-26
 keywords: ["LightGBM Ordinal Classification", "Frank and Hall 2001", "Zero-Probability Collapse", "Monotonic Accumulation", "Quantile Calibration", "High-Stakes AI"]
 description: "Fix zero-probability collapse and -log(0)=inf divergence in LightGBM ordinal trees using Frank & Hall monotonicity and simplex quantile calibration."

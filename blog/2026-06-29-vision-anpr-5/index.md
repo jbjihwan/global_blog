@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-29-vision-anpr-5
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] Korean ANPR OCR Engine, Regex Normalization & Temporal Majority Voting (v01 to v11 Evolution) (#5)"
 authors: [jbgih]
-tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
+tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python, practice, ai, cv]
 date: 2026-06-29
 project: anpr_vision
 description: "Korean license plate syntax validation, EasyOCR tuning, temporal sliding window majority voting, and the complete 11-iteration engineering journey from v01 to v11."

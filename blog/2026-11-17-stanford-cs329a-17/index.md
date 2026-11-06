@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-17-future-research-directions-grand-finale
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #17] Future Research Directions: Self-Improving AI Agents Grand Finale (Recursive Self-Improvement, Swarms, and Safe Superintelligence)"
 authors: [jbgih]
-tags: [Self-Improving AI Agents, Autonomous Systems, AI Safety, Multi-Agent Swarms, Stanford CS329A]
+tags: [Self-Improving AI Agents, Autonomous Systems, AI Safety, Multi-Agent Swarms, Stanford CS329A, theory, ai, lecture, stanford-cs329a]
 keywords: [Self-Improving AI Agents Future, Recursive Self-Improvement Singularity, Open-Ended Agent Evolution, Autonomous Agent Swarms AGI, Safe Superintelligence Roadmap]
 date: 2026-11-17
 ---

@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-06-maeumjigi-14
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #14] 모든 파인튜닝 완료 및 병렬 추론(Eval) 환경 구축"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 모델평가, 추론, 병렬처리]
+tags: [개발일지, 파인튜닝, HCX-Omni-8B, Qwen35-9B, 모델평가, 추론, 병렬처리, practice, ai, maeumjigi]
 date: 2026-05-06
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "HCX-Omni-8B와 Qwen35-9B의 파인튜닝을 완수하고, 듀얼 GPU를 100% 활용하는 멀티 GPU 병렬 추론(Eval) 자동화 스크립트를 구축한 내용입니다."

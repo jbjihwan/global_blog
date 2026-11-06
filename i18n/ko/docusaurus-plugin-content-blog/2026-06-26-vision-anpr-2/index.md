@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-26-vision-anpr-2
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] 동적 차선 경계선 검출 및 기하학적 IoU 차선 침범 판정 알고리즘 (#2)"
 authors: [jbgih]
-tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, python]
+tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, python, practice, ai, cv]
 date: 2026-06-26
 project: anpr_vision
 description: "Canny 에지 검출, 확률적 허프 변환(HoughLinesP), 좌우 기울기 필터링 및 차량 바운딩 박스와 차선 다각형 간의 기하학적 IoU 침범 판정 수학."

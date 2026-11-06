@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-8-search-deep-research-alphacode-search-o1
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 8): Search & Deep Research — Program Space Search (AlphaCode), Search-o1, and Autonomous Investigation"
 authors: [jbgih]
-tags: [Stanford CS329A, Deep Research, AlphaCode, Search-o1, Codeforces, Competitive Programming, Agentic RAG, Knowledge Search]
+tags: [Stanford CS329A, Deep Research, AlphaCode, Search-o1, Codeforces, Competitive Programming, Agentic RAG, Knowledge Search, theory, ai, lecture, stanford-cs329a]
 keywords: [Deep Research Agent LLM, AlphaCode Competitive Programming, Search-o1 Autonomous Investigation, Information Synthesis Agent, Self-Reflective Search Loops]
 description: "Master Stanford CS329A Lecture 8: How AlphaCode clusters 1M programs via behavior signatures, Search-o1 executes real-time search during long CoT reasoning, and Deep Research agents synthesize massive technical reports."
 date: 2026-11-08T10:00:00.000Z

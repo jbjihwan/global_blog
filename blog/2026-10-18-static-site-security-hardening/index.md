@@ -1,8 +1,11 @@
 ---
 slug: static-site-security-npm-audit-truth
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "npm audit fix: How to Fix npm Vulnerability & GHSA Alerts"
 authors: [jbgih]
-tags: [web-security, npm-audit, docusaurus, devops, supply-chain]
+tags: [web-security, npm-audit, docusaurus, devops, supply-chain, practice, security, infra]
 keywords: ["npm audit fix", "npm vulnerability", "npm audit fix --force", "ghsa-rj75-hqrm-r3gf", "static site security", "npm supply chain security"]
 description: "How to run npm audit fix to resolve npm vulnerability and GHSA alerts safely without breaking your build or forcing destructive dependency downgrades."
 ---

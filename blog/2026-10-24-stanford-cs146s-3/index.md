@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-3-mcp-tool-use-architecture
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: Model Context Protocol MCP Guide (Notes #3)"
 authors: [jbgih]
-tags: [stanford-cs146s, mcp, model-context-protocol, tool-use, claude-code, json-rpc, software-architecture]
+tags: [stanford-cs146s, mcp, model-context-protocol, tool-use, claude-code, json-rpc, software-architecture, theory, ai, lecture]
 date: 2026-10-24
 keywords: [Model Context Protocol, MCP Architecture, Claude Tool Use, JSON-RPC 2.0, Autonomous AI Agents]
 description: "Master Stanford CS146S Lecture 3: Model Context Protocol (MCP) architecture, Stdio vs SSE transports, and secure tool-calling loops for AI agents."

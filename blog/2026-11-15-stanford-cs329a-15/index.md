@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-15-autonomous-systems-reliability-trust-boundaries-ai-control
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 15): Autonomous Systems & Reliability — The 3 Layers of Reliability, Trust Boundaries, and AI Control"
 authors: [jbgih]
-tags: [Stanford CS329A, Autonomous Agents, Reliability, Trust Boundary, AI Control, Misha Laskin, Scalable Oversight, Multiplicative Collapse, Sandboxing]
+tags: [Stanford CS329A, Autonomous Agents, Reliability, Trust Boundary, AI Control, Misha Laskin, Scalable Oversight, Multiplicative Collapse, Sandboxing, theory, ai, lecture, stanford-cs329a]
 keywords: [Autonomous AI Agent Reliability, AI Control Scalable Oversight, Agent Trust Boundary Sandboxing, Compounding Errors Long Horizon AI, Multiplicative Collapse AI Safety]
 description: "Master Stanford CS329A Lecture 15: Misha Laskin (Reflection AI & DeepMind) breaks down the 3 layers of autonomous agent reliability, why self-refine fails without hard verifiers, how to defeat multiplicative collapse, and Redwood Research's AI Control protocol."
 date: 2026-11-15T10:00:00.000Z

@@ -1,8 +1,11 @@
 ---
 slug: national-budget-local-subsidy-ehojo-audit
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #7: 243 Municipalities Local Subsidy Audit"
 authors: [jbgih]
-tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx]
+tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx, practice, ai]
 date: 2026-11-29
 keywords: ["eHojo+", "Local Subsidy Audit", "243 Municipalities", "Matching Deficit", "HWPX Generator", "Public Finance Recovery Act"]
 description: "Auditing 40.2T KRW across 243 municipalities via eHojo+ to detect 4 subsidy fraud patterns, solve concurrency & schema pitfalls, and issue HWPX orders."

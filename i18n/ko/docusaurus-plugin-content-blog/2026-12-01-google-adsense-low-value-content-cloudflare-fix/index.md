@@ -1,8 +1,11 @@
 ---
 slug: google-adsense-low-value-content-cloudflare-fix
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "구글 애드센스 가치가 별로 없는 콘텐츠 해결: WAF와 YMYL 가드"
 authors: [jbgih]
-tags: [web-security, adsense, cloudflare, devops, docusaurus, seo]
+tags: [web-security, adsense, cloudflare, devops, docusaurus, seo, practice, security, infra]
 date: 2026-12-01
 keywords: ["구글 애드센스 가치가 별로 없는 콘텐츠", "클라우드플레어 WAF Mediapartners-Google", "YMYL 애드센스 코드 가드", "서치콘솔 사이트맵 삭제", "애드센스 사이트 다운 해결"]
 description: "구글 애드센스 '가치가 별로 없는 콘텐츠'와 '주의 필요' 거절 사유를 격파한 전 과정: 클라우드플레어 WAF 봇 차단 해제, YMYL 애드센스 코드 가드, GSC 구형 사이트맵 제거."

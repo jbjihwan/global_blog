@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-3-robust-verification-process-reward-models
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #3] 견고한 답변 검증: 프로세스 보상 모델(PRM), 앙상블, 그리고 확장 가능한 감독"
 authors: [jbgih]
-tags: [stanford-cs329a, process-reward-models, outcome-reward-models, robust-verification, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, process-reward-models, outcome-reward-models, robust-verification, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-03
 keywords: [Process Reward Model PRM, Outcome Reward Model ORM, Generation-Verification Gap, Math-Shepherd MCTS, Weaver Weak Verifiers Ensemble]
 description: "스탠포드 대학교 CS329A 제3강 심층 기술 해설: 생성-검증 격차(Generation-Verification Gap)의 극복, 결과 보상 모델(ORM)의 신용 할당 실패, PRM800K 단계별 감독, 비지도 몬테카를로 롤아웃 기반 Math-Shepherd, 그리고 약한 검증기 앙상블 Weaver 완벽 분석."

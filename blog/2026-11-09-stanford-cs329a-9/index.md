@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-9-post-training-evolution-sft-rlhf-rlvr-agent-rl
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 9): Post-Training Evolution — From Next-Token Chatbots to Autonomous Agentic Fleets (SFT, RLHF, RLVR, and Agent RL)"
 authors: [jbgih]
-tags: [Stanford CS329A, Post-Training, SFT, RLHF, RLVR, Agent RL, DeepSeek-R1, InstructGPT, WebRL, Autonomous Agents]
+tags: [Stanford CS329A, Post-Training, SFT, RLHF, RLVR, Agent RL, DeepSeek-R1, InstructGPT, WebRL, Autonomous Agents, theory, ai, lecture, stanford-cs329a]
 keywords: [Post-Training LLM Evolution, Supervised Fine-Tuning SFT Agent, RLHF Alignment for Agents, Tool-Grounded Post-Training, Autonomous Agent Evolution Roadmap]
 description: "Master Stanford CS329A Lecture 9: The comprehensive 4-stage post-training evolutionary roadmap, tracing how raw base models evolved through SFT, RLHF, RLVR, and Agent RL into autonomous agents."
 date: 2026-11-09T10:00:00.000Z

@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-5-multi-step-planning-tree-search-mcts
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #5] 다단계 계획과 트리 탐색: ADaPT, LATS, SPRINT, 그리고 언어 에이전트 MCTS"
 authors: [jbgih]
-tags: [stanford-cs329a, multi-step-planning, mcts, language-agent-tree-search, adapt, sprint, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, multi-step-planning, mcts, language-agent-tree-search, adapt, sprint, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-05
 keywords: [Multi-Step Agent Planning, Monte Carlo Tree Search LLM, Language Agent Tree Search LATS, ADaPT Decomposition, SPRINT Tree Search]
 description: "스탠포드 대학교 CS329A 제5강 심층 기술 분석: 몬테카를로 트리 탐색(MCTS) 기반의 LATS 프레임워크, 실패 시에만 유연하게 쪼개는 ADaPT 재귀 분해, DAG 위상 정렬로 지연 시간을 53% 단축하는 SPRINT, 그리고 계획 지능을 모델 시냅스에 새기는 SWiRL 완벽 정리."

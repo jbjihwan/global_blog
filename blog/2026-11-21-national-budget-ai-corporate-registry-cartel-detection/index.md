@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-corporate-registry-cartel-detection
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #4: Breaking Cartels via DART & Registries"
 authors: [jbgih]
-tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops]
+tags: [ai-agents, corporate-registry, dart-api, graphrag, cartel-detection, devops, practice, ai, budget-audit]
 date: 2026-11-21
 keywords: ["Public Budget AI", "Corporate Registry DART", "Borrowed-Name Cartel", "GraphRAG Governance", "Beneficial Ownership"]
 description: "Overcoming borrowed-name blind spots by integrating DART corporate governance and company registries to detect 1-person controlled bidding cartels."

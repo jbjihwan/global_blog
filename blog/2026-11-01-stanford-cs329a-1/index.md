@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-1-course-overview-self-improving-agents
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #1] Course Overview: From Large Language Models to Self-Improving AI Agents"
 authors: [jbgih]
-tags: [stanford-cs329a, self-improving-agents, foundation-models, test-time-compute, agentic-workflows, ai-architecture]
+tags: [stanford-cs329a, self-improving-agents, foundation-models, test-time-compute, agentic-workflows, ai-architecture, theory, ai, lecture]
 date: 2026-11-01
 keywords: [Self-Improving AI Agents, Stanford CS329A, Inference-Time Scaling, Scaling Laws LLM, Autonomous AI Feedback Loops]
 description: "Stanford CS329A Lecture 1 comprehensive guide: Tracing the tectonic shift from static pre-trained LLMs to autonomous, self-improving AI agents through inference-time scaling, process reward verification, and closed-loop agentic architectures."

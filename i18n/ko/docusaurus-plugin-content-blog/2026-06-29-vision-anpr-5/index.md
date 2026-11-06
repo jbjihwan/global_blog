@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-29-vision-anpr-5
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] 한국형 번호판 OCR 최적화, 정규식 검증 및 시간 축 Majority Voting 앙상블 (v01~v11 완결편) (#5)"
 authors: [jbgih]
-tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python]
+tags: [computer-vision, anpr, easyocr, regex, voting-ensemble, python, practice, ai, cv]
 date: 2026-06-29
 project: anpr_vision
 description: "한국 자동차 번호판 정규표현식 검증, EasyOCR 오인식 보정, 그리고 외계어 노이즈에서 64가1511 확정까지의 시간 축 Majority Voting 엔진과 v01~v11 11단계 진화 결산."

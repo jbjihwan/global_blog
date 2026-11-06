@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-7-open-ended-evolution-adas-ai-scientist-alphaevolve
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 7): Open-Ended Evolution: ADAS, The AI Scientist, and AlphaEvolve — When Code Becomes the Genome"
 authors: [jbgih]
-tags: [Stanford CS329A, Open-Ended Evolution, ADAS, AI Scientist, AlphaEvolve, Meta-Agents, Genetic Programming, LLM Evolution]
+tags: [Stanford CS329A, Open-Ended Evolution, ADAS, AI Scientist, AlphaEvolve, Meta-Agents, Genetic Programming, LLM Evolution, theory, ai, lecture, stanford-cs329a]
 keywords: [Open-Ended Evolution LLM, Automated Design of Agentic Systems ADAS, The AI Scientist Sakana, Autonomous Machine Learning Discovery, Self-Referential Code Evolution]
 description: "Explore Stanford CS329A Lecture 7 on Open-Ended Evolution: How ADAS invents new agent architectures in Turing-complete code, The AI Scientist automates end-to-end scientific research, and AlphaEvolve breaks 56-year-old mathematical records."
 date: 2026-11-07T10:00:00.000Z

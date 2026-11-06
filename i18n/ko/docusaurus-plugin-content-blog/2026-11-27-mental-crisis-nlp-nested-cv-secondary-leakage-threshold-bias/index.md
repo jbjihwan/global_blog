@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "[고위험 AI] 중첩 교차검증(Nested CV)과 2차 데이터 누출 해결기"
 authors: [jbgih]
-tags: [crisis-ai, nested-cross-validation, data-leakage, threshold-calibration, machine-learning, devlog]
+tags: [crisis-ai, nested-cross-validation, data-leakage, threshold-calibration, machine-learning, devlog, practice, ai, crisis-nlp]
 date: 2026-11-27
 keywords: ["중첩 교차검증", "Nested CV", "2차 데이터 누출", "임계값 전이 편향", "분위수 정렬", "고위험 AI 위기 감지"]
 description: "고위험 임상 AI에서 중첩 교차검증(Nested CV) 적용 시 발생하는 2차 데이터 누출과 표본 불일치 임계값 전이 편향의 수학적 원인 분석 및 분위수 정렬 해결책."

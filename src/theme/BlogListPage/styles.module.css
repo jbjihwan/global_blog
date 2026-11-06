@@ -423,3 +423,134 @@
   color: var(--ifm-color-primary);
 }
 
+/* Taxonomy 3-Tier Navigation Styles */
+.taxonomyNavContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: var(--ifm-card-background-color);
+  border-radius: 14px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.taxonomyTier1Row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.taxonomyMainButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 24px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1.5px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.taxonomyMainButton:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.taxonomyMainButtonActive {
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 4px 14px rgba(46, 133, 85, 0.35);
+}
+
+.taxonomySubFilterPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.2rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 10px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filterLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-700);
+  min-width: 80px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filterPill {
+  padding: 0.3rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-card-background-color);
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterPill:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.filterPillActive {
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  border-color: var(--ifm-color-primary);
+}
+
+.errorArchiveNotice {
+  padding: 1.2rem;
+  border-radius: 10px;
+  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.errorArchiveTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #d97706;
+  margin: 0 0 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.errorArchiveDesc {
+  font-size: 0.88rem;
+  color: var(--ifm-color-emphasis-800);
+  margin: 0;
+  line-height: 1.5;
+}
+
+

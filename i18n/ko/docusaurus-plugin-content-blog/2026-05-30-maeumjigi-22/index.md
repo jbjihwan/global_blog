@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-30-maeumjigi-22
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #22] 4차 파인튜닝의 완성! 체크포인트-4400, 황금 데이터 비율과 전체 시스템 아키텍처"
 authors: [jbgih]
-tags: [devlog, fine-tuning, qwen, checkpoint-analysis, architecture, over-counseling, capstone]
+tags: [devlog, fine-tuning, qwen, checkpoint-analysis, architecture, over-counseling, capstone, practice, ai, maeumjigi]
 date: 2026-05-30
 keywords: [Qwen 3.5 9B 파인튜닝, 데이터 혼합 비율 최적화, LLM 과적합 방지, 체크포인트 4400 평가, 멘탈 헬스 챗봇 시스템 아키텍처]
 description: "파인튜닝 1단계의 화려한 피날레: 일상 대화와 상담 데이터의 2:1 황금 비율 규명, 체크포인트-4400 확정, 그리고 실서비스 배포를 위한 전체 시스템 아키텍처 설계를 완성합니다."

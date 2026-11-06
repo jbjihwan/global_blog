@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-03-maeumjigi-12
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #12] 70B Massive Model Fine-Tuning and GPU Memory (OOM) Struggle"
 authors: [jbgih]
-tags: [devlog, fine-tuning, Llama3.3-70B, DeepSeek-R1-70B, OOM, troubleshooting, GPU]
+tags: [devlog, fine-tuning, Llama3.3-70B, DeepSeek-R1-70B, OOM, troubleshooting, GPU, practice, ai, maeumjigi]
 date: 2026-05-03
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Tackling 70B parameter model fine-tuning with 4-bit QLoRA and resolving GPU VRAM OOM errors through aggressive memory offloading."

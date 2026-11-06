@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-11-agent-memory-memgpt-cartridges-cacheblend
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 11): Agent Memory — 장단기 기억과 운영체제식 계층 메모리 (MemGPT, Cartridges, CacheBlend)"
 authors: [jbgih]
-tags: [Stanford CS329A, Agent Memory, MemGPT, Cartridges, CacheBlend, KV Cache, Context Management, RoPE, RAG, Self-Study]
+tags: [Stanford CS329A, Agent Memory, MemGPT, Cartridges, CacheBlend, KV Cache, Context Management, RoPE, RAG, Self-Study, theory, ai, lecture, stanford-cs329a]
 keywords: [Agent Memory Architecture, MemGPT Long-Term Memory, Cartridges Modular Agent Memory, CacheBlend KV Cache Merging, Hierarchical Context Management]
 description: "스탠퍼드 CS329A 11강 완벽 정리: 운영체제 가상 메모리 페이징을 구현한 MemGPT, 500쪽 문서를 연속 KV 벡터로 증류하는 Cartridges, 교차 어텐션을 복원해 TTFT를 3.3배 단축한 CacheBlend의 원리를 규명합니다."
 date: 2026-11-11T10:00:00.000Z

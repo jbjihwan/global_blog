@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-09-maeumjigi-9
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #9] Llama 3.1 파인튜닝 에러 사투와 6주차 중간발표"
 authors: [jbgih]
-tags: [개발일지, Llama3.1, 파인튜닝, 트러블슈팅, PPT생성, ERD]
+tags: [개발일지, Llama3.1, 파인튜닝, 트러블슈팅, PPT생성, ERD, practice, ai, maeumjigi]
 date: 2026-04-09
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "AWS 클라우드 환경에서 Llama 3.1 8B 모델의 1차 LoRA 파인튜닝 환경을 구축하고 첫 번째 에포크 학습을 성공적으로 완료한 기술 과정입니다."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-26-vision-anpr-2
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] Dynamic Lane Boundary Extraction & Geometric IoU Intrusion Criterion (#2)"
 authors: [jbgih]
-tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, python]
+tags: [computer-vision, anpr, lane-detection, hough-transform, iou, opencv, python, practice, ai, cv]
 date: 2026-06-26
 project: anpr_vision
 description: "Canny edge filtering, probabilistic Hough transform (HoughLinesP), slope thresholding, and geometric polygon IoU intrusion calculation."

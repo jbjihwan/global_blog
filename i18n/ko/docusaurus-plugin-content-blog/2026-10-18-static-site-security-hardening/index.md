@@ -1,8 +1,11 @@
 ---
 slug: static-site-security-npm-audit-truth
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "[2026] npm audit fix --force 함정과 해결법: npm 취약점 0개 만들기"
 authors: [jbgih]
-tags: [웹보안, npm-audit, Docusaurus, 데브옵스, 공급망보안]
+tags: [웹보안, npm-audit, Docusaurus, 데브옵스, 공급망보안, practice, security, infra]
 keywords: ["npm 취약점", "npm audit fix", "npm audit fix --force", "정적 사이트 보안", "GHSA 취약점", "Docusaurus 보안"]
 description: "npm audit fix --force 실행 시 빌드가 깨지는 이유와 안전한 해결법. GHSA 공급망 보안 취약점의 실제 위협 모델 분석과 정적 사이트 4단계 보안 가이드."
 ---

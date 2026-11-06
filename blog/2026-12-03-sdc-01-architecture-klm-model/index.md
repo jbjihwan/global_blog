@@ -1,8 +1,11 @@
 ---
 slug: sdc-01-architecture-klm-model
+category_l1: practice
+category_l2: ai
+category_l3: project-sdc
 title: "Air Combat Mission Replanning #1: Overcoming CPython Latency & VRAM OOM"
 authors: [jbgih]
-tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization]
+tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization, practice, ai, sdc, avionics]
 date: 2026-12-03
 keywords: ["Dynamic Mission Replanning", "Air Combat Architecture", "CPython Latency Wall", "VRAM Reduction Techniques", "Simplex Architecture", "RK4 Numerical Integration", "Viewshed Pre-baking"]
 description: "Overcoming the 31.4s CPython search wall (Q3) down to 0.25s, eliminating 8GB VRAM CUDA OOM via Simplex ML decoupling, and RK4 fuel accuracy verification."
@@ -345,4 +348,4 @@ GPU VRAM Footprint:             0.80 GB (Physical Limit: 8.00 GB) -> PASS
 3. **Establish Independent Numerical Benchmarks for Classified Domains**:
    When classified flight-test data is inaccessible, deriving high-precision numerical baselines (such as RK4 integration over open thermodynamic principles) provides an untestable-proof defense against circular accuracy claims.
 
-In our next milestone **[Air Combat Mission Replanning #2 (Next Episode)]**, we explore our technical stack spike, doctrine PDF extraction pipelines, and operational hypothesis validation against the South Korean Defense White Paper.
+In our next milestone [Air Combat Mission Replanning #2: Stack Spike & Doctrine](/blog/sdc-02-stack-spike-doctrine-hypotheses), we explore our technical stack spike, doctrine PDF extraction pipelines, and operational hypothesis validation against the South Korean Defense White Paper.

@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-4-tool-use-code-feedback-react-rlef
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #4] Tool Use & Code Feedback: ReAct, RLEF, and Constitutional Self-Correction"
 authors: [jbgih]
-tags: [stanford-cs329a, tool-augmented-llm, react-agent, rlef, code-sandbox, constitutional-ai, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, tool-augmented-llm, react-agent, rlef, code-sandbox, constitutional-ai, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-04
 keywords: [Tool-Augmented LLM, ReAct Agent Architecture, Reinforcement Learning from Execution Feedback RLEF, Code Sandbox Execution, Constitutional AI Self-Correction]
 description: "In-depth engineering breakdown of Stanford CS329A Lecture 4: Closed-loop agent feedback architectures, the ReAct reasoning-action synergy, Reinforcement Learning from Execution Feedback (RLEF), compiler sandboxing, and Constitutional AI self-supervision."

@@ -1,0 +1,17 @@
+{
+  "slug": "sdc-02-stack-spike-doctrine-hypotheses",
+  "series": "sdc",
+  "episode": 2,
+  "title": "Air Combat Mission Replanning #2: Stack Spike & Doctrine Hypotheses",
+  "created_at": "2026-12-04T10:00:00+09:00",
+  "target_publish_date": "2026-12-04",
+  "status": "deployed",
+  "current_step": "ready_for_deployment",
+  "locales": [
+    "en",
+    "ko"
+  ],
+  "naver_blog_ready": false,
+  "image_staged": "01_cover.png",
+  "deployed_at": "2026-11-06T13:20:00+09:00"
+}

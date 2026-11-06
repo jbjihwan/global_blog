@@ -1,8 +1,11 @@
 ---
 slug: github-pages-custom-domain-adsense-seo-guide
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "GitHub Pages 애드센스 승인 가이드: 커스텀 도메인 & ads.txt 연동"
 authors: [jbjihwan]
-tags: [docusaurus, devops, cloudflare, seo, web-monetization]
+tags: [docusaurus, devops, cloudflare, seo, web-monetization, practice, security, infra]
 keywords: ["GitHub Pages 구글 애드센스", "ads.txt 설정", "커스텀 도메인 애드센스", "Cloudflare DNS", "검색엔진 SEO"]
 description: "GitHub Pages 정적 사이트에서 구글 애드센스(Google AdSense) 승인받는 법. 커스텀 도메인 연결, 루트 ads.txt 설정 및 서치 콘솔 색인 최적화 가이드."
 ---

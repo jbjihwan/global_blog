@@ -1,8 +1,11 @@
 ---
 slug: national-budget-surveillance-automated-audit-ledger
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "국가 예산 AI 감사 #9: 23,825건 이상징후 전수 감시와 5대 판정 자동 의결 시스템"
 authors: [jbgih]
-tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance]
+tags: [budget-ai, anomaly-detection, automated-audit, legal-tech, sqlite-wal, devops, public-finance, practice, ai, budget-audit]
 date: 2026-12-02
 keywords: ["국가 예산 AI 전수 감시", "23825건 예산 이상징후 감사", "5대 판정 자동 의결 엔진", "SQLite WAL 고속 감사", "누적 감사 대장 편철", "재정 삭감 자동화"]
 description: "677.4조 국가 예산 23,825건 이상징후 세목 전수 감시: 5대 표준 판정 엔진, SQLite WAL 기반 121.7조 감액 의결 대장 구축기."

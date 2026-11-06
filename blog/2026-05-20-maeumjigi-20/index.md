@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-20-maeumjigi-20
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #20] 3rd Fine-Tuning Complete & Backend Feature Enhancements"
 authors: [jbgih]
-tags: [devlog, fine-tuning, backend, frontend, database, capstone]
+tags: [devlog, fine-tuning, backend, frontend, database, capstone, practice, ai, maeumjigi]
 date: 2026-05-20
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Designing our 3rd fine-tuning strategy, carefully calibrating the ratio between casual chat and crisis response to prevent emotional over-triggering."

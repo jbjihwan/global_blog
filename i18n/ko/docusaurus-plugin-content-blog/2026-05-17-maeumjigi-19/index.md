@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-17-maeumjigi-19
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #19] 파인튜닝 평가 보고서 자동화와 FastAPI PostgreSQL 401 에러 트러블슈팅"
 authors: [jbgih]
-tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone]
+tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone, practice, ai, maeumjigi]
 date: 2026-05-17
 keywords: [FastAPI PostgreSQL 연동, 401 Unauthorized 트러블슈팅, JWT 인증 솔트 불일치, LLM 평가 보고서 자동화, 지식 그래프 챗봇 아키텍처]
 description: "풀스택 연동의 최대 난관: Claude Code를 통한 모델 평가 보고서 자동 작성, PostgreSQL 덤프 복원 후 발생한 치명적인 401 인증 에러 해결, 지식 그래프 결합 아키텍처 설계를 상세히 정리합니다."

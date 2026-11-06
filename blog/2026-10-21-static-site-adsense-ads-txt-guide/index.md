@@ -1,8 +1,11 @@
 ---
 slug: static-site-adsense-ads-txt-guide
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "Google AdSense on GitHub Pages: ads.txt 404 Fix & Setup Guide"
 authors: [jbgih]
-tags: [google-adsense, docusaurus, github-pages, web-monetization, devops, cloudflare, seo]
+tags: [google-adsense, docusaurus, github-pages, web-monetization, devops, cloudflare, seo, practice, security, infra]
 date: 2026-10-21
 project: devops
 description: "How to set up Google AdSense on GitHub Pages and Docusaurus. Fix ads.txt 404 crawl errors, inject verification tags, and pass site review without drops."

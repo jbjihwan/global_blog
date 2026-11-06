@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-31-stanford-cs146s-10
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: Future of Software Engineering (Notes #10)"
 authors: [jbgih]
-tags: [stanford-cs146s, autonomous-engineering, zero-human-deployments, ai-fleets, software-future, agent-swarms, system-governance]
+tags: [stanford-cs146s, autonomous-engineering, zero-human-deployments, ai-fleets, software-future, agent-swarms, system-governance, theory, ai, lecture]
 date: 2026-10-31
 keywords: [Autonomous Software Engineering Teams, Zero-Human Deployment Pipelines, AI Software Fleet Management, Human-Agent Software Governance, Self-Evolving Codebases]
 description: "The Grand Finale of Stanford CS146S: Autonomous software factories, zero-human deployment pipelines, AI fleet management, and the system conductor role."

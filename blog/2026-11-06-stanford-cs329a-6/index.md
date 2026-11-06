@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-6-train-time-scaling-rl-grpo-dapo
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #6] Train-Time Scaling & RL: DeepSeekMath, GRPO, and Large-Scale Reasoning Optimization"
 authors: [jbgih]
-tags: [stanford-cs329a, train-time-scaling, grpo, deepseekmath, dapo, reinforcement-learning, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, train-time-scaling, grpo, deepseekmath, dapo, reinforcement-learning, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-06
 keywords: [Group Relative Policy Optimization GRPO, Train-Time Compute Scaling, DeepSeekMath Reasoning RL, Critic-Free Reinforcement Learning, Rule-Based Verifiable Rewards]
 description: "In-depth engineering breakdown of Stanford CS329A Lecture 6: The train-time scaling frontier, self-bootstrapping with STaR, Critic-free Group Relative Policy Optimization (GRPO), and large-scale industrial reinforcement learning engineering with DAPO."

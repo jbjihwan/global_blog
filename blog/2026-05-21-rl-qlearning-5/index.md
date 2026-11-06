@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-21-rl-qlearning-5
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "Sim-to-Real RL: Webots to Arduino with ArUco Vision Tracking (#5)"
 authors: [jbgih]
-tags: [reinforcement-learning, sim-to-real, arduino, robotics, computer-vision, aruco, python]
+tags: [reinforcement-learning, sim-to-real, arduino, robotics, computer-vision, aruco, python, practice, ai]
 date: 2026-05-21
 project: rl_q_learning
 description: "Deploy simulation-trained 648-bin Q-Learning to a physical Arduino robot using overhead webcam homography and real-time ArUco 6-DoF marker pose tracking."

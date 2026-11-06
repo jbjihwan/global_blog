@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-01-maeumjigi-4
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #4] 본격 데이터 전처리: Llama 3.1 챗 템플릿과 자율 JSONL 파이프라인 구축"
 authors: [jbgih]
-tags: [devlog, llama-3-1, data-preprocessing, jsonl, fine-tuning, ai-hub, nlp]
+tags: [devlog, llama-3-1, data-preprocessing, jsonl, fine-tuning, ai-hub, nlp, practice, ai, maeumjigi]
 date: 2026-04-01
 keywords: [Llama 3.1 챗 템플릿, AI Hub 전처리 파이프라인, JSONL 멀티턴 변환, LLM 인스트럭션 파인튜닝, 공감 대화 데이터셋]
 description: "마음지기 프로젝트의 핵심 엔진 구축: AI Hub 12만 건의 한국어 심리 상담 말뭉치를 Llama 3.1 전용 특수 토큰 기반의 무결점 JSONL 파인튜닝 데이터셋으로 자율 변환한 전 과정을 공개합니다."

@@ -1,8 +1,11 @@
 ---
 slug: national-budget-local-subsidy-ehojo-audit
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "지자체 보조금 감사 AI: 전국 243개 지자체 e호조+ 4대 부정 적발"
 authors: [jbgih]
-tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx]
+tags: [ai-agents, local-subsidy, budget-audit, ehojo, distributed-systems, hwpx, practice, ai]
 date: 2026-11-29
 keywords: ["e호조+", "지방보조금 감사", "전국 243개 지자체", "매칭결손", "HWPX 공문서 생성기", "공공재정환수법"]
 description: "전국 243개 지자체 40.2조 원 e호조+ 보조금을 전수 추적하여 4대 부정수급을 탐지하고, 분산 수집 및 스키마 장애를 격파한 감사 AI 구축기."

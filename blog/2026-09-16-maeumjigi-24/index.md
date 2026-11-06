@@ -1,8 +1,11 @@
 ---
 slug: 2026-09-16-maeumjigi-24
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #24] Fall Semester Kickoff: Longitudinal Clinical Preprocessing & Informative Missingness (MNAR) Modeling"
 authors: [jbgih]
-tags: [devlog, capstone, clinical-preprocessing, longitudinal-modeling, missing-not-at-random, suicide-prevention, data-engineering]
+tags: [devlog, capstone, clinical-preprocessing, longitudinal-modeling, missing-not-at-random, suicide-prevention, data-engineering, practice, ai, maeumjigi]
 date: 2026-09-16
 keywords: [Clinical Data Preprocessing, Informative Missingness MNAR, 14-Day LOCF Imputation, AI Suicide Crisis Detection, Mental Health Longitudinal Modeling]
 description: "Kicking off Semester 2 of the Maeumjigi Capstone: Designing clinical data preprocessing pipelines for 4 distinct psychological scales, solving Missing Not at Random (MNAR) with 14-day LOCF and missingness indicators, and fusing numerical trends with conversational NLP."

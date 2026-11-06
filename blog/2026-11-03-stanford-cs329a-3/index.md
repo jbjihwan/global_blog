@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-3-robust-verification-process-reward-models
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #3] Robust Verification: Process Reward Models (PRM), Ensembles, and Scalable Oversight"
 authors: [jbgih]
-tags: [stanford-cs329a, process-reward-models, outcome-reward-models, robust-verification, self-improving-agents, ai-architecture]
+tags: [stanford-cs329a, process-reward-models, outcome-reward-models, robust-verification, self-improving-agents, ai-architecture, theory, ai, lecture]
 date: 2026-11-03
 keywords: [Process Reward Model PRM, Outcome Reward Model ORM, Generation-Verification Gap, Math-Shepherd MCTS, Weaver Weak Verifiers Ensemble]
 description: "In-depth engineering breakdown of Stanford CS329A Lecture 3: Eliminating the Generation-Verification Gap, credit assignment failures in ORMs, step-level supervision with PRM800K, unsupervised Monte Carlo rollouts with Math-Shepherd, and the Weaver multi-verifier ensemble."

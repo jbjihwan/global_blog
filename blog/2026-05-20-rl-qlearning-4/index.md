@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-20-rl-qlearning-4
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots Robotics] Deterministic Evaluation via evaluate_qlearning & Benchmark vs. DQN and SARSA (#4)"
 authors: [jbgih]
-tags: [reinforcement-learning, q-learning, evaluation, benchmark, dqn, sarsa, robotics, python]
+tags: [reinforcement-learning, q-learning, evaluation, benchmark, dqn, sarsa, robotics, python, practice, ai]
 date: 2026-05-20
 project: rl_q_learning
 description: "Zero-exploration (ε=0) deterministic evaluation pipeline with evaluate_qlearning.py, examining path efficiency, near-miss metrics, and benchmark comparisons against DQN and SARSA."

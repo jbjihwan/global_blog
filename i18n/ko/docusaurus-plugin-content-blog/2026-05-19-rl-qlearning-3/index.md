@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-19-rl-qlearning-3
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots 로보틱스] 12개 벽 장애물과 Local Minima 함정 극복: 다중 시드 병렬 시뮬레이션 (#3)"
 authors: [jbgih]
-tags: [강화학습, Q-learning, Webots, 장애물회피, 로컬미니마, Headless, Python]
+tags: [강화학습, Q-learning, Webots, 장애물회피, 로컬미니마, Headless, Python, practice, ai, reinforcement-learning]
 date: 2026-05-19
 project: rl_q_learning
 description: "12개 벽 장애물 환경(obstacle12)과 고난도 맵(obstacle_hard)에서 로봇이 마주한 지역 최적해(Local Minima) 병목 현상과, Webots Headless 가속 파이프라인을 통한 3개 시드 병렬 학습 분석."

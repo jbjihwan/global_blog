@@ -1,8 +1,11 @@
 ---
 slug: sdc-01-architecture-klm-model
+category_l1: practice
+category_l2: misc
+category_l3: unknown
 title: "Air Combat Mission Replanning #1: Overcoming CPython Latency & VRAM OOM"
 authors: [jbgih]
-tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization]
+tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization, practice]
 date: 2026-12-03
 keywords: ["Dynamic Mission Replanning", "Air Combat Architecture", "CPython Latency Wall", "VRAM Reduction Techniques", "Simplex Architecture", "RK4 Numerical Integration", "Viewshed Pre-baking"]
 description: "Overcoming the 31.4s CPython search wall (Q3) down to 0.25s, eliminating 8GB VRAM CUDA OOM via Simplex ML decoupling, and RK4 fuel accuracy verification."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-08-maeumjigi-8
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #8] Application Programming Interface (API) Bill Bomb Incident and Preparing Colab Fine-Tuning"
 authors: [jbgih]
-tags: [devlog, API-billing, Llama3.1, fine-tuning, GoogleColab, data-preprocessing]
+tags: [devlog, API-billing, Llama3.1, fine-tuning, GoogleColab, data-preprocessing, practice, ai, maeumjigi]
 date: 2026-04-08
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Replacing synchronous bottlenecks with an asynchronous multiprocessing pipeline, boosting data generation and crawling throughput by 5x."

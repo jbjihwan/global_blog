@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-20-rl-qlearning-4
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots 로보틱스] evaluate_qlearning: 결정론적 주행 정량 평가와 DQN·SARSA 벤치마크 (#4)"
 authors: [jbgih]
-tags: [강화학습, Q-learning, 성능평가, 벤치마크, DQN, SARSA, 로보틱스, Python]
+tags: [강화학습, Q-learning, 성능평가, 벤치마크, DQN, SARSA, 로보틱스, Python, practice, ai, reinforcement-learning]
 date: 2026-05-20
 project: rl_q_learning
 description: "학습된 Q-Table 가중치에 대한 탐색률 0% 결정론적(Greedy) 평가 파이프라인(evaluate_qlearning.py)과 경로 효율성, 근접 충돌(Near-miss), 그리고 DQN 및 SARSA 모델과의 종합 비교 벤치마크."

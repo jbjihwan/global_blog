@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-25-vision-anpr-1
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] Blackbox Lane Intrusion & Super-Resolution ANPR: 6-Stage End-to-End Pipeline & Real-Time Constraints (#1)"
 authors: [jbgih]
-tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-learning, python]
+tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-learning, python, practice, ai, cv]
 date: 2026-06-25
 project: anpr_vision
 description: "Architecting a 6-stage computer vision pipeline combining dynamic lane detection, IoU intrusion metrics, YOLOv5 license plate detection, EDSR super-resolution, and OCR voting."

@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-longitudinal-fusion-extreme-value-bias
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "[Crisis AI #2] 14-Day Longitudinal Fusion & Extreme Value Bias"
 authors: [jbgih]
-tags: [Crisis AI, Multimodal Fusion, Extreme Value Theory, Time-Series NLP, Alert Fatigue, Troubleshooting]
+tags: [Crisis AI, Multimodal Fusion, Extreme Value Theory, Time-Series NLP, Alert Fatigue, Troubleshooting, practice, ai, crisis-nlp]
 date: 2026-11-25
 description: "Mathematical proof of 86.7% extreme value bias in 14-day windows (ERR-005), and building a robust top-k trimmed decay fuser with zero-lag emergency tripwires."
 ---

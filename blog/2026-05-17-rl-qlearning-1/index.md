@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-17-rl-qlearning-1
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots Robotics] Q-Learning Autonomous Navigation: 648-Bin State Discretization & Socket Architecture (#1)"
 authors: [jbgih]
-tags: [reinforcement-learning, q-learning, webots, robotics, discretization, python]
+tags: [reinforcement-learning, q-learning, webots, robotics, discretization, python, practice, ai]
 date: 2026-05-17
 project: rl_q_learning
 description: "Designing a 648-bin state space discretizer and a TCP socket IPC architecture for Webots mobile robot autonomous navigation with tabular Q-Learning."

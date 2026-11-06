@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-1-course-overview-self-improving-agents
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS329A #1] 강좌 개요: 거대 언어 모델에서 스스로 발전하는 AI 에이전트로"
 authors: [jbgih]
-tags: [stanford-cs329a, self-improving-agents, foundation-models, test-time-compute, agentic-workflows, ai-architecture]
+tags: [stanford-cs329a, self-improving-agents, foundation-models, test-time-compute, agentic-workflows, ai-architecture, theory, ai, lecture]
 date: 2026-11-01
 keywords: [자가 개선 AI 에이전트, 스탠포드 CS329A, 추론 시간 스케일링, LLM 스케일링 법칙, 자율 AI 피드백 루프]
 description: "스탠포드 CS329A 제1강 종합 가이드: 추론 시간 연산 스케일링, 프로세스 보상 검증, 폐루프 에이전트 아키텍처를 통해 정적 사전 훈련 LLM에서 자율 자가 진화 에이전트로 전환되는 패러다임 분석."

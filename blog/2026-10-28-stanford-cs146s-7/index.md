@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-28-stanford-cs146s-7
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: Automated Code Review at Scale (Notes #7)"
 authors: [jbgih]
-tags: [stanford, cs146s, code-review, static-analysis, ast, taint-analysis, llm-pr-review, devops, security]
+tags: [stanford, cs146s, code-review, static-analysis, ast, taint-analysis, llm-pr-review, devops, security, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-28
 keywords: [Automated Code Review at Scale, AST-Aware Static Analysis, Security Taint Analysis LLM, Autonomous Pull Request Reviewer, Continuous Integration AI Guardrails]
 description: "Master Stanford CS146S Lecture 7: Automated code review at scale, combining AST linters, static taint analysis, and semantic LLM pull-request reviewers."

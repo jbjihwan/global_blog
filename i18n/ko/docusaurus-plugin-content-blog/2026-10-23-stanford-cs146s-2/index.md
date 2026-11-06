@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-2-coding-llms-prompt-engineering
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #2] 코딩 LLM 원리와 프롬프트 엔지니어링 실전"
 authors: [jbgih]
-tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture]
+tags: [stanford-cs146s, coding-llms, prompt-engineering, rlhf, chain-of-thought, swiss-cheese-model, software-architecture, theory, ai, lecture]
 date: 2026-10-23
 keywords: ["스탠포드 CS146S", "코딩 LLM", "프롬프트 엔지니어링", "RLHF", "스위스 치즈 모델", "CoT"]
 description: "스탠포드 CS146S 2강: 코딩 LLM의 작동 원리, 사전학습과 RLHF, CoT 프롬프트 기법 및 AI 코드 검증을 위한 스위스 치즈 모델 완벽 해설."

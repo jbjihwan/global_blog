@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-13-llm-reasoning-cot-self-consistency-emergent-abilities
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 13): LLM Reasoning — Denny Zhou, Chain-of-Thought (CoT), Self-Consistency, and Emergent Abilities"
 authors: [jbgih]
-tags: [Stanford CS329A, LLM Reasoning, Chain-of-Thought, CoT, Self-Consistency, Denny Zhou, Emergent Abilities, Phase Transition, DeepMind, GSM8K]
+tags: [Stanford CS329A, LLM Reasoning, Chain-of-Thought, CoT, Self-Consistency, Denny Zhou, Emergent Abilities, Phase Transition, DeepMind, GSM8K, theory, ai, lecture, stanford-cs329a]
 keywords: [LLM Reasoning Foundations, Chain of Thought CoT Prompting, Self-Consistency Decoding LLM, Emergent Cognitive Abilities AI, Denny Zhou DeepMind Reasoning]
 description: "Master Stanford CS329A Lecture 13: How Denny Zhou's Chain-of-Thought unleashed multi-step reasoning without weight updates, Self-Consistency voting decoded consensus, and Emergent Abilities sparked the Great Mirage Debate."
 date: 2026-11-13T10:00:00.000Z

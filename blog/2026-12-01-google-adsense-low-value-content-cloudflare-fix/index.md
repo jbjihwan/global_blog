@@ -1,8 +1,11 @@
 ---
 slug: google-adsense-low-value-content-cloudflare-fix
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "Fix Google AdSense Low Value Content & Cloudflare WAF Blocks"
 authors: [jbgih]
-tags: [web-security, adsense, cloudflare, devops, docusaurus, seo]
+tags: [web-security, adsense, cloudflare, devops, docusaurus, seo, practice, security, infra]
 date: 2026-12-01
 keywords: ["Google AdSense Low Value Content", "Cloudflare WAF Mediapartners-Google", "YMYL AdSense script guard", "Google Search Console sitemap purge", "AdSense site down fix"]
 description: "How we solved AdSense Low Value Content: fixing Cloudflare WAF crawler blocks, YMYL conditional script guards, and GSC API obsolete sitemap purge."

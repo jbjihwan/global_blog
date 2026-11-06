@@ -1,8 +1,11 @@
 ---
 slug: maeumjigi-1
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #1] 첫 걸음과 기획: Claude Code 협업 규칙과 알람 앱에서 멘탈케어 AI로의 피봇"
 authors: [jbgih]
-tags: [devlog, ai-agent, claude-code, capstone, project-planning, architecture]
+tags: [devlog, ai-agent, claude-code, capstone, project-planning, architecture, practice, ai, maeumjigi]
 date: 2026-03-26
 keywords: [Claude Code AI 협업, 마음지기 캡스톤 프로젝트, 멘탈 헬스 AI 챗봇, LLM 파인튜닝 로드맵, 자율 AI 코딩 규칙]
 description: "캡스톤 디자인의 첫날: 자율 코딩 AI인 Claude Code 도입, 협업 규칙 수립, 그리고 단순 컨벤션 알람 앱에서 고난도 멘탈케어 AI 챗봇 플랫폼으로의 피봇 과정을 상세히 기록합니다."

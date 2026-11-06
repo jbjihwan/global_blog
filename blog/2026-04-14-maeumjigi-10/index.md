@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-14-maeumjigi-10
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #10] Resolving API Rate Limits: Unmanned Automation & Resilient Data Synthesis Pipeline"
 authors: [jbgih]
-tags: [devlog, api-rate-limits, synthetic-data, data-generation, fault-tolerance, state-machine, capstone]
+tags: [devlog, api-rate-limits, synthetic-data, data-generation, fault-tolerance, state-machine, capstone, practice, ai, maeumjigi]
 date: 2026-04-14
 keywords: [Anthropic API Rate Limit, Synthetic Data Generation Pipeline, Unmanned Autonomous Script, Exponential Backoff Jitter, Atomic JSON Checkpointing]
 description: "Overcoming severe API tier throttling: lifting Anthropic billing limits, engineering an unmanned fault-tolerant worker with atomic checkpointing, and safely resuming our v5 synthetic data pipeline."

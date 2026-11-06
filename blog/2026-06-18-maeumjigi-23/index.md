@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-18-maeumjigi-23
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #23] Dual-Layer Safety Wrapper, AWS EC2 GPU Budgeting & Semester 1 Defense"
 authors: [jbgih]
-tags: [devlog, safety-wrapper, guardrail, aws-ec2, gpu-serving, capstone-defense, suicide-prevention]
+tags: [devlog, safety-wrapper, guardrail, aws-ec2, gpu-serving, capstone-defense, suicide-prevention, practice, ai, maeumjigi]
 date: 2026-06-18
 keywords: [AI Mental Health Chatbot, AI Safety Wrapper, LLM Guardrail Architecture, Crisis Intervention Protocol, AWS EC2 GPU Serving]
 description: "Final Milestone of Semester 1: Engineering our dual-layer Safety Wrapper for crisis de-escalation, calculating AWS EC2 g5.2xlarge GPU serving budgets, and presenting our Capstone Final Defense."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-29-stanford-cs146s-8
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS146S #8] AI 네이티브 소프트웨어 아키텍처 & 대규모 리팩터링: 모놀리스 분해, 시맨틱 부채 관리, 자율 코드 마이그레이션"
 authors: [jbgih]
-tags: [stanford-cs146s, ai-native-architecture, software-refactoring, semantic-debt, monolith-decoupling, autonomous-migration, code-modernization]
+tags: [stanford-cs146s, ai-native-architecture, software-refactoring, semantic-debt, monolith-decoupling, autonomous-migration, code-modernization, theory, ai, lecture]
 date: 2026-10-29
 keywords: [AI 네이티브 아키텍처, 모놀리스 분해 자동화, 시맨틱 부채 해결, AST 기반 대규모 리팩터링, 자율 코드 마이그레이션 LLM]
 description: "스탠포드 CS146S 8강 심층 분석: 자율 AI 에이전트가 탐색하고 수정할 수 있는 AI 네이티브 아키텍처 설계, 시맨틱 부채(Semantic Debt) 해소, AST 의존성 그래프 기반의 레거시 모놀리스 분해 및 무중단 자율 마이그레이션 파이프라인 완벽 가이드."

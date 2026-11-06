@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-03-maeumjigi-5
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #5] Purifying 100,000 Emotion Data Points and the Pressure of Application Programming Interface (API) Costs"
 authors: [jbgih]
-tags: [devlog, data-cleaning, ClaudeAPI, emotion-classification, Llama3.1, api-cost]
+tags: [devlog, data-cleaning, ClaudeAPI, emotion-classification, Llama3.1, api-cost, practice, ai, maeumjigi]
 date: 2026-04-03
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Purifying Korean public dialogue datasets and managing the first severe Anthropic API billing challenge encountered during automated data processing."

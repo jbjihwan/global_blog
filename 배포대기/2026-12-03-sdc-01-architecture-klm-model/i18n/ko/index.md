@@ -1,8 +1,11 @@
 ---
 slug: sdc-01-architecture-klm-model
+category_l1: practice
+category_l2: misc
+category_l3: unknown
 title: "항공작전 동적 임무계획 #1: CPython 탐색 병목 극복과 VRAM 절감 설계"
 authors: [jbgih]
-tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization]
+tags: [air-combat, mission-planning, aerospace-engineering, defense-ai, system-architecture, benchmarks, python-optimization, practice]
 date: 2026-12-03
 keywords: ["동적 임무계획", "항공작전 아키텍처", "CPython 연산 병목", "VRAM 절감 기법", "심플렉스 아키텍처", "RK4 수치적분", "가시선 사전 베이킹"]
 description: "항공작전 동적 임무계획에서 마주친 CPython 31초 지연 병목(Q3)을 0.25초로 단축하고, 8GB VRAM OOM을 경량 심플렉스 구조로 해결한 전말과 RK4 연료 정확도(Q2) 검증."

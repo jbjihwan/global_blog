@@ -1,8 +1,11 @@
 ---
 slug: github-pages-custom-domain-cloudflare-dns
+category_l1: practice
+category_l2: security
+category_l3: project-security-infra
 title: "GitHub Pages Custom Domain & Cloudflare DNS: Migration Guide"
 authors: [jbjihwan]
-tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops]
+tags: [github-pages, custom-domain, porkbun, cloudflare, docusaurus, devops, practice, security, infra]
 keywords: ["github-pages-custom-domain-cloudflare-dns", "GitHub Pages Custom Domain", "Cloudflare DNS Porkbun CNAME", "CNAME Flattening apex domain", "Free SSL Edge Certificate"]
 description: "Zero-downtime migration guide for GitHub Pages custom domain with Porkbun, Cloudflare DNS, CNAME flattening, SSL edge certificates, and Docusaurus."
 

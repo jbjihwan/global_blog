@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-18-rl-qlearning-2
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots 로보틱스] Tabular Q-Learning 구현과 보상 함수(Reward Function) 튜닝 (#2)"
 authors: [jbgih]
-tags: [강화학습, Q-learning, 보상함수, Webots, 로보틱스, 머신러닝, Python]
+tags: [강화학습, Q-learning, 보상함수, Webots, 로보틱스, 머신러닝, Python, practice, ai, reinforcement-learning]
 date: 2026-05-18
 project: rl_q_learning
 description: "Webots 모바일 로봇의 Tabular Q-Learning 업데이트 수식 구현, 엡실론 감쇠(Epsilon Decay) 탐색 전략, 그리고 희소 보상(Sparse Reward)을 극복하는 보상 셰이핑(Reward Shaping) 튜닝 과정을 심층 분석합니다."

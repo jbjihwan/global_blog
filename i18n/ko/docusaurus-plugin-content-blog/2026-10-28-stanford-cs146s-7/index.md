@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-28-stanford-cs146s-7
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #7] 대규모 코드 리뷰 자동화: AST 기반 린터, 보안 오염 분석(Taint Analysis), 그리고 LLM PR 리뷰어"
 authors: [jbgih]
-tags: [stanford, cs146s, code-review, static-analysis, ast, taint-analysis, llm-pr-review, devops, security]
+tags: [stanford, cs146s, code-review, static-analysis, ast, taint-analysis, llm-pr-review, devops, security, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-28
 keywords: [대규모 자동화 코드 리뷰, AST 기반 정적 분석, 보안 오염 분석 LLM, 자율 풀 리퀘스트 리뷰어, CI/CD AI 가드레일]
 description: "스탠포드 CS146S 7강에서는 엔지니어링 조직의 생산성을 극대화하는 3단계 자동화 코드 리뷰 파이프라인을 다룹니다. AST 정적 린터, 소스-싱크 보안 오염 분석(Taint Analysis), 의미론적 LLM PR 리뷰어를 결합하여 사소한 스타일 논쟁을 없애고 치명적 보안 결함을 원천 차단하는 방법을 공개합니다."

@@ -1,8 +1,11 @@
 ---
 slug: maeumjigi-3
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #3] Alarm App Build Test and Fine-Tuning Preprocessing Kickoff"
 authors: [jbgih]
-tags: [devlog, Artificial Intelligence (AI)-coding, ClaudeCode, capstone, Android, build-test, Llama3.1]
+tags: [devlog, Artificial Intelligence (AI)-coding, ClaudeCode, capstone, Android, build-test, Llama3.1, practice, ai, maeumjigi]
 date: 2026-03-31
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Completing the alarm app and executing a major project pivot toward 'Maeumjigi', an AI-powered mental health and suicide prevention chatbot."

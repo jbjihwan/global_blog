@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-12-maeumjigi-17
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #17] 2nd Fine-Tuning Complete & The Trap of the Automation Pipeline"
 authors: [jbgih]
-tags: [devlog, fine-tuning, best-performance, checkpoint, hardcoding, capstone]
+tags: [devlog, fine-tuning, best-performance, checkpoint, hardcoding, capstone, practice, ai, maeumjigi]
 date: 2026-05-12
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Executing 2nd-round fine-tuning with clean chat templates and refined LoRA hyperparameters (rank and alpha) to optimize learning convergence."

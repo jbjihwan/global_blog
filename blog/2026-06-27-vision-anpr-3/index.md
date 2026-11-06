@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-27-vision-anpr-3
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] Hierarchical Object Detection: YOLOv3 Vehicle ROI, YOLOv5 Plate Detector & CSRT Tracking (#3)"
 authors: [jbgih]
-tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, python]
+tags: [computer-vision, anpr, yolo, csrt-tracker, object-detection, opencv, python, practice, ai, cv]
 date: 2026-06-27
 project: anpr_vision
 description: "Two-stage hierarchical localization: broad vehicle detection via YOLOv3, localized license plate inference via YOLOv5, and CSRT correlation filter tracking."

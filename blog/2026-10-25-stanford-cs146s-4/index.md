@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs146s-4-spec-driven-code-generation-test-harnesses
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: Spec-Driven Code Generation (Notes #4)"
 authors: [jbgih]
-tags: [stanford-cs146s, spec-driven-development, test-harness, self-healing-code, claude-code, cursor, software-engineering, regression-testing]
+tags: [stanford-cs146s, spec-driven-development, test-harness, self-healing-code, claude-code, cursor, software-engineering, regression-testing, theory, ai, lecture]
 date: 2026-10-25
 keywords: [Spec-Driven Development, Test Harness for AI Coding, Self-Healing Code Generation, Claude Code Automated Testing, LLM Regression Verification]
 description: "Master Stanford CS146S Lecture 4: Spec-Driven Development (SDD), closed-loop test harnesses, and self-healing regression loops with AI coding agents."

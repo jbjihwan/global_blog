@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-03-maeumjigi-5
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #5] 10만 건의 감정 데이터 정제와 API 비용의 압박"
 authors: [jbgih]
-tags: [개발일지, 데이터정제, ClaudeAPI, 감정분류, Llama3.1, 비용문제]
+tags: [개발일지, 데이터정제, ClaudeAPI, 감정분류, Llama3.1, 비용문제, practice, ai, maeumjigi]
 date: 2026-04-03
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "국립국어원 공공 말뭉치 데이터를 정제하여 대화 데이터셋을 구축하고, 대량 API 호출 중 마주한 첫 번째 API 과금 악몽과 대책을 다룹니다."

@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-25-vision-anpr-1
+category_l1: practice
+category_l2: ai
+category_l3: project-anpr
 title: "[Vision AI] 블랙박스 차선 침범 적발 & 초해상화 번호판 인식: 6단계 파이프라인 및 실시간 설계 과제 (#1)"
 authors: [jbgih]
-tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-learning, python]
+tags: [computer-vision, anpr, object-detection, super-resolution, opencv, deep-learning, python, practice, ai, cv]
 date: 2026-06-25
 project: anpr_vision
 description: "동적 차선 검출, IoU 침범 판정, YOLOv5 번호판 탐지, EDSR 딥러닝 초해상화, OCR 투표 앙상블을 결합한 6단계 실시간 비전 시스템 아키텍처 설계."

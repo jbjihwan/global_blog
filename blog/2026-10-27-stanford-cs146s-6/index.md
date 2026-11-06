@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-27-stanford-cs146s-6
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS146S: AI Debugging & eBPF Profiling (Notes #6)"
 authors: [jbgih]
-tags: [stanford, cs146s, ebpf, dynamic-tracing, ai-debugging, incident-response, site-reliability-engineering, linux-kernel]
+tags: [stanford, cs146s, ebpf, dynamic-tracing, ai-debugging, incident-response, site-reliability-engineering, linux-kernel, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-27
 keywords: [AI-Assisted Runtime Debugging, eBPF Dynamic Tracing LLM, Autonomous Incident Mitigation, Kernel Observability AI SRE, Production Performance Profiling]
 description: "Master Stanford CS146S Lecture 6: AI-assisted debugging, eBPF kernel tracing, dynamic profiling, and LLM diagnostic agents for rapid incident mitigation."

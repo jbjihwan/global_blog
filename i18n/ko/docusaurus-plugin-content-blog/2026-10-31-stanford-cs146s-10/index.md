@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-31-stanford-cs146s-10
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[Stanford CS146S #10] 소프트웨어 엔지니어링의 미래: 자율 에이전트 스웜, 제로 휴먼 배포 파이프라인, 대규모 AI 플릿 거버넌스"
 authors: [jbgih]
-tags: [stanford-cs146s, autonomous-engineering, zero-human-deployments, ai-fleets, software-future, agent-swarms, system-governance]
+tags: [stanford-cs146s, autonomous-engineering, zero-human-deployments, ai-fleets, software-future, agent-swarms, system-governance, theory, ai, lecture]
 date: 2026-10-31
 keywords: [자율 소프트웨어 엔지니어링 팀, 무인 제로 휴먼 배포 파이프라인, AI 소프트웨어 플릿 관리, 인간-에이전트 소프트웨어 거버넌스, 자가 진화형 코드베이스]
 description: "스탠포드 CS146S 10강 최종회 대단원: 10주간의 커리큘럼을 집대성하여 자율 소프트웨어 공장(Dark Factory), 무인 배포 하이웨이, 대규모 AI 플릿 오케스트레이션, 그리고 시스템 지휘자(Conductor)로서 인간 엔지니어의 미래를 총결산합니다."

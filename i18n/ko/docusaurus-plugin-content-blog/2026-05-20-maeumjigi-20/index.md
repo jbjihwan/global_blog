@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-20-maeumjigi-20
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #20] 3차 파인튜닝 완료 및 백엔드 기능(DB, 게시판) 고도화"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 백엔드, 프론트엔드, 데이터베이스, 캡스톤디자인]
+tags: [개발일지, 파인튜닝, 백엔드, 프론트엔드, 데이터베이스, 캡스톤디자인, practice, ai, maeumjigi]
 date: 2026-05-20
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "과도한 공감으로 인한 전문성 결여를 방지하기 위해 일상 대화와 감정 위기 대화의 비율을 세밀하게 분할하는 3차 파인튜닝 전략을 설계합니다."

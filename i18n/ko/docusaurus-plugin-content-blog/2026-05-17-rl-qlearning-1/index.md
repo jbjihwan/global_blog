@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-17-rl-qlearning-1
+category_l1: practice
+category_l2: ai
+category_l3: project-rl
 title: "[Webots 로보틱스] Q-Learning 자율주행: 648개 상태 공간 이산화와 소켓 통신 아키텍처 (#1)"
 authors: [jbgih]
-tags: [강화학습, Q-learning, Webots, 로보틱스, 상태공간이산화, Python]
+tags: [강화학습, Q-learning, Webots, 로보틱스, 상태공간이산화, Python, practice, ai, reinforcement-learning]
 date: 2026-05-17
 project: rl_q_learning
 description: "Webots 로봇 시뮬레이션 환경에서 연속 센서 데이터를 648개 이산 상태 공간으로 압축하는 Discretizer 설계와 TCP 소켓 통신 기반 강화학습(RL) 아키텍처를 상세히 소개합니다."

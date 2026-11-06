@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-13-llm-reasoning-cot-self-consistency-emergent-abilities
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 13): LLM Reasoning — 언어 모델 추론의 본질과 생각의 사슬 (CoT, Self-Consistency, Emergent Abilities)"
 authors: [jbgih]
-tags: [Stanford CS329A, LLM Reasoning, Chain-of-Thought, CoT, Self-Consistency, Denny Zhou, Emergent Abilities, Phase Transition, DeepMind, GSM8K]
+tags: [Stanford CS329A, LLM Reasoning, Chain-of-Thought, CoT, Self-Consistency, Denny Zhou, Emergent Abilities, Phase Transition, DeepMind, GSM8K, theory, ai, lecture, stanford-cs329a]
 keywords: [LLM Reasoning Foundations, Chain of Thought CoT Prompting, Self-Consistency Decoding LLM, Emergent Cognitive Abilities AI, Denny Zhou DeepMind Reasoning]
 description: "스탠퍼드 CS329A 13강 완벽 정리: 데니 저우(Denny Zhou) 박사의 CoT 프롬프팅이 모델 재학습 없이 추론 능력을 깨운 원리, Self-Consistency의 톨스토이 수렴 법칙, 창발적 능력의 상전이 논쟁을 규명합니다."
 date: 2026-11-13T10:00:00.000Z

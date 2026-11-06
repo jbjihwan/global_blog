@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-12-maeumjigi-17
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #17] 2차 파인튜닝 완료 및 평가 자동화 파이프라인의 함정"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, 최고성능, 체크포인트, 하드코딩, 캡스톤디자인]
+tags: [개발일지, 파인튜닝, 최고성능, 체크포인트, 하드코딩, 캡스톤디자인, practice, ai, maeumjigi]
 date: 2026-05-12
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "정제된 프롬프트 포맷과 LoRA rank/alpha 하이퍼파라미터 조정을 적용하여 2차 파인튜닝을 실행하고 학습 수렴도를 점검한 과정입니다."

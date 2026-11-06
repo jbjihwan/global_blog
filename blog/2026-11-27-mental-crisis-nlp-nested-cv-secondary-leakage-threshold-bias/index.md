@@ -1,8 +1,11 @@
 ---
 slug: mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias
+category_l1: practice
+category_l2: ai
+category_l3: project-crisis
 title: "Nested CV: Defeating Secondary Leakage & Threshold Bias"
 authors: [jbgih]
-tags: [crisis-ai, nested-cross-validation, data-leakage, threshold-calibration, machine-learning, devlog]
+tags: [crisis-ai, nested-cross-validation, data-leakage, threshold-calibration, machine-learning, devlog, practice, ai, crisis-nlp]
 date: 2026-11-27
 keywords: ["Nested Cross-Validation", "Nested CV", "Secondary Data Leakage", "Threshold Shift Bias", "Quantile Alignment", "Clinical AI"]
 description: "Master Nested Cross-Validation (Nested CV) in clinical AI: Eliminate secondary data leakage, sample size mismatch, and threshold shift bias across folds."

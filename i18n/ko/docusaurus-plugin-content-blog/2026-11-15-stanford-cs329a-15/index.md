@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-15-autonomous-systems-reliability-trust-boundaries-ai-control
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 15): Autonomous Systems & Reliability — 자율 에이전트 신뢰성의 3계층, 신뢰 경계 및 AI Control"
 authors: [jbgih]
-tags: [Stanford CS329A, Autonomous Agents, Reliability, Trust Boundary, AI Control, Misha Laskin, Scalable Oversight, Multiplicative Collapse, Sandboxing]
+tags: [Stanford CS329A, Autonomous Agents, Reliability, Trust Boundary, AI Control, Misha Laskin, Scalable Oversight, Multiplicative Collapse, Sandboxing, theory, ai, lecture, stanford-cs329a]
 keywords: [Autonomous AI Agent Reliability, AI Control Scalable Oversight, Agent Trust Boundary Sandboxing, Compounding Errors Long Horizon AI, Multiplicative Collapse AI Safety]
 description: "Stanford CS329A 15강 완벽 해설: 미샤 래스킨(Reflection AI & DeepMind)이 밝히는 자율 에이전트 신뢰성의 3계층, 승수적 붕괴 방지법, 외부 검증 없는 자가 교정의 한계, 그리고 레드우드 연구소의 AI Control 안전 프로토콜."
 date: 2026-11-15T10:00:00.000Z

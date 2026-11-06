@@ -1,8 +1,11 @@
 ---
 slug: national-budget-ai-6-sector-full-suite
+category_l1: practice
+category_l2: ai
+category_l3: project-budget
 title: "Public Budget AI #5: 6-Sector Audit Suite & Year-End Dumps"
 authors: [jbgih]
-tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops]
+tags: [ai-agents, sector-partitioning, procurement-fraud, year-end-dumping, spec-driven-development, devops, practice, ai, budget-audit]
 date: 2026-11-22
 keywords: ["6-Sector Targeted Audit", "Preferential Sole-Source Smurfing", "Fiscal Year-End Dumping", "Procurement Anomaly AI", "Public Budget Fraud"]
 description: "Completing the 6-sector targeted audit suite: Catching $40K preferential sole-source smurfing and December fiscal dumping across public procurement feeds."

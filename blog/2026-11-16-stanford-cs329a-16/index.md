@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-16-multimodal-embodied-agents-vla-rt2-openvla-pi-zero
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "Stanford CS329A (Ep 16): Multimodal & Embodied Agents — Vision-Language-Action (VLA) Models, RT-2, OpenVLA, and π₀"
 authors: [jbgih]
-tags: [Stanford CS329A, Embodied AI, VLA Models, RT-2, OpenVLA, Danny Driess, Robotics, Action Tokenization, Physical Intelligence, Pi-Zero]
+tags: [Stanford CS329A, Embodied AI, VLA Models, RT-2, OpenVLA, Danny Driess, Robotics, Action Tokenization, Physical Intelligence, Pi-Zero, theory, ai, lecture, stanford-cs329a]
 keywords: [Vision-Language-Action VLA Models, Embodied AI Robotics Agents, OpenVLA Robot Manipulation, RT-2 Action Tokenization, Physical Intelligence pi-zero]
 description: "Master Stanford CS329A Lecture 16: Danny Driess (DeepMind & Physical Intelligence) explores the revolution of Vision-Language-Action (VLA) models, how RT-2 tokenized 7DoF robot actions, OpenVLA's dual SigLIP+DINOv2 vision fusion on consumer GPUs, and π₀ flow matching."
 date: 2026-11-16T10:00:00.000Z

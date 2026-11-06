@@ -1,8 +1,11 @@
 ---
 slug: 2026-06-18-maeumjigi-23
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #23] 이중 Safety Wrapper 구축, AWS EC2 GPU 서버 견적 및 1학기 최종 발표"
 authors: [jbgih]
-tags: [devlog, safety-wrapper, guardrail, aws-ec2, gpu-serving, capstone-defense, suicide-prevention]
+tags: [devlog, safety-wrapper, guardrail, aws-ec2, gpu-serving, capstone-defense, suicide-prevention, practice, ai, maeumjigi]
 date: 2026-06-18
 keywords: [AI 멘탈 헬스 챗봇, 인공지능 Safety Wrapper, LLM 안전 가드레일, 자살 위기 개입 프로토콜, AWS EC2 GPU 서빙]
 description: "마음지기 1학기 최종 마일스톤: 자살 고위험군 즉각 개입을 위한 이중 Safety Wrapper 아키텍처 완성, AWS EC2 g5.2xlarge GPU 서버 견적 산출, 그리고 1학기 최종 캡스톤 발표 통과기를 공개합니다."

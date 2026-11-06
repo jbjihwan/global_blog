@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-8-search-deep-research-alphacode-search-o1
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "스탠포드 CS329A (8강): 검색과 딥 리서치 — 프로그램 공간 탐색(AlphaCode)과 Search-o1의 지식 공간 탐색"
 authors: [jbgih]
-tags: [스탠포드 CS329A, 딥 리서치, 알파코드, Search-o1, Codeforces, 경쟁 프로그래밍, 에이전틱 RAG, 지식 탐색]
+tags: [스탠포드 CS329A, 딥 리서치, 알파코드, Search-o1, Codeforces, 경쟁 프로그래밍, 에이전틱 RAG, 지식 탐색, theory, ai, lecture, stanford-cs329a]
 keywords: [Deep Research Agent LLM, AlphaCode Competitive Programming, Search-o1 Autonomous Investigation, Information Synthesis Agent, Self-Reflective Search Loops]
 description: "스탠포드 CS329A 8강 해설: 100만 개 코드 중 행동 시그니처로 정답을 찾아내는 AlphaCode, 장문 추론 중 실시간 웹 검색을 실행하는 Search-o1, 그리고 자율 딥 리서치 에이전트의 구조를 파헤칩니다."
 date: 2026-11-08T10:00:00.000Z

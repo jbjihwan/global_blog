@@ -1,8 +1,11 @@
 ---
 slug: 2026-10-27-stanford-cs146s-6
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "[스탠포드 CS146S #6] AI 보조 디버깅과 런타임 프로파일링: eBPF 커널 동적 추적과 LLM 기반 자율 장애 복구"
 authors: [jbgih]
-tags: [stanford, cs146s, ebpf, dynamic-tracing, ai-debugging, incident-response, site-reliability-engineering, linux-kernel]
+tags: [stanford, cs146s, ebpf, dynamic-tracing, ai-debugging, incident-response, site-reliability-engineering, linux-kernel, theory, ai, lecture, stanford-cs146s]
 date: 2026-10-27
 keywords: [AI 보조 런타임 디버깅, eBPF 동적 트레이싱 LLM, 자율 장애 완화 SRE, 커널 옵저버빌리티 AI 진단, 프로덕션 성능 프로파일링]
 description: "스탠포드 대학교 CS146S(현대 소프트웨어 개발자) 6강에서는 eBPF(extended Berkeley Packet Filter)와 LLM 진단 에이전트를 결합한 차세대 런타임 디버깅을 다룹니다. 무부하 커널 계층 추적 데이터를 기반으로 실시간 근본 원인 분석과 자율 핫패치를 생성하는 SRE 엔지니어링 실전을 공개합니다."

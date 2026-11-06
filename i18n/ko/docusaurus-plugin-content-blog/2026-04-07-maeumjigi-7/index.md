@@ -1,8 +1,11 @@
 ---
 slug: 2026-04-07-maeumjigi-7
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #7] 합성 데이터(v5) 생성 최적화와 프론트엔드 연동"
 authors: [jbgih]
-tags: [개발일지, 합성데이터, ClaudeAPI, 데이터생성, 프론트엔드, 비용최적화]
+tags: [개발일지, 합성데이터, ClaudeAPI, 데이터생성, 프론트엔드, 비용최적화, practice, ai, maeumjigi]
 date: 2026-04-07
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "Claude API를 활용한 대규모 공감 대화 합성 데이터 증강 파이프라인 구축과 토큰 소비량을 최소화하기 위한 배치 최적화 기법을 공유합니다."

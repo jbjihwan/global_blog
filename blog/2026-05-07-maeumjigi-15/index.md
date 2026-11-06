@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-07-maeumjigi-15
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #15] Visualizing Fine-Tuning Results of 5 Models & Local Environment Setup"
 authors: [jbgih]
-tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, Artificial Intelligence (AI)]
+tags: [devlog, fine-tuning, results-analysis, visualization, Jupyter, capstone, Artificial Intelligence (AI), practice, ai, maeumjigi]
 date: 2026-05-07
 keywords: [AI Mental Health Chatbot, LLM Fine-tuning, AI Safety Wrapper, Capstone Project, Prompt Engineering]
 description: "Analyzing Perplexity and dialogue response scores across models, and building an automated matplotlib visualization pipeline for mid-term evaluation."

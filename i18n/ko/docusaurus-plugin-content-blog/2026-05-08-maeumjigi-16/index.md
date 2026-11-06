@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-08-maeumjigi-16
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[마음지기 캡스톤 개발일지 #16] 치명적 실수와 2차 파인튜닝, 그리고 React Native 앱 첫 구동"
 authors: [jbgih]
-tags: [개발일지, 파인튜닝, LoRA, 하이퍼파라미터, ReactNative, 앱개발, 프론트엔드]
+tags: [개발일지, 파인튜닝, LoRA, 하이퍼파라미터, ReactNative, 앱개발, 프론트엔드, practice, ai, maeumjigi]
 date: 2026-05-08
 keywords: [마음지기 AI 챗봇, LLM 파인튜닝, AI 안전 가드레일, 캡스톤 디자인, 프롬프트 엔지니어링]
 description: "추론 결과에서 발견된 프롬프트 템플릿 하드코딩 오염 문제를 역추적하여 데이터셋 포맷팅 결함을 긴급 수정하고 재현성을 확보한 트러블슈팅입니다."

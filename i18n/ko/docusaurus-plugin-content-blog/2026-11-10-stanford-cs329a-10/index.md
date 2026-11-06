@@ -1,8 +1,11 @@
 ---
 slug: stanford-cs329a-10-swe-agents-codemonkeys-kernelbench-asi
+category_l1: theory
+category_l2: ai
+category_l3: lecture
 title: "스탠포드 CS329A (10강): SWE-Agents — 소프트웨어 엔지니어링 에이전트, CodeMonkeys, KernelBench, 그리고 시스템 인터페이스(ASI)"
 authors: [jbgih]
-tags: [스탠포드 CS329A, SWE-Agent, CodeMonkeys, KernelBench, SWE-bench, GPU 커널, CUDA, Triton, ASI, 소프트웨어 공학]
+tags: [스탠포드 CS329A, SWE-Agent, CodeMonkeys, KernelBench, SWE-bench, GPU 커널, CUDA, Triton, ASI, 소프트웨어 공학, theory, ai, lecture, stanford-cs329a]
 keywords: [SWE-Agent Autonomous Coding, Agent-Computer Interface ACI, SWE-bench Benchmark GitHub, CodeMonkeys Automated Refactoring, KernelBench GPU Performance Tuning]
 description: "스탠포드 CS329A 10강 해설: 실제 깃허브 버그를 해결하는 CodeMonkeys의 3단계 파이프라인, GPU 커널 가속비를 극대화하는 KernelBench, 그리고 스탠포드 ASI 인터페이스를 파헤칩니다."
 date: 2026-11-10T10:00:00.000Z

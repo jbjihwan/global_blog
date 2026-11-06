@@ -1,8 +1,11 @@
 ---
 slug: 2026-05-17-maeumjigi-19
+category_l1: practice
+category_l2: ai
+category_l3: project-maeumjigi
 title: "[Maeumjigi Capstone Dev Log #19] Automated Evaluation Reports & FastAPI PostgreSQL 401 Debugging"
 authors: [jbgih]
-tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone]
+tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone, practice, ai, maeumjigi]
 date: 2026-05-17
 keywords: [FastAPI PostgreSQL Integration, 401 Unauthorized Troubleshooting, JWT Authentication Salt Mismatch, LLM Evaluation Report Automation, Knowledge Graph Chatbot Architecture]
 description: "Overcoming full-stack hurdles: generating automated LLM benchmark reports with Claude Code, resolving cryptic JWT 401 Unauthorized errors in PostgreSQL, and designing our hybrid Knowledge Graph architecture."
