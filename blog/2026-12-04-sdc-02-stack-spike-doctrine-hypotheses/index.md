@@ -257,4 +257,4 @@ tests/test_spike.py .....                                                  [100%
 
 In the next episode, we examine the construction of the communications backbone, focusing on **RFC 8785 Deterministic JSON Canonicalization Scheme (JCS)**, **fixing sub-0.7KB envelope fragmentation defects (A-01)**, and **resolving signature delta size distortion (B-05)**.
 
-**[Air Combat Mission Replanning #3: Deterministic JCS, Ed25519 & Fragmentation (Next Episode)]**
+[Air Combat Mission Replanning #3: Deterministic JCS & Ed25519 Frag Fix](/blog/sdc-03-deterministic-jcs-ed25519-fragmentation)

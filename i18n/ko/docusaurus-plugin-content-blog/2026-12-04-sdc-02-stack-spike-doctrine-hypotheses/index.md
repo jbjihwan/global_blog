@@ -257,4 +257,4 @@ tests/test_spike.py .....                                                  [100%
 
 다음 에피소드에서는 이 스택을 바탕으로 본격적인 통신 프로토콜 구현에 돌입하며 마주친 **RFC 8785 결정적 JCS(JSON Canonicalization Scheme) 정규화**, **0.7KB 미만 소형 봉투의 부당 분할 결함(A-01)**, 그리고 **서명 델타 크기 왜곡 현상(B-05)**을 격파한 과정을 상세히 다루겠습니다.
 
-**[Air Combat Mission Replanning #3: Deterministic JCS, Ed25519 & Fragmentation (Next Episode)]**
+[공중전 임무계획 변경 실증 #3: 결정적 JCS와 Ed25519 서명 조각화 결함 격파](/blog/sdc-03-deterministic-jcs-ed25519-fragmentation)

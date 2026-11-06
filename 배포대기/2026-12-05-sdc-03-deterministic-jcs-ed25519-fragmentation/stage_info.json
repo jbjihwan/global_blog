@@ -1,0 +1,17 @@
+{
+  "slug": "sdc-03-deterministic-jcs-ed25519-fragmentation",
+  "series": "sdc",
+  "episode": 3,
+  "title": "Air Combat Mission Replanning #3: Deterministic JCS, Ed25519 & Fragmentation Fix",
+  "created_at": "2026-12-05T10:00:00+09:00",
+  "target_publish_date": "2026-12-05",
+  "status": "deployed",
+  "current_step": "authoring_ko_draft",
+  "locales": [
+    "en",
+    "ko"
+  ],
+  "naver_blog_ready": false,
+  "image_staged": "01_cover.png",
+  "deployed_at": "2026-11-06T13:45:00+09:00"
+}
