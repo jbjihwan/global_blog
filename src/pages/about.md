@@ -41,7 +41,7 @@ In an era of generic AI-generated aggregators, **Global Dev Blog enforces strict
 
 ## 📚 Proprietary Engineering R&D Series (44 Original Articles)
 
-### 1. 🚨 [Crisis AI] High-Risk Suicide & Crisis NLP Pipeline (4 Episodes)
+### 1. 🚨 [Crisis AI] High-Risk Clinical Crisis Triage NLP Pipeline (4 Episodes)
 A production-grade NLP pipeline engineered to eliminate False Negatives (FNR) in life-critical psychological text triage:
 - Overcoming 524x Bayesian prior probability skew with dual-stage hybrid triage (cumulative gating + argmax).
 - Guaranteeing monotonic severity escalation using ordinal LightGBM trees.

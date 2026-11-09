@@ -3,11 +3,11 @@ slug: mental-crisis-nlp-suicide-risk-detection-fnr-zero
 category_l1: practice
 category_l2: ai
 category_l3: project-crisis
-title: "[Crisis AI #1] Minimizing FNR in Suicide NLP & Bayes Distortion"
+title: "[Crisis AI #1] Minimizing FNR in Crisis NLP & Bayes Distortion"
 authors: [jbgih]
-tags: [crisis-detection, nlp, machine-learning, bayesian-inference, suicide-prevention, lightgbm, devlog, practice, ai, crisis-nlp]
+tags: [crisis-detection, nlp, machine-learning, bayesian-inference, crisis-prevention, lightgbm, devlog, practice, ai, crisis-nlp]
 date: 2026-11-24
-keywords: [Crisis NLP Detection, Suicide Risk AI, False Negative Rate Optimization, Bayes Minimum-Risk Boundary, Cost-Sensitive Classification, Mental Health AI]
+keywords: [Crisis NLP Detection, Crisis Risk AI, False Negative Rate Optimization, Bayes Minimum-Risk Boundary, Cost-Sensitive Classification, Mental Health AI]
 description: "Engineering high-stakes mental crisis NLP detection: solving Bayes boundary distortion, eliminating FNR recall traps, and fixing LightGBM log loss collapse."
 ---
 

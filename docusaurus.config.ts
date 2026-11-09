@@ -34,16 +34,20 @@ const config: Config = {
     locales: ['en', 'ko'],
     localeConfigs: {
       en: { label: 'English' },
-      es: { label: 'Español' },
-      ja: { label: '日本語' },
       ko: { label: '한국어' },
-      'zh-Hans': { label: '简体中文' },
-      'zh-Hant': { label: '繁體中文' },
-      de: { label: 'Deutsch' },
-      fr: { label: 'Français' },
-      'pt-BR': { label: 'Português' },
     },
   },
+
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {
+        async: 'true',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
 
   presets: [
     [
@@ -72,6 +76,12 @@ const config: Config = {
           trackingID: 'G-VM2CVW28SL',
           anonymizeIP: true,
         },
+        sitemap: {
+          ignorePatterns: [
+            '/blog/tags/**',
+            '/ko/blog/tags/**',
+          ],
+        },
       } satisfies Preset.Options,
     ],
   ],
@@ -96,6 +106,7 @@ const config: Config = {
         {to: '/blog', label: 'Blog', position: 'left'},
         {to: '/about', label: 'About', position: 'left'},
         {to: '/privacy-policy', label: 'Privacy Policy', position: 'left'},
+        {to: '/terms', label: 'Terms of Service', position: 'left'},
         {to: '/contact', label: 'Contact', position: 'left'},
         { type: 'localeDropdown', position: 'right' },
         {
@@ -131,6 +142,10 @@ const config: Config = {
             {
               label: 'Privacy Policy',
               to: '/privacy-policy',
+            },
+            {
+              label: 'Terms of Service',
+              to: '/terms',
             },
             {
               label: 'Contact',
