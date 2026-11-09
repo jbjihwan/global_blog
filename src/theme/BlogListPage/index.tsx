@@ -1676,7 +1676,7 @@ const KNOWN_SLUG_DATES: Record<string, string> = {
 
   'mental-crisis-nlp-longitudinal-fusion-extreme-value-bias': '2026-11-25',
 
-  'mental-crisis-nlp-suicide-risk-detection-fnr-zero': '2026-11-24',
+  'mental-crisis-nlp-clinical-risk-detection-fnr-zero': '2026-11-24',
 
   'national-budget-ai-inspector-portal-verification-system': '2026-11-23',
 
@@ -1712,7 +1712,7 @@ function getEpisodeNumber(permalink: string): number {
 
   if (sdcM) return parseInt(sdcM[1], 10);
 
-  if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
+  if (permalink.includes('mental-crisis-nlp-clinical-risk-detection-fnr-zero')) return 1;
 
   const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
 

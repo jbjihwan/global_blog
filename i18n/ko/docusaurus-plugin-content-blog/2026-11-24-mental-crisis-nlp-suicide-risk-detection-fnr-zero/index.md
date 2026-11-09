@@ -1,5 +1,5 @@
 ---
-slug: mental-crisis-nlp-suicide-risk-detection-fnr-zero
+slug: mental-crisis-nlp-clinical-risk-detection-fnr-zero
 category_l1: practice
 category_l2: ai
 category_l3: project-crisis

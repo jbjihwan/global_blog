@@ -140,7 +140,7 @@ function formatCount(count: number, locale: SupportedLocale): string {
 }
 
 function getEpisodeNumber(permalink: string): number {
-  if (permalink.includes('mental-crisis-nlp-suicide-risk-detection-fnr-zero')) return 1;
+  if (permalink.includes('mental-crisis-nlp-clinical-risk-detection-fnr-zero')) return 1;
   const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
   if (mc) return parseInt(mc[1], 10);
   if (permalink.includes('autonomous-budget-audit-agent-text-to-sql-graphrag')) return 1;
