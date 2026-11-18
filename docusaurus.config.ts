@@ -38,17 +38,6 @@ const config: Config = {
     },
   },
 
-  headTags: [
-    {
-      tagName: 'script',
-      attributes: {
-        async: 'true',
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617',
-        crossorigin: 'anonymous',
-      },
-    },
-  ],
-
   presets: [
     [
       'classic',

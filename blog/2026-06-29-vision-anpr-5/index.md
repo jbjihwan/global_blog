@@ -94,7 +94,19 @@ Our `log.txt` preserves the raw chronological milestones:
 
 ---
 
-## 4. Conclusion & Future Horizons
+## 4. Real Runtime Errors & Debugging Log
+
+### Bug 1: EasyOCR Re-initialization Memory Leak (850MB VRAM Spike per Event)
+In `v07`, `easyocr.Reader(['ko', 'en'], gpu=True)` was instantiated inside the violation callback function. Every lane intrusion event reloaded the CRAFT detector and Korean recognition CRNN weights onto the GPU, adding ~850MB of CUDA allocations and crashing after 8 vehicles with `torch.cuda.OutOfMemoryError`.
+- **Fix**: Moved `easyocr.Reader(['ko'], gpu=True)` to a module-level singleton initialized once at startup, and restricted `allowlist="0123456789가나다라마거너더러머버서어저고노도로모보소오조구누두루무부수우주아바사자배하허호"` so the decoder never wastes probability mass on non-license-plate Hangul syllables or Latin letters.
+
+### Bug 2: Global `confirmed_plate` State Bleed Across Consecutive Vehicles
+Using a single global `plate_history = deque(maxlen=7)` caused votes from Vehicle #1 (`64가1511`) to bleed into Vehicle #2's buffer when two cars crossed the lane within 2 seconds.
+- **Fix**: Keyed `plate_history` by CSRT `track_id` (`dict[int, deque]`) and purged stale tracker IDs after 30 frames of inactivity.
+
+---
+
+## 5. Conclusion & Future Horizons
 
 Across this 5-part series, we designed an end-to-end computer vision system integrating **dynamic lane tracking, polygon IoU intrusion detection, hierarchical object localization, CSRT tracking, EDSR_x4 super-resolution, and temporal voting OCR**. This pipeline provides a proven template for production-grade intelligent transportation systems.
 

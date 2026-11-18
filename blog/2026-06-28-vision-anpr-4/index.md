@@ -70,3 +70,23 @@ In Post #5, we conclude the series with **Korean ANPR OCR tuning, regex syntacti
 2. **EDSR_x4 Deep Super-Resolution**: By removing batch normalization layers, the EDSR residual architecture preserves pixel-level dynamic range and reconstructs sharp high-frequency edges via OpenCV `dnn_superres`.
 3. **Temporal Multi-Frame Image Stacking**: Aligning and averaging $3 \sim 5$ consecutive bounding box patches cancels out stochastic camera sensor noise and motion jitter before feeding the image to OCR.
 4. **Massive OCR Accuracy Recovery**: The combined super-resolution and frame stacking pipeline quadruples pixel density, elevating downstream Korean character recognition rates from 32% to over 91%.
+---
+
+## 3. Real Runtime Errors & Debugging Log
+
+### Bug 1: `EDSR_x4` Frame Freeze (420ms per Call) When Invoked on Every Tracked Frame
+Running `sr.upsample(plate_crop)` on every frame where a vehicle was tracked caused the pipeline latency to spike from 19ms to **440ms per frame (2.2 FPS)**, completely breaking real-time playback.
+- **Failed Attempt**: Switching to `FSRCNN_x4.pb` reduced latency to 45ms, but introduced severe ringing artifacts around vertical Korean Hangul strokes (`가`, `나`, `다`, `라`), dropping OCR accuracy from 91% down to 58%.
+- **Root Cause & Fix**: First, pre-compiled OpenCV wheels on Windows/Linux ship with `DNN_BACKEND_CUDA` disabled by default, silently falling back to single-core CPU execution. Second, upsampling every frame is redundant when CSRT tracks the same plate across 30+ frames. We implemented a **Sharpness-Gated Buffer**: we compute the Laplacian variance (`cv2.Laplacian(gray, cv2.CV_64F).var()`) across a 15-frame window, align only the top 3 sharpest crops via `cv2.findTransformECC`, stack them into a single denoised patch, and invoke `EDSR_x4` **only once per vehicle event**.
+
+```python
+# Sharpness-gated single-shot EDSR invocation
+scores_and_crops.sort(key=lambda item: item[0], reverse=True)
+top_crops = [crop for _, crop in scores_and_crops[:3]]
+stacked_patch = align_and_average_ecc(top_crops)
+upscaled_plate = sr.upsample(stacked_patch)  # Invoked once per violation event
+```
+
+### Bug 2: `cv2.error` in `findTransformECC` When Sub-pixel Alignment Fails to Converge
+On motion-blurred night plates with low gradient contrast, `cv2.findTransformECC()` threw `cv2.error: (-7:Iterations do not converge)` and aborted the stacking pipeline.
+- **Fix**: Wrapped `findTransformECC` in a `try/except cv2.error` block with `TermCriteria(COUNT | EPS, 30, 1e-3)` and fell back to the single highest-Laplacian-variance frame whenever ECC alignment failed to converge.

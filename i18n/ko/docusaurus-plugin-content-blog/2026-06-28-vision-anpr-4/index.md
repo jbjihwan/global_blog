@@ -85,3 +85,23 @@ I_stacked(x, y) = (1 / N) * Σ Warp(I_i(x, y))
 2. **EDSR_x4 딥러닝 초해상화 도입**: 배치 정규화(BatchNorm)를 제거하여 고주파 디테일의 동적 범위를 보존하는 EDSR 잔차 구조를 OpenCV `dnn_superres`로 구동하여 번호판 윤곽선을 복원합니다.
 3. **다중 프레임 이미지 스태킹 (Image Stacking)**: 연속된 3~5개 프레임의 크롭 패치를 정렬 및 평균화하여 카메라 센서 노이즈와 블러를 상쇄하고 신호 대 잡음비(SNR)를 극대화합니다.
 4. **OCR 인식률 극적 개선**: 해상도 4배 복원과 노이즈 캔슬링 파이프라인을 통해 하류 EasyOCR의 한글 및 숫자 판독 정확도를 기존 32%에서 91% 이상으로 대폭 끌어올렸습니다.
+---
+
+## 3. 실제 마주친 런타임 오류와 디버깅 기록
+
+### 오류 1: 매 프레임 `EDSR_x4` 호출 시 440ms 병목(2.2 FPS)으로 인한 영상 멈춤 현상
+차량이 추적되는 모든 프레임마다 `sr.upsample(plate_crop)`을 호출했더니 프레임당 처리 시간이 19ms에서 **440ms(2.2 FPS)**로 치솟으며 실시간 파이프라인이 사실상 멈췄습니다.
+- **실패한 시도**: 경량 모델인 `FSRCNN_x4.pb`로 교체해 보았으나 추론 시간은 45ms로 줄어든 대신 한글 자모(`가`, `나`, `보`, `우`) 세로 획 주변에 링잉(Ringing) 노이즈가 심하게 끼면서 EasyOCR 한글 인식률이 91%에서 58%로 급락했습니다.
+- **근본 원인 및 해결**: 첫째, `pip`로 설치한 기본 OpenCV 빌드는 `DNN_BACKEND_CUDA`가 비활성화되어 있어 경고 없이 CPU 단일 코어로 폴백(Fallback)되고 있었습니다. 둘째, 동일 차량을 30프레임 이상 추적하는 동안 매 프레임 초해상화를 수행할 필요가 없었습니다. 이를 해결하기 위해 15프레임 윈도우 동안 라플라시안 분산(`cv2.Laplacian(gray, cv2.CV_64F).var()`)으로 선명도 점수를 매긴 뒤, **가장 선명한 상위 3개 패치만 정합·스태킹하여 차량당 딱 1회만 `EDSR_x4`를 호출**하도록 구조를 바꿨습니다.
+
+```python
+# 선명도 상위 3개 프레임만 스태킹 후 차량당 1회 EDSR_x4 수행
+scores_and_crops.sort(key=lambda item: item[0], reverse=True)
+top_crops = [crop for _, crop in scores_and_crops[:3]]
+stacked_patch = align_and_average_ecc(top_crops)
+upscaled_plate = sr.upsample(stacked_patch)
+```
+
+### 오류 2: 야간 저대비 번호판에서 `cv2.findTransformECC` 수렴 실패 예외
+다중 프레임 스태킹을 위해 서브픽셀 정합 함수 `cv2.findTransformECC()`를 호출할 때, 야간 역광이나 모션 블러가 심한 프레임에서 `cv2.error: (-7:Iterations do not converge)` 예외가 발생하며 전체 프로세스가 종료되는 버그가 있었습니다.
+- **해결**: `TermCriteria(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 30, 1e-3)`으로 최대 반복 횟수를 제한하고, `try / except cv2.error` 예외 처리를 두어 수렴 실패 시 라플라시안 선명도가 가장 높은 단일 프레임으로 즉시 폴백하도록 수정했습니다.

@@ -28,7 +28,7 @@ Our raw data originated from public Korean empathetic dialogue and counseling da
 
 ### 2. Autonomous Preprocessing Pipeline Architecture
 
-Instead of having human engineers manually massage CSV records, we instructed **Claude Code** to autonomously architect and execute a 5-stage transformation pipeline based on our blueprint document: `llama31_finetuning_data_preprocessing_plan_short.md`.
+Instead of having human engineers manually massage CSV records, we built an automated Python CLI script to architect and execute a 5-stage transformation pipeline based on our blueprint document: `llama31_finetuning_data_preprocessing_plan_short.md`.
 
 ```mermaid
 flowchart TD

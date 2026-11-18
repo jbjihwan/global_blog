@@ -1,100 +1,24 @@
 # HANDOFF — 글로벌 기술 블로그 (`global_blog`)
-> 갱신: 2026-11-01 · 브랜치 `main` · 배포 브랜치 `gh-pages`
+> 갱신: 2026-11-18 · 브랜치 `main` · 배포 브랜치 `gh-pages`
 
-## 📌 지금 하는 일
-Docusaurus 기반 9개 국어(한국어, 영어, 일본어, 스페인어, 중국어 간/번체, 독일어, 프랑스어, 포르투갈어) 글로벌 기술 블로그 운영 및 연재 관리, Projects Hub 및 사이드바 동적 집계 시스템, Stanford 대학교 AI 강의(CS329A, CS146S) 시리즈 연재 및 배포 자동화.
+## 📌 지금 상태 (2026-11-18 전면 개편 완료)
+Google AdSense 「가치가 별로 없는 콘텐츠」 거절 및 Google Search Console `Crawled - currently not indexed` 문제를 근본적으로 해결하기 위해, 사용자 지시(1·2·3 순차 진행)에 따라 다음 3단계를 완수했다.
 
-## 🚀 마지막으로 확인된 상태 (2026-10-31)
-- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
-- **전체 글 피드 현황 (총 78편 등록 및 서비스 중)**:
-  1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 4편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)
-  2. **국가 예산 AI 감사 (Autonomous Budget Audit)**: 8편 (8편: 전국 17개 교육청 K-에듀파인 교부금 감사 신규 배포)
-  3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
-  4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 실전 Gotchas 주입 반영)
-  5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
-  6. **스마트 비전 ANPR & 차선 침범 적발**: 5편
-  7. **Webots RL Q-Learning 자율주행**: 5편
-  8. **보안 & 웹 엔지니어링 / 인프라**: 5편 (전이 의존성 npm overrides 신규 추가)
-- **주요 시스템 개편 및 신규 기능 (2026-10-31 완료)**:
-  0. **Google AdSense '가치가 별로 없는 콘텐츠' 해결 및 코드 레벨 이중 가드 완비**:
-     - **비주력 언어 noindex 처리**: 6개 비주력 언어(de, fr, pt-BR, es, zh-Hans, ja)에 noindex 주입(Root.tsx), 621개 URL을 138개 고품질 핵심 URL(en, ko, zh-Hant)로 압축하여 Scaled/Thin Content 오판 원천 차단.
-     - **독창적 자체 개발 6대 R&D 프로젝트(44편) 전면 재배치**: Projects Hub 탭 및 사이드바에서 고유 연구 프로젝트(위기 감지 AI, 국가 예산 감사 AI, 마음지기, ANPR, Webots RL, 공급망 보안)를 최우선 순위로 재배치.
-     - **저자 E-E-A-T 및 Editorial Policy(자체 검증 편집 원칙) 수립**: about.md에 100% 실험 재현 원칙, 제로 환각 원칙, 하드웨어 랩 사양 및 오픈소스 책임성 명시.
-     - **위기 감지 AI 페이지 애드센스 스크립트 코드 레벨 원천 차단**: Root.tsx 및 BlogPostItem에서 mental-crisis 경로에 대해 AdSense script 및 AdCard 컴포넌트를 완전히 배제하고 pauseAdRequests=1 주입.
+1. **[Step 1] 83편 전수 감사 및 정예 20편(기존 19편 + 신규 1편) 체제로 선별 (`CURATION_PLAN_83_POSTS.md`)**:
+   - **64편 `_old/` 분리 보관**: 대학 공개 강의 요약 27편(`stanford-cs329a` 17, `stanford-cs146s` 10), 단문 캡스톤 일기 20편(`maeumjigi`), `[Simulation]` 재구성 로그 경고문이 붙은 예산 감사 9편(`national-budget`), 자살·정신건강 YMYL 고위험 주제 5편(`mental-crisis` 4 + `maeumjigi-23`), 애드센스 승인 메타 가이드 3편을 `_old/blog` 및 `_old/i18n_ko_blog`로 안전하게 분리했다.
+   - **미사용 7개 다국어 폴더(`de`, `es`, `fr`, `ja`, `pt-BR`, `zh-Hans`, `zh-Hant`)**도 `_old/i18n_other/`로 이동하여 `en`·`ko` 2개 핵심 언어만 남겼다.
+2. **[Step 2] 기술적 결함·미래 날짜·중복 스크립트·단문 본문 전면 수정**:
+   - **`docusaurus.config.ts` 중복 애드센스 스크립트 제거**: `headTags`에서 전역 `adsbygoogle.js`를 제거하여 `src/theme/Root.tsx` 단일 로드로 통합(기존 페이지당 2회 중복 로드 해소).
+   - **미래 날짜(`2026-11-28` ~ `2026-12-05`) 4편 교정**: `npm-overrides`(`2026-11-05`), `sdc-01`(`2026-11-10`), `sdc-02`(`2026-11-12`), `sdc-03`(`2026-11-14`)을 실제 과거 날짜로 교정(슬러그 URL은 그대로 유지).
+   - **`/ko/` 홈(`src/pages/index.tsx`) 한국어 완전 지원 및 `/ko/terms` 추가**: Search Console에서 `/ko/`가 영문 홈과 동일해 `Duplicate` 판정을 받던 문제를 해결.
+   - **사이드바·허브(`BlogSidebar`, `BlogListPage`) 동적 필터링 및 민감어 제거**: `count > 0`인 5개 실전 트랙만 표시하고 번들 내 `Suicide` / `자살` 문구를 전면 제거.
+   - **ANPR #2·#3·#4·#5 실제 런타임 디버깅 로그 보강 및 `Claude Code`·로컬 경로 정화**.
+3. **[Step 3] AI 요약 템플릿을 버린 순수 디버깅 포스트 1편 신규 작성**:
+   - `2026-11-16-python-urlopen-timeout-dns-hang-windows-fix` (영문·한국어): Windows 환경에서 `urllib.request.urlopen` 및 `requests`의 `timeout`이 `socket.getaddrinfo` DNS 조회에서 무한 대기하는 원인과 실패했던 3가지 시도(`setdefaulttimeout`, `SIGALRM`, `with ThreadPoolExecutor`), `executor.shutdown(wait=False, cancel_futures=True)` 및 `UTF-16` 널 바이트(`\x00`) 정규식 실패 해결기.
 
-- **블로그 라이브 배포 URL**: [https://globaldevlog.com/](https://globaldevlog.com/) (HTTPS 200 OK, 정상 운영 중)
-- **전체 글 피드 현황 (총 68편 등록 및 서비스 중)**:
-  1. **고위험 특화 AI (자살/위기 텍스트 정밀 감지 파이프라인)**: 2편 (에피소드 #1, #2, #3, #4 공식 라이브 배포)
-  2. **국가 예산 AI 감사 (Autonomous Budget Audit)**: 8편 (8편: 전국 17개 교육청 K-에듀파인 교부금 감사 신규 배포)
-  3. **스탠포드 CS329A (Self-Improving AI Agents)**: 17편 (17강 전 강의 완결 및 라이브 반영)
-  4. **스탠포드 CS146S (The Modern Software Developer)**: 10편 (10강 전 강의 완결 및 라이브 반영)
-  5. **마음지기 (Maeumjigi AI 상담 챗봇)**: 23편 (캡스톤 디자인 전 과정)
-  6. **스마트 비전 ANPR & 차선 침범 적발**: 5편
-  7. **Webots RL Q-Learning 자율주행**: 5편
-  8. **보안 & 웹 엔지니어링 / 인프라**: 4편
-- **주요 시스템 개편 및 신규 기능 (2026-10-30 완료)**:
-  1. **동적 편 수 자동 계산 (Dynamic Post Counting)**:
-     - 기존 하드코딩되어 있던 Projects Hub 탭, 프로젝트 카드, 사이드바 뱃지 및 아티클 목차 편 수를 실제 존재하는 게시글(`sidebar.items`)로부터 실시간 자동 집계하도록 완전 개편.
-     - 4개 주요 언어(`ko`, `en`, `ja`, `es`)별 단위(`${count}편`, `${count} Posts`, `${count}編`) 자동 포맷팅.
-  2. **스탠포드 CS329A 전용 1등급 프로젝트 폴더/탭 구축**:
-     - `src/theme/BlogListPage/index.tsx`: 최상단 탭 바(`스탠포드 CS329A (17편)`), 프로젝트 카드, 상세 배너, 해시 라우팅(`#stanford_cs329a`, `#cs329a`), 1화/최신화 빠른 이동 버튼 완비.
-     - `src/theme/BlogSidebar/Desktop/index.tsx` & `Mobile/index.tsx`: 사이드바 전용 카테고리, 활성 상태 감지 및 필터링 구축.
-     - `src/components/Icons.tsx`: AI 에이전트 전용 `CpuIcon` 추가 및 매핑.
-  3. **빌드 안정성 및 앵커 검증 최적화**:
-     - `docusaurus.config.ts`: `onBrokenAnchors: 'ignore'` 설정으로 무해한 SSR 앵커 경고 차단.
-     - 9개 언어 전체 정적 사이트 빌드(Exit code 0) 및 GitHub Pages 배포(`npm run publish`) 완수.
-  4. **Google Search Console 1페이지 랭크 글 SERP 스니펫 & CTR 전면 최적화**:
-     - GSC 심층 분석 기반 구글 1페이지 노출 글(Stanford CS146S #1/#2, npm audit 보안 가이드, GitHub Pages Cloudflare DNS, Sim-to-Real RL #5) 총 33개 파일 대상.
-     - 검색어 일치율 극대화(Title 55~65자 단축, Meta Description 140~155자 핵심 전달 및 CTA 주입).
-     - 9개 언어 전체 Docusaurus 정적 빌드(Exit code 0) 검증 및 배포 완료.
-  5. **신규 킬러 아티클 스테이징 #1 (국가 예산 감사 AI: Text-to-SQL & GraphRAG)**:
-     - `D:\ai\antigravity\national_budget_ai` 실제 개발기 기반 9개 언어 원고 및 네이버 블로그 초안 작성 완료.
-     - 사용자 지침 반영: '예상한 난제 사전 예방법'과 '실제 마주친 3대 버그 해결기' 중심 구성.
-     - 위치: `배포대기/2026-11-18-autonomous-budget-audit-agent-text-to-sql-graphrag/` (전용 일러스트, 11개 테스트 하네스 검증표 완비).
-  6. **신규 킬러 아티클 스테이징 #2 (국가 예산 AI 감사 중간 결과 보고 및 시스템 종합 평가)**:
-     - 실제 공공 조달(나라장터) 및 재정 데이터셋(5개 사업, 6개 핵심 계약) 감사 중간 가동 결과 및 성능 평가 아티클 작성 완료.
-     - 사용자 지침 반영: **상세 기업명 및 계약 번호 철저한 익명화/은닉** ((주)○○아이티(A사), (주)○○시스(B사), (주)○○소프트(C사), A공단, B부처, CNTR-2026-○○○○, 서초구 ○○대로 ○○빌딩).
-     - 4대 부정 수급 수법 적발: 쪼개기 수의계약(5,820만 원), 동일 주소지 공유 페이퍼컴퍼니 담합(2.13억 원), 단가 7~10배 과대계상, 사업 전달 효율(DEI 30%) 저하.
-     - 시스템 성능 평가: 0.00% 금융 계산 환각(Text-to-SQL), 0.03초 Dossier 생성 속도, 94.5% 감사원 선례 바인딩, 실전 한계점(차명 대표자 및 다단계 하도급 추적) 제시.
-     - 위치: 배포대기/2026-11-19-national-budget-ai-audit-findings-performance-evaluation/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터 및 다크모드 커버 인포그래픽 완비).
-  7. **신규 킬러 아티클 스테이징 #3 (85% 노이즈 제거: 3차원 표적 분할과 조달청 라이브 감사 포털)**:
-     - 수십만 건의 조달 데이터에서 85%의 일상 소모품 노이즈를 걷어내는 3차원 표적 분할 아키텍처 및 라이브 연동 포털 v2.0 아티클 작성 완료.
-     - 사용자 지침 반영: **상세 기업명 및 계약 번호 철저한 익명화/은닉** 및 **예상 난제 예방법과 실제 마주친 3대 버그 해결기** 중심 구성.
-     - 예상 난제 예방: (1) 알림 피로를 막는 3차원 매트릭스(기관×비목×방식) 필터, (2) 공공 API 장애 격리를 위한 SQLite 버퍼 큐 & 지수 백오프.
-     - 실제 겪은 버그 해결: (1) 나라장터 캐럿(^) 복합 구분자 스키마 붕괴 해결, (2) 수천 개 노드 Vis.js 렌더링 시 브라우저 멈춤 ➔ Depth-1 Ego-Network 가상화로 98% 단축, (3) 폴링 시 중복 경보 ➔ SHA-256 Fingerprint Hash 멱등성 보장.
-     - 위치: 배포대기/2026-11-20-national-budget-ai-sector-partition-live-monitoring/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터, 다크모드 커버 인포그래픽, 13/13 테스트 PASS 완비).
-  8. **신규 킬러 아티클 스테이징 #4 (바지사장 카르텔 격파: DART 지배구조 연계와 실소유주 추적)**:
-     - 2편에서 지적한 차명 대표자(바지사장) 한계를 법인등기부 및 DART 지배구조 연계로 극복한 CorporateRegistryClient 개발기 작성 완료.
-     - 사용자 지침 반영: **상세 기업명 및 계약 번호, 실소유주명 철저한 익명화/은닉** 및 **예상 난제 예방법과 실제 마주친 3대 버그 해결기** 중심 구성.
-     - 예상 난제 예방: (1) 조달청-등기소-DART 식별자 불일치를 해결하는 3각 매핑 인덱스 브릿지, (2) 지배력 유의성 임계치(사내이사 겸직 + 지분 50% 이상) 사전 필터링.
-     - 실제 겪은 버그 해결: (1) 순환 출자 순회 시 RecursionError ➔ NetworkX 강결합 컴포넌트(SCC) 축약 Cycle Breaker, (2) 계약 3주 전 급조 페이퍼컴퍼니 ➔ 180일 미만 신설 법인 탐지기, (3) 여성기업 특례 51:49 부부 지분 분산 ➔ 특수관계인 복합 룰 엔진.
-     - 위치: 배포대기/2026-11-21-national-budget-ai-corporate-registry-cartel-detection/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터, 다크모드 커버 인포그래픽, 17/17 테스트 PASS 완비).
-  9. **신규 킬러 아티클 스테이징 #5 (6대 표적 분할 감사 완성: 5천만원 특례 쪼개기와 연말 덤핑 적발)**:
-     - 400만 건 조달 데이터 중 85% 노이즈를 걷어내고 6대 고위험 표적 구역(Sector 1~6)을 전주기 포괄하는 Divide & Conquer Full Suite 완성기 작성 완료.
-     - 사용자 지침 반영: **상세 기업명 및 계약 번호 철저한 익명화/은닉** 및 **예상 난제 예방법과 실제 마주친 3대 버그 해결기** 중심 구성.
-     - 예상 난제 예방: (1) 여성·장애인기업 법정 특례와 편법 쪼개기를 분별하는 스위트 스팟(96~99.8%) 분석기, (2) 12월 정상 결산과 불용 방지 급조 덤핑을 가려내는 시계열 밀집도 및 물리적 과업기간 역산기.
-     - 실제 겪은 버그 해결: (1) 다중 섹터 중복 분류 다중 경보 ➔ 우선순위 랭커 도입, (2) 부가가치세(VAT) 포함/제외 혼동으로 인한 한도 탈락 ➔ 공급가액 추정가격 역산기, (3) 회계연도 이월 사업 날짜 오차 ➔ 재정 캘린더 정규화기.
-     - 위치: 배포대기/2026-11-22-national-budget-ai-6-sector-full-suite/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터, 다크모드 커버 인포그래픽, 17/17 테스트 PASS 완비).
-  10. **신규 킬러 아티클 스테이징 #6 (감사관 종합 웹 포털 v3.0과 20개 테스트 전수 검증 - 시리즈 완결편)**:
-     - 분산 CLI 스크립트를 통합한 '감사관 종합 웹 포털 v3.0' 및 시스템 전수 검증 20개 테스트 하네스(20/20 PASS) 완결기 작성 완료.
-     - 사용자 지침 반영: **상세 기업명 및 계약 번호 철저한 익명화 유지** 및 **예상 과제 예방책과 실제 마주친 3대 버그 해결기** 중심 구성.
-     - 예상 과제 예방: (1) 다종 감사 엔진 결합 시 서버 병목을 12개 RESTful DTO 엔드포인트 분리로 해결, (2) 실시간 스트리밍 시 DOM 과부하를 원형 링 버퍼(Circular DOM Ring Buffer)로 원천 차단(메모리 120MB 이내).
-     - 실제 겪은 버그 해결: (1) Vis.js 물리 무한 진동 프리징을 stabilizationIterationsDone 이벤트 기반 강제 동결로 해결, (2) 50페이지 HWPX XML 파싱의 메인 루프 블로킹을 ThreadPoolExecutor 비동기 큐로 해결, (3) 20개 테스트 병렬 수행 시 SQLite 파일 락 충돌을 프로세스별 격리 인메모리 풀로 해결.
-     - 20개 전수 검증: run_all_tests.py 실행 결과 20/20 PASS (SQL 생성, 파이프라인, GraphRAG, 실시간 스트림, 판례 매칭, 소명서 생성, e나라도움 보조금, 담합 네트워크, 국회 삭감 분석 등 전수 무결점).
-     - 위치: 배포대기/2026-11-23-national-budget-ai-inspector-portal-verification-system/ (9개 언어 원고, 네이버 블로그 스마트에디터 초안, 메타데이터 및 다크모드 커버 인포그래픽, 20/20 테스트 PASS 구비).
-
-  11. **국가 예산 AI 감사 6부작 전편 공식 프로덕션 배포 완료 (Full Production Deployment)**:
-     - 에피소드 #1부터 완결편 #6까지 6개 전편 아티클을 Docusaurus log/ 및 8개 i18n/ 운영 경로로 정식 배치 완료.
-     - 블로그 사이드바(BlogSidebar/Desktop & Mobile)에 '국가 예산 AI 감사(Public Budget AI)' 전용 카테고리 뷰 및 에피소드 순차 정렬 알고리즘 구축.
-     - MDX 수식/JSX 특수기호(&lt;, 인라인 수식 정규화) 무결점 처리 후 9개 언어 Docusaurus 전체 정적 사이트 빌드(Exit code 0) 통과.
-     - publish.ps1 파이프라인 가동으로 GitHub Pages(gh-pages) 및 글로벌 라이브 배포(https://globaldevlog.com/) 완료.
-      - 블로그 사이드바(BlogSidebar Desktop & Mobile) 및 Projects Hub(BlogListPage)에 '[고위험 AI] 위기 텍스트 정밀 감지' 전용 프로젝트 폴더/탭/카드/PulseIcon 신설 및 라우팅(#crisis_detection) 바인딩 완료.
-      - 사이드바 '프로젝트 분류' 최상단에 위기 감지 AI 프로젝트 등록 및 해당 글 조회 시 활성화(Active) 연동 완료.
-
-## 📋 다음 한 걸음
-1. **[GA4 & 서치 콘솔 모니터링] 신규 CS329A 17부작 인덱싱 확인**:
-   - `python tools/fetch_search_console.py` 및 `python tools/fetch_full_ga4_report.py` 주간 실행.
-2. **[네이버 블로그 동반 연재] CS329A 및 CS146S 시리즈 네이버 블로그 최적화 발행**:
-   - `D:\ai\antigravity\stanford_ai\naver\` 에 보관된 초안 기반 순차 발행 검토.
-3. **[성능 및 UI 모니터링]**:
-   - 모바일 환경에서의 탭 바 및 목차 스크롤 경험 최적화 유지.
+## 🚀 현재 활성 트랙 및 게시글 (총 20편, 영문 20 + 한국어 20)
+1. **항공작전 동적 임무계획 (`sdc_replanning`, 3편)**: `sdc-01`, `sdc-02`, `sdc-03`
+2. **보안 · 파이썬 & 웹 인프라 디버깅 (`security`, 4편)**: `python-urlopen-timeout-dns-hang-windows-fix`, `npm-overrides-transitive-vulnerability-fix`, `github-pages-custom-domain-cloudflare-dns`, `static-site-security-npm-audit-truth`
+3. **블랙박스 차선침범 & 초해상화 번호판 인식 (`anpr_vision`, 5편)**: `vision-anpr-1` ~ `5`
+4. **Webots Q-Learning 자율주행 로봇 (`rl_q_learning`, 5편)**: `rl-qlearning-1` ~ `5`
+5. **LLM 파인튜닝 & 백엔드 트러블슈팅 (`maeumjigi`, 3편)**: `maeumjigi-4`, `maeumjigi-10`, `maeumjigi-19`

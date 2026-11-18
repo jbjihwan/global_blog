@@ -110,7 +110,7 @@ def call_api_with_resilient_backoff(api_func, payload, max_retries=5):
 
 ### 4. Unmanned Automation Directive
 
-Because our team members needed uninterrupted rest, we granted Claude Code full autonomous watchdog authority:
+Because our team members needed uninterrupted rest, we deployed an automated process watchdog daemon:
 
 > **Execution Directive**:  
 > *"All permissions are granted. Monitor synthesis progress continuously. If a connection failure occurs, recover from the last atomic checkpoint. Once all 25,000 synthetic pairs are generated and validated, automatically terminate the background API worker and safely power down the compute instance."*

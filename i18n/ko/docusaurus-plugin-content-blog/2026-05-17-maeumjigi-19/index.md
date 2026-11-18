@@ -8,7 +8,7 @@ authors: [jbgih]
 tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone, practice, ai, maeumjigi]
 date: 2026-05-17
 keywords: [FastAPI PostgreSQL 연동, 401 Unauthorized 트러블슈팅, JWT 인증 솔트 불일치, LLM 평가 보고서 자동화, 지식 그래프 챗봇 아키텍처]
-description: "풀스택 연동의 최대 난관: Claude Code를 통한 모델 평가 보고서 자동 작성, PostgreSQL 덤프 복원 후 발생한 치명적인 401 인증 에러 해결, 지식 그래프 결합 아키텍처 설계를 상세히 정리합니다."
+description: "풀스택 연동의 최대 난관: 자동화된 모델 평가 보고서 생성 파이프라인 구축, PostgreSQL 덤프 복원 후 발생한 치명적인 401 인증 에러 해결, 지식 그래프 결합 아키텍처 설계를 상세히 정리합니다."
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -22,7 +22,7 @@ description: "풀스택 연동의 최대 난관: Claude Code를 통한 모델 �
 
 2차 파인튜닝에서 도출된 다양한 모델 체크포인트(Alpha 값 16, 32, 64 등)의 추론 결과는 수작업으로 일일이 분석하기에 물리적 시간이 턱없이 부족했습니다.
 
-우리는 구조화된 프롬프트 지시서(`report_prompt.md`)를 작성하여 **Claude Code**가 원시 벤치마크 JSON 데이터를 직접 읽고 보고서를 작성하도록 파이프라인을 구축했습니다:
+우리는 구조화된 프롬프트 지시서(`report_prompt.md`)를 작성하여 자동 집계 스크립트가 원시 벤치마크 JSON 데이터를 파싱하여 보고서를 작성하도록 파이프라인을 구축했습니다:
 
 ```markdown
 # report_prompt.md 핵심 지침

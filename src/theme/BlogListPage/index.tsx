@@ -258,9 +258,9 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
     taxErrorDesc: '오류의 하위 분류는 추후 분류 예정입니다 (Pending Sub-classification). 각 프로젝트에서 발생한 날것의 런타임/설계 결함(A-xx, B-xx, D-xx)과 근본 원인 분석(Deep Root Cause), 해결 코드 Diff를 다룬 실전 포스트들을 집대성하여 제공합니다.',
 
-    bannerCrisisTitle: '프로젝트: [고위험 특화 AI] 자살/위기 텍스트 정밀 감지 파이프라인',
+    bannerCrisisTitle: '프로젝트: [고위험 특화 AI] 임상 위기 텍스트 정밀 감지 파이프라인',
 
-    bannerCrisisDesc: '자살 및 고위험 심리 위기 발화의 미탐(FNR) 원천 차단을 위한 임상 특화 NLP 파이프라인: 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지(누적 관문+Argmax), 순서형 트리 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
+    bannerCrisisDesc: '위기 및 고위험 심리 위기 발화의 미탐(FNR) 원천 차단을 위한 임상 특화 NLP 파이프라인: 524배 베이즈 사전확률 왜곡 극복, 2단계 하이브리드 트리아지(누적 관문+Argmax), 순서형 트리 단조성 보장 및 14일 시계열 극단값 편향(86.7%) 방어 실전 개발일지.',
 
     bannerBudgetTitle: '프로젝트: 국가 예산 AI 감사 (Autonomous Budget Audit)',
 
@@ -276,7 +276,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
     bannerMaeumjigiTitle: '프로젝트: 마음지기 (Maeumjigi Capstone Dev Log)',
 
-    bannerMaeumjigiDesc: 'AI 자살 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지',
+    bannerMaeumjigiDesc: 'AI 위기 예방 상담 챗봇 파인튜닝 및 가드레일 개발 일지',
 
     bannerAnprTitle: '프로젝트: Blackbox ANPR & 차선 침범 적발 시스템',
 
@@ -618,7 +618,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
     bannerCrisisTitle: 'Project: [Crisis AI] Mental Crisis & Clinical Triage NLP Detection Pipeline',
 
-    bannerCrisisDesc: 'Clinical-grade NLP pipeline engineered to eliminate False Negatives (FNR ~0%) in high-stakes suicide crisis text: Defeating the 524x Bayes prior likelihood barrier, 2-stage hybrid triage, LightGBM ordinal monotonicity stabilization, and defense against 86.7% extreme value bias in 14-day sliding windows.',
+    bannerCrisisDesc: 'Clinical-grade NLP pipeline engineered to eliminate False Negatives (FNR ~0%) in high-stakes clinical crisis text: Defeating the 524x Bayes prior likelihood barrier, 2-stage hybrid triage, LightGBM ordinal monotonicity stabilization, and defense against 86.7% extreme value bias in 14-day sliding windows.',
 
     bannerBudgetTitle: 'Project: Autonomous Public Budget Audit Agent',
 
@@ -978,7 +978,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
     taxErrorDesc: 'エラーのサブ分類は今後分類予定です。各プロジェクトで発生したランタイム・設計の欠陥（A-xx、B-xx、D-xx）と根本原因分析、修正コードDiffを収録した実戦記事をまとめて提供します。',
 
-    bannerCrisisTitle: 'プロジェクト: 【高リスク特化AI】自殺・心理的危機テキスト精密検知パイプライン',
+    bannerCrisisTitle: 'プロジェクト: 【高リスク特化AI】心理的危機テキスト精密検知パイプライン',
 
     bannerCrisisDesc: '自殺および高リスク心理的危機の見逃し(FNR)をゼロにする臨床特化型NLPパイプライン: 524倍ベイズ事前確率障壁の克服、2段階ハイブリッドトリアージ、順序型LightGBMの単調性崩壊防御、14日間スライディングウィンドウの極端値バイアス(86.7%)克服実録。',
 
@@ -1076,7 +1076,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
         icon: 'crisis_detection',
 
-        subtitle: '自殺・心理的危機発話の見逃し(FNR)ゼロ化パイプライン開発日誌',
+        subtitle: '心理的危機発話の見逃し(FNR)ゼロ化パイプライン開発日誌',
 
         description:
 
@@ -1430,7 +1430,7 @@ const I18N_DATA: Record<SupportedLocale, LocaleContent> = {
 
         id: 'crisis_detection',
 
-        name: '[IA Crisis] Detección Suicida NLP',
+        name: '[IA Crisis] Detección Clínica NLP',
 
         badgeType: 'active',
 
@@ -1656,19 +1656,15 @@ function formatCount(count: number, locale: SupportedLocale): string {
 
 const KNOWN_SLUG_DATES: Record<string, string> = {
 
-  'sdc-02-stack-spike-doctrine-hypotheses': '2026-12-04',
+  'python-urlopen-timeout-dns-hang-windows-fix': '2026-11-16',
 
-  'sdc-01-architecture-klm-model': '2026-12-03',
+  'sdc-03-deterministic-jcs-ed25519-fragmentation': '2026-11-14',
 
-  'national-budget-surveillance-automated-audit-ledger': '2026-12-02',
+  'sdc-02-stack-spike-doctrine-hypotheses': '2026-11-12',
 
-  'google-adsense-low-value-content-cloudflare-fix': '2026-12-01',
+  'sdc-01-architecture-klm-model': '2026-11-10',
 
-  'national-budget-education-grant-audit': '2026-11-30',
-
-  'national-budget-local-subsidy-ehojo-audit': '2026-11-29',
-
-  'npm-overrides-transitive-vulnerability-fix': '2026-11-28',
+  'npm-overrides-transitive-vulnerability-fix': '2026-11-05',
 
   'mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias': '2026-11-27',
 
@@ -1860,7 +1856,7 @@ function ProjectHubView({
 
       <div className={styles.projectGrid}>
 
-        {projects.map((proj) => {
+        {projects.filter((proj) => (postCounts[proj.id] || 0) > 0).map((proj) => {
 
           const count = postCounts[proj.id] || 0;
 
@@ -2212,6 +2208,8 @@ function BlogListPageContent(props: any) {
 
     item.permalink.includes('npm-overrides') ||
 
+    item.permalink.includes('python-urlopen') ||
+
     item.permalink.includes('vulnerability');
 
 
@@ -2247,6 +2245,8 @@ function BlogListPageContent(props: any) {
   const isPractice = (item: any) => !isTheory(item);
 
   const isErrorPost = (item: any) =>
+
+    item.permalink.includes('python-urlopen') ||
 
     item.permalink.includes('vulnerability') ||
 
@@ -2498,6 +2498,7 @@ function BlogListPageContent(props: any) {
 
             </button>
 
+            {postCounts.theory > 0 && (
             <button
 
               type="button"
@@ -2511,6 +2512,7 @@ function BlogListPageContent(props: any) {
               <span>📘</span> {content.taxTheory} ({formatCount(postCounts.theory, locale)})
 
             </button>
+            )}
 
             <button
 
@@ -2806,6 +2808,7 @@ function BlogListPageContent(props: any) {
 
           </button>
 
+          {postCounts.crisis_detection > 0 && (
           <button
 
             type="button"
@@ -2825,7 +2828,9 @@ function BlogListPageContent(props: any) {
             {`${content.tabCrisis} (${formatCount(postCounts.crisis_detection, locale)})`}
 
           </button>
+          )}
 
+          {postCounts.national_budget > 0 && (
           <button
 
             type="button"
@@ -2845,6 +2850,7 @@ function BlogListPageContent(props: any) {
             {`${content.tabBudget} (${formatCount(postCounts.national_budget, locale)})`}
 
           </button>
+          )}
 
           <button
 
@@ -2914,6 +2920,7 @@ function BlogListPageContent(props: any) {
 
           </button>
 
+          {postCounts.stanford_cs329a > 0 && (
           <button
 
             type="button"
@@ -2933,7 +2940,9 @@ function BlogListPageContent(props: any) {
             {`${content.tabCs329a} (${formatCount(postCounts.stanford_cs329a, locale)})`}
 
           </button>
+          )}
 
+          {postCounts.stanford_cs146s > 0 && (
           <button
 
             type="button"
@@ -2953,6 +2962,7 @@ function BlogListPageContent(props: any) {
             {`${content.tabStanford} (${formatCount(postCounts.stanford_cs146s, locale)})`}
 
           </button>
+          )}
 
           <button
 

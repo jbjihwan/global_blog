@@ -88,7 +88,7 @@ Running this audit script before every release ensures zero hardcoded tokens eve
 
 ### Layer 2: Personally Identifiable Information (PII) Scrubbing
 
-When publishing engineering articles on AI datasets (such as our 23-part Maeumjigi clinical counseling series or 5-part ANPR Vision AI series):
+When publishing engineering articles on AI datasets (such as our 23-part Maeumjigi conversational AI series or 5-part ANPR Vision AI series):
 - **Synthetic Data First**: All counseling records were synthetically generated via LLM pipelines (`synth_gen`) rather than using real clinical transcripts, guaranteeing zero medical privacy breach.
 - **Regex PII Audit**: Our scanner automatically validates markdown text against Korean national identity numbers (`\d{6}-[1-4]\d{6}`) and phone numbers (`010-\d{4}-\d{4}`).
 

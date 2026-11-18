@@ -34,62 +34,46 @@ export default function WelcomeToast() {
     if (kw) {
       if (isKo) {
         title = `💡 "${kw}" 주제를 찾아오셨군요!`;
-        desc = `GlobalDevLog의 스탠포드 CS146S 최신 엔지니어링 시리즈를 둘러보세요.`;
-        actionText = `시리즈 보러가기 →`;
-      } else if (isJa) {
-        title = `💡「${kw}」をお探しの皆様へ！`;
-        desc = `スタンフォード大学 CS146S 最新AIエンジニアリングシリーズへようこそ。`;
-        actionText = `シリーズを見る →`;
-      } else if (isEs) {
-        title = `💡 ¡Buscando "${kw}"!`;
-        desc = `Bienvenido a la serie de ingeniería Stanford CS146S en GlobalDevLog.`;
-        actionText = `Ver serie →`;
+        desc = `GlobalDevLog의 실전 오류 해결 & 엔지니어링 트러블슈팅 기록을 둘러보세요.`;
+        actionText = `전체 글 보기 →`;
       } else {
         title = `💡 Searching for "${kw}"?`;
-        desc = `Explore our Stanford CS146S deep-dive series on Agentic Workflows & MCP.`;
-        actionText = `Explore Series →`;
+        desc = `Explore our hands-on debugging logs and verified engineering fixes.`;
+        actionText = `Explore Articles →`;
       }
     } else if (ref.includes('google.')) {
       if (isKo) {
         title = `🔍 구글 검색 방문을 환영합니다!`;
-        desc = `AI 에이전트 & 스펙 주도 개발(SDD) 스탠포드 CS146S 시리즈를 확인해보세요.`;
+        desc = `실제 에러 트레이스백과 검증된 해결 코드를 담은 엔지니어링 허브입니다.`;
         actionText = `최신 글 보기 →`;
-      } else if (isJa) {
-        title = `🔍 Googleからのご訪問ありがとうございます！`;
-        desc = `スタンフォード CS146S 現代ソフトウェア開発シリーズをご覧ください。`;
-        actionText = `最新記事を見る →`;
-      } else if (isEs) {
-        title = `🔍 ¡Bienvenido desde Google!`;
-        desc = `Descubre nuestra serie de Stanford CS146S sobre agentes de IA.`;
-        actionText = `Leer ahora →`;
       } else {
         title = `🔍 Welcome Google Developer!`;
-        desc = `Check out our Stanford CS146S series on autonomous agent architectures.`;
+        desc = `Check out our real-world debugging postmortems and reproducible fixes.`;
         actionText = `Read Latest →`;
       }
     } else if (ref.includes('naver.')) {
       title = `🟢 네이버 검색 방문을 환영합니다!`;
-      desc = `스탠포드 CS146S 및 AI 엔지니어링 개발일지 전체 허브를 둘러보세요.`;
+      desc = `실전 AI·비전·로보틱스·보안 트러블슈팅 전체 허브를 둘러보세요.`;
       actionText = `개발일지 허브 →`;
       actionUrl = '/ko/blog';
     } else if (ref.includes('chatgpt.com') || ref.includes('perplexity.ai') || ref.includes('claude.ai')) {
       if (isKo) {
         title = `🤖 AI 추천 방문을 환영합니다!`;
-        desc = `검증된 아키텍처 다이어그램과 스탠포드 CS146S 원문을 확인해보세요.`;
-        actionText = `아키텍처 보기 →`;
+        desc = `직접 실행·검증한 디버깅 로그와 아키텍처 원문을 확인해보세요.`;
+        actionText = `전체 허브 보기 →`;
       } else {
         title = `🤖 Arrived via AI Assistant?`;
-        desc = `Explore verified architecture blueprints and Stanford CS146S course logs.`;
-        actionText = `View Blueprints →`;
+        desc = `Explore empirically verified debugging logs and system architectures.`;
+        actionText = `View Hub →`;
       }
     } else if (ref.includes('github.com')) {
       if (isKo) {
         title = `🐙 GitHub 개발자님 환영합니다!`;
-        desc = `GlobalDevLog의 오픈소스 프로젝트 및 기술 심층 분석을 확인해보세요.`;
+        desc = `GlobalDevLog의 오픈소스 프로젝트 및 기술 트러블슈팅을 확인해보세요.`;
         actionText = `프로젝트 허브 →`;
       } else {
         title = `🐙 Welcome GitHub Engineer!`;
-        desc = `Explore production architectures, MCP protocols, and autonomous agents.`;
+        desc = `Explore production architectures, debugging postmortems, and fixes.`;
         actionText = `Explore Hub →`;
       }
     } else {

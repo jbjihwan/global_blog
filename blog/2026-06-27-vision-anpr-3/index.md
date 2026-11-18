@@ -74,3 +74,30 @@ In Post #4, we explore deep **EDSR_x4 super-resolution** to reconstruct crisp al
 2. **Two-Stage Hierarchical Localization**: Deploying lightweight YOLOv3-tiny for coarse vehicle ROI extraction followed by dedicated YOLOv5 plate detection within the vehicle patch eliminates 98% of false alarms.
 3. **CSRT Correlation Filter Tracking**: Utilizing OpenCV CSRT tracker with a 15-frame periodic redetection schedule reduces full-model inference frequency while maintaining stable bounding box continuity.
 4. **80% GPU Overhead Reduction & 50+ FPS**: Decoupling continuous detection from correlation tracking slashes GPU computational load by 80%, sustaining real-time processing exceeding 50 FPS.
+---
+
+## 3. Real Runtime Errors & Debugging Log
+
+### Bug 1: `cv2.error: (-215:Assertion failed)` on Boundary Vehicle Crops
+When a violating vehicle partially exited the left or bottom edge of the frame, YOLOv3 returned bounding boxes with negative coordinates or coordinates exceeding frame dimensions (`x1 = -14`, `y2 = 1092` on a `1080p` frame), causing `frame[y1:y2, x1:x2]` to produce an empty `0xN` NumPy slice and crashing YOLOv5 plate detection:
+
+```text
+cv2.error: OpenCV(4.9.0) /io/opencv/modules/imgproc/src/color.cpp:196:
+error: (-215:Assertion failed) !_src.empty() in function 'cvtColor'
+```
+
+- **Fix**: Clamped all ROI coordinates to `[0, width]` and `[0, height]` and enforced a minimum vehicle patch size of `48 × 48` pixels before invoking `plate_model(vehicle_roi)`.
+
+```python
+h, w = frame.shape[:2]
+x1, y1 = max(0, int(box[0])), max(0, int(box[1]))
+x2, y2 = min(w, int(box[2])), min(h, int(box[3]))
+if (x2 - x1) < 48 or (y2 - y1) < 48:
+    continue
+vehicle_roi = frame[y1:y2, x1:x2]
+```
+
+### Bug 2: `AttributeError: module 'cv2' has no attribute 'TrackerCSRT_create'`
+After upgrading `opencv-python` in our environment alongside `ultralytics` YOLOv5, `cv2.TrackerCSRT_create()` threw an `AttributeError` even though `opencv-contrib-python` was listed in `requirements.txt`.
+- **Root Cause**: `ultralytics` pulls `opencv-python` as a transitive dependency, which overwrites the shared `cv2` namespace and strips contrib tracking modules (`legacy.TrackerCSRT_create`).
+- **Fix**: Uninstalled both packages (`pip uninstall -y opencv-python opencv-contrib-python`), installed `opencv-contrib-python==4.9.0.80` exclusively, and added a fallback factory resolving `cv2.TrackerCSRT_create` vs `cv2.legacy.TrackerCSRT_create`.

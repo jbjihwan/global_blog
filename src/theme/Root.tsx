@@ -9,9 +9,8 @@ export default function Root({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const currentLocale = i18n.currentLocale;
 
-  // 1. Whitelist primary high-touch locales for Google index & AdSense review
-  // Exclude 6 zero-traffic locales (de, fr, pt-BR, es, zh-Hans, ja) from index to eliminate "Scaled/Thin Content" penalty
-  const isTargetLocale = ['en', 'ko', 'zh-Hant'].includes(currentLocale);
+  // 1. Whitelist primary author-curated locales for Google index & AdSense review
+  const isTargetLocale = ['en', 'ko'].includes(currentLocale);
 
   // 2. Mental Crisis safety check: Never serve or run AdSense on suicide/crisis NLP research pages
   const isMentalCrisisPage = location.pathname.includes('mental-crisis');

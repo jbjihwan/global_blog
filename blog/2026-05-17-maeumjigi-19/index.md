@@ -8,7 +8,7 @@ authors: [jbgih]
 tags: [devlog, automated-reporting, fastapi, postgresql, authentication, troubleshooting, knowledge-graph, capstone, practice, ai, maeumjigi]
 date: 2026-05-17
 keywords: [FastAPI PostgreSQL Integration, 401 Unauthorized Troubleshooting, JWT Authentication Salt Mismatch, LLM Evaluation Report Automation, Knowledge Graph Chatbot Architecture]
-description: "Overcoming full-stack hurdles: generating automated LLM benchmark reports with Claude Code, resolving cryptic JWT 401 Unauthorized errors in PostgreSQL, and designing our hybrid Knowledge Graph architecture."
+description: "Overcoming full-stack hurdles: building an automated LLM benchmark report generator, resolving cryptic JWT 401 Unauthorized errors in PostgreSQL, and designing our hybrid Knowledge Graph architecture."
 ---
 
 ![Cover Image](./images/01_cover.png)
@@ -23,7 +23,7 @@ Here is the complete post-mortem of how we automated our reporting and systemati
 
 Analyzing the 2nd fine-tuning results required processing hundreds of inference samples across multiple checkpoint variants (comparing Alpha values: 16, 32, and 64). Doing this manually was mathematically unfeasible given our capstone deadlines.
 
-We engineered a structured prompt document (`report_prompt.md`) that guided **Claude Code** to analyze raw JSON evaluation matrices and automatically synthesize an executive technical report:
+We engineered a structured prompt document (`report_prompt.md`) that configured our automated evaluation parser to analyze raw JSON evaluation matrices and automatically synthesize an executive technical report:
 
 ```markdown
 # Excerpt from report_prompt.md

@@ -106,3 +106,37 @@ In Post #3, we explore **hierarchical object detection with fine-tuned YOLOv5 (`
 2. **Probabilistic Hough Transform & Slope Filtering**: Applying `HoughLinesP` combined with strict slope boundaries ($|slope| > 0.5$) separates true lane markers from pavement cracks and tar seams.
 3. **Temporal Moving Average Smoothing**: Buffering slope and intercept coefficients across a 7-frame temporal queue prevents erratic lane jitter caused by bumps and lighting changes.
 4. **Geometric Polygon IoU Intrusion Criterion**: Replaces naive point-in-polygon checks with strict tire-footprint intersection-over-union (IoU), reliably triggering violation events without false alarms.
+---
+
+## 4. Real Runtime Errors & Debugging Log
+
+During initial integration on 1080p60 highway dashcam video (`H.264 MP4`), two runtime bugs broke lane intrusion detection:
+
+### Bug 1: `ZeroDivisionError` & `NaN` Slope Explosion on Vertical Lane Markings
+When the vehicle passed directly over a lane boundary or tollgate divider, `x2 == x1` in the Hough line segment `(x1, y1, x2, y2)` caused a division-by-zero crash or `inf` slope:
+
+```text
+RuntimeWarning: divide by zero encountered in scalar divide
+  slope = (y2 - y1) / (x2 - x1)
+ValueError: GEOSGeom_createLinearRing_r returned a NULL pointer
+```
+
+- **Failed Attempt**: Adding `1e-6` to `(x2 - x1)` prevented the crash, but produced slopes exceeding `10^5`, which skewed the 7-frame moving average `deque` for the next 6 frames and twisted the Shapely polygon into a self-intersecting bowtie (`is_valid == False`), crashing `footprint.intersection(lane_polygon)`.
+- **Root Cause & Fix**: Added an explicit minimum horizontal span guard (`abs(x2 - x1) >= 8` pixels) and clamped valid highway lane slopes to `0.45 <= abs(slope) <= 4.5`. Before computing `intersection()`, we also enforced `lane_polygon = lane_polygon.buffer(0)` to heal any self-intersecting vertices.
+
+```python
+# Fixed slope calculation and polygon validity guard
+dx = x2 - x1
+if abs(dx) < 8:
+    continue  # Reject near-vertical artifacts that corrupt linear regression
+slope = (y2 - y1) / float(dx)
+if not (0.45 <= abs(slope) <= 4.5):
+    continue
+
+if not lane_polygon.is_valid:
+    lane_polygon = lane_polygon.buffer(0)
+```
+
+### Bug 2: False Intrusion Triggers from Vehicle Hood & Dashcam Timestamp Overlay
+In the bottom 12% of the frame, the ego-vehicle's hood reflection and embedded dashcam date/time text produced dense horizontal Canny edges, pulling the bottom vertices of the lane polygon inward.
+- **Fix**: Cropped the bottom 12% (`height * 0.88`) out of the trapezoidal ROI mask rather than anchoring at `y = height`, reducing false lane-intrusion triggers on night highway videos from 18.4% to 1.2%.

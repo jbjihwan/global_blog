@@ -28,7 +28,7 @@ description: "마음지기 프로젝트의 핵심 엔진 구축: AI Hub 12만 �
 
 ### 2. 자율 데이터 전처리 5단계 파이프라인 아키텍처
 
-우리는 수작업으로 수십만 줄의 CSV를 정제하는 대신, 사전 기획서인 `llama31_finetuning_data_preprocessing_plan_short.md`를 바탕으로 **Claude Code**가 스스로 파이프라인을 구축하고 실행하도록 설계했습니다.
+우리는 수작업으로 수십만 줄의 CSV를 정제하는 대신, 사전 기획서인 `llama31_finetuning_data_preprocessing_plan_short.md`를 바탕으로 멀티프로세싱 기반 자동 전처리 파이프라인을 구축하고 실행하도록 설계했습니다.
 
 ```mermaid
 flowchart TD

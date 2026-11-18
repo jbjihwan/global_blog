@@ -83,3 +83,30 @@ CSRT 추적기는 공간 신뢰도 맵을 활용하므로 차선 변경이나 �
 2. **2단계 계층형 객체 검출(Hierarchical Detection)**: YOLOv3-tiny로 차량 관심 영역(ROI)을 1차 크롭한 뒤, 차량 내부에서 전용 YOLOv5 모델로 번호판을 2차 정밀 검출하여 오탐을 98% 제거했습니다.
 3. **CSRT 상관 필터 기반 추적 연동**: 매 프레임 딥러닝 추론을 돌리는 대신 OpenCV CSRT 트래커를 결합하고 15프레임 주기 재검출 인터벌을 적용하여 추적 연속성을 확보했습니다.
 4. **GPU 연산량 80% 절감 및 50+ FPS 달성**: 추적과 검출의 하이브리드 파이프라인 설계를 통해 GPU 부하를 80% 이상 감축하며 실시간 50 FPS 이상의 고속 처리를 완성했습니다.
+---
+
+## 3. 실제 마주친 런타임 오류와 디버깅 기록
+
+### 오류 1: 화면 가장자리 차량 크롭 시 빈 배열(`_src.empty()`) 크래시
+차선 침범 차량이 프레임 좌우 끝이나 하단 경계를 빠져나가는 순간, YOLOv3가 음수 좌표(`x1 = -14`)나 해상도를 초과하는 좌표를 반환하면서 `frame[y1:y2, x1:x2]` 슬라이싱 결과가 `shape=(0, 140, 3)`인 빈 배열이 되었고, 2단계 번호판 탐지기 전처리에서 즉시 예외가 발생했습니다.
+
+```text
+cv2.error: OpenCV(4.9.0) /io/opencv/modules/imgproc/src/color.cpp:196:
+error: (-215:Assertion failed) !_src.empty() in function 'cvtColor'
+```
+
+- **해결 코드**: 모든 차량 ROI 좌표를 프레임 해상도 `[0, w]`, `[0, h]` 범위로 클램핑하고, 크롭된 차량 패치 크기가 최소 `48 × 48` 픽셀 미만이면 2단계 번호판 추론을 건너뛰도록 방어 로직을 추가했습니다.
+
+```python
+h, w = frame.shape[:2]
+x1, y1 = max(0, int(box[0])), max(0, int(box[1]))
+x2, y2 = min(w, int(box[2])), min(h, int(box[3]))
+if (x2 - x1) < 48 or (y2 - y1) < 48:
+    continue
+vehicle_roi = frame[y1:y2, x1:x2]
+```
+
+### 오류 2: `AttributeError: module 'cv2' has no attribute 'TrackerCSRT_create'`
+YOLOv5 구동을 위해 `ultralytics` 패키지를 설치한 직후, 기존에 잘 동작하던 `cv2.TrackerCSRT_create()`에서 `AttributeError`가 발생했습니다.
+- **원인**: `ultralytics`가 하위 의존성으로 일반 `opencv-python`을 자동 설치하면서, 기존에 설치해 두었던 `opencv-contrib-python`의 `cv2` 네임스페이스를 덮어써 CSRT 트래커 모듈이 유실된 것이 원인이었습니다.
+- **해결**: `pip uninstall -y opencv-python opencv-contrib-python`으로 두 패키지를 모두 제거한 뒤 `opencv-contrib-python==4.9.0.80`만 단독 재설치하고, OpenCV 4.5+ 하위 호환을 위해 `getattr(cv2, 'TrackerCSRT_create', cv2.legacy.TrackerCSRT_create)` 팩토리 함수를 적용했습니다.
