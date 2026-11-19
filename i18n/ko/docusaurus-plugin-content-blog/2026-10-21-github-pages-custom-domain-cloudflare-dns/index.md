@@ -13,7 +13,7 @@ description: "GitHub Pages에 Porkbun 커스텀 도메인과 Cloudflare Anycast 
 
 개발자라면 누구나 한 번쯤 GitHub Pages의 무료 서브도메인(`username.github.io/project`)을 이용해 블로그를 운영해 보았을 것입니다. Git 푸시 한 번으로 전 세계에 정적 사이트가 배포되고 서버 유지비가 들지 않는다는 점은 초기 개발자 블로그에 최고의 장점입니다.
 
-하지만 전문적인 기술 브랜딩과 **구글 애드센스(Google AdSense) 수익화**를 준비하는 순간 타협할 수 없는 기술적 한계에 부딪힙니다. **구글 애드센스는 `*.github.io`와 같은 무료 2차 서브도메인의 사이트 등록 및 심사 신청을 정책적으로 원천 차단**하기 때문입니다. 또한 포털 검색엔진에서 쌓이는 도메인 지수(Domain Authority)가 깃허브가 아닌 온전한 '내 자산'으로 누적되게 하려면 반드시 **독립 커스텀 도메인(Apex Domain, 예: `globaldevlog.com`)**이 필수적입니다.
+하지만 `*.github.io`와 같은 공유 서브도메인은 **Public Suffix List(PSL)**에 속해 있어 커스텀 엣지 보안 헤더(HSTS, CSP, 정밀 캐시 제어)를 직접 제어할 수 없고, 향후 호스팅 오리진을 이전할 때 기존 URL 구조(`username.github.io/project`)가 깨지는 아키텍처적 한계가 있습니다. 오리진 인프라와 무관하게 영구적인 표준 URL(Canonical URL)과 DNS 제어권을 확보하려면 반드시 **독립 루트 도메인(Apex Domain, 예: `globaldevlog.com`)**이 필수적입니다.
 
 정적 사이트(SSG) 엔지니어링 시리즈의 첫 번째 편인 이번 글에서는, 기존 `jbjihwan.github.io/global_blog`에서 독립 도메인 `https://globaldevlog.com`으로의 무중단 마이그레이션을 완수한 **Porkbun + Cloudflare + GitHub Pages 3계층 고가용성 아키텍처와 DNS 설정 실무**를 완벽하게 정리합니다.
 
@@ -146,15 +146,14 @@ curl -I https://www.globaldevlog.com
 ### 아키텍처 이전의 성과
 - **서버 비용 0원 유지**: 무거운 웹 서버 인프라 없이도 GitHub Pages의 안정적인 호스팅 활용.
 - **엔터프라이즈급 보안 & 속도**: Cloudflare 엣지가 트래픽 스파이크를 흡수하고 SSL 인증서를 완전 자동 관리.
-- **수익화 및 SEO 독립성**: 구글 애드센스 승인 신청 요건 및 4대 검색엔진 소유권 인증의 기반 완성.
+- **표준 URL(Canonical) 및 엣지 독립성**: 향후 정적 호스팅 오리진을 변경하더라도 도메인 주소와 DNS 제어권을 영구적으로 유지할 수 있는 기반 완성.
 
 ---
 
-## 🔜 다음 편 예고
+## 🔗 관련 인프라 & DevSecOps 트러블슈팅 글
 
-독립 도메인 연동을 완수했다면, 이제 본격적인 블로그 수익화와 검색엔진 트래픽 확장을 시작해야 합니다:
-- **제2편**: *[정적 사이트 수익화 #2] Docusaurus 구글 애드센스 승인 신청: ads.txt 404 해결과 스크립트 비동기 주입 실전*
-- **제3편**: *[4대 검색엔진 SEO #3] 구글·네이버·빙 웹마스터 도구 완벽 등록: 사이트맵 삭제 트랩과 네이버 호스트 오류 탈출기*
+- **[[2026] npm audit fix --force 함정과 해결법: npm 취약점 0개 만들기](/ko/blog/static-site-security-npm-audit-truth)**
+- **[npm overrides: 전이 의존성 취약점 안전하게 해결하는 법](/ko/blog/npm-overrides-transitive-vulnerability-fix)**
 
 ---
 

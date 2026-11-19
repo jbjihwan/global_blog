@@ -13,7 +13,7 @@ description: "Zero-downtime migration guide for GitHub Pages custom domain with 
 
 Hosting an engineering blog on GitHub Pages under `username.github.io/project` is one of the most cost-effective and friction-free setups for developers. You push markdown files, Git workflows trigger, and GitHub serves your static artifacts worldwide. 
 
-However, as soon as you consider serious branding and monetization, you hit an uncompromising roadblock: **Google AdSense strictly bans free secondary subdomains like `*.github.io` from site application**. Furthermore, any search engine authority (PageRank and Domain Authority) you build remains tied to GitHub's domain rather than your personal asset.
+However, operating on a shared multi-tenant subdomain (`*.github.io`) introduces structural limitations: it sits on the **Public Suffix List (PSL)**, offers no custom edge HTTP security headers (HSTS, CSP, or custom cache-control rules), and ties your canonical URLs permanently to GitHub's host name rather than an infrastructure-agnostic apex domain.
 
 To build a professional engineering presence, you need an **apex custom domain** (e.g., `globaldevlog.com`). In this first installment of our static blog infrastructure series, we walk through the exact zero-downtime migration blueprint from `jbjihwan.github.io/global_blog` to `https://globaldevlog.com`, powered by a high-availability **Porkbun + Cloudflare + GitHub Pages 3-tier architecture**.
 
@@ -149,15 +149,14 @@ curl -I https://www.globaldevlog.com
 ### Summary of What We Achieved
 - **Zero Server Overhead**: The entire platform runs completely free on GitHub Pages.
 - **Enterprise CDN & Protection**: Cloudflare absorbs traffic spikes, DDoS attempts, and manages SSL certificates automatically.
-- **Monetization & Search Independence**: The domain is ready for Google AdSense review and search engine ownership verification.
+- **Canonical & Edge Independence**: The domain supports full DNSSEC, custom HTTP security headers, and portable canonical URLs even if the static origin migrates in the future.
 
 ---
 
-## 🔜 Next in This Series
+## 🔗 Related Infrastructure & DevSecOps Deep Dives
 
-With your apex custom domain live, the next critical milestones are monetization approval and multi-engine visibility:
-- **Part 2**: *[Static Site Monetization #2] Google AdSense Approval on Docusaurus: ads.txt 404 Resolution and Asynchronous Script Injection*
-- **Part 3**: *[Multi-Search Engine SEO #3] Google, Naver & Bing Webmaster Setup: Sitemap Deletion Quirks and Host Error Troubleshooting*
+- **[npm audit fix: How to Fix npm Vulnerability & GHSA Alerts](/blog/static-site-security-npm-audit-truth)**
+- **[Fix Transitive npm Vulnerabilities with overrides & --omit=dev](/blog/npm-overrides-transitive-vulnerability-fix)**
 
 ---
 

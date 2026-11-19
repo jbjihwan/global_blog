@@ -6,29 +6,10 @@ import WelcomeToast from '@site/src/components/WelcomeToast';
 
 export default function Root({ children }: { children: React.ReactNode }) {
   const { i18n } = useDocusaurusContext();
-  const location = useLocation();
   const currentLocale = i18n.currentLocale;
 
-  // 1. Whitelist primary author-curated locales for Google index & AdSense review
+  // Whitelist primary author-curated locales for Google index & AdSense review
   const isTargetLocale = ['en', 'ko'].includes(currentLocale);
-
-  // 2. Mental Crisis safety check: Never serve or run AdSense on suicide/crisis NLP research pages
-  const isMentalCrisisPage = location.pathname.includes('mental-crisis');
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const win = window as any;
-        if (isMentalCrisisPage) {
-          (win.adsbygoogle = win.adsbygoogle || []).pauseAdRequests = 1;
-        } else {
-          (win.adsbygoogle = win.adsbygoogle || []).pauseAdRequests = 0;
-        }
-      } catch (e) {
-        // Safe fallback
-      }
-    }
-  }, [isMentalCrisisPage]);
 
   return (
     <>
@@ -39,16 +20,13 @@ export default function Root({ children }: { children: React.ReactNode }) {
         </Head>
       )}
 
-      {/* AdSense Script Guard: Completely omitted from mental-crisis YMYL pages */}
-      {!isMentalCrisisPage && (
-        <Head>
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617"
-            crossOrigin="anonymous"
-          />
-        </Head>
-      )}
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4654073335496617"
+          crossOrigin="anonymous"
+        />
+      </Head>
 
       {children}
       <WelcomeToast />

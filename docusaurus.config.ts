@@ -66,9 +66,18 @@ const config: Config = {
           anonymizeIP: true,
         },
         sitemap: {
+          lastmod: 'date',
           ignorePatterns: [
             '/blog/tags/**',
             '/ko/blog/tags/**',
+            '/blog/archive',
+            '/blog/archive/**',
+            '/ko/blog/archive',
+            '/ko/blog/archive/**',
+            '/blog/authors',
+            '/blog/authors/**',
+            '/ko/blog/authors',
+            '/ko/blog/authors/**',
           ],
         },
       } satisfies Preset.Options,

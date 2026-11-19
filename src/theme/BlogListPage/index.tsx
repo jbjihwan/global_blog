@@ -1666,31 +1666,7 @@ const KNOWN_SLUG_DATES: Record<string, string> = {
 
   'npm-overrides-transitive-vulnerability-fix': '2026-11-05',
 
-  'mental-crisis-nlp-nested-cv-secondary-leakage-threshold-bias': '2026-11-27',
-
-  'mental-crisis-nlp-ordinal-lightgbm-zero-probability-collapse': '2026-11-26',
-
-  'mental-crisis-nlp-longitudinal-fusion-extreme-value-bias': '2026-11-25',
-
-  'mental-crisis-nlp-clinical-risk-detection-fnr-zero': '2026-11-24',
-
-  'national-budget-ai-inspector-portal-verification-system': '2026-11-23',
-
-  'national-budget-ai-6-sector-full-suite': '2026-11-22',
-
-  'national-budget-ai-corporate-registry-cartel-detection': '2026-11-21',
-
-  'national-budget-ai-sector-partition-live-monitoring': '2026-11-20',
-
-  'national-budget-ai-audit-findings-performance-evaluation': '2026-11-19',
-
-  'autonomous-budget-audit-ai-agent-text-to-sql-graphrag': '2026-11-18',
-
-  'static-site-adsense-ads-txt-guide': '2026-10-21',
-
   'github-pages-custom-domain-cloudflare-dns': '2026-10-21',
-
-  'github-pages-custom-domain-adsense-seo-guide': '2026-10-20',
 
   'static-site-security-npm-audit-truth': '2026-10-18',
 
@@ -1707,12 +1683,6 @@ function getEpisodeNumber(permalink: string): number {
   const sdcM = permalink.match(/sdc-(\d+)/);
 
   if (sdcM) return parseInt(sdcM[1], 10);
-
-  if (permalink.includes('mental-crisis-nlp-clinical-risk-detection-fnr-zero')) return 1;
-
-  const mc = permalink.match(/(?:mental-crisis|crisis-detection).*?-(\d+)/);
-
-  if (mc) return parseInt(mc[1], 10);
 
   if (permalink.includes('autonomous-budget-audit-agent-text-to-sql-graphrag')) return 1;
 
@@ -2072,7 +2042,7 @@ function BlogListPageContent(props: any) {
 
         setActiveTab('sdc_replanning');
 
-      } else if (hash === 'crisis_detection' || hash === 'crisis' || hash === 'mental-crisis') {
+      } else if (hash === 'crisis_detection' || hash === 'crisis') {
 
         setActiveTab('crisis_detection');
 
@@ -2217,8 +2187,6 @@ function BlogListPageContent(props: any) {
   // Compute dynamic counts for each project
 
   const isCrisis = (item: any) =>
-
-    item.permalink.includes('mental-crisis') ||
 
     item.permalink.includes('crisis-detection');
 
